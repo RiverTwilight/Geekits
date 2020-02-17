@@ -1,0 +1,21 @@
+
+	#img{
+		display: block;
+		margin:0 auto;
+	}
+	#main button{
+		margin: 5px
+	}
+	#capture{
+		width: 250px;
+		height: 250px
+	}
+	#capture img{
+		width: 100%;
+		height: 100%;
+		display: block;
+        margin: auto;
+        border-style: solid;
+        border-width: 1px;
+        border-color: #888888;
+	}
