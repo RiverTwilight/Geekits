@@ -122,28 +122,27 @@ async function imgMosaic_subtitle(assests, callback) {
 }
 
 //预览相册组件
-const Alubm = (props) => {
-	var album = props.assests.map((a,i)=>{
-		return(
-			<div className="mdui-card mdui-col">
-				<div key={i} className="mdui-card-media mdui-center">
-	                <img width="100" height="120" src={a}/>
-	                <div className="mdui-card-menu">
-	                    <button 
-		                    style={{background: 'rgba(0, 0, 0, 0.27)'}}
-		                    onClick={()=>{
-		                    	props.delete(i)
-		                    }}
-		                    className="mdui-btn mdui-btn-icon mdui-text-color-white">
-	                       <i className="mdui-icon material-icons">close</i>
-	                    </button>
-	                </div>
-	            </div>
-            </div>
-		)
-	})
+const Alubm = (props) => {	
 	return(
-		<div className="mdui-row-xs-3">{album}</div>
+		<div className="mdui-row-xs-3">{
+			props.assests.map((a,i)=>(
+				<div className="mdui-card mdui-col">
+					<div key={i} className="mdui-card-media mdui-center">
+		                <img width="100" height="120" src={a}/>
+		                <div className="mdui-card-menu">
+		                    <button 
+			                    style={{background: 'rgba(0, 0, 0, 0.27)'}}
+			                    onClick={()=>{
+			                    	props.delete(i)
+			                    }}
+			                    className="mdui-btn mdui-btn-icon mdui-text-color-white">
+		                       <i className="mdui-icon material-icons">close</i>
+		                    </button>
+		                </div>
+		            </div>
+		        </div>
+			))
+		}</div>
 	)
 }
 
