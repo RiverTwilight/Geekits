@@ -4,7 +4,6 @@ import mdui from 'mdui'
 import FileRead from '../../utils/fileread'
 import ListControlMenu from '../../utils/mdui-in-react/ListControlMenu'
 
-
 async function loadImg(src){
 	var img = await new Image();
 	img.src = src;
