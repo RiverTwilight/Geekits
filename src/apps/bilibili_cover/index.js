@@ -23,7 +23,7 @@ class Ui extends React.Component {
     super(props);
     this.state = {
         av:32211954,
-        url:'https://api.ygktool.cn/api/bilibili?av=',
+        url:'https://api.ygktool.cn/api/bilibili_cover?av=',
         data:null
     }
   }
