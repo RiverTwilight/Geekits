@@ -31,9 +31,17 @@ var list = [{
 	link: 'sctc',
 	icon: ''
 },{
+	name: '文字识别',
+	link: 'ocr',
+	icon: ''
+},{
 	name: 'GIF制作',
 	link: 'gif',
 	icon: ''
+},{
+	name: '樱花动漫视频解析',
+	link: 'imomoe_parse',
+	icon: 'ondemand_video'
 },{
 	name: '九格切图',
 	link: 'img_split',

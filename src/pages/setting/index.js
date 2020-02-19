@@ -32,23 +32,24 @@ const hitokotoItems = [{
 	name: '漫画',
 	value: 'b'
 }, {
-	name: '文学',
+	name: '游戏',
 	value: 'c'
 }, {
-	name: '网络',
+	name: '小说',
 	value: 'd'
 },{
 	name: '原创',
 	value: 'e'
 },{
-	name: '其他',
+	name: '网络',
 	value: 'f'
+},{
+	name: '其他',
+	value: 'g'
 }]
 
 function hitokotoTopic(checked){
-	hitokotoItems.map(item=>{
-		if(item.name === checked)localStorage.setItem('hitokotoTopic', item.value)
-	})
+	localStorage.setItem('hitokotoTopic', hitokotoItems[checked].value)
 }
 
 function parseHitokoto(value) {
@@ -64,7 +65,7 @@ class Ui extends React.Component{
 	    	homeShowNewestTool:localStorage.homeShowNewestTool || 'true',
 	    	darkMode:localStorage.darkMode || 'false',
 	    	showHelper:Boolean(localStorage.showHelper),
-	    	hitokotoTopic:parseHitokoto(localStorage.hitokotoTopic) || '随机'
+	    	hitokotoTopic:Number(localStorage.hitokotoTopic) || 0
 	    }
     }
     render(){

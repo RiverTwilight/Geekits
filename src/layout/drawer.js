@@ -75,7 +75,7 @@ class Drawer extends React.Component {
                         <i className="mdui-list-item-icon mdui-icon material-icons mdui-text-color-blue">account_box</i> 
                         <div className="mdui-list-item-content">我的账户</div>
                     </NavLink>
-                    <div className="mdui-divider"></div>
+                    <div className="mdui-divider"/>
                     <Menu drawerBtn={this.props.drawerBtn} />
                 </ul> 
             </div>

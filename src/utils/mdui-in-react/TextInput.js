@@ -25,7 +25,10 @@ const TextInput = props =>{
     null
 	return(
 		<div className={`mdui-textfield ${(props.placeholder)?'':'mdui-textfield-floating-label'}`}>
-            {icon}{Lable}
+            {(props.icon)?
+                <i className="mdui-icon material-icons">{props.icon}</i>
+                :
+                null}{Lable}
             <TagType
                 maxLength={props.maxlength || null}
                 placeholder={props.placeholder || ''} 

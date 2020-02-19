@@ -1,5 +1,6 @@
 import React from 'react';
 import mdui from 'mdui'
+import PropTypes from 'prop-types'
 
 //读取文件组件
 class FileRead extends React.Component {
@@ -42,7 +43,7 @@ class FileRead extends React.Component {
 		return(
 		    <React.Fragment>
 				<button 
-					style={{maxWidth:(this.props.maxWidth)?'120px':'9999px'}}
+					style={{maxWidth:this.props.maxWidth}}
 					className="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme"
 					onClick={this.handleClick.bind(this)}>
 					<i class="mdui-icon-left mdui-icon material-icons">{icon}</i>
@@ -59,6 +60,18 @@ class FileRead extends React.Component {
 			</React.Fragment>
 		)
 	}
+}
+
+FileRead.defaultProps = {
+    maxWidth:'120px',
+    multiple:false
+}
+
+FileRead.propTypes={
+    text:PropTypes.string.isRequired,//文本
+    multiple:PropTypes.bool,//是否多选
+    onFileChange:PropTypes.func,//回调函数
+    maxWidth:PropTypes.string//按钮最大宽度
 }
 
 export default FileRead
