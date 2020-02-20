@@ -13,10 +13,9 @@ import MdEditor from '../../utils/MdEditor'
 
 //Markdown预览
 const MarkDown = props => {
-	var html = {__html : marked(props.md)};
 	return(
 		<p 
-			dangerouslySetInnerHTML={html}
+			dangerouslySetInnerHTML={{__html : marked(props.md)}}
 			className="mdui-typo">
 		</p>
 	)

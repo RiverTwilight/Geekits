@@ -23,47 +23,10 @@ function dataURLtoFile(dataurl, filename) {
     })
 }
 
-//预览图片
-const Preview = props => {
-    const element = <img alt="选择一张图片" height="100%"width='100%' src={props.src||'/emo_assests/ (10).jpg'} />;
-    return element
-}
-
-//文字样式
-const StyleSet = (props) => {
-    return(
-        <div className="mdui-row-xs-2">
-            <div className="mdui-col">
-                <Color
-                    text="文本颜色"
-                    color={props.color}
-                    onColorChange={newColor=>{
-                        props.handle({color:newColor})
-                    }}
-                />
-            </div>
-            <div className="mdui-col">
-                <select 
-                    value={props.style}
-                    onChange={e=>{
-                        props.handle({style:e.target.value})
-                    }}
-                    className="mdui-select" mdui-select="true">
-                    <option value="normal">正常字体风格</option>
-                    <option value="bold">加粗字体风格</option>
-                    <option value="italic">倾斜字体风格</option>           
-
-                </select>
-            </div>            
-        </div>
-    )
-}
-
-class Ui extends React.Component {
+class DragText extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            src:null,
             drag:{//开始拖拽时手指的位置
               startX:0,
               startY:0
@@ -72,47 +35,16 @@ class Ui extends React.Component {
               x:-30,
               y:210
             },
-            size:20,
             x_axis:40,
             y_axis:210,
-            color:'#000000',
-            text:'输入文字',
             width:490,
             height:410,
-            style:'normal'
         }
     }
-    assestsList(){
-        var el = [];
-        for (let i = 1; i <= 266; i++) {
-            let name = `${i}.jpg`;
-            el.push(
-                 <div className="mdui-col">
-                   <div className="mdui-grid-tile">
-                   <img onClick={e=>{
-                      this.setState({src:e.target.src});
-                   }} width='200' height='160' key={i} data-original={"assests/"+name}/>
-                   </div>
-                </div>)
-        }
-        el.push(
-            <button mdui-tooltip="{content: '关闭'}" onClick={()=>{
-            }} className="mdui-color-theme mdui-fab mdui-fab-fixed">
-                <i className="mdui-icon material-icons">close</i>
-            </button>
-        )
-        return el
-    }
-    render() {
-        const { drag, startPosition, color, style, size, text, x_axis, y_axis } = this.state
-    return(
-        <React.Fragment>
-            <center>  
-            <div 
-            id="capture" 
-            style={{
-                height:'250px',width:'250px'//border:'1px solid #888888'
-            }}>           
+    render(){
+        const { color, style, size, text } = this.props;
+        const { drag, startPosition, x_axis, y_axis } = this.state
+        return(
             <span 
                 onTouchMove={e=>{
                     var ev = e || window.event;
@@ -176,11 +108,104 @@ class Ui extends React.Component {
                     fontStyle:(style === 'italic')?style:'normal',
                     fontWeight:style,
                     marginLeft:x_axis,
-                    marginTop:y_axis-this.state.size,
+                    marginTop:y_axis-size,
                     cursor:'move'
                 }} id="drag">
                 {text}
             </span>
+        )
+    }
+}
+
+//预览图片
+const Preview = props => {
+    const element = <img alt="选择一张图片" height="100%"width='100%' src={props.src||'/emo_assests/ (10).jpg'} />;
+    return element
+}
+
+//文字样式
+const StyleSet = (props) => {
+    return(
+        <div className="mdui-row-xs-2">
+            <div className="mdui-col">
+                <Color
+                    text="文本颜色"
+                    color={props.color}
+                    onColorChange={newColor=>{
+                        props.handle({color:newColor})
+                    }}
+                />
+            </div>
+            <div className="mdui-col">
+                <select 
+                    value={props.style}
+                    onChange={e=>{
+                        props.handle({style:e.target.value})
+                    }}
+                    className="mdui-select" mdui-select="true">
+                    <option value="normal">正常字体风格</option>
+                    <option value="bold">加粗字体风格</option>
+                    <option value="italic">倾斜字体风格</option>           
+
+                </select>
+            </div>            
+        </div>
+    )
+}
+
+class Ui extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            src:null,
+            size:20,
+            color:'#000000',
+            texts:['输入文字'],
+            width:490,
+            height:410,
+            style:'normal'
+        }
+    }
+    assestsList(){
+        var el = [];
+        for (let i = 1; i <= 266; i++) {
+            let name = `${i}.jpg`;
+            el.push(
+                 <div className="mdui-col">
+                   <div className="mdui-grid-tile">
+                   <img onClick={e=>{
+                      this.setState({src:e.target.src});
+                   }} width='200' height='160' key={i} data-original={"assests/"+name}/>
+                   </div>
+                </div>)
+        }
+        el.push(
+            <button mdui-tooltip="{content: '关闭'}" onClick={()=>{
+            }} className="mdui-color-theme mdui-fab mdui-fab-fixed">
+                <i className="mdui-icon material-icons">close</i>
+            </button>
+        )
+        return el
+    }
+    render() {
+        const { drag, startPosition, texts, style, size, color, x_axis, y_axis } = this.state
+    return(
+        <React.Fragment>
+            <center>  
+            <div 
+            id="capture" 
+            style={{
+                height:'250px',width:'250px'//border:'1px solid #888888'
+            }}> 
+            {texts.map((text,i)=>(
+                <DragText
+                    text={text}
+                    style={style}
+                    size={size}
+                    color={color}
+                />
+            ))
+            }                      
             <Preview src={this.state.src} />    
             </div>    
             </center> 
@@ -188,7 +213,6 @@ class Ui extends React.Component {
             <div className="mdui-row-xs-3">
                 <div className="mdui-col">
                     <FileRead 
-                        maxWidth
                         fileType="image/*"
                         multiple={false}
                         onFileChange={file=>{
@@ -199,11 +223,13 @@ class Ui extends React.Component {
                 <div className="mdui-col">
                     <button 
                     onClick={()=>{  
-                        mdui.snackbar({message:'该功能开发者正在一拖再拖~'})             
+                        texts.push(`输入文字${texts.length + 1}`)
+                        this.setState({texts:texts})
+                        //mdui.snackbar({message:'该功能开发者正在一拖再拖~'})             
                     }} 
                     className="mdui-btn">
                     <i class="mdui-icon-left mdui-icon material-icons">stars</i>
-                    新增贴纸
+                    新增输入框
                     </button>
                 </div>
                 <div className="mdui-col">
@@ -227,13 +253,18 @@ class Ui extends React.Component {
                 }}
                 title={"文字大小" + size + "px"}
             />
-            <TextInput
-                onTextChange={newText=>{
-                    this.setState({text:newText})
-                }}
-                header="输入文本"
-                value={text}
-            /> 
+            {texts.map((text,i)=>(
+                <TextInput
+                    onTextChange={newText=>{
+                        texts.splice(i,1,newText)
+                        console.log(texts)
+                        this.setState({texts:texts})
+                    }}
+                    header="输入文本"
+                    value={text}
+                /> 
+            ))
+            }             
             <StyleSet 
                 color={color}
                 style={style}

@@ -29,7 +29,7 @@ const Menu = props => {
                 window.leftDrawer.close()
             }}
             key={i}
-            exact className={"mdui-list-item mdui-ripple " + a.class || ''}
+            exact className="mdui-list-item mdui-ripple"
             activeClassName="mdui-list-item-active" to={a.link}>        
             <i className={"mdui-list-item-icon mdui-icon material-icons mdui-text-color-"+ a.iconColor}>{a.icon}</i> 
             <div className="mdui-list-item-content">{a.text}</div>       
@@ -75,6 +75,12 @@ class Drawer extends React.Component {
                         <i className="mdui-list-item-icon mdui-icon material-icons mdui-text-color-blue">account_box</i> 
                         <div className="mdui-list-item-content">我的账户</div>
                     </NavLink>
+                    <a href="https://api.ygktool.cn">
+                    <li className="mdui-list-item mdui-ripple">                          
+                      <i className="mdui-text-color-green mdui-list-item-icon mdui-icon material-icons">all_inclusive</i> 
+                      <div className="mdui-list-item-content">开放平台</div>                            
+                    </li>
+                    </a>                    
                     <div className="mdui-divider"/>
                     <Menu drawerBtn={this.props.drawerBtn} />
                 </ul> 

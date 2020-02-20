@@ -19,14 +19,14 @@ const Result = props =>{
 }
 
 class Ui extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-        av:32211954,
-        url:'https://api.ygktool.cn/api/bilibili_cover?av=',
-        data:null
+    constructor(props) {
+        super(props);
+        this.state = {
+            av:32211954,
+            url:'https://api.ygktool.cn/api/bilibili_cover?av=',
+            data:null
+        }
     }
-  }
     componentWillMount(){
         clipboard && clipboard.destroy();
         var clipboard = new ClipboardJS('#input');
@@ -37,7 +37,6 @@ class Ui extends React.Component {
     }
     loadCommentsFromServer(){
         this.refs.load.style.display = 'block';
-
         axios({
             method: 'get',
             url: this.state.url + this.state.av,

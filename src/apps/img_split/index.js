@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 import Cropper from 'react-cropper'
 import 'cropperjs/dist/cropper.css'
+import JSZip from 'jszip'
+import { saveAs } from 'file-saver'
 
 //读取文件组件
 import FileRead from '../../utils/fileread'
@@ -127,12 +129,21 @@ class Ui extends React.Component {
 				<button
 				    disabled={(file === null)}
 				    onClick={()=>{
-				    	Split(this.state.cropperCache,res=>{
-				    		this.setState({
-				    			res:res,
-				    			ifHideCropper:true
-				    		})
-				    	})
+						Split(this.state.cropperCache, res => {
+							this.setState({
+								res: res,
+								ifHideCropper: true
+							})
+							var zip = new JSZip();
+							res.map((img, i) => {
+								zip.file(i + 1 + ".png", dataURLtoFile(img, i + 1 + '.png'))
+							})
+							zip.generateAsync({
+								type: "blob"
+							}).then(content => {
+								saveAs(content, "ygktool.img_split.zip")
+							})
+						})
 				    }}
 				    className="mdui-color-theme mdui-fab mdui-fab-fixed">
 				    <i className="mdui-icon material-icons">check</i>					

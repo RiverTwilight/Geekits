@@ -68,10 +68,10 @@ FileRead.defaultProps = {
 }
 
 FileRead.propTypes={
-    text:PropTypes.string.isRequired,//文本
     multiple:PropTypes.bool,//是否多选
     onFileChange:PropTypes.func,//回调函数
-    maxWidth:PropTypes.string//按钮最大宽度
+    maxWidth:PropTypes.string,//按钮最大宽度
+    fileType:PropTypes.string//文件类型
 }
 
 export default FileRead

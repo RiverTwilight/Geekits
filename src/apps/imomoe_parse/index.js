@@ -51,8 +51,7 @@ class Ui extends React.Component {
             data:[]
         };       
     }
-    componentWillMount(){ 
-        var VideoListJson;      
+    componentWillMount(){      
         clipboard && clipboard.destroy();
         var clipboard = new ClipboardJS('.becopy');
         clipboard.on('success', e=> {
@@ -77,11 +76,10 @@ class Ui extends React.Component {
                     })
                 })
             })
-        }
-        
+        }       
         loadJosnp().then(() => {
             this.refs.load.style.display = 'none'
-            //console.log(VideoListJson);
+            console.log(VideoListJson);
             this.setState({data:VideoListJson})
         })
     }
@@ -104,6 +102,7 @@ class Ui extends React.Component {
             </div>           
             <button 
                 onClick={()=>{
+                    var VideoListJson
                     this.loadCommentsFromServer()
                 }} 
                 className="mdui-color-theme mdui-ripple mdui-float-right mdui-btn-raised mdui-btn">
