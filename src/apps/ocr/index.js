@@ -149,6 +149,7 @@ class Ui extends React.Component {
     loadDataFromServer(){
         const { url, image, language_type, cropperCache } = this.state
         this.refs.load.style.display = 'block';
+        this.refs.startBtn.disabled = true
         axios.post(this.state.url,{
             image:cropperCache.split('base64,')[1],
             language_type:language_types[language_type].value
@@ -160,6 +161,7 @@ class Ui extends React.Component {
             mdui.snackbar({message:error})
         }).then(()=>{
             this.refs.load.style.display = 'none'
+            this.refs.startBtn.disabled = false
         })
     }
     render(){
@@ -199,7 +201,7 @@ class Ui extends React.Component {
                     onClick={()=>{
                     	this.loadDataFromServer()
                     }} 
-                    disabled={false}
+                    ref="startBtn"
                     className="mdui-ripple mdui-color-theme mdui-fab mdui-fab-fixed">
                     <i className="mdui-icon material-icons">&#xe5ca;</i>
                 </button>

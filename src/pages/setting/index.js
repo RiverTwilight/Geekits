@@ -8,9 +8,9 @@ function homeShowNewestTool(checked) {
 	localStorage.setItem('homeShowNewestTool', String(checked))
 }
 
-function showHelper(checked) {
-	localStorage.setItem('showHelper', String(checked))
-	if(!checked)localStorage.removeItem('showHelper')
+function hideHelper(checked) {
+	localStorage.setItem('hideHelper', String(checked))
+	if(!checked)localStorage.removeItem('hideHelper')
 }
 
 function darkMode(checked) {
@@ -64,7 +64,7 @@ class Ui extends React.Component{
 	    this.state = {
 	    	homeShowNewestTool:localStorage.homeShowNewestTool || 'true',
 	    	darkMode:localStorage.darkMode || 'false',
-	    	showHelper:Boolean(localStorage.showHelper),
+	    	hideHelper:Boolean(localStorage.hideHelper),
 	    	hitokotoTopic:Number(localStorage.hitokotoTopic) || 0
 	    }
     }
@@ -95,10 +95,10 @@ class Ui extends React.Component{
 				<ListControlCheck
 					icon="help"
 					text="隐藏使用说明"
-					checked={this.state.showHelper === 'true'}
+					checked={this.state.hideHelper === 'true'}
 					onCheckedChange={checked=>{
-						this.setState({showHelper:String(checked)})
-					    showHelper(checked)
+						this.setState({hideHelper:String(checked)})
+					    hideHelper(checked)
 					}}
 				/>
 	  		    <li class="mdui-subheader">个性化</li>

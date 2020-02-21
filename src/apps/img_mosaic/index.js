@@ -159,7 +159,7 @@ class Ui extends React.Component {
 		super(props);
 		this.state = {
 			assests: [],
-			direction:'横向',
+			direction:0,
 			res:null
 		}
 	}
@@ -194,11 +194,14 @@ class Ui extends React.Component {
 					}}
 					items={[
 						{
-							name:'横向'
+							name:'横向',
+							value:'x'
 						},{
-							name:'纵向'
+							name:'纵向',
+							value:'y'
 						},{
-							name:'字幕'
+							name:'字幕',
+							value:'caption'
 						}
 					]}
 				/>
@@ -206,21 +209,21 @@ class Ui extends React.Component {
 		            className="mdui-fab mdui-fab-fixed mdui-color-theme"
 		            onClick={()=>{
 		            	switch(direction){
-		            		case'横向':
+		            		case 0:
 			            		imgMosaic_X(assests, res => {
 									this.setState({
 										res: res
 									})
 								})
 								break;
-							case'纵向':
+							case 1:
 			            		imgMosaic_Y(assests, res => {
 									this.setState({
 										res: res
 									})
 								})
 								break;
-							case'字幕':
+							case 2:
 			            		imgMosaic_subtitle(assests, res => {
 									this.setState({
 										res: res

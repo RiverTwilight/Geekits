@@ -37,21 +37,25 @@ class Info extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            appInfo: this.props.appInfo,
-            fived: (fiv.get(this.props.appInfo.link)),
-            showHelper:!Boolean(localStorage.getItem('showHelper'))
+            fived:false,           
+            hideHelper:localStorage.hideHelper === 'true'
         }       
     }
-    render(){
-        const { appInfo, fived, showHelper } = this.state
-        if(!showHelper)return null
+    componentWillReceiveProps(nextProps){
+        if(nextProps.appinfo)this.setState({fived:fiv.get(nextProps.appinfo.link)})
+    }
+    render(){        
+        const { fived, hideHelper } = this.state;
+        if (!this.props.appinfo || hideHelper)return null      
+        const { help, link, name } = this.props.appinfo
+        console.log(this.props.appinfo);
         return(
             <div className="mdui-card appinfo">
                 <div className="mdui-card-media">
                     <div className="mdui-card-menu">
                         <button 
                             onClick={()=>{
-                                this.setState({showHelper:false})
+                                this.setState({hideHelper:true})
                             }}
                             className="mdui-btn mdui-btn-icon mdui-text-color-black">
                             <i className="mdui-icon material-icons">close</i>
@@ -61,17 +65,25 @@ class Info extends React.Component {
                 <div className="mdui-card-primary">
                     <div className="mdui-card-primary-title">使用说明</div>
                 </div>
-                <div className="mdui-card-content">
-                    TODO:收藏功能/首页收藏
+                <div>
+                    <ul className="mdui-list">
+                    {help.split(' ').map((line,i)=>(<li key={i} className="mdui-list-item">{line}</li>))}
+                    </ul>                   
                 </div>
                 <div className="mdui-card-actions">
                     <button 
                         onClick={()=>{
-                            if(fiv.get(appInfo.link)){
-                                fiv.delete(appInfo);
+                            if(fiv.get(link)){
+                                fiv.delete({
+                                    link:link,
+                                    name:name
+                                });
                                 this.setState({fived:false})
                             }else{
-                                fiv.add(appInfo)
+                                fiv.add({
+                                    link:link,
+                                    name:name
+                                })
                                 this.setState({fived:true})                           
                             }
                         }}
@@ -95,15 +107,17 @@ class Info extends React.Component {
 class AppContainer extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            
+        this.state = {           
             timer:null,
-            appInfo: appinfo.get(/\/([^\/]+)$/.exec(this.props.location.pathname)[1])
+            appinfo: null
         }       
     }
-    componentWillMount() {
-        window.titleRef.innerText = this.state.appInfo.name;
-        document.title = this.state.appInfo.name + " - 云极客工具"
+    async componentWillMount() {
+        var info = await appinfo.get(/\/([^\/]+)$/.exec(this.props.location.pathname)[1]);
+        console.log(info)
+        this.setState({appinfo:info});
+        window.titleRef.innerText = info.name;
+        document.title = info.name + " - 云极客工具";
     }
     componentWillUnmount(){
         clearInterval(this.state.timer)
@@ -124,7 +138,7 @@ class AppContainer extends React.Component {
                     <div className="mdui-col-md-3 mdui-col-offset-md-1">
                         <br></br>
                         <Info 
-                            appInfo={this.state.appInfo}
+                            appinfo={this.state.appinfo}
                         />              
                     </div>       
                 </div>

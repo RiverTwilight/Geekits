@@ -51,7 +51,8 @@ function normal2Result(text, key) {
 		rc4: CryptoJS.RC4.encrypt(text, key),
 		url: encodeURI(text),
 		moss: text2Moss(text),
-		md5: CryptoJS.MD5(text)
+		md5: CryptoJS.MD5(text),
+		URLcomponent: encodeURIComponent(text)
 	}
 	return result
 }
@@ -67,6 +68,10 @@ function start(fromType,inputText,key='') {
 		case 'url':
 			var normal = decodeURI(inputText);
 			var result = normal2Result(normal, key);
+			return result
+		case 'URLcomponent':
+			var normal = decodeURIComponent(indexText);
+			var result = normal2Result(normal,key)
 			return result
 		case 'moss':
 			var normal = moss2Text(inputText);

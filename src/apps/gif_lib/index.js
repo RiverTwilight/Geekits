@@ -2,7 +2,7 @@ import React from 'react'
 import SuperGif from 'libgif'
 import JSZip from 'jszip'
 import { saveAs } from 'file-saver'
-
+import './style.css'
 import FileRead from '../../utils/fileread'
 
 function dataURLtoFile(dataurl, filename) {
@@ -52,23 +52,25 @@ class Ui extends React.Component {
 		return(
 			<React.Fragment> 
 				<center>
-					<img ref="img" src={file} />
+					<img className="mdui-img-fluid" ref="img" src={file} />
 					<FileRead 
 						fileType="image/gif"
 						multiple={false}
 						onFileChange = {
 							file => {
 								this.setState({
-									file: file
+									rub: null
 								}, () => {
-									console.log(this.refs.img);
-									var rub = new SuperGif({
-										gif: this.refs.img
-									})
-									this.setState({rub:rub})
-									rub.load(function() {
-										console.log('oh hey, now the gif is loaded');
-									})
+									this.setState({file:file},()=>{
+										console.log(this.refs.img);
+										var rub = new SuperGif({
+											gif: this.refs.img
+										})
+										this.setState({rub:rub})
+										rub.load(() => {
+											console.log('oh hey, now the gif is loaded');
+										})
+									})									
 								})
 							}
 						}

@@ -54,25 +54,22 @@ class FivList extends React.Component {
 }
 
 //工具列表
-function AppList(){
-  console.log(localStorage.getItem('homeShowNewestTool'))
-  if(localStorage.getItem('homeShowNewestTool') === 'false')return null
-  var applist = appinfo.getAll().map((a,i)=>{
+const AppList = props => {
+    console.log(localStorage.getItem('homeShowNewestTool'))
+    if(localStorage.getItem('homeShowNewestTool') === 'false')return null
     return(
-      <Link key={i} to={'/apps/' + a.link} >
-        <li className="mdui-col mdui-list-item mdui-ripple">
-          <i className="mdui-list-item-icon mdui-icon material-icons mdui-text-color-blue">apps</i> 
-          <div className="mdui-list-item-content">{a.name}</div>
-        </li>
-      </Link>
+        <ul className="mdui-row-md-3 mdui-list">
+            <li class="mdui-subheader">全部工具</li>
+            {props.applist.map((a,i)=>(
+                <Link key={i} to={'/apps/' + a.link} >
+                    <li className="mdui-col mdui-list-item mdui-ripple">
+                        <i className={"mdui-list-item-icon mdui-icon material-icons mdui-text-color-" + a.icon_color}>{a.icon}</i> 
+                        <div className="mdui-list-item-content">{a.name}</div>
+                    </li>
+                </Link>
+            ))}
+        </ul>
     )
-  })
-  return(
-    <ul className="mdui-row-md-3 mdui-list">
-      <li class="mdui-subheader">全部工具</li>
-      {applist}
-    </ul>
-  )
 }
 
 //公告栏
@@ -193,8 +190,14 @@ class Whole extends React.Component{
         super(props);
         this.state = {
             kwd:'',
-            searchResult:[]
+            searchResult:[],
+            applist:[]
         }
+    }
+    async componentWillMount() {
+        var list = await appinfo.getAll();
+        console.log(list)
+        this.setState({applist:list})
     }
     render(){
         return(
@@ -213,7 +216,7 @@ class Whole extends React.Component{
                     result={this.state.searchResult}
                 />
                 <FivList />
-                <AppList />
+                <AppList applist={this.state.applist} />
             </React.Fragment>
         )
     }

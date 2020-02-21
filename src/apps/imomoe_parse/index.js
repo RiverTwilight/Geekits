@@ -51,7 +51,8 @@ class Ui extends React.Component {
             data:[]
         };       
     }
-    componentWillMount(){      
+    componentWillMount(){  
+        //var VideoListJson    
         clipboard && clipboard.destroy();
         var clipboard = new ClipboardJS('.becopy');
         clipboard.on('success', e=> {
@@ -63,6 +64,7 @@ class Ui extends React.Component {
         this.refs.load.style.display = 'block';
         const {url} = this.state;
         function loadJosnp() {
+            var VideoListJson
             return new Promise((resolve, reject) => {
                 axios.get('https://api.ygktool.cn/api/bangumi?url=' + url).then(response => {
                     console.log(response.data);                   
@@ -79,8 +81,8 @@ class Ui extends React.Component {
         }       
         loadJosnp().then(() => {
             this.refs.load.style.display = 'none'
-            console.log(VideoListJson);
-            this.setState({data:VideoListJson})
+            //console.log(VideoListJson);
+            //this.setState({data:VideoListJson})
         })
     }
   render(){

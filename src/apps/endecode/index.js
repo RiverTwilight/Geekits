@@ -74,6 +74,9 @@ function PrintRes(props){
 			case 'rc4':
 				var showRes = res.rc4
 				break;
+      case 'URLcomponent':
+        var showRes = res.URLcomponent
+        break;
 			default:
 			  var showRes = 'sdff'
 		}
@@ -114,7 +117,10 @@ class Ui extends React.Component {
 			}, {
 				text: 'URL',
 				value: 'url'
-			}]
+			}, {
+        text: 'URLcomponent',
+        value: 'URLcomponent'
+      }]
 		}
     }
     componentDidMount(){
