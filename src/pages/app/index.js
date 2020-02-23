@@ -115,9 +115,13 @@ class AppContainer extends React.Component {
     async componentWillMount() {
         var info = await appinfo.get(/\/([^\/]+)$/.exec(this.props.location.pathname)[1]);
         console.log(info)
-        this.setState({appinfo:info});
-        window.titleRef.innerText = info.name;
-        document.title = info.name + " - 云极客工具";
+        this.setState({
+            appinfo: info
+        });
+        if (info) {
+            window.titleRef.innerText = info.name;
+            document.title = info.name + " - 云极客工具";
+        }
     }
     componentWillUnmount(){
         clearInterval(this.state.timer)

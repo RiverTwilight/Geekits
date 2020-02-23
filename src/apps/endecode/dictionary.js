@@ -70,7 +70,7 @@ function start(fromType,inputText,key='') {
 			var result = normal2Result(normal, key);
 			return result
 		case 'URLcomponent':
-			var normal = decodeURIComponent(indexText);
+			var normal = decodeURIComponent(inputText);
 			var result = normal2Result(normal,key)
 			return result
 		case 'moss':

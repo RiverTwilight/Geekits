@@ -42,7 +42,7 @@ class Header extends React.Component{
                             </button>
                             <Link to="/">
                                 <div ref="headerTitle" className="mdui-typo-title mdui-text-color-white header-width-saying">
-                                    {this.state.title}                               
+                                    {this.state.title || '云极客工具'}                               
                                 </div>
                                 <span className="mdui-text-truncate saying mdui-text-color-white ">{this.state.saying}</span>
                             </Link>

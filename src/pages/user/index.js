@@ -22,7 +22,7 @@ const NoLogined = ()=>{
 	                <li>有机会成为网站管理员（站长忙得很）</li>
 	            </div>
             </center>
-       </div> 
+        </div> 
 	)
 }
 

@@ -30,7 +30,7 @@ class FivList extends React.Component {
                 <Link 
                     key={i} to={(edit)?'#':'/apps/' + a.link}
                     disabled={edit} className="mdui-col mdui-list-item mdui-ripple">
-                        <i className="mdui-list-item-icon mdui-icon material-icons mdui-text-color-blue">apps</i> 
+                        <i className="mdui-list-item-icon mdui-icon material-icons mdui-text-color-yellow-500">star</i> 
                         <div className="mdui-list-item-content">{a.name}</div>
                         {buttton}
                 </Link>

@@ -59,5 +59,6 @@
 i.nologin{
     font-size:2.0em;
     width:50px;
-    height:50px
+    height:50px;
+    display: block;
 }

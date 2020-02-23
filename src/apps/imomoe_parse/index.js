@@ -81,8 +81,8 @@ class Ui extends React.Component {
         }       
         loadJosnp().then(() => {
             this.refs.load.style.display = 'none'
-            //console.log(VideoListJson);
-            //this.setState({data:VideoListJson})
+            console.log(VideoListJson);
+            this.setState({data:VideoListJson})
         })
     }
   render(){

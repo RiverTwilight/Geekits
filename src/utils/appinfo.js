@@ -38,7 +38,7 @@ var appinfo = {
 	get: async link => {
 		if (localStorage.applist) {
 			var cache = JSON.parse(localStorage.applist);
-			if (conDate(cache.date, getFormDate()) <= 3) {
+			if (conDate(cache.date, getFormDate()) <= 3 || !navigator.onLine) {
 				console.log('缓存没过期')
 				var data = cache.data
 				for (let i in data) {
@@ -61,7 +61,7 @@ var appinfo = {
 	getAll: async () => {
 		if (localStorage.applist) {
 			var cache = JSON.parse(localStorage.applist);
-			if (conDate(cache.date, getFormDate()) <= 3) {
+			if (conDate(cache.date, getFormDate()) <= 3 || !navigator.onLine) {
 				var data = await cache.data
 				return data
 			}

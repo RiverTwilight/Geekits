@@ -23,8 +23,29 @@ const About = loadable(() => import('./pages/about'))
 const Setting = loadable(() => import('./pages/setting'))
 const User = loadable(() => import('./pages/user'))
 
-const NoMatch = ()=>{
-  return <center><h1>魔法名：404 Not Found<br></br>上琴一生推</h1></center>
+const NoMatch = () => {
+    return (
+        <div style={{marginTop:'100px'}}>
+            <center>
+                <h1>
+                    <i 
+                        class="nologin mdui-list-item-icon mdui-icon material-icons mdui-text-color-grey">
+                        close
+                    </i>
+                    魔法名：404 Not Found
+                </h1>
+                <Link to="/" class="mdui-color-theme mdui-btn mdui-btn-raised">返回首页</Link>
+                <p>
+                据说在第三次科技革命之前，互联网的形态就是一个大型的中央数据库，
+                这个数据库就设置在404房间里面。那时候所有的请求都是由人工手动完成的，
+                如果在数据库中没有找到请求者所需要的文件，或者由于请求者写错了文件编号，
+                用户就会得到一个返回信息：room 404 : file not found。后来互联网兴起后，
+                人们也就习惯了用404作为服务器未找到文件的错误代码了。
+                当然实际考证传说中的room 404是不存在的。
+                </p>
+            </center>
+        </div>
+    )
 }
 
 class App extends React.Component {
