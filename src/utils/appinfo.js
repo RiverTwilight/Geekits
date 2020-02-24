@@ -1,7 +1,5 @@
 //日期推算 2020/01/20 19:20:30
 function conDate(dateEarly, dateLate) {
-    console.log(dateEarly);
-    console.log(dateLate)
     function split(date){
         var day = date.split(" ")[0];
         var time = date.split(" ")[1];
@@ -13,7 +11,6 @@ function conDate(dateEarly, dateLate) {
             min:time.split(":")[1],
             sec:time.split(":")[2]
         }
-        console.log(info)
         return info
     }
     var earlyInfo = split(dateEarly);
@@ -48,15 +45,15 @@ var appinfo = {
 			}
 		}
 		var data = await fetch('https://api.ygktool.cn/apps');
-		console.log(data)
+		//console.log(data)
 		var back = await data.json();
 		localStorage.setItem('applist', JSON.stringify({
 			data: back,
 			date: getFormDate()
 		}))
-		back.map(app => {
-			if (app.link == link) return app
-		})
+		for(let i in back){
+			if (back[i].link == link) return back[i]
+		}
 	},
 	getAll: async () => {
 		if (localStorage.applist) {
@@ -67,7 +64,7 @@ var appinfo = {
 			}
 		}
 		var data = await fetch('https://api.ygktool.cn/apps');
-		console.log(data)
+		//console.log(data)
 		var back = await data.json();
 		localStorage.setItem('applist', JSON.stringify({
 			data: back,
