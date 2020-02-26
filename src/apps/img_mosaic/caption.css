@@ -1,0 +1,18 @@
+.mask{
+	cursor: row-resize;
+	position: absolute;
+	background-color: rgba(0, 0, 0, 0.6);
+	left: 0;
+    right: 0;
+    touch-action: none
+}
+
+.mask-top{
+    top: 0;
+    border-bottom: 8px solid #177b1f
+}
+
+.mask-bottom{
+	border-top: 8px solid #177b1f;
+	bottom: 0;
+}
