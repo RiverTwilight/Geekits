@@ -6,11 +6,11 @@ import './style.css';
   */
 
 //显示分数的电子屏
-function ShowScore(props){
-  return <div className="score">{props.score}</div>
+const ShowScore = ({score}) => {
+  return <div className="score">{score}</div>
 }
 
-function Input(props){
+const Input = props => {
   return(
     <div className="mdui-textfield">
       <input className="mdui-textfield-input" type="text" defaultValue={props.default}/>
@@ -18,8 +18,8 @@ function Input(props){
   )
 }
 
-function Undo(props){
-  if (props.used) {
+function Undo({ used, undo }){
+  if (used) {
     return(
       <button 
         disabled
@@ -30,7 +30,7 @@ function Undo(props){
   } else {
     return(
       <button 
-        onClick={()=>props.undo()}
+        onClick={()=>undo()}
         className="mdui-btn mdui-btn-raised mdui-color-theme mdui-ripple">
         撤销
       </button>

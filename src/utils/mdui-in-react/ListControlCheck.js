@@ -8,17 +8,17 @@ import React from 'react'
 
 const ListControlCheck = props => {
 	return(
-		<li class="mdui-list-item mdui-ripple">
-		    <i class="mdui-list-item-icon mdui-icon material-icons">{props.icon}</i>
-		    <div class="mdui-list-item-content">{props.text}</div>
-		    <label class="mdui-switch">
+		<li className="mdui-list-item mdui-ripple">
+		    <i className="mdui-list-item-icon mdui-icon material-icons">{props.icon}</i>
+		    <div className="mdui-list-item-content">{props.text}</div>
+		    <label className="mdui-switch">
 		        <input 
 			        onChange={e=>{
 			        	props.onCheckedChange(e.target.checked)
 			        }}
 			        type="checkbox" checked={props.checked}
 			    />
-		        <i class="mdui-switch-icon"></i>
+		        <i className="mdui-switch-icon"></i>
 		    </label>
 		</li>
 	)

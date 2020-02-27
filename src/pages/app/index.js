@@ -49,6 +49,12 @@ class Info extends React.Component {
         if (!this.props.appinfo || hideHelper)return null      
         const { help, link, name } = this.props.appinfo
         console.log(this.props.appinfo);
+
+        const tips = (help !== "")?
+                    help.split('##').map((line,i)=>(<li key={i} className="mdui-list-item">{line}</li>))
+                    :
+                    <li className="mdui-list-item">没有什么好说明的，若有疑问请加QQ群923724755</li>
+                    
         return(
             <div className="mdui-card appinfo">
                 <div className="mdui-card-media">
@@ -67,7 +73,7 @@ class Info extends React.Component {
                 </div>
                 <div>
                     <ul className="mdui-list">
-                    {help.split(' ').map((line,i)=>(<li key={i} className="mdui-list-item">{line}</li>))}
+                    {tips}
                     </ul>                   
                 </div>
                 <div className="mdui-card-actions">
@@ -97,7 +103,12 @@ class Info extends React.Component {
                         onClick={bugReport}
                         mdui-tooltip="{content: '问题反馈'}" className="mdui-btn mdui-btn-icon mdui-ripple">
                         <i className="mdui-text-color-theme mdui-icon material-icons">mode_comment</i>                
-                    </button>               
+                    </button>   
+                    <a 
+                        href="https://jq.qq.com/?_wv=1027&amp;k=59hWPFs" target="_blank"
+                        mdui-tooltip="{content: '加群咨询'}" className="mdui-btn mdui-btn-icon mdui-ripple">
+                        <i className="mdui-text-color-theme mdui-icon material-icons">help</i>                
+                    </a>              
                 </div>             
             </div>
         )
@@ -114,13 +125,14 @@ class AppContainer extends React.Component {
     }
     async componentWillMount() {
         var info = await appinfo.get(/\/([^\/]+)$/.exec(this.props.location.pathname)[1]);
-        console.log(info)
-        this.setState({
-            appinfo: info
-        });
         if (info) {
+            this.setState({
+                appinfo: info
+            });       
             window.titleRef.innerText = info.name;
             document.title = info.name + " - 云极客工具";
+        }else{
+            document.title = "云极客工具";
         }
     }
     componentWillUnmount(){

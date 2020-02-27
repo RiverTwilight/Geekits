@@ -5,7 +5,6 @@ import appinfo from '../../utils/appinfo'
 import fiv from '../../utils/fiv'
 import TextInput from '../../utils/mdui-in-react/TextInput'
 
-
 //收藏列表
 class FivList extends React.Component {
     constructor(props) {
@@ -38,7 +37,7 @@ class FivList extends React.Component {
         })
         return(
             <ul className="mdui-row-md-3 mdui-list">
-                <li class="mdui-subheader">
+                <li className="mdui-subheader">
                     收藏&nbsp;
                     <a 
                         onClick={()=>{
@@ -55,11 +54,10 @@ class FivList extends React.Component {
 
 //工具列表
 const AppList = props => {
-    console.log(localStorage.getItem('homeShowNewestTool'))
     if(localStorage.getItem('homeShowNewestTool') === 'false')return null
     return(
         <ul className="mdui-row-md-3 mdui-list">
-            <li class="mdui-subheader">全部工具</li>
+            <li className="mdui-subheader">全部工具</li>
             {props.applist.map((a,i)=>(
                 <Link key={i} to={'/apps/' + a.link} >
                     <li className="mdui-col mdui-list-item mdui-ripple">
@@ -109,20 +107,15 @@ class Notice extends React.Component {
 
 //显示结果
 const SearchResult = (props) => {
-    if(!props.result.length)return null
-    var list = props.result.map((a,i)=>{
-        return(
-            <Link key={i} to={'/apps/' + a.link} >
-              <li className="mdui-list-item mdui-ripple">
-                <i className="mdui-list-item-icon mdui-icon material-icons mdui-text-color-blue">apps</i> 
-                <div className="mdui-list-item-content">{a.name}</div>
-              </li>
-            </Link>
-        )
-    })
+    if(!props.result.length)return null    
     return(
         <ul className="mdui-list">
-            {list}
+            {props.result.map((a,i)=>(
+            <Link key={i} to={'/apps/' + a.link} className="mdui-list-item mdui-ripple" >
+                <i className={"mdui-list-item-icon mdui-icon material-icons mdui-text-color-" + a.icon_color}>{a.icon}</i> 
+                <div className="mdui-list-item-content">{a.name}</div>
+            </Link>
+            ))}
             <p className="mdui-typo mdui-text-center">
             没找到想要的工具?试试<a href={"https://www.baidu.com/s?ie=UTF-8&wd=" + props.kwd}>百度搜索</a>
             </p>
@@ -148,16 +141,11 @@ class Search extends React.Component{
         })
     }
     search(){
-        //TODO：http请求搜索结果
         const kwd = this.state.kwd;
-        var res = [
-          {
-            name:'oce',
-            icon:'apps',
-            iconColor:'green',
-            link:'decision'
-          }
-        ]
+        var res = []
+        this.props.applist.map(app=>{
+            if(app.name.indexOf(kwd) !== -1)res.push(app)
+        })       
         if(kwd !== ''){
           this.state.getResult(res,kwd)
         }else{
@@ -200,10 +188,12 @@ class Whole extends React.Component{
         this.setState({applist:list})
     }
     render(){
+        const { kwd, searchResult, applist } = this.state
         return(
             <React.Fragment>            
                 <Notice />
                 <Search 
+                    applist={applist}
                     getResult={(res,kwd)=>{
                         this.setState({
                           searchResult:res,
@@ -212,11 +202,11 @@ class Whole extends React.Component{
                     }}
                 />
                 <SearchResult 
-                    kwd={this.state.kwd}
-                    result={this.state.searchResult}
+                    kwd={kwd}
+                    result={searchResult}
                 />
                 <FivList />
-                <AppList applist={this.state.applist} />
+                <AppList applist={applist} />
             </React.Fragment>
         )
     }

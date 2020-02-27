@@ -52,7 +52,7 @@ class Ui extends React.Component {
         };       
     }
     componentWillMount(){  
-        //var VideoListJson    
+        var VideoListJson    
         clipboard && clipboard.destroy();
         var clipboard = new ClipboardJS('.becopy');
         clipboard.on('success', e=> {
@@ -81,39 +81,37 @@ class Ui extends React.Component {
         }       
         loadJosnp().then(() => {
             this.refs.load.style.display = 'none'
-            console.log(VideoListJson);
-            this.setState({data:VideoListJson})
+            //console.log(VideoListJson);
+            //this.setState({data:VideoListJson})
         })
     }
-  render(){
-    return (
-        <React.Fragment>
-            <TextInput
-                autofocus
-                onTextChange={newText=>{
-                    this.setState({url:newText})
-                }}
-                header="输入视频播放地址(一定是播放地址！)"
-                icon="link"
-                type="link"
-                value={this.state.url}
-                TagType="input"
-            />
-            <div ref="load" style={{display:'none',position:'absolute',top:'0'}} className="mdui-progress">
-                <div className="mdui-progress-indeterminate"></div>
-            </div>           
-            <button 
-                onClick={()=>{
-                    var VideoListJson
-                    this.loadCommentsFromServer()
-                }} 
-                className="mdui-color-theme mdui-ripple mdui-float-right mdui-btn-raised mdui-btn">
-                获取
-            </button>
-            <div className="mdui-clearfix"></div>
-            <Result src={this.state.data}/>
-        </React.Fragment>
-    )
+    render(){
+        return(
+            <React.Fragment>
+                <TextInput
+                    autofocus
+                    onTextChange={newText=>{
+                        this.setState({url:newText})
+                    }}
+                    header="输入视频播放地址(一定是播放地址！)"
+                    icon="link"
+                    type="link"
+                    value={this.state.url}
+                />
+                <div ref="load" style={{display:'none',position:'absolute',top:'0'}} className="mdui-progress">
+                    <div className="mdui-progress-indeterminate"></div>
+                </div>           
+                <button 
+                    onClick={()=>{
+                        this.loadCommentsFromServer()
+                    }} 
+                    className="mdui-color-theme mdui-ripple mdui-float-right mdui-btn-raised mdui-btn">
+                    获取
+                </button>
+                <div className="mdui-clearfix"></div>
+                <Result src={this.state.data}/>
+            </React.Fragment>
+        )
     }
 }
 

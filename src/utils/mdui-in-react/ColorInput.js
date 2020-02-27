@@ -1,19 +1,17 @@
-import React from 'react';
+import React from 'react'
+import PropTypes from 'prop-types'
 
 /**
   *颜色选择按钮组件
-  *@param {string} value 默认值
-  *@param {string} text 按钮文字，默认为“选择颜色”
-  *@param {function} onColorChange 内容变化时的回调函数，返回新的值
   **/
 
-/***必须要es6组件，因为需要用到Ref***/
+/***必须要class组件，因为需要用到Ref***/
 class Color extends React.Component {
 	constructor(props) {
 		super(props);	
 	}
 	render(){
-		const { color } = this.props
+		const { color, text } = this.props
 		return(
 			<React.Fragment>
 				<button
@@ -22,8 +20,8 @@ class Color extends React.Component {
 						this.refs.input.click()
 					}}
 				>
-				<i style={{color:color}} class="mdui-icon-left mdui-icon material-icons">lens</i>
-				{this.props.text || '选择颜色'}{color}
+				<i style={{color:color}} className="mdui-icon-left mdui-icon material-icons">lens</i>
+				{text}{color}
 				</button>
 				<input 
 					style={{display:'none'}}
@@ -36,4 +34,17 @@ class Color extends React.Component {
 		)
 	}
 }
+
+Color.defaultProps = {
+    value: '#000000',
+    onColorChange:()=>{},
+    text:'选择颜色'
+}
+
+Color.propTypes={
+    text:PropTypes.string,//文本
+    value:PropTypes.string,//颜色值
+    onColorChange:PropTypes.func,//回调函数
+}
+
 export default Color

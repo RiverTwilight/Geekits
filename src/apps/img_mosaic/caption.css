@@ -9,10 +9,10 @@
 
 .mask-top{
     top: 0;
-    border-bottom: 8px solid #177b1f
+    border-bottom: 5px solid #177b1f
 }
 
 .mask-bottom{
-	border-top: 8px solid #177b1f;
+	border-top: 5px solid #177b1f;
 	bottom: 0;
 }

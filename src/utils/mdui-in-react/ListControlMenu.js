@@ -10,15 +10,15 @@ import React from 'react'
 const Dialog = props => {
 	const items = props.items.map((item,i)=>{
 		return(
-		    <label key={i} mdui-dialog-close="true" class="mdui-list-item mdui-ripple">
-			    <div class="mdui-radio">
+		    <label key={i} mdui-dialog-close="true" className="mdui-list-item mdui-ripple">
+			    <div className="mdui-radio">
 			        <input
 						onChange={e=>props.onCheckedChange(i)} 
 				        type="radio" key={i}
 				        checked={props.items[props.checked].value === item.value}/>
-			        <i class="mdui-radio-icon"></i>
+			        <i className="mdui-radio-icon"></i>
 			    </div>
-		        <div class="mdui-list-item-content">{item.name}</div>
+		        <div className="mdui-list-item-content">{item.name}</div>
 		    </label>
 		)
 	})

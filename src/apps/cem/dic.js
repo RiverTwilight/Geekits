@@ -10,6 +10,8 @@ let chemSymbol = [
   'Rf', 'Db', 'Sg', 'Bh', 'Hs', 'Mt', 'Ds', 'Rg', 'Cn', 'Nh', 'Fl', 'Mc', 'Lv', 'Ts', 'Og'
 ]
 
+const downsymbol = ["₁","₂","₃","₄","₅","₆","₇","₈","₉"]
+
 const minimumCM = (m , n) => {
     return m % n == 0?(n):(minimumCM(n,m%n));
 }
@@ -181,6 +183,13 @@ const cem = equation => {
     resultant.map((stance,i)=>{
     	result += `<span class="mdui-text-color-theme">${res[reactant.length + i]}</span>${stance.tance} ${i === resultant.length - 1?'': '+'}`
     })
+    
+    var result = result.replace(/([A-z\)])(\d)/g,(num)=>{   	
+    	let idx = downsymbol[parseInt(num.substring(1)) - 1];
+    	console.log(num.substring(0,1) + idx)
+    	return num.substring(0,1) + idx
+    })
+    
 	return { result, eleClass }
 }
 

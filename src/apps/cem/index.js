@@ -49,7 +49,7 @@ class Ui extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            input:"Cu + H(NO3) = Cu(NO3)2 + NO2 + H2O",
+            input:"Cu + HNO3 = Cu(NO3)2 + NO2 + H2O",
             result:"",
             eleClass:[]
         }
@@ -69,6 +69,7 @@ class Ui extends React.Component {
                     onTextChange={newText=>{
                         this.setState({input:newText})
                     }}
+                    pattern="\S+\=\S+"
                     header="输入方程式"
                     icon="link"
                     type="text"

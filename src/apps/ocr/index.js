@@ -2,39 +2,12 @@ import React, {Component} from 'react'
 import mdui from 'mdui'
 import axios from 'axios'
 import ClipboardJS from 'clipboard'
-import Cropper from 'react-cropper'
-import 'cropperjs/dist/cropper.css'
 
 import ListControlCheck from '../../utils/mdui-in-react/ListControlCheck'
 import ListControlMenu from '../../utils/mdui-in-react/ListControlMenu'
 import TextInput from '../../utils/mdui-in-react/TextInput'
 import FileRead from '../../utils/fileread'
-
-class ImgCropper extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-        }
-    }
-    _crop(){
-        var img = this.refs.cropper.getCroppedCanvas().toDataURL()
-        this.props.onCropperChange(img)
-    }
-    render(){
-        console.log(this.props.ifHide)
-        if(this.props.ifHide)return null
-        return(
-            <Cropper
-                ref='cropper'
-                src={this.props.file}
-                style={{height: 400, width: '100%'}}
-                //aspectRatio={1 / 1}
-                //guides={true}
-                crop={this._crop.bind(this)}
-             />
-        )
-    }
-}
+import Cropper from '../../utils/Cropper'
 
 const numMark = text => {
     var reg = /^1[3|4|5|7|8]\d{9}$/g;
@@ -58,8 +31,7 @@ const urlMark = text => {
     return text
 }
 
-const Result = props =>{
-    const { data, ifIgnoreLine, onIgnoreLine } = props;
+const Result = ({data, ifIgnoreLine, onIgnoreLine}) =>{
     if(data === null)return null
     const Tag = ifIgnoreLine?"span":"p";
     var markedText = [];
@@ -74,9 +46,9 @@ const Result = props =>{
             <ListControlCheck
                 icon="keyboard_return"
                 text="忽略换行"
-                checked={props.ifIgnoreLine}
+                checked={ifIgnoreLine}
                 onCheckedChange={checked=>{
-                    props.onIgnoreLine(checked)
+                    onIgnoreLine(checked)
                 }}
             />             
             <button
@@ -135,7 +107,8 @@ class Ui extends React.Component {
             url:'https://api.ygktool.cn/api/ocr',
             image:null,
             data:null,
-            ifIgnoreLine:false
+            ifIgnoreLine:false,
+            ifShowCropper:false
         }
     }
     componentWillMount(){
@@ -147,11 +120,11 @@ class Ui extends React.Component {
         })
     }
     loadDataFromServer(){
-        const { url, image, language_type, cropperCache } = this.state
+        const { url, image, language_type } = this.state
         this.refs.load.style.display = 'block';
         this.refs.startBtn.disabled = true
         axios.post(this.state.url,{
-            image:cropperCache.split('base64,')[1],
+            image:image.split('base64,')[1],
             language_type:language_types[language_type].value
         }).then(response =>{
             var json = JSON.parse(response.request.response);
@@ -165,54 +138,61 @@ class Ui extends React.Component {
         })
     }
     render(){
-        const { image, ifIgnoreLine, data, language_type } = this.state
+        const { image, ifIgnoreLine, ifShowCropper, data, language_type } = this.state
     	return(
     		<React.Fragment>
-                <div ref="load" style={{display:'none'}} className="mdui-progress">
-                    <div className="mdui-progress-indeterminate"></div>
-                </div>
-                <ImgCropper
-                    ifHide={image === null}
-                    onCropperChange={newImg=>{
-                        this.setState({cropperCache:newImg})
-                    }}
-                    file={image}
-                />
-                <center>
-                    <FileRead 
-                        fileType="image/*"
-                        multiple={false}
-                        onFileChange={ file =>{
-                            this.setState({image:file})
+                <div style={{display:(ifShowCropper)?'none':'block'}}>
+                    <div ref="load" style={{display:'none'}} className="mdui-progress">
+                        <div className="mdui-progress-indeterminate"></div>
+                    </div>
+                    <center>
+                        <FileRead 
+                            fileType="image/*"
+                            multiple={false}
+                            onFileChange={ file =>{
+                                this.setState({ifShowCropper:true,image:file})
+                            }}
+                        />
+                    </center>
+                    <ListControlMenu
+                        icon="language"
+                        text="语言"
+                        checked={language_type}
+                        onCheckedChange={checked=>{
+                            this.setState({language_type:checked})
                         }}
+                        items={language_types}
                     />
-                </center>
-                <ListControlMenu
-                    icon="language"
-                    text="语言"
-                    checked={language_type}
-                    onCheckedChange={checked=>{
-                        this.setState({language_type:checked})
-                    }}
-                    items={language_types}
-                />
-                <div className="mdui-divider"/>
-                <button 
-                    onClick={()=>{
-                    	this.loadDataFromServer()
-                    }} 
-                    ref="startBtn"
-                    className="mdui-ripple mdui-color-theme mdui-fab mdui-fab-fixed">
-                    <i className="mdui-icon material-icons">&#xe5ca;</i>
-                </button>
-                <Result
-                    onIgnoreLine={
-                        newCheck=>{
-                            this.setState({ifIgnoreLine:newCheck})
+                    <div className="mdui-divider"/>
+                    <button 
+                        onClick={()=>{
+                        	this.loadDataFromServer()
+                        }} 
+                        ref="startBtn"
+                        className="mdui-ripple mdui-color-theme mdui-fab mdui-fab-fixed">
+                        <i className="mdui-icon material-icons">&#xe5ca;</i>
+                    </button>
+                    <Result
+                        onIgnoreLine={
+                            newCheck=>{
+                                this.setState({ifIgnoreLine:newCheck})
+                            }
                         }
-                    }
-                    ifIgnoreLine={ifIgnoreLine}
-                    data={data}/>
+                        ifIgnoreLine={ifIgnoreLine}
+                        data={data}
+                    />
+                </div>
+                <Cropper
+                    ifShow={ifShowCropper}
+                    img={image}
+                    onClose={()=>{
+                        this.setState({ifShowCropper:false})
+                    }}
+                    onConfirm={img=>{
+                        this.setState({ifShowCropper:false,image:img})
+                    }}
+                    title=""
+                />
             </React.Fragment>
     	)
     }

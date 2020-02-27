@@ -2,7 +2,9 @@ import React from 'react'
 import mdui from 'mdui'
 import { saveAs } from 'file-saver'
 import html2canvas from 'html2canvas'
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
+import NewPage from '../../utils/NewPage'
 import Color from '../../utils/mdui-in-react/ColorInput'
 import RangeInput from '../../utils/mdui-in-react/RangeInput'
 import TextInput from '../../utils/mdui-in-react/TextInput'
@@ -109,7 +111,8 @@ class DragText extends React.Component {
                     fontWeight:style,
                     marginLeft:x_axis,
                     marginTop:y_axis-size,
-                    cursor:'move'
+                    cursor:'move',
+                    touchAction: 'none'//取消页面滑动
                 }} id="drag">
                 {text}
             </span>
@@ -146,9 +149,27 @@ const StyleSet = (props) => {
                     <option value="normal">正常字体风格</option>
                     <option value="bold">加粗字体风格</option>
                     <option value="italic">倾斜字体风格</option>           
-
                 </select>
             </div>            
+        </div>
+    )
+}
+
+const AssestsList = props => {
+    return (
+        <div class="mdui-row-xs-3 mdui-row-sm-4 mdui-row-md-5 mdui-row-lg-6 mdui-row-xl-7 mdui-grid-list">
+        {Array(266).fill(0).map((img,i)=>(
+                <div class="mdui-col">
+                    <div onClick={()=>props.onChoose(i)} class="mdui-grid-tile">
+                        <LazyLoadImage
+                            threshold={50}
+                            alt={`(${i}).jpg`}
+                            src={`/emo_assests/ (${i}).jpg`}
+                        />
+                    </div>
+                </div>
+            ))
+        }
         </div>
     )
 }
@@ -163,34 +184,15 @@ class Ui extends React.Component {
             texts:['输入文字'],
             width:490,
             height:410,
-            style:'normal'
+            style:'normal',
+            ifShow:true
         }
-    }
-    assestsList(){
-        var el = [];
-        for (let i = 1; i <= 266; i++) {
-            let name = `${i}.jpg`;
-            el.push(
-                 <div className="mdui-col">
-                   <div className="mdui-grid-tile">
-                   <img onClick={e=>{
-                      this.setState({src:e.target.src});
-                   }} width='200' height='160' key={i} data-original={"assests/"+name}/>
-                   </div>
-                </div>)
-        }
-        el.push(
-            <button mdui-tooltip="{content: '关闭'}" onClick={()=>{
-            }} className="mdui-color-theme mdui-fab mdui-fab-fixed">
-                <i className="mdui-icon material-icons">close</i>
-            </button>
-        )
-        return el
     }
     render() {
-        const { drag, startPosition, texts, style, size, color, x_axis, y_axis } = this.state
+        const { ifShow, drag, startPosition, texts, style, size, color, x_axis, y_axis } = this.state
     return(
         <React.Fragment>
+        <div style={{display:(ifShow)?'none':'block'}}>
             <center>  
             <div 
             id="capture" 
@@ -228,18 +230,19 @@ class Ui extends React.Component {
                         //mdui.snackbar({message:'该功能开发者正在一拖再拖~'})             
                     }} 
                     className="mdui-btn">
-                    <i class="mdui-icon-left mdui-icon material-icons">stars</i>
+                    <i class="mdui-icon-left mdui-icon material-icons">add</i>
                     新增输入框
                     </button>
                 </div>
                 <div className="mdui-col">
                     <button 
                     onClick={()=>{  
-                        var index = parseInt(Math.random() * (266 - 0 + 1) + 0, 10); //随机选取0到最大值之间的整数
-                        this.setState({src:`/emo_assests/ (${index}).jpg`})         
+                        this.setState({ifShow:true})
+                        //var index = parseInt(Math.random() * (266 - 0 + 1) + 0, 10); //随机选取0到最大值之间的整数
+                        //this.setState({src:`/emo_assests/ (${index}).jpg`})         
                     }}
                     className="mdui-btn">
-                    <i class="mdui-icon-left mdui-icon material-icons">cached</i>
+                    <i class="mdui-icon-left mdui-icon material-icons">add_shopping_cart</i>
                     换个素材
                     </button>
                 </div>
@@ -285,9 +288,23 @@ class Ui extends React.Component {
                 className="mdui-color-theme mdui-fab mdui-fab-fixed">
                 <i className="mdui-icon material-icons">&#xe5ca;</i>
             </button>
+            </div>
+            <NewPage
+                onClose={()=>{
+                    this.setState({ifShow:false})
+                }}
+                title="选择素材"
+                ifShow={ifShow}
+            >
+                <AssestsList
+                    onChoose={i=>{
+                        this.setState({ifShow:false,src:`/emo_assests/ (${i}).jpg`})
+                    }}
+                />
+            </NewPage>
         </React.Fragment>
-    )
-  }
+        )
+    }
 }
 
 export default ()=><Ui />;

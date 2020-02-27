@@ -22,6 +22,7 @@ function Nav(props){
     }].map((a,i)=>{
         return(
             <a 
+                key={i}
                 onClick={()=>{
                     props.onPageChange(a.page);
                     window.location.hash = `#${a.page}`

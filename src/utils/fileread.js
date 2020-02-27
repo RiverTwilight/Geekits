@@ -46,7 +46,7 @@ class FileRead extends React.Component {
 					style={{maxWidth:this.props.maxWidth}}
 					className="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme"
 					onClick={this.handleClick.bind(this)}>
-					<i class="mdui-icon-left mdui-icon material-icons">{icon}</i>
+					<i className="mdui-icon-left mdui-icon material-icons">{icon}</i>
 					{this.state.file}
 				</button>
 				<input 

@@ -176,6 +176,7 @@ class Alubm extends React.Component {
 			                    <button 
 				                    style={{display:(i>=1)?'block':'none'}}				                    
 				                    onClick={()=>{
+				                    	this.props.putForward(i)
 				                    }}
 				                    className="mdui-btn mdui-btn-icon mdui-text-color-white">
 			                       <i className="mdui-icon material-icons">arrow_upward</i>
@@ -183,6 +184,7 @@ class Alubm extends React.Component {
 			                    <button 
 				                    style={{display:(i>=1 && i < assests.length - 1)?'block':'none'}}
 				                    onClick={()=>{
+				                    	this.props.putBack(i)
 				                    }}
 				                    className="mdui-btn mdui-btn-icon mdui-text-color-white">
 			                       <i className="mdui-icon material-icons">arrow_downward</i>
@@ -221,6 +223,18 @@ class Ui extends React.Component {
 				    getConHeight={(cHeight,i)=>{
 				    	assests[i].cHeight = cHeight
 				    }}
+				    putForward={i=>{
+				    	var cache = assests[i];
+				    	assests.splice(i,1);
+				    	assests.splice(i - 1,0,cache);
+				    	this.setState({assests:assests})
+				    }}
+				    putBack={i=>{
+				    	var cache = assests[i];
+				    	assests.splice(i,1);
+				    	assests.splice(i + 1,0,cache);
+				    	this.setState({assests:assests})
+				    }}
 				    assests={assests}
 				    deleteImg={i=>{
 				    	assests.splice(i,1);
@@ -253,7 +267,7 @@ class Ui extends React.Component {
 		            		this.setState({res:res})
 		            	})
 		            }}>
-		            <i class="mdui-icon material-icons">&#xe5ca;</i>
+		            <i className="mdui-icon material-icons">&#xe5ca;</i>
 	            </button>	
 	            <Preview res = {res}/>            
 		    </React.Fragment>

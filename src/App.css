@@ -1,7 +1,7 @@
-@font-face{
+/*@font-face{
   font-family:title;
   src: url(./pages/about/title.ttf);
-}
+}*/
 .draw-title{
     font-family:title;
     font-size:3.0em;
@@ -54,11 +54,19 @@
     padding: 18px 16px 16px 16px;
 }
 .mdui-fab{
-    z-index: 99
+    z-index: 999
 }
+
 i.nologin{
     font-size:2.0em;
     width:50px;
     height:50px;
     display: block;
+}
+/*图片黑白滤镜*/
+img.desaturate { filter: grayscale(100%); 
+-webkit-filter: grayscale(100%); 
+-moz-filter: grayscale(100%); 
+-ms-filter: grayscale(100%); 
+-o-filter: grayscale(100%);
 }
