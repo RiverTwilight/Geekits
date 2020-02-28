@@ -1,7 +1,5 @@
-import React from 'react';
-import {
-  Link
-} from "react-router-dom";
+import React from 'react'
+import mdui from 'mdui'
 
 import Drawer from './drawer'
 
@@ -12,7 +10,10 @@ class Header extends React.Component{
             title:props.title,
             searchResult:'',
             kwd:'',//用于传给结果组件的百度搜索,
-            saying:'即使与全世界为敌，我也要保护她和她所在的世界'
+            saying:{
+                say:'即使与全世界为敌，我也要保护她和她所在的世界',
+                from:'《魔法禁书目录》'
+            }
         }
     } 
     componentDidMount(){
@@ -25,10 +26,16 @@ class Header extends React.Component{
             .then(res => res.json())
             .then(json => {
                 console.log(json);
-                this.setState({saying:json.hitokoto})
+                this.setState({
+                    saying:{
+                        say:json.hitokoto,
+                        from:json.from
+                    }
+                })
             })
     }
     render(){
+        const { saying } = this.state
         return (
             <React.Fragment>
                 <Drawer drawerBtn={this.refs.drawerBtn}/> 
@@ -40,12 +47,30 @@ class Header extends React.Component{
                                 className="mdui-btn mdui-btn-icon mdui-text-color-white">
                                 <i className="mdui-icon material-icons">menu</i>
                             </button>
-                            <Link to="/">
-                                <div ref="headerTitle" className="mdui-typo-title mdui-text-color-white header-width-saying">
-                                    {this.state.title || '云极客工具'}                               
-                                </div>
-                                <span className="mdui-text-truncate saying mdui-text-color-white ">{this.state.saying}</span>
-                            </Link>
+                            <a
+                                onClick={()=>{
+                                    mdui.confirm(
+                                        `${saying.say}<br>来自：${saying.from}`,
+                                        '一言',
+                                        () => {
+                                        },
+                                        () => {
+                                        },{
+                                            history:false,
+                                            confirmText:'复制',
+                                            cancelText:'收藏'
+                                        }
+                                    )
+                                }}
+                            >
+                            <div 
+                                ref="headerTitle"
+                                className="mdui-typo-title mdui-text-color-white header-width-saying"
+                            >
+                            {this.state.title || '云极客工具'}                               
+                            </div>
+                            <span className="mdui-text-truncate saying mdui-text-color-white">{saying.say}</span>
+                            </a>
                             <div className="mdui-toolbar-spacer"></div>
                         </div>
                     </div>        

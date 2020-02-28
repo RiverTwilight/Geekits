@@ -9,7 +9,7 @@ import Color from '../../utils/mdui-in-react/ColorInput'
 import RangeInput from '../../utils/mdui-in-react/RangeInput'
 import TextInput from '../../utils/mdui-in-react/TextInput'
 import FileRead from '../../utils/fileread'
-
+/*
 function dataURLtoFile(dataurl, filename) {
     //将base64转换为文件
     var arr = dataurl.split(',')
@@ -23,6 +23,13 @@ function dataURLtoFile(dataurl, filename) {
     return new File([u8arr],filename,{
         type: mime
     })
+}
+*/
+const Result = ({ src }) =>{
+    if(src === null)return null
+    return(
+        <img src={src} className="mdui-img-fluid"/>
+    )
 }
 
 class DragText extends React.Component {
@@ -155,16 +162,16 @@ const StyleSet = (props) => {
     )
 }
 
-const AssestsList = props => {
+const AssestsList = ({onChoose}) => {
     return (
-        <div class="mdui-row-xs-3 mdui-row-sm-4 mdui-row-md-5 mdui-row-lg-6 mdui-row-xl-7 mdui-grid-list">
+        <div className="mdui-row-xs-3 mdui-row-sm-4 mdui-row-md-5 mdui-row-lg-6 mdui-row-xl-7 mdui-grid-list">
         {Array(266).fill(0).map((img,i)=>(
-                <div class="mdui-col">
-                    <div onClick={()=>props.onChoose(i)} class="mdui-grid-tile">
+                <div key={i} className="mdui-col">
+                    <div onClick={()=>onChoose(i+1)} className="mdui-grid-tile">
                         <LazyLoadImage
                             threshold={50}
-                            alt={`(${i}).jpg`}
-                            src={`/emo_assests/ (${i}).jpg`}
+                            alt={`(${i+1}).jpg`}
+                            src={`/emo_assests/(${i+1}).jpg`}
                         />
                     </div>
                 </div>
@@ -185,11 +192,12 @@ class Ui extends React.Component {
             width:490,
             height:410,
             style:'normal',
-            ifShow:true
+            ifShow:true,
+            result:null
         }
     }
     render() {
-        const { ifShow, drag, startPosition, texts, style, size, color, x_axis, y_axis } = this.state
+        const { result, ifShow, drag, startPosition, texts, style, size, color, x_axis, y_axis } = this.state
     return(
         <React.Fragment>
         <div style={{display:(ifShow)?'none':'block'}}>
@@ -230,7 +238,7 @@ class Ui extends React.Component {
                         //mdui.snackbar({message:'该功能开发者正在一拖再拖~'})             
                     }} 
                     className="mdui-btn">
-                    <i class="mdui-icon-left mdui-icon material-icons">add</i>
+                    <i className="mdui-icon-left mdui-icon material-icons">add</i>
                     新增输入框
                     </button>
                 </div>
@@ -242,7 +250,7 @@ class Ui extends React.Component {
                         //this.setState({src:`/emo_assests/ (${index}).jpg`})         
                     }}
                     className="mdui-btn">
-                    <i class="mdui-icon-left mdui-icon material-icons">add_shopping_cart</i>
+                    <i className="mdui-icon-left mdui-icon material-icons">add_shopping_cart</i>
                     换个素材
                     </button>
                 </div>
@@ -252,7 +260,6 @@ class Ui extends React.Component {
                 min="5" max="100"
                 onValueChange={newValue=>{
                     this.setState({size:newValue})
-
                 }}
                 title={"文字大小" + size + "px"}
             />
@@ -279,15 +286,16 @@ class Ui extends React.Component {
                 onClick={()=>{
                     html2canvas(document.querySelector("#capture")).then(canvas => {
                        var base64 = canvas.toDataURL("image/png");
-                       saveAs(dataURLtoFile(base64,"ygktool-emoticon.jpg"), "ygktool-emoticon.jpg", {
+                       this.setState({result:base64})
+                       /*saveAs(dataURLtoFile(base64,"ygktool-emoticon.jpg"), "ygktool-emoticon.jpg", {
                         type: "image/jpg"
-                       })
+                       })*/
                    })       
                 }}
-                mdui-tooltip="{content: '生成表情'}"
                 className="mdui-color-theme mdui-fab mdui-fab-fixed">
                 <i className="mdui-icon material-icons">&#xe5ca;</i>
             </button>
+            <Result src={result} />
             </div>
             <NewPage
                 onClose={()=>{

@@ -11,8 +11,8 @@ function Result(props){
     const { kwd } = props;
     if(kwd === "")return null
     const length = Object.getOwnPropertyNames(mimeTypes).length;
-    const type = Object.keys(mimeTypes);
-    const extension = Object.values(mimeTypes)
+    const type = Object.values(mimeTypes);
+    const extension = Object.keys(mimeTypes)
     var res = [];
     for (var i = length - 1; i >= 0; i--) {
         if (extension[i].indexOf(kwd) !== -1 || type[i].indexOf(kwd) !== -1) {

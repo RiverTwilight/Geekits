@@ -12,6 +12,7 @@ const Result = ({result}) =>{
     return(
         <React.Fragment>
             {result.map(({keyword, baike_info, score},i)=>(
+                <React.Fragment>
                 <div key={i} className="mdui-col mdui-card">
                     <div className="mdui-card-media">
                         {/*baike_info?<img src={baike_info.image_url}/>:""*/}
@@ -25,6 +26,7 @@ const Result = ({result}) =>{
                     </div>
                 </div>
                 <br></br>
+                </React.Fragment>
             ))}
         </React.Fragment>
     )

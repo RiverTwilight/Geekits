@@ -39,7 +39,6 @@ var appinfo = {
 				console.log('缓存没过期')
 				var data = cache.data
 				for (let i in data) {
-					console.log(data[i].link, link)
 					if (data[i].link == link) return data[i]
 				}
 			}
@@ -59,7 +58,7 @@ var appinfo = {
 		if (localStorage.applist) {
 			var cache = JSON.parse(localStorage.applist);
 			if (conDate(cache.date, getFormDate()) <= 3 || !navigator.onLine) {
-				var data = await cache.data
+				let data = await cache.data
 				return data
 			}
 		}

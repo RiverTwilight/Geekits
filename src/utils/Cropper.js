@@ -32,10 +32,13 @@ class CropWindow extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
+            xScaled:false,
+            yScaled:false
         }
     } 
     render(){
-    	const { ifShow, title, onClose, onConfirm, img } = this.props
+        const { xScaled, yScaled } = this.state
+    	const { ifShow, title, cropper, onClose, onConfirm, img } = this.props
     	//用return null会每次重载图片
         return (
             <span style={{display:(!ifShow)?'none':'block'}}>
@@ -63,21 +66,33 @@ class CropWindow extends React.Component{
                                 <li className="mdui-menu-item">
                                     <a 
                                     onClick={()=>{
-
+                                        const { cropper } = this.refs.cropper.refs.cropper
+                                        if (xScaled) {
+                                            cropper.scaleX(1,-1)
+                                        } else {
+                                            cropper.scaleX(-1,1)
+                                        }
+                                        this.setState({xScaled:!xScaled})
                                     }}
                                     >水平翻转</a>
                                 </li>
                                 <li className="mdui-menu-item">
                                     <a 
                                     onClick={()=>{
-
+                                        const { cropper } = this.refs.cropper.refs.cropper
+                                        if (yScaled) {
+                                            cropper.scaleY(1,-1)
+                                        } else {
+                                            cropper.scaleY(-1,1)
+                                        }
+                                        this.setState({yScaled:!yScaled})
                                     }}
                                     >竖直翻转</a>
                                 </li>
                             </ul>
                             <button 
                                 onClick={()=>{
-                                    onClose()
+                                    this.refs.cropper.refs.cropper.cropper.rotate(90)                                   
                                 }}
                                 className="mdui-btn mdui-btn-icon mdui-text-color-white">
                                 <i className="mdui-icon material-icons">rotate_left</i>
@@ -93,6 +108,10 @@ class CropWindow extends React.Component{
                     </div>        
                 </header>
                 <ImgCropper
+                    ref="cropper"
+                    getCropper={ref=>{
+                        this.setState({cropper:ref})
+                    }}
                     onCropperChange={newImg=>{
                         this.setState({cropperCache:newImg})
                     }}

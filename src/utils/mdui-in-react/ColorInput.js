@@ -7,9 +7,6 @@ import PropTypes from 'prop-types'
 
 /***必须要class组件，因为需要用到Ref***/
 class Color extends React.Component {
-	constructor(props) {
-		super(props);	
-	}
 	render(){
 		const { color, text } = this.props
 		return(

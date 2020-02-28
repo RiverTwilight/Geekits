@@ -114,7 +114,6 @@ class Ui extends React.Component {
 					min="50" max="200"
 					onValueChange={newValue=>{
 						this.setState({width:newValue})
-
 					}}
 					title={"大小" + width + "px"}
 				/>				
