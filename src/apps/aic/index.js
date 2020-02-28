@@ -1,22 +1,32 @@
 import React, {Component} from 'react'
 import mdui from 'mdui'
 import axios from 'axios'
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom"
 
 import ListControlMenu from '../../utils/mdui-in-react/ListControlMenu'
 import FileRead from '../../utils/fileread'
 import NewPage from '../../utils/NewPage'
 import Cropper from '../../utils/Cropper'
 
-const Result = props =>{
+const Result = ({result}) =>{
+    if(result === null)return null
     return(
-      <React.Fragment>   
-      </React.Fragment>
+        <React.Fragment>
+            {result.map(({keyword, baike_info, score},i)=>(
+                <div key={i} className="mdui-col mdui-card">
+                    <div className="mdui-card-media">
+                        {/*baike_info?<img src={baike_info.image_url}/>:""*/}
+                        <div className="mdui-card-primary">
+                            <div className="mdui-card-primary-title">{keyword}</div>
+                            <div className="mdui-card-primary-subtitle">相似度:{score}</div>
+                        </div>
+                        <div className="mdui-card-content">
+                            {baike_info.description?baike_info.description:'暂无介绍'}
+                        </div>
+                    </div>
+                </div>
+                <br></br>
+            ))}
+        </React.Fragment>
     )
 }
 
@@ -42,7 +52,6 @@ class Ui extends React.Component {
         super(props);
         this.state = {
             aic_type:0,
-            url:'https://api.ygktool.cn/api/aic',
             image:null,
             data:null,
             ifShow:false,
@@ -50,15 +59,16 @@ class Ui extends React.Component {
         }
     }
     loadDataFromServer(){
-        const { url, image, cropperCache } = this.state
+        const { image } = this.state
         this.refs.load.style.display = 'block';
-        axios.post(this.state.url,{
-            image:cropperCache.split('base64,')[1]
+        axios.post('https://api.ygktool.cn/api/aic',{
+            image:image.split('base64,')[1]
         }).then(response =>{
             var json = JSON.parse(response.request.response);
             console.log(json);
             this.setState({
-                data: json
+                data: json.result,
+                ifShow: true
             })
         }).catch(error => {
             mdui.snackbar({message:error})
@@ -95,8 +105,7 @@ class Ui extends React.Component {
                     <div className="mdui-divider"/>
                     <button 
                         onClick={()=>{
-                        	this.loadDataFromServer();
-                            this.setState({ifShow:true})
+                        	this.loadDataFromServer()
                         }} 
                         disabled={false}
                         className="mdui-ripple mdui-color-theme mdui-fab mdui-fab-fixed">
@@ -111,7 +120,7 @@ class Ui extends React.Component {
                     title="识别结果"
                     ifShow={ifShow}
                 >
-                    <Result data={data} />
+                    <Result result={data} />
                 </NewPage>
                 <Cropper
                     ifShow={ifShowCropper}
