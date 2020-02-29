@@ -81,10 +81,10 @@ class captionMosaic {
 	}
 }
 
-const Preview = props => {
-	if(!props.res)return null
+const Preview = ({res}) => {
+	if(!res)return null
 	return(
-		<img className="mdui-img-fluid" src={ props.res }/>
+		<img className="mdui-img-fluid" src={ res }/>
 	)
 }
 
@@ -199,16 +199,48 @@ class Alubm extends React.Component {
 	}
 }
 
+class VideoShotter extends React.Component {
+	render(){
+		const { video, addImg } = this.props
+	    if(!video)return null
+	   	return(
+	   		<React.Fragment>
+		   		<video ref="video" className="mdui-video-fluid" controls>
+				    <source src={video} type="video/mp4"/>
+				</video>
+				<br></br>
+				<button
+					className="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme"
+					onClick={()=>{
+						var canvas = document.createElement('canvas');
+						var video = this.refs.video;
+						console.log(video)
+						var ctx = canvas.getContext('2d');
+						console.log(video.videoWidth, video.videoHeight);
+						canvas.width = video.videoWidth;
+						canvas.height = video.videoHeight;
+						ctx.drawImage(video,0,0,video.videoWidth,video.videoHeight)
+						var res = canvas.toDataURL()
+						console.log(res);
+						addImg(res)
+					}}
+				>截图</button>
+			</React.Fragment>
+	   	)
+	}
+}
+
 class Ui extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			assests: [],
-			res:null
+			res:null,
+			video:null
 		}
 	}
 	render(){
-		const { assests, res } = this.state;
+		const { assests, res, video } = this.state;
 		return(
 			<React.Fragment>
 			    <Alubm 
@@ -241,21 +273,54 @@ class Ui extends React.Component {
 	                    this.setState({assests:assests})					    	
 				    }} 
 				/>
-			    <br></br>
-			    <FileRead 
-	                fileType="image/*"
-	                multiple={true}
-	                onFileChange={ file =>{
-	                	assests.push({
-	                		img:file,
+                <div
+                    style={{
+                        zIndex:'999',
+                        position:'fixed',
+                        bottom:'0',
+                        right:'0',
+                        left:(window.innerWidth >= 1024)?'240px':'0'
+                    }}
+                    className="mdui-card mdui-p-a-1">
+				    <FileRead 
+		                fileType="image/*"
+		                multiple={true}
+		                onFileChange={ file =>{
+		                	assests.push({
+		                		img:file,
+		                		top:(assests.length >= 1)?(assests[0].cHeight - assests[0].bottom):50,
+		                		bottom:(assests.length >= 1)?0:50,
+		                		cHeight:200
+		                	})
+		                    this.setState({assests:assests})
+		                }}
+		            />
+		            <span style={{margin:'0px 5px 0px 5px'}}></span>	
+		            <FileRead 
+		                maxWidth="220px"
+		                fileType="video/*"
+		                onFileChange={ file =>{
+		                    this.setState({video:file})
+		                }}
+		                text="从视频中截取"
+		            />		            
+	            </div>
+	            <VideoShotter 
+		            video={video}
+		            addImg={img=>{
+		            	assests.push({
+	                		img:img,
 	                		top:(assests.length >= 1)?(assests[0].cHeight - assests[0].bottom):50,
 	                		bottom:(assests.length >= 1)?0:50,
 	                		cHeight:200
 	                	})
-	                    this.setState({assests:assests})
-	                }}
-	            />		            
-	            <br></br><br></br>
+	                    this.setState({assests:assests},()=>{
+	                    	mdui.snackbar({
+	                    		message:'已添加截图'
+	                    	})
+	                    })
+		            }}
+		        />
 	            <button
 		            className="mdui-fab mdui-fab-fixed mdui-color-theme"
 		            onClick={()=>{
@@ -264,11 +329,14 @@ class Ui extends React.Component {
 		            		mos.addImg(assest.img, assest.top/assest.cHeight, assest.bottom/assest.cHeight)
 		            	})
 		            	mos.imgMosaic_Y().then(res=>{
-		            		this.setState({res:res})
+		            		this.setState({res:res},()=>{
+		            			mdui.snackbar({message:'图片制作成功，请在页面底部查看'})
+		            		})
 		            	})
 		            }}>
 		            <i className="mdui-icon material-icons">&#xe5ca;</i>
-	            </button>	
+	            </button>
+                <br></br>	            
 	            <Preview res = {res}/>            
 		    </React.Fragment>
 		)

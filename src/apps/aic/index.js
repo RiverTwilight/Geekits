@@ -88,6 +88,7 @@ class Ui extends React.Component {
                     </div>
                     <center>
                         <FileRead 
+                            maxWidth="220px"
                             fileType="image/*"
                             multiple={false}
                             onFileChange={ file =>{

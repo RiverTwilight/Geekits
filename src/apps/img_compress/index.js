@@ -52,7 +52,7 @@ class Ui extends React.Component {
 				    value={quality}
 					min={0.1} max={1} step={0.1}
 					onValueChange={newValue=>{
-						this.setState({quality:parseInt(newValue)})
+						this.setState({quality:Number(newValue)})
 					}}
 					title={`压缩比率${quality * 100}%`}
 				/>	

@@ -51,6 +51,7 @@ class Index extends React.Component {
         if(window.location.hash){
             this.setState({page:/\#(\S+)/.exec(window.location.hash)[1]})
         }     
+        document.title = '云极客工具'
         mdui.mutation()
     }
     render(){

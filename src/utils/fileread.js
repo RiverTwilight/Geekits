@@ -7,7 +7,7 @@ class FileRead extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			file:'选择文件'
+			file:this.props.text || '选择文件'
 		}
 	}
 	readFile(e) {

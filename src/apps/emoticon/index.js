@@ -129,7 +129,7 @@ class DragText extends React.Component {
 
 //预览图片
 const Preview = props => {
-    const element = <img alt="选择一张图片" height="100%"width='100%' src={props.src||'/emo_assests/ (10).jpg'} />;
+    const element = <img alt="选择一张图片" height="100%"width='100%' src={props.src||'/emo_assests/(10).jpg'} />;
     return element
 }
 
@@ -306,7 +306,7 @@ class Ui extends React.Component {
             >
                 <AssestsList
                     onChoose={i=>{
-                        this.setState({ifShow:false,src:`/emo_assests/ (${i}).jpg`})
+                        this.setState({ifShow:false,src:`/emo_assests/(${i}).jpg`})
                     }}
                 />
             </NewPage>

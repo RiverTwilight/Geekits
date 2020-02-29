@@ -131,8 +131,6 @@ class AppContainer extends React.Component {
             });       
             window.titleRef.innerText = info.name;
             document.title = info.name + " - 云极客工具";
-        }else{
-            document.title = "云极客工具";
         }
     }
     componentWillUnmount(){
