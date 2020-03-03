@@ -201,14 +201,7 @@ class Ui extends React.Component {
             <React.Fragment>
                 <MsgList data={data}/>
                 <div
-                    style={{
-                        zIndex:'999',
-                        position:'fixed',
-                        bottom:'0',
-                        right:'0',
-                        left:(window.innerWidth >= 1024)?'240px':'0'
-                    }}
-                    className="mdui-card mdui-p-a-1">
+                    className="bottom-dashboard mdui-card mdui-p-a-1">
                     <TextInput
                         disabled={(type === 'file')?false:true}
                         onTextChange={newText=>{

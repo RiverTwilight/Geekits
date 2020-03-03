@@ -51,9 +51,9 @@ class Info extends React.Component {
         console.log(this.props.appinfo);
 
         const tips = (help !== "")?
-                    help.split('##').map((line,i)=>(<li key={i} className="mdui-list-item">{line}</li>))
-                    :
-                    <li className="mdui-list-item">没有什么好说明的，若有疑问请加QQ群923724755</li>
+            help.split('##').map((line,i)=>(<li key={i} className="mdui-list-item">{line}</li>))
+            :
+            <li className="mdui-list-item">没有什么好说明的，若有疑问请加QQ群923724755</li>
                     
         return(
             <div className="mdui-card appinfo">

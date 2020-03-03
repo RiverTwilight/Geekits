@@ -4,7 +4,6 @@ import React from 'react'
   *Markdown编辑器 2020-2-12 江村暮
   */
 
-
 const text2md = (str, style, start, end)=>{
 	//截取选中字符串
 	var arr = str.split("");
@@ -37,17 +36,17 @@ const text2md = (str, style, start, end)=>{
 			var md = `<u>${selectedStr}</u>`	
 			break
 		case'link':
-			var md = `[${selectedStr}](https://)`	
+			var md = `[链接文字](链接)`	
 			break 
 		case'enter':
-			var md = `  <br>`	
+			var md = `  <br>\n`	
 			break
 		case'list':
 			var md = `* ${selectedStr}`	
 			break	
 		case'image':
 			var md = `![alt 属性文本](图片地址)`	
-			break			    
+			break		    
 		default:
 		    var md = "88888"
 	}
@@ -55,112 +54,168 @@ const text2md = (str, style, start, end)=>{
 	return arr.join("")
 }
 
+const appMenu = [{
+	icon: "image",
+	style: "image",
+	name: "图片"
+}, {
+	icon: "format_list_bulleted",
+	style: "list",
+	name: "列表"
+}, {
+	icon: "link",
+	style: "link",
+	name: "链接"
+}, {
+	icon: "keyboard_return",
+	style: "enter",
+	name: "换行"
+}]
+
+const textApps = [{
+	style: "h1",
+	text: "大标题"
+}, {
+	style: "h2",
+	text: "中标题"
+}, {
+	style: "h3",
+	text: "小标题"
+}, {
+	icon: "code",
+	style: "code",
+	name: "代码块"
+}, {
+	icon: "format_bold",
+	style: "bold",
+	name: "粗体"
+}, {
+	icon: "format_italic",
+	style: "italic",
+	name: "斜体"
+}, {
+	icon: "format_strikethrough",
+	style: "clear",
+	name: "中划线"
+}, {
+	icon: "format_underlined",
+	style: "underline",
+	name: "下划线"
+}]
+
+const makeFunc = (textarea, content, style, cb) => {
+	return () => {
+		var start = textarea.selectionStart,
+			end = textarea.selectionEnd;
+		cb(text2md(content, style, start, end))
+		textarea.focus()
+		textarea.selectionStart = start;
+		textarea.selectionEnd = end;
+	}
+}
+
 class EditTools extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			showMore:false
+			showTextApps:false,
+			history:[]
 		}
 	}
 	render(){
-		const { showMore } = this.state
-		const apps = [{
-		icon: "title",
-		style: "h1",
-		name:"大标题"
-		}, {
-			icon: "format_size",
-			style: "h2",
-			name:"中标题"
-		}, {
-			icon: "format_size",
-			style: "h3",
-			name:"小标题"
-		}, {
-			icon: "code",
-			style: "code",
-			name:"代码块"
-		}, {
-			icon: "format_bold",
-			style: "bold",
-			name:"粗体"
-		}, {
-			icon: "format_italic",
-			style: "italic",
-			name:"斜体"
-		}, {
-			icon: "format_strikethrough",
-			style: "clear",
-			name:"中划线"
-		}, {
-			icon: "format_underlined",
-			style: "underline",
-			name:"下划线"
-		}, {
-			icon: "link",
-			style: "link",
-			name:"链接"
-		}, {
-			icon: "image",
-			style: "image",
-			name:"图片"
-		}, {
-			icon: "keyboard_return",
-			style: "enter",
-			name:"换行"
-		}, {
-			icon: "format_list_bulleted",
-			style: "list",
-			name:"列表"
-		}]
-		const btnGroup = apps.map((a,i)=>{
-			return(
+		const { showTextApps } = this.state;
+		const { textarea, cb, content, undo, redo } = this.props;
+		return(
+			<React.Fragment>
+			<div className="mdui-btn-group">
+				<button 
+					onClick={()=>{
+						this.setState({showTextApps:!showTextApps})
+					}}
+					type="button" className="mdui-btn">
+				    <i className={`${showTextApps?'mdui-text-color-theme-accent':''} mdui-icon material-icons`}>font_download</i>
+				</button>
+				<button 
+					onClick={()=>{
+						undo()
+					}}
+					type="button" className="mdui-btn">
+				    <i className="mdui-icon material-icons">undo</i>
+				</button>
+				<button 
+					onClick={()=>{
+						redo()
+					}}
+					type="button" className="mdui-btn">
+				    <i className="mdui-icon material-icons">redo</i>
+				</button>
+				{appMenu.map((a,i)=>(
 				<button 
 					mdui-tooltip={`{content: '${a.name}'}`}
-					onClick={()=>{
-						const textarea  = this.props.textarea
-						var start = textarea.selectionStart
-						  , end = textarea.selectionEnd;
-					    console.log(start,end,this.props.content)
-						this.props.cb(text2md(this.props.content, a.style, start, end))
-					}}
-					style={{display:(showMore)?'block':((i>=5)?'none':'block')}}
+					onClick={makeFunc(textarea, content, a.style, cb)}					
 					type="button" className="mdui-btn">
-				    <i className="mdui-icon material-icons">{a.icon}</i>
+				    {a.icon?<i className="mdui-icon material-icons">{a.icon}</i>:a.text}
 				</button>
-			)
-		})
-		return(
-			<div className="mdui-btn-group">
-			{btnGroup}
-			<button 
-				mdui-tooltip={`{content: '${(showMore)?'收起':'显示更多'}'}`}
-				onClick={()=>{
-					this.setState({showMore:!showMore})
-				}}
-				type="button" className="mdui-btn">
-			    <i className="mdui-text-color-theme mdui-icon material-icons">
-			    {(showMore)?'keyboard_arrow_left':'more_horiz'}
-			    </i>
-			</button>
+			    ))}
 			</div>
+			<div 
+				style={{display:(showTextApps)?'block':'none'}}
+				className="bottom-dashboard mdui-card mdui-p-a-1">
+				<div className="mdui-btn-group">
+				{textApps.map((a,i)=>(
+					<button 
+						mdui-tooltip={`{content: '${a.name?a.name:a.text}'}`}
+						onClick={makeFunc(textarea, content, a.style, cb)}
+						type="button" className="mdui-btn">
+					    {a.icon?<i className="mdui-icon material-icons">{a.icon}</i>:a.text}
+					</button>
+			    ))}
+				</div>
+			</div>
+			</React.Fragment>
 		)
 	}
 }	
 
 class MdEditor extends React.Component {
-	constructor(props) {
+	constructor(props){
 		super(props);
+		this.state = {
+			history:[props.content],
+			editVersion:0
+		}
 	}
 	render(){
-		const { content, cb } = this.props			
+		const { content, cb } = this.props		
+		const { editVersion, history } =this.state	
 		return(
 			<React.Fragment>
 				<EditTools 
 		            content={content}
 		            textarea={this.refs.textarea}
 		            cb={newSet=>{
-		            	cb(newSet)
+		            	cb(newSet);
+		            	history.push(newSet)
+		            	this.setState({
+		            		history:history,
+		            		editVersion:history.length - 1
+		            	})
+		            }}
+		            undo={()=>{
+						if (editVersion > 0) {
+							cb(history[editVersion - 1])
+							this.setState({
+								editVersion: editVersion - 1								
+							})
+						}
+		            }}
+		            redo={()=>{
+						if (editVersion < history.length - 1) {
+							cb(history[editVersion + 1])
+							this.setState({
+								editVersion: editVersion + 1								
+							})
+						}
 		            }}
 		        />
 		        <div className="mdui-divider"></div>
@@ -169,10 +224,15 @@ class MdEditor extends React.Component {
 		            <textarea
 			            style={{cursor:'text'}}
 			            ref="textarea"
-		                placeholder='内容，支持markdown' 
+		                placeholder='内容会自动保存，支持markdown' 
 		                rows="40"
 		                onChange={e=>{
-		                   cb(e.target.value)
+							cb(e.target.value);
+							history.push(e.target.value)
+							this.setState({
+								history: history,
+								editVersion: history.length - 1
+							})
 		                }} 
 		                value={content}
 		                autoFocus type='text' className="mdui-textfield-input">

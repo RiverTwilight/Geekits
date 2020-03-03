@@ -22,6 +22,7 @@ const Apps = loadable(() => import('./pages/app'))
 const About = loadable(() => import('./pages/about'))
 const Setting = loadable(() => import('./pages/setting'))
 const User = loadable(() => import('./pages/user'))
+const Feedback = loadable(() => import('./pages/feedback'))
 
 const NoMatch = () => {
     return (
@@ -67,6 +68,7 @@ class App extends React.Component {
                     <Route path="/about" component={About} ></Route>
                     <Route path="/setting" component={Setting}></Route>
                     <Route path="/apps/:name" component={Apps}></Route>
+                    <Route path="/feedback" component={Feedback}></Route>
                     <Route component={NoMatch}/>
                 </Switch>
             </Router>

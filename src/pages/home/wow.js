@@ -2,9 +2,9 @@ import React from 'react'
 import { Link } from "react-router-dom"
 
 //栏目下工具组
-const MakeChips = props => {
-	console.log(props)
-	var chips = props.apps.map((a,i)=>(
+const MakeChips = ({apps}) => {
+	console.log(apps)
+	var chips = apps.map((a,i)=>(
 		<Link to={"/apps/" + a.link}>
             <div className="mdui-chip mdui-text-color-theme-text">
 	            <span className="mdui-chip-title">{a.name}</span>
@@ -55,8 +55,14 @@ class Wow extends React.Component {
 			}]
 		}
     }
-    getDataFromSever(){
-    	//todo
+    componentDidMount(){
+    	fetch('https://api.ygktool.cn/ygktool/channels')
+            .then(res => res.json())
+            .then(json => {
+                console.log(json);
+                this.setState({
+                })
+            })
     }
     render(){
     	const list = this.state.data.map((a,i)=>{   		

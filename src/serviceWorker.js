@@ -74,7 +74,7 @@ function registerValidSW(swUrl, config) {
                   'tabs for this page are closed. See https://bit.ly/CRA-PWA.'
               );
 
-              navigator.serviceWorker.skipWaiting()
+              //navigator.serviceWorker.skipWaiting()
 
               // Execute callback
               if (config && config.onUpdate) {

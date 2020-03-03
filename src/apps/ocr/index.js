@@ -3,9 +3,12 @@ import mdui from 'mdui'
 import axios from 'axios'
 import ClipboardJS from 'clipboard'
 
-import ListControlCheck from '../../utils/mdui-in-react/ListControlCheck'
-import ListControlMenu from '../../utils/mdui-in-react/ListControlMenu'
-import TextInput from '../../utils/mdui-in-react/TextInput'
+import {
+    ListControlMenu,
+    ListControlCheck,
+    TextInput
+} from '../../utils/mdui-in-react/'
+
 import FileRead from '../../utils/fileread'
 import Cropper from '../../utils/Cropper'
 

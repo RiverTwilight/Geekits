@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-if (localStorage.getItem('darkMode') === 'true') {
+if (localStorage.darkMode === 'true') {
 	document.getElementsByTagName('body')[0].classList.add("mdui-theme-layout-dark")
 }
 

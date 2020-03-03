@@ -54,7 +54,6 @@ class Ui extends React.Component {
 	return (
 		<React.Fragment>
             <TextInput
-                autofocus
                 onTextChange={newText=>{
                     this.setState({av:newText})
                 }}
@@ -62,7 +61,6 @@ class Ui extends React.Component {
                 icon="link"
                 type="number"
                 value={this.state.av}
-                TagType="input"
             />
             <div ref="load" style={{display:'none',position:'absolute',top:'0'}} className="mdui-progress">
                 <div className="mdui-progress-indeterminate"></div>

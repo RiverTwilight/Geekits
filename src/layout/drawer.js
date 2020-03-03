@@ -15,18 +15,22 @@ const list = [{
   text: '设置',
   link: '/setting'
 }, {
+  icon: 'comment',
+  iconColor: '',
+  text: '意见反馈',
+  link: '/feedback'
+}, {
   icon: 'bubble_chart',
   iconColor: '',
   text: '关于',
   link: '/about'
 }]
 
-const Menu = props => {
-  var menu = list.map((a,i)=>{
-    return(
+const Menu = props => {   
+    return list.map((a,i)=>(
         <NavLink 
             onClick={()=>{
-                window.leftDrawer.close()
+                window.innerWidth <= 1024 && window.leftDrawer.close()
             }}
             key={i}
             exact className="mdui-list-item mdui-ripple"
@@ -34,9 +38,7 @@ const Menu = props => {
             <i className={"mdui-list-item-icon mdui-icon material-icons mdui-text-color-"+ a.iconColor}>{a.icon}</i> 
             <div className="mdui-list-item-content">{a.text}</div>       
         </NavLink>
-    )
-  })
-  return menu
+    ))
 }
 
 class Drawer extends React.Component {
@@ -44,7 +46,7 @@ class Drawer extends React.Component {
         super(props);
         this.state = {
             data:{
-                appsNumber:46,
+                appsNumber:('applist' in localStorage)?JSON.parse(localStorage.applist).length:30,
                 appsUseTimes:46
             }
         }
@@ -62,7 +64,7 @@ class Drawer extends React.Component {
                 <div id="grad">
                     <div className="text">
                         <p className="title">云极客工具</p>
-                        <p className="subtitle">{`共有${data.appsNumber}个工具被使用了${data.appsUseTimes}次`}</p>
+                        <p className="subtitle">{`共有${data.appsNumber}个工具`}</p>
                     </div>
                 </div>     
                 <ul className="mdui-list"> 

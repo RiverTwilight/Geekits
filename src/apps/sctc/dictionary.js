@@ -8,7 +8,7 @@ function toTraditionChinese(text) {
 	var res = []
 	for (let i = 0; i < words_arr.length; i++) {
 		var order = sc.indexOf(words_arr[i]);
-		res.push(tc_arr[order])
+		res.push(tc_arr[order] || words_arr[i])
 	}
 	return res.join('')
 }
@@ -18,7 +18,7 @@ function toSimpleChinese(text) {
 	var res = []
 	for (let i = 0; i < words_arr.length; i++) {
 		var order = tc.indexOf(words_arr[i]);
-		res.push(sc_arr[order])
+		res.push(sc_arr[order] || words_arr[i])
 	}
 	return res.join('')
 }

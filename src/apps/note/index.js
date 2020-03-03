@@ -54,13 +54,12 @@ class Edit extends React.Component {
 			this.setState({
 				content:this.state.local[index].content,
 				statu:'update',
-				ifUpdateIdIs:index
+				noteId:index
 			})
 		}
 	}
 	render(){
-		const { ifUpdateIdIs, title, local, content, statu} = this.state;
-		const Href = (content === '')?'span':'Link';//若内容为空，取消保存按钮的link属性，防止产生历史记录
+		const { noteId, title, local, content, statu} = this.state;
 		return(
 			<React.Fragment>
 				<TextInput
@@ -68,6 +67,13 @@ class Edit extends React.Component {
 						this.setState({
 							title:newText
 						})
+						var newNote = {
+							title:newText,
+							content:content,
+							tags:'a b c',
+							date:Date.toLocaleString()
+						}
+						updateNote(local, noteId, newNote)
 					}}
 					header="标题（可选）"
 					value={title}
@@ -77,41 +83,26 @@ class Edit extends React.Component {
 	                <a ref="preview" href="#preview" className="mdui-ripple">预览</a>
                 </div>
 	            <div id="input">
-	            <MdEditor
-		            live={true}
-		            content={content}
-		            cb={newText=>{
-		            	this.setState({content:newText})
-		            }}
-		        />
+		            <MdEditor
+			            live={true}
+			            content={content}
+			            cb={newText=>{
+			            	this.setState({content:newText});
+			            	var today = new Date;
+							var newNote = {
+								title:title,
+								content:newText,
+								tags:'a b c',
+								date:today.toLocaleString()
+							}
+							updateNote(local, noteId, newNote)
+			            }}
+			        />
 	            </div>
 	            <div id="preview">
 		            <MarkDown md={content} />
 	            </div>				
-				<Link ref="back" to="/apps/note"></Link>
-				<button
-					onClick={()=>{
-						if(content === ''){
-							mdui.snackbar({message:'请填写内容'})
-							return false
-						}
-						var today = new Date;
-						var newNote = {
-							title:title,
-							content:content,
-							tags:'a b c',
-							date:today.toLocaleString()
-						}
-						if(statu === 'edit'){
-							addNote(local,newNote)
-						}else{
-							updateNote(local, ifUpdateIdIs, newNote)
-						}
-						this.refs.back.click()
-					}}
-					className="mdui-color-theme mdui-fab mdui-fab-fixed">
-					<i className="mdui-icon material-icons">check</i>
-				</button>				
+				<Link ref="back" to="/apps/note"></Link>			
 			</React.Fragment>
 		)
 	}
@@ -195,8 +186,13 @@ class Home extends React.Component {
 					local={local}
 					editHome={editHome}
 				/>
-				<Link to="/apps/note/edit">
+				<Link to={`/apps/note/edit?id=${local.length}`}>
 					<button
+						onClick={()=>{
+							addNote(local,{
+								content:""
+							})
+						}}
 						className="mdui-color-theme mdui-fab mdui-fab-fixed">
 						<i className="mdui-icon material-icons">&#xe145;</i>
 					</button>

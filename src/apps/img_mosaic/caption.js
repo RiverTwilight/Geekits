@@ -274,14 +274,7 @@ class Ui extends React.Component {
 				    }} 
 				/>
                 <div
-                    style={{
-                        zIndex:'999',
-                        position:'fixed',
-                        bottom:'0',
-                        right:'0',
-                        left:(window.innerWidth >= 1024)?'240px':'0'
-                    }}
-                    className="mdui-card mdui-p-a-1">
+					className="bottom-dashboard mdui-card mdui-p-a-1">
 				    <FileRead 
 		                fileType="image/*"
 		                multiple={true}
@@ -297,12 +290,11 @@ class Ui extends React.Component {
 		            />
 		            <span style={{margin:'0px 5px 0px 5px'}}></span>	
 		            <FileRead 
-		                maxWidth="220px"
 		                fileType="video/*"
 		                onFileChange={ file =>{
 		                    this.setState({video:file})
 		                }}
-		                text="从视频中截取"
+		                text="截取视频"
 		            />		            
 	            </div>
 	            <VideoShotter 

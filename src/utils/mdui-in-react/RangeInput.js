@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types'
 
 const RangeInput = ({max, min, step, value, title, onValueChange}) => {
+	console.log(value)
 	return(
 		<div className="mdui-textfield">
 			<label className="mdui-textfield-label">{title}</label>
@@ -18,7 +19,7 @@ const RangeInput = ({max, min, step, value, title, onValueChange}) => {
 		</div>
 	)
 }
-
+/*
 RangeInput.defaultProps = {
     max:10,
     min:1,
@@ -27,12 +28,12 @@ RangeInput.defaultProps = {
 }
 
 RangeInput.propTypes={
-    max:PropTypes.number,
-    min:PropTypes.number,
-    step:PropTypes.number,
-    value:PropTypes.number,
+    max:PropTypes.string,
+    min:PropTypes.string,
+    step:PropTypes.string,
+    value:PropTypes.string,
     onValueChange:PropTypes.func,
     title:PropTypes.string,
 }
-
+*/
 export default RangeInput
