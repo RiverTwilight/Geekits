@@ -1,22 +1,8 @@
 import React from 'react';
 import mdui from 'mdui';
 import html2canvas from 'html2canvas';
-import { saveAs } from 'file-saver';
 
-function dataURLtoFile(dataurl, filename) {
-    //将base64转换为文件
-    var arr = dataurl.split(',')
-      , mime = arr[0].match(/:(.*?);/)[1]
-      , bstr = atob(arr[1])
-      , n = bstr.length
-      , u8arr = new Uint8Array(n);
-    while (n--) {
-        u8arr[n] = bstr.charCodeAt(n);
-    }
-    return new File([u8arr],filename,{
-        type: mime
-    });
-}
+import saveFile from '../../utils/fileSaver'
 
 const IfBr = props =>{
     if(props.statu == 'vertical')return <br></br>
@@ -206,8 +192,9 @@ class Ui extends React.Component {
             <button onClick={()=>{
                 html2canvas(document.querySelector("#blackborad")).then(canvas => {
                     var base64 = canvas.toDataURL("image/png");
-                    saveAs(dataURLtoFile(base64,"ygktool-fake_pornhub_logo.jpg"), "ygktool-emoticon.jpg", {
-                        type: "image/jpg"
+                    saveFile({
+                        file: base64,
+                        filename: "ygktool-fake_pornhub_logo.jpg"
                     })
                 })              
             }} className="mdui-color-theme mdui-fab mdui-fab-fixed">

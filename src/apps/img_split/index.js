@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import Cropper from 'react-cropper'
 import 'cropperjs/dist/cropper.css'
 import JSZip from 'jszip'
-import { saveAs } from 'file-saver'
+import { dataURLtoFile, saveFile } from '../../utils/fileSaver'
 
 //读取文件组件
 import FileRead from '../../utils/fileread'
@@ -35,20 +35,6 @@ class ImgCropper extends React.Component {
 	}
 }
 
-function dataURLtoFile(dataurl, filename) {
-    //将base64转换为文件
-    var arr = dataurl.split(','),
-        mime = arr[0].match(/:(.*?);/)[1],
-        bstr = atob(arr[1]),
-        n = bstr.length,
-        u8arr = new Uint8Array(n);
-    while (n--) {
-        u8arr[n] = bstr.charCodeAt(n);
-    }
-    return new File([u8arr], filename, {
-        type: mime
-    });
-}
 
 //切图
 function Split(src,onCompleted) {
@@ -70,25 +56,21 @@ function Split(src,onCompleted) {
 				imagePieces.push(canvas.toDataURL());
 			}
 		}
-		console.log(imagePieces)
 		onCompleted &&　onCompleted(imagePieces)
 	}
 }
 
-function Gallary(props){
-	if (props.res === []) {return null}
-	var gallary = props.res.map((a,i)=>{
-		return(
+const Gallary = ({res}) => {
+	if (res === [])return null
+	return(
+		<div className="mdui-row-xs-3 mdui-row-sm-4 mdui-row-md-5 mdui-row-lg-6 mdui-row-xl-7 mdui-grid-list">
+        {res.map((a,i)=>(
 			<div key={i} className="mdui-col">
 				<div className="mdui-grid-tile">
 					<img src={a}/>
 				</div>
 			</div>
-		)
-	})
-	return(
-		<div className="mdui-row-xs-3 mdui-row-sm-4 mdui-row-md-5 mdui-row-lg-6 mdui-row-xl-7 mdui-grid-list">
-        {gallary}
+	    ))}
         </div>
 	)
 }
@@ -141,7 +123,10 @@ class Ui extends React.Component {
 							zip.generateAsync({
 								type: "blob"
 							}).then(content => {
-								saveAs(content, "ygktool.img_split.zip")
+								saveFile({
+	                                file: content,
+	                                filename: "ygktool.img_split.zip"
+	                            })
 							})
 						})
 				    }}

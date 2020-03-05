@@ -23,14 +23,14 @@ class Ui extends React.Component {
         super(props);
         this.state = {
             input:'',
-            res:null
+            res:''
         }
     }
     componentWillMount(){
         clipboard && clipboard.destroy();
-        var clipboard = new ClipboardJS('#input');
+        var clipboard = new ClipboardJS('#becopy');
         clipboard.on('success', e=> {
-          mdui.snackbar({message:'已复制链接'})
+          mdui.snackbar({message:'已复制'})
           e.clearSelection();
         })
     }
@@ -39,11 +39,12 @@ class Ui extends React.Component {
     	return (
     		<React.Fragment>
                 <TextInput
-                    onTextChange={newText=>{
-                        var cal = new num2chinese(newText);                        
+                    onTextChange={newText=>{                        
+                        var cal = new num2chinese(newText); 
+                        var result = (newText === '')?'':cal.calDirect()                     
                         this.setState({
                             input:newText,
-                            res:cal.calDirect()
+                            res:result
                         })
                     }}
                     autofocus
@@ -52,7 +53,13 @@ class Ui extends React.Component {
                     type="number"
                     value={input}
                 />
-                <p className="mdui-typo-title">{res}</p>          
+                <p 
+                    style={{display:(res === '')?'none':'block'}}
+                    id="becopy" data-clipboard-text={res} 
+                    className="mdui-text-center mdui-typo-title">
+                    {res}
+                    <button className="mdui-btn-icon mdui-btn"><i class="mdui-icon material-icons">&#xe14d;</i></button>
+                </p>          
             </React.Fragment>
     	)
     }

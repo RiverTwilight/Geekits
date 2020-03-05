@@ -1,7 +1,7 @@
 import React from 'react'
 import mdui from 'mdui'
 import WordCloud from 'wordcloud'
-
+import saveFile from '../../utils/fileSaver'
 
 import {
     ListControlCheck,
@@ -76,6 +76,7 @@ class Words extends React.Component {
                                 this.setState({text:newText})
                             }}
                             header="文字"
+                            placeholder=" "
                             value={text}
                         />
                         <TextInput
@@ -83,6 +84,7 @@ class Words extends React.Component {
                                 this.setState({sizes:newText})
                             }}
                             header="大小,留空为随机"
+                            placeholder=" "
                             type="number"
                             value={sizes}
                         />
@@ -126,15 +128,37 @@ class Ui extends React.Component {
             ],
             NoRotate:false
         }
+        this.create = this.create.bind(this)
+    }
+    componentDidMount(){
+        this.create()
+    }
+    create(){
+        const { words, NoRotate } = this.state       
+        var list = words.map((word)=>(
+            [word[0],(word[1] === "")?RandomNum():word[1]]
+        ))
+        WordCloud(this.refs.test, {
+            list:list,
+            minRotation:(NoRotate)?0:RandomNum(),
+            maxRotation:(NoRotate)?0:RandomNum()
+        })
     }
     render(){
         const { words, NoRotate } = this.state
     	return (
     		<React.Fragment>  
                 <canvas
+                    onClick={()=>{
+                        saveFile({
+                            file: this.refs.test.toDataURL('jpg'),
+                            filename: "ygktool-word_cloud.jpg"
+                        })
+                    }}
                     style={{width:'100%',border:'2px solid #888888'}}
-                    ref="test">
-                </canvas>
+                    ref="test"
+                />
+                <span className="mdui-typo-caption-opacity mdui-text-center">点击图片即可保存</span>
                 <div className="mdui-tab" mdui-tab="true">
                     <a href="#text" className="mdui-ripple">文字</a>
                     <a href="#option" className="mdui-ripple">高级</a>
@@ -175,16 +199,7 @@ class Ui extends React.Component {
                     />    
                 </div>   
             <button 
-                onClick={()=>{
-                    var list = words.map((word)=>(
-                        [word[0],(word[1] === "")?RandomNum():word[1]]
-                    ))
-                	WordCloud(this.refs.test, {
-                        list:list,
-                        minRotation:(NoRotate)?0:RandomNum(),
-                        maxRotation:(NoRotate)?0:RandomNum()
-                    });
-                }} 
+                onClick={this.create} 
                 className="mdui-ripple mdui-fab mdui-color-theme-accent mdui-fab-fixed">
                 <i class="mdui-icon material-icons">&#xe5ca;</i>
             </button>

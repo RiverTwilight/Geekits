@@ -2,7 +2,7 @@ import React from 'react'
 import mdui from 'mdui'
 import axios from 'axios'
 import ClipboardJS from 'clipboard'
-import { saveAs } from 'file-saver'
+import saveFile from '../../utils/fileSaver'
 
 import Color from '../../utils/mdui-in-react/ColorInput'
 import TextInput from '../../utils/mdui-in-react/TextInput'
@@ -11,20 +11,6 @@ import ListControlMenu from '../../utils/mdui-in-react/ListControlMenu'
 
 /***https://developer.mozilla.org/zh-CN/docs/Web/Manifest***/
 
-function dataURLtoFile(dataurl, filename) {
-    //将base64转换为文件
-    var arr = dataurl.split(','),
-        mime = arr[0].match(/:(.*?);/)[1],
-        bstr = atob(arr[1]),
-        n = bstr.length,
-        u8arr = new Uint8Array(n);
-    while (n--) {
-        u8arr[n] = bstr.charCodeAt(n);
-    }
-    return new File([u8arr], filename, {
-        type: mime
-    });
-}
 
 const Preview = props => {
 	const { config } = props;
@@ -67,8 +53,11 @@ const Preview = props => {
 	        />
 	        <button 
 		        onClick={()=>{
-		        	var blob = new Blob([res], {type: "application/json;charset=utf-8"});
-			        saveAs(blob, "manifest.json")		            	
+		        	var blob = new Blob([res], {type: "application/json;charset=utf-8"});	
+			        saveFile({
+                        file: blob,
+                        filename: "manifest.json"
+                    })	            	
 		        }}
 		        className="mdui-btn mdui-btn-raised mdui-color-theme">
 		        下载manifest.json

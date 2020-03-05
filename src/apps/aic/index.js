@@ -62,7 +62,7 @@ class Ui extends React.Component {
     }
     loadDataFromServer(){
         const { image } = this.state
-        this.refs.load.style.display = 'block';
+        window.loadShow()
         axios.post('https://api.ygktool.cn/api/aic',{
             image:image.split('base64,')[1]
         }).then(response =>{
@@ -75,7 +75,7 @@ class Ui extends React.Component {
         }).catch(error => {
             mdui.snackbar({message:error})
         }).then(()=>{
-            this.refs.load.style.display = 'none'
+            window.loadHide()
         })
     }
     render(){

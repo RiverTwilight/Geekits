@@ -1,6 +1,6 @@
 import React from 'react'
 import mdui from 'mdui'
-import { saveAs } from 'file-saver'
+import saveFile from '../../utils/fileSaver'
 import GIF from 'gif.js'
 
 import FileRead from '../../utils/fileread'
@@ -49,9 +49,11 @@ function engine(file, config, videoRef, callback) {
 			message: '制作完成',
 			buttonText: '下载',
 			onButtonClick: () => {
-				saveAs(blob, "ygktool-gif.gif", {
-					type: "image/gif"
-				})
+				saveFile({
+                    file: blob,
+                    type: "gif",
+                    filename: "ygktool-gif"
+                })
 			}
 		})
 	})

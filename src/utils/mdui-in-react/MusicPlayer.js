@@ -20,12 +20,14 @@ class MusicPlayer extends React.Component {
 		if (nextProps.audio) {
 			var {
 				audioDom
-			} = this.refs;
-			audioDom.load();
-			audioDom.addEventListener('play', () => {
+			} = this.refs;			
+			audioDom.addEventListener('loadedmetadata', () => {
 				this.setState({
-					audioLength: Math.round(audioDom.duration)//设置音频总长度
-				})
+					audioLength: Math.round(audioDom.duration)//设置音频总长度				
+				},()=>mdui.updateSliders())
+		    })
+		    audioDom.load();
+			audioDom.addEventListener('play', () => {
 				window.progress = setInterval(() => {
 					this.setState({
 						playProgress: audioDom.currentTime
@@ -76,12 +78,13 @@ class MusicPlayer extends React.Component {
 							    type="button" className="mdui-btn">
 							    <i className="mdui-icon material-icons">{(onPlay)?'pause':'play_arrow'}</i>
 							</button>
-						    <button
-							    type="button" 
-							    onClick={()=>window.open(audio)}
-							    className="mdui-btn">
-							    <i className="mdui-icon material-icons">file_download</i>
-							</button>
+						    <a target="_blank" href={audio} download>
+							    <button
+								    type="button" 
+								    className="mdui-btn">
+								    <i className="mdui-icon material-icons">file_download</i>
+								</button>
+							</a>
 						</div>
 					</center>
 				   	<audio ref="audioDom" style={{display:'none'}} controls="controls">

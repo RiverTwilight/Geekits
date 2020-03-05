@@ -53,9 +53,17 @@ class App extends React.Component {
     constructor(props) {
         super(props);
     }
+    componentDidMount() {
+        const { loading } = this.refs
+        window.loadShow = ()=> loading.style.display = 'inline-block';
+        window.loadHide = ()=> loading.style.display = 'none';
+    }
     render(){
         return(
-            <Router>     
+            <Router>  
+                <div style={{display:'none'}} ref="loading" class="mdui-progress">
+                    <div class="mdui-progress-indeterminate"></div>
+                </div>  
                 <Header 
                     getRef={ref=>{
                         window.titleRef = ref

@@ -60,7 +60,7 @@ class Drawer extends React.Component {
     render(){
         const { data } = this.state;
         return (
-            <div id="left-drawer" className="mdui-drawer">
+            <div id="left-drawer" className="mdui-drawer">            
                 <div id="grad">
                     <div className="text">
                         <p className="title">云极客工具</p>
@@ -86,6 +86,7 @@ class Drawer extends React.Component {
                     <div className="mdui-divider"/>
                     <Menu drawerBtn={this.props.drawerBtn} />
                 </ul> 
+                <p className="mdui-text-center copyright">©2019-2020&nbsp;云极客工具</p>
             </div>
         )
     }

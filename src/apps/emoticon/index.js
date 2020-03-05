@@ -1,32 +1,15 @@
 import React from 'react'
 import mdui from 'mdui'
-import { saveAs } from 'file-saver'
+import saveFile from '../../utils/fileSaver'
 import html2canvas from 'html2canvas'
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 import NewPage from '../../utils/NewPage'
-import Color from '../../utils/mdui-in-react/ColorInput'
-import RangeInput from '../../utils/mdui-in-react/RangeInput'
-import TextInput from '../../utils/mdui-in-react/TextInput'
+import { ColorInput, RangeInput, TextInput } from '../../utils/mdui-in-react'
 import FileRead from '../../utils/fileread'
-/*
-function dataURLtoFile(dataurl, filename) {
-    //将base64转换为文件
-    var arr = dataurl.split(',')
-      , mime = arr[0].match(/:(.*?);/)[1]
-      , bstr = atob(arr[1])
-      , n = bstr.length
-      , u8arr = new Uint8Array(n);
-    while (n--) {
-        u8arr[n] = bstr.charCodeAt(n);
-    }
-    return new File([u8arr],filename,{
-        type: mime
-    })
-}
-*/
+
 const Result = ({ src }) =>{
-    if(src === null)return null
+    if(!src)return null
     return(
         <img src={src} className="mdui-img-fluid"/>
     )
@@ -138,7 +121,7 @@ const StyleSet = (props) => {
     return(
         <div className="mdui-row-xs-2">
             <div className="mdui-col">
-                <Color
+                <ColorInput
                     text="文本颜色"
                     color={props.color}
                     onColorChange={newColor=>{
@@ -285,12 +268,15 @@ class Ui extends React.Component {
             <button 
                 onClick={()=>{
                     html2canvas(document.querySelector("#capture")).then(canvas => {
-                       var base64 = canvas.toDataURL("image/png");
-                       this.setState({result:base64})
-                       /*saveAs(dataURLtoFile(base64,"ygktool-emoticon.jpg"), "ygktool-emoticon.jpg", {
-                        type: "image/jpg"
-                       })*/
-                   })       
+                        var base64 = canvas.toDataURL("image/png");
+                        this.setState({
+                            result: base64
+                        })
+                        saveFile({
+                            file: base64,
+                            filename: "ygktool-emoticon.jpg"
+                        })
+                    })
                 }}
                 className="mdui-color-theme mdui-fab mdui-fab-fixed">
                 <i className="mdui-icon material-icons">&#xe5ca;</i>

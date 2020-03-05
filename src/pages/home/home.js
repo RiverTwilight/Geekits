@@ -1,7 +1,7 @@
 import React from 'react'
 import mdui from 'mdui'
 import { Link } from "react-router-dom"
-import appinfo from '../../utils/appinfo'
+import applist from '../../utils/applist'
 import fiv from '../../utils/fiv'
 import TextInput from '../../utils/mdui-in-react/TextInput'
 
@@ -58,7 +58,7 @@ const AppList = props => {
     return(
         <ul className="mdui-row-md-3 mdui-list">
             <li className="mdui-subheader">全部工具</li>
-            {props.applist.map((a,i)=>(
+            {applist.map((a,i)=>(
                 <Link key={i} to={'/apps/' + a.link} >
                     <li className="mdui-col mdui-list-item mdui-ripple">
                         <i className={"mdui-list-item-icon mdui-icon material-icons mdui-text-color-" + a.icon_color}>{a.icon}</i> 
@@ -75,28 +75,52 @@ class Notice extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            title:'旧版的更多功能即将到来....',
-            text:`旧版拥有的丰富功能会逐步移植到新版，加群以关注更新动态！群号：923724755`
+            date:null,
+            id:null,
+            content:null
         }
     }
+    componentDidMount() {
+        this.getNoticeFromSever()
+    }
+    showNotice(){
+        const { date, content, id } = this.state;        
+        mdui.alert(content, date + '公告',
+            () => {
+                localStorage.setItem('readedNotice', id)
+            },
+            {
+                confirmText: '我知道了',
+                history:false,
+            })
+    }
     getNoticeFromSever(){
-        //todo
+        fetch('https://api.ygktool.cn/ygktool/notice')
+            .then(res => res.json())
+            .then(json => {
+                console.log(json[0]);
+                const { primary, content, date} = json[0]
+                this.setState({                    
+                    id:primary,
+                    content:content.replace(/\n/g,'<br>'),
+                    date:date                  
+                },()=>{
+                    if(!localStorage.readedNotice || localStorage.readedNotice != primary)this.showNotice()
+                })
+            })
     }
     render(){
-        const { title, text } = this.state;
+        const { date, content } = this.state;
     	return(
         	<ul
                 onClick={()=>{
-                    mdui.alert(text, title, ()=>{},{
-                        confirmText:'我知道了'
-                    })
+                    this.showNotice()
                 }}
                 className="mdui-card mdui-list">
                 <li className="mdui-list-item mdui-ripple">
                 <i className="mdui-list-item-avatar mdui-icon material-icons">event_note</i>
                 <div className="mdui-list-item-content">
-                    <div className="mdui-list-item-title mdui-list-item-one-line">{title}</div>
-                    <div className="mdui-list-item-text mdui-list-item-two-line">{text}</div>
+                    <div className="mdui-list-item-title">公告</div>
                 </div>
                 <i className="mdui-list-item-icon mdui-icon material-icons">keyboard_arrow_right</i>
                 </li>
@@ -143,8 +167,8 @@ class Search extends React.Component{
     search(){
         const kwd = this.state.kwd;
         var res = []
-        this.props.applist.map(app=>{
-            if(app.name.indexOf(kwd) !== -1)res.push(app)
+        applist.map(app=>{
+            if(app.name.toLowerCase().indexOf(kwd.toLowerCase()) !== -1)res.push(app)
         })       
         if(kwd !== ''){
           this.state.getResult(res,kwd)
@@ -156,7 +180,6 @@ class Search extends React.Component{
     return(
         <div className="mdui-textfield">
             <i className="mdui-icon material-icons">search</i>
-
             <input
                 ref="search"
                 onChange={e=>{
@@ -178,14 +201,8 @@ class Whole extends React.Component{
         super(props);
         this.state = {
             kwd:'',
-            searchResult:[],
-            applist:[]
+            searchResult:[]
         }
-    }
-    async componentWillMount() {
-        var list = await appinfo.getAll();
-        console.log(list)
-        this.setState({applist:list})
     }
     render(){
         const { kwd, searchResult, applist } = this.state
@@ -193,7 +210,6 @@ class Whole extends React.Component{
             <React.Fragment>            
                 <Notice />
                 <Search 
-                    applist={applist}
                     getResult={(res,kwd)=>{
                         this.setState({
                           searchResult:res,
@@ -206,7 +222,7 @@ class Whole extends React.Component{
                     result={searchResult}
                 />
                 <FivList />
-                <AppList applist={applist} />
+                <AppList />
             </React.Fragment>
         )
     }

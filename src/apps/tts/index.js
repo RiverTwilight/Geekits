@@ -133,10 +133,10 @@ class Ui extends React.Component {
 					}}
 					className="mdui-color-theme mdui-fab mdui-fab-fixed"
 				><i className="mdui-icon material-icons">&#xe5ca;</i></button>
-				<MusicPlayer
+				<span style={{display:res === null?'none':'block'}}><MusicPlayer
 					title="合成结果"
 					audio={res}
-				/>
+				/></span>
 			</React.Fragment>
 		)
 	}

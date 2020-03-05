@@ -44,7 +44,7 @@ const exportSame = (a, b) => {
 
 const Result = props =>{
     if(!props.similar)return null
-        props.loadRef.style.display = 'none'
+        window.loadHide()
     return (
         <ul className="mdui-list">
             <li class="mdui-subheader">对比歌单</li>
@@ -85,22 +85,21 @@ class Ui extends React.Component {
         }
     }
     loadCommentsFromServer(url, callback) {
-        if (url2Id(url)) {
-            const listid = url2Id(url);
-            console.log(url)
-            this.refs.load.style.display = 'block'
-            axios.get(this.state.url + listid).then(response => {
-                var json = JSON.parse(response.request.response);
-                callback && 　callback(json.playlist)
-            }).catch(error => {
-                mdui.snackbar({
-                    message: error
-                })
-                this.refs.load.style.display = 'none'
-            })
-        } else {
+        if(!url2Id(url)){
             mdui.snackbar({message:'解析链接失败'})
+            return
         }
+        const listid = url2Id(url);
+        window.loadShow()
+        axios.get(this.state.url + listid).then(response => {
+            var json = JSON.parse(response.request.response);
+            callback && 　callback(json.playlist)
+        }).catch(error => {
+            mdui.snackbar({
+                message: error
+            })
+            window.loadHide()
+        })
     }
     render(){
         const { listidA, listidB, dataA, dataB } = this.state;

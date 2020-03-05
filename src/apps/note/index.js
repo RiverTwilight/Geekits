@@ -128,6 +128,7 @@ const deleteNote = (local, i, cb) =>{
 
 const NotesList = props => {
 	var list = props.local.map((a,i)=>{
+		if(a.content === '')return null
 		let title = (a.title)?<div className="mdui-list-item-title mdui-list-item-one-line">{a.title}</div>
 		:
 		null;

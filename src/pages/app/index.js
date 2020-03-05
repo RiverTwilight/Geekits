@@ -2,12 +2,12 @@ import React from 'react'
 import Loadable from 'react-loadable'
 import mdui from 'mdui'
 import {
-  BrowserRouter as Router,
-  Route,
-  withRouter
+    BrowserRouter as Router,
+    Route,
+    withRouter
 } from "react-router-dom"
 
-import appinfo from '../../utils/appinfo'
+import getInfo from '../../utils/appinfo'
 import fiv from '../../utils/fiv'
 
 const LoadApp = loader => {
@@ -15,21 +15,6 @@ const LoadApp = loader => {
     loader:() => import( '../../apps/' + loader),
     loading () {return <div className="main-load"><div className="mdui-spinner mdui-spinner-colorful"></div></div>}
   })
-}
-
-//问题&反馈
-const bugReport = ()=> {
-    mdui.prompt(
-        '请详细描述您遇到的问题，可以附加联系方式以便我反馈', 
-        window.titleRef.innerText,
-        value => {},
-        value => {}, {
-            type: 'textarea',
-            maxlength: 200,
-            confirmText: '提交',
-            cancelText: '取消'
-        }
-    )
 }
 
 //工具信息组件
@@ -100,9 +85,8 @@ class Info extends React.Component {
                         </i>
                     </button>
                     <button 
-                        onClick={bugReport}
-                        mdui-tooltip="{content: '问题反馈'}" className="mdui-btn mdui-btn-icon mdui-ripple">
-                        <i className="mdui-text-color-theme mdui-icon material-icons">mode_comment</i>                
+                        mdui-tooltip="{content: '获取代码'}" className="mdui-btn mdui-btn-icon mdui-ripple">
+                        <i className="mdui-text-color-theme mdui-icon material-icons">code</i>                
                     </button>   
                     <a 
                         href="https://jq.qq.com/?_wv=1027&amp;k=59hWPFs" target="_blank"
@@ -124,7 +108,7 @@ class AppContainer extends React.Component {
         }       
     }
     async componentWillMount() {
-        var info = await appinfo.get(/\/([^\/]+)$/.exec(this.props.location.pathname)[1]);
+        var info = getInfo(/\/([^\/]+)$/.exec(this.props.location.pathname)[1]);
         if (info) {
             this.setState({
                 appinfo: info

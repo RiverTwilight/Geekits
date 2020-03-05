@@ -36,7 +36,7 @@ class Ui extends React.Component {
         })
     }
     loadCommentsFromServer(){
-        this.refs.load.style.display = 'block';
+        window.loadShow()
         axios({
             method: 'get',
             url: this.state.url + this.state.av,
@@ -47,35 +47,32 @@ class Ui extends React.Component {
         }).catch(error => {
             mdui.snackbar({message:error})
         }).then(()=>{
-            this.refs.load.style.display = 'none'
+            window.loadHide()
         })
     }
-  render(){
-	return (
-		<React.Fragment>
-            <TextInput
-                onTextChange={newText=>{
-                    this.setState({av:newText})
-                }}
-                header="输入AV号"
-                icon="link"
-                type="number"
-                value={this.state.av}
-            />
-            <div ref="load" style={{display:'none',position:'absolute',top:'0'}} className="mdui-progress">
-                <div className="mdui-progress-indeterminate"></div>
-            </div>           
-        <button 
-            onClick={()=>{
-            	this.loadCommentsFromServer()
-            }} 
-            className="mdui-ripple mdui-color-pink-300 mdui-float-right mdui-btn-raised mdui-btn">
-            哔哩哔哩 (゜-゜)つロ 干杯~
-        </button>
-        <div className="mdui-clearfix"></div>
-        <Result src={this.state.data}/>
-        </React.Fragment>
-	)
+    render(){
+    	return (
+    		<React.Fragment>
+                <TextInput
+                    onTextChange={newText=>{
+                        this.setState({av:newText})
+                    }}
+                    header="输入AV号"
+                    icon="link"
+                    type="number"
+                    value={this.state.av}
+                />          
+                <button 
+                    onClick={()=>{
+                    	this.loadCommentsFromServer()
+                    }} 
+                    className="mdui-ripple mdui-color-pink-300 mdui-float-right mdui-btn-raised mdui-btn">
+                    哔哩哔哩 (゜-゜)つロ 干杯~
+                </button>
+                <div className="mdui-clearfix"></div>
+                <Result src={this.state.data}/>
+            </React.Fragment>
+    	)
     }
 }
 

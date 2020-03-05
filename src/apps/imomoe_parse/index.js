@@ -61,7 +61,7 @@ class Ui extends React.Component {
         })
     }
     loadCommentsFromServer(){
-        this.refs.load.style.display = 'block';
+        window.loadShow()
         const {url} = this.state;
         function loadJosnp() {
             var VideoListJson
@@ -80,7 +80,7 @@ class Ui extends React.Component {
             })
         }       
         loadJosnp().then(() => {
-            this.refs.load.style.display = 'none'
+            window.loadHide()
             //console.log(VideoListJson);
             //this.setState({data:VideoListJson})
         })

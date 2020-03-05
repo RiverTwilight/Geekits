@@ -124,7 +124,7 @@ class Ui extends React.Component {
     }
     loadDataFromServer(){
         const { url, image, language_type } = this.state
-        this.refs.load.style.display = 'block';
+        window.loadShow()
         this.refs.startBtn.disabled = true
         axios.post(this.state.url,{
             image:image.split('base64,')[1],
@@ -136,7 +136,7 @@ class Ui extends React.Component {
         }).catch(error => {
             mdui.snackbar({message:error})
         }).then(()=>{
-            this.refs.load.style.display = 'none'
+            window.loadHide()
             this.refs.startBtn.disabled = false
         })
     }

@@ -30,8 +30,13 @@ class ImgSetting extends React.Component {
 		this.setState({form:form})
 	}
 	render(){
-		var form = this.state.form.map((a,i)=>{
-			return(
+		const { form } = this.state;
+
+	    return(
+		<div className="mdui-dialog" id="setting"> 
+		    <div className="mdui-dialog-title">设置</div> 
+		    <div className="mdui-dialog-content">{
+		    form.map((a,i)=>(
 				<div key={i} className="mdui-textfield">
 					<label className="mdui-textfield-label">{a.name}</label>
 					<input 
@@ -41,21 +46,17 @@ class ImgSetting extends React.Component {
 						}}
 						className="mdui-textfield-input" type="number"/>
 				</div>
-			)
-	    })
-	    return(
-		<div className="mdui-dialog" id="setting"> 
-		    <div className="mdui-dialog-title">设置</div> 
-		    <div className="mdui-dialog-content">{form}</div> 
+		    ))
+		    }</div> 
 		    <div className="mdui-dialog-actions"> 
 		        <button className="mdui-btn mdui-ripple" mdui-dialog-close="">关闭</button> 
 		        <button
 			        onClick={()=>{
 						var data = {
-							height: this.state.form[0].value,
-							width: this.state.form[1].value,
-							quality: this.state.form[2].value,
-							delay: this.state.form[3].value * 1000
+							height: (form[0].value === "")?null:form[0].value,
+							width: (form[1].value ==="")?null:form[1].value,
+							quality: form[2].value,
+							delay: form[3].value * 1000
 						}
 			        	this.props.saveConfig(data)
 			        }} 
@@ -110,7 +111,7 @@ function img2gif(assests, config, loadRef, callback) {
 			height: height,
 			width: width,
 			workerScript:'/gif.worker.js'
-		});
+		})
 
 		assests.map((src,i)=>{
 			let img = document.createElement('img');
@@ -135,13 +136,12 @@ function img2gif(assests, config, loadRef, callback) {
 	}
 }
 
-function Preview(props){
-	if(props.src === '')return null
+const Preview = ({src}) => {
+	if(!src)return null
 	return(
-		<img className="mdui-img-fluid" src={ props.src }/>
+		<img className="mdui-img-fluid" src={src}/>
 	)
 }
-
 
 class Img2Gif extends React.Component {
 	constructor(props) {
@@ -154,7 +154,7 @@ class Img2Gif extends React.Component {
 				quality: 10,
 				delay: 1000
 			},
-			res:''
+			res:null
 		}
 	}
 	render(){
@@ -192,7 +192,7 @@ class Img2Gif extends React.Component {
 	            <button
 		            className="mdui-fab mdui-fab-fixed mdui-color-theme"
 		            onClick={()=>{
-		            	img2gif(assests,config,this.refs.load,res=>{
+		            	img2gif(assests, config, this.refs.load, res=>{
 		            		this.setState({res:res})
 		            	})
 		            }}>

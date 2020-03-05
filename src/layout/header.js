@@ -3,6 +3,39 @@ import mdui from 'mdui'
 
 import Drawer from './drawer'
 
+//将一言添加到便签
+const addSaying2Fiv = saying => {
+    var content = `  <br>${saying.say}  ———来自 ${saying.from}`
+    var today = new Date()   
+    var newNote = {
+        title: '一言收藏',
+        content: content,
+        tags: 'a b c',
+        date: today.toLocaleString()
+    }
+    if (localStorage.note) {
+        var notes = JSON.parse(localStorage.note);
+        var hasNote = false;
+        notes.map(note => {
+            if (note.title === '一言收藏') hasNote = true
+        })
+        if (hasNote) {
+            for (let i = 0; i <= notes.length; i++) {
+                var note = notes[i];
+                if (note && note.title === '一言收藏') {
+                    note.content += content;
+                    note.date = today.toLocaleString()
+                }
+            }
+        } else {
+            notes.push(newNote)
+        }
+    } else {
+        notes = [newNote]
+    }
+    localStorage.setItem('note', JSON.stringify(notes))
+}
+
 class Header extends React.Component{
     constructor(props) {
         super(props);
@@ -16,9 +49,7 @@ class Header extends React.Component{
             }
         }
     } 
-    componentDidMount(){
-        this.props.getRef(this.refs.headerTitle);//将ref传给父组件，方便修改标题
-        
+    loadSaying(){
         var { hitokotoTopic } = localStorage
         console.log(hitokotoTopic);
         var url = (!hitokotoTopic)?"":`?topic=${hitokotoTopic}`       
@@ -34,8 +65,12 @@ class Header extends React.Component{
                 })
             })
     }
+    componentDidMount(){
+        this.loadSaying()
+        this.props.getRef(this.refs.headerTitle);//将ref传给父组件，方便修改标题       
+    }
     render(){
-        const { saying } = this.state
+        const { saying, title } = this.state
         return (
             <React.Fragment>
                 <Drawer drawerBtn={this.refs.drawerBtn}/> 
@@ -53,12 +88,21 @@ class Header extends React.Component{
                                         `${saying.say}<br>来自：${saying.from}`,
                                         '一言',
                                         () => {
+                                            addSaying2Fiv(saying);
+                                            mdui.snackbar({
+                                                message:'已收藏至便签',
+                                                buttonText: '打开便签',
+                                                onButtonClick: () => {
+                                                    window.location.href = "/apps/note"
+                                                }
+                                            })
                                         },
                                         () => {
+                                            this.loadSaying()
                                         },{
                                             history:false,
-                                            confirmText:'复制',
-                                            cancelText:'收藏'
+                                            confirmText:'收藏',
+                                            cancelText:'刷新'
                                         }
                                     )
                                 }}
@@ -67,7 +111,7 @@ class Header extends React.Component{
                                 ref="headerTitle"
                                 className="mdui-typo-title mdui-text-color-white header-width-saying"
                             >
-                            {this.state.title || '云极客工具'}                               
+                            {title || '云极客工具'}                               
                             </div>
                             <span className="mdui-text-truncate saying mdui-text-color-white">{saying.say}</span>
                             </a>

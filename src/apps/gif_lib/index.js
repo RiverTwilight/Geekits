@@ -1,7 +1,7 @@
 import React from 'react'
 import SuperGif from 'libgif'
 import JSZip from 'jszip'
-import { saveAs } from 'file-saver'
+import saveFile from '../../utils/fileSaver'
 import './style.css'
 import FileRead from '../../utils/fileread'
 
@@ -85,7 +85,11 @@ class Ui extends React.Component {
 						zip.generateAsync({
 							type: "blob"
 						}).then(content => {
-							saveAs(content, "ygktool.gif_lib.zip")
+							saveFile({
+		                        file: content,
+		                        type: "zip",
+		                        filename: "ygktool.gif_lib"
+		                    })
 						})
 					}}
 					style={{display:(res.length)?'block':'none'}}

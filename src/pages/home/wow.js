@@ -1,37 +1,48 @@
 import React from 'react'
 import { Link } from "react-router-dom"
-
+import applist from '../../utils/applist'
 //栏目下工具组
 const MakeChips = ({apps}) => {
-	console.log(apps)
-	var chips = apps.map((a,i)=>(
-		<Link to={"/apps/" + a.link}>
-            <div className="mdui-chip mdui-text-color-theme-text">
-	            <span className="mdui-chip-title">{a.name}</span>
-            </div>
-        </Link>
-	))
+	var chips = apps.map((a,i)=>{
+		if(!a)return null
+		return(
+			<Link to={"/apps/" + a.link}>
+	            <div className="mdui-chip mdui-text-color-theme-text">
+		            <span className="mdui-chip-title">{a.name}</span>
+	            </div>
+	        </Link>
+        )
+	})
 	return chips
 }
 
 //分类栏目
-const MakeChannels = props =>{
-	var { img, name, apps, description } = props.data;
+const MakeChannels = ({data}) =>{
+	var { name, apps, icon } = data;
 	return(
-		<div className="channel mdui-card mdui-p-a-1">
-	        <li className=" mdui-list-item">
-	            <div className="mdui-list-item-avatar">
-		            <img src={img}/></div>
-	            <div className="mdui-list-item-content">
-		            <div className="mdui-list-item-title">{name}</div>
-		            <div className="mdui-list-item-text mdui-list-item-one-line">
-		            {description}
-		            </div>
-		        </div>
-	        </li>
-	        <MakeChips apps={apps} />
-        </div>
+        <React.Fragment>
+			<div className="channel mdui-card mdui-p-a-1">
+		        <li className="mdui-list-item">
+			        <i class="mdui-list-item-icon mdui-icon material-icons">{icon}</i>
+		            <div className="mdui-list-item-content">
+			            <div className="mdui-list-item-title">{name}</div>
+			        </div>
+		        </li>
+		        <MakeChips apps={apps} />
+	        </div>
+            <br></br>
+	    </React.Fragment>
     )
+}
+
+const getChannelName = index => {
+	const channels = ['AI人工智能', '图片视频', '编程开发', '生活常用']
+	return channels[index - 1]
+}
+
+const getChannelIcon = index => {
+	const icons = ['brightness_auto', 'photo', 'code', 'brightness_7']
+	return icons[index - 1]
 }
 
 /********发现*********/
@@ -39,38 +50,25 @@ class Wow extends React.Component {
     constructor(props) {
         super(props);
 		this.state = {
-			data: [{
-				name: 'AI',
-				description:'Only my railgun',
-				img:null,
-				apps: [{
-					name: 'pornhub风格图片生成',
-					link: 'fake_pornhub_logo',
-					icon: ''
-				}, {
-					name: 'B站视频封面获取',
-					link: 'bilibili_cover',
-					icon: ''
-				}]
-			}]
+			data: []
 		}
     }
-    componentDidMount(){
-    	fetch('https://api.ygktool.cn/ygktool/channels')
-            .then(res => res.json())
-            .then(json => {
-                console.log(json);
-                this.setState({
-                })
-            })
-    }
     render(){
-    	const list = this.state.data.map((a,i)=>{   		
-    		return(
-    			<MakeChannels key={i} data={a} />
-    		)
-    	})
-    	return list
+    	var channelType = []
+		for (var i = applist.length - 1; i >= 0; i--) {
+			let app = applist[i];
+			if (!channelType.includes(app.channel)) {
+				channelType.push(app.channel)
+			}
+		}
+		
+		var data = channelType.map(channel => ({
+			name: getChannelName(channel),
+			icon: getChannelIcon(channel),
+			apps: applist.filter((app) => app.channel === channel)
+		}))
+    	console.log(data)
+    	return data.map((a,i)=>(<MakeChannels key={i} data={a} />))
     }    
 }
 

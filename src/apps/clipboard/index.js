@@ -4,25 +4,10 @@ import mdui from 'mdui'
 import ClipboardJS from 'clipboard'
 import io from 'socket.io-client'
 import QRCode from 'qrcode'
-import { saveAs } from 'file-saver'
+import saveFile from '../../utils/fileSaver'
 
 import FileRead from '../../utils/fileread'
 import TextInput from '../../utils/mdui-in-react/TextInput'
-
-function dataURLtoFile(dataurl, filename) {
-    //将base64转换为文件
-    var arr = dataurl.split(',')
-      , mime = arr[0].match(/:(.*?);/)[1]
-      , bstr = atob(arr[1])
-      , n = bstr.length
-      , u8arr = new Uint8Array(n);
-    while (n--) {
-        u8arr[n] = bstr.charCodeAt(n);
-    }
-    return new File([u8arr],filename,{
-        type: mime
-    })
-}
 
 const Share = props =>{
     return(
@@ -49,8 +34,7 @@ const Share = props =>{
     )
 }
 
-const MsgList = props =>{
-    const { data } = props;
+const MsgList = ({data}) =>{
     if (!navigator.onLine){
         return(
             <p className="mdui-text-center">此工具需要联网才能使用</p>
@@ -92,7 +76,10 @@ const MsgList = props =>{
                     </div>
                     <button
                         onClick={()=>{
-                            saveAs(dataURLtoFile(a.content.data), a.content.name)
+                            saveFile({
+                                file: a.content.data,
+                                filename: a.content.name
+                            })
                         }}
                         className="mdui-btn mdui-btn-icon">
                         <i class="mdui-icon material-icons">file_download</i>                       
