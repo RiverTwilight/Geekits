@@ -33,7 +33,6 @@ class Info extends React.Component {
         const { fived, hideHelper } = this.state;
         if (!this.props.appinfo || hideHelper)return null      
         const { help, link, name } = this.props.appinfo
-        console.log(this.props.appinfo);
 
         const tips = (help !== "")?
             help.split('##').map((line,i)=>(<li key={i} className="mdui-list-item">{line}</li>))

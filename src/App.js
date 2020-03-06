@@ -17,6 +17,7 @@ import Header from './layout/header'
 import loadable from './utils/loading'
 
 //异步组件
+
 const Home = loadable(() => import('./pages/home'))
 const Apps = loadable(() => import('./pages/app'))
 const About = loadable(() => import('./pages/about'))

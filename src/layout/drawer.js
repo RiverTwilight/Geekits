@@ -3,6 +3,7 @@ import {
   NavLink
 } from "react-router-dom"
 import mdui from 'mdui'
+import applist from '../utils/applist'
 
 const list = [{
   icon: 'home',
@@ -46,7 +47,7 @@ class Drawer extends React.Component {
         super(props);
         this.state = {
             data:{
-                appsNumber:('applist' in localStorage)?JSON.parse(localStorage.applist).length:30,
+                appsNumber:applist.length,
                 appsUseTimes:46
             }
         }

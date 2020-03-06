@@ -10,7 +10,7 @@ async function loadImg(src){
 	return img
 }
 
-const compress = async (base64, quality, cb) => {
+const compress = async (base64, quality, cb, type) => {
 	var image = await loadImg(base64);
 	var canvas = document.createElement('canvas'),
 		context = canvas.getContext('2d'),
@@ -21,7 +21,7 @@ const compress = async (base64, quality, cb) => {
 	canvas.height = imageHeight
 
 	context.drawImage(image, 0, 0, imageWidth, imageHeight)
-	var data = canvas.toDataURL();
+	var data = canvas.toDataURL(type);
 	cb && cb(data)
 }
 
@@ -30,20 +30,24 @@ class Ui extends React.Component {
 		super(props);
 		this.state = {
 			file:null,
+			type:'.jpg',
 			res:null,
 			quality:0.5
 		}
 	}
 	render(){
-		const { file, quality, res } = this.state;
+		const { file, quality, res, type } = this.state;
 		return(
 			<React.Fragment> 
 				<center>
 					<FileRead 
 						fileType="image/*"
 						multiple={false}
-						onFileChange={file=>{
-							this.setState({file:file})
+						onFileChange={(data, file)=>{
+							this.setState({
+								file:data,
+								type:file.type
+							})
 						}}
 						maxWidth="200px"
 					/>
@@ -60,7 +64,7 @@ class Ui extends React.Component {
 	                onClick={()=>{
 	                	compress(file,quality,(res)=>{
 	                		this.setState({res:res})
-	                	})
+	                	}, type)
 	                }}
 	                disabled={file === null}
 	                className="mdui-fab mdui-color-theme-accent mdui-fab-fixed">

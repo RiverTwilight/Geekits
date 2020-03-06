@@ -8,7 +8,7 @@ import PropTypes from 'prop-types'
 /***必须要class组件，因为需要用到Ref***/
 class DateInput extends React.Component {
 	render(){
-		const { DateInput, text } = this.props
+		const { DateInput, text, onDateChange } = this.props
 		return(
 			<React.Fragment>
 				<button
@@ -17,14 +17,14 @@ class DateInput extends React.Component {
 						this.refs.input.click()
 					}}
 				>
-				<i className="mdui-icon-left mdui-icon material-icons">lens</i>
+				<i className="mdui-icon-left mdui-icon material-icons">date_range</i>
 				{DateInput}
 				</button>
 				<input 
-					style={{display:'none'}}
-					value={DateInput} ref="input" type="DateInput"
+					style={{display:'block'}}
+					value={DateInput} ref="input" type="date"
 					onChange={e=>{
-						this.props.onDateInputChange(e.target.value)
+						onDateChange(e.target.value)
 					}}
 				></input>
 			</React.Fragment>
