@@ -64,7 +64,7 @@ class Ui extends React.Component {
 		var form;
 		if(mode === 'text'){
 			var form = (
-				<TextInput
+				<Input
 					onTextChange={newText=>{
 						this.setState({text:newText})
 					}}
@@ -75,7 +75,7 @@ class Ui extends React.Component {
 		}else{
 			var form =(
 				<React.Fragment>
-				<TextInput
+				<Input
 					onTextChange={newText=>{
 						this.setState({
 							wifi:{
@@ -88,7 +88,7 @@ class Ui extends React.Component {
 					icon="account_circle"
 					value={wifi.account}
 				/>
-				<TextInput
+				<Input
 					onTextChange={newText=>{
 						this.setState({
 							wifi:{
@@ -163,4 +163,4 @@ class Ui extends React.Component {
 	}
 }
 
-export default ()=><Ui />;
+export default Ui

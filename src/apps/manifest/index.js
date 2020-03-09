@@ -43,7 +43,7 @@ const Preview = props => {
 	var res = JSON.stringify(JSON.parse(JSON.stringify(config)), null, 4);
 	return (
 		<React.Fragment>
-			<TextInput
+			<Input
 				rows="10"
 	            header=""
 	            value={res}
@@ -141,14 +141,14 @@ class Icons extends React.Component {
 				{applist}				
 				<div style={{display:'inline-block'}} class="mdui-dialog" id="icon">
 					<div class="mdui-dialog-content">
-						<TextInput
+						<Input
 			                onTextChange={newText=>{
 			                    this.setState({src:newText})
 			                }}
 			                header="图标路径"
 			                value={src}
 			            />
-			            <TextInput
+			            <Input
 			                onTextChange={newText=>{
 			                    this.setState({sizes:newText})
 			                }}
@@ -156,7 +156,7 @@ class Icons extends React.Component {
 			                type="number"
 			                value={sizes}
 			            />
-			            <TextInput
+			            <Input
 			                onTextChange={newText=>{
 			                    this.setState({type:newText})
 			                }}
@@ -260,7 +260,7 @@ class RelatedApp extends React.Component {
 				<li class="mdui-subheader"></li>				
 				<div class="mdui-dialog" id="relatedApp">
 					<div class="mdui-dialog-content">
-						<TextInput
+						<Input
 			                onTextChange={newText=>{
 			                    this.setState({store:newText})
 			                }}
@@ -268,7 +268,7 @@ class RelatedApp extends React.Component {
 			                type="text"
 			                value={store}
 			            />
-			            <TextInput
+			            <Input
 			                onTextChange={newText=>{
 			                    this.setState({url:newText})
 			                }}
@@ -276,7 +276,7 @@ class RelatedApp extends React.Component {
 			                type="url"
 			                value={url}
 			            />
-			            <TextInput
+			            <Input
 			                onTextChange={newText=>{
 			                    this.setState({id:newText})
 			                }}
@@ -341,28 +341,28 @@ class Create extends React.Component {
     	const { icons, display, description, lang, relatedApp, background_color, theme_color, name, short_name } = this.state
     	return (
 			<React.Fragment>
-	            <TextInput
+	            <Input
 	                onTextChange={newText=>{
 	                    this.setState({name:newText})
 	                }}
 	                header="应用名称"
 	                value={name}
 	            />
-	            <TextInput
+	            <Input
 	                onTextChange={newText=>{
 	                    this.setState({short_name:newText})
 	                }}
 	                header="短名称"
 	                value={short_name}
 	            />
-	            <TextInput
+	            <Input
 	                onTextChange={newText=>{
 	                    this.setState({description:newText})
 	                }}
 	                header="应用描述"
 	                value={description}
 	            />
-	            <TextInput
+	            <Input
 	                onTextChange={newText=>{
 	                    this.setState({lang:newText})
 	                }}
@@ -501,4 +501,4 @@ class Ui extends React.Component {
 }
 
 
-export default ()=><Ui />;
+export default Ui

@@ -7,7 +7,7 @@ import QRCode from 'qrcode'
 import saveFile from '../../utils/fileSaver'
 
 import FileRead from '../../utils/fileread'
-import { TextInput } from 'mdui-in-react'
+import { Input } from 'mdui-in-react'
 
 const Share = props =>{
     return(
@@ -189,7 +189,7 @@ class Ui extends React.Component {
                 <MsgList data={data}/>
                 <div
                     className="bottom-dashboard mdui-card mdui-p-a-1">
-                    <TextInput
+                    <Input
                         disabled={(type === 'file')?false:true}
                         onTextChange={newText=>{
                             this.setState({
@@ -253,4 +253,4 @@ class Ui extends React.Component {
     }
 }
 
-export default ()=><Ui />;
+export default Ui

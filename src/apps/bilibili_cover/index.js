@@ -3,7 +3,7 @@ import mdui from 'mdui'
 import axios from 'axios'
 import ClipboardJS from 'clipboard'
 
-import { TextInput } from 'mdui-in-react'
+import { Input } from 'mdui-in-react'
 
 const Result = props =>{
     const { src } = props;
@@ -53,7 +53,7 @@ class Ui extends React.Component {
     render(){
     	return (
     		<React.Fragment>
-                <TextInput
+                <Input
                     onTextChange={newText=>{
                         this.setState({av:newText})
                     }}
@@ -76,4 +76,4 @@ class Ui extends React.Component {
     }
 }
 
-export default ()=><Ui />;
+export default Ui

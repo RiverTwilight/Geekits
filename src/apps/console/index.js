@@ -222,4 +222,4 @@ class Ui extends React.Component {
 	}
 }
 
-export default ()=><Ui />;
+export default Ui

@@ -3,7 +3,7 @@ import mdui from 'mdui'
 import ClipboardJS from 'clipboard'
 
 import table from './table'
-import { TextInput } from 'mdui-in-react'
+import { Input } from 'mdui-in-react'
 import cem from './dic.js'
 
 const Result = props =>{
@@ -65,7 +65,7 @@ class Ui extends React.Component {
     render(){
         return (
         	<React.Fragment>
-                <TextInput
+                <Input
                     onTextChange={newText=>{
                         this.setState({input:newText})
                     }}
@@ -97,4 +97,4 @@ class Ui extends React.Component {
     }
 }
 
-export default ()=><Ui />;
+export default Ui

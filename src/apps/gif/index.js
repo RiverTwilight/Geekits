@@ -17,4 +17,4 @@ function Ui(){
 	)
 
 }
-export default ()=><Ui />;
+export default Ui

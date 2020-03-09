@@ -8,7 +8,7 @@ import {
 } from "react-router-dom"
 import marked from 'marked'
 
-import { TextInput } from 'mdui-in-react'
+import { Input } from 'mdui-in-react'
 import MdEditor from '../../utils/MdEditor'
 
 //Markdown预览
@@ -62,7 +62,7 @@ class Edit extends React.Component {
 		const { noteId, title, local, content, statu} = this.state;
 		return(
 			<React.Fragment>
-				<TextInput
+				<Input
 					onTextChange={newText=>{
 						this.setState({
 							title:newText

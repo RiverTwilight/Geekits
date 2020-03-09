@@ -71,7 +71,7 @@ class Words extends React.Component {
                 {applist}               
                 <div style={{display:'inline-block'}} className="mdui-dialog" id="icon">
                     <div className="mdui-dialog-content">
-                        <TextInput
+                        <Input
                             onTextChange={newText=>{
                                 this.setState({text:newText})
                             }}
@@ -79,7 +79,7 @@ class Words extends React.Component {
                             placeholder=" "
                             value={text}
                         />
-                        <TextInput
+                        <Input
                             onTextChange={newText=>{
                                 this.setState({sizes:newText})
                             }}
@@ -208,4 +208,4 @@ class Ui extends React.Component {
     }
 }
 
-export default ()=><Ui />;
+export default Ui

@@ -19,7 +19,7 @@
     "libgif": "0.0.3",
     "marked": "^0.8.0",
     "mdui": "^0.4.3",
-    "mdui-in-react": "^1.0.0",
+    "mdui-in-react": "^1.1.1",
     "prop-types": "^15.7.2",
     "qrcode": "^1.4.4",
     "react": "^16.13.0",
@@ -54,6 +54,5 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {
-  }
+  "devDependencies": {}
 }

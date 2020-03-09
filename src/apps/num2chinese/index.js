@@ -3,7 +3,7 @@ import mdui from 'mdui'
 
 import ClipboardJS from 'clipboard'
 import num2chinese from './engine'
-import { TextInput } from 'mdui-in-react'
+import { Input } from 'mdui-in-react'
 
 const Result = props =>{
     const { src } = props;
@@ -38,7 +38,7 @@ class Ui extends React.Component {
         const { input, res } = this.state
     	return (
     		<React.Fragment>
-                <TextInput
+                <Input
                     onTextChange={newText=>{                        
                         var cal = new num2chinese(newText); 
                         var result = (newText === '')?'':cal.calDirect()                     
@@ -65,4 +65,4 @@ class Ui extends React.Component {
     }
 }
 
-export default ()=><Ui />;
+export default Ui

@@ -13,6 +13,13 @@ var list = [{
 	"help": "仅限PC端最新版本的Chrome/Firefox/Opera使用",
 	"channel": 2
 }, {
+	"name": "翻译",
+	"link": "translate",
+	"icon": "translate",
+	"icon_color": "blue-400",
+	"help": "使用百度翻译引擎",
+	"channel": 4
+}, {
 	"name": "日期计算",
 	"link": "date_calculator",
 	"icon": "date_range",

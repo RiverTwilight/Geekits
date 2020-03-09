@@ -4,7 +4,7 @@ import ClipboardJS from 'clipboard'
 
 import mimeTypes from './dictionary'
 
-import { TextInput } from 'mdui-in-react'
+import { Input } from 'mdui-in-react'
 
 //结果展示
 function Result(props){
@@ -66,7 +66,7 @@ class Ui extends React.Component {
     render(){
         return(
             <React.Fragment> 
-                <TextInput
+                <Input
                     onTextChange={newText=>{
                         this.setState({kwd:newText})
                     }}
@@ -81,4 +81,4 @@ class Ui extends React.Component {
     }
 }
 
-export default ()=><Ui />;
+export default Ui

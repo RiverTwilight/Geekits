@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { TextInput } from 'mdui-in-react'
+import { Input } from 'mdui-in-react'
 import { calDiffer, calWhichDay } from './engine'
 
 class Ui extends React.Component {
@@ -31,7 +31,7 @@ class Ui extends React.Component {
             <React.Fragment>
                 <div className="mdui-card mdui-p-a-1">
                     <p className="mdui-typo-title">日期间隔</p>                
-                    <TextInput
+                    <Input
                         onTextChange={newText=>{
                             this.setState({dateEarly:newText})
                         }}
@@ -41,7 +41,7 @@ class Ui extends React.Component {
                         type="date"
                         value={dateEarly}
                     /> 
-                    <TextInput
+                    <Input
                         onTextChange={newText=>{
                             this.setState({dateLate:newText})
                         }}
@@ -65,7 +65,7 @@ class Ui extends React.Component {
                 <br></br>
                 <div className="mdui-card mdui-p-a-1">
                     <p className="mdui-typo-title">日期推算</p>
-                    <TextInput
+                    <Input
                         onTextChange={newText=>{
                             this.setState({dateStart:newText})
                         }}
@@ -75,7 +75,7 @@ class Ui extends React.Component {
                         type="date"
                         value={dateStart}
                     /> 
-                    <TextInput
+                    <Input
                         onTextChange={newText=>{
                             this.setState({day:newText})
                         }}
@@ -103,4 +103,4 @@ class Ui extends React.Component {
     }
 }
 
-export default ()=><Ui />;
+export default Ui

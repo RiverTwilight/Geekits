@@ -16,4 +16,4 @@ const Ui = props => {
 	)
 }
 
-export default ()=><Ui />;
+export default Ui

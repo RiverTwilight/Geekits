@@ -246,7 +246,7 @@ class Ui extends React.Component {
                 title={"文字大小" + size + "px"}
             />
             {texts.map((text,i)=>(
-                <TextInput
+                <Input
                     onTextChange={newText=>{
                         texts.splice(i,1,newText)
                         console.log(texts)
@@ -300,4 +300,4 @@ class Ui extends React.Component {
     }
 }
 
-export default ()=><Ui />;
+export default Ui

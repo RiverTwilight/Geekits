@@ -1,7 +1,7 @@
 import React from 'react'
 import mdui from 'mdui'
 import axios from 'axios'
-import { TextInput } from 'mdui-in-react'
+import { Input } from 'mdui-in-react'
 
 //提取url中的id
 const url2Id = url => {
@@ -47,20 +47,20 @@ const Result = props =>{
         window.loadHide()
     return (
         <ul className="mdui-list">
-            <li class="mdui-subheader">对比歌单</li>
-            <li class="mdui-list-item mdui-ripple">
-                <i class="mdui-list-item-icon mdui-text-color-red-600 mdui-icon material-icons">queue_music</i>
-                <div class="mdui-list-item-content">{props.songlistA}</div>
+            <li className="mdui-subheader">对比歌单</li>
+            <li className="mdui-list-item mdui-ripple">
+                <i className="mdui-list-item-icon mdui-text-color-red-600 mdui-icon material-icons">queue_music</i>
+                <div className="mdui-list-item-content">{props.songlistA}</div>
             </li>
-            <li class="mdui-list-item mdui-ripple">
-                <i class="mdui-list-item-icon mdui-text-color-red-600 mdui-icon material-icons">queue_music</i>
-                <div class="mdui-list-item-content">{props.songlistB}</div>
+            <li className="mdui-list-item mdui-ripple">
+                <i className="mdui-list-item-icon mdui-text-color-red-600 mdui-icon material-icons">queue_music</i>
+                <div className="mdui-list-item-content">{props.songlistB}</div>
             </li>
-            <li class="mdui-subheader">有{props.similar.num}首相同歌曲</li>
+            <li className="mdui-subheader">有{props.similar.num}首相同歌曲</li>
         {props.similar.same.map((song,i)=>(
-            <a target="_blank" href={"https://music.163.com/#/song?id=" + song.id} key={i} class="mdui-list-item mdui-ripple">
-                <i class="mdui-list-item-icon mdui-icon material-icons">audiotrack</i>
-                <div class="mdui-list-item-content">{song.name}</div>
+            <a target="_blank" href={"https://music.163.com/#/song?id=" + song.id} key={i} className="mdui-list-item mdui-ripple">
+                <i className="mdui-list-item-icon mdui-icon material-icons">audiotrack</i>
+                <div className="mdui-list-item-content">{song.name}</div>
             </a>
         ))}
         </ul>
@@ -108,7 +108,7 @@ class Ui extends React.Component {
             <div ref="load" style={{display:'none',position:'absolute',top:'0'}} className="mdui-progress">
                 <div className="mdui-progress-indeterminate"></div>
             </div>
-            <TextInput
+            <Input
                 onTextChange={newText=>{
                     this.setState({listidA:newText});
                 }}
@@ -117,7 +117,7 @@ class Ui extends React.Component {
                 icon="attachment"
                 value={this.state.listidA}
             />  
-            <TextInput
+            <Input
                 onTextChange={newText=>{
                     this.setState({listidB:newText});
                 }}
@@ -156,4 +156,4 @@ class Ui extends React.Component {
     }
 }
 
-export default ()=><Ui />;
+export default Ui

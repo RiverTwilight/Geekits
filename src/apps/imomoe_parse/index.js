@@ -3,7 +3,7 @@ import mdui from 'mdui'
 import axios from 'axios'
 import ClipboardJS from 'clipboard'
 
-import { TextInput } from 'mdui-in-react'
+import { Input } from 'mdui-in-react'
 
 const VideoList = props => {
     console.log(props.list)
@@ -81,14 +81,14 @@ class Ui extends React.Component {
         }       
         loadJosnp().then(() => {
             window.loadHide()
-            //console.log(VideoListJson);
-            //this.setState({data:VideoListJson})
+            console.log(VideoListJson);
+            this.setState({data:VideoListJson})
         })
     }
     render(){
         return(
             <React.Fragment>
-                <TextInput
+                <Input
                     autofocus
                     onTextChange={newText=>{
                         this.setState({url:newText})
@@ -115,4 +115,4 @@ class Ui extends React.Component {
     }
 }
 
-export default ()=><Ui />;
+export default Ui

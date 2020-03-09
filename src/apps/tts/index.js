@@ -76,7 +76,7 @@ class Ui extends React.Component {
 		const { options, res } = this.state
 		return(
 			<React.Fragment>
-				<TextInput
+				<Input
 					onTextChange={newText=>{
 						options.text = newText;
 						this.setState({options:options})
@@ -140,4 +140,4 @@ class Ui extends React.Component {
 	}
 }
 
-export default ()=><Ui />;
+export default Ui
