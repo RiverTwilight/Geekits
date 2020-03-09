@@ -3,17 +3,17 @@ import mdui from 'mdui'
 import axios from 'axios'
 import ClipboardJS from 'clipboard'
 
-import TextInput from '../../utils/mdui-in-react/TextInput'
+import { TextInput } from 'mdui-in-react'
 
 const Result = props =>{
     const { src } = props;
-    if(src == null)return null
+    if(!src)return null
     return(
       <React.Fragment>       
             <div disabled={true} id="input" data-clipboard-text={src} className="mdui-textfield">
               <input value={src} className="mdui-textfield-input" type="text"/>
             </div>
-            <img src={src} className="mdui-img-fluid"/>
+            <img alt="预览封面" src={src} className="mdui-img-fluid"/>
       </React.Fragment>
     )
 }

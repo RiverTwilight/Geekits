@@ -3,7 +3,7 @@ import mdui from 'mdui'
 import ClipboardJS from 'clipboard'
 
 import table from './table'
-import TextInput from '../../utils/mdui-in-react/TextInput'
+import { TextInput } from 'mdui-in-react'
 import cem from './dic.js'
 
 const Result = props =>{

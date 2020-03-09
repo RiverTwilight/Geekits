@@ -7,7 +7,7 @@ import {
     ListControlMenu,
     ListControlCheck,
     TextInput
-} from '../../utils/mdui-in-react/'
+} from 'mdui-in-react'
 
 import FileRead from '../../utils/fileread'
 import Cropper from '../../utils/Cropper'

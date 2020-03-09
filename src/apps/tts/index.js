@@ -1,9 +1,7 @@
 import React from 'react'
 
-import TextInput from '../../utils/mdui-in-react/TextInput'
-import RangeInput from '../../utils/mdui-in-react/RangeInput'
-import ListControlMenu from '../../utils/mdui-in-react/ListControlMenu'
-import MusicPlayer from '../../utils/mdui-in-react/MusicPlayer'
+import { TextInput, RangeInput, ListControlMenu, MusicPlayer } from 'mdui-in-react'
+
 
 const per_types = [{
     name:'度小宇',

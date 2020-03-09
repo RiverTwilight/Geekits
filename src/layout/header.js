@@ -50,13 +50,11 @@ class Header extends React.Component{
         }
     } 
     loadSaying(){
-        var { hitokotoTopic } = localStorage
-        console.log(hitokotoTopic);
-        var url = (!hitokotoTopic)?"":`?topic=${hitokotoTopic}`       
+        const { hitokotoTopic } = localStorage;
+        const url = (!hitokotoTopic)?"":`?topic=${hitokotoTopic}`       
         fetch('https://api.ygktool.cn/api/hitokoto' + url)
             .then(res => res.json())
             .then(json => {
-                console.log(json);
                 this.setState({
                     saying:{
                         say:json.hitokoto,
@@ -67,7 +65,7 @@ class Header extends React.Component{
     }
     componentDidMount(){
         this.loadSaying()
-        this.props.getRef(this.refs.headerTitle);//将ref传给父组件，方便修改标题       
+        this.props.getRef(this.headerTitle);//将ref传给父组件，方便修改标题       
     }
     render(){
         const { saying, title } = this.state
@@ -108,12 +106,12 @@ class Header extends React.Component{
                                 }}
                             >
                             <div 
-                                ref="headerTitle"
+                                ref={r => this.headerTitle = r}
                                 className="mdui-typo-title mdui-text-color-white header-width-saying"
                             >
                             {title || '云极客工具'}                               
                             </div>
-                            <span className="mdui-text-truncate saying mdui-text-color-white">{saying.say}</span>
+                            <span className="mdui-typo-caption-opacity mdui-text-truncate saying mdui-text-color-white">{saying.say}</span>
                             </a>
                             <div className="mdui-toolbar-spacer"></div>
                         </div>

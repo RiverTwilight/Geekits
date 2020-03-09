@@ -9,17 +9,15 @@ const NoLogined = ()=>{
             <center>
 		        <h1>
 			        <i 
-				        class="nologin mdui-list-item-icon mdui-icon material-icons mdui-text-color-grey">
+				        className="nologin mdui-list-item-icon mdui-icon material-icons mdui-text-color-grey">
 				        mood_bad
 			        </i>
 			    </h1>
-	            <button disabled="true" class="mdui-color-theme mdui-btn mdui-btn-raised">立即登录</button>
+	            <Link to="/user/login" className="mdui-color-theme mdui-btn mdui-btn-raised">立即登录</Link>
 	            <p>登录后你可以</p>
-	            <div class="mdui-text-color-grey mdui-typo">
+	            <div className="mdui-text-color-grey mdui-typo">
 	                <li>云端同步工具收藏</li>
 	                <li>免费享受全站工具</li>
-	                <li>个人数据集中管理</li>
-	                <li>有机会成为网站管理员（站长忙得很）</li>
 	            </div>
             </center>
         </div> 

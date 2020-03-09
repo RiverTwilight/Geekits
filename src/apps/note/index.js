@@ -8,7 +8,7 @@ import {
 } from "react-router-dom"
 import marked from 'marked'
 
-import TextInput from '../../utils/mdui-in-react/TextInput'
+import { TextInput } from 'mdui-in-react'
 import MdEditor from '../../utils/MdEditor'
 
 //Markdown预览

@@ -1,9 +1,8 @@
 import React from 'react'
 import QRCode from 'qrcode'
 
-import TextInput from '../../utils/mdui-in-react/TextInput'
-import Color from '../../utils/mdui-in-react/ColorInput'
-import RangeInput from '../../utils/mdui-in-react/RangeInput'
+import { TextInput, ColorInput, RangeInput } from 'mdui-in-react'
+
 
 const create = (opts, text, callback) => {
 	QRCode.toDataURL(text, opts, (err, url) => {
@@ -119,7 +118,7 @@ class Ui extends React.Component {
 				/>				
 				<div className="mdui-row-xs-2">
 					<div className="mdui-col">
-					<Color
+					<ColorInput
 						text="亮色"
 						color={colorLight}
 						onColorChange={newColor=>{
@@ -128,7 +127,7 @@ class Ui extends React.Component {
 					/>
 					</div>					
 					<div className="mdui-col">
-					<Color
+					<ColorInput
 						text="暗色"
 						color={colorDark}
 						onColorChange={newColor=>{

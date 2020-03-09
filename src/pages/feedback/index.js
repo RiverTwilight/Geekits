@@ -3,7 +3,7 @@ import mdui from 'mdui'
 
 import {
     TextInput
-} from '../../utils/mdui-in-react/'
+} from 'mdui-in-react'
 
 class Ui extends React.Component {
     constructor(props) {

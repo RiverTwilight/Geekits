@@ -27,7 +27,7 @@ const list = [{
   link: '/about'
 }]
 
-const Menu = props => {   
+const Menu = () => {   
     return list.map((a,i)=>(
         <NavLink 
             onClick={()=>{
@@ -54,9 +54,6 @@ class Drawer extends React.Component {
     }
     componentDidMount(){
         window.leftDrawer = new mdui.Drawer('#left-drawer');
-    }
-    loadCommentsFromServer(callback){
-        //todo
     }
     render(){
         const { data } = this.state;

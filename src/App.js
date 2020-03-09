@@ -9,21 +9,18 @@ import {
 } from "react-router-dom"
 import '../node_modules/mdui/dist/css/mdui.min.css'
 
-//Public 
-
 import Header from './layout/header'
 
 //异步加载插件
 import loadable from './utils/loading'
 
-//异步组件
-
 const Home = loadable(() => import('./pages/home'))
 const Apps = loadable(() => import('./pages/app'))
 const About = loadable(() => import('./pages/about'))
 const Setting = loadable(() => import('./pages/setting'))
-const User = loadable(() => import('./pages/user'))
 const Feedback = loadable(() => import('./pages/feedback'))
+const User = loadable(() => import('./pages/user'))
+const Login = loadable(() => import('./pages/user/login'))
 
 const NoMatch = () => {
     return (
@@ -31,12 +28,12 @@ const NoMatch = () => {
             <center>
                 <h1>
                     <i 
-                        class="nologin mdui-list-item-icon mdui-icon material-icons mdui-text-color-grey">
+                        className="nologin mdui-list-item-icon mdui-icon material-icons mdui-text-color-grey">
                         close
                     </i>
                     魔法名：404 Not Found
                 </h1>
-                <Link to="/" class="mdui-color-theme mdui-btn mdui-btn-raised">返回首页</Link>
+                <Link to="/" className="mdui-color-theme mdui-btn mdui-btn-raised">返回首页</Link>
                 <p>
                 据说在第三次科技革命之前，互联网的形态就是一个大型的中央数据库，
                 这个数据库就设置在404房间里面。那时候所有的请求都是由人工手动完成的，
@@ -51,19 +48,16 @@ const NoMatch = () => {
 }
 
 class App extends React.Component {
-    constructor(props) {
-        super(props);
-    }
     componentDidMount() {
-        const { loading } = this.refs
+        const { loading } = this
         window.loadShow = ()=> loading.style.display = 'inline-block';
         window.loadHide = ()=> loading.style.display = 'none';
     }
     render(){
         return(
             <Router>  
-                <div style={{display:'none'}} ref="loading" class="mdui-progress">
-                    <div class="mdui-progress-indeterminate"></div>
+                <div style={{display:'none'}} ref={r => this.loading = r} className="mdui-progress">
+                    <div className="mdui-progress-indeterminate"></div>
                 </div>  
                 <Header 
                     getRef={ref=>{
@@ -74,6 +68,7 @@ class App extends React.Component {
                 <Switch>
                     <Route exact path="/" component={Home}></Route>
                     <Route path="/user" component={User}></Route>
+                    <Route path="/user/login" component={Login}></Route>
                     <Route path="/about" component={About} ></Route>
                     <Route path="/setting" component={Setting}></Route>
                     <Route path="/apps/:name" component={Apps}></Route>

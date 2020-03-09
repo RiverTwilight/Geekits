@@ -1,6 +1,5 @@
 import React, { createRef, forwardRef } from 'react'
 import mdui from 'mdui'
-import dic from './dictionary'
 import ClipboardJS from 'clipboard'
 import { Select } from 'mdui-in-react'
 
@@ -18,77 +17,9 @@ const TextInput = forwardRef((props,ref) => (
   )
 )
 
-//密钥输入框
-function KeyInput(props){
-  return(
-    <div className="mdui-col mdui-textfield">
-      <input
-        placeholder="输入密钥（可选)"
-        onChange={e=>{
-          props.onTxetChange(e.target.value)
-        }}
-        className="mdui-textfield-input" type="text">
-       </input>    
-    </div>
-  )
-
-}
-//结果展示框
-const PrintRes = ({res, to}) => {
-    var showRes
-    if (res !== '') {       
-        switch (to) {
-            case 'text':
-                showRes = res.text
-                break;
-            case 'url':
-                showRes = res.url
-                break;
-            case 'moss':
-                showRes = res.moss
-                break;
-            case 'md5':
-                showRes = res.md5
-                break;
-            case 'rc4':
-                showRes = res.rc4
-                break;
-            case 'URLcomponent':
-                showRes = res.URLcomponent
-                break;
-            default:
-                showRes = 'sdff'
-        }
-    } else {
-        showRes = ''
-    }
-    return(
-        <div className="mdui-card mdui-col mdui-textfield">
-            <div data-clipboard-text={String(showRes)} style={{height:'130px'}} id="becopy"className="mdui-typo mdui-dialog-content mdui-p-a-2">
-            {String(showRes)/**/}
-            </div>
-        </div>
-    )
-}
-
 const options = [{
-    name: '正常文本',
+    text: '正常文本',
     value: 'text'
-}, {
-    name: 'RC4',
-    value: 'rc4'
-}, {
-    name: '摩斯电码',
-    value: 'moss'
-}, {
-    name: 'MD5',
-    value: 'md5'
-}, {
-    name: 'URL',
-    value: 'url'
-}, {
-    name: 'URLcomponent',
-    value: 'URLcomponent'
 }]
 
 class Ui extends React.Component {
@@ -96,10 +27,9 @@ class Ui extends React.Component {
         super(props);
         this.dropBox = createRef()
         this.state = {
-            fromType: 'text',
-            toType: 'md5',
+            fromLang: 'text',
+            toLang: 'md5',
             text: '',
-            key: '',
             res: ''
         }
     }
@@ -137,16 +67,19 @@ class Ui extends React.Component {
             }
         }
     }
+    sendRequest(){
+
+    }
     render(){
-        const { text, fromType, toType, key, res } = this.state
+        const { text, fromLang, toLang } = this.state
         return(
             <React.Fragment>
             <center style={{margin:'0 auto'}}>
                 <Select
                     onOptionChange={val=>{
-                        this.setState({fromType:val})
+                        this.setState({fromLang:val})
                     }}
-                    value={fromType}
+                    value={fromLang}
                     options={options}
                 />
                 <button 
@@ -154,21 +87,20 @@ class Ui extends React.Component {
                     className="mdui-btn mdui-btn-icon"
                     onClick={()=>{
                         this.setState({
-                            fromType:toType,
-                            toType:fromType
+                            fromLang:toLang,
+                            toLang:fromLang
                         })
                     }}>
                     <i className="mdui-icon material-icons">arrow_forward</i>
                 </button>
                 <Select
                     onOptionChange={val=>{
-                        this.setState({toType:val})
+                        this.setState({toLang:val})
                     }}
-                    value={toType}
+                    value={toLang}
                     options={options}
                 />
             </center>
-            <KeyInput onTxetChange={newText=>{this.setState({key:newText})}} />
             <div className="mdui-row-md-2">
                 <TextInput 
                     text={text} ref={this.dropBox} 
@@ -177,18 +109,12 @@ class Ui extends React.Component {
                 <center>
                     <button
                         onClick={()=>{
-                          //console.log(dic(this.state.from,this.state.text,this.state.key))
-                          this.setState({res:dic(fromType,text,key)})
+                          this.sendRequest()
                         }} className="mdui-btn-raised mdui-color-theme mdui-btn mdui-ripple">
                         <i className="mdui-icon-left mdui-icon material-icons">translate</i>
                         转换
                     </button>
                 </center>
-                <br></br>
-                <PrintRes
-                    res={res}
-                    to={toType}
-                />
           </div>
           </React.Fragment>
         )

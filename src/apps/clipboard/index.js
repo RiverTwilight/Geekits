@@ -7,7 +7,7 @@ import QRCode from 'qrcode'
 import saveFile from '../../utils/fileSaver'
 
 import FileRead from '../../utils/fileread'
-import TextInput from '../../utils/mdui-in-react/TextInput'
+import { TextInput } from 'mdui-in-react'
 
 const Share = props =>{
     return(

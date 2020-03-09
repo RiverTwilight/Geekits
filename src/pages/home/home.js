@@ -3,7 +3,7 @@ import mdui from 'mdui'
 import { Link } from "react-router-dom"
 import applist from '../../utils/applist'
 import fiv from '../../utils/fiv'
-import TextInput from '../../utils/mdui-in-react/TextInput'
+import pinyin from 'js-pinyin'
 
 //收藏列表
 class FivList extends React.Component {
@@ -15,10 +15,9 @@ class FivList extends React.Component {
         }
     }
     render(){
-        const { edit } = this.state;
+        const { edit, list } = this.state;
         //if(this.state.list === [])return <p>暂无收藏</p>
-        var fivlist = this.state.list.map((a,i)=>{
-            //如果处于编辑状态显示删除按钮                        
+        var fivlist = list.map((a,i)=>{                       
             let buttton = (edit)?
                 <button onClick={()=>fiv.delete(i)} className="mdui-btn mdui-list-item-icon mdui-btn-icon">
                     <i className="mdui-icon material-icons mdui-text-color-red">delete</i>
@@ -53,8 +52,8 @@ class FivList extends React.Component {
 }
 
 //工具列表
-const AppList = props => {
-    if(localStorage.getItem('homeShowNewestTool') === 'false')return null
+const AppList = () => {
+    if(localStorage.homeShowNewestTool === 'false')return null
     return(
         <ul className="mdui-row-md-3 mdui-list">
             <li className="mdui-subheader">全部工具</li>
@@ -85,7 +84,7 @@ class Notice extends React.Component {
     }
     showNotice(){
         const { date, content, id } = this.state;        
-        mdui.alert(content, date + '公告',
+        mdui.alert(content, date.split('T')[0] + '公告',
             () => {
                 localStorage.setItem('readedNotice', id)
             },
@@ -95,53 +94,53 @@ class Notice extends React.Component {
             })
     }
     getNoticeFromSever(){
+        //if(sessionStorage.loadedNotice == 1)return
         fetch('https://api.ygktool.cn/ygktool/notice')
             .then(res => res.json())
             .then(json => {
-                console.log(json[0]);
                 const { primary, content, date} = json[0]
                 this.setState({                    
                     id:primary,
                     content:content.replace(/\n/g,'<br>'),
                     date:date                  
                 },()=>{
+                    //sessionStorage.setItem('loadedNotice', 1)
                     if(!localStorage.readedNotice || localStorage.readedNotice != primary)this.showNotice()
                 })
             })
     }
     render(){
-        const { date, content } = this.state;
-    	return(
-        	<ul
+        return(
+            <ul
                 onClick={()=>{
                     this.showNotice()
                 }}
-                className="mdui-card mdui-list">
+                className="mdui-list mdui-card">
                 <li className="mdui-list-item mdui-ripple">
-                <i className="mdui-list-item-avatar mdui-icon material-icons">event_note</i>
+                <i className="mdui-list-item-icon mdui-icon material-icons">event_note</i>
                 <div className="mdui-list-item-content">
                     <div className="mdui-list-item-title">公告</div>
                 </div>
                 <i className="mdui-list-item-icon mdui-icon material-icons">keyboard_arrow_right</i>
                 </li>
             </ul>
-    	)
+        )
     }
 }
 
 //显示结果
-const SearchResult = (props) => {
-    if(!props.result.length)return null    
+const SearchResult = ({result, kwd}) => {
+    if(!result.length)return null    
     return(
         <ul className="mdui-list">
-            {props.result.map((a,i)=>(
+            {result.map((a,i)=>(
             <Link key={i} to={'/apps/' + a.link} className="mdui-list-item mdui-ripple" >
                 <i className={"mdui-list-item-icon mdui-icon material-icons mdui-text-color-" + a.icon_color}>{a.icon}</i> 
                 <div className="mdui-list-item-content">{a.name}</div>
             </Link>
             ))}
             <p className="mdui-typo mdui-text-center">
-            没找到想要的工具?试试<a href={"https://www.baidu.com/s?ie=UTF-8&wd=" + props.kwd}>百度搜索</a>
+            没找到想要的工具?试试<a href={"https://www.baidu.com/s?ie=UTF-8&wd=" + kwd}>百度搜索</a>
             </p>
             <div className="mdui-divider"></div>
         </ul>
@@ -158,42 +157,44 @@ class Search extends React.Component{
     }
     componentDidMount() {
         document.addEventListener('keydown',e=>{
-            if (e.ctrlKey && e.keyCode == 70){
+            if (e.ctrlKey && e.keyCode === 70){
                 e.preventDefault()
-                this.refs.search.focus()
+                this.searchInput.focus()
             }
         })
     }
     search(){
-        const kwd = this.state.kwd;
+        pinyin.setOptions({checkPolyphone: false, charCase: 0});
+        const { kwd, getResult } = this.state
         var res = []
         applist.map(app=>{
-            if(app.name.toLowerCase().indexOf(kwd.toLowerCase()) !== -1)res.push(app)
+            let keyword = kwd.toLowerCase()
+            if(pinyin.getFullChars(app.name).toLowerCase().indexOf(keyword) !== -1 || app.name.toLowerCase().indexOf(keyword) !== -1)res.push(app)
         })       
         if(kwd !== ''){
-          this.state.getResult(res,kwd)
+            getResult(res,kwd)
         }else{
-          this.state.getResult('')
+            getResult('')
         }
     }
-  render(){
-    return(
-        <div className="mdui-textfield">
-            <i className="mdui-icon material-icons">search</i>
-            <input
-                ref="search"
-                onChange={e=>{
-                    this.setState({kwd:e.target.value},()=>{
-                        this.search()
-                    })
-                }}
-                value={ this.state.kwd }
-                className="mdui-textfield-input"
-                type="text" placeholder="搜索(ctrl+F)">
-            </input>    
-        </div>
-    )
-  }
+    render(){
+        return(
+            <div className="mdui-textfield">
+                <i className="mdui-icon material-icons">search</i>
+                <input
+                    ref={r => this.searchInput = r}
+                    onChange={e=>{
+                        this.setState({kwd:e.target.value},()=>{
+                            this.search()
+                        })
+                    }}
+                    value={ this.state.kwd }
+                    className="mdui-textfield-input"
+                    type="text" placeholder="搜索(ctrl+F)">
+                </input>    
+            </div>
+        )
+    }
 }
 
 class Whole extends React.Component{
@@ -205,7 +206,7 @@ class Whole extends React.Component{
         }
     }
     render(){
-        const { kwd, searchResult, applist } = this.state
+        const { kwd, searchResult } = this.state
         return(
             <React.Fragment>            
                 <Notice />

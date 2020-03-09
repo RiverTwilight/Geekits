@@ -1,12 +1,11 @@
 import React from 'react'
-import mdui from 'mdui'
 import WordCloud from 'wordcloud'
 import saveFile from '../../utils/fileSaver'
 
 import {
     ListControlCheck,
     TextInput
-} from '../../utils/mdui-in-react/'
+} from 'mdui-in-react'
 
 class Words extends React.Component {
     constructor(props) {
@@ -26,13 +25,14 @@ class Words extends React.Component {
         const { add, onUpdate, onDelete, words } = this.props;
         var applist = words.map((icon,i)=>{                       
             let button = (edit)?
-                <button onClick={()=>this.props.onDelete(i)} className="mdui-btn mdui-btn-icon">
+                <button onClick={()=>onDelete(i)} className="mdui-btn mdui-btn-icon">
                     <i className="mdui-icon material-icons mdui-text-color-red">delete</i>
                 </button>
                 :
                 null
             return(
                 <li 
+                    key={1}
                     mdui-dialog={(edit)?null:"{target:'#icon',history:false}"}
                     className="mdui-list-item mdui-ripple"
                     onClick={()=>{
@@ -138,16 +138,16 @@ class Ui extends React.Component {
         var list = words.map((word)=>(
             [word[0],(word[1] === "")?RandomNum():word[1]]
         ))
-        WordCloud(this.refs.test, {
+        WordCloud(this.canvas, {
             list:list,
             minRotation:(NoRotate)?0:RandomNum(),
             maxRotation:(NoRotate)?0:RandomNum()
         })
     }
     render(){
-        const { words, NoRotate } = this.state
-    	return (
-    		<React.Fragment>  
+        const{ words, NoRotate } = this.state
+        return(
+            <React.Fragment>  
                 <canvas
                     onClick={()=>{
                         saveFile({
@@ -156,7 +156,7 @@ class Ui extends React.Component {
                         })
                     }}
                     style={{width:'100%',border:'2px solid #888888'}}
-                    ref="test"
+                    ref={c => { this.canvas = c; }}
                 />
                 <span className="mdui-typo-caption-opacity mdui-text-center">点击图片即可保存</span>
                 <div className="mdui-tab" mdui-tab="true">
@@ -198,13 +198,13 @@ class Ui extends React.Component {
                         }}
                     />    
                 </div>   
-            <button 
-                onClick={this.create} 
-                className="mdui-ripple mdui-fab mdui-color-theme-accent mdui-fab-fixed">
-                <i class="mdui-icon material-icons">&#xe5ca;</i>
-            </button>
+                <button 
+                    onClick={this.create} 
+                    className="mdui-ripple mdui-fab mdui-color-theme-accent mdui-fab-fixed">
+                    <i className="mdui-icon material-icons">&#xe5ca;</i>
+                </button>
             </React.Fragment>
-    	)
+        )
     }
 }
 

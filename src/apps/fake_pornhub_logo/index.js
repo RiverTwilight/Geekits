@@ -4,12 +4,12 @@ import html2canvas from 'html2canvas';
 
 import saveFile from '../../utils/fileSaver'
 
-const IfBr = props =>{
-    if(props.statu == 'vertical')return <br></br>
+const IfBr = ({statu}) =>{
+    if(statu === 'vertical')return <br></br>
     return null
 }
 
-const FakeLogo = React.forwardRef((props,ref) => {
+const FakeLogo = React.forwardRef(({hStyle, frontStyle, lastStyle},ref) => {
     var logo = (
         <div style={{
             paddingTop: '50px',
@@ -24,13 +24,13 @@ const FakeLogo = React.forwardRef((props,ref) => {
                 fontFamily: 'SimHei',
                 fontWeight: '1000',
                 letterSpacing: '-1.5px',
-                fontSize: props.hStyle.size + 'em'
+                fontSize: hStyle.size + 'em'
             }} className="mdui-text-center">
 
                 <span style={{
                     borderRadius:'4px',
-                    color:props.frontStyle.color,
-                    backgroundColor:props.frontStyle.backgroundColor,
+                    color:frontStyle.color,
+                    backgroundColor:frontStyle.backgroundColor,
                 }} onInput={e=>{
                     /*props.onTextChange({
                         front:{
@@ -39,23 +39,16 @@ const FakeLogo = React.forwardRef((props,ref) => {
                         }
                     })*/
                 }} contentEditable={true}>Ygkt</span>
-                <IfBr statu={props.hStyle.array}/>
+                <IfBr statu={hStyle.array}/>
                 <span style={{
                     display:'inline',
-                    backgroundColor:props.lastStyle.backgroundColor,
+                    backgroundColor:lastStyle.backgroundColor,
                     borderRadius:'4px',
-                    color:props.lastStyle.color,
+                    color:lastStyle.color,
                     padding:'0px 4px 0px 4px',
                     marginLeft:'3px'
-                }} onInput={e=>{
-                    /*props.onTextChange({
-                        last:{
-                            text:e.target.innerText,
-                            backgroundColor:props.lastStyle.backgroundColor,
-                        }
-                    })*/
-                }} ref={ref} contentEditable={true}>ool</span>
-
+                }}
+                ref={ref} contentEditable={true}>ool</span>
             </h1>
         </div>
     );
@@ -63,46 +56,46 @@ const FakeLogo = React.forwardRef((props,ref) => {
 })
 
 //字体大小
-const FontSize = props =>{
+const FontSize = ({onTextChange, hStyle}) =>{
     return(
         <div className="mdui-textfield">
             <label className="mdui-textfield-label">字体大小</label>
             <label className="mdui-slider">
                 <input 
                 onChange={e=>{
-                    props.onTextChange({
+                    onTextChange({
                         hStyle:{
                             size:e.target.value,
-                            array:props.hStyle.array
+                            array:hStyle.array
                         }
                     })
                 }}
-                value={props.hStyle.size} type="range" step="1" min="1" max="10"/>
+                value={hStyle.size} type="range" step="1" min="1" max="10"/>
             </label>
         </div>
     )
 }
 
 //颜色翻转
-const ColorTurn = props =>{
+const ColorTurn = ({onStatuChange}) =>{
     return(
         <label className="mdui-checkbox">
-          <input onChange={e=>{
-            props.onStatuChange(e.target.checked)
-          }} type="checkbox"/>
-          <i className="mdui-checkbox-icon"></i>
-          颜色翻转
+            <input onChange={e=>{
+                onStatuChange(e.target.checked)
+            }} type="checkbox"/>
+            <i className="mdui-checkbox-icon"></i>
+            颜色翻转
         </label>
     )
 }
 
 //竖直排列
-const ArrayTurn = props =>{
+const ArrayTurn = ({onStatuChange}) =>{
     return(
         <label className="mdui-checkbox">
-          <input onChange={e=>{props.onStatuChange(e.target.checked)}} type="checkbox"/>
-          <i className="mdui-checkbox-icon"></i>
-          竖直排列
+            <input onChange={e=>{onStatuChange(e.target.checked)}} type="checkbox"/>
+            <i className="mdui-checkbox-icon"></i>
+            竖直排列
         </label>
     )
 }
@@ -127,33 +120,34 @@ class Ui extends React.Component {
         }
     }
     render(){
+        const { hStyle, front, last} = this.state;
         return (
         <React.Fragment>
             <FakeLogo           
-                hStyle={this.state.hStyle}
-                frontStyle={this.state.front}
-                lastStyle={this.state.last}
+                hStyle={hStyle}
+                frontStyle={front}
+                lastStyle={last}
                 ref={this.inputRef}//没卵用
             />
             <FontSize
-                hStyle={this.state.hStyle}
+                hStyle={hStyle}
                 onTextChange={newStyle=>{
                     this.setState(newStyle)
                 }}
             />
             <ArrayTurn                      
                 onStatuChange={statu=>{
-                    if(statu == true){
+                    if(statu){
                         this.setState({
                             hStyle:{
-                                size:this.state.hStyle.size,
+                                size:hStyle.size,
                                 array:'vertical'
                             }
                         })
                     }else{
                         this.setState({
                             hStyle:{
-                                size:this.state.hStyle.size,
+                                size:hStyle.size,
                                 array:'transverse'
                             }
                         })
@@ -163,11 +157,11 @@ class Ui extends React.Component {
             <br></br>
             <ColorTurn              
                 onStatuChange={statu=>{
-                    if(statu == true){
+                    if(statu){
                         this.setState({
                             front:{
                                 color:'#000000',
-                                backgroundColor:this.state.last.backgroundColor
+                                backgroundColor:last.backgroundColor
                             },
                             last:{
                                 color:'#ffffff',
@@ -182,7 +176,7 @@ class Ui extends React.Component {
                             },
                             last:{
                                 color:'#000000',
-                                backgroundColor:this.state.front.backgroundColor
+                                backgroundColor:front.backgroundColor
                             }
                         })
                     }

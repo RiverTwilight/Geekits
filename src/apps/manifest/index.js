@@ -4,10 +4,7 @@ import axios from 'axios'
 import ClipboardJS from 'clipboard'
 import saveFile from '../../utils/fileSaver'
 
-import Color from '../../utils/mdui-in-react/ColorInput'
-import TextInput from '../../utils/mdui-in-react/TextInput'
-import ListControlCheck from '../../utils/mdui-in-react/ListControlCheck'
-import ListControlMenu from '../../utils/mdui-in-react/ListControlMenu'
+import { ColorInput, TextInput, ListControlCheck, ListControlMenu } from 'mdui-in-react'
 
 /***https://developer.mozilla.org/zh-CN/docs/Web/Manifest***/
 
@@ -374,7 +371,7 @@ class Create extends React.Component {
 	            />
 	            <div className="mdui-row-xs-2">
 					<div className="mdui-col">
-					<Color
+					<ColorInput
 						text="预定义背景色"
 						color={background_color}
 						onColorChange={newColor=>{
@@ -383,7 +380,7 @@ class Create extends React.Component {
 					/>
 					</div>					
 					<div className="mdui-col">
-					<Color
+					<ColorInput
 						text="主题颜色"
 						color={theme_color}
 						onColorChange={newColor=>{

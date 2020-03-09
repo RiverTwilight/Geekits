@@ -5,7 +5,7 @@ import html2canvas from 'html2canvas'
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 import NewPage from '../../utils/NewPage'
-import { ColorInput, RangeInput, TextInput } from '../../utils/mdui-in-react'
+import { ColorInput, RangeInput, TextInput } from 'mdui-in-react'
 import FileRead from '../../utils/fileread'
 
 const Result = ({ src }) =>{
@@ -84,7 +84,6 @@ class DragText extends React.Component {
                       x:e.pageX - drag.startX,
                       y:e.pageY - drag.startY
                     }
-                    //console.log(distance)
                     if (e.pageY > 0||e.pageX > 0) {
                       this.setState({
                         x_axis: startPosition.x + distance.x,
@@ -112,28 +111,28 @@ class DragText extends React.Component {
 
 //预览图片
 const Preview = props => {
-    const element = <img alt="选择一张图片" height="100%"width='100%' src={props.src||'/emo_assests/(10).jpg'} />;
+    const element = <img alt="选择一张图片" height="100%"width='100%' src={props.src||'https://yungeeker.coding.net/p/ygktool/d/emoticon/git/raw/master/102.jpg'} />;
     return element
 }
 
 //文字样式
-const StyleSet = (props) => {
+const StyleSet = ({color, handle, style}) => {
     return(
         <div className="mdui-row-xs-2">
             <div className="mdui-col">
                 <ColorInput
                     text="文本颜色"
-                    color={props.color}
+                    color={color}
                     onColorChange={newColor=>{
-                        props.handle({color:newColor})
+                        handle({color:newColor})
                     }}
                 />
             </div>
             <div className="mdui-col">
                 <select 
-                    value={props.style}
+                    value={style}
                     onChange={e=>{
-                        props.handle({style:e.target.value})
+                        handle({style:e.target.value})
                     }}
                     className="mdui-select" mdui-select="true">
                     <option value="normal">正常字体风格</option>
@@ -154,7 +153,7 @@ const AssestsList = ({onChoose}) => {
                         <LazyLoadImage
                             threshold={50}
                             alt={`(${i+1}).jpg`}
-                            src={`/emo_assests/(${i+1}).jpg`}
+                            src={`https://yungeeker.coding.net/p/ygktool/d/emoticon/git/raw/master/${i+1}.jpg`}
                         />
                     </div>
                 </div>
@@ -292,7 +291,7 @@ class Ui extends React.Component {
             >
                 <AssestsList
                     onChoose={i=>{
-                        this.setState({ifShow:false,src:`/emo_assests/(${i}).jpg`})
+                        this.setState({ifShow:false,src:`https://yungeeker.coding.net/p/ygktool/d/emoticon/git/raw/master/${i}.jpg`})
                     }}
                 />
             </NewPage>

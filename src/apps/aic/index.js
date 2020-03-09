@@ -2,10 +2,10 @@ import React, {Component} from 'react'
 import mdui from 'mdui'
 import axios from 'axios'
 
-import ListControlMenu from '../../utils/mdui-in-react/ListControlMenu'
 import FileRead from '../../utils/fileread'
 import NewPage from '../../utils/NewPage'
 import Cropper from '../../utils/Cropper'
+import { ListControlMenu } from 'mdui-in-react'
 
 const Result = ({result}) =>{
     if(result === null)return null

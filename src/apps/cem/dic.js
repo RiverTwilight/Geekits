@@ -186,7 +186,6 @@ const cem = equation => {
     
     var result = result.replace(/([A-z\)])(\d)/g,(num)=>{   	
     	let idx = downsymbol[parseInt(num.substring(1)) - 1];
-    	console.log(num.substring(0,1) + idx)
     	return num.substring(0,1) + idx
     })
     

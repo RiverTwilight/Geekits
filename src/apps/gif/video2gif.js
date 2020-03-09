@@ -8,19 +8,17 @@ import FileRead from '../../utils/fileread'
 function engine(file, config, videoRef, callback) {
 
 	var v = videoRef,
-		delay = delay * 100 || 200,
+		delay = config.delay * 100 || 200,
 		gif = new GIF({
 			workers: 4,
 			quality: 10,
 			width: v.offsetWidth,
 			height: v.offsetHeight,
 			workerScript:'/gif.worker.js'			
-		})
+		}),
+        i
 
-	var i
-
-	v.addEventListener('play', () => {
-		//loadRef.style.display = 'block'		
+	v.addEventListener('play', () => {		
 		mdui.snackbar({
 			message: '视频渲染中，请等待视频播放完毕'
 		})
@@ -51,8 +49,7 @@ function engine(file, config, videoRef, callback) {
 			onButtonClick: () => {
 				saveFile({
                     file: blob,
-                    type: "gif",
-                    filename: "ygktool-gif"
+                    filename: "ygktool-gif.gif"
                 })
 			}
 		})

@@ -1,7 +1,3 @@
-/*@font-face{
-  font-family:title;
-  src: url(./pages/about/title.ttf);
-}*/
 .copyright{
     position: fixed;
     bottom: 7px;
@@ -34,7 +30,7 @@
 .saying{
     position: absolute;
     line-height: 5;
-    top: 9px;
+    top: 13px;
     max-width: 70%
 }
 #grad {

@@ -3,7 +3,7 @@ import mdui from 'mdui'
 import axios from 'axios'
 import ClipboardJS from 'clipboard'
 
-import TextInput from '../../utils/mdui-in-react/TextInput'
+import { TextInput } from 'mdui-in-react'
 
 const VideoList = props => {
     console.log(props.list)
