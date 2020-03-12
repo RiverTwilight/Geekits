@@ -1,6 +1,6 @@
 import React from 'react'
 import mdui from 'mdui'
-import { TextInput } from 'mdui-in-react'
+import { Input } from 'mdui-in-react'
 
 class Ui extends React.Component {
     constructor(props) {
@@ -29,8 +29,8 @@ class Ui extends React.Component {
         const { password, username } = this.state
     	return (
     		<React.Fragment>
-                <TextInput
-                    onTextChange={newText=>{
+                <Input
+                    onValueChange={newText=>{
                         this.setState({username:newText})
                     }}
                     header="用户名"
@@ -38,8 +38,8 @@ class Ui extends React.Component {
                     type="email"
                     value={username}
                 /> 
-                <TextInput
-                    onTextChange={newText=>{
+                <Input
+                    onValueChange={newText=>{
                         this.setState({password:newText})
                     }}
                     header="密码"

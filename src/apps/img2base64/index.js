@@ -11,7 +11,7 @@ class Ui extends React.Component {
 			file:null
 		}
 	}
-	componentWillMount(){
+	componentDidMount(){
         clipboard && clipboard.destroy();
         var clipboard = new ClipboardJS('#copy');
         clipboard.on('success', e=> {
@@ -46,7 +46,7 @@ class Ui extends React.Component {
 	                id="copy" 
 	                style={{display:(file === null)?'none':'block'}}
 	                className="mdui-float-right mdui-btn mdui-btn-icon">
-	                <i class="mdui-icon material-icons">&#xe14d;</i>
+	                <i className="mdui-icon material-icons">&#xe14d;</i>
                 </button>
                 <div className="mdui-clearfix"></div>
 			</React.Fragment>

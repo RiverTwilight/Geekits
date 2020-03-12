@@ -1,5 +1,4 @@
 import React from 'react';
-import mdui from 'mdui';
 import html2canvas from 'html2canvas';
 
 import saveFile from '../../utils/fileSaver'
@@ -123,12 +122,14 @@ class Ui extends React.Component {
         const { hStyle, front, last} = this.state;
         return (
         <React.Fragment>
-            <FakeLogo           
-                hStyle={hStyle}
-                frontStyle={front}
-                lastStyle={last}
-                ref={this.inputRef}//没卵用
-            />
+            <center>
+                <FakeLogo           
+                    hStyle={hStyle}
+                    frontStyle={front}
+                    lastStyle={last}
+                    ref={this.inputRef}//没卵用
+                />
+            </center>
             <FontSize
                 hStyle={hStyle}
                 onTextChange={newStyle=>{

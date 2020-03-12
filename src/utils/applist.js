@@ -12,7 +12,14 @@ var list = [{
 	"icon_color": "orange-400",
 	"help": "仅限PC端最新版本的Chrome/Firefox/Opera使用",
 	"channel": 2
-}, {
+}, /*{
+	"name": "网络日志抓取",
+	"link": "console",
+	"icon": "language",
+	"icon_color": "indigo-300",
+	"help": "动态生成的内容可能无法抓取到",
+	"channel": 3
+},*/ {
 	"name": "翻译",
 	"link": "translate",
 	"icon": "translate",
@@ -102,16 +109,21 @@ var list = [{
 	"icon": "ondemand_video",
 	"icon_color": "pink",
 	"help": "部分番剧无法解析（因为是流视频）",
-	"channel": 2,
-	"primary": 12
+	"channel": 2
 }, {
 	"name": "九格切图",
 	"link": "img_split",
 	"icon": "apps",
 	"icon_color": "blue",
 	"help": "",
-	"channel": 2,
-	"primary": 13
+	"channel": 2
+}, {
+	"name": "正则表达式测试",
+	"link": "regexp_test",
+	"icon": "sort_by_alpha",
+	"icon_color": "green-200",
+	"help": "建议只修改/g之前的内容",
+	"channel": 3
 }, {
 	"name": "mimetype查询",
 	"link": "mimetype",
@@ -138,7 +150,7 @@ var list = [{
 	"link": "endecode",
 	"icon": "wb_auto",
 	"icon_color": "cyan-200",
-	"help": "已知rc4无法解密，全力修复中 encodeURIcomponent正在开发",
+	"help": "已知rc4无法解密，全力修复中",
 	"channel": 3
 }, {
 	"name": "图片转base64",

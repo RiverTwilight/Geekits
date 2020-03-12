@@ -1,5 +1,4 @@
 import React from 'react'
-import mdui from 'mdui'
 import {
   BrowserRouter as Router,
   Switch,
@@ -63,7 +62,7 @@ class Edit extends React.Component {
 		return(
 			<React.Fragment>
 				<Input
-					onTextChange={newText=>{
+					onValueChange={newText=>{
 						this.setState({
 							title:newText
 						})
@@ -102,7 +101,7 @@ class Edit extends React.Component {
 	            <div id="preview">
 		            <MarkDown md={content} />
 	            </div>				
-				<Link ref="back" to="/apps/note"></Link>			
+				<Link ref="back" to="/app/note"></Link>			
 			</React.Fragment>
 		)
 	}
@@ -152,7 +151,7 @@ const NotesList = props => {
 			    </div>
 			    {button}
 			</Link>
-			<li class="mdui-divider"></li>
+			<li className="mdui-divider"></li>
 			</React.Fragment>
 		)
 	})
@@ -187,7 +186,7 @@ class Home extends React.Component {
 					local={local}
 					editHome={editHome}
 				/>
-				<Link to={`/apps/note/edit?id=${local.length}`}>
+				<Link to={`/app/note/edit?id=${local.length}`}>
 					<button
 						onClick={()=>{
 							addNote(local,{
@@ -207,8 +206,8 @@ const Ui = () => {
 	return(
         <Router>          
             <Switch>
-                <Route exact path="/apps/note" component={Home}></Route>
-                <Route exact path="/apps/note/edit" component={Edit}></Route>               
+                <Route exact path="/app/note" component={Home}></Route>
+                <Route exact path="/app/note/edit" component={Edit}></Route>               
             </Switch>
         </Router>
     )

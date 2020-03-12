@@ -86,7 +86,7 @@ class Ui extends React.Component {
 		}
 	}
 	render(){
-		const { res, cropperCache, file, ifHideCropper } = this.state;
+		const { file, ifHideCropper } = this.state;
 		return(
 			<React.Fragment> 
 				<center>
@@ -109,7 +109,7 @@ class Ui extends React.Component {
 				    file={file}
 				/>
 				<button
-				    disabled={(file === null)}
+				    disabled={file === null}
 				    onClick={()=>{
 						Split(this.state.cropperCache, res => {
 							this.setState({

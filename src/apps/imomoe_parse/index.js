@@ -5,34 +5,30 @@ import ClipboardJS from 'clipboard'
 
 import { Input } from 'mdui-in-react'
 
-const VideoList = props => {
-    console.log(props.list)
+const VideoList = ({list}) => {
     return(
-        <React.Fragment>{
-            props.list.map((video,i)=>(
-                <li onClick={()=>{
-                    window.open(/\$(\S+)\$/.exec(video)[1])
-                }} className="mdui-col mdui-list-item mdui-ripple">
-                    <i className="mdui-color-theme mdui-list-item-avatar mdui-icon material-icons">ondemand_video</i>
-                    <div className="mdui-list-item-content">
-                        <div class="mdui-list-item-title mdui-list-item-one-line">{`第${i+1}集`}</div>
-                        <div class="mdui-list-item-text mdui-list-item-one-line">{/\$(\S+)\$/.exec(video)[1]}</div>
-                    </div>
-                </li>
-            ))
-        }</React.Fragment>
+        list.map((video,i)=>(
+            <li key={i} onClick={()=>{
+                window.open(/\$(\S+)\$/.exec(video)[1])
+            }} className="mdui-col mdui-list-item mdui-ripple">
+                <i className="mdui-color-theme mdui-list-item-avatar mdui-icon material-icons">ondemand_video</i>
+                <div className="mdui-list-item-content">
+                    <div className="mdui-list-item-title mdui-list-item-one-line">{`第${i+1}集`}</div>
+                    <div className="mdui-list-item-text mdui-list-item-one-line">{/\$(\S+)\$/.exec(video)[1]}</div>
+                </div>
+            </li>
+        ))       
     )
 }
 
 const Result = props =>{
     const { src } = props;
     if(!src.length)return null
-    
     return(
         <ul className="mdui-row-md-2 mdui-list">
         {src.map((source,i)=>(
-            <React.Fragment>
-                <li class="mdui-subheader">{`播放源${i + 1}`}</li>
+            <React.Fragment key={i}>
+                <li className="mdui-subheader">{`播放源${i + 1}`}</li>
                 <VideoList list={source[1]} />
                 <div className="mdui-clearfix"></div>
             </React.Fragment>
@@ -51,7 +47,7 @@ class Ui extends React.Component {
             data:[]
         };       
     }
-    componentWillMount(){  
+    componentDidMount(){  
         var VideoListJson    
         clipboard && clipboard.destroy();
         var clipboard = new ClipboardJS('.becopy');
@@ -81,7 +77,6 @@ class Ui extends React.Component {
         }       
         loadJosnp().then(() => {
             window.loadHide()
-            console.log(VideoListJson);
             this.setState({data:VideoListJson})
         })
     }
@@ -89,18 +84,15 @@ class Ui extends React.Component {
         return(
             <React.Fragment>
                 <Input
-                    autofocus
-                    onTextChange={newText=>{
+                    autoFocus
+                    onValueChange={newText=>{
                         this.setState({url:newText})
                     }}
                     header="输入视频播放地址(一定是播放地址！)"
                     icon="link"
                     type="link"
                     value={this.state.url}
-                />
-                <div ref="load" style={{display:'none',position:'absolute',top:'0'}} className="mdui-progress">
-                    <div className="mdui-progress-indeterminate"></div>
-                </div>           
+                />         
                 <button 
                     onClick={()=>{
                         this.loadCommentsFromServer()

@@ -32,7 +32,7 @@ class Ui extends React.Component {
                 <div className="mdui-card mdui-p-a-1">
                     <p className="mdui-typo-title">日期间隔</p>                
                     <Input
-                        onTextChange={newText=>{
+                        onValueChange={newText=>{
                             this.setState({dateEarly:newText})
                         }}
                         header="从"
@@ -42,7 +42,7 @@ class Ui extends React.Component {
                         value={dateEarly}
                     /> 
                     <Input
-                        onTextChange={newText=>{
+                        onValueChange={newText=>{
                             this.setState({dateLate:newText})
                         }}
                         header="到"
@@ -66,7 +66,7 @@ class Ui extends React.Component {
                 <div className="mdui-card mdui-p-a-1">
                     <p className="mdui-typo-title">日期推算</p>
                     <Input
-                        onTextChange={newText=>{
+                        onValueChange={newText=>{
                             this.setState({dateStart:newText})
                         }}
                         header="从"
@@ -76,7 +76,7 @@ class Ui extends React.Component {
                         value={dateStart}
                     /> 
                     <Input
-                        onTextChange={newText=>{
+                        onValueChange={newText=>{
                             this.setState({day:newText})
                         }}
                         header={`${day}天之后`}

@@ -11,14 +11,6 @@ const setFunc = {
         localStorage.setItem('hideHelper', String(checked))
         if (!checked) localStorage.removeItem('hideHelper')
     },
-    darkMode: checked => {
-        if (checked) {
-            document.getElementsByTagName('body')[0].classList.add("mdui-theme-layout-dark")
-        } else {
-            document.getElementsByTagName('body')[0].classList.remove("mdui-theme-layout-dark")
-        }
-        localStorage.setItem('darkMode', String(checked))
-    },
     hitokotoTopic: checked => {
         localStorage.setItem('hitokotoTopic', hitokotoItems[checked].value)
     }
@@ -73,17 +65,8 @@ class Ui extends React.Component{
             <ul className="mdui-list">
                 <li className="mdui-subheader">通用</li>
                 <ListControlCheck
-                    icon="brightness_3"
-                    text="夜间模式"
-                    checked={darkMode === 'true'}
-                    onCheckedChange={checked=>{
-                        this.setState({darkMode:String(checked)})
-                        setFunc.darkMode(checked)
-                    }}
-                />
-                <ListControlCheck
                     icon="apps"
-                    text="首页展示最新工具"
+                    title="首页展示最新工具"
                     checked={homeShowNewestTool === 'true'}
                     onCheckedChange={checked=>{
                         this.setState({homeShowNewestTool:String(checked)})
@@ -92,7 +75,7 @@ class Ui extends React.Component{
                 />
                 <ListControlCheck
                     icon="help"
-                    text="隐藏使用说明"
+                    title="隐藏使用说明"
                     checked={hideHelper === 'true'}
                     onCheckedChange={checked=>{
                         this.setState({hideHelper:String(checked)})
@@ -115,4 +98,4 @@ class Ui extends React.Component{
     }
 }
 
-export default ()=> <Ui />
+export default Ui

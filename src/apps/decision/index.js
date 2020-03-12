@@ -7,7 +7,7 @@ const Input = ({ onItemChange, items }) => {
         <React.Fragment> 
             <button 
                 className="mdui-float-right mdui-btn mdui-btn-icon"
-                onClick={e=>{
+                onClick={()=>{
                     onItemChange('')
                 }} 
                 mdui-tooltip="{content: '清空'}"
@@ -47,32 +47,33 @@ const ReadLocal = ({local, edit, onClickLi}) => {
 }
 
 //添加组合组件
-function AddLocal(props){  
-  return(
-    <li onClick={e=>{
-      if(!localStorage.getItem('decision')){
-        localStorage.setItem('decision',JSON.stringify([]))
-      }
-      var cache = JSON.parse(localStorage.getItem('decision'));
-      mdui.prompt('使用空格分隔',
-        value => {
-          cache.push(value);
-          localStorage.setItem('decision',JSON.stringify(cache));
-          props.onLocalChange()          
-        },
-        value=> {/*取消事件*/}, {
-          type: 'textarea',
-          confirmText:'保存',
-          cancelText:'取消'
-        }
-      );
-    }} className="mdui-col mdui-list-item mdui-ripple">
-      <div className="mdui-list-item-content">
-        <span className="mdui-text-color-theme">新增一个组合</span>
-      </div>
-      <i className="mdui-list-item-icon mdui-icon material-icons">add</i>
-    </li>
-  )
+const AddLocal = ({onLocalChange}) => {  
+    return(
+        <li onClick={()=>{
+            if(!localStorage.getItem('decision')){
+                localStorage.setItem('decision',JSON.stringify([]))
+            }
+            const cache = JSON.parse(localStorage.decision);
+            mdui.prompt('使用空格分隔',
+                    value => {
+                    cache.push(value);
+                    localStorage.setItem('decision',JSON.stringify(cache));
+                    onLocalChange()          
+                },
+                value=> {/*取消事件*/},
+                {
+                    type: 'textarea',
+                    confirmText:'保存',
+                    cancelText:'取消'
+                }
+            )
+        }} className="mdui-col mdui-list-item mdui-ripple">
+        <div className="mdui-list-item-content">
+            <span className="mdui-text-color-theme">新增一个组合</span>
+        </div>
+        <i className="mdui-list-item-icon mdui-icon material-icons">add</i>
+        </li>
+    )
 }
 
 //开始随机组件
@@ -81,7 +82,7 @@ class Start extends React.Component {
         super(props);
         this.state = {
             statu:props.statu,
-            onetime:'点击按钮开始',
+            onetime:'点我开始！',
             items:props.items,
             timer:null
         }
@@ -164,20 +165,18 @@ class Ui extends React.Component {
                         this.setState({local:localStorage.item})
                     }} 
                 />
-                <button 
-                    disabled={statu !== 'stop'}
-                    className="mdui-btn mdui-btn-raised mdui-color-theme" 
+                <div 
+                    className="mdui-ripple mdui-card mdui-p-a-1"
                     onClick={e=>{
                         this.setState({statu:'start'})
-                        setTimeout(()=>{this.setState({statu:'stop'})},3000)
+                        setTimeout(()=>this.setState({statu:'stop'}),3000)
                     }}
-                >
-                开始
-                </button>
-                <Start
-                    statu={statu}
-                    items={items}
-                />
+                    >
+                    <Start
+                        statu={statu}
+                        items={items}
+                    />
+                </div>
             </React.Fragment>
         )
     }

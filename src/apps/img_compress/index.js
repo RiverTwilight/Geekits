@@ -1,5 +1,4 @@
 import React from 'react'
-import mdui from 'mdui'
 
 import FileRead from '../../utils/fileread'
 import { RangeInput } from 'mdui-in-react'
@@ -68,7 +67,7 @@ class Ui extends React.Component {
 	                }}
 	                disabled={file === null}
 	                className="mdui-fab mdui-color-theme-accent mdui-fab-fixed">
-	                <i class="mdui-icon material-icons">check</i>
+	                <i className="mdui-icon material-icons">check</i>
                 </button>
                 <img src={res} className="mdui-img-fluid" />
 			</React.Fragment>

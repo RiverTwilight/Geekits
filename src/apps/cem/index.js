@@ -6,8 +6,7 @@ import table from './table'
 import { Input } from 'mdui-in-react'
 import cem from './dic.js'
 
-const Result = props =>{
-    const { result, eleClass } = props;
+const Result = ({ result, eleClass }) =>{
     if(result === "")return null;
     const pt = JSON.parse(table);
     console.log(pt);
@@ -54,7 +53,7 @@ class Ui extends React.Component {
             eleClass:[]
         }
     }
-    componentWillMount(){
+    componentDidMount(){
         clipboard && clipboard.destroy();
         var clipboard = new ClipboardJS('#input');
         clipboard.on('success', e=> {
@@ -66,7 +65,7 @@ class Ui extends React.Component {
         return (
         	<React.Fragment>
                 <Input
-                    onTextChange={newText=>{
+                    onValueChange={newText=>{
                         this.setState({input:newText})
                     }}
                     pattern="\S+\=\S+"

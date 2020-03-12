@@ -32,7 +32,7 @@ function Result(props){
                         <th>类型/子类型</th>                      
                     </tr>
                     {res.map((piece,i)=>(
-                        <tr>
+                        <tr key={i}>
                             <th>{piece.extension}</th>
                             <th>{piece.type}</th>
                         </tr>
@@ -67,9 +67,10 @@ class Ui extends React.Component {
         return(
             <React.Fragment> 
                 <Input
-                    onTextChange={newText=>{
+                    onValueChange={newText=>{
                         this.setState({kwd:newText})
                     }}
+                    autoFocus
                     header="类型/扩展名"
                     placeholder={"从" + Object.getOwnPropertyNames(mimeTypes).length + "条数据中查找"}
                     icon="attachment"

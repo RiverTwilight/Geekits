@@ -4,7 +4,7 @@ import saveFile from '../../utils/fileSaver'
 
 import {
     ListControlCheck,
-    TextInput
+    Input
 } from 'mdui-in-react'
 
 class Words extends React.Component {
@@ -32,7 +32,7 @@ class Words extends React.Component {
                 null
             return(
                 <li 
-                    key={1}
+                    key={i}
                     mdui-dialog={(edit)?null:"{target:'#icon',history:false}"}
                     className="mdui-list-item mdui-ripple"
                     onClick={()=>{
@@ -72,7 +72,7 @@ class Words extends React.Component {
                 <div style={{display:'inline-block'}} className="mdui-dialog" id="icon">
                     <div className="mdui-dialog-content">
                         <Input
-                            onTextChange={newText=>{
+                            onValueChange={newText=>{
                                 this.setState({text:newText})
                             }}
                             header="文字"
@@ -80,7 +80,7 @@ class Words extends React.Component {
                             value={text}
                         />
                         <Input
-                            onTextChange={newText=>{
+                            onValueChange={newText=>{
                                 this.setState({sizes:newText})
                             }}
                             header="大小,留空为随机"
@@ -126,7 +126,8 @@ class Ui extends React.Component {
                 ['御坂美琴',20],
                 ['自由',''],
             ],
-            NoRotate:false
+            NoRotate:false,
+            transportBg: true
         }
         this.create = this.create.bind(this)
     }
@@ -134,18 +135,19 @@ class Ui extends React.Component {
         this.create()
     }
     create(){
-        const { words, NoRotate } = this.state       
+        const { words, NoRotate, transportBg } = this.state       
         var list = words.map((word)=>(
             [word[0],(word[1] === "")?RandomNum():word[1]]
         ))
         WordCloud(this.canvas, {
             list:list,
             minRotation:(NoRotate)?0:RandomNum(),
-            maxRotation:(NoRotate)?0:RandomNum()
+            maxRotation:(NoRotate)?0:RandomNum(),
+            backgroundColor:(transportBg?'#fff0':'#ffffff')
         })
     }
     render(){
-        const{ words, NoRotate } = this.state
+        const{ words, NoRotate, transportBg } = this.state
         return(
             <React.Fragment>  
                 <canvas
@@ -191,12 +193,20 @@ class Ui extends React.Component {
                 <div id="option">
                     <ListControlCheck
                         icon="keyboard_return"
-                        text="禁止倾斜"
+                        title="禁止倾斜"
                         checked={NoRotate}
                         onCheckedChange={checked=>{
                             this.setState({NoRotate:checked})
                         }}
-                    />    
+                    />  
+                    <ListControlCheck
+                        icon="crop_landscape"
+                        title="透明背景"
+                        checked={transportBg}
+                        onCheckedChange={checked=>{
+                            this.setState({transportBg:checked})
+                        }}
+                    />      
                 </div>   
                 <button 
                     onClick={this.create} 

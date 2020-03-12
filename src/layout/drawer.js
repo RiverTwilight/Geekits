@@ -28,12 +28,12 @@ const list = [{
 }]
 
 const Menu = () => {   
-    return list.map((a,i)=>(
+    return list.map((a)=>(
         <NavLink 
             onClick={()=>{
                 window.innerWidth <= 1024 && window.leftDrawer.close()
             }}
-            key={i}
+            key={a.link}
             exact className="mdui-list-item mdui-ripple"
             activeClassName="mdui-list-item-active" to={a.link}>        
             <i className={"mdui-list-item-icon mdui-icon material-icons mdui-text-color-"+ a.iconColor}>{a.icon}</i> 
@@ -42,13 +42,12 @@ const Menu = () => {
     ))
 }
 
-class Drawer extends React.Component {
+class Drawer extends React.Component  {
     constructor(props) {
         super(props);
         this.state = {
             data:{
-                appsNumber:applist.length,
-                appsUseTimes:46
+                appsNumber:applist.length
             }
         }
     }
@@ -76,13 +75,13 @@ class Drawer extends React.Component {
                         <div className="mdui-list-item-content">我的账户</div>
                     </NavLink>
                     <a href="https://api.ygktool.cn">
-                    <li className="mdui-list-item mdui-ripple">                          
-                      <i className="mdui-text-color-green mdui-list-item-icon mdui-icon material-icons">all_inclusive</i> 
-                      <div className="mdui-list-item-content">开放平台</div>                            
-                    </li>
+                        <li className="mdui-list-item mdui-ripple">                          
+                            <i className="mdui-text-color-green mdui-list-item-icon mdui-icon material-icons">all_inclusive</i> 
+                            <div className="mdui-list-item-content">开放平台</div>                            
+                        </li>
                     </a>                    
                     <div className="mdui-divider"/>
-                    <Menu drawerBtn={this.props.drawerBtn} />
+                    <Menu />
                 </ul> 
                 <p className="mdui-text-center copyright">©2019-2020&nbsp;云极客工具</p>
             </div>

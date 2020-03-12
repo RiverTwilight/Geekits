@@ -2,7 +2,7 @@ import React from 'react'
 import mdui from 'mdui'
 
 import {
-    TextInput
+    Input
 } from 'mdui-in-react'
 
 class Ui extends React.Component {
@@ -18,7 +18,7 @@ class Ui extends React.Component {
     }
     sendData(){
         const { content, contact } = this.state  
-        const { submit } = this.refs;
+        const { submit } = this;
         submit.disabled = true;      
         fetch('http://api.ygktool.cn/ygktool/feedback', {
                 method: 'POST',
@@ -41,16 +41,16 @@ class Ui extends React.Component {
         const { content, contact } = this.state
     	return(
             <React.Fragment>
-                <TextInput
-                    onTextChange={newText=>{
+                <Input
+                    onValueChange={newText=>{
                         this.setState({contact:newText})
                     }}
                     header="联系方式"
                     placeholder="例 QQ:1985386335"
                     value={contact}
                 />
-                <TextInput
-                    onTextChange={newText=>{
+                <Input
+                    onValueChange={newText=>{
                         this.setState({content:newText})
                     }}
                     placeholder="内容"
@@ -61,7 +61,7 @@ class Ui extends React.Component {
                     onClick={()=>{
                         this.sendData()
                     }}
-                    ref="submit"
+                    ref={r => this.submit = r}
                     className="mdui-color-theme mdui-btn mdui-btn-raised">
                     提交
                 </button>

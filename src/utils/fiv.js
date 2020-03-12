@@ -1,7 +1,4 @@
-
 var list = JSON.parse(localStorage.getItem('fiv')) || []
-console.log(list)
-//var list = []
 const fiv = {
 	get: link => {
 		for (let a in list) {
@@ -21,12 +18,10 @@ const fiv = {
 		}else{
 			//传入游标
 			list.splice(i,1);
-		}
-		
+		}		
 		localStorage.setItem('fiv',JSON.stringify(list))
 	},
 	add: data => {
-		console.log(data)
 		list.push(data);
 		localStorage.setItem('fiv',JSON.stringify(list))
 	}

@@ -27,7 +27,7 @@ class Ui extends React.Component {
             data:null
         }
     }
-    componentWillMount(){
+    componentDidMount(){
         clipboard && clipboard.destroy();
         var clipboard = new ClipboardJS('#input');
         clipboard.on('success', e=> {
@@ -54,7 +54,7 @@ class Ui extends React.Component {
     	return (
     		<React.Fragment>
                 <Input
-                    onTextChange={newText=>{
+                    onValueChange={newText=>{
                         this.setState({av:newText})
                     }}
                     header="输入AV号"

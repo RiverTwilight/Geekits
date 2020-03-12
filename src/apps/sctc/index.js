@@ -3,10 +3,6 @@ import mdui from 'mdui'
 import dic from './dictionary'
 import ClipboardJS from 'clipboard'
 
-/**
-  *2020-2-10 江村暮
-  */
-
 //文本输入框
 const TextInput = forwardRef((props,ref) => (
 		<div className="mdui-col mdui-textfield">

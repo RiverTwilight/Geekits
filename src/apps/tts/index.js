@@ -1,7 +1,6 @@
 import React from 'react'
 
-import { TextInput, RangeInput, ListControlMenu, MusicPlayer } from 'mdui-in-react'
-
+import { Input, RangeInput, ListControlMenu, MusicPlayer } from 'mdui-in-react'
 
 const per_types = [{
     name:'度小宇',
@@ -48,6 +47,7 @@ class Ui extends React.Component {
 	}
 	loadDataFromSever() {
 		this.refs.loadBtn.disabled = true;
+		window.loadShow()
 		fetch('https://api.ygktool.cn/api/tts', {
 				method: 'POST',
 				headers: {
@@ -58,18 +58,15 @@ class Ui extends React.Component {
 			.then(res => res.json())
 			.then(json => {
 				this.refs.loadBtn.disabled = false;
-
-				console.log(json);
 				var buf = Buffer.from(json.data.data, 'binary')
 				var blob = new Blob([buf], {
 					type: 'audio/mpeg'
 				});
 				//var file = new File([blob], '1.mp3', {type: 'audio/mpeg', lastModified: Date.now()});
 				var ourl = URL.createObjectURL(blob);
-				console.log(ourl)
 				this.setState({
 					res: ourl
-				})
+				},()=>window.loadHide())
 			})
 	}
 	render(){
@@ -77,7 +74,7 @@ class Ui extends React.Component {
 		return(
 			<React.Fragment>
 				<Input
-					onTextChange={newText=>{
+					onValueChange={newText=>{
 						options.text = newText;
 						this.setState({options:options})
 					}}

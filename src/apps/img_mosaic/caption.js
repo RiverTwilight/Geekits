@@ -23,8 +23,8 @@ class captionMosaic {
 	}
 	async cutImg(base64, top, bottom) {
 		var cutWork = document.createElement('canvas')
-		  , workCtx = cutWork.getContext('2d')
-		  , ele = await this.loadImg(base64);
+		, workCtx = cutWork.getContext('2d')
+		, ele = await this.loadImg(base64);
 
 		top *= ele.height;
 		bottom *= ele.height;
@@ -205,7 +205,7 @@ class VideoShotter extends React.Component {
 	    if(!video)return null
 	   	return(
 	   		<React.Fragment>
-		   		<video ref="video" className="mdui-video-fluid" controls>
+		   		<video ref={r => this.video = r} className="mdui-video-fluid" controls>
 				    <source src={video} type="video/mp4"/>
 				</video>
 				<br></br>
@@ -213,15 +213,12 @@ class VideoShotter extends React.Component {
 					className="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme"
 					onClick={()=>{
 						var canvas = document.createElement('canvas');
-						var video = this.refs.video;
-						console.log(video)
+						var video = this.video;
 						var ctx = canvas.getContext('2d');
-						console.log(video.videoWidth, video.videoHeight);
 						canvas.width = video.videoWidth;
 						canvas.height = video.videoHeight;
 						ctx.drawImage(video,0,0,video.videoWidth,video.videoHeight)
 						var res = canvas.toDataURL()
-						console.log(res);
 						addImg(res)
 					}}
 				>截图</button>

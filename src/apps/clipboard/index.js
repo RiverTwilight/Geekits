@@ -12,16 +12,6 @@ import { Input } from 'mdui-in-react'
 const Share = props =>{
     return(
         <React.Fragment>
-            <button
-                style={{
-                    position:"fixed",
-                    bottom:'180px',
-                    right:'10px'
-                }}
-                mdui-menu="{target: '#share',position:'center'}"
-                className="mdui-color-theme mdui-fab mdui-fab-mini">
-                <i className="mdui-icon material-icons">&#xe80d;</i>
-            </button>
             <ul className="mdui-menu" id="share">
                 <img src={props.qrcode}></img>                   
                 <li>
@@ -29,7 +19,17 @@ const Share = props =>{
                 data-clipboard-text={window.location.href + "#/" + props.token}
                 className="mdui-text-color-theme copy">复制</a>]或扫描二维码
                 </li>
-            </ul>        
+            </ul> 
+            <button
+                style={{
+                    position:"fixed",
+                    bottom:'180px',
+                    right:'10px'
+                }}
+                mdui-menu="{target: '#share',gutter:'-20', covered:false}"
+                className="mdui-color-theme mdui-fab mdui-fab-mini">
+                <i className="mdui-icon material-icons">&#xe80d;</i>
+            </button>       
         </React.Fragment>
     )
 }
@@ -160,14 +160,13 @@ class Ui extends React.Component {
 
         socket.on('error', msg=>{
             //mdui.snackbar({message:'电波无法到达哟~'})
-            this.refs.sendBtn.disabled = false;
-            this.refs.sendBtn.innerText = '发送';
+            this.sendBtn.disabled = false;
+            this.sendBtn.innerText = '发送';
         })
 
-        socket.on('chat_message', msg => {
-            console.log('从服务器返回的数据:%o',msg);           
-            this.refs.sendBtn.disabled = false;
-            this.refs.sendBtn.innerText = '发送';
+        socket.on('chat_message', msg => {           
+            this.sendBtn.disabled = false;
+            this.sendBtn.innerText = '发送';
             let { type, content, time } = msg;
             let newData = { type, content, time }
             data.push(newData);
@@ -175,8 +174,8 @@ class Ui extends React.Component {
         })
     }
     sendMsg() {
-        this.refs.sendBtn.disabled = true
-        this.refs.sendBtn.innerText = '发送中...';
+        this.sendBtn.disabled = true
+        this.sendBtn.innerText = '发送中...';
         var now = new Date;
         var time = now.toLocaleTimeString()
         const { content, token, socket, type, pwd } = this.state;
@@ -190,8 +189,8 @@ class Ui extends React.Component {
                 <div
                     className="bottom-dashboard mdui-card mdui-p-a-1">
                     <Input
-                        disabled={(type === 'file')?false:true}
-                        onTextChange={newText=>{
+                        disabled={type === 'file'}
+                        onValueChange={newText=>{
                             this.setState({
                                 content:newText,
                                 type:'text'
@@ -203,7 +202,7 @@ class Ui extends React.Component {
                         value={(type === 'text')?content:''}
                     />
                     <button 
-                        ref="sendBtn"
+                        ref={r => this.sendBtn = r}
                         onClick={()=>{
                             this.sendMsg()
                         }} 
@@ -233,7 +232,6 @@ class Ui extends React.Component {
                         <FileRead 
                             maxSize={3*1024*1024}
                             fileType="*/*"
-                            multiple={false}
                             onFileChange={(dataUrl, file)=>{
                                 this.setState({
                                     content:{

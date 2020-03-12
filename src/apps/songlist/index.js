@@ -109,7 +109,7 @@ class Ui extends React.Component {
                 <div className="mdui-progress-indeterminate"></div>
             </div>
             <Input
-                onTextChange={newText=>{
+                onValueChange={newText=>{
                     this.setState({listidA:newText});
                 }}
                 header="歌单A链接/ID"
@@ -118,7 +118,7 @@ class Ui extends React.Component {
                 value={this.state.listidA}
             />  
             <Input
-                onTextChange={newText=>{
+                onValueChange={newText=>{
                     this.setState({listidB:newText});
                 }}
                 header="歌单B链接/ID"

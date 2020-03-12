@@ -26,7 +26,7 @@ class FivList extends React.Component {
                 null
             return(
                 <Link 
-                    key={i} to={(edit)?'#':'/apps/' + a.link}
+                    key={i} to={(edit)?'#':'/app/' + a.link}
                     disabled={edit} className="mdui-col mdui-list-item mdui-ripple">
                         <i className="mdui-list-item-icon mdui-icon material-icons mdui-text-color-yellow-500">star</i> 
                         <div className="mdui-list-item-content">{a.name}</div>
@@ -58,7 +58,7 @@ const AppList = () => {
         <ul className="mdui-row-md-3 mdui-list">
             <li className="mdui-subheader">全部工具</li>
             {applist.map((a,i)=>(
-                <Link key={i} to={'/apps/' + a.link} >
+                <Link key={i} to={'/app/' + a.link} >
                     <li className="mdui-col mdui-list-item mdui-ripple">
                         <i className={"mdui-list-item-icon mdui-icon material-icons mdui-text-color-" + a.icon_color}>{a.icon}</i> 
                         <div className="mdui-list-item-content">{a.name}</div>
@@ -134,7 +134,7 @@ const SearchResult = ({result, kwd}) => {
     return(
         <ul className="mdui-list">
             {result.map((a,i)=>(
-            <Link key={i} to={'/apps/' + a.link} className="mdui-list-item mdui-ripple" >
+            <Link key={i} to={'/app/' + a.link} className="mdui-list-item mdui-ripple" >
                 <i className={"mdui-list-item-icon mdui-icon material-icons mdui-text-color-" + a.icon_color}>{a.icon}</i> 
                 <div className="mdui-list-item-content">{a.name}</div>
             </Link>
@@ -229,4 +229,4 @@ class Whole extends React.Component{
     }
 }
 
-export default ()=> <Whole />
+export default Whole

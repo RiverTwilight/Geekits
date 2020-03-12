@@ -7,7 +7,7 @@ import { Input } from 'mdui-in-react'
 
 const Result = props =>{
     const { src } = props;
-    if(src === null)return null
+    if(!src)return null
     return(
       <React.Fragment>       
             <div disabled={true} id="input" data-clipboard-text={src} className="mdui-textfield">
@@ -26,7 +26,7 @@ class Ui extends React.Component {
             res:''
         }
     }
-    componentWillMount(){
+    componentDidMount(){
         clipboard && clipboard.destroy();
         var clipboard = new ClipboardJS('#becopy');
         clipboard.on('success', e=> {
@@ -39,7 +39,7 @@ class Ui extends React.Component {
     	return (
     		<React.Fragment>
                 <Input
-                    onTextChange={newText=>{                        
+                    onValueChange={newText=>{                        
                         var cal = new num2chinese(newText); 
                         var result = (newText === '')?'':cal.calDirect()                     
                         this.setState({
@@ -47,7 +47,7 @@ class Ui extends React.Component {
                             res:result
                         })
                     }}
-                    autofocus
+                    autoFocus
                     header="输入小写数字"
                     icon="attach_money"
                     type="number"

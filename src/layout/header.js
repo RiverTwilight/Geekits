@@ -3,6 +3,15 @@ import mdui from 'mdui'
 
 import Drawer from './drawer'
 
+const turnToDark = checked => {
+    if (checked) {
+        document.getElementsByTagName('body')[0].classList.add("mdui-theme-layout-dark")
+    } else {
+        document.getElementsByTagName('body')[0].classList.remove("mdui-theme-layout-dark")
+    }
+    localStorage.setItem('darkMode', String(checked))
+}
+
 //将一言添加到便签
 const addSaying2Fiv = saying => {
     var content = `  <br>${saying.say}  ———来自 ${saying.from}`
@@ -46,7 +55,8 @@ class Header extends React.Component{
             saying:{
                 say:'即使与全世界为敌，我也要保护她和她所在的世界',
                 from:'《魔法禁书目录》'
-            }
+            },
+            darkMode:localStorage.getItem('darkMode') || 'false'
         }
     } 
     loadSaying(){
@@ -68,10 +78,10 @@ class Header extends React.Component{
         this.props.getRef(this.headerTitle);//将ref传给父组件，方便修改标题       
     }
     render(){
-        const { saying, title } = this.state
+        const { saying, title, darkMode } = this.state
         return (
             <React.Fragment>
-                <Drawer drawerBtn={this.refs.drawerBtn}/> 
+                <Drawer /> 
                 <header className="header mdui-appbar mdui-appbar-fixed">
                     <div className="mdui-appbar">
                         <div className="mdui-toolbar mdui-color-theme">
@@ -91,7 +101,7 @@ class Header extends React.Component{
                                                 message:'已收藏至便签',
                                                 buttonText: '打开便签',
                                                 onButtonClick: () => {
-                                                    window.location.href = "/apps/note"
+                                                    window.location.href = "/app/note"
                                                 }
                                             })
                                         },
@@ -114,6 +124,16 @@ class Header extends React.Component{
                             <span className="mdui-typo-caption-opacity mdui-text-truncate saying mdui-text-color-white">{saying.say}</span>
                             </a>
                             <div className="mdui-toolbar-spacer"></div>
+                            <button 
+                                onClick={()=>{
+                                    this.setState({
+                                        darkMode:darkMode === 'true'?'false':'true'
+                                    })
+                                    turnToDark(darkMode !== 'true')
+                                }}
+                                className="mdui-btn mdui-btn-icon mdui-text-color-white">
+                                <i className="mdui-icon material-icons">{darkMode==='true'?'brightness_4':'brightness_low'}</i>
+                            </button>
                         </div>
                     </div>        
                 </header>

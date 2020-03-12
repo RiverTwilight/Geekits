@@ -6,7 +6,7 @@ const MakeChips = ({apps}) => {
     var chips = apps.map((a,i)=>{
         if(!a)return null
         return(
-            <Link key={i} to={"/apps/" + a.link}>
+            <Link key={i} to={"/app/" + a.link}>
                 <div className="mdui-chip mdui-text-color-theme-text">
                     <span className="mdui-chip-title">{a.name}</span>
                 </div>
@@ -72,4 +72,4 @@ class Wow extends React.Component {
     }    
 }
 
-export default ()=><Wow />;
+export default Wow

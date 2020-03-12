@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React from 'react'
 import mdui from 'mdui'
 import axios from 'axios'
 
@@ -83,14 +83,10 @@ class Ui extends React.Component {
     	return(
     		<React.Fragment>
                 <div style={{display:(ifShow||ifShowCropper)?'none':'block'}}>
-                    <div ref="load" style={{display:'none'}} className="mdui-progress">
-                        <div className="mdui-progress-indeterminate"></div>
-                    </div>
                     <center>
                         <FileRead 
                             maxWidth="220px"
                             fileType="image/*"
-                            multiple={false}
                             onFileChange={ file =>{
                                 this.setState({ifShowCropper:true,image:file})
                             }}

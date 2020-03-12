@@ -1,6 +1,5 @@
 import React from 'react'
 import './App.css'
-import mdui from 'mdui'
 import {
   BrowserRouter as Router,
   Switch,
@@ -15,10 +14,10 @@ import Header from './layout/header'
 import loadable from './utils/loading'
 
 const Home = loadable(() => import('./pages/home'))
-const Apps = loadable(() => import('./pages/app'))
-const About = loadable(() => import('./pages/about'))
+const Apps = loadable(() => import('./pages/app.js'))
+const About = loadable(() => import('./pages/about.js'))
 const Setting = loadable(() => import('./pages/setting'))
-const Feedback = loadable(() => import('./pages/feedback'))
+const Feedback = loadable(() => import('./pages/feedback.js'))
 const User = loadable(() => import('./pages/user'))
 const Login = loadable(() => import('./pages/user/login'))
 
@@ -71,7 +70,7 @@ class App extends React.Component {
                     <Route path="/user/login" component={Login}></Route>
                     <Route path="/about" component={About} ></Route>
                     <Route path="/setting" component={Setting}></Route>
-                    <Route path="/apps/:name" component={Apps}></Route>
+                    <Route path="/app/:name" component={Apps}></Route>
                     <Route path="/feedback" component={Feedback}></Route>
                     <Route component={NoMatch}/>
                 </Switch>

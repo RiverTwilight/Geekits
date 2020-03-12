@@ -1,10 +1,8 @@
 import React from 'react'
 import mdui from 'mdui'
-import axios from 'axios'
-import ClipboardJS from 'clipboard'
 import saveFile from '../../utils/fileSaver'
 
-import { ColorInput, TextInput, ListControlCheck, ListControlMenu } from 'mdui-in-react'
+import { ColorInput, Input, ListControlCheck, ListControlMenu } from 'mdui-in-react'
 
 /***https://developer.mozilla.org/zh-CN/docs/Web/Manifest***/
 
@@ -12,35 +10,17 @@ import { ColorInput, TextInput, ListControlCheck, ListControlMenu } from 'mdui-i
 const Preview = props => {
 	const { config } = props;
 	if(config === "")return null;
-	var relatedApp = config.relatedApp.data;
-	var display = displays[config.display].value;
+	var exportConfig = JSON.parse(JSON.stringify(config));
+	console.log(exportConfig)
 
-	config.relatedApp = relatedApp;
-	config.display = display;
+	exportConfig.relatedApp = config.relatedApp.data;
+	exportConfig.display = displays[config.display].value;
 
 	config.icons.map((icon,i)=>{
-		icon.sizes = `${icon.sizes}x${icon.sizes}`
+		exportConfig.icons[i].sizes = `${icon.sizes}x${icon.sizes}`
 	})
 
-	console.log(JSON.stringify(config));
-	/*var unformeJson = JSON.stringify(config);
-	var fromedJson = unformeJson.replace(/\,/g,"$&<br>");
-	
-	var braceNum = 0;
-	for (let i = 0; i <= unformeJson.length - 1; i++) {
-		if(unformeJson[i] === "{")braceNum++
-	}
-    console.log('前花括号数量',braceNum);
-	for (let i = 1; i <= braceNum; i++) {
-		var spaceNum = i * 4;
-		var space = "";
-		for (let j = 0; j<= spaceNum - 1; j++){
-			space += "&nbsp"
-		}
-        console.log('空格',space);
-	    var fromedJson = fromedJson.replace(/\{/g,`$&<br>${space}`)
-	}*/
-	var res = JSON.stringify(JSON.parse(JSON.stringify(config)), null, 4);
+	var res = JSON.stringify(JSON.parse(JSON.stringify(exportConfig)), null, 4);
 	return (
 		<React.Fragment>
 			<Input
@@ -104,7 +84,7 @@ class Icons extends React.Component {
             return(
                 <li 
 					mdui-dialog="{target:'#icon',history:false}"
-					class="mdui-list-item mdui-ripple"
+					className="mdui-list-item mdui-ripple"
 					onClick={()=>{
 						update.open = true;
 						update.i = i;
@@ -116,9 +96,9 @@ class Icons extends React.Component {
 							update:update
 						})
 					}}>
-				    <i class="mdui-list-item-icon mdui-icon material-icons">insert_photo</i>
-				    <div class="mdui-list-item-content">
-				        <div class="mdui-list-item-title">{`${icon.sizes}x${icon.sizes}`}</div>
+				    <i className="mdui-list-item-icon mdui-icon material-icons">insert_photo</i>
+				    <div className="mdui-list-item-content">
+				        <div className="mdui-list-item-title">{`${icon.sizes}x${icon.sizes}`}</div>
 				    </div>
 				    {button}
 				</li>
@@ -126,7 +106,7 @@ class Icons extends React.Component {
         })
     	return(
 			<React.Fragment>
-				<li class="mdui-subheader">
+				<li className="mdui-subheader">
 					图标&nbsp;&nbsp;
 					<span mdui-dialog="{target:'#icon',history:false}" className="mdui-text-color-theme">添加</span>
 					&nbsp;&nbsp;
@@ -139,17 +119,17 @@ class Icons extends React.Component {
 					</span>				
 				</li>
 				{applist}				
-				<div style={{display:'inline-block'}} class="mdui-dialog" id="icon">
-					<div class="mdui-dialog-content">
+				<div style={{display:'inline-block'}} className="mdui-dialog" id="icon">
+					<div className="mdui-dialog-content">
 						<Input
-			                onTextChange={newText=>{
+			                onValueChange={newText=>{
 			                    this.setState({src:newText})
 			                }}
 			                header="图标路径"
 			                value={src}
 			            />
 			            <Input
-			                onTextChange={newText=>{
+			                onValueChange={newText=>{
 			                    this.setState({sizes:newText})
 			                }}
 			                header="尺寸（只需填写长或宽任意一个）"
@@ -157,14 +137,14 @@ class Icons extends React.Component {
 			                value={sizes}
 			            />
 			            <Input
-			                onTextChange={newText=>{
+			                onValueChange={newText=>{
 			                    this.setState({type:newText})
 			                }}
 			                header="图标文件类型"
 			                value={type}
 			            />
 					</div>
-					<div class="mdui-dialog-actions">
+					<div className="mdui-dialog-actions">
 					    <button
 						    onClick={()=>{
 								if (update.open) {
@@ -183,10 +163,10 @@ class Icons extends React.Component {
 									})
 								}
 							}}						    	
-						    class="mdui-btn mdui-ripple"mdui-dialog-close="true">
+						    className="mdui-btn mdui-ripple"mdui-dialog-close="true">
 						    保存
 						</button>
-					    <button class="mdui-btn mdui-ripple"mdui-dialog-close="true">取消</button>
+					    <button className="mdui-btn mdui-ripple"mdui-dialog-close="true">取消</button>
 					</div>
 				</div>
 			</React.Fragment>
@@ -220,7 +200,7 @@ class RelatedApp extends React.Component {
             return(
                 <li 
 					mdui-dialog="{target:'#relatedApp',history:false}"
-					class="mdui-list-item mdui-ripple"
+					className="mdui-list-item mdui-ripple"
 					onClick={()=>{
 						update.open = true;
 						update.i = i;
@@ -231,11 +211,11 @@ class RelatedApp extends React.Component {
 							update:update
 						})
 					}}>
-				    <i class="mdui-list-item-avatar mdui-icon material-icons">apps</i>
-				    <div class="mdui-list-item-content">
-				      <div class="mdui-list-item-title">{app.url}</div>
-				      <div class="mdui-list-item-text mdui-list-item-one-line">
-					      <span class="mdui-text-color-theme-text">{app.store}</span> 
+				    <i className="mdui-list-item-avatar mdui-icon material-icons">apps</i>
+				    <div className="mdui-list-item-content">
+				      <div className="mdui-list-item-title">{app.url}</div>
+				      <div className="mdui-list-item-text mdui-list-item-one-line">
+					      <span className="mdui-text-color-theme-text">{app.store}</span> 
 					       {app.id}</div>
 				    </div>
 				    {button}
@@ -244,7 +224,7 @@ class RelatedApp extends React.Component {
         })
     	return(
 			<React.Fragment>
-				<li class="mdui-subheader">
+				<li className="mdui-subheader">
 					推荐安装原生APP&nbsp;&nbsp;
 					<span mdui-dialog="{target:'#relatedApp',history:false}" className="mdui-text-color-theme">添加</span>
 					&nbsp;&nbsp;
@@ -257,11 +237,11 @@ class RelatedApp extends React.Component {
 					</span>				
 				</li>
 				{applist}
-				<li class="mdui-subheader"></li>				
-				<div class="mdui-dialog" id="relatedApp">
-					<div class="mdui-dialog-content">
+				<li className="mdui-subheader"></li>				
+				<div className="mdui-dialog" id="relatedApp">
+					<div className="mdui-dialog-content">
 						<Input
-			                onTextChange={newText=>{
+			                onValueChange={newText=>{
 			                    this.setState({store:newText})
 			                }}
 			                header="可以找到应用程序的平台"
@@ -269,7 +249,7 @@ class RelatedApp extends React.Component {
 			                value={store}
 			            />
 			            <Input
-			                onTextChange={newText=>{
+			                onValueChange={newText=>{
 			                    this.setState({url:newText})
 			                }}
 			                header="可以找到应用程序的URL"
@@ -277,7 +257,7 @@ class RelatedApp extends React.Component {
 			                value={url}
 			            />
 			            <Input
-			                onTextChange={newText=>{
+			                onValueChange={newText=>{
 			                    this.setState({id:newText})
 			                }}
 			                header="用于表示指定平台上的应用程序的ID"
@@ -285,7 +265,7 @@ class RelatedApp extends React.Component {
 			                value={id}
 			            />
 					</div>
-					<div class="mdui-dialog-actions">
+					<div className="mdui-dialog-actions">
 					    <button
 						    onClick={()=>{
 						    	if (update.open) {
@@ -304,10 +284,10 @@ class RelatedApp extends React.Component {
 									})
 								}
 						    }}
-						    class="mdui-btn mdui-ripple"mdui-dialog-close="true">
+						    className="mdui-btn mdui-ripple"mdui-dialog-close="true">
 						    保存
 						</button>
-					    <button class="mdui-btn mdui-ripple"mdui-dialog-close="true">取消</button>
+					    <button className="mdui-btn mdui-ripple"mdui-dialog-close="true">取消</button>
 					</div>
 				</div>
 			</React.Fragment>
@@ -329,41 +309,34 @@ class Create extends React.Component {
             relatedApp:{open:false,data:[]},
         }
     }
-    componentWillMount(){
-        clipboard && clipboard.destroy();
-        var clipboard = new ClipboardJS('#input');
-        clipboard.on('success', e=> {
-            mdui.snackbar({message:'已复制链接'})
-            e.clearSelection();
-        })
-    }
     render(){
     	const { icons, display, description, lang, relatedApp, background_color, theme_color, name, short_name } = this.state
-    	return (
+		const { complete, previewFunc } = this.props
+		return (
 			<React.Fragment>
 	            <Input
-	                onTextChange={newText=>{
+	                onValueChange={newText=>{
 	                    this.setState({name:newText})
 	                }}
 	                header="应用名称"
 	                value={name}
 	            />
 	            <Input
-	                onTextChange={newText=>{
+	                onValueChange={newText=>{
 	                    this.setState({short_name:newText})
 	                }}
 	                header="短名称"
 	                value={short_name}
 	            />
 	            <Input
-	                onTextChange={newText=>{
+	                onValueChange={newText=>{
 	                    this.setState({description:newText})
 	                }}
 	                header="应用描述"
 	                value={description}
 	            />
 	            <Input
-	                onTextChange={newText=>{
+	                onValueChange={newText=>{
 	                    this.setState({lang:newText})
 	                }}
 	                header="语言标记"
@@ -422,7 +395,7 @@ class Create extends React.Component {
 		            />
 		            <ListControlCheck
 		                icon="android"
-		                text="推荐安装原生APP"
+		                title="推荐安装原生APP"
 		                checked={relatedApp.open}
 		                onCheckedChange={checked=>{
 		                    this.setState({
@@ -458,11 +431,11 @@ class Create extends React.Component {
 	            </ul>  
 	            <button 
 		            onClick={()=>{
-		            	this.props.complete(this.state);
-		            	console.log(this.props.previewBtn)
+		            	complete(this.state);
+		            	previewFunc()
 		            }}
 		            className="mdui-fab mdui-color-theme mdui-fab-fixed">
-		            <i class="mdui-icon material-icons">&#xe5ca;</i>
+		            <i className="mdui-icon material-icons">&#xe5ca;</i>
 	            </button>        
 	        </React.Fragment>
 		)
@@ -475,21 +448,20 @@ class Ui extends React.Component {
         this.state = {
         	result:""
         }
-    }
+	}
     render(){
-    	console.log(this.refs)
     	return(
     		<React.Fragment>
 		        <div className="mdui-tab" mdui-tab="true">
 		            <a href="#input" className="mdui-ripple">编辑</a>
-		            <a ref="previewBtn" href="#preview" className="mdui-ripple">预览</a>
+		            <a ref={r => this.previewBtn = r} href="#preview" className="mdui-ripple">预览</a>
 		        </div>
 			    <div id="input">
 				    <Create 
 					    complete={result=>{
 					    	this.setState({result:result})
 					    }}
-					    previewBtn={this.refs.previewBtn}
+					    previewFunc={()=>this.previewBtn.click()}
 				    />
 			    </div>
 			    <div id="preview">
@@ -499,6 +471,5 @@ class Ui extends React.Component {
 	    )
     }
 }
-
 
 export default Ui

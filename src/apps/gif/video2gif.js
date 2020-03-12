@@ -120,4 +120,4 @@ class Video2Gif extends React.Component {
 	}
 }
 
-export default ()=><Video2Gif />;
+export default Video2Gif

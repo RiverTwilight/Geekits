@@ -247,7 +247,7 @@ class Ui extends React.Component {
             />
             {texts.map((text,i)=>(
                 <Input
-                    onTextChange={newText=>{
+                    onValueChange={newText=>{
                         texts.splice(i,1,newText)
                         console.log(texts)
                         this.setState({texts:texts})

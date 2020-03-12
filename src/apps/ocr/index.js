@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React from 'react'
 import mdui from 'mdui'
 import axios from 'axios'
 import ClipboardJS from 'clipboard'
@@ -107,37 +107,35 @@ class Ui extends React.Component {
         super(props);
         this.state = {
             language_type:0,
-            url:'https://api.ygktool.cn/api/ocr',
             image:null,
             data:null,
             ifIgnoreLine:false,
             ifShowCropper:false
         }
     }
-    componentWillMount(){
+    componentDidMount(){
         clipboard && clipboard.destroy();
         var clipboard = new ClipboardJS('.copy');
         clipboard.on('success', e=> {
             mdui.snackbar({message:'已复制'})
-            e.clearSelection();
+            e.clearSelection()
         })
     }
     loadDataFromServer(){
-        const { url, image, language_type } = this.state
+        const { image, language_type } = this.state
         window.loadShow()
-        this.refs.startBtn.disabled = true
-        axios.post(this.state.url,{
+        this.startBtn.disabled = true
+        axios.post('https://api.ygktool.cn/api/ocr',{
             image:image.split('base64,')[1],
             language_type:language_types[language_type].value
         }).then(response =>{
             var json = JSON.parse(response.request.response);
-            console.log(json)
             this.setState({data:json,image:null})        
         }).catch(error => {
             mdui.snackbar({message:error})
         }).then(()=>{
             window.loadHide()
-            this.refs.startBtn.disabled = false
+            this.startBtn.disabled = false
         })
     }
     render(){
@@ -145,9 +143,6 @@ class Ui extends React.Component {
     	return(
     		<React.Fragment>
                 <div style={{display:(ifShowCropper)?'none':'block'}}>
-                    <div ref="load" style={{display:'none'}} className="mdui-progress">
-                        <div className="mdui-progress-indeterminate"></div>
-                    </div>
                     <center>
                         <FileRead 
                             maxWidth="220px"
@@ -172,7 +167,7 @@ class Ui extends React.Component {
                         onClick={()=>{
                         	this.loadDataFromServer()
                         }} 
-                        ref="startBtn"
+                        ref={r => this.startBtn = r}
                         className="mdui-ripple mdui-color-theme mdui-fab mdui-fab-fixed">
                         <i className="mdui-icon material-icons">&#xe5ca;</i>
                     </button>

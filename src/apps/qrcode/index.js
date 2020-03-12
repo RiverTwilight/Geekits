@@ -1,8 +1,7 @@
 import React from 'react'
 import QRCode from 'qrcode'
 
-import { TextInput, ColorInput, RangeInput } from 'mdui-in-react'
-
+import { Select, Input, ColorInput, RangeInput } from 'mdui-in-react'
 
 const create = (opts, text, callback) => {
 	QRCode.toDataURL(text, opts, (err, url) => {
@@ -65,7 +64,7 @@ class Ui extends React.Component {
 		if(mode === 'text'){
 			var form = (
 				<Input
-					onTextChange={newText=>{
+					onValueChange={newText=>{
 						this.setState({text:newText})
 					}}
 					header="输入文本"
@@ -76,7 +75,7 @@ class Ui extends React.Component {
 			var form =(
 				<React.Fragment>
 				<Input
-					onTextChange={newText=>{
+					onValueChange={newText=>{
 						this.setState({
 							wifi:{
 								account:newText,
@@ -89,7 +88,7 @@ class Ui extends React.Component {
 					value={wifi.account}
 				/>
 				<Input
-					onTextChange={newText=>{
+					onValueChange={newText=>{
 						this.setState({
 							wifi:{
 								account:wifi.account,
@@ -106,10 +105,21 @@ class Ui extends React.Component {
 		}			
 		return(
 			<React.Fragment>
-				<ModeSelect onChange={mode => this.setState({mode:mode})} />
+				<Select
+					options={[{
+						name:'文本',
+						value:'text'
+					},{
+						name:'wifi',
+						value:'wifi'
+					}]}
+					onOptionChange={newOpt=>{
+						this.setState({mode:newOpt})
+					}}
+				/>
 				{form}
 				<RangeInput 
-				    default={width}
+				    value={width}
 					min="50" max="200"
 					onValueChange={newValue=>{
 						this.setState({width:newValue})
@@ -157,7 +167,7 @@ class Ui extends React.Component {
 					}}
 					className="mdui-color-theme mdui-fab mdui-fab-fixed"
 				><i class="mdui-icon material-icons">&#xe5ca;</i></button>
-				<img src={qrcode}></img>
+				<center><img src={qrcode}></img></center>
 			</React.Fragment>
 		)
 	}

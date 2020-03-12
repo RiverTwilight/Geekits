@@ -208,4 +208,4 @@ class Img2Gif extends React.Component {
 	}
 }
 
-export default ()=><Img2Gif />;
+export default Img2Gif
