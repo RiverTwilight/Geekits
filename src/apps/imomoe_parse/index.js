@@ -25,15 +25,15 @@ const Result = props =>{
     const { src } = props;
     if(!src.length)return null
     return(
-        <ul className="mdui-row-md-2 mdui-list">
-        {src.map((source,i)=>(
-            <React.Fragment key={i}>
-                <li className="mdui-subheader">{`播放源${i + 1}`}</li>
-                <VideoList list={source[1]} />
-                <div className="mdui-clearfix"></div>
-            </React.Fragment>
-        ))}
-        </ul>     
+        <ul className="mdui-row-md-2 mdui-list">{
+            src.map((source,i)=>(
+                <React.Fragment key={i}>
+                    <li className="mdui-subheader">{`播放源${i + 1}`}</li>
+                    <VideoList list={source[1]} />
+                    <div className="mdui-clearfix"></div>
+                </React.Fragment>
+            ))
+        }</ul>     
     )
 }
 
@@ -82,7 +82,7 @@ class Ui extends React.Component {
     }
     render(){
         return(
-            <React.Fragment>
+            <>
                 <Input
                     autoFocus
                     onValueChange={newText=>{
@@ -102,7 +102,7 @@ class Ui extends React.Component {
                 </button>
                 <div className="mdui-clearfix"></div>
                 <Result src={this.state.data}/>
-            </React.Fragment>
+            </>
         )
     }
 }

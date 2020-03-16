@@ -4,7 +4,7 @@ import mdui from 'mdui';
 //输入框&清空按钮
 const Input = ({ onItemChange, items }) => {
     return(
-        <React.Fragment> 
+        <> 
             <button 
                 className="mdui-float-right mdui-btn mdui-btn-icon"
                 onClick={()=>{
@@ -21,7 +21,7 @@ const Input = ({ onItemChange, items }) => {
                 }} rows="4" className="mdui-textfield-input"type="text"></textarea>
                 <div className="mdui-textfield-helper">输入待选物品，空格间隔</div>
             </div>
-        </React.Fragment> 
+        </> 
     )
 }
 
@@ -127,7 +127,7 @@ class Ui extends React.Component {
     render(){
         const { statu, local, items } = this.state
         return(
-            <React.Fragment> 
+            <> 
                 <Input 
                     items={items}
                     onItemChange={newItems=>{
@@ -177,7 +177,7 @@ class Ui extends React.Component {
                         items={items}
                     />
                 </div>
-            </React.Fragment>
+            </>
         )
     }
 }

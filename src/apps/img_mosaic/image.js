@@ -1,5 +1,4 @@
 import React from 'react'
-import mdui from 'mdui'
 
 import FileRead from '../../utils/fileread'
 import { ListControlMenu } from 'mdui-in-react'
@@ -128,7 +127,7 @@ class Ui extends React.Component {
 	render(){
 		const { assests, res, direction } = this.state;
 		return(
-			<React.Fragment>
+			<>
 			    <Alubm 
 				    assests={assests}
 				    delete={i=>{
@@ -187,7 +186,7 @@ class Ui extends React.Component {
 		            <i class="mdui-icon material-icons">&#xe5ca;</i>
 	            </button>	
 	            <Preview res = {res}/>            
-		    </React.Fragment>
+		    </>
 		)
 	}
 }

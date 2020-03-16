@@ -158,7 +158,7 @@ class TableSetting extends React.Component {
             return element
         }
   	return(
-  		<React.Fragment>
+  		<>
   		<div id="setting" className="mdui-p-a-1"> 
   		<div className="mdui-row-sm-2">
   		  <div className="mdui-textfield mdui-col">
@@ -295,7 +295,7 @@ class TableSetting extends React.Component {
     }} style={{zIndex:999}} mdui-tooltip="{content: '打印'}" className="mdui-color-theme mdui-fab mdui-fab-fixed"><i className="mdui-icon material-icons">&#xe145;</i></button>
 <div>{btn()}</div>
 </div>
-  </React.Fragment>		
+  </>		
   		)
   }
 }

@@ -41,7 +41,7 @@ class FileRead extends React.Component {
 				var icon = 'file_upload';break
 		}
 		return(
-		    <React.Fragment>
+		    <>
 				<button 
 					style={{maxWidth:this.props.maxWidth}}
 					className="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme"
@@ -57,7 +57,7 @@ class FileRead extends React.Component {
 						this.readFile(e)
 					}} 
 				/>
-			</React.Fragment>
+			</>
 		)
 	}
 }

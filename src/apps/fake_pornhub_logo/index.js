@@ -121,7 +121,7 @@ class Ui extends React.Component {
     render(){
         const { hStyle, front, last} = this.state;
         return (
-        <React.Fragment>
+        <>
             <center>
                 <FakeLogo           
                     hStyle={hStyle}
@@ -130,60 +130,61 @@ class Ui extends React.Component {
                     ref={this.inputRef}//没卵用
                 />
             </center>
-            <FontSize
-                hStyle={hStyle}
-                onTextChange={newStyle=>{
-                    this.setState(newStyle)
-                }}
-            />
-            <ArrayTurn                      
-                onStatuChange={statu=>{
-                    if(statu){
-                        this.setState({
-                            hStyle:{
-                                size:hStyle.size,
-                                array:'vertical'
-                            }
-                        })
-                    }else{
-                        this.setState({
-                            hStyle:{
-                                size:hStyle.size,
-                                array:'transverse'
-                            }
-                        })
-                    }
-                }}
-            />
-            <br></br>
-            <ColorTurn              
-                onStatuChange={statu=>{
-                    if(statu){
-                        this.setState({
-                            front:{
-                                color:'#000000',
-                                backgroundColor:last.backgroundColor
-                            },
-                            last:{
-                                color:'#ffffff',
-                                backgroundColor:'transparent'
-                            }
-                        })
-                    }else{
-                        this.setState({
-                            front:{
-                                color:'#ffffff',
-                                backgroundColor:'transparent'
-                            },
-                            last:{
-                                color:'#000000',
-                                backgroundColor:front.backgroundColor
-                            }
-                        })
-                    }
-                }}
-            />
-
+            <div className="mdui-card mdui-p-a-1">
+                <FontSize
+                    hStyle={hStyle}
+                    onTextChange={newStyle=>{
+                        this.setState(newStyle)
+                    }}
+                />
+                <ArrayTurn                      
+                    onStatuChange={statu=>{
+                        if(statu){
+                            this.setState({
+                                hStyle:{
+                                    size:hStyle.size,
+                                    array:'vertical'
+                                }
+                            })
+                        }else{
+                            this.setState({
+                                hStyle:{
+                                    size:hStyle.size,
+                                    array:'transverse'
+                                }
+                            })
+                        }
+                    }}
+                />
+                <br></br>
+                <ColorTurn              
+                    onStatuChange={statu=>{
+                        if(statu){
+                            this.setState({
+                                front:{
+                                    color:'#000000',
+                                    backgroundColor:last.backgroundColor
+                                },
+                                last:{
+                                    color:'#ffffff',
+                                    backgroundColor:'transparent'
+                                }
+                            })
+                        }else{
+                            this.setState({
+                                front:{
+                                    color:'#ffffff',
+                                    backgroundColor:'transparent'
+                                },
+                                last:{
+                                    color:'#000000',
+                                    backgroundColor:front.backgroundColor
+                                }
+                            })
+                        }
+                    }}
+                />
+            </div>
             <button onClick={()=>{
                 html2canvas(document.querySelector("#blackborad")).then(canvas => {
                     var base64 = canvas.toDataURL("image/png");
@@ -195,7 +196,7 @@ class Ui extends React.Component {
             }} className="mdui-color-theme mdui-fab mdui-fab-fixed">
                 <i className="mdui-icon material-icons">check</i>
             </button>
-        </React.Fragment>
+        </>
         )
     }
 }

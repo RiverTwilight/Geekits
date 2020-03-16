@@ -60,7 +60,7 @@ class Edit extends React.Component {
 	render(){
 		const { noteId, title, local, content, statu} = this.state;
 		return(
-			<React.Fragment>
+			<>
 				<Input
 					onValueChange={newText=>{
 						this.setState({
@@ -74,7 +74,7 @@ class Edit extends React.Component {
 						}
 						updateNote(local, noteId, newNote)
 					}}
-					header="标题（可选）"
+					placeholder="标题（可选）"
 					value={title}
 				/>
 				<div className="mdui-tab" mdui-tab="true">
@@ -102,7 +102,7 @@ class Edit extends React.Component {
 		            <MarkDown md={content} />
 	            </div>				
 				<Link ref="back" to="/app/note"></Link>			
-			</React.Fragment>
+			</>
 		)
 	}
 }
@@ -138,20 +138,20 @@ const NotesList = props => {
             :
             null
 		return(
-			<React.Fragment>
-			<Link key={i} to={(props.editHome)?"#":"/apps/note/edit?id=" + i + "#preview"} className="mdui-list-item mdui-ripple">
-			    <div className="mdui-list-item-content">
-			        {title}			      
-			        <div className="mdui-list-item-text mdui-list-item-two-line">
-			        {a.content}
-			        </div>
-			        <div className="mdui-list-item-text mdui-list-item-one-line">
-			        {a.date}
-			        </div>
-			    </div>
-			    {button}
-			</Link>
-			<li className="mdui-divider"></li>
+			<React.Fragment key={i}>
+				<Link to={(props.editHome)?"#":"/app/note/edit?id=" + i + "#preview"} className="mdui-list-item mdui-ripple">
+					<div className="mdui-list-item-content">
+						{title}			      
+						<div className="mdui-list-item-text mdui-list-item-two-line">
+						{a.content}
+						</div>
+						<div className="mdui-list-item-text mdui-list-item-one-line">
+						{a.date}
+						</div>
+					</div>
+					{button}
+				</Link>
+				<li className="mdui-divider"></li>
 			</React.Fragment>
 		)
 	})
@@ -172,7 +172,7 @@ class Home extends React.Component {
 		const {local, editStatu, editHome, view} = this.state;
 		const msg = (local === [])?<p className="mdui-text-center">点击右下角添加便签</p>:null
 		return(
-			<React.Fragment>
+			<>
                 <button 
                     onClick={()=>{
                         this.setState({editHome:!editHome})
@@ -197,7 +197,7 @@ class Home extends React.Component {
 						<i className="mdui-icon material-icons">&#xe145;</i>
 					</button>
 				</Link>
-			</React.Fragment>
+			</>
 		)			
 	}
 }

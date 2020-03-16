@@ -72,7 +72,7 @@ class Ui extends React.Component {
 	render(){
 		const { options, res } = this.state
 		return(
-			<React.Fragment>
+			<>
 				<Input
 					onValueChange={newText=>{
 						options.text = newText;
@@ -83,43 +83,45 @@ class Ui extends React.Component {
 					rows="3"
 					maxlength="500"
 				/>	
-				<ListControlMenu
-                    icon="record_voice_over"
-                    text="声线"
-                    checked={options.per}
-                    onCheckedChange={checked=>{
-                    	options.per = checked;
-                        this.setState({options:options})
-                    }}
-                    items={per_types}
-                />
-				<RangeInput 
-				    value={options.vol}
-					min="1" max="10"
-					onValueChange={newValue=>{
-						options.vol = newValue;
-                        this.setState({options:options})
-					}}
-					title={"音量：" + options.vol}
-				/>	
-				<RangeInput 
-				    value={options.pit}
-					min="1" max="10"
-					onValueChange={newValue=>{
-						options.pit = newValue;
-                        this.setState({options:options})
-					}}
-					title={"音调：" + options.pit}
-				/>
-				<RangeInput 
-				    value={options.spd}
-					min="1" max="10"
-					onValueChange={newValue=>{
-						options.spd = newValue;
-                        this.setState({options:options})
-					}}
-					title={"语速：" + options.spd}
-				/>			
+				<div className="mdui-card mdui-p-a-1">
+					<ListControlMenu
+						icon="record_voice_over"
+						text="声线"
+						checked={options.per}
+						onCheckedChange={checked=>{
+							options.per = checked;
+							this.setState({options:options})
+						}}
+						items={per_types}
+					/>
+					<RangeInput 
+						value={options.vol}
+						min="1" max="10"
+						onValueChange={newValue=>{
+							options.vol = newValue;
+							this.setState({options:options})
+						}}
+						title={"音量：" + options.vol}
+					/>	
+					<RangeInput 
+						value={options.pit}
+						min="1" max="10"
+						onValueChange={newValue=>{
+							options.pit = newValue;
+							this.setState({options:options})
+						}}
+						title={"音调：" + options.pit}
+					/>
+					<RangeInput 
+						value={options.spd}
+						min="1" max="10"
+						onValueChange={newValue=>{
+							options.spd = newValue;
+							this.setState({options:options})
+						}}
+						title={"语速：" + options.spd}
+					/>
+				</div>			
 				<button
 					ref="loadBtn"
 					onClick={()=>{
@@ -132,7 +134,7 @@ class Ui extends React.Component {
 					title="合成结果"
 					audio={res}
 				/></span>
-			</React.Fragment>
+			</>
 		)
 	}
 }

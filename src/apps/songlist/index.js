@@ -38,13 +38,12 @@ const exportSame = (a, b) => {
             }
         })
     })
-    console.log(same)
     return { same, num }
 }
 
 const Result = props =>{
     if(!props.similar)return null
-        window.loadHide()
+    window.loadHide()
     return (
         <ul className="mdui-list">
             <li className="mdui-subheader">对比歌单</li>
@@ -57,12 +56,12 @@ const Result = props =>{
                 <div className="mdui-list-item-content">{props.songlistB}</div>
             </li>
             <li className="mdui-subheader">有{props.similar.num}首相同歌曲</li>
-        {props.similar.same.map((song,i)=>(
-            <a target="_blank" href={"https://music.163.com/#/song?id=" + song.id} key={i} className="mdui-list-item mdui-ripple">
-                <i className="mdui-list-item-icon mdui-icon material-icons">audiotrack</i>
-                <div className="mdui-list-item-content">{song.name}</div>
-            </a>
-        ))}
+            {props.similar.same.map((song,i)=>(
+                <a target="_blank" href={"https://music.163.com/#/song?id=" + song.id} key={i} className="mdui-list-item mdui-ripple">
+                    <i className="mdui-list-item-icon mdui-icon material-icons">audiotrack</i>
+                    <div className="mdui-list-item-content">{song.name}</div>
+                </a>
+            ))}
         </ul>
     )
 }
@@ -104,10 +103,7 @@ class Ui extends React.Component {
     render(){
         const { listidA, listidB, dataA, dataB } = this.state;
         return (
-        <React.Fragment>
-            <div ref="load" style={{display:'none',position:'absolute',top:'0'}} className="mdui-progress">
-                <div className="mdui-progress-indeterminate"></div>
-            </div>
+        <>
             <Input
                 onValueChange={newText=>{
                     this.setState({listidA:newText});
@@ -146,12 +142,11 @@ class Ui extends React.Component {
             </button>
             <div className="mdui-clearfix"></div>
             <Result
-                loadRef={this.refs.load}
                 similar={exportSame(dataA.list,dataB.list)}
                 songlistA={dataA.name}
                 songlistB={dataB.name}
             />
-        </React.Fragment>
+        </>
     )
     }
 }

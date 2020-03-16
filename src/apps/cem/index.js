@@ -9,7 +9,6 @@ import cem from './dic.js'
 const Result = ({ result, eleClass }) =>{
     if(result === "")return null;
     const pt = JSON.parse(table);
-    console.log(pt);
     var info = [];
     pt.map(stance=>{
         eleClass.map(ele=>{
@@ -17,12 +16,12 @@ const Result = ({ result, eleClass }) =>{
         })
     })
     return(
-        <React.Fragment>  
+        <>  
             <div className="mdui-typo mdui-text-center">     
                 <h3 dangerouslySetInnerHTML={{__html : result}}></h3>
             </div>
-            <div class="mdui-table-fluid">
-                <table class="mdui-table">
+            <div className="mdui-table-fluid">
+                <table className="mdui-table">
                     <thead>
                         <tr>
                             <th>原子序数</th>
@@ -40,7 +39,7 @@ const Result = ({ result, eleClass }) =>{
                     }</tbody>
                   </table>
                 </div>
-        </React.Fragment>
+        </>
     )
 }
 
@@ -57,13 +56,13 @@ class Ui extends React.Component {
         clipboard && clipboard.destroy();
         var clipboard = new ClipboardJS('#input');
         clipboard.on('success', e=> {
-          mdui.snackbar({message:'已复制链接'})
-          e.clearSelection();
+            mdui.snackbar({message:'已复制链接'});
+            e.clearSelection()
         })
     }
     render(){
         return (
-        	<React.Fragment>
+        	<>
                 <Input
                     onValueChange={newText=>{
                         this.setState({input:newText})
@@ -71,27 +70,26 @@ class Ui extends React.Component {
                     pattern="\S+\=\S+"
                     header="输入方程式"
                     icon="link"
-                    type="text"
                     value={this.state.input}
                     rows="3"
                 />         
-            <button 
-                onClick={()=>{
-                    var library = cem(this.state.input)
-                	this.setState({
-                        result:library.result,
-                        eleClass:library.eleClass
-                    })
-                }} 
-                className="mdui-ripple mdui-color-theme mdui-btn-raised mdui-btn">
-                配平
-            </button>
-            <div className="mdui-clearfix"></div>
-            <Result
-                eleClass={this.state.eleClass}
-                result={this.state.result}
-            />
-            </React.Fragment>
+                <button 
+                    onClick={()=>{
+                        var library = cem(this.state.input)
+                        this.setState({
+                            result:library.result,
+                            eleClass:library.eleClass
+                        })
+                    }} 
+                    className="mdui-ripple mdui-color-theme mdui-btn-raised mdui-btn">
+                    配平
+                </button>
+                <div className="mdui-clearfix"></div>
+                <Result
+                    eleClass={this.state.eleClass}
+                    result={this.state.result}
+                />
+            </>
         )
     }
 }

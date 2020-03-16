@@ -65,7 +65,7 @@ class Ui extends React.Component {
     }
     render(){
         return(
-            <React.Fragment> 
+            <> 
                 <Input
                     onValueChange={newText=>{
                         this.setState({kwd:newText})
@@ -77,7 +77,7 @@ class Ui extends React.Component {
                     value={this.state.kwd}
                 />
                 <Result kwd={this.state.kwd} />
-            </React.Fragment>
+            </>
         )   
     }
 }

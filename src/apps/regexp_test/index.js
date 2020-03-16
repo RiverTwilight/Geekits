@@ -22,7 +22,7 @@ const Link = ({onInput}) => {
             description:'IP地址'
         },
         {
-            exp:'^\\d{4}-\\d{1,2}-\\d{1,2}',
+            exp:'\\d{4}-\\d{1,2}-\\d{1,2}',
             description:'日期yyyy-mm-dd'
         },
         {
@@ -34,7 +34,7 @@ const Link = ({onInput}) => {
             description:'url'
         },
         {
-            exp:'^[A-Za-z0-9._%-]+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}$',
+            exp:'[A-Za-z0-9._%-]+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}$',
             description:'E-mail'
         }
     ]
@@ -67,7 +67,7 @@ class Ui extends React.Component {
     render(){
         const { exp, toTest, tempTest } = this.state
     	return (
-    		<React.Fragment>
+    		<>
                 <Input
                     onValueChange={newText=>{                                          
                         this.setState({
@@ -125,7 +125,7 @@ class Ui extends React.Component {
                     >
                     </textarea>
                 </div>
-            </React.Fragment>
+            </>
     	)
     }
 }

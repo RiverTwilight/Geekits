@@ -40,7 +40,7 @@ class Ui extends React.Component {
         window.titleRef.innerText = '意见反馈'
         const { content, contact } = this.state
     	return(
-            <React.Fragment>
+            <>
                 <Input
                     onValueChange={newText=>{
                         this.setState({contact:newText})
@@ -65,7 +65,7 @@ class Ui extends React.Component {
                     className="mdui-color-theme mdui-btn mdui-btn-raised">
                     提交
                 </button>
-            </React.Fragment>
+            </>
         )
     }
 }

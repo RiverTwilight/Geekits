@@ -204,7 +204,7 @@ class VideoShotter extends React.Component {
 		const { video, addImg } = this.props
 	    if(!video)return null
 	   	return(
-	   		<React.Fragment>
+	   		<>
 		   		<video ref={r => this.video = r} className="mdui-video-fluid" controls>
 				    <source src={video} type="video/mp4"/>
 				</video>
@@ -222,7 +222,7 @@ class VideoShotter extends React.Component {
 						addImg(res)
 					}}
 				>截图</button>
-			</React.Fragment>
+			</>
 	   	)
 	}
 }
@@ -239,7 +239,7 @@ class Ui extends React.Component {
 	render(){
 		const { assests, res, video } = this.state;
 		return(
-			<React.Fragment>
+			<>
 			    <Alubm 
 				    onTopDrag={(distance,i)=>{
 				    	if(assests[i].top + distance >= 0)assests[i].top += distance;		    	
@@ -327,7 +327,7 @@ class Ui extends React.Component {
 	            </button>
                 <br></br>	            
 	            <Preview res = {res}/>            
-		    </React.Fragment>
+		    </>
 		)
 	}
 }

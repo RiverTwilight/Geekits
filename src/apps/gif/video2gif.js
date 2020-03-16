@@ -1,8 +1,8 @@
 import React from 'react'
 import mdui from 'mdui'
-import saveFile from '../../utils/fileSaver'
 import GIF from 'gif.js'
 
+import { Input } from 'mdui-in-react'
 import FileRead from '../../utils/fileread'
 
 function engine(file, config, videoRef, callback) {
@@ -12,8 +12,8 @@ function engine(file, config, videoRef, callback) {
 		gif = new GIF({
 			workers: 4,
 			quality: 10,
-			width: v.offsetWidth,
-			height: v.offsetHeight,
+			width: v.videoWidth,
+			height: v.videoHeight,
 			workerScript:'/gif.worker.js'			
 		}),
         i
@@ -39,20 +39,17 @@ function engine(file, config, videoRef, callback) {
 	})
 
 	gif.on('finished', (blob) => {
-		//loadRef.style.display = 'none'
-		console.log(URL.createObjectURL(blob));
-		callback()
-		mdui.snackbar({
-			timeout: 0,
-			message: '制作完成',
-			buttonText: '下载',
-			onButtonClick: () => {
+		var reader = new FileReader();
+		reader.readAsDataURL(blob);
+		reader.onload = e => {
+			callback(e.target.result)
+		}
+
+		/*
 				saveFile({
                     file: blob,
                     filename: "ygktool-gif.gif"
-                })
-			}
-		})
+                })*/
 	})
 
 	gif.on('progress', function(p) {		
@@ -61,6 +58,12 @@ function engine(file, config, videoRef, callback) {
 	v.play()
 }
 
+//预览图片
+const Preview = ({src}) => {
+	if(!src)return null
+    const element = <img alt="预览" height="100%"width='100%' src={src} />;
+    return element
+}
 
 class Video2Gif extends React.Component {
 	constructor(props) {
@@ -68,35 +71,36 @@ class Video2Gif extends React.Component {
 		this.state = {
 			file: null,
 			config: {
-				delay: 3
+				delay: 1
 			},
-			onConv:false
+			onConv:false,
+			res:null
 		}
 	}
 	componentDidUpdate(){
 		mdui.mutation() 
 	}
 	render(){
-		var { file, config, onConv } = this.state;
+		var { file, config, onConv, res } = this.state;
 		var button = (onConv)?
-			<div style={{marginTop:'7px'}} class="mdui-spinner"></div>
+			<div style={{marginTop:'7px'}} className="mdui-spinner"></div>
 			:
-		    <i class="mdui-icon material-icons">&#xe5ca;</i>;
+		    <i className="mdui-icon material-icons">&#xe5ca;</i>;
 		return(
-			<React.Fragment>
+			<>
 			    <video
-				    ref="video"
-				    class="mdui-video-fluid" src={file}>
+					style={{display:file?'block':'none'}}
+				    ref={r => this.videoDom = r}
+				    className="mdui-video-fluid" src={file}>
 				</video>
-				<div className="mdui-textfield">
-					<label className="mdui-textfield-label">速度(数值越低速度越快，建议使用默认值)</label>
-					<input 
-						value={config.delay}
-						onChange={e=>{
-							this.setState({config:{delay:e.target.value}})
-						}}
-						className="mdui-textfield-input" type="number"/>
-				</div>
+				<Input
+					header="速度(数值越低速度越快，建议使用默认值)"
+					value={config.delay}
+					onValueChange={newText=>{
+						this.setState({config:{delay:newText}})
+					}}
+					type="number"
+				/>
 				<FileRead 
 				    fileType="video/*"
 				    multiple={false}
@@ -109,13 +113,18 @@ class Video2Gif extends React.Component {
 		            disabled={onConv}
 		            onClick={()=>{
 		            	this.setState({onConv:true})
-		            	engine(file,config,this.refs.video,()=>{
-		            		this.setState({onConv:false})
+		            	engine(file,config,this.videoDom,blob=>{
+		            		this.setState({
+								onConv:false,
+								res:blob
+							})
 		            	})
 		            }}>
 		            {button}			        
-	            </button>    
-		    </React.Fragment>
+	            </button>   
+				<br></br> 
+				<Preview src={res}/>
+		    </>
 		)
 	}
 }

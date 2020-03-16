@@ -79,3 +79,11 @@ i.nologin{
         left:240px;
     }
 }
+
+.loading{
+    position:fixed !important;
+    top:0px;
+    z-index: 9999;
+    width: 100% !important;
+    left: 0px
+}

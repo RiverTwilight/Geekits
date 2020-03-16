@@ -74,7 +74,7 @@ class Ui extends React.Component {
     render(){
         const { onRecord, finished } = this.state
         return (
-            <React.Fragment>    
+            <>    
                 <video ref="video" className="mdui-video-fluid" controls>
                     <source type="video/ogg"/>
                 </video>     
@@ -104,7 +104,7 @@ class Ui extends React.Component {
                         </button>
                     </div>
                 </div>
-            </React.Fragment>
+            </>
         )
     }
 }

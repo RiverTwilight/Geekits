@@ -22,7 +22,7 @@ const Preview = props => {
 
 	var res = JSON.stringify(JSON.parse(JSON.stringify(exportConfig)), null, 4);
 	return (
-		<React.Fragment>
+		<>
 			<Input
 				rows="10"
 	            header=""
@@ -39,7 +39,7 @@ const Preview = props => {
 		        className="mdui-btn mdui-btn-raised mdui-color-theme">
 		        下载manifest.json
 	        </button>
-        </React.Fragment>
+        </>
 	)
 }
 
@@ -105,7 +105,7 @@ class Icons extends React.Component {
             )
         })
     	return(
-			<React.Fragment>
+			<>
 				<li className="mdui-subheader">
 					图标&nbsp;&nbsp;
 					<span mdui-dialog="{target:'#icon',history:false}" className="mdui-text-color-theme">添加</span>
@@ -169,7 +169,7 @@ class Icons extends React.Component {
 					    <button className="mdui-btn mdui-ripple"mdui-dialog-close="true">取消</button>
 					</div>
 				</div>
-			</React.Fragment>
+			</>
 		)
     }	
 }
@@ -198,7 +198,8 @@ class RelatedApp extends React.Component {
                 :
                 null
             return(
-                <li 
+				<li 
+					key={i}
 					mdui-dialog="{target:'#relatedApp',history:false}"
 					className="mdui-list-item mdui-ripple"
 					onClick={()=>{
@@ -223,7 +224,7 @@ class RelatedApp extends React.Component {
             )
         })
     	return(
-			<React.Fragment>
+			<>
 				<li className="mdui-subheader">
 					推荐安装原生APP&nbsp;&nbsp;
 					<span mdui-dialog="{target:'#relatedApp',history:false}" className="mdui-text-color-theme">添加</span>
@@ -245,7 +246,6 @@ class RelatedApp extends React.Component {
 			                    this.setState({store:newText})
 			                }}
 			                header="可以找到应用程序的平台"
-			                type="text"
 			                value={store}
 			            />
 			            <Input
@@ -261,7 +261,6 @@ class RelatedApp extends React.Component {
 			                    this.setState({id:newText})
 			                }}
 			                header="用于表示指定平台上的应用程序的ID"
-			                type="text"
 			                value={id}
 			            />
 					</div>
@@ -290,7 +289,7 @@ class RelatedApp extends React.Component {
 					    <button className="mdui-btn mdui-ripple"mdui-dialog-close="true">取消</button>
 					</div>
 				</div>
-			</React.Fragment>
+			</>
 		)
 
     }	
@@ -313,7 +312,7 @@ class Create extends React.Component {
     	const { icons, display, description, lang, relatedApp, background_color, theme_color, name, short_name } = this.state
 		const { complete, previewFunc } = this.props
 		return (
-			<React.Fragment>
+			<>
 	            <Input
 	                onValueChange={newText=>{
 	                    this.setState({name:newText})
@@ -437,7 +436,7 @@ class Create extends React.Component {
 		            className="mdui-fab mdui-color-theme mdui-fab-fixed">
 		            <i className="mdui-icon material-icons">&#xe5ca;</i>
 	            </button>        
-	        </React.Fragment>
+	        </>
 		)
     }
 }
@@ -451,7 +450,7 @@ class Ui extends React.Component {
 	}
     render(){
     	return(
-    		<React.Fragment>
+    		<>
 		        <div className="mdui-tab" mdui-tab="true">
 		            <a href="#input" className="mdui-ripple">编辑</a>
 		            <a ref={r => this.previewBtn = r} href="#preview" className="mdui-ripple">预览</a>
@@ -467,7 +466,7 @@ class Ui extends React.Component {
 			    <div id="preview">
 				    <Preview config={this.state.result} />
 			    </div>
-		    </React.Fragment>
+		    </>
 	    )
     }
 }

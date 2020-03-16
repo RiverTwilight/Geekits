@@ -37,7 +37,7 @@ class Ui extends React.Component {
 	render(){
 		const { file, quality, res, type } = this.state;
 		return(
-			<React.Fragment> 
+			<> 
 				<center>
 					<FileRead 
 						fileType="image/*"
@@ -70,7 +70,7 @@ class Ui extends React.Component {
 	                <i className="mdui-icon material-icons">check</i>
                 </button>
                 <img src={res} className="mdui-img-fluid" />
-			</React.Fragment>
+			</>
 		)  	
 	}
 }

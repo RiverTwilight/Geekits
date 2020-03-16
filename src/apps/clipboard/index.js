@@ -11,7 +11,7 @@ import { Input } from 'mdui-in-react'
 
 const Share = props =>{
     return(
-        <React.Fragment>
+        <>
             <ul className="mdui-menu" id="share">
                 <img src={props.qrcode}></img>                   
                 <li>
@@ -30,7 +30,7 @@ const Share = props =>{
                 className="mdui-color-theme mdui-fab mdui-fab-mini">
                 <i className="mdui-icon material-icons">&#xe80d;</i>
             </button>       
-        </React.Fragment>
+        </>
     )
 }
 
@@ -68,11 +68,11 @@ const MsgList = ({data}) =>{
            )
         }else{
             return(
-                <li key={i} class="mdui-list-item mdui-ripple">
-                    <i class="mdui-list-item-avatar mdui-icon material-icons">folder</i>
-                    <div class="mdui-list-item-content">
-                        <div class="mdui-list-item-title">{a.content.name}</div>
-                        <div class="mdui-list-item-text">{a.content.size}</div>
+                <li key={i} className="mdui-list-item mdui-ripple">
+                    <i className="mdui-list-item-avatar mdui-icon material-icons">folder</i>
+                    <div className="mdui-list-item-content">
+                        <div className="mdui-list-item-title">{a.content.name}</div>
+                        <div className="mdui-list-item-text">{a.content.size}</div>
                     </div>
                     <button
                         onClick={()=>{
@@ -82,7 +82,7 @@ const MsgList = ({data}) =>{
                             })
                         }}
                         className="mdui-btn mdui-btn-icon">
-                        <i class="mdui-icon material-icons">file_download</i>                       
+                        <i className="mdui-icon material-icons">file_download</i>                       
                     </button>
                 </li>
            )
@@ -184,7 +184,7 @@ class Ui extends React.Component {
     render(){
         const { qrcode, type, data, content, token } = this.state
         return (
-            <React.Fragment>
+            <>
                 <MsgList data={data}/>
                 <div
                     className="bottom-dashboard mdui-card mdui-p-a-1">
@@ -246,7 +246,7 @@ class Ui extends React.Component {
                     </span>
                 </div>      
                 <Share token={token} qrcode={qrcode} />
-            </React.Fragment>
+            </>
         )
     }
 }

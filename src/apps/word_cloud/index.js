@@ -55,7 +55,7 @@ class Words extends React.Component {
             )
         })
         return(
-            <React.Fragment>
+            <>
                 <li className="mdui-subheader">
                     文字&nbsp;&nbsp;
                     <span mdui-dialog="{target:'#icon',history:false}" className="mdui-text-color-theme">添加</span>
@@ -101,12 +101,12 @@ class Words extends React.Component {
                                 }
                             }}                              
                             className="mdui-btn mdui-ripple"mdui-dialog-close="true">
-                            保存
+                            取消
                         </button>
-                        <button className="mdui-btn mdui-ripple"mdui-dialog-close="true">取消</button>
+                        <button className="mdui-btn mdui-ripple"mdui-dialog-close="true">保存</button>
                     </div>
                 </div>
-            </React.Fragment>
+            </>
         )
     }   
 }
@@ -149,7 +149,7 @@ class Ui extends React.Component {
     render(){
         const{ words, NoRotate, transportBg } = this.state
         return(
-            <React.Fragment>  
+            <>  
                 <canvas
                     onClick={()=>{
                         saveFile({
@@ -213,7 +213,7 @@ class Ui extends React.Component {
                     className="mdui-ripple mdui-fab mdui-color-theme-accent mdui-fab-fixed">
                     <i className="mdui-icon material-icons">&#xe5ca;</i>
                 </button>
-            </React.Fragment>
+            </>
         )
     }
 }

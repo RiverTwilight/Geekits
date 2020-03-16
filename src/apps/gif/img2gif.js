@@ -160,7 +160,7 @@ class Img2Gif extends React.Component {
 	render(){
 		var { assests, config, res } = this.state;
 		return(
-			<React.Fragment>
+			<>
 				<span ref="load" style={{display:'none',position:'absolute',top:'0'}} className="mdui-progress">
 		            <div className="mdui-progress-indeterminate"></div>
 		        </span>
@@ -203,7 +203,7 @@ class Img2Gif extends React.Component {
 			            this.setState({config:config})
 			        }}
 			    />		            
-		    </React.Fragment>
+		    </>
 		)
 	}
 }

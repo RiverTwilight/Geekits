@@ -45,7 +45,7 @@ const Result = ({data, ifIgnoreLine, onIgnoreLine}) =>{
     })
     console.log(markedText)
     return(
-      <React.Fragment>   
+      <>   
             <ListControlCheck
                 icon="keyboard_return"
                 text="忽略换行"
@@ -66,7 +66,7 @@ const Result = ({data, ifIgnoreLine, onIgnoreLine}) =>{
                 ))
             }
             </div>
-      </React.Fragment>
+      </>
     )
 }
 
@@ -141,7 +141,7 @@ class Ui extends React.Component {
     render(){
         const { image, ifIgnoreLine, ifShowCropper, data, language_type } = this.state
     	return(
-    		<React.Fragment>
+    		<>
                 <div style={{display:(ifShowCropper)?'none':'block'}}>
                     <center>
                         <FileRead 
@@ -192,7 +192,7 @@ class Ui extends React.Component {
                     }}
                     title=""
                 />
-            </React.Fragment>
+            </>
     	)
     }
 }

@@ -208,7 +208,7 @@ class Whole extends React.Component{
     render(){
         const { kwd, searchResult } = this.state
         return(
-            <React.Fragment>            
+            <>            
                 <Notice />
                 <Search 
                     getResult={(res,kwd)=>{
@@ -224,7 +224,7 @@ class Whole extends React.Component{
                 />
                 <FivList />
                 <AppList />
-            </React.Fragment>
+            </>
         )
     }
 }

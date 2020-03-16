@@ -126,7 +126,7 @@ class EditTools extends React.Component {
         const { showTextApps } = this.state;
         const { textarea, cb, content, undo, redo } = this.props;
         return(
-            <React.Fragment>
+            <>
             <div className="mdui-btn-group">
                 <button 
                     onClick={()=>{
@@ -172,7 +172,7 @@ class EditTools extends React.Component {
                 ))}
                 </div>
             </div>
-            </React.Fragment>
+            </>
         )
     }
 }   
@@ -189,7 +189,7 @@ class MdEditor extends React.Component {
         const { content, cb } = this.props      
         const { editVersion, history } =this.state  
         return(
-            <React.Fragment>
+            <>
                 <EditTools 
                     content={content}
                     textarea={this.textarea}
@@ -238,7 +238,7 @@ class MdEditor extends React.Component {
                         autoFocus type='text' className="mdui-textfield-input">
                     </textarea>
                 </div>
-            </React.Fragment>
+            </>
         )
     }
 }

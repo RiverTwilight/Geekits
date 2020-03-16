@@ -10,9 +10,9 @@ import { ListControlMenu } from 'mdui-in-react'
 const Result = ({result}) =>{
     if(result === null)return null
     return(
-        <React.Fragment>
+        <>
             {result.map(({keyword, baike_info, score},i)=>(
-                <React.Fragment>
+                <>
                 <div key={i} className="mdui-col mdui-card">
                     <div className="mdui-card-media">
                         {/*baike_info?<img src={baike_info.image_url}/>:""*/}
@@ -26,9 +26,9 @@ const Result = ({result}) =>{
                     </div>
                 </div>
                 <br></br>
-                </React.Fragment>
+                </>
             ))}
-        </React.Fragment>
+        </>
     )
 }
 
@@ -81,7 +81,7 @@ class Ui extends React.Component {
     render(){
         const { image, ifShow, data, aic_type, ifShowCropper } = this.state
     	return(
-    		<React.Fragment>
+    		<>
                 <div style={{display:(ifShow||ifShowCropper)?'none':'block'}}>
                     <center>
                         <FileRead 
@@ -132,7 +132,7 @@ class Ui extends React.Component {
                     }}
                     title=""
                 />
-            </React.Fragment>
+            </>
     	)
     }
 }

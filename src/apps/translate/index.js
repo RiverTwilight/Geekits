@@ -15,7 +15,7 @@ const TextInput = forwardRef((props,ref) => (
             autoFocus rows="5" className="mdui-textfield-input"
             type="text" placeholder="输入内容或拖入文件"></textarea>    
         </div>
-  )
+    )
 )
 
 const options = [{
@@ -42,6 +42,15 @@ const options = [{
 },{
     name:'法语',
     value: 'fra',
+},{
+    name:'西班牙语',
+    value:'spa'
+},{
+    name:'泰语',
+    value:'th'
+},{
+    name:'意大利语',
+    value:'it'
 }]
 
 const PrintRes = ({res}) => {
@@ -121,7 +130,7 @@ class Ui extends React.Component {
     render(){
         const { text, fromLang, toLang, res } = this.state
         return(
-            <React.Fragment>
+            <>
             <center style={{margin:'0 auto'}}>
                 <Select
                     onOptionChange={val=>{
@@ -168,7 +177,7 @@ class Ui extends React.Component {
                     res={res}
                 />
           </div>
-          </React.Fragment>
+          </>
         )
     }
 }

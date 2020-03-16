@@ -57,7 +57,7 @@ class Index extends React.Component {
     render(){
         window.titleRef.innerText = '云极客工具'
         return(  
-          <React.Fragment>
+          <>
             <Page
               page={this.state.page}
             />
@@ -67,7 +67,7 @@ class Index extends React.Component {
                    this.setState({page:newPage})
                 }}
             />
-          </React.Fragment>
+          </>
         )
     }
 }

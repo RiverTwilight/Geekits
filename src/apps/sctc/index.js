@@ -79,7 +79,7 @@ class Ui extends React.Component {
     render(){
       	const { text } = this.state
       	return(
-          <React.Fragment>
+          <>
       	        <TextInput 
                     text={text}
                     ref={this.dropBox} 
@@ -112,7 +112,7 @@ class Ui extends React.Component {
                 <PrintRes
                     res={this.state.res}
                 />
-      		</React.Fragment>
+      		</>
       	)
     }
 }

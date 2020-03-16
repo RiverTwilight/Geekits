@@ -80,7 +80,7 @@ class Header extends React.Component{
     render(){
         const { saying, title, darkMode } = this.state
         return (
-            <React.Fragment>
+            <>
                 <Drawer /> 
                 <header className="header mdui-appbar mdui-appbar-fixed">
                     <div className="mdui-appbar">
@@ -137,7 +137,7 @@ class Header extends React.Component{
                         </div>
                     </div>        
                 </header>
-            </React.Fragment>
+            </>
         )
     }  
 }

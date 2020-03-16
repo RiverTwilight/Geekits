@@ -73,7 +73,7 @@ class Ui extends React.Component {
 				/>)
 		}else{
 			var form =(
-				<React.Fragment>
+				<>
 				<Input
 					onValueChange={newText=>{
 						this.setState({
@@ -100,11 +100,11 @@ class Ui extends React.Component {
 					icon="vpn_key"
 					value={wifi.pwd}
 				/>
-				</React.Fragment>
+				</>
 			)
 		}			
 		return(
-			<React.Fragment>
+			<>
 				<Select
 					options={[{
 						name:'文本',
@@ -168,7 +168,7 @@ class Ui extends React.Component {
 					className="mdui-color-theme mdui-fab mdui-fab-fixed"
 				><i class="mdui-icon material-icons">&#xe5ca;</i></button>
 				<center><img src={qrcode}></img></center>
-			</React.Fragment>
+			</>
 		)
 	}
 }

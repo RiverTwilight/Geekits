@@ -28,7 +28,7 @@ class Ui extends React.Component {
     render(){
         const { dateEarly, dateLate, dateStart, day, diffDay, whichDay } = this.state
         return (
-            <React.Fragment>
+            <>
                 <div className="mdui-card mdui-p-a-1">
                     <p className="mdui-typo-title">日期间隔</p>                
                     <Input
@@ -98,7 +98,7 @@ class Ui extends React.Component {
                         计算
                     </button>
                 </div>            
-            </React.Fragment>
+            </>
         )
     }
 }

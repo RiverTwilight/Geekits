@@ -12,14 +12,14 @@ var list = [{
 	"icon_color": "orange-400",
 	"help": "仅限PC端最新版本的Chrome/Firefox/Opera使用",
 	"channel": 2
-}, /*{
+}, {
 	"name": "网络日志抓取",
 	"link": "console",
 	"icon": "language",
 	"icon_color": "indigo-300",
 	"help": "动态生成的内容可能无法抓取到",
 	"channel": 3
-},*/ {
+}, {
 	"name": "翻译",
 	"link": "translate",
 	"icon": "translate",
@@ -55,11 +55,11 @@ var list = [{
 	"help": "",
 	"channel": 2
 }, {
-	"name": "B站视频封面获取",
+	"name": "B站封面获取",
 	"link": "bilibili_cover",
 	"icon": "photo_size_select_actual\r\n",
 	"icon_color": "pink-300",
-	"help": "点击图片地址可以复制",
+	"help": "番号请使用md开头，例：md425（《某科学的超电磁炮》）##视频请使用av开头，例：av32211954##点击图片地址可以复制",
 	"channel": 4
 }, {
 	"name": "pornhub风格图片生成\r\n",
@@ -101,7 +101,7 @@ var list = [{
 	"link": "gif",
 	"icon": "gif",
 	"icon_color": "light-green",
-	"help": "过大的视频可能会有卡顿##部分视频格式不支持，修复中",
+	"help": "过大的视频可能会有卡顿##所有操作均在本地执行，不消耗数据流量",
 	"channel": 2
 }, {
 	"name": "樱花动漫视频解析",
@@ -122,7 +122,7 @@ var list = [{
 	"link": "regexp_test",
 	"icon": "sort_by_alpha",
 	"icon_color": "green-200",
-	"help": "建议只修改/g之前的内容",
+	"help": "",
 	"channel": 3
 }, {
 	"name": "mimetype查询",
@@ -143,7 +143,7 @@ var list = [{
 	"link": "emoticon",
 	"icon": "tag_faces",
 	"icon_color": "yellow",
-	"help": "素材为随机刷新的~",
+	"help": "",
 	"channel": 2
 }, {
 	"name": "全能文本转码",
@@ -215,6 +215,13 @@ var list = [{
 	"icon_color": "yellow-600",
 	"help": "生成结果仅供参考",
 	"channel": 4
-}]
+}/*,{
+	"name": "词语查询",
+	"link": "dic_ci",
+	"icon": "attach_money",
+	"icon_color": "yellow-600",
+	"help": "生成结果仅供参考",
+	"channel": 4
+}*/]
 
 export default list

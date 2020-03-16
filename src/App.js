@@ -55,7 +55,7 @@ class App extends React.Component {
     render(){
         return(
             <Router>  
-                <div style={{display:'none'}} ref={r => this.loading = r} className="mdui-progress">
+                <div style={{display:'none'}} ref={r => this.loading = r} className="mdui-color-green-100 mdui-progress loading">
                     <div className="mdui-progress-indeterminate"></div>
                 </div>  
                 <Header 

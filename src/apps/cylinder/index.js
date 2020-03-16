@@ -141,8 +141,8 @@ class Create extends React.Component {
 	}
 	render(){
 		return(
-			<React.Fragment>
-			</React.Fragment>
+			<>
+			</>
 		)
 	}
 }
@@ -185,7 +185,7 @@ class Ui extends React.Component {
 	render(){
 		const { data } = this.state.data
 		return(
-			<React.Fragment>
+			<>
 				<Input
 					onValueChange={this.onValueChange}
 					data={data}
@@ -197,7 +197,7 @@ class Ui extends React.Component {
 					className="mdui-btn mdui-btn-raised"
 					onClick={()=>{}}></button>
 				<Result data={data} />
-			</React.Fragment>
+			</>
 		)
 
 	}

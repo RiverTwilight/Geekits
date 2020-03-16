@@ -1,11 +1,12 @@
 import React from 'react';
 import mdui from 'mdui';
-import { Input } from 'mdui-in-react'
 import axios from 'axios'
+import Template from '../../utils/AskForTemplate.jsx'
 
 const $ = mdui.JQ;
 
-function viewCode(code){
+//检查资源类型，链接或代码
+const codeType = (code, domain) => {
 	var patt_js = /\.(js$|js\?\S+|css$|css\?\S+)/;//匹配是否为Js/css文件
 	var patt_http = /^(http|\/\/)/;//匹配是否为远程连接
 	var patt_abridge = /^\/\//;//匹配是否有协议头
@@ -13,19 +14,27 @@ function viewCode(code){
 	//匹配主域名链接
 	var patt_main = /^(?=^.{3,255}$)(http(s)?:\/\/)?(www\.)?[a-zA-Z0-9][-a-zA-Z0-9]{0,62}(\.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})+(:\d+)*(\/\w+\.\w+)*/;
 	if (patt_js.test(code)) {
-		//console.log(patt_main.exec($("#url").val()));
-		var url = (patt_http.test(code))?((patt_abridge.test(code))?"http:"+code:code):(patt_absolute.test(code))?patt_main.exec(url)[0]+code:url+code
+		var url = (patt_http.test(code))?((patt_abridge.test(code))?"http:"+code:code):(patt_absolute.test(code))?patt_main.exec(domain)[0]+code:domain+code
 		console.log({
 			"完整的路径":url,
 			"是否为直链":patt_http.test(code),
 			"是否省略协议头":patt_abridge.test(code)
-		})		
-	} else {		
-    }
-    return 'dfdsafs'
+        })		
+        return 'url'
+	}
+    return 'code'
 }
 
-function GetStyle({jqEle}){
+const GetCode = ({html}) => {
+    if(!html)return null
+    return(
+        <div className="mdui-typo">
+            <pre>{html}</pre>
+        </div>
+    )
+}
+
+const GetStyle = ({jqEle, url}) => {
     if(!jqEle)return null;
 	//分为style内联和link外联两种获取
     var $style = $(jqEle).find("style");
@@ -48,24 +57,36 @@ function GetStyle({jqEle}){
             })
         }        
     })   
-    var style = style.concat(link);
+    var data = style.concat(link);
     //style.splice(link.length - 1,1);
 	return (
-		<ul className="mdui-list">{
-            style.map((e,index)=>(
-                <li onClick={()=>{
-                    console.log(style[index].src);
-                    viewCode(style[index].src)
-                }} key={index} className="mdui-list-item mdui-ripple">
-                    <i className="mdui-list-item-icon mdui-icon material-icons">code</i>
-                    <div className="mdui-list-item-content mdui-text-truncate">{String(e.src)}</div>
-                </li>
-            ))
-        }</ul>
+        <ul className="mdui-list">
+        {data.map((script,index)=>(
+            <ShowCode index={index} type={codeType(script.src, url)} src={script.src} />
+        ))}
+        </ul>
 	)
 }
 
-const GetScript = ({jqEle}) => {
+const ShowCode = ({src, index, type}) => {
+    return(
+        <React.Fragment key={index} >
+            <li 
+                onClick={()=>{
+                    if(type === 'url'){
+                        window.open(src)
+                    }
+                }}
+                className="mdui-list-item mdui-ripple">
+                <i className="mdui-list-item-icon mdui-icon material-icons">code</i>
+                <div className="mdui-list-item-content">{src}</div>
+            </li>
+            <li class="mdui-subheader-inset"></li>
+        </React.Fragment>
+    )
+}
+
+const GetScript = ({jqEle, url}) => {
     if(!jqEle)return null;
     var $html = $(jqEle).find('script')
     var data = [];
@@ -75,28 +96,57 @@ const GetScript = ({jqEle}) => {
             src:$(html).attr("src")||$(html).text()
         })
     })
-    //data.splice(data.length-4,4);
+    data.splice(data.length-1,1);
 	return (
-        <div className="mdui-panel" mdui-panel="true">
+        <ul className="mdui-list">
         {data.map((script,index)=>(
-            <div key={index} className="mdui-panel-item">
-                <div className="mdui-panel-item-header">
-                    <i className="mdui-list-item-icon mdui-icon material-icons">code</i>
-                    <span style={{maxWidth:'80%'}} className="mdui-text-truncate">{script.src}</span>
-                </div>
-                <div className="mdui-panel-item-body">
-                    {viewCode(script.src)}
-                </div>
-            </div>
+            <ShowCode index={index} type={codeType(script.src, url)} src={script.src} />
         ))}
-        </div>
+        </ul>
 	)
 }
 
 function GetOther(props){
 	return(
 		<p>更多功能开发中...</p>
-		)
+	)
+}
+
+class ToTop extends React.Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            isHide:true
+        }
+    }
+    componentDidMount(){
+        window.addEventListener("scroll",e => {
+            var t = document.documentElement.scrollTop || document.body.scrollTop;
+            if(t <= 148){
+                this.setState({isHide:true})
+            }else{
+                this.setState({isHide:false})
+            }
+        })
+    }
+    componentWillUnmount(){
+        window.removeEventListener("scroll",()=>{})
+    }
+    render(){
+        const { isHide } = this.state
+        return(
+            <button 
+                onClick={()=>{
+                    window.toTop = setInterval(() => {
+                        if(document.documentElement.scrollTop === 0)clearInterval(window.toTop)
+                        document.documentElement.scrollTop -= 200
+                    }, 50);
+                }}
+                className={`mdui-color-theme mdui-fab mdui-fab-fixed ${isHide?'mdui-fab-hide':''}`}>
+                <i className="mdui-icon material-icons">&#xe5d8;</i>
+            </button>
+        )
+    }
 }
 
 const GetImg = ({jqEle, url}) => {
@@ -146,62 +196,38 @@ const html2Jq = html => {
     return Obj
 }
 
-const GetCode = ({html}) => {
-    if(!html)return null
-    return(
-        <div className="mdui-typo">
-            <pre>{html}</pre>
-        </div>
-    )
+class Ui extends React.Component {
+    render(){
+        return(
+            <>
+                <Template
+                    Result={Result}
+                    api="https://api.ygktool.cn/api/console?url="
+                    inputOpt={{
+                        header:'要获取的网址url',
+                        icon:'link'
+                    }}
+                />
+                <ToTop />
+            </>
+        )
+    }
 }
 
-class Ui extends React.Component {
+class Result extends React.Component {
 	constructor(props) {
-		super(props);
-		this.state = {
-			url:'',
-            html:null,
-            jqEle:null
-		}		
-    }
-    catchPage(){
-        window.loadShow();
-        axios({
-            method: 'get',
-            url: 'https//api.ygktool.cn/api/console?url=' + this.state.url,
-            withCredentials: false
-        }).then(response =>{
-            var json = JSON.parse(response.request.response);
-            console.log(json)
-            this.setState({
-                html:json.html,
-                jqEle:html2Jq(json.html)
-            })        
-        }).catch(error => {
-            mdui.snackbar({message:error})
-        }).then(()=>{
-            window.loadHide()
-        })
+        super(props);
     }
 	render(){
-        const { url, html, jqEle } = this.state
+        if(!this.props.data)return null
+        const { html } = this.props.data;
+        const jqEle = html2Jq(html);
+        const dataToPass = {
+            jqEle: jqEle,
+            url: this.props.input
+        }
 		return(
-		    <React.Fragment>
-                <Input
-                    icon="link"
-                    value={url}
-                    onValueChange={newText=>{
-                        this.setState({url:newText})
-                    }}
-                    type="url"
-                />
-                <button 
-                    onClick={()=>this.catchPage()}
-                    className="mdui-ripple mdui-color-theme mdui-float-right mdui-btn-raised mdui-btn"
-                >
-                    获取
-                </button>
-                <div className="mdui-clearfix"></div>
+		    <>
                 <div className="mdui-tab" mdui-tab="true">
                     <a href="#code" className="mdui-ripple">源码</a>
                     <a href="#script" className="mdui-ripple">脚本</a>
@@ -210,11 +236,11 @@ class Ui extends React.Component {
                     <a href="#other" className="mdui-ripple">其他</a>
                 </div>
                 <div id="code"><GetCode html={html} /></div>
-                <div id="script"><GetScript jqEle={jqEle}/></div>
-                <div id="css"><GetStyle jqEle={jqEle}/></div>
-                <div id="image"><GetImg url={url} jqEle={jqEle}/></div>
+                <div id="script"><GetScript {...dataToPass}/></div>
+                <div id="css"><GetStyle {...dataToPass}/></div>
+                <div id="image"><GetImg {...dataToPass}/></div>
                 <div id="other"><GetOther html={html}/></div>
-		    </React.Fragment>
+		    </>
 		)
 	}
 }

@@ -140,7 +140,7 @@ class Ui extends React.Component {
     render(){
         const { text, fromType, toType, key, res } = this.state
         return(
-            <React.Fragment>
+            <>
             <center style={{margin:'0 auto'}}>
                 <Select
                     onOptionChange={val=>{
@@ -190,7 +190,7 @@ class Ui extends React.Component {
                     to={toType}
                 />
           </div>
-          </React.Fragment>
+          </>
         )
     }
 }

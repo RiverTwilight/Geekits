@@ -20,7 +20,7 @@ const MakeChips = ({apps}) => {
 const MakeChannels = ({data}) =>{
     const { name, apps, icon } = data;
     return(
-        <React.Fragment>
+        <>
             <div className="channel mdui-card mdui-p-a-1">
                 <li className="mdui-list-item">
                     <i class="mdui-list-item-icon mdui-icon material-icons">{icon}</i>
@@ -31,7 +31,7 @@ const MakeChannels = ({data}) =>{
                 <MakeChips apps={apps} />
             </div>
             <br></br>
-        </React.Fragment>
+        </>
     )
 }
 

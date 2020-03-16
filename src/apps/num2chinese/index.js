@@ -9,12 +9,12 @@ const Result = props =>{
     const { src } = props;
     if(!src)return null
     return(
-      <React.Fragment>       
+      <>       
             <div disabled={true} id="input" data-clipboard-text={src} className="mdui-textfield">
                 <input value={src} className="mdui-textfield-input" type="text"/>
             </div>
             <img src={src} className="mdui-img-fluid"/>
-      </React.Fragment>
+      </>
     )
 }
 
@@ -37,7 +37,7 @@ class Ui extends React.Component {
     render(){
         const { input, res } = this.state
     	return (
-    		<React.Fragment>
+    		<>
                 <Input
                     onValueChange={newText=>{                        
                         var cal = new num2chinese(newText); 
@@ -60,7 +60,7 @@ class Ui extends React.Component {
                     {res}
                     <button className="mdui-btn-icon mdui-btn"><i class="mdui-icon material-icons">&#xe14d;</i></button>
                 </p>          
-            </React.Fragment>
+            </>
     	)
     }
 }

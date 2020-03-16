@@ -1,24 +1,27 @@
 import React from 'react'
 import mdui from 'mdui'
+import axios from 'axios'
 import { Input } from 'mdui-in-react'
 
 class Ui extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            username:'',
-            password:''
+            input:'',
+            data:null
         }
     }
     loadCommentsFromServer(){
+        const { api } = this.props;
+        const { input } = this.state
         window.loadShow()
-        fetch({
-            method: 'post',
-            url: '',
+        axios({
+            method: 'get',
+            url: api + input,
             withCredentials: false
         }).then(response =>{
             var json = JSON.parse(response.request.response);
-            this.setState({data:json.data.pic})        
+            this.setState({data:json})        
         }).catch(error => {
             mdui.snackbar({message:error})
         }).then(()=>{
@@ -26,35 +29,29 @@ class Ui extends React.Component {
         })
     }
     render(){
-        const { password, username } = this.state
+        const { Result, inputOpt } = this.props
+        const { input } = this.state
     	return (
     		<>
                 <Input
                     onValueChange={newText=>{
-                        this.setState({username:newText})
+                        this.setState({input:newText})
                     }}
-                    header="用户名"
-                    icon="link"
-                    type="email"
-                    value={username}
-                /> 
-                <Input
-                    onValueChange={newText=>{
-                        this.setState({password:newText})
-                    }}
-                    header="密码"
-                    icon="link"
-                    type="password"
-                    value={password}
-                />              
+                    {...inputOpt}
+                    value={input}
+                />          
                 <button 
                     onClick={()=>{
                     	this.loadCommentsFromServer()
                     }} 
-                    className="mdui-ripple mdui-float-right mdui-btn-raised mdui-btn">
-                    df
+                    className="mdui-ripple mdui-color-theme mdui-float-right mdui-btn-raised mdui-btn">
+                    查询
                 </button>
                 <div className="mdui-clearfix"></div>
+                <Result 
+                    data={this.state.data}
+                    input={input}
+                />
             </>
     	)
     }
