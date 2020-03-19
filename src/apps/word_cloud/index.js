@@ -33,7 +33,7 @@ class Words extends React.Component {
             return(
                 <li 
                     key={i}
-                    mdui-dialog={(edit)?null:"{target:'#icon',history:false}"}
+                    mdui-dialog={edit?null:"{target:'#icon',history:false}"}
                     className="mdui-list-item mdui-ripple"
                     onClick={()=>{
                         update.open = true;
@@ -90,7 +90,12 @@ class Words extends React.Component {
                         />
                     </div>
                     <div className="mdui-dialog-actions">
-                        <button
+                        <button                            
+                            className="mdui-btn mdui-ripple" mdui-dialog-close="true">
+                            取消
+                        </button>
+                        <button 
+                            className="mdui-btn mdui-ripple" mdui-dialog-close="true"
                             onClick={()=>{
                                 if (update.open) {
                                     onUpdate(update.i,[ text, sizes ])
@@ -99,11 +104,10 @@ class Words extends React.Component {
                                 } else {
                                     add([ text, sizes ])
                                 }
-                            }}                              
-                            className="mdui-btn mdui-ripple"mdui-dialog-close="true">
-                            取消
+                            }}  
+                            >
+                                保存
                         </button>
-                        <button className="mdui-btn mdui-ripple"mdui-dialog-close="true">保存</button>
                     </div>
                 </div>
             </>
@@ -153,7 +157,7 @@ class Ui extends React.Component {
                 <canvas
                     onClick={()=>{
                         saveFile({
-                            file: this.refs.test.toDataURL('jpg'),
+                            file: this.canvas.toDataURL('jpg'),
                             filename: "ygktool-word_cloud.jpg"
                         })
                     }}

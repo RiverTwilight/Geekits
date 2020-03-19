@@ -123,7 +123,6 @@ class Ui extends React.Component {
         }
     }
     componentDidMount(){
-
         const cb = data => {
             this.setState(data)
         }
@@ -138,8 +137,6 @@ class Ui extends React.Component {
         const sendBtn = this.refs.sendBtn;
 
         const { token, data } = this.state;
-
-        console.log(token);
 
         QRCode.toDataURL(window.location.href + "#/" + this.state.token, (err, url) => {
             if (err) throw err

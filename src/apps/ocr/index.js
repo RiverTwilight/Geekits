@@ -5,8 +5,7 @@ import ClipboardJS from 'clipboard'
 
 import {
     ListControlMenu,
-    ListControlCheck,
-    TextInput
+    ListControlCheck
 } from 'mdui-in-react'
 
 import FileRead from '../../utils/fileread'
@@ -48,7 +47,7 @@ const Result = ({data, ifIgnoreLine, onIgnoreLine}) =>{
       <>   
             <ListControlCheck
                 icon="keyboard_return"
-                text="忽略换行"
+                title="忽略换行"
                 checked={ifIgnoreLine}
                 onCheckedChange={checked=>{
                     onIgnoreLine(checked)

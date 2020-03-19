@@ -23,8 +23,8 @@ function dataURLtoFile(dataurl, filename) {
 const Gallery = props => {
 	var gallery = props.res.map((img,i)=>{
 		return(
-			<div class="mdui-col">
-			    <div class="mdui-grid-tile">
+			<div className="mdui-col">
+			    <div className="mdui-grid-tile">
 			       <img src={img}/>
 			    </div>
 			</div>
@@ -32,7 +32,7 @@ const Gallery = props => {
 	})
 	return(
 		<div 
-			class="mdui-row-xs-3 mdui-row-sm-4 mdui-row-md-5 mdui-row-lg-6 mdui-row-xl-7 mdui-grid-list">
+			className="mdui-row-xs-3 mdui-row-sm-4 mdui-row-md-5 mdui-row-lg-6 mdui-row-xl-7 mdui-grid-list">
 		{gallery}
 		</div>
 	)
@@ -52,7 +52,7 @@ class Ui extends React.Component {
 		return(
 			<> 
 				<center>
-					<img className="mdui-img-fluid" ref="img" src={file} />
+					<img className="mdui-img-fluid" ref={r => this.img = r}src={file} />
 					<FileRead 
 						fileType="image/gif"
 						multiple={false}
@@ -62,9 +62,8 @@ class Ui extends React.Component {
 									rub: null
 								}, () => {
 									this.setState({file:file},()=>{
-										console.log(this.refs.img);
 										var rub = new SuperGif({
-											gif: this.refs.img
+											gif: this.img
 										})
 										this.setState({rub:rub})
 										rub.load(() => {

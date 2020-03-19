@@ -1,8 +1,8 @@
 import React from 'react';
 import mdui from 'mdui';
-import axios from 'axios'
 import Template from '../../utils/AskForTemplate.jsx'
 
+import { ToTop } from 'mdui-in-react'
 const $ = mdui.JQ;
 
 //检查资源类型，链接或代码
@@ -112,43 +112,6 @@ function GetOther(props){
 	)
 }
 
-class ToTop extends React.Component{
-    constructor(props){
-        super(props);
-        this.state = {
-            isHide:true
-        }
-    }
-    componentDidMount(){
-        window.addEventListener("scroll",e => {
-            var t = document.documentElement.scrollTop || document.body.scrollTop;
-            if(t <= 148){
-                this.setState({isHide:true})
-            }else{
-                this.setState({isHide:false})
-            }
-        })
-    }
-    componentWillUnmount(){
-        window.removeEventListener("scroll",()=>{})
-    }
-    render(){
-        const { isHide } = this.state
-        return(
-            <button 
-                onClick={()=>{
-                    window.toTop = setInterval(() => {
-                        if(document.documentElement.scrollTop === 0)clearInterval(window.toTop)
-                        document.documentElement.scrollTop -= 200
-                    }, 50);
-                }}
-                className={`mdui-color-theme mdui-fab mdui-fab-fixed ${isHide?'mdui-fab-hide':''}`}>
-                <i className="mdui-icon material-icons">&#xe5d8;</i>
-            </button>
-        )
-    }
-}
-
 const GetImg = ({jqEle, url}) => {
     if(!jqEle)return null;
     var $html = $(jqEle).find("img");
@@ -233,13 +196,11 @@ class Result extends React.Component {
                     <a href="#script" className="mdui-ripple">脚本</a>
                     <a href="#css" className="mdui-ripple">样式</a>
                     <a href="#image" className="mdui-ripple">图片</a>
-                    <a href="#other" className="mdui-ripple">其他</a>
                 </div>
                 <div id="code"><GetCode html={html} /></div>
                 <div id="script"><GetScript {...dataToPass}/></div>
                 <div id="css"><GetStyle {...dataToPass}/></div>
                 <div id="image"><GetImg {...dataToPass}/></div>
-                <div id="other"><GetOther html={html}/></div>
 		    </>
 		)
 	}

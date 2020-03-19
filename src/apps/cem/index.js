@@ -38,7 +38,7 @@ const Result = ({ result, eleClass }) =>{
                         </tr>))
                     }</tbody>
                   </table>
-                </div>
+            </div>
         </>
     )
 }

@@ -1,5 +1,4 @@
 import React from 'react'
-import mdui from 'mdui'
 import GIF from 'gif.js'
 
 import FileRead from '../../utils/fileread'
@@ -92,7 +91,7 @@ const Alubm = (props) => {
 	)
 }
 
-function img2gif(assests, config, loadRef, callback) {
+function img2gif(assests, config, callback) {
 	var image = new Image(); //载入图片获取真实尺寸
 	image.src = assests[0];
 	image.onload = function() {
@@ -123,13 +122,13 @@ function img2gif(assests, config, loadRef, callback) {
 		})
 
 		gif.on('finished', function(blob) {
-			loadRef.style.display = 'none';
+			window.loadHide()
 			console.log(blob)
 			callback(URL.createObjectURL(blob))
 		})
 
 		gif.on('start', function(blob) {
-			loadRef.style.display = 'block'
+			window.loadShow()
 		})
 
 		gif.render();
@@ -161,9 +160,6 @@ class Img2Gif extends React.Component {
 		var { assests, config, res } = this.state;
 		return(
 			<>
-				<span ref="load" style={{display:'none',position:'absolute',top:'0'}} className="mdui-progress">
-		            <div className="mdui-progress-indeterminate"></div>
-		        </span>
 			    <Alubm 
 				    assests={assests}
 				    delete={i=>{
@@ -192,7 +188,7 @@ class Img2Gif extends React.Component {
 	            <button
 		            className="mdui-fab mdui-fab-fixed mdui-color-theme"
 		            onClick={()=>{
-		            	img2gif(assests, config, this.refs.load, res=>{
+		            	img2gif(assests, config, res=>{
 		            		this.setState({res:res})
 		            	})
 		            }}>

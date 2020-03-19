@@ -47,7 +47,7 @@ class Ui extends React.Component {
                     className="mdui-ripple mdui-color-theme mdui-float-right mdui-btn-raised mdui-btn">
                     查询
                 </button>
-                <div className="mdui-clearfix"></div>
+                <div className="mdui-clearfix"></div><br></br>
                 <Result 
                     data={this.state.data}
                     input={input}

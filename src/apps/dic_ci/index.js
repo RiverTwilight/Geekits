@@ -15,10 +15,10 @@ class Ui extends React.Component {
         return(
             <Template
                 Result={Result}
-                api="s"
+                api="https://api.ygktool.cn/api/dic_ci?ci="
                 inputOpt={{
                     header:'输入要查询的词语',
-                    icon:'text'
+                    icon:'search'
                 }}
             />
         )

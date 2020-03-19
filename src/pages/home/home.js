@@ -15,25 +15,7 @@ class FivList extends React.Component {
         }
     }
     render(){
-        const { edit, list } = this.state;
-        //if(this.state.list === [])return <p>暂无收藏</p>
-        var fivlist = list.map((a,i)=>{                       
-            let buttton = (edit)?
-                <button onClick={()=>fiv.delete(i)} className="mdui-btn mdui-list-item-icon mdui-btn-icon">
-                    <i className="mdui-icon material-icons mdui-text-color-red">delete</i>
-                </button>
-                :
-                null
-            return(
-                <Link 
-                    key={i} to={(edit)?'#':'/app/' + a.link}
-                    disabled={edit} className="mdui-col mdui-list-item mdui-ripple">
-                        <i className="mdui-list-item-icon mdui-icon material-icons mdui-text-color-yellow-500">star</i> 
-                        <div className="mdui-list-item-content">{a.name}</div>
-                        {buttton}
-                </Link>
-            )
-        })
+        const { edit, list } = this.state;       
         return(
             <ul className="mdui-row-md-3 mdui-list">
                 <li className="mdui-subheader">
@@ -45,7 +27,24 @@ class FivList extends React.Component {
                         className="mdui-text-color-theme mdui-float-right">
                         {(edit)?'确认':'编辑'}</a>
                 </li>
-                {fivlist}
+                {(!list.length)?
+                <div className="mdui-text-center mdui-typo-body-1-opacity">点击工具使用说明下方的收藏按钮即可收藏</div>
+                :
+                list.map((a,i)=>(
+                <Link 
+                    key={i} to={edit?'#':'/app/' + a.link}
+                    disabled={edit} className="mdui-col mdui-list-item mdui-ripple">
+                        <i className="mdui-list-item-icon mdui-icon material-icons">star_border</i> 
+                        <div className="mdui-list-item-content">{a.name}</div>
+                        {(edit)?
+                            <button onClick={()=>fiv.delete(i)} className="mdui-btn mdui-list-item-icon mdui-btn-icon">
+                                <i className="mdui-icon material-icons mdui-text-color-red">delete</i>
+                            </button>
+                            :
+                            null
+                        }
+                </Link>
+                ))}
             </ul>
         )
     }   

@@ -13,6 +13,13 @@ var list = [{
 	"help": "仅限PC端最新版本的Chrome/Firefox/Opera使用",
 	"channel": 2
 }, {
+	"name": "UA解析",
+	"link": "ua",
+	"icon": "devices",
+	"icon_color": "teal-300",
+	"help": "默认为本机UA(UserAgent)",
+	"channel": 3
+}, {
 	"name": "网络日志抓取",
 	"link": "console",
 	"icon": "language",
@@ -215,13 +222,20 @@ var list = [{
 	"icon_color": "yellow-600",
 	"help": "生成结果仅供参考",
 	"channel": 4
-}/*,{
-	"name": "词语查询",
+}/*, {
+	"name": "词典",
 	"link": "dic_ci",
-	"icon": "attach_money",
-	"icon_color": "yellow-600",
+	"icon": "book",
+	"icon_color": "brown-700",
 	"help": "生成结果仅供参考",
 	"channel": 4
-}*/]
+}*/, {
+	"name": "字典",
+	"link": "dic_word",
+	"icon": "book",
+	"icon_color": "red-700",
+	"help": "暂不支持太简单的字查询",
+	"channel": 4
+}]
 
 export default list

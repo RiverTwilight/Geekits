@@ -54,7 +54,7 @@ class Ui extends React.Component{
         this.state = {
             homeShowNewestTool:localStorage.homeShowNewestTool || 'true',
             darkMode:localStorage.darkMode || 'false',
-            hideHelper:Boolean(localStorage.hideHelper),
+            hideHelper:localStorage.hideHelper || 'false',
             hitokotoTopic:parseHitokoto(localStorage.hitokotoTopic) || 0
         }
     }

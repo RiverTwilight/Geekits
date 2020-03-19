@@ -16,7 +16,7 @@ function Result(props){
     var res = [];
     for (var i = length - 1; i >= 0; i--) {
         if (extension[i].indexOf(kwd) !== -1 || type[i].indexOf(kwd) !== -1) {
-            console.log(Object.keys(mimeTypes)[i]); //输出键值（类型）
+            //console.log(Object.keys(mimeTypes)[i]); //输出键值（类型）
             res.push({
                 type: type[i],
                 extension: extension[i]

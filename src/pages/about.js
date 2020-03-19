@@ -5,9 +5,7 @@ const About = props =>{
     window.titleRef.innerText = '关于'
     return(
     <div className="mdui-col-md-9"> 
-        <div className="draw-title">
-            <img className="mdui-img-rounded" wdith="80" height="80" src="/logo192.png"/>
-        </div> 
+        <img  style={{display:'block',margin: '0 auto'}} className="mdui-img-rounded" wdith="80" height="80" src="/logo192.png"/>
         <h3 className="mdui-typo-title mdui-text-center">极简，强大，高效</h3>  
         <br></br> 
         <div className="mdui-card mdui-p-a-2"> 
@@ -38,6 +36,17 @@ const About = props =>{
                         </div> 
                         <div className="mdui-list-item-text mdui-list-item-one-line">
                         与其它GEEKER交流互水
+                        </div> 
+                    </div>
+                </a> 
+                <a target="_blank" className="mdui-col mdui-list-item mdui-ripple" href="https://github.com/RiverTwilight/mdui-in-react">
+                    <i className="mdui-list-item-icon mdui-icon material-icons">grain</i> 
+                    <div className="mdui-list-item-content"> 
+                        <div className="mdui-list-item-title mdui-list-item-one-line">
+                        开放源代码
+                        </div> 
+                        <div className="mdui-list-item-text mdui-list-item-one-line">
+                        本网站部分代码将逐步开源出去
                         </div> 
                     </div>
                 </a> 

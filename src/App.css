@@ -4,16 +4,6 @@
     left: 10px;
     right: 10px
 }
-.draw-title{
-    font-family:title;
-    font-size:3.0em;
-    text-align:center
-}
-.draw-subtitle{
-    font-size:0.8em;
-    text-align:center;
-    letter-spacing:8px
-}
 .main-load {
     position: absolute;
     top: 50%;
@@ -59,11 +49,14 @@
     z-index: 999
 }
 
-i.nologin{
-    font-size:2.0em;
-    width:50px;
-    height:50px;
-    display: block;
+.center-panel {
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: black;
 }
 
 .bottom-dashboard{
@@ -77,6 +70,9 @@ i.nologin{
 @media screen and (min-width:1024px ) {
     .bottom-dashboard{
         left:240px;
+    }
+    .saying{
+        top: 17px;
     }
 }
 

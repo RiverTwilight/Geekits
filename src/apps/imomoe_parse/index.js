@@ -37,8 +37,6 @@ const Result = props =>{
     )
 }
 
-
-
 class Ui extends React.Component {
     constructor(props) {
         super(props);

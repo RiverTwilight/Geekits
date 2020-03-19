@@ -30,7 +30,6 @@ class Ui extends React.Component {
 				<center>
 					<FileRead 
 						fileType="image/*"
-						multiple={false}
 						onFileChange={file=>{
 							this.setState({file:file})
 						}}
@@ -44,7 +43,7 @@ class Ui extends React.Component {
                 </div>
                 <button 
 	                id="copy" 
-	                style={{display:(file === null)?'none':'block'}}
+	                style={{display:(!file)?'none':'block'}}
 	                className="mdui-float-right mdui-btn mdui-btn-icon">
 	                <i className="mdui-icon material-icons">&#xe14d;</i>
                 </button>
