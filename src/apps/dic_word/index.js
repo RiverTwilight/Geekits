@@ -50,6 +50,7 @@ const Word = ({item}) => {
 
 const Result = ({data}) =>{
     if(!data)return null
+    if(!data.length)return <p className="mdui-text-center">暂未收录，建议谷歌一下</p>
     return(
         <>  
         {data.map((item)=>(
@@ -67,7 +68,7 @@ class Ui extends React.Component {
                     Result={Result}
                     api="https://api.ygktool.cn/api/dic_word?word="
                     inputOpt={{
-                        header:'输入要查询的汉字',
+                        header:'从14502个汉字中查询',
                         icon:'search'
                     }}
                 />

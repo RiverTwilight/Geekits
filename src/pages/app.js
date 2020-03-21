@@ -11,10 +11,14 @@ import getInfo from '../utils/appinfo'
 import fiv from '../utils/fiv'
 
 const LoadApp = loader => {
-  return Loadable({
-    loader:() => import( '../apps/' + loader),
-    loading () {return <div className="main-load"><div className="mdui-spinner mdui-spinner-colorful"></div></div>}
-  })
+    return Loadable({
+        loader:() => import( '../apps/' + loader),
+        loading () {return(
+            <div style={{display:'inline-block'}} className="mdui-color-green-100 mdui-progress loading">
+                <div className="mdui-progress-indeterminate"></div>
+            </div> 
+        )}
+    })
 }
 
 //工具信息组件
@@ -82,6 +86,19 @@ class Info extends React.Component {
                             {fived?'star':'star_border'}
                         </i>
                     </button>
+                    {navigator.share && <button 
+                        onClick={()=>{
+                            navigator.share({
+                                title:window.location.title,
+                                href:window.location.href
+                            }).then(()=>{
+                                mdui.snackbar({message: '感谢分享^_^'})
+                            })
+                        }}
+                        mdui-tooltip="{content: '分享'}"
+                        className="mdui-btn mdui-btn-icon mdui-ripple">
+                        <i className="mdui-text-color-theme mdui-icon material-icons">share</i>
+                    </button>}
                     <button 
                         onClick={()=>{
                             mdui.prompt('将以下嵌入代码粘贴到您的网页即可使用。欲获取应用源代码，请加群联系开发者',
@@ -90,6 +107,7 @@ class Info extends React.Component {
                                 },
                                 () => {},
                                 {
+                                    history: false,
                                     type: 'textarea',
                                     confirmText:'加群',
                                     cancelText:'关闭',

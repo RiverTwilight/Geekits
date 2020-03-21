@@ -29,7 +29,7 @@ class Ui extends React.Component {
         })
     }
     render(){
-        const { Result, inputOpt } = this.props
+        const { Result, inputOpt, btnText } = this.props
         const { input } = this.state
     	return (
     		<>
@@ -45,7 +45,7 @@ class Ui extends React.Component {
                     	this.loadCommentsFromServer()
                     }} 
                     className="mdui-ripple mdui-color-theme mdui-float-right mdui-btn-raised mdui-btn">
-                    查询
+                    {btnText || "查询"}
                 </button>
                 <div className="mdui-clearfix"></div><br></br>
                 <Result 

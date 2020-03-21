@@ -222,14 +222,28 @@ var list = [{
 	"icon_color": "yellow-600",
 	"help": "生成结果仅供参考",
 	"channel": 4
-}/*, {
+}, {
 	"name": "词典",
 	"link": "dic_ci",
 	"icon": "book",
 	"icon_color": "brown-700",
 	"help": "生成结果仅供参考",
 	"channel": 4
-}*/, {
+}, {
+	"name": "歇后语查询",
+	"link": "xiehouyu",
+	"icon": "book",
+	"icon_color": "indigo-700",
+	"help": "输入谜面谜底均可",
+	"channel": 4
+}, {
+	"name": "成语辞典",
+	"link": "dic_idiom",
+	"icon": "book",
+	"icon_color": "orange-700",
+	"help": "支持缩写哦",
+	"channel": 4
+}, {
 	"name": "字典",
 	"link": "dic_word",
 	"icon": "book",

@@ -170,6 +170,7 @@ class Ui extends React.Component {
                         header:'要获取的网址url',
                         icon:'link'
                     }}
+                    btnText="获取"
                 />
                 <ToTop />
             </>

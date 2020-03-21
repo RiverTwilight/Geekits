@@ -5,16 +5,16 @@ const Result = ({data}) =>{
     if(!data)return null
     if(!data.length)return <p className="mdui-text-center">暂未收录，建议谷歌一下</p>
     return(
-        <>   
+        <div className="mdui-row-sm-2">
             {data.map(item=>(
-            <div key={item.ci} className="mdui-card mdui-p-a-1 appinfo">
-                <div className="mdui-card-primary">
-                    <div className="mdui-card-primary-title">{item.ci}</div>
-                </div>
-                <p dangerouslySetInnerHTML={{__html: item.explanation.replace(/\n/g, '<br>')}}></p>
+            <div key={item.anwser} className="mdui-col mdui-typo">
+                <blockquote>
+                    {item.riddle}
+                    <footer>{item.answer}</footer>
+                </blockquote>
             </div>
             ))}
-        </>
+        </div>
     )
 }
 
@@ -23,9 +23,9 @@ class Ui extends React.Component {
         return(
             <Template
                 Result={Result}
-                api="https://api.ygktool.cn/api/dic_ci?ci="
+                api="https://api.ygktool.cn/api/xiehouyu?text="
                 inputOpt={{
-                    header:'从262274个词语中查询',
+                    header:'从14032条歇后语中查询谜面/谜底',
                     icon:'search'
                 }}
             />

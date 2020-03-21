@@ -79,8 +79,8 @@ class Ui extends React.Component {
                         onValueChange={newText=>{
                             this.setState({day:newText})
                         }}
-                        header={`${day}天之后`}
-                        icon="add"
+                        header={`${Math.abs(day)}天之${day >= 0?"后":"前"}`}
+                        icon={day >= 0?"fast_forward":"fast_rewind"}
                         type="number"
                         value={day}
                     />    

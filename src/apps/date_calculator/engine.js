@@ -30,18 +30,33 @@ const calWhichDay = (dateStart, day) => {
     var startYear = parseInt(date.year);
     var startDay = parseInt(date.day);
 
-    for (let i = 0; i <= day - 1 ; i++) {
-        let thisYearAmonth = isLeap(startYear)?leapYearMonth[startMonth]:ordinaryYearMonth[startMonth]
-        console.log(`${startMonth}月有${thisYearAmonth}天`)
-        if(startDay > thisYearAmonth){
-            startMonth ++
-            startDay = 1
+    if(day >= 0){
+        for (let i = 0; i <= day - 1 ; i++) {
+            let thisYearAmonth = isLeap(startYear)?leapYearMonth[startMonth]:ordinaryYearMonth[startMonth]
+            console.log(`${startMonth}月有${thisYearAmonth}天`)
+            if(startDay > thisYearAmonth){
+                startMonth ++
+                startDay = 1
+            }
+            if(startMonth > 12){
+                startMonth = 1;
+                startYear ++
+            }
+            startDay ++
         }
-        if(startMonth > 12){
-            startMonth = 1;
-            startYear ++
+    }else{
+        for (let i = 0; i <= Math.abs(day); i++) {
+            let thisYearAmonth = isLeap(startYear)?leapYearMonth[startMonth]:ordinaryYearMonth[startMonth]
+            if(startDay < 1){
+                startMonth --
+                startDay = thisYearAmonth
+            }
+            if(startMonth < 1){
+                startMonth = 12;
+                startYear --
+            }
+            startDay --
         }
-        startDay ++
     }
     
     var whichDay = new Date;

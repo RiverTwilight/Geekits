@@ -80,7 +80,8 @@ class Ui extends React.Component {
             dataB:{
                 list:null,
                 name:""
-            }
+            },
+            engine:'netease'
         }
     }
     loadCommentsFromServer(url, callback) {
@@ -92,7 +93,7 @@ class Ui extends React.Component {
         window.loadShow()
         axios.get(this.state.url + listid).then(response => {
             var json = JSON.parse(response.request.response);
-            callback && 　callback(json.playlist)
+            callback && callback(json.playlist)
         }).catch(error => {
             mdui.snackbar({
                 message: error
@@ -101,7 +102,7 @@ class Ui extends React.Component {
         })
     }
     render(){
-        const { listidA, listidB, dataA, dataB } = this.state;
+        const { listidA, listidB, dataA, dataB, engine } = this.state;
         return (
         <>
             <Input
@@ -121,7 +122,17 @@ class Ui extends React.Component {
                 placeholder=""
                 icon="attachment"
                 value={this.state.listidB}
-            />          
+            />      
+            <select 
+                value={engine}
+                onChange={e=>{
+                    this.setState({engine:e.target.value})
+                }}
+                className="mdui-select" mdui-select="{position:'top'}"
+            >
+                <option value="normal">网易云音乐</option>
+                <option disabled value="qq">QQ音乐</option>         
+            </select>    
             <button 
                 onClick={()=>{
                     this.loadCommentsFromServer(listidA,data=>{

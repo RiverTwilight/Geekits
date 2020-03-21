@@ -111,7 +111,7 @@ const Preview = props => {
     const element = <img 
             crossOrigin="anonymous"
             alt="选择一张图片" height="100%"width='100%' 
-            src={props.src||'https://github.com/RiverTwilight/emoticon/blob/master/1.jpg?raw=true'} 
+            src={props.src||'/emoticon/1.jpg'} 
         />;
     return element
 }
@@ -154,7 +154,7 @@ const AssestsList = ({onChoose}) => {
                     <div onClick={()=>onChoose(i+1)} className="mdui-grid-tile">
                         <img
                             alt={`(${i+1}).jpg`}
-                            src={`https://github.com/RiverTwilight/emoticon/blob/master/${i + 1}.jpg?raw=true`}
+                            src={`/emoticon/${i + 1}.jpg`}
                         />
                     </div>
                 </div>
@@ -271,9 +271,7 @@ class Ui extends React.Component {
                     </div>  
                 <button 
                     onClick={()=>{
-                        html2canvas(document.querySelector("#capture"),{
-                            useCORS: true
-                        }).then(canvas => {
+                        html2canvas(document.querySelector("#capture")).then(canvas => {
                             var base64 = canvas.toDataURL();
                             this.setState({
                                 result: base64
@@ -299,7 +297,7 @@ class Ui extends React.Component {
                 >
                     <AssestsList
                         onChoose={i=>{
-                            this.setState({ifShow:false,src:`https://github.com/RiverTwilight/emoticon/blob/master/${i + 1}.jpg?raw=true`})
+                            this.setState({ifShow:false,src:`/emoticon/${i}.jpg`})
                         }}
                     />
                 </NewPage>

@@ -21,7 +21,7 @@ class NewPage extends React.Component{
 	                            	onClose()
 	                            }}
                                 className="mdui-btn mdui-btn-icon mdui-text-color-white">
-                                <i className="mdui-icon material-icons">arrow_back</i>
+                                <i className="mdui-icon material-icons">close</i>
                             </button>
                             <div className="mdui-typo-title mdui-text-color-white">
                                 {title}                               
