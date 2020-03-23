@@ -19,9 +19,10 @@ const RouterList = [{
     exact:true
 },{
     component:loadable(() => import('./pages/user')),
-    path:"/user"
+    path:"/user",
+    exact:true
 },{
-    component:loadable(() => import('./pages/user/login')),
+    component:loadable(() => import('./pages/user/login.jsx')),
     path:"/user/login"
 },{
     component:loadable(() => import('./pages/about.js')),
@@ -58,10 +59,10 @@ class App extends React.Component {
     }
     render(){
         return(
-            <Router>  
-                <div style={{display:'none'}} ref={r => this.loading = r} className="mdui-color-green-100 mdui-progress loading">
+            <Router>   
+                <div ref={r => this.loading = r} style={{display:'none'}} className="mdui-color-green-100 mdui-progress loading">
                     <div className="mdui-progress-indeterminate"></div>
-                </div>  
+                </div> 
                 <Header 
                     getRef={ref=>{
                         window.titleRef = ref

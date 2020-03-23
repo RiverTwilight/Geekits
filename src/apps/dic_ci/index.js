@@ -11,7 +11,9 @@ const Result = ({data}) =>{
                 <div className="mdui-card-primary">
                     <div className="mdui-card-primary-title">{item.ci}</div>
                 </div>
-                <p dangerouslySetInnerHTML={{__html: item.explanation.replace(/\n/g, '<br>')}}></p>
+                <div className="mdui-card-content mdui-typo">            
+                    <p dangerouslySetInnerHTML={{__html: item.explanation.replace(/\n/g, '<br>')}}></p>
+                </div>
             </div>
             ))}
         </>

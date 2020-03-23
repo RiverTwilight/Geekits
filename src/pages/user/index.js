@@ -1,19 +1,14 @@
 import React from 'react';
-import mdui from 'mdui';
 import { Link } from "react-router-dom";
+import Logined from './dashboard/index.js'
+import { getUserInfo } from '../../utils/UserInfo'
 
 //未登录
-const NoLogined = ()=>{
+const NoLogined = () => {
 	return(
 		<div style={{marginTop:'100px'}}>
             <center>
-		        <h1>
-			        <i 
-				        className="nologin mdui-list-item-icon mdui-icon material-icons mdui-text-color-grey">
-				        mood_bad
-			        </i>
-			    </h1>
-	            <Link to="/user/login" className="mdui-color-theme mdui-btn mdui-btn-raised">立即登录</Link>
+	            <Link to="/user/login" className="mdui-color-theme mdui-btn mdui-btn-raised">登录/注册</Link>
 	            <p>登录后你可以</p>
 	            <div className="mdui-text-color-grey mdui-typo">
 	                <li>云端同步工具收藏</li>
@@ -24,27 +19,19 @@ const NoLogined = ()=>{
 	)
 }
 
-class Logined extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-        }       
-    }
-    render(){
-    	return <h1>开发中</h1>
-    }
-}
-
 class Home extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-        	logined:false
+        	userInfo:getUserInfo()
         }       
     }
     render(){
-    	if(!this.state.logined)return <NoLogined />
+        const { userInfo } = this.state
+        window.titleRef.innerText = '我的账户'
+    	if(!userInfo)return <NoLogined />
+        return <Logined />
     }
 }
 
-export default ()=><Home />;
+export default Home

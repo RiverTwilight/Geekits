@@ -7,18 +7,19 @@ const Result = ({data}) =>{
     return(
         <>   
             {data.map(item=>(
-            <div key={item.ci} className="mdui-card mdui-p-a-2 mdui-typo">
+            <div key={item.ci} className="mdui-card">
                 <div className="mdui-card-primary">
-                    <div className="mdui-card-primary-title">
-                        {item.word}<span className="mdui-typo-subheading">{item.pinyin}</span>
-                    </div>
+                    <div className="mdui-card-primary-title">{item.word}</div>
+                    <div className="mdui-card-primary-subtitle">{item.pinyin}</div>
                 </div>
-                <h4>语出</h4>
-                    <p dangerouslySetInnerHTML={{__html: item.derivation.replace(/\n/g, '<br>')}}></p>
-                <h4>用例</h4>
-                    <p dangerouslySetInnerHTML={{__html: item.example.replace(/\n/g, '<br>')}}></p>
-                <h4>解释</h4>
-                    <p dangerouslySetInnerHTML={{__html: item.explanation.replace(/\n/g, '<br>')}}></p>
+                <div className="mdui-card-content mdui-typo">
+                    <h4>语出</h4>
+                        <p dangerouslySetInnerHTML={{__html: item.derivation.replace(/\n/g, '<br>')}}></p>
+                    <h4>用例</h4>
+                        <p dangerouslySetInnerHTML={{__html: item.example.replace(/\n/g, '<br>')}}></p>
+                    <h4>解释</h4>
+                        <p dangerouslySetInnerHTML={{__html: item.explanation.replace(/\n/g, '<br>')}}></p>
+                </div>
             </div>
             ))}
         </>

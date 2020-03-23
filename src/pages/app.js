@@ -1,6 +1,6 @@
 import React from 'react'
 import Loadable from 'react-loadable'
-import mdui from 'mdui'
+import { snackbar, prompt, mutation } from 'mdui'
 import {
     BrowserRouter as Router,
     Route,
@@ -90,9 +90,9 @@ class Info extends React.Component {
                         onClick={()=>{
                             navigator.share({
                                 title:window.location.title,
-                                href:window.location.href
+                                url:window.location.href
                             }).then(()=>{
-                                mdui.snackbar({message: '感谢分享^_^'})
+                                snackbar({message: '感谢分享^_^'})
                             })
                         }}
                         mdui-tooltip="{content: '分享'}"
@@ -101,7 +101,7 @@ class Info extends React.Component {
                     </button>}
                     <button 
                         onClick={()=>{
-                            mdui.prompt('将以下嵌入代码粘贴到您的网页即可使用。欲获取应用源代码，请加群联系开发者',
+                            prompt('将以下嵌入代码粘贴到您的网页即可使用。欲获取应用源代码，请加群联系开发者',
                                 () => {
                                     window.open('https://jq.qq.com/?_wv=1027&k=59hWPFs')
                                 },
@@ -152,7 +152,7 @@ class AppContainer extends React.Component {
         window.loadHide()
     }
     componentDidMount(){
-        this.setState({timer:setInterval(()=>mdui.mutation(), 100)})
+        this.setState({timer:setInterval(_ => mutation(), 100)})
         //隐藏头部
         if(window.location.search.indexOf('fullscreen=true') !== -1)document.getElementsByTagName('header')[0].style.display='none'
     }
