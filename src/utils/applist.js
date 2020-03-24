@@ -64,7 +64,7 @@ var list = [{
 }, {
 	"name": "B站封面获取",
 	"link": "bilibili_cover",
-	"icon": "photo_size_select_actual\r\n",
+	"icon": "photo_size_select_actual",
 	"icon_color": "pink-300",
 	"help": "番号请使用md开头，例：md425（《某科学的超电磁炮》）##视频请使用av开头，例：av32211954##点击图片地址可以复制",
 	"channel": 4
@@ -222,6 +222,13 @@ var list = [{
 	"icon_color": "yellow-600",
 	"help": "生成结果仅供参考",
 	"channel": 4
+}, {
+	"name": "图片取色器",
+	"link": "color_picker",
+	"icon": "colorize",
+	"icon_color": "amber-800",
+	"help": "可以通过键盘方向键精准调节",
+	"channel": 2
 }, {
 	"name": "词典",
 	"link": "dic_ci",

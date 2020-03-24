@@ -1,5 +1,5 @@
 import React from 'react'
-import mdui from 'mdui'
+import { snackbar } from 'mdui'
 import axios from 'axios'
 import { Input } from 'mdui-in-react'
 
@@ -23,7 +23,7 @@ class Ui extends React.Component {
             var json = JSON.parse(response.request.response);
             this.setState({data:json})        
         }).catch(error => {
-            mdui.snackbar({message:error})
+            snackbar({message:error})
         }).then(()=>{
             window.loadHide()
         })
