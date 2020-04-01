@@ -1,22 +1,10 @@
 import React, { createRef, forwardRef } from 'react'
-import mdui from 'mdui'
+import { snackbar } from 'mdui'
 import ClipboardJS from 'clipboard'
 import { Select } from 'mdui-in-react'
 import axios from 'axios'
-
-//文本输入框
-const TextInput = forwardRef((props,ref) => (
-    <div className="mdui-col box mdui-textfield">
-            <textarea
-            ref={ref} value={props.text}
-            onChange={e=>{
-              props.onTxetChange(e.target.value)
-            }}
-            autoFocus rows="5" className="mdui-textfield-input"
-            type="text" placeholder="输入内容或拖入文件"></textarea>    
-        </div>
-    )
-)
+import DragRead from '../../utils/DragReadContainer'
+import { Input } from 'mdui-in-react'
 
 const options = [{
     name:'自动',
@@ -81,35 +69,9 @@ class Ui extends React.Component {
         clipboard && clipboard.destroy();
         var clipboard = new ClipboardJS('#becopy');
         clipboard.on('success', e=> {
-            mdui.snackbar({message:'已复制结果'})
+            snackbar({message:'已复制结果'})
             e.clearSelection();
         })
-
-        const { current } = this.dropBox;
-        const update = text=>{
-            this.setState({text:text})
-        }
-
-        document.ondrop = e=> {
-            e.preventDefault()
-        }
-        document.ondragover = e=> {
-            e.preventDefault()
-        }
-        current.ondragenter = ()=> {
-            update('松开爪~')
-        }
-        current.ondragleave = ()=> {
-            update('')
-        }
-        current.ondrop = function(e) {
-            var dataFile = e.dataTransfer.files[0];
-            var fr = new FileReader();
-            fr.readAsText(dataFile, "gb2312");
-            fr.onload = () => {
-                update(fr.result)                
-            }
-        }
     }
     sendRequest(){
         const { text, fromLang, toLang } = this.state
@@ -122,7 +84,7 @@ class Ui extends React.Component {
             var json = JSON.parse(response.request.response);
             this.setState({res:json.trans_result[0].dst})
         }).catch(error => {
-            mdui.snackbar({message:error})
+            snackbar({message:error})
         }).then(()=>{
             window.loadHide()
         })
@@ -159,10 +121,20 @@ class Ui extends React.Component {
                 />
             </center>
             <div className="mdui-row-md-2">
-                <TextInput 
-                    text={text} ref={this.dropBox} 
-                    onTxetChange={newText=>{this.setState({text:newText})}}
-                />
+                <DragRead
+                    cb={newValue=>{
+                        this.setState({text: newValue})
+                    }}
+                >
+                    <Input
+                        value={text}
+                        onValueChange={newValue=>{
+                            this.setState({text: newValue})
+                        }}
+                        placeholder="输入内容或拖入txt文件"
+                        rows="5"
+                    />
+                </DragRead>
                 <center>
                     <button
                         onClick={()=>{

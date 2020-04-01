@@ -38,7 +38,7 @@ var list = [{
 	"link": "date_calculator",
 	"icon": "date_range",
 	"icon_color": "purple-200",
-	"help": "",
+	"help": "输入负数可以向前推算",
 	"channel": 4
 }, {
 	"name": "跨设备文本互传",
@@ -66,10 +66,17 @@ var list = [{
 	"link": "bilibili_cover",
 	"icon": "photo_size_select_actual",
 	"icon_color": "pink-300",
-	"help": "番号请使用md开头，例：md425（《某科学的超电磁炮》）##视频请使用av开头，例：av32211954##点击图片地址可以复制",
+	"help": "BV号正在开发中##番号请使用md开头，例：md425（《某科学的超电磁炮》）##视频请使用av开头，例：av32211954##点击图片地址可以复制",
 	"channel": 4
 }, {
-	"name": "pornhub风格图片生成\r\n",
+	"name": "Instagram照片获取",
+	"link": "instagram",
+	"icon": "add_a_photo",
+	"icon_color": "orange-300",
+	"help": "请输入类似这样的链接：https://www.instagram.com/p/B9_440DAyvZ/ ##视频解析即将到来",
+	"channel": 2
+}, {
+	"name": "pornhub风格图片生成",
 	"link": "fake_pornhub_logo",
 	"icon": "insert_emoticon",
 	"icon_color": "orange",
@@ -130,6 +137,13 @@ var list = [{
 	"icon": "sort_by_alpha",
 	"icon_color": "green-200",
 	"help": "",
+	"channel": 3
+}, {
+	"name": "html转JSX",
+	"link": "html2jsx",
+	"icon": "code",
+	"icon_color": "teal-500",
+	"help": "不支持部分Html属性,请手动改为小驼峰命名法##所有操作均在本地执行，不消耗数据流量",
 	"channel": 3
 }, {
 	"name": "mimetype查询",
@@ -223,7 +237,7 @@ var list = [{
 	"help": "生成结果仅供参考",
 	"channel": 4
 }, {
-	"name": "图片取色器",
+	"name": "取色器",
 	"link": "color_picker",
 	"icon": "colorize",
 	"icon_color": "amber-800",

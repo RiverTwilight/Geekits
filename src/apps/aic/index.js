@@ -67,7 +67,6 @@ class Ui extends React.Component {
             image:image.split('base64,')[1]
         }).then(response =>{
             var json = JSON.parse(response.request.response);
-            console.log(json);
             this.setState({
                 data: json.result,
                 ifShow: true

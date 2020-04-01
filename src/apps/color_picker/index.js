@@ -1,9 +1,51 @@
 import React from 'react'
 import FileRead from '../../utils/fileread'
 import ClipboardJS from 'clipboard'
+import { RangeInput } from 'mdui-in-react'
 import { snackbar } from 'mdui'
 
-/*调试时不要打开React Developer工具！***/
+//调色盘
+const ColorLens = ({onChange, rgb, isHide}) => {
+    if(isHide)return null
+    const [r, g, b, a] = rgb.replace(/\s/g, '').split(',');
+    const SameProps = {
+        max:"255",
+        min:"0",
+        step:"1"
+    } 
+    return(
+        <>
+            <RangeInput
+                {...SameProps}
+                title="R"
+                onValueChange={newValue=>{
+                    onChange(`${newValue}, ${g}, ${b}, ${a}`)
+                }}
+            />
+            <RangeInput
+                {...SameProps}
+                title="G"
+                onValueChange={newValue=>{
+                    onChange(`${r}, ${newValue}, ${b}, ${a}`)
+                }}
+            />
+            <RangeInput
+                {...SameProps}
+                title="B"
+                onValueChange={newValue=>{
+                    onChange(`${r}, ${g}, ${newValue}, ${a}`)
+                }}b 
+            />
+            <RangeInput
+                {...SameProps}
+                title="A"
+                onValueChange={newValue=>{
+                    onChange(`${r}, ${g}, ${b}, ${Math.floor(newValue/255 * 100)/100}`)
+                }}
+            />
+        </>
+    )
+}
 
 class Ui extends React.Component {
     constructor(props){
@@ -15,7 +57,9 @@ class Ui extends React.Component {
             ctx: null,
             rgb:"255, 255, 255, 0",
             binary: "#ffffff",
-            fixed: false
+            fixed: false,
+            marginLeft: 0,
+            isHideLens: true
         }
     }
     moveUp(){
@@ -40,23 +84,24 @@ class Ui extends React.Component {
         clipboard.on('success', e=> {
             snackbar({message:'已复制颜色代码'})
             e.clearSelection();
+        });
+        this.setState({
+            marginLeft:　this.canvas.getBoundingClientRect().left,
+            marginTop: this.canvas.getBoundingClientRect().top
         })
         document.addEventListener('keydown',e=>{
             switch(e.keyCode){
-                case 37:this.moveLeft();break
-                case 38:this.moveUp();break
-                case 39:this.moveRight();break
-                case 40:this.moveDown();break
+                case 37:e.preventDefault();this.moveLeft();break
+                case 38:e.preventDefault();this.moveUp();break
+                case 39:e.preventDefault();this.moveRight();break
+                case 40:e.preventDefault();this.moveDown();break
             }
         })
     }
     getColor(positionX, positionY){
         const { ctx } = this.state;
-        const { canvas } = this
         if(ctx){
-            var exactPositionX = positionX - Math.round(canvas.getBoundingClientRect().left);
-            var exactPositionY = positionY - Math.round(canvas.getBoundingClientRect().top)
-            var pixels = ctx.getImageData(exactPositionX, exactPositionY, 1, 1).data;
+            var pixels = ctx.getImageData(positionX, positionY, 1, 1).data;
             var r = pixels[0];
             var g = pixels[1];
             var b = pixels[2];
@@ -82,12 +127,12 @@ class Ui extends React.Component {
         }
     }
     render(){
-        const { rgb, binary, positionX, positionY, fixed } = this.state
+        const { rgb, binary, positionX, positionY, marginLeft, marginTop, isHideLens } = this.state
         return(
             <>
                 <span
                     style={{
-                        position: 'fixed',
+                        position: 'absolute',
                         top: positionY - 10,
                         left: positionX - 10
                     }}>
@@ -95,11 +140,13 @@ class Ui extends React.Component {
                 </span>
                 <canvas
                     onClick={e=>{
-                        this.getColor(e.pageX, e.pageY)
+                        var absoluteLeft = e.pageX - marginLeft;
+                        var absoluteTop = e.pageY - marginTop;
                         this.setState({
-                            positionX: e.pageX,
-                            positionY: e.pageY
+                            positionX: absoluteLeft,
+                            positionY: absoluteTop
                         })
+                        this.getColor(absoluteLeft, absoluteTop);
                     }}
                     ref={c => { this.canvas = c; }}
                 />
@@ -143,6 +190,26 @@ class Ui extends React.Component {
                     </button>
                     <button data-clipboard-text={`rgba(${rgb})`} className="copy mdui-btn">rgba({rgb})</button>
                     <button data-clipboard-text={binary} className="copy mdui-btn">{binary}</button>
+                    <button 
+                        onClick={_=>{
+                            this.setState({isHideLens: !isHideLens})
+                        }}
+                        className="mdui-btn mdui-btn-icon"
+                        >
+                        <i className="mdui-icon material-icons">color_lens</i>
+                    </button>
+                    <ColorLens
+                        onChange={newColor=>{
+                            const [r, g, b, ,] = newColor.replace(/\s/g, '').split(',').map(a=>(parseInt(a)));
+                            this.setState({
+                                rgb: newColor,
+                                binary: '#' + r.toString(16) + g.toString(16) + b.toString(16)
+                            })
+                        }}
+                        isHide={isHideLens}
+                        rgb={rgb}
+                        binary={binary}
+                    />
                 </div>
             </>
         )

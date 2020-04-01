@@ -4,8 +4,8 @@ import { Input } from 'mdui-in-react'
 
 const test = (exp, text) => {
     try{
-        exp = exp.replace(/\\/g, '\\')//将单斜杠转为双斜杠
-        text = text.replace(/\s/g, '&nbsp;')
+        exp = exp.replace(/\\/g, '\\').replace(/\</, '&lt;')
+        text = text.replace(/\s/g, '&nbsp;').replace(/\</, '&lt;')
         var reg = new RegExp(exp, 'g')
         console.log(reg, text)
         text = text.replace(reg, '<span style="background-color:#9be49e">$&</span>')

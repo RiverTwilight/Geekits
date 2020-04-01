@@ -1,8 +1,7 @@
 import React from 'react'
-import ClipboardJS from 'clipboard'
 import Template from '../../utils/AskForTemplate.jsx'
-import {snackbar } from 'mdui'
-
+import ClipboardJS from 'clipboard'
+import { snackbar } from 'mdui'
 class Result extends React.Component {
     constructor(props){
         super(props)
@@ -18,7 +17,7 @@ class Result extends React.Component {
     render(){
         const { data } = this.props
         if(!data)return null
-        var src = data.cover
+        var src = data.url
         return(
           <>       
                 <div disabled={true} id="input" data-clipboard-text={src} className="mdui-textfield">
@@ -34,19 +33,16 @@ class Result extends React.Component {
 class Ui extends React.Component {
     render(){
         return(
-            <>
-                <Template
-                    Result={Result}
-                    api="/api/bilibili_cover?av="
-                    inputOpt={{
-                        header:'输入av号/番号',
-                        icon:'ondemand_video'
-                    }}
-                />
-            </>
+            <Template
+                Result={Result}
+                api="https://api.ygktool.cn/api/instagram?type=0&url="
+                inputOpt={{
+                    header:'输入Instagram图片链接',
+                    icon:'link'
+                }}
+            />
         )
     }
 }
-
 
 export default Ui

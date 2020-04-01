@@ -129,11 +129,12 @@ class Notice extends React.Component {
 
 //显示结果
 const SearchResult = ({result, kwd}) => {
-    if(!result.length)return null    
+    if(!result.length && (kwd === '' || !kwd))return null  
+    if(!result.length)result = []  
     return(
         <ul className="mdui-list">
-            {result.map((a,i)=>(
-            <Link key={i} to={'/app/' + a.link} className="mdui-list-item mdui-ripple" >
+            {result.map(a=>(
+            <Link key={a.link} to={'/app/' + a.link} className="mdui-list-item mdui-ripple" >
                 <i className={"mdui-list-item-icon mdui-icon material-icons mdui-text-color-" + a.icon_color}>{a.icon}</i> 
                 <div className="mdui-list-item-content">{a.name}</div>
             </Link>
@@ -189,7 +190,7 @@ class Search extends React.Component{
                     }}
                     value={ this.state.kwd }
                     className="mdui-textfield-input"
-                    type="text" placeholder="搜索(ctrl+F)">
+                    placeholder="搜索(ctrl+F)">
                 </input>    
             </div>
         )

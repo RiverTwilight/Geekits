@@ -1,13 +1,22 @@
 import React from 'react'
 import QRCode from 'qrcode'
 
-import { Select, Input, ColorInput, RangeInput } from 'mdui-in-react'
+import { ListControlMenu, Input, ColorInput, RangeInput } from 'mdui-in-react'
 
 const create = (opts, text, callback) => {
 	QRCode.toDataURL(text, opts, (err, url) => {
 		if (err) throw err
 		callback && callback(url)
 	})
+}
+
+const Result = ({qrcode})=>{
+	if(!qrcode)return null
+	return(
+		<div className="mdui-card mdui-p-a-1">
+			<center><img src={qrcode}></img></center>
+		</div>
+	)
 }
 
 const ModeSelect = props =>{
@@ -21,37 +30,16 @@ const ModeSelect = props =>{
   ) 
 }
 
-
-const TextMode = props =>{
-	const icon = (props.icon)?
-	<i className="mdui-icon material-icons">font_download</i>
-	:
-	null;
-	return(
-		<div className="mdui-textfield mdui-textfield-floating-label">
-            {icon}
-            <label className="mdui-textfield-label">输入文本</label>
-            <input 
-                onChange={e=>{
-                    props.onTextChange(e.target.value)
-                }} 
-                value={props.text}
-                autoFocus={true} type="text" className="mdui-textfield-input">
-            </input>
-        </div>
-	)
-}
-
 class Ui extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			text:'',
+			text:null,
 			wifi:{
-				account:'',
-				pwd:''
+				account:null,
+				pwd:null
 			},
-			mode:'text',
+			mode:0,
 			colorLight:'#ffffff',
 			colorDark:'#000000',
 			width:'100',
@@ -61,18 +49,17 @@ class Ui extends React.Component {
 	render(){
 		const {text, colorDark, colorLight, qrcode, mode, wifi, width} = this.state
 		var form;
-		if(mode === 'text'){
-			var form = (
+		if(mode === 0){
+			form = (
 				<Input
 					onValueChange={newText=>{
 						this.setState({text:newText})
 					}}
 					header="输入文本"
-					icon="font_download"
 					value={text}
 				/>)
 		}else{
-			var form =(
+			form =(
 				<>
 				<Input
 					onValueChange={newText=>{
@@ -105,49 +92,56 @@ class Ui extends React.Component {
 		}			
 		return(
 			<>
-				<Select
-					options={[{
-						name:'文本',
-						value:'text'
-					},{
-						name:'wifi',
-						value:'wifi'
-					}]}
-					onOptionChange={newOpt=>{
-						this.setState({mode:newOpt})
-					}}
-				/>
-				{form}
-				<RangeInput 
-				    value={width}
-					min="50" max="200"
-					onValueChange={newValue=>{
-						this.setState({width:newValue})
-					}}
-					title={"大小" + width + "px"}
-				/>				
-				<div className="mdui-row-xs-2">
-					<div className="mdui-col">
-					<ColorInput
-						text="亮色"
-						color={colorLight}
-						onColorChange={newColor=>{
-							this.setState({colorLight:newColor})
+				<div className="mdui-card mdui-p-a-1">
+					<ListControlMenu
+                        icon="language"
+                        text="识别类型"
+                        checked={mode}
+                        onCheckedChange={checked=>{
+                            this.setState({mode:checked})
+                        }}
+                        items={[{
+							name:'文本',
+							value:'text'
+						},{
+							name:'wifi',
+							value:'wifi'
+						}]}
+                    />
+					{form}
+					<RangeInput 
+						value={width}
+						min="50" max="200"
+						onValueChange={newValue=>{
+							this.setState({width:newValue})
 						}}
-					/>
-					</div>					
-					<div className="mdui-col">
-					<ColorInput
-						text="暗色"
-						color={colorDark}
-						onColorChange={newColor=>{
-							this.setState({colorDark:newColor})
-						}}
-					/>
+						title={"大小" + width + "px"}
+					/>				
+					<div className="mdui-row-xs-2">
+						<div className="mdui-col">
+						<ColorInput
+							text="亮色"
+							color={colorLight}
+							onColorChange={newColor=>{
+								this.setState({colorLight:newColor})
+							}}
+						/>
+						</div>					
+						<div className="mdui-col">
+						<ColorInput
+							text="暗色"
+							color={colorDark}
+							onColorChange={newColor=>{
+								this.setState({colorDark:newColor})
+							}}
+						/>
+						</div>
 					</div>
 				</div>
+				<br></br>
+				<Result qrcode={qrcode} />
 				<button
-					onClick={()=>{
+					onClick={_=>{
 						var opts = {
 							errorCorrectionLevel: 'H',
 							type: 'image/jpeg',
@@ -159,15 +153,16 @@ class Ui extends React.Component {
 								light: colorLight
 							}
 						}
-						const string = (mode === 'wifi')?`WIFI:S:${wifi.account};P:${wifi.pwd};T:;H:;`:((text === '')?'ygktool.cn':text)
+						const string = (mode === 1)?`WIFI:S:${wifi.account};P:${wifi.pwd};T:;H:;`:((text === '')?'ygktool.cn':text)
 						const callback = qrcode =>{
 							this.setState({qrcode:qrcode})
 						}
 						create(opts,string,callback)
 					}}
 					className="mdui-color-theme mdui-fab mdui-fab-fixed"
-				><i class="mdui-icon material-icons">&#xe5ca;</i></button>
-				<center><img src={qrcode}></img></center>
+				>
+					<i class="mdui-icon material-icons">&#xe5ca;</i>
+				</button>
 			</>
 		)
 	}

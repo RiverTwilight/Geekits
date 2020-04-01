@@ -183,7 +183,7 @@ class Ui extends React.Component {
 								break;
 		            	}
 		            }}>
-		            <i class="mdui-icon material-icons">&#xe5ca;</i>
+		            <i className="mdui-icon material-icons">&#xe5ca;</i>
 	            </button>	
 	            <Preview res = {res}/>            
 		    </>

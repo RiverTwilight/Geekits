@@ -31,7 +31,7 @@ class Ui extends React.Component {
         return(
             <Template
                 Result={Result}
-                api="https://api.ygktool.cn/api/dic_idiom?word="
+                api="/api/dic_idiom?word="
                 inputOpt={{
                     header:'从30849条成语中查询',
                     icon:'search'

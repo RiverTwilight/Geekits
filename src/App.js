@@ -7,11 +7,11 @@ import {
   Link
 } from "react-router-dom"
 import '../node_modules/mdui/dist/css/mdui.min.css'
-
+import Axios from 'axios'
 import Header from './layout/header'
-
-//异步加载插件
 import loadable from './utils/loading'
+
+Axios.defaults.baseURL = 'http://api.ygktool.cn';
 
 const RouterList = [{
     component:loadable(() => import('./pages/home')),
@@ -38,18 +38,16 @@ const RouterList = [{
     path:"/feedback"
 }]
 
-const NoMatch = _ => {
-    return (
-        <p className="center-panel">
-            <h2 className="mdui-text-center">电波无法到达哦</h2>
-            <p>
-            是不是地址拼错了？是/app不是/apps哦<br></br>
-            想要的工具不见了？返回首页找找吧！<br></br>
-            </p>
-            <Link to="/" className="mdui-color-theme mdui-btn mdui-btn-raised">返回首页</Link>
+const NoMatch = _ => (
+    <p className="center-panel">
+        <h2 className="mdui-text-center">电波无法到达哦</h2>
+        <p>
+        是不是地址拼错了？是/app不是/apps哦<br></br>
+        想要的工具不见了？返回首页找找吧！<br></br>
         </p>
-    )
-}
+        <Link to="/" className="mdui-color-theme mdui-btn mdui-btn-raised">返回首页</Link>
+    </p>
+)
 
 class App extends React.Component {
     componentDidMount() {

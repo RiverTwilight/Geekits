@@ -20,7 +20,10 @@ const codeType = (code, domain) => {
 			"是否为直链":patt_http.test(code),
 			"是否省略协议头":patt_abridge.test(code)
         })		
-        return 'url'
+        return {
+            type: 'url',
+            path: url
+        }
 	}
     return 'code'
 }
@@ -73,8 +76,8 @@ const ShowCode = ({src, index, type}) => {
         <React.Fragment key={index} >
             <li 
                 onClick={()=>{
-                    if(type === 'url'){
-                        window.open(src)
+                    if(type.type === 'url'){
+                        window.open(type.path)
                     }
                 }}
                 className="mdui-list-item mdui-ripple">
@@ -196,12 +199,12 @@ class Result extends React.Component {
                     <a href="#code" className="mdui-ripple">源码</a>
                     <a href="#script" className="mdui-ripple">脚本</a>
                     <a href="#css" className="mdui-ripple">样式</a>
-                    <a href="#image" className="mdui-ripple">图片</a>
+                    <a href="#imagex" className="mdui-ripple">图片</a>
                 </div>
                 <div id="code"><GetCode html={html} /></div>
                 <div id="script"><GetScript {...dataToPass}/></div>
                 <div id="css"><GetStyle {...dataToPass}/></div>
-                <div id="image"><GetImg {...dataToPass}/></div>
+                <div id="imagex"><GetImg {...dataToPass}/></div>
 		    </>
 		)
 	}
