@@ -16,7 +16,8 @@
 #grad {
     width: 100%;
     height: 180px;
-    background-image: linear-gradient(rgb(76, 175, 80),transparent)
+    /*background-image: linear-gradient(rgb(76, 175, 80),transparent)*/
+    background-image: linear-gradient(#9e9e9e,transparent)
 }
 #grad .text{
     position: absolute;

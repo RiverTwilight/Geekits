@@ -1,54 +1,45 @@
-import React from 'react'
+import React, { useState } from 'react'
 import mdui from 'mdui'
 import { Link } from "react-router-dom"
-import applist from '../../utils/applist'
+import applist from '../../utils/appList'
 import fiv from '../../utils/fiv'
 import pinyin from 'js-pinyin'
 
 //收藏列表
-class FivList extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            edit:false,
-            list:fiv.getAll()
-        }
-    }
-    render(){
-        const { edit, list } = this.state;       
-        return(
-            <ul className="mdui-row-md-3 mdui-list">
-                <li className="mdui-subheader">
-                    收藏&nbsp;
-                    <a 
-                        onClick={()=>{
-                            this.setState({edit:!edit})
-                        }}
-                        className="mdui-text-color-theme mdui-float-right">
-                        {(edit)?'确认':'编辑'}</a>
-                </li>
-                {(!list.length)?
-                <div className="mdui-text-center mdui-typo-body-1-opacity">点击工具使用说明下方的收藏按钮即可收藏</div>
-                :
-                list.map((a,i)=>(
-                <Link 
-                    key={i} to={edit?'#':'/app/' + a.link}
-                    disabled={edit} className="mdui-col mdui-list-item mdui-ripple">
-                        <i className="mdui-list-item-icon mdui-icon material-icons">star_border</i> 
-                        <div className="mdui-list-item-content">{a.name}</div>
-                        {(edit)?
-                            <button onClick={()=>fiv.delete(i)} className="mdui-btn mdui-list-item-icon mdui-btn-icon">
-                                <i className="mdui-icon material-icons mdui-text-color-red">delete</i>
-                            </button>
-                            :
-                            null
-                        }
-                </Link>
-                ))}
-            </ul>
-        )
-    }   
+const FivList = _ => {
+    const [edit, setEdit] = useState(false) 
+    const [list, ,] = useState(fiv.getAll)
+    return(
+        <ul className="mdui-row-md-3 mdui-list">
+            <li className="mdui-subheader">
+                收藏&nbsp;
+                <a 
+                    onClick={()=>{
+                        setEdit(!edit)
+                    }}
+                    className="mdui-text-color-theme mdui-float-right">
+                    {edit?'保存':'编辑'}</a>
+            </li>
+            {!list.length?
+            <div className="mdui-text-center mdui-typo-body-1-opacity">点击工具使用说明下方的收藏按钮即可收藏</div>
+            :
+            list.map(a=>(
+            <Link 
+                key={a.link} to={edit?'#':'/app/' + a.link}
+                disabled={edit} className="mdui-col mdui-list-item mdui-ripple">
+                    <i className="mdui-list-item-icon mdui-icon material-icons">star_border</i> 
+                    <div className="mdui-list-item-content">{a.name}</div>
+                    {edit && 
+                        <button onClick={()=>fiv.delete(i)} className="mdui-btn mdui-list-item-icon mdui-btn-icon">
+                            <i className="mdui-icon material-icons mdui-text-color-red">delete</i>
+                        </button>
+                    }
+            </Link>
+            ))}
+        </ul>
+    ) 
 }
+
 
 //工具列表
 const AppList = () => {
@@ -134,7 +125,7 @@ const SearchResult = ({result, kwd}) => {
     return(
         <ul className="mdui-list">
             {result.map(a=>(
-            <Link key={a.link} to={'/app/' + a.link} className="mdui-list-item mdui-ripple" >
+            <Link key={a.link} to={`/app/${a.link}`} className="mdui-list-item mdui-ripple" >
                 <i className={"mdui-list-item-icon mdui-icon material-icons mdui-text-color-" + a.icon_color}>{a.icon}</i> 
                 <div className="mdui-list-item-content">{a.name}</div>
             </Link>

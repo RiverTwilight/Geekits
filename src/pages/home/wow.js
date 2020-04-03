@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from "react-router-dom"
-import applist from '../../utils/applist'
+import applist from '../../utils/appList'
 //栏目下工具组
 const MakeChips = ({apps}) => {
     var chips = apps.map((a,i)=>{

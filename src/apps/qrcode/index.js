@@ -19,16 +19,6 @@ const Result = ({qrcode})=>{
 	)
 }
 
-const ModeSelect = props =>{
-  return(
-    <select 
-	    onChange={e=>props.onChange(e.target.value)} 
-	    className="mdui-m-l-6 mdui-select" mdui-select="true">
-      <option value="text">文本</option>
-      <option value="wifi">WIFI</option> 
-    </select>
-  ) 
-}
 
 class Ui extends React.Component {
 	constructor(props) {
@@ -95,7 +85,7 @@ class Ui extends React.Component {
 				<div className="mdui-card mdui-p-a-1">
 					<ListControlMenu
                         icon="language"
-                        text="识别类型"
+                        text="二维码类型"
                         checked={mode}
                         onCheckedChange={checked=>{
                             this.setState({mode:checked})

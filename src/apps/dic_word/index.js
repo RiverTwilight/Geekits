@@ -60,7 +60,7 @@ const Result = ({data}) =>{
     )
 }
 
-class Ui extends React.Component {
+export default class Ui extends React.Component {
     render(){
         return(
             <>
@@ -77,5 +77,3 @@ class Ui extends React.Component {
         )
     }
 }
-
-export default Ui

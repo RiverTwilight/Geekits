@@ -46,7 +46,7 @@ class Ui extends React.Component {
 		}
 	}
 	loadDataFromSever() {
-		this.refs.loadBtn.disabled = true;
+		this.loadBtn.disabled = true;
 		window.loadShow()
 		fetch('https://api.ygktool.cn/api/tts', {
 				method: 'POST',
@@ -57,7 +57,7 @@ class Ui extends React.Component {
 			})
 			.then(res => res.json())
 			.then(json => {
-				this.refs.loadBtn.disabled = false;
+				this.loadBtn.disabled = false;
 				var buf = Buffer.from(json.data.data, 'binary')
 				var blob = new Blob([buf], {
 					type: 'audio/mpeg'
@@ -123,7 +123,7 @@ class Ui extends React.Component {
 					/>
 				</div>			
 				<button
-					ref="loadBtn"
+					ref={r => this.loadBtn = r}
 					onClick={()=>{
 						if(options.text === "")return
 						this.loadDataFromSever()

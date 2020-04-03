@@ -111,6 +111,13 @@ var list = [{
 	"help": "",
 	"channel": 4
 }, {
+	"name": "文本批量生成",
+	"link": "coming",
+	"icon": "font_download",
+	"icon_color": "brown-200",
+	"help": "",
+	"channel": 4
+}, {
 	"name": "GIF制作",
 	"link": "gif",
 	"icon": "gif",

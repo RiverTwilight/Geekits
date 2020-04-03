@@ -1,4 +1,4 @@
-import list from './applist'
+import list from './appList'
 
 const get = link => {
 		for(let i in list){

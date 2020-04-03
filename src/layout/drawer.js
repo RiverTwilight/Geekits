@@ -3,7 +3,7 @@ import {
   NavLink
 } from "react-router-dom"
 import mdui from 'mdui'
-import applist from '../utils/applist'
+import applist from '../utils/appList'
 
 const list = [{
   icon: 'home',

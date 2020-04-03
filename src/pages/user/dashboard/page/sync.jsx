@@ -2,7 +2,7 @@ import React from 'react'
 import { getUserInfo } from '../../../../utils/UserInfo'
 import Axios from 'axios';
 import fiv from '../../../../utils/fiv'
-import mdui from 'mdui'
+import { snackbar } from 'mdui'
 
 class Ui extends React.Component {
     constructor(props) {
@@ -17,7 +17,7 @@ class Ui extends React.Component {
         window.loadShow();
         Axios({
             method: 'post',
-            url: 'https://api.ygktool.cn/ygktool/user/sync',
+            url: '/ygktool/user/sync',
             withCredentials: false,
             data:{
                 fivData: mode === 'upload' ? JSON.stringify(fiv.getAll()) : false,
@@ -25,13 +25,16 @@ class Ui extends React.Component {
             }
         }).then(response =>{
             var json = JSON.parse(response.request.response);
-            mode === 'download' && localStorage.setItem('fiv', json.data[0].fiv === ""?[]:json.data[0].fiv) 
+            if(mode === 'download'){
+                let cloudData = json.data[0].fiv;
+                localStorage.setItem('fiv', cloudData.substring(1, cloudData.length - 1))//去掉首尾的双引号
+            }
             switch(json.code){
                 case 500:
-                    mdui.snackbar({message:'同步失败'});
+                    snackbar({message:'同步失败'});
                     break;
                 case 666:
-                    mdui.snackbar({message:'同步成功'});
+                    snackbar({message:'同步成功'});
                     break;
             }      
         }).then(_=>{
