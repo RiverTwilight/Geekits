@@ -1,9 +1,9 @@
 import React from 'react'
 
 import { Input } from 'mdui-in-react'
-import { calDiffer, calWhichDay } from './engine'
+import { calDiffer, calWhichDay } from './engine.ts'
 
-class Ui extends React.Component {
+export default class Ui extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -102,5 +102,3 @@ class Ui extends React.Component {
         )
     }
 }
-
-export default Ui

@@ -1,34 +1,40 @@
+
 //平年
-const ordinaryYearMonth = [null, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+const ordinaryYearMonth: Array<any> = [null, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 
 //闰年
-const leapYearMonth = [null, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+const leapYearMonth: Array<any>  = [null, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 
 //是否为闰年
-const isLeap = year => {
+const isLeap = (year:number): boolean => {
     if(year%400 === 0 && year%100 === 0)return true
     if(year%4 === 0 && year%100 !== 0)return true
     return false
 }
 
 //解析日期串
-const parseDate = (date = '2020-03-06') => {
+const parseDate = (date = '2020-03-06'):{
+    year: number;
+    month: number;
+    day: number;
+    isLeap: boolean
+} => {
     var match = /(\d{4})-(\d{2})-(\d{2})/.exec(date);
-    console.log(match)
+    if(!match)throw Error
     return {
-        year: match[1],
-        month: match[2].replace(/^0/, ''),
-        day: match[3].replace(/^0/, ''),
-        isLeap: isLeap(match[1])
+        year: parseInt(match[1]),
+        month: parseInt(match[2].replace(/^0/, '')),
+        day: parseInt(match[3].replace(/^0/, '')),
+        isLeap: isLeap(parseInt(match[1]))
     }
 }
 
-const calWhichDay = (dateStart, day) => {
+const calWhichDay = (dateStart: string, day: number):{week: number; date:string} => {
     var date = parseDate(dateStart);
     console.log(date)
-    var startMonth = parseInt(date.month);
-    var startYear = parseInt(date.year);
-    var startDay = parseInt(date.day);
+    var startMonth = date.month;
+    var startYear = date.year;
+    var startDay = date.day;
 
     if(day >= 0){
         for (let i = 0; i <= day - 1 ; i++) {
@@ -69,18 +75,17 @@ const calWhichDay = (dateStart, day) => {
         week:whichDay.getUTCDay(),
         date:whichDay.toLocaleDateString()
     }
-
 }
 
-const calDiffer = (dateEarly, dateLate) => {
+const calDiffer = (defaultDateEarly: string , defaultDateLate: string ): number => {
 
-    dateEarly = parseDate(dateEarly)
-    dateLate = parseDate(dateLate)
+    var dateEarly = parseDate(defaultDateEarly)
+    var dateLate = parseDate(defaultDateLate)
 
     if(dateLate.year === dateEarly.year){
-        var numOfEarlyMonthDay = isLeap(dateEarly)?leapYearMonth[dateEarly.month]:ordinaryYearMonth[dateEarly.month]
+        var numOfEarlyMonthDay = dateEarly.isLeap?leapYearMonth[dateEarly.month]:ordinaryYearMonth[dateEarly.month]
         
-        var diffDay = parseInt(dateLate.day) + numOfEarlyMonthDay - parseInt(dateEarly.day)
+        var diffDay = dateLate.day + numOfEarlyMonthDay - dateEarly.day
         for (let i = dateLate.month - dateEarly.month - 1; i >= 1; i--) {
             diffDay += (dateLate.isLeap)?leapYearMonth[i]:ordinaryYearMonth[i]
         }
@@ -88,7 +93,7 @@ const calDiffer = (dateEarly, dateLate) => {
     }
 
     //这一年已过天数
-    var lateYearDay = parseInt(dateLate.day);
+    var lateYearDay = dateLate.day;
     for (let i = dateLate.month - 1; i >= 1; i--) {
         lateYearDay += (dateLate.isLeap)?leapYearMonth[i]:ordinaryYearMonth[i]
     }
@@ -103,8 +108,8 @@ const calDiffer = (dateEarly, dateLate) => {
     console.log(earlyYearDay)
 
     //相隔年份天数，如：年份为2010 - 2020，则计算2011 - 2019的天数
-    var diffYear = [];
-    Array(dateLate.year - dateEarly.year - 1).fill(null).map((year,i) => {diffYear.push(parseInt(dateEarly.year) + i + 1)})
+    var diffYear: number[] = [];
+    Array(dateLate.year - dateEarly.year - 1).fill(null).map((year,i) => {diffYear.push(dateEarly.year + i + 1)})
 
     diffDay = earlyYearDay + lateYearDay
     diffYear.map(year=>{
@@ -113,6 +118,5 @@ const calDiffer = (dateEarly, dateLate) => {
 
     return diffDay - 1
 }
-
 
 export { calDiffer, calWhichDay }

@@ -1,6 +1,6 @@
 import React from 'react'
 import Loadable from 'react-loadable'
-import { snackbar, prompt, mutation } from 'mdui'
+import { snackbar, prompt, mutation, alert as mduiAlert } from 'mdui'
 import {
     BrowserRouter as Router,
     Route,
@@ -8,7 +8,7 @@ import {
 } from "react-router-dom"
 
 import getInfo from '../utils/appinfo'
-import fiv from '../utils/fiv'
+import fiv from '../utils/fiv.ts'
 
 const LoadApp = loader => {
     return Loadable({
@@ -30,18 +30,40 @@ class Info extends React.Component {
             hideHelper:localStorage.hideHelper === 'true'
         }       
     }
+    fiv(){
+        const { link, name } = this.props.appinfo;
+        if(!fiv.get(link)){
+            fiv.add({
+                link:link,
+                name:name
+            })
+            this.setState({fived:true})
+        }else{
+            fiv.delete({
+                link:link,
+                name:name
+            });
+            this.setState({fived:false})                     
+        }
+    }
+    componentDidMount(){
+        document.addEventListener('keydown',e=>{
+            if (e.ctrlKey && e.keyCode === 65){
+                e.preventDefault()
+                this.fiv()
+            }
+        })
+    }
+    componentWillUnmount(){
+        document.removeEventListener('keydown', ()=>{})
+    }
     componentWillReceiveProps(nextProps){
         if(nextProps.appinfo)this.setState({fived:fiv.get(nextProps.appinfo.link)})
     }
     render(){        
         const { fived, hideHelper } = this.state;
         if (!this.props.appinfo || hideHelper)return null      
-        const { help, link, name } = this.props.appinfo
-        const tips = (help !== "")?
-            help.split('##').map((line,i)=>(<li key={i} className="mdui-list-item">{line}</li>))
-            :
-            <li className="mdui-list-item">没有什么好说明的，若有疑问请加QQ群923724755</li>
-                    
+        const { help, link } = this.props.appinfo
         return(
             <div className="mdui-card appinfo">
                 <div className="mdui-card-media">
@@ -60,25 +82,17 @@ class Info extends React.Component {
                 </div>
                 <div>
                     <ul className="mdui-list">
-                    {tips}
+                    {(help !== "")?
+                        help.split('##').map((line,i)=>(<li key={i} className="mdui-list-item">{line}</li>))
+                        :
+                        <li className="mdui-list-item">暂无说明</li>
+                    }
                     </ul>                   
                 </div>
                 <div className="mdui-card-actions">
                     <button 
                         onClick={()=>{
-                            if(fiv.get(link)){
-                                fiv.delete({
-                                    link:link,
-                                    name:name
-                                });
-                                this.setState({fived:false})
-                            }else{
-                                fiv.add({
-                                    link:link,
-                                    name:name
-                                })
-                                this.setState({fived:true})                           
-                            }
+                            this.fiv()
                         }}
                         mdui-tooltip={fived?"{content: '取消收藏'}":"{content: '收藏'}"}
                         className="mdui-btn mdui-btn-icon mdui-ripple">
@@ -143,6 +157,7 @@ class AppContainer extends React.Component {
             this.setState({
                 appinfo: info
             });       
+            (info.network && !navigator.onLine) && mduiAlert('此工具需要联网才能使用','',()=>{}, {history: false})
             window.titleRef.innerText = info.name;
             document.title = info.name + " - 云极客工具";
         }

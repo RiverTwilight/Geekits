@@ -1,15 +1,20 @@
-var list = JSON.parse(localStorage.getItem('fiv')) || []
-const fiv = {
-	get: link => {
+
+var list = JSON.parse(localStorage.fiv) || []
+
+export default {
+	get: (link: string): any => {
 		for (let a in list) {
 			if (list[a].link === link) return list[a].name
 		}
 		return null
 	},
-	getAll: ()=>{
+	getAll: (): []=>{
 		return list
 	},
-	delete: i => {
+	delete: (i: number | {
+		link: string;
+		name: string;
+	}) => {
 		//如果传入工具信息（AppContainer）
 		if (typeof i === 'object') {
 			for (let a in list) {
@@ -21,10 +26,11 @@ const fiv = {
 		}		
 		localStorage.setItem('fiv',JSON.stringify(list))
 	},
-	add: data => {
+	add: (data: {
+		link: string;
+		name: string;
+	}): void => {
 		list.push(data);
 		localStorage.setItem('fiv',JSON.stringify(list))
 	}
 }
-
-export default fiv

@@ -6,7 +6,7 @@ import fiv from '../../utils/fiv'
 import pinyin from 'js-pinyin'
 
 //收藏列表
-const FivList = _ => {
+const FivList = () => {
     const [edit, setEdit] = useState(false) 
     const [list, ,] = useState(fiv.getAll)
     return(
@@ -17,13 +17,17 @@ const FivList = _ => {
                     onClick={()=>{
                         setEdit(!edit)
                     }}
+                    style={{
+                        display: list.length > 0?'block':'none'
+                    }}
                     className="mdui-text-color-theme mdui-float-right">
-                    {edit?'保存':'编辑'}</a>
+                    {edit?'保存':'编辑'}
+                </a>
             </li>
             {!list.length?
-            <div className="mdui-text-center mdui-typo-body-1-opacity">点击工具使用说明下方的收藏按钮即可收藏</div>
+            <div className="mdui-text-center mdui-typo-body-1-opacity">点击工具使用说明下方的星型按钮或按Ctrl + A收藏</div>
             :
-            list.map(a=>(
+            list.map((a, i)=>(
             <Link 
                 key={a.link} to={edit?'#':'/app/' + a.link}
                 disabled={edit} className="mdui-col mdui-list-item mdui-ripple">
@@ -40,7 +44,6 @@ const FivList = _ => {
     ) 
 }
 
-
 //工具列表
 const AppList = () => {
     if(localStorage.homeShowNewestTool === 'false')return null
@@ -48,12 +51,19 @@ const AppList = () => {
         <ul className="mdui-row-md-3 mdui-list">
             <li className="mdui-subheader">全部工具</li>
             {applist.map((a,i)=>(
-                <Link key={i} to={'/app/' + a.link} >
-                    <li className="mdui-col mdui-list-item mdui-ripple">
+                <>
+                    <Link
+                        key={i} to={'/app/' + a.link}
+                        className="mdui-col mdui-list-item mdui-ripple"
+                    >
                         <i className={"mdui-list-item-icon mdui-icon material-icons mdui-text-color-" + a.icon_color}>{a.icon}</i> 
-                        <div className="mdui-list-item-content">{a.name}</div>
-                    </li>
-                </Link>
+                        <div className="mdui-list-item-content">
+                            <div class="mdui-list-item-title">{a.name}</div>
+                            {a.description && <div class="mdui-list-item-text">{a.description}</div>}
+                        </div>
+                    </Link>
+                    <li class="mdui-hidden-md-up mdui-divider-inset mdui-m-y-0"></li>
+                </>
             ))}
         </ul>
     )
@@ -100,21 +110,7 @@ class Notice extends React.Component {
             })
     }
     render(){
-        return(
-            <ul
-                onClick={()=>{
-                    this.showNotice()
-                }}
-                className="mdui-list mdui-card">
-                <li className="mdui-list-item mdui-ripple">
-                <i className="mdui-list-item-icon mdui-icon material-icons">event_note</i>
-                <div className="mdui-list-item-content">
-                    <div className="mdui-list-item-title">公告</div>
-                </div>
-                <i className="mdui-list-item-icon mdui-icon material-icons">keyboard_arrow_right</i>
-                </li>
-            </ul>
-        )
+        return null
     }
 }
 

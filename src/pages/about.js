@@ -1,7 +1,6 @@
 import React from 'react';
-import mdui from 'mdui';
 
-const About = props =>{
+const About = () =>{
     window.titleRef.innerText = '关于'
     return(
     <div className="mdui-col-md-9"> 
@@ -11,8 +10,7 @@ const About = props =>{
         <div className="mdui-card mdui-p-a-2"> 
             <div className="mdui-typo"> 
                 <h3><i className="mdui-icon material-icons"></i>开发者</h3> 
-                <p>我(在读高一学生)利用
-                <s>几乎没有的</s>业余时间独自开发了云极客工具,虽然它并不那么美好,但正努力前行。希望她能在生活、学习、工作中给你帮助。<br></br>这个网站的建设初衷是提升我的编程技术，每个工具都是我自己构思、编写的，有任何不足敬请斧正。</p> 
+                <p>一个高中生，坐标蓉城<br></br>有任何不足敬请斧正。</p> 
             </div>
             <ul className="mdui-row-md-2 mdui-list">
                 <a className="mdui-col mdui-list-item mdui-ripple" href="//wpa.qq.com/msgrd?v=3&amp;uin=1985386335&amp;site=qq&amp;menu=yes">

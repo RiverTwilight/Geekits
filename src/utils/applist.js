@@ -46,12 +46,14 @@ var list = [{
 	"icon": "call_split",
 	"icon_color": "green",
 	"help": "大文件可能会有很大延迟",
+	"network": true,
 	"channel": 4
 }, {
 	"name": "GIF分解",
 	"link": "gif_lib",
 	"icon": "collections",
 	"icon_color": "teal",
+	"description": "将GIF图片逐帧分解",
 	"help": "过大的图片可能会无法转换，视设备性能而定",
 	"channel": 2
 }, {
@@ -60,6 +62,7 @@ var list = [{
 	"icon": "dashboard",
 	"icon_color": "black",
 	"help": "",
+	"description": "支持自定义颜色和大小,支持生成WIFI码",
 	"channel": 2
 }, {
 	"name": "B站封面获取",
@@ -72,6 +75,7 @@ var list = [{
 	"name": "Instagram照片获取",
 	"link": "instagram",
 	"icon": "add_a_photo",
+	"network": true,
 	"icon_color": "orange-300",
 	"help": "请输入类似这样的链接：https://www.instagram.com/p/B9_440DAyvZ/ ##视频解析即将到来",
 	"channel": 2
@@ -108,6 +112,7 @@ var list = [{
 	"link": "decision",
 	"icon": "widgets",
 	"icon_color": "indigo",
+	"description": "随机选取，选择困难症患者福音",
 	"help": "",
 	"channel": 4
 }, {
@@ -115,6 +120,7 @@ var list = [{
 	"link": "coming",
 	"icon": "font_download",
 	"icon_color": "brown-200",
+	"description":"批量生成有规律的文本",
 	"help": "",
 	"channel": 4
 }, {
@@ -136,6 +142,7 @@ var list = [{
 	"link": "img_split",
 	"icon": "apps",
 	"icon_color": "blue",
+	"description": "将图片切成九宫格，在社交媒体发布逼格更高",
 	"help": "",
 	"channel": 2
 }, {
