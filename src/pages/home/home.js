@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import mdui from 'mdui'
+import { alert as mduiAlert} from 'mdui'
 import { Link } from "react-router-dom"
 import applist from '../../utils/appList'
 import fiv from '../../utils/fiv'
@@ -8,7 +8,7 @@ import pinyin from 'js-pinyin'
 //收藏列表
 const FivList = () => {
     const [edit, setEdit] = useState(false) 
-    const [list, ,] = useState(fiv.getAll)
+    const [list, ,] = useState(fiv.getAll())
     return(
         <ul className="mdui-row-md-3 mdui-list">
             <li className="mdui-subheader">
@@ -84,7 +84,7 @@ class Notice extends React.Component {
     }
     showNotice(){
         const { date, content, id } = this.state;        
-        mdui.alert(content, date.split('T')[0] + '公告',
+        mduiAlert(content, date.split('T')[0] + '公告',
             () => {
                 localStorage.setItem('readedNotice', id)
             },
@@ -127,7 +127,7 @@ const SearchResult = ({result, kwd}) => {
             </Link>
             ))}
             <p className="mdui-typo mdui-text-center">
-            没找到想要的工具?试试<a href={"https://www.baidu.com/s?ie=UTF-8&wd=" + kwd}>百度搜索</a>
+                没找到想要的工具?试试<a href={"https://www.baidu.com/s?ie=UTF-8&wd=" + kwd}>百度搜索</a>
             </p>
             <div className="mdui-divider"></div>
         </ul>
@@ -184,7 +184,7 @@ class Search extends React.Component{
     }
 }
 
-class Whole extends React.Component{
+export default class Whole extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
@@ -215,5 +215,3 @@ class Whole extends React.Component{
         )
     }
 }
-
-export default Whole

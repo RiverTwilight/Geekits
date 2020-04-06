@@ -51,7 +51,7 @@
 }
 
 .bottom-dashboard{
-    z-index:999;
+    z-index:1002;
     position:fixed !important;
     bottom:0;
     right:0;
@@ -73,4 +73,14 @@
     z-index: 9999;
     width: 100% !important;
     left: 0px
+}
+
+.bottom-alert{
+    max-height: 80%;
+    transition: 0.5s height;
+}
+
+.bottom-alert .main{
+    overflow-y: auto;
+    height: 100%;
 }

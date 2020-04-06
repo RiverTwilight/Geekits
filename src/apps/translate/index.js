@@ -54,7 +54,7 @@ const PrintRes = ({res}) => {
     )
 }
 
-class Ui extends React.Component {
+export default class Ui extends React.Component {
     constructor(props) {
         super(props);
         this.dropBox = createRef()
@@ -138,7 +138,7 @@ class Ui extends React.Component {
                 <center>
                     <button
                         onClick={()=>{
-                            this.sendRequest()
+                            text !== '' && this.sendRequest()
                         }} className="mdui-btn-raised mdui-color-theme mdui-btn mdui-ripple">
                         <i className="mdui-icon-left mdui-icon material-icons">translate</i>
                         翻译
@@ -153,5 +153,3 @@ class Ui extends React.Component {
         )
     }
 }
-
-export default Ui

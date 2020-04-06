@@ -14,36 +14,44 @@ const ColorLens = ({onChange, rgb, isHide}) => {
         step:"1"
     } 
     return(
-        <>
-            <RangeInput
-                {...SameProps}
-                title="R"
-                onValueChange={newValue=>{
-                    onChange(`${newValue}, ${g}, ${b}, ${a}`)
-                }}
-            />
-            <RangeInput
-                {...SameProps}
-                title="G"
-                onValueChange={newValue=>{
-                    onChange(`${r}, ${newValue}, ${b}, ${a}`)
-                }}
-            />
-            <RangeInput
-                {...SameProps}
-                title="B"
-                onValueChange={newValue=>{
-                    onChange(`${r}, ${g}, ${newValue}, ${a}`)
-                }}b 
-            />
-            <RangeInput
-                {...SameProps}
-                title="A"
-                onValueChange={newValue=>{
-                    onChange(`${r}, ${g}, ${b}, ${Math.floor(newValue/255 * 100)/100}`)
-                }}
-            />
-        </>
+        <div className="mdui-row-md-2">
+            <div className="mdui-col">
+                <RangeInput
+                    {...SameProps}
+                    title="R"
+                    onValueChange={newValue=>{
+                        onChange(`${newValue}, ${g}, ${b}, ${a}`)
+                    }}
+                />
+            </div>
+            <div className="mdui-col">
+                <RangeInput
+                    {...SameProps}
+                    title="G"
+                    onValueChange={newValue=>{
+                        onChange(`${r}, ${newValue}, ${b}, ${a}`)
+                    }}
+                />
+            </div>
+            <div className="mdui-col">
+                <RangeInput
+                    {...SameProps}
+                    title="B"
+                    onValueChange={newValue=>{
+                        onChange(`${r}, ${g}, ${newValue}, ${a}`)
+                    }}
+                />
+            </div>
+            <div className="mdui-col">
+                <RangeInput
+                    {...SameProps}
+                    title="A"
+                    onValueChange={newValue=>{
+                        onChange(`${r}, ${g}, ${b}, ${Math.floor(newValue/255 * 100)/100}`)
+                    }}
+                />
+            </div>
+        </div>
     )
 }
 

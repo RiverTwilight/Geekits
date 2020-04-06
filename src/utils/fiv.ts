@@ -1,5 +1,5 @@
-
-var list = JSON.parse(localStorage.fiv) || []
+if(!localStorage.fiv)localStorage.fiv = "[]"
+var list = JSON.parse(localStorage.fiv)
 
 export default {
 	get: (link: string): any => {
@@ -8,7 +8,7 @@ export default {
 		}
 		return null
 	},
-	getAll: (): []=>{
+	getAll: (): any[]=>{
 		return list
 	},
 	delete: (i: number | {

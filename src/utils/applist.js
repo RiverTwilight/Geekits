@@ -3,6 +3,7 @@ var list = [{
 	"link": "ocr",
 	"icon": "check",
 	"icon_color": "green",
+	"description":"识别图片中的文字，支持多国语言",
 	"help": "",
 	"channel": 1
 }, {
@@ -69,6 +70,7 @@ var list = [{
 	"link": "bilibili_cover",
 	"icon": "photo_size_select_actual",
 	"icon_color": "pink-300",
+	"description": "下载Bilibili上的视频和番剧封面",
 	"help": "BV号正在开发中##番号请使用md开头，例：md425（《某科学的超电磁炮》）##视频请使用av开头，例：av32211954##点击图片地址可以复制",
 	"channel": 4
 }, {
@@ -77,6 +79,7 @@ var list = [{
 	"icon": "add_a_photo",
 	"network": true,
 	"icon_color": "orange-300",
+	"description": "下载Instagram上的照片",
 	"help": "请输入类似这样的链接：https://www.instagram.com/p/B9_440DAyvZ/ ##视频解析即将到来",
 	"channel": 2
 }, {
@@ -106,6 +109,7 @@ var list = [{
 	"icon": "font_download",
 	"icon_color": "red",
 	"help": "",
+	description: "憂郁的烏龜",
 	"channel": 4
 }, {
 	"name": "做决定",
@@ -150,6 +154,7 @@ var list = [{
 	"link": "regexp_test",
 	"icon": "sort_by_alpha",
 	"icon_color": "green-200",
+	"description": "测试正则表达式与文本是否匹配",
 	"help": "",
 	"channel": 3
 }, {
@@ -214,7 +219,8 @@ var list = [{
 	"icon": "queue_music",
 	"icon_color": "red-600",
 	"help": "歌单体积太大可能会加载较长时间，请耐心等待##获取链接方法：歌单页面内点击 分享 按钮-复制链接即可##您也可以直接输入歌单ID##站长的网易云音乐账号@过气码农，欢迎互关",
-	"channel": 4
+	"channel": 4,
+	"network":true
 }, {
 	"name": "图像识别",
 	"link": "aic",
@@ -242,7 +248,8 @@ var list = [{
 	"icon": "mic",
 	"icon_color": "teal-300",
 	"help": "一次性最多合成500字符",
-	"channel": 1
+	"channel": 1,
+	"network":true
 }, {
 	"name": "金额数字大写",
 	"link": "num2chinese",
@@ -263,28 +270,32 @@ var list = [{
 	"icon": "book",
 	"icon_color": "brown-700",
 	"help": "生成结果仅供参考",
-	"channel": 4
+	"channel": 4,
+	"network":true
 }, {
 	"name": "歇后语查询",
 	"link": "xiehouyu",
 	"icon": "book",
 	"icon_color": "indigo-700",
 	"help": "输入谜面谜底均可",
-	"channel": 4
+	"channel": 4,
+	"network":true
 }, {
-	"name": "成语辞典",
+	"name": "成语词典",
 	"link": "dic_idiom",
 	"icon": "book",
 	"icon_color": "orange-700",
 	"help": "支持缩写哦",
-	"channel": 4
+	"channel": 4,
+	"network":true
 }, {
 	"name": "字典",
 	"link": "dic_word",
 	"icon": "book",
 	"icon_color": "red-700",
 	"help": "暂不支持太简单的字查询",
-	"channel": 4
+	"channel": 4,
+	"network":true
 }]
 
 export default list

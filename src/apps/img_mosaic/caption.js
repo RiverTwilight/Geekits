@@ -1,5 +1,5 @@
 import React from 'react'
-import mdui from 'mdui'
+import { snackbar } from 'mdui'
 
 import FileRead from '../../utils/fileread'
 import './caption.css'
@@ -227,7 +227,7 @@ class VideoShotter extends React.Component {
 	}
 }
 
-class Ui extends React.Component {
+export default class Ui extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -304,13 +304,14 @@ class Ui extends React.Component {
 	                		cHeight:200
 	                	})
 	                    this.setState({assests:assests},()=>{
-	                    	mdui.snackbar({
+	                    	snackbar({
 	                    		message:'已添加截图'
 	                    	})
 	                    })
 		            }}
 		        />
 	            <button
+					style={{zIndex: '1003'}}
 		            className="mdui-fab mdui-fab-fixed mdui-color-theme"
 		            onClick={()=>{
 		            	var mos = new captionMosaic;
@@ -319,7 +320,7 @@ class Ui extends React.Component {
 		            	})
 		            	mos.imgMosaic_Y().then(res=>{
 		            		this.setState({res:res},()=>{
-		            			mdui.snackbar({message:'图片制作成功，请在页面底部查看'})
+		            			snackbar({message:'图片制作成功，请在页面底部查看'})
 		            		})
 		            	})
 		            }}>
@@ -332,4 +333,3 @@ class Ui extends React.Component {
 	}
 }
 
-export default Ui

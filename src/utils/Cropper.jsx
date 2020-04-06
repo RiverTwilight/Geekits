@@ -1,8 +1,7 @@
 import React from 'react';
-import mdui from 'mdui'
-import PropTypes from 'prop-types'
 import Cropper from 'react-cropper'
 import 'cropperjs/dist/cropper.css'
+import saveFile from './fileSaver.ts'
 
 class ImgCropper extends React.Component {
     constructor(props) {
@@ -28,17 +27,22 @@ class ImgCropper extends React.Component {
     }
 }
 
-class CropWindow extends React.Component{
+
+export default class CropWindow extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            xScaled:false,
-            yScaled:false
+            xScaled: false,
+            yScaled: false,
+            cropperCache: props.img
         }
     } 
+    componentWillReceiveProps({ifShow}){
+        if(ifShow)window.history.pushState(null, null, '#cropper')
+    }
     render(){
-        const { xScaled, yScaled } = this.state
-    	const { ifShow, title, cropper, onClose, onConfirm, img } = this.props
+        const { xScaled, yScaled, cropperCache } = this.state
+    	const { ifShow, title, onClose, onConfirm, img } = this.props
     	//用return null会每次重载图片
         return (
             <span style={{display:(!ifShow)?'none':'block'}}>
@@ -47,6 +51,7 @@ class CropWindow extends React.Component{
                         <div className="mdui-shadow-0 mdui-toolbar mdui-color-theme">
                             <button 
 	                            onClick={()=>{
+                                    window.history.go(-1)
 	                            	onClose()
 	                            }}
                                 className="mdui-btn mdui-btn-icon mdui-text-color-white">
@@ -99,7 +104,7 @@ class CropWindow extends React.Component{
                             </button>
                             <button 
                                 onClick={()=>{
-                                    onConfirm(this.state.cropperCache)
+                                    onConfirm(cropperCache)
                                 }}
                                 className="mdui-btn mdui-btn-icon mdui-text-color-white">
                                 <i className="mdui-icon material-icons">check</i>
@@ -107,6 +112,17 @@ class CropWindow extends React.Component{
                         </div>
                     </div>        
                 </header>
+                <button
+                    onClick={()=>{
+                        saveFile({
+                            filename: 'ygktool-cropper',
+                            type: 'png',
+                            file: cropperCache
+                        })
+                    }}
+                    className="mdui-fab mdui-color-theme mdui-fab-fixed mdui-fab-mini">
+                    <i className="mdui-icon material-icons">file_download</i>
+                </button>
                 <ImgCropper
                     ref="cropper"
                     getCropper={ref=>{
@@ -121,5 +137,3 @@ class CropWindow extends React.Component{
         )
     }  
 }
-
-export default CropWindow

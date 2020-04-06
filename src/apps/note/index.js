@@ -131,12 +131,6 @@ const NotesList = props => {
 		let title = (a.title)?<div className="mdui-list-item-title mdui-list-item-one-line">{a.title}</div>
 		:
 		null;
-		let button = (props.editHome)?
-            <button onClick={()=>deleteNote(props.local,i)} className="mdui-btn mdui-btn-icon">
-                <i className="mdui-icon material-icons mdui-text-color-red">delete</i>
-            </button>
-            :
-            null
 		return(
 			<React.Fragment key={i}>
 				<Link to={(props.editHome)?"#":"/app/note/edit?id=" + i + "#preview"} className="mdui-list-item mdui-ripple">
@@ -149,7 +143,10 @@ const NotesList = props => {
 						{a.date}
 						</div>
 					</div>
-					{button}
+					{props.editHome && 
+					<button onClick={()=>deleteNote(props.local,i)} className="mdui-btn mdui-btn-icon">
+						<i className="mdui-icon material-icons mdui-text-color-red">delete</i>
+					</button>}
 				</Link>
 				<li className="mdui-divider"></li>
 			</React.Fragment>
@@ -169,11 +166,12 @@ class Home extends React.Component {
 		}		
 	}
 	render(){
-		const {local, editStatu, editHome, view} = this.state;
-		const msg = (local === [])?<p className="mdui-text-center">点击右下角添加便签</p>:null
+		const {local, editStatu, editHome } = this.state;
 		return(
 			<>
-                <button 
+				{!local.length && <p className="mdui-text-center">点击右下角+号添加便签</p>}
+				<button 
+					style={{display: local.length?"block":"none"}}
                     onClick={()=>{
                         this.setState({editHome:!editHome})
                     }}
@@ -202,15 +200,12 @@ class Home extends React.Component {
 	}
 }
 
-const Ui = () => {
-	return(
-        <Router>          
-            <Switch>
-                <Route exact path="/app/note" component={Home}></Route>
-                <Route exact path="/app/note/edit" component={Edit}></Route>               
-            </Switch>
-        </Router>
-    )
-}
+export default () => (
+	<Router>          
+		<Switch>
+			<Route exact path="/app/note" component={Home}></Route>
+			<Route exact path="/app/note/edit" component={Edit}></Route>               
+		</Switch>
+	</Router>
+)
 
-export default ()=><Ui />

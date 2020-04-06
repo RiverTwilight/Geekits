@@ -3,7 +3,7 @@ import { snackbar } from 'mdui'
 import axios from 'axios'
 
 import FileRead from '../../utils/fileread'
-import NewPage from '../../utils/NewPage'
+import NewPage from '../../utils/BottomAlert'
 import Cropper from '../../utils/Cropper'
 import { ListControlMenu } from 'mdui-in-react'
 
@@ -49,7 +49,7 @@ const aic_types = [{
     value:'dish'
 }]
 
-class Ui extends React.Component {
+export default class Ui extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -81,7 +81,7 @@ class Ui extends React.Component {
         const { image, ifShow, data, aic_type, ifShowCropper } = this.state
     	return(
     		<>
-                <div style={{display:(ifShow||ifShowCropper)?'none':'block'}}>
+                <div style={{display:ifShowCropper?'none':'block'}}>
                     <center>
                         <FileRead 
                             maxWidth="220px"
@@ -109,7 +109,6 @@ class Ui extends React.Component {
                         className="mdui-ripple mdui-color-theme mdui-fab mdui-fab-fixed">
                         <i className="mdui-icon material-icons">&#xe5ca;</i>
                     </button>
-                    
                 </div>
                 <NewPage
                     onClose={()=>{
@@ -135,5 +134,3 @@ class Ui extends React.Component {
     	)
     }
 }
-
-export default Ui

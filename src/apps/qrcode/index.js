@@ -19,7 +19,8 @@ const Result = ({qrcode})=>{
 	)
 }
 
-class Ui extends React.Component {
+
+export default class Ui extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -44,7 +45,6 @@ class Ui extends React.Component {
 					onValueChange={newText=>{
 						this.setState({text:newText})
 					}}
-					helper="dsaf"
 					header="输入文本"
 					value={text}
 				/>)
@@ -157,5 +157,3 @@ class Ui extends React.Component {
 		)
 	}
 }
-
-export default Ui

@@ -40,7 +40,7 @@ function Nav(props){
     )
 }
 
-class Index extends React.Component {
+export default class Index extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -57,7 +57,7 @@ class Index extends React.Component {
     render(){
         window.titleRef.innerText = '云极客工具'
         return(  
-          <>
+          <div className="mdui-col-md-10">
             <Page
               page={this.state.page}
             />
@@ -67,9 +67,7 @@ class Index extends React.Component {
                    this.setState({page:newPage})
                 }}
             />
-          </>
+          </div>
         )
     }
 }
-
-export default Index

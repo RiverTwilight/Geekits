@@ -82,7 +82,7 @@ class Info extends React.Component {
                 </div>
                 <div>
                     <ul className="mdui-list">
-                    {(help !== "")?
+                    {help !== ""?
                         help.split('##').map((line,i)=>(<li key={i} className="mdui-list-item">{line}</li>))
                         :
                         <li className="mdui-list-item">暂无说明</li>

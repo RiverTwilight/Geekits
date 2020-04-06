@@ -1,6 +1,6 @@
 import React from 'react';
 
-const About = () =>{
+export default () =>{
     window.titleRef.innerText = '关于'
     return(
     <div className="mdui-col-md-9"> 
@@ -49,7 +49,7 @@ const About = () =>{
                     </div>
                 </a> 
                 <li 
-                    mdui-dialog="{target: '#donation'}"
+                    mdui-dialog="{target: '#donation', history: false}"
                     className="mdui-col mdui-list-item mdui-ripple">
                     <i className="mdui-list-item-icon mdui-icon material-icons">card_giftcard</i> 
                     <div className="mdui-list-item-content"> 
@@ -68,14 +68,12 @@ const About = () =>{
             <center><img wdith="200" height="200" src="/donation_vx.png"></img></center>                 
             <p>
             目前网站只由我一人维护，
-            需要支付昂贵的服务器以及其他费用，
+            需要付出昂贵的资金、精力和时间成本，
             而我只是一名在读高中生，没有任何收入来源。
-            微小的赞赏将会是我莫大的动力。
+            你的赞赏将会是我莫大的动力。
             </p>
             </div>
         </div> 
     </div>
   )
 }
-
-export default About

@@ -1,11 +1,11 @@
 import React from 'react'
-import mdui from 'mdui'
+import { updateSpinners, snackbar } from 'mdui'
 
 import {
     Input
 } from 'mdui-in-react'
 
-class Ui extends React.Component {
+export default class Ui extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -14,7 +14,7 @@ class Ui extends React.Component {
         }       
     }
     componentDidMount() {
-        mdui.updateSpinners()
+        updateSpinners()
     }
     sendData(){
         const { content, contact } = this.state  
@@ -33,14 +33,14 @@ class Ui extends React.Component {
             .then(res => res.json())
             .then(json => {
                 submit.disabled = false;    
-                mdui.snackbar({message:'提交成功，我会尽快处理^_^'})                 
+                snackbar({message:'提交成功，我会尽快处理^_^'})                 
             })
     }
     render(){
         window.titleRef.innerText = '意见反馈'
         const { content, contact } = this.state
     	return(
-            <>
+            <div className="mdui-col-md-10">
                 <Input
                     onValueChange={newText=>{
                         this.setState({contact:newText})
@@ -65,9 +65,7 @@ class Ui extends React.Component {
                     className="mdui-color-theme mdui-btn mdui-btn-raised">
                     提交
                 </button>
-            </>
+            </div>
         )
     }
 }
-
-export default Ui

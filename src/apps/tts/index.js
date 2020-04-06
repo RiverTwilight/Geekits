@@ -31,7 +31,7 @@ const per_types = [{
     value:'5'
 }]
 
-class Ui extends React.Component {
+export default class Ui extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -129,14 +129,18 @@ class Ui extends React.Component {
 						this.loadDataFromSever()
 					}}
 					className="mdui-color-theme mdui-fab mdui-fab-fixed"
-				><i className="mdui-icon material-icons">&#xe5ca;</i></button>
-				<span style={{display:res === null?'none':'block'}}><MusicPlayer
-					title="合成结果"
-					audio={res}
-				/></span>
+				>
+					<i className="mdui-icon material-icons">&#xe5ca;</i>
+				</button>
+				<br></br>
+				<span style={{display:res === null?'none':'block'}}>
+					<MusicPlayer
+						title="合成结果"
+						audio={res}
+					/>
+				</span>
 			</>
 		)
 	}
 }
 
-export default Ui

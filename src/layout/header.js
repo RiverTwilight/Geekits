@@ -5,9 +5,9 @@ import Drawer from './drawer'
 
 const turnToDark = checked => {
     if (checked) {
-        document.getElementsByTagName('body')[0].classList.add("mdui-theme-layout-dark")
+        document.body.classList.add("mdui-theme-layout-dark")
     } else {
-        document.getElementsByTagName('body')[0].classList.remove("mdui-theme-layout-dark")
+        document.body.classList.remove("mdui-theme-layout-dark")
     }
     localStorage.setItem('darkMode', String(checked))
 }
@@ -45,7 +45,8 @@ const addSaying2Fiv = saying => {
     localStorage.setItem('note', JSON.stringify(notes))
 }
 
-class Header extends React.Component{
+
+export default class Header extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
@@ -53,8 +54,8 @@ class Header extends React.Component{
             searchResult:'',
             kwd:'',//用于传给结果组件的百度搜索,
             saying:{
-                say:'即使与全世界为敌，我也要保护她和她所在的世界',
-                from:'《魔法禁书目录》'
+                say:'我一路向北，离开有你的季节',
+                from:'《头文字D》'
             },
             darkMode:localStorage.getItem('darkMode') || 'false'
         }
@@ -132,7 +133,7 @@ class Header extends React.Component{
                                     turnToDark(darkMode !== 'true')
                                 }}
                                 className="mdui-btn mdui-btn-icon mdui-text-color-white">
-                                <i className="mdui-icon material-icons">{darkMode==='true'?'brightness_4':'brightness_low'}</i>
+                                <i className="mdui-icon material-icons">{Date().getDate === 12?'cake':darkMode==='true'?'brightness_4':'brightness_low'}</i>
                             </button>
                         </div>
                     </div>        
@@ -141,5 +142,3 @@ class Header extends React.Component{
         )
     }  
 }
-
-export default Header

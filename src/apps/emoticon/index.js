@@ -2,7 +2,7 @@ import React from 'react'
 import saveFile from '../../utils/fileSaver'
 import html2canvas from 'html2canvas'
 
-import NewPage from '../../utils/NewPage'
+import NewPage from '../../utils/BottomAlert'
 import { ColorInput, RangeInput, Input } from 'mdui-in-react'
 import FileRead from '../../utils/fileread'
 
@@ -149,7 +149,7 @@ const StyleSet = ({color, handle, style}) => {
 const AssestsList = ({onChoose}) => {
     return (
         <div className="mdui-row-xs-3 mdui-row-sm-4 mdui-row-md-5 mdui-row-lg-6 mdui-row-xl-7 mdui-grid-list">
-        {Array(20).fill(0).map((img,i)=>(
+        {Array(30).fill(0).map((img,i)=>(
                 <div key={i} className="mdui-col">
                     <div onClick={()=>onChoose(i+1)} className="mdui-grid-tile">
                         <img
@@ -183,7 +183,6 @@ class Ui extends React.Component {
         const { src, result, ifShow, texts, style, size, color } = this.state
         return(
             <>
-                <div style={{display:(ifShow)?'none':'block'}}>
                     <div className="mdui-card mdui-p-a-1" >                           
                         <center>  
                             <div 
@@ -287,7 +286,6 @@ class Ui extends React.Component {
                     <i className="mdui-icon material-icons">&#xe5ca;</i>
                 </button>
                 <Result src={result} />
-                </div>
                 <NewPage
                     onClose={()=>{
                         this.setState({ifShow:false})

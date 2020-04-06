@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from "react-router-dom"
 
 import { ListControlCheck, ListControlMenu } from 'mdui-in-react'
 
@@ -48,54 +47,53 @@ const parseHitokoto = value => {
     }
 }
 
-class Ui extends React.Component{
+export default class Ui extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
             homeShowNewestTool:localStorage.homeShowNewestTool || 'true',
-            darkMode:localStorage.darkMode || 'false',
             hideHelper:localStorage.hideHelper || 'false',
             hitokotoTopic:parseHitokoto(localStorage.hitokotoTopic) || 0
         }
     }
     render(){
-        const { homeShowNewestTool, darkMode, hideHelper, hitokotoTopic } = this.state
+        const { homeShowNewestTool, hideHelper, hitokotoTopic } = this.state
         window.titleRef.innerText = '设置'
         return(
-            <ul className="mdui-list">
-                <li className="mdui-subheader">通用</li>
-                <ListControlCheck
-                    icon="apps"
-                    title="首页展示最新工具"
-                    checked={homeShowNewestTool === 'true'}
-                    onCheckedChange={checked=>{
-                        this.setState({homeShowNewestTool:String(checked)})
-                        setFunc.homeShowNewestTool(checked)
-                    }}
-                />
-                <ListControlCheck
-                    icon="help"
-                    title="隐藏使用说明"
-                    checked={hideHelper === 'true'}
-                    onCheckedChange={checked=>{
-                        this.setState({hideHelper:String(checked)})
-                        setFunc.hideHelper(checked)
-                    }}
-                />
-                <li className="mdui-subheader">个性化</li>
-                <ListControlMenu
-                    icon="stars"
-                    text="一言来源"
-                    checked={hitokotoTopic}
-                    onCheckedChange={checked=>{
-                        this.setState({hitokotoTopic:checked})
-                        setFunc.hitokotoTopic(checked)
-                    }}
-                    items={hitokotoItems}
-                />
-            </ul>
+            <div className="mdui-col-md-10">
+                <ul className="mdui-list">
+                    <li className="mdui-subheader">通用</li>
+                    <ListControlCheck
+                        icon="apps"
+                        title="首页展示最新工具"
+                        checked={homeShowNewestTool === 'true'}
+                        onCheckedChange={checked=>{
+                            this.setState({homeShowNewestTool:String(checked)})
+                            setFunc.homeShowNewestTool(checked)
+                        }}
+                    />
+                    <ListControlCheck
+                        icon="help"
+                        title="隐藏使用说明"
+                        checked={hideHelper === 'true'}
+                        onCheckedChange={checked=>{
+                            this.setState({hideHelper:String(checked)})
+                            setFunc.hideHelper(checked)
+                        }}
+                    />
+                    <li className="mdui-subheader">个性化</li>
+                    <ListControlMenu
+                        icon="stars"
+                        title="一言来源"
+                        checked={hitokotoTopic}
+                        onCheckedChange={checked=>{
+                            this.setState({hitokotoTopic:checked})
+                            setFunc.hitokotoTopic(checked)
+                        }}
+                        items={hitokotoItems}
+                    />
+                </ul>
+            </div>
         )
     }
 }
-
-export default Ui

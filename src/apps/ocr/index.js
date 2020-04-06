@@ -1,5 +1,5 @@
 import React from 'react'
-import mdui from 'mdui'
+import  { snackbar } from 'mdui'
 import axios from 'axios'
 import ClipboardJS from 'clipboard'
 
@@ -116,7 +116,7 @@ class Ui extends React.Component {
         clipboard && clipboard.destroy();
         var clipboard = new ClipboardJS('.copy');
         clipboard.on('success', e=> {
-            mdui.snackbar({message:'已复制'})
+            snackbar({message:'已复制'})
             e.clearSelection()
         })
     }
@@ -124,14 +124,14 @@ class Ui extends React.Component {
         const { image, language_type } = this.state
         window.loadShow()
         this.startBtn.disabled = true
-        axios.post('https://api.ygktool.cn/api/ocr',{
+        axios.post('/api/ocr',{
             image:image.split('base64,')[1],
             language_type:language_types[language_type].value
         }).then(response =>{
             var json = JSON.parse(response.request.response);
             this.setState({data:json,image:null})        
         }).catch(error => {
-            mdui.snackbar({message:error})
+            snackbar({message:error})
         }).then(()=>{
             window.loadHide()
             this.startBtn.disabled = false
@@ -141,7 +141,7 @@ class Ui extends React.Component {
         const { image, ifIgnoreLine, ifShowCropper, data, language_type } = this.state
     	return(
     		<>
-                <div style={{display:(ifShowCropper)?'none':'block'}}>
+                <div style={{display:ifShowCropper?'none':'block'}}>
                     <center>
                         <FileRead 
                             maxWidth="220px"
@@ -187,6 +187,7 @@ class Ui extends React.Component {
                         this.setState({ifShowCropper:false})
                     }}
                     onConfirm={img=>{
+                        console.log(img)
                         this.setState({ifShowCropper:false,image:img})
                     }}
                     title=""
