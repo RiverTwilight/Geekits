@@ -2,6 +2,7 @@ import React from 'react'
 import { snackbar, mutation } from 'mdui'
 import { Input } from 'mdui-in-react'
 import Axios from 'axios';
+import { MD5 } from 'crypto-js';
 import { getUserInfo } from '../../utils/UserInfo'
 import SendCode from '../../utils/SendCode'
 
@@ -29,7 +30,7 @@ class Signin extends React.Component {
         window.loadShow();
         Axios({
             method: 'post',
-            url: 'https://api.ygktool.cn/ygktool/user/signin',
+            url: '/ygktool/user/signin',
             withCredentials: false,
             data:{
                 username:username,
@@ -217,17 +218,16 @@ class Login extends React.Component {
             remember:false
         }
     }
-    loadCommentsFromServer(){
+    clientServer(){
         const { username, password, remember } = this.state
         window.loadShow();
         Axios({
             method: 'post',
-            //url: 'http://localhost:444/ygktool/user/login',
-            url: 'https://api.ygktool.cn/ygktool/user/login',
+            url: '/ygktool/user/login',
             withCredentials: false,
             data:{
-                username:username,
-                password:password
+                username: username,
+                token: String(MD5(username + String(MD5(password))))
             }
         }).then(response =>{
             var json = JSON.parse(response.request.response); 
@@ -236,9 +236,7 @@ class Login extends React.Component {
                     snackbar({message:'邮箱或密码错误'});
                     break;
                 case 666:
-                    var data = JSON.parse(JSON.stringify(json.data));
-                    data.password = password;                 
-                    data = JSON.stringify(data);
+                    var data = JSON.stringify(json.data);
                     remember && localStorage.setItem('userInfo', data)
                     setCookie('userInfo', data);
                     window.location.href="/user"
@@ -271,7 +269,7 @@ class Login extends React.Component {
                 />            
                 <button 
                     onClick={()=>{
-                        this.loadCommentsFromServer()
+                        this.clientServer()
                     }} 
                     className="mdui-ripple mdui-color-theme mdui-float-right mdui-btn-raised mdui-btn">
                     登录

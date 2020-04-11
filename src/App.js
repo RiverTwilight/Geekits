@@ -12,6 +12,7 @@ import Header from './layout/header'
 import loadable from './utils/loading'
 
 Axios.defaults.baseURL = 'https://api.ygktool.cn';
+//Axios.defaults.baseURL = 'http://localhost:444';
 
 const RouterList = [{
     component: loadable(() => import('./pages/home')),

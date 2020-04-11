@@ -18,12 +18,12 @@ const Result = ({data}) =>{
     )
 }
 
-class Ui extends React.Component {
+export default class Ui extends React.Component {
     render(){
         return(
             <Template
                 Result={Result}
-                api="https://api.ygktool.cn/api/xiehouyu?text="
+                api="/api/xiehouyu?text="
                 inputOpt={{
                     header:'从14032条歇后语中查询谜面/谜底',
                     icon:'search'
@@ -32,5 +32,3 @@ class Ui extends React.Component {
         )
     }
 }
-
-export default Ui

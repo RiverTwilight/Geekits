@@ -1,26 +1,25 @@
 import Axios from 'axios';
 
-const setCookie = (name,value) =>
-{
+const setCookie = (name, value) => {
     var Days = 30;
     var exp = new Date();
-    exp.setTime(exp.getTime() + Days*24*60*60*1000);
-    document.cookie= `${name}=${escape (value)};expires=${exp.toGMTString()};path='../'`;
+    exp.setTime(exp.getTime() + Days * 24 * 60 * 60 * 1000);
+    document.cookie = `${name}=${escape(value)};expires=${exp.toGMTString()};path='../'`;
 }
 
 const removeCookie = name => {
     var exp = new Date();
     exp.setTime(exp.getTime() - 1);
-    var cval=getCookie(name);
-    if(cval!=null)
-        document.cookie= `${name}=${cval};expires=${exp.toGMTString()};path='/'`;
+    var cval = getCookie(name);
+    if (cval != null)
+        document.cookie = `${name}=${cval};expires=${exp.toGMTString()};path='../'`;
 }
 
 const getCookie = (name) => {
-    var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
- 
-    if(arr=document.cookie.match(reg))
- 
+    var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+
+    if (arr = document.cookie.match(reg))
+
         return unescape(arr[2]);
     else
         return null;
@@ -33,30 +32,29 @@ const removeUserInfo = _ => {
 
 const getUserInfo = _ => {
     const dataStr = getCookie('userInfo') || localStorage.userInfo
-    if(!dataStr)return null;
+    if (!dataStr) return null;
     const data = JSON.parse(dataStr);
     Axios({
         method: 'post',
-        //url: 'http://localhost:444/ygktool/user/login',
-        url: 'https://api.ygktool.cn/ygktool/user/login',
+        url: '/ygktool/user/login',
         withCredentials: false,
-        data:{
-            username:data.username,
-            password:data.password
+        data: {
+            username: data.username,
+            token: data.trueToken
         }
-    }).then(response =>{
-        var json = JSON.parse(response.request.response); 
-        switch(json.code){
+    }).then(response => {
+        var json = JSON.parse(response.request.response);
+        switch (json.code) {
             case 1:
-                removeCookie('userInfo')
+                removeCookie('userInfo');
+                localStorage.userInfo && localStorage.removeItem('userInfo')
+                window.location.reload()
                 break;
             case 666:
-                var newData = JSON.parse(JSON.stringify(json.data));
-                newData.password = data.password;           
-                newData = JSON.stringify(newData);
-                localStorage.setItem('userInfo', newData)
+                var newData = JSON.stringify(json.data);
+                localStorage.userInfo && localStorage.setItem('userInfo', newData)
                 setCookie('userInfo', newData)
-        }      
+        }
     })
     return data
 }

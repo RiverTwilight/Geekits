@@ -23,11 +23,11 @@ const SettingMenu = _ => {
     )
 }
 
-class Ui extends React.Component {
+export default class Ui extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-			userInfo:getUserInfo()
+			userInfo: getUserInfo()
         }       
 	}
     render(){
@@ -79,5 +79,3 @@ class Ui extends React.Component {
         )
     }
 }
-
-export default Ui
