@@ -80,13 +80,15 @@ const calWhichDay = (dateStart: string, day: number):{week: number; date:string}
 const calDiffer = (defaultDateEarly: string , defaultDateLate: string ): number => {
 
     var dateEarly = parseDate(defaultDateEarly)
-    var dateLate = parseDate(defaultDateLate)
+      , dateLate = parseDate(defaultDateLate);
 
+    //两个日期在同一年
     if(dateLate.year === dateEarly.year){
         var numOfEarlyMonthDay = dateEarly.isLeap?leapYearMonth[dateEarly.month]:ordinaryYearMonth[dateEarly.month]
+        if(dateLate.month === dateEarly.month)return dateLate.day - dateEarly.day
+        var diffDay:number = dateLate.day + numOfEarlyMonthDay - dateEarly.day;//两个日期所在月的非整月天数和
         
-        var diffDay = dateLate.day + numOfEarlyMonthDay - dateEarly.day
-        for (let i = dateLate.month - dateEarly.month - 1; i >= 1; i--) {
+        for (let i = dateEarly.month; i < dateLate.month - 1; i++) {
             diffDay += (dateLate.isLeap)?leapYearMonth[i]:ordinaryYearMonth[i]
         }
         return diffDay

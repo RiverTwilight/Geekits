@@ -1,7 +1,7 @@
 import React from 'react'
 import ClipboardJS from 'clipboard'
 import Template from '../../utils/AskForTemplate.jsx'
-import {snackbar } from 'mdui'
+import { snackbar } from 'mdui'
 
 class Result extends React.Component {
     constructor(props){
@@ -31,7 +31,7 @@ class Result extends React.Component {
     }
 }
 
-class Ui extends React.Component {
+export default class Ui extends React.Component {
     render(){
         return(
             <>
@@ -47,6 +47,3 @@ class Ui extends React.Component {
         )
     }
 }
-
-
-export default Ui

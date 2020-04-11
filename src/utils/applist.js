@@ -1,4 +1,4 @@
-var list = [{
+export default [{
 	"name": "文字识别",
 	"link": "ocr",
 	"icon": "check",
@@ -297,5 +297,3 @@ var list = [{
 	"channel": 4,
 	"network":true
 }]
-
-export default list

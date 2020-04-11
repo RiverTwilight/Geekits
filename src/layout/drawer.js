@@ -42,7 +42,7 @@ const Menu = () => {
     ))
 }
 
-class Drawer extends React.Component  {
+export default class Drawer extends React.Component  {
     constructor(props) {
         super(props);
         this.state = {
@@ -88,5 +88,3 @@ class Drawer extends React.Component  {
         )
     }
 }
-
-export default Drawer
