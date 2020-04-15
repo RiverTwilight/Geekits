@@ -1,10 +1,10 @@
 import React, { createRef, forwardRef } from 'react'
 import { snackbar } from 'mdui'
 import ClipboardJS from 'clipboard'
-import { Select } from 'mdui-in-react'
+import Select from '../../utils/Component/Select'
 import axios from 'axios'
 import DragRead from '../../utils/DragReadContainer'
-import { Input } from 'mdui-in-react'
+import Input from '../../utils/Component/Input.tsx'
 
 const options = [{
     name:'自动',

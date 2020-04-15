@@ -1,7 +1,7 @@
 import React from 'react'
 import mdui from 'mdui'
 import axios from 'axios'
-import { Input } from 'mdui-in-react'
+import Input from '../../utils/Component/Input.tsx'
 
 //提取url中的id
 const url2Id = url => {
@@ -137,14 +137,14 @@ class Ui extends React.Component {
                 onClick={()=>{
                     this.loadCommentsFromServer(listidA,data=>{
                         this.setState({dataA:{
-                            list:data.tracks,
-                            name:data.name
+                            list:data.tracks || null,
+                            name:data.name || ''
                         }})
                     })
                     this.loadCommentsFromServer(listidB,data=>{
                         this.setState({dataB:{
-                            list:data.tracks,
-                            name:data.name
+                            list:data.tracks || null,
+                            name:data.name || ''
                         }})
                     })
                 }} 

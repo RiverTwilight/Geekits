@@ -3,7 +3,7 @@ import mdui from 'mdui'
 import axios from 'axios'
 import ClipboardJS from 'clipboard'
 
-import { Input } from 'mdui-in-react'
+import Input from '../../utils/Component/Input.tsx'
 
 const VideoList = ({list}) => {
     return(

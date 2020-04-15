@@ -1,6 +1,7 @@
 import React from 'react'
 import { snackbar, mutation } from 'mdui'
-import { Input } from 'mdui-in-react'
+import Input from '../../utils/Component/Input'
+
 import Axios from 'axios';
 import { MD5 } from 'crypto-js';
 import { getUserInfo } from '../../utils/UserInfo'
@@ -237,10 +238,12 @@ class Login extends React.Component {
                     break;
                 case 666:
                     var data = JSON.stringify(json.data);
-                    remember && localStorage.setItem('userInfo', data)
-                    setCookie('userInfo', data);
+                    remember && setCookie('userInfo', data);
+                    sessionStorage.setItem('userInfo', data)
                     window.location.href="/user"
             }      
+        }).catch(e => {
+            snackbar({message: e})
         }).then(_=>{
             window.loadHide()
         })
@@ -271,7 +274,7 @@ class Login extends React.Component {
                     onClick={()=>{
                         this.clientServer()
                     }} 
-                    className="mdui-ripple mdui-color-theme mdui-float-right mdui-btn-raised mdui-btn">
+                    className="loadBtn mdui-ripple mdui-color-theme mdui-float-right mdui-btn-raised mdui-btn">
                     登录
                 </button>
                 <label style={{marginRight: '24px'}} className="mdui-float-right mdui-checkbox">

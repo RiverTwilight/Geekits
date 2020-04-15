@@ -1,7 +1,7 @@
 import React from 'react'
 
 import FileRead from '../../utils/fileread'
-import { RangeInput } from 'mdui-in-react'
+import RangeInput from '../../utils/Component/RangeInput'
 
 async function loadImg(src){
 	var img = await new Image();

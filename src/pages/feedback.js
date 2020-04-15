@@ -1,9 +1,6 @@
 import React from 'react'
 import { updateSpinners, snackbar } from 'mdui'
-
-import {
-    Input
-} from 'mdui-in-react'
+import Input from '../utils/Component/Input'
 
 export default class Ui extends React.Component {
     constructor(props) {

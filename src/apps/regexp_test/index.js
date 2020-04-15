@@ -1,41 +1,40 @@
 import React from 'react'
-
-import { Input } from 'mdui-in-react'
+import Input from '../../utils/Component/Input.tsx'
 
 const test = (exp, text) => {
-    try{
+    try {
         exp = exp.replace(/\\/g, '\\').replace(/\</, '&lt;')
         text = text.replace(/\s/g, '&nbsp;').replace(/\</, '&lt;')
         var reg = new RegExp(exp, 'g')
         console.log(reg, text)
         text = text.replace(reg, '<span style="background-color:#9be49e">$&</span>')
         return text
-    }catch(err){
+    } catch (err) {
         console.log(err)
     }
 }
 
-const Link = ({onInput}) => {
+const Link = ({ onInput }) => {
     const list = [
         {
-            exp:'\\d+\\.\\d+\\.\\d+\\.\\d+',
-            description:'IP地址'
+            exp: '\\d+\\.\\d+\\.\\d+\\.\\d+',
+            description: 'IP地址'
         },
         {
-            exp:'\\d{4}-\\d{1,2}-\\d{1,2}',
-            description:'日期yyyy-mm-dd'
+            exp: '\\d{4}-\\d{1,2}-\\d{1,2}',
+            description: '日期yyyy-mm-dd'
         },
         {
-            exp:'[1-9][0-9]{4,}',
-            description:'QQ号'
+            exp: '[1-9][0-9]{4,}',
+            description: 'QQ号'
         },
         {
-            exp:'http(s)?:\/\/([\\w-]+\\.)+[\\w-]+(\/[\\w- .\/?%&=]*)?',
-            description:'url'
+            exp: 'http(s)?:\/\/([\\w-]+\\.)+[\\w-]+(\/[\\w- .\/?%&=]*)?',
+            description: 'url'
         },
         {
-            exp:'[A-Za-z0-9._%-]+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}$',
-            description:'E-mail'
+            exp: '[A-Za-z0-9._%-]+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}$',
+            description: 'E-mail'
         }
     ]
     return (
@@ -43,91 +42,89 @@ const Link = ({onInput}) => {
             <ul className="mdui-list mdui-row-md-6 mdui-row-sm-4 mdui-row-xs-3 mdui-list-dense">
                 <li className="mdui-subheader">常用正则</li>
                 {
-                list.map((reg, i)=>(
-                    <li key={i} onClick={()=>{
-                        onInput(reg.exp)
-                    }} className="mdui-col mdui-list-item mdui-ripple">
-                        {reg.description}
-                    </li>
-                ))
-            }</ul>
+                    list.map((reg, i) => (
+                        <li key={i} onClick={() => {
+                            onInput(reg.exp)
+                        }} className="mdui-col mdui-list-item mdui-ripple">
+                            {reg.description}
+                        </li>
+                    ))
+                }</ul>
         </div>
     )
 }
 
-class Ui extends React.Component {
+export default class Ui extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            exp:'\\d+\\.\\d+\\.\\d+\\.\\d+',
-            toTest:'IP address: 118.484.15.11\nLocation: Tokyo, Japan',
-            tempTest:'IP address: 118.484.15.11\nLocation: Tokyo, Japan'
+            exp: '\\d+\\.\\d+\\.\\d+\\.\\d+',
+            toTest: 'IP address: 118.484.15.11\nLocation: Tokyo, Japan',
+            tempTest: 'IP address: 118.484.15.11\nLocation: Tokyo, Japan'
         }
     }
-    render(){
+    render() {
         const { exp, toTest, tempTest } = this.state
-    	return (
-    		<>
+        return (
+            <>
                 <Input
-                    onValueChange={newText=>{                                          
+                    onValueChange={newText => {
                         this.setState({
-                            exp:newText
+                            exp: newText
                         })
                     }}
                     header="正则表达式"
                     icon="attach_money"
                     value={exp}
-                />   
+                />
                 <Link
-                    onInput={exp=>this.setState({exp:exp})}
+                    onInput={exp => this.setState({ exp: exp })}
                 />
                 <br></br>
                 <div style={{
-                    position:'relative',
-                    height:'180px',
-                    overflowY:'auto',
-                    fontSize:'1.2em'
+                    position: 'relative',
+                    height: '180px',
+                    overflowY: 'auto',
+                    fontSize: '1.2em'
                 }} className="mdui-card mdui-col">
-                    <div 
+                    <div
                         style={{
-                            position:'absolute',
-                            top:'0',
-                            left:'0',
+                            position: 'absolute',
+                            top: '0',
+                            left: '0',
                             outline: 'none',
-                            color:'transparent'
+                            color: 'transparent'
                         }}
                         dangerouslySetInnerHTML={{
-                            __html : test(exp, toTest).replace(/\n/g,'<br>')
-                        }}
-                        className="mdui-typo mdui-p-a-2"                      
-                    >
-                    </div>
-                    <textarea 
-                        style={{
-                            position:'absolute',
-                            top:'0',
-                            left:'0',
-                            zIndex:'1',
-                            outline: 'none',
-                            backgroundColor:'transparent',
-                            border:'none',
-                            width:'100%',
-                            height:'100%'
+                            __html: test(exp, toTest).replace(/\n/g, '<br>')
                         }}
                         className="mdui-typo mdui-p-a-2"
-                        onChange={e=>{                           
+                    >
+                    </div>
+                    <textarea
+                        style={{
+                            position: 'absolute',
+                            top: '0',
+                            left: '0',
+                            zIndex: '1',
+                            outline: 'none',
+                            backgroundColor: 'transparent',
+                            border: 'none',
+                            width: '100%',
+                            height: '100%'
+                        }}
+                        className="mdui-typo mdui-p-a-2"
+                        onChange={e => {
                             this.setState({
-                                toTest:e.target.value,
-                                tempTest:e.target.value
-                            })                     
+                                toTest: e.target.value,
+                                tempTest: e.target.value
+                            })
                         }}
                         value={tempTest}
                     >
                     </textarea>
                 </div>
             </>
-    	)
+        )
     }
 }
-
-export default Ui

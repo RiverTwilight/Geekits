@@ -3,10 +3,9 @@ import  { snackbar } from 'mdui'
 import axios from 'axios'
 import ClipboardJS from 'clipboard'
 
-import {
-    ListControlMenu,
-    ListControlCheck
-} from 'mdui-in-react'
+import ListControlMenu from '../../utils/Component/ListControlMenu'
+import ListControlCheck from '../../utils/Component/ListControlCheck'
+
 
 import FileRead from '../../utils/fileread'
 import Cropper from '../../utils/Cropper'

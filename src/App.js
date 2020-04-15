@@ -1,15 +1,15 @@
 import React from 'react'
-import './App.css'
 import {
     BrowserRouter as Router,
     Switch,
     Route,
     Link
 } from "react-router-dom"
-import '../node_modules/mdui/dist/css/mdui.min.css'
 import Axios from 'axios'
 import Header from './layout/header'
 import loadable from './utils/loading'
+import './App.css'
+import '../node_modules/mdui/dist/css/mdui.min.css'
 
 Axios.defaults.baseURL = 'https://api.ygktool.cn';
 //Axios.defaults.baseURL = 'http://localhost:444';
@@ -39,7 +39,7 @@ const RouterList = [{
     path: "/feedback"
 }]
 
-const NoMatch = _ => (
+const NoMatch = () => (
     <p className="center-panel">
         <h2 className="mdui-text-center">电波无法到达哦</h2>
         <p>
@@ -52,9 +52,21 @@ const NoMatch = _ => (
 
 export default class App extends React.Component {
     componentDidMount() {
-        const { loading } = this
-        window.loadShow = () => loading.style.display = 'inline-block';
-        window.loadHide = () => loading.style.display = 'none';
+        const { loading } = this;
+        const toggleDisabled = (isDisabled) => {
+            var btns = document.getElementsByClassName('loadBtn');
+            for(let i = 0; i < btns.length; i++){
+                btns[i].disabled = isDisabled
+            }
+        }
+        window.loadShow = () => {
+            loading.style.display = 'inline-block';
+            toggleDisabled(true)
+        }
+        window.loadHide = () => {
+            loading.style.display = 'none';
+            toggleDisabled(false)
+        }
     }
     render() {
         return (
@@ -70,7 +82,7 @@ export default class App extends React.Component {
                 <br></br>
                 <Switch>
                     {RouterList.map(route => (
-                        <Route {...route}></Route>
+                        <Route key={route.path} {...route}></Route>
                     ))}
                     <Route component={NoMatch} />
                 </Switch>

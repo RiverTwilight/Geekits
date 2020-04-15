@@ -2,10 +2,10 @@ import React from 'react';
 import { JQ } from 'mdui'
 
 export default class BottomAlert extends React.Component<{
-    ifShow: boolean;
-    title: string;
+    readonly ifShow: boolean;
+    readonly title: string;
     onClose(): void;
-    children: any
+    readonly children: any
 }, {}>{
     constructor(props: Readonly<{ ifShow: boolean; title: string; onClose(): void; children: any; }>) {
         super(props);

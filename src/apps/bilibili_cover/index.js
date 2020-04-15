@@ -1,6 +1,6 @@
 import React from 'react'
 import ClipboardJS from 'clipboard'
-import Template from '../../utils/AskForTemplate.jsx'
+import Template from '../../utils/AskForTemplate.tsx'
 import { snackbar } from 'mdui'
 
 class Result extends React.Component {

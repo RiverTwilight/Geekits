@@ -1,5 +1,5 @@
 import React from 'react'
-import Template from '../../utils/AskForTemplate.jsx'
+import Template from '../../utils/AskForTemplate.tsx'
 
 const Result = ({data}) =>{
     if(!data)return null

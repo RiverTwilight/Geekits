@@ -1,11 +1,8 @@
 import React from 'react'
 import WordCloud from 'wordcloud'
 import saveFile from '../../utils/fileSaver'
-
-import {
-    ListControlCheck,
-    Input
-} from 'mdui-in-react'
+import ListControlCheck from '../../utils/Component/ListControlCheck'
+import Input from '../../utils/Component/Input'
 
 class Words extends React.Component {
     constructor(props) {

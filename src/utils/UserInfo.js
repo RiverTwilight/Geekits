@@ -27,11 +27,11 @@ const getCookie = (name) => {
 
 const removeUserInfo = _ => {
     removeCookie('userInfo');
-    localStorage.userInfo && localStorage.removeItem('userInfo')
+    sessionStorage.userInfo && sessionStorage.removeItem('userInfo')
 }
 
 const getUserInfo = _ => {
-    const dataStr = getCookie('userInfo') || localStorage.userInfo
+    const dataStr = sessionStorage.userInfo || getCookie('userInfo')
     if (!dataStr) return null;
     const data = JSON.parse(dataStr);
     Axios({
@@ -52,8 +52,8 @@ const getUserInfo = _ => {
                 break;
             case 666:
                 var newData = JSON.stringify(json.data);
-                localStorage.userInfo && localStorage.setItem('userInfo', newData)
-                setCookie('userInfo', newData)
+                getCookie('userInfo') && setCookie('userInfo', newData)
+                sessionStorage.setItem('userInfo', newData)
         }
     })
     return data

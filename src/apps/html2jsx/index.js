@@ -2,7 +2,7 @@ import React, { createRef, forwardRef } from 'react'
 import { snackbar } from 'mdui'
 import ClipboardJS from 'clipboard'
 import DragRead from '../../utils/DragReadContainer'
-import { Input } from 'mdui-in-react'
+import Input from '../../utils/Component/Input.tsx'
 
 const PrintRes = ({res}) => (
     <div className="mdui-card mdui-col">

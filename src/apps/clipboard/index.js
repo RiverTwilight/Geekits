@@ -1,13 +1,11 @@
 import React from 'react'
 import mdui from 'mdui'
-
 import ClipboardJS from 'clipboard'
 import io from 'socket.io-client'
 import QRCode from 'qrcode'
 import saveFile from '../../utils/fileSaver'
-
 import FileRead from '../../utils/fileread'
-import { Input } from 'mdui-in-react'
+import Input from '../../utils/Component/Input.tsx'
 
 const Share = props =>{
     return(

@@ -5,7 +5,7 @@ import axios from 'axios'
 import FileRead from '../../utils/fileread'
 import NewPage from '../../utils/BottomAlert'
 import Cropper from '../../utils/Cropper'
-import { ListControlMenu } from 'mdui-in-react'
+import Input from '../../utils/Component/ListControlMenu.tsx'
 
 const Result = ({result}) =>{
     if(result === null)return null

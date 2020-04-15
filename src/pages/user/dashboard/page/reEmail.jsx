@@ -1,6 +1,6 @@
 import React from 'react'
 import { removeUserInfo, getUserInfo } from '../../../../utils/UserInfo'
-import { Input } from 'mdui-in-react'
+import Input from '../../../../utils/Component/Input'
 import SendCode from '../../../../utils/SendCode'
 import Axios from 'axios'
 import { snackbar } from 'mdui'

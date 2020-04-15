@@ -3,7 +3,7 @@ import mdui from 'mdui'
 
 import ClipboardJS from 'clipboard'
 import num2chinese from './engine'
-import { Input } from 'mdui-in-react'
+import Input from '../../utils/Component/Input.tsx'
 
 const Result = props =>{
     const { src } = props;

@@ -4,7 +4,7 @@ import ClipboardJS from 'clipboard'
 
 import mimeTypes from './dictionary'
 
-import { Input } from 'mdui-in-react'
+import Input from '../../utils/Component/Input.tsx'
 
 //结果展示
 function Result(props){

@@ -1,10 +1,27 @@
 import React from 'react'
 import { snackbar } from 'mdui'
 import axios from 'axios'
-import { Input } from 'mdui-in-react'
+import Input from './Component/Input'
 
-export default class Ui extends React.Component {
-    constructor(props) {
+declare global {
+    interface Window {
+        loadShow(): void;
+        loadHide(): void
+    }
+}
+
+export default class Ui extends React.Component
+    <{
+        Result: any;
+        readonly api: string;
+        readonly inputOpt?: any;
+        readonly btnText?: string;
+    }, {
+        input: string;
+        data: null | object
+    }>
+{
+    constructor(props: Readonly<{ Result: any; api: string; inputOpt?: any; btnText?: string | undefined; }>) {
         super(props);
         this.state = {
             input: '',
@@ -14,7 +31,7 @@ export default class Ui extends React.Component {
     loadCommentsFromServer() {
         const { api } = this.props;
         const { input } = this.state
-        window.loadShow()
+        window.loadShow();
         axios({
             method: 'get',
             url: api + input,
@@ -34,7 +51,7 @@ export default class Ui extends React.Component {
         return (
             <>
                 <Input
-                    onValueChange={newText => {
+                    onValueChange={(newText: any) => {
                         this.setState({ input: newText })
                     }}
                     {...inputOpt}
@@ -44,7 +61,7 @@ export default class Ui extends React.Component {
                     onClick={() => {
                         this.loadCommentsFromServer()
                     }}
-                    className="mdui-ripple mdui-color-theme mdui-float-right mdui-btn-raised mdui-btn">
+                    className="loadBtn mdui-ripple mdui-color-theme mdui-float-right mdui-btn-raised mdui-btn">
                     {btnText || "查询"}
                 </button>
                 <div className="mdui-clearfix"></div><br></br>

@@ -1,7 +1,7 @@
 import React from 'react'
 
 import FileRead from '../../utils/fileread'
-import { ListControlMenu } from 'mdui-in-react'
+import Input from '../../utils/Component/ListControlMenu.tsx'
 
 async function loadImg(src){
 	var img = await new Image();

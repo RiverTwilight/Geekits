@@ -1,8 +1,8 @@
 import React from 'react';
 import mdui from 'mdui';
-import Template from '../../utils/AskForTemplate.jsx'
+import Template from '../../utils/AskForTemplate.tsx'
 
-import { ToTop } from 'mdui-in-react'
+import ToTop from '../../utils/Component/ToTop'
 const $ = mdui.JQ;
 
 //检查资源类型，链接或代码
