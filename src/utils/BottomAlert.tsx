@@ -1,16 +1,14 @@
 import React from 'react';
 import { JQ } from 'mdui'
 
-export default class BottomAlert extends React.Component<{
-    readonly ifShow: boolean;
-    readonly title: string;
+export default class BottomAlert extends React.Component<Readonly<{
+    ifShow: boolean;
+    title: string;
     onClose(): void;
-    readonly children: any
-}, {}>{
+    children: any
+}>, {}>{
     constructor(props: Readonly<{ ifShow: boolean; title: string; onClose(): void; children: any; }>) {
         super(props);
-        this.state = {
-        }
     }
     render() {
         const { ifShow, title, onClose, children } = this.props;
@@ -33,11 +31,14 @@ export default class BottomAlert extends React.Component<{
                         </button>
                     </div>
                 </div>
-                <div className="mdui-card-primary">
+                <div
+                    style={{ padding: '15px 16px 16px 16px' }}
+                    className="mdui-card-primary">
                     <div className="mdui-card-primary-title">{title}</div>
                 </div>
-                <div className="main">{this.props.children}</div>
+                <div className="main">{children}</div>
                 <div className="mdui-card-actions">
+                    {/** TODO */}
                 </div>
             </div>
         )

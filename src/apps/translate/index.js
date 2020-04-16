@@ -76,7 +76,7 @@ export default class Ui extends React.Component {
     sendRequest(){
         const { text, fromLang, toLang } = this.state
         window.loadShow();
-        axios.post('https://api.ygktool.cn/api/translate',{
+        axios.post('/api/translate',{
             text:text,
             from:fromLang,
             to:toLang

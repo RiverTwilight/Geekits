@@ -50,20 +50,20 @@ const AppList = () => {
     return (
         <ul className="mdui-row-md-3 mdui-list">
             <li className="mdui-subheader">全部工具</li>
-            {applist.map((a, i) => (
-                <>
+            {applist.map(a => (
+                <React.Fragment key={a.link} >
                     <Link
-                        key={i} to={'/app/' + a.link}
+                        to={'/app/' + a.link}
                         className="mdui-col mdui-list-item mdui-ripple"
                     >
                         <i className={"mdui-list-item-icon mdui-icon material-icons mdui-text-color-" + a.icon_color}>{a.icon}</i>
                         <div className="mdui-list-item-content">
-                            <div class="mdui-list-item-title">{a.name}</div>
-                            {a.description && <div class="mdui-list-item-text">{a.description}</div>}
+                            <div className="mdui-list-item-title">{a.name}</div>
+                            {a.description && <div className="mdui-list-item-text">{a.description}</div>}
                         </div>
                     </Link>
-                    <li class="mdui-hidden-md-up mdui-divider-inset mdui-m-y-0"></li>
-                </>
+                    <li className="mdui-hidden-md-up mdui-divider-inset mdui-m-y-0"></li>
+                </React.Fragment>
             ))}
         </ul>
     )

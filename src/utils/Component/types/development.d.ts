@@ -4,13 +4,14 @@ export interface InputProps {
     icon?: string;
     placeholder?: string;
     rows?: number;
+    /** 帮助文本 */
     helper?: string;
     error?: string;
     header?: string;
-    others?: any;
-    /** 提示大小写状态 */
-    capsLock?: boolean;
+    /** 其他Input标签属性 */
+    type?: string;
 }
+
 export interface ListControlMenu {
     /** 对话框以及列表的标题 */
     title?: string;
@@ -86,4 +87,11 @@ export interface SelectProps{
 
 export interface SelectState{
     dom: any
+}
+export interface TabProps{
+    tabs:{
+        text: string;
+        id: string;
+        component: JSX.Element
+    }[]
 }

@@ -177,7 +177,7 @@ class EditTools extends React.Component {
     }
 }   
 
-class MdEditor extends React.Component {
+export default class MdEditor extends React.Component {
     constructor(props){
         super(props);
         this.state = {
@@ -242,5 +242,3 @@ class MdEditor extends React.Component {
         )
     }
 }
-
-export default MdEditor

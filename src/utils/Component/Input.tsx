@@ -1,24 +1,10 @@
 import * as React from 'react'
-import mduiInReact from './types/development'
+import { InputProps } from './types/development'
 
-export default ({ capsLock, error, helper, icon, rows, header, placeholder, value, onValueChange, ...others }: mduiInReact.InputProps) => {
+export default (props: InputProps) => {
+    const { error, helper, icon, rows, header, placeholder, value, onValueChange, ...others } = props;
     const TagType = rows ? 'textarea' : 'input';
-    const [isUpper, setUpper] = React.useState(false)
-    React.useEffect(() => {
-        window.addEventListener('keydown', e => {
-            var keyCode = e.keyCode || e.which; // 按键的keyCode
-            var isShift = e.shiftKey || (keyCode == 16) || false; // shift键是否按住
-            if (
-                ((keyCode >= 65 && keyCode <= 90) && !isShift) // Caps Lock 打开，且没有按住shift键
-                || ((keyCode >= 97 && keyCode <= 122) && isShift)// Caps Lock 打开，且按住shift键
-            ) { 
-                setUpper(true)
-            }else {
-                setUpper(false)
-            }
-        })
-        return window.removeEventListener('keydown',()=>{})
-    }, [])
+    const [showPwd, setShowPwd] = React.useState(false);
     return (
         <div className={`${error ? "mdui-textfield-invalid" : ""}mdui-textfield ${(placeholder) ? '' : 'mdui-textfield-floating-label'}`}>
             {icon &&
@@ -35,16 +21,25 @@ export default ({ capsLock, error, helper, icon, rows, header, placeholder, valu
                     onValueChange && onValueChange(e.target.value)
                 }}
                 value={value}
+                type={showPwd?'':props.type === 'password'?'password':props.type}
                 className="mdui-textfield-input">
             </TagType>
+            {props.type === 'password' &&
+                <i
+                    style={{
+                        right: '8px',
+                        cursor: 'pointer'
+                    }}
+                    onClick = {()=>{
+                        setShowPwd(! showPwd)
+                    }}
+                    className="mdui-icon material-icons">{showPwd?'visibility_off':'visibility'}</i>
+            }
             {error &&
                 <div className="mdui-textfield-error">{error}</div>
             }
-            {(helper && (!isUpper || !capsLock)) &&
+            {helper &&
                 <div className="mdui-textfield-helper">{helper}</div>
-            }
-            {(isUpper && !helper && capsLock) &&
-                <div className="mdui-textfield-helper">大写锁定已打开</div>
             }
         </div>
     )

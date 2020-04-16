@@ -1,6 +1,7 @@
 import React from 'react'
 import Input from '../../utils/Component/Input.tsx'
 import { calDiffer, calWhichDay } from './engine.ts'
+import Tab from '../../utils/Component/Tab'
 
 const getToday = () => {
     var time = new Date();
@@ -13,9 +14,13 @@ class DateDiffer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            dateLate: '2020-10-09',
-            dateStart: '2020-01-06',
-            diffDay: 0
+            dateLate: '2020-04-17',
+            dateStart: '2020-04-16',
+            timeEarly: '12:00',
+            timeLate: '14:00',
+            diffDay: null,
+            diffHour: 0,
+            diffMin: 0
         }
     }
     componentDidMount() {
@@ -26,7 +31,7 @@ class DateDiffer extends React.Component {
         })
     }
     render() {
-        const { dateEarly, dateLate, diffDay } = this.state
+        const { timeEarly, timeLate, dateEarly, dateLate, diffDay, diffDayMin, diffDayHour, diffHour, diffMin } = this.state
         return (
             <>
                 <div className="mdui-card mdui-p-a-1">
@@ -43,6 +48,14 @@ class DateDiffer extends React.Component {
                     />
                     <Input
                         onValueChange={newText => {
+                            this.setState({ timeEarly: newText })
+                        }}
+                        value={timeEarly}
+                        icon="access_time"
+                        type="time"
+                    />
+                    <Input
+                        onValueChange={newText => {
                             this.setState({ dateLate: newText })
                         }}
                         header="到"
@@ -53,19 +66,29 @@ class DateDiffer extends React.Component {
                     />
                     <Input
                         onValueChange={newText => {
-                            this.setState({ dateLate: newText })
+                            this.setState({ timeLate: newText })
                         }}
-                        header="到"
-                        placeholder=" "
-                        icon="date_range"
+                        value={timeLate}
+                        icon="access_time"
                         type="time"
                     />
-                    <p style={{ display: (diffDay === 0) ? 'none' : 'block' }} className="mdui-typo-title mdui-text-center">
-                        <small>相差</small>{diffDay}<small>天</small>
+                    <p
+                        style={{ display: !diffDay ? 'none' : 'block' }}
+                        className="mdui-typo-title mdui-text-center">
+                        <small>相差</small>{diffDay}<small>天</small>{diffDayHour}<small>小时</small>{diffDayMin}<small>分钟</small>
+                        <br></br>
+                        <small>折合</small>{diffHour}<small>小时</small>{diffMin}<small>分钟</small>
                     </p>
                     <button
                         onClick={() => {
-                            this.setState({ diffDay: calDiffer(dateEarly, dateLate) })
+                            var res = calDiffer(dateEarly, dateLate, timeEarly, timeLate)
+                            this.setState({
+                                diffDay: res.day,
+                                diffDayHour: res.overflowHour,
+                                diffDayMin: res.overflowMin,
+                                diffHour: res.hour,
+                                diffMin: res.min
+                            })
                         }}
                         className="mdui-color-theme mdui-btn-raised mdui-ripple mdui-btn mdui-float-right">
                         计算
@@ -134,8 +157,17 @@ class WhichDay extends React.Component {
 }
 
 export default () => (
-    <>
-        <DateDiffer />
-        <WhichDay />
-    </>
+    <Tab
+        tabs={[
+            {
+                text: '日期&时间间隔',
+                id: 'calDiffer',
+                component: <DateDiffer />
+            }, {
+                text: '日期推算',
+                id: 'calWhichDay',
+                component: <WhichDay />
+            }
+        ]}
+    />
 )

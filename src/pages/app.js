@@ -13,6 +13,7 @@ import fiv from '../utils/fiv.ts'
 const LoadApp = loader => {
     return Loadable({
         loader:() => import( '../apps/' + loader),
+        delay: 1000,
         loading () {return(
             <div style={{display:'inline-block'}} className="mdui-color-green-100 mdui-progress loading">
                 <div className="mdui-progress-indeterminate"></div>

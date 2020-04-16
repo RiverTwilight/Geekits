@@ -4,8 +4,16 @@ export default [{
 	link: "ocr",
 	icon: "check",
 	icon_color: "green",
-	description:"识别图片中的文字，支持多国语言",
+	description: "识别图片中的文字，支持多国语言",
 	help: "",
+	channel: 1
+}, {
+	name: "图像识别",
+	link: "aic",
+	icon: "photo_album",
+	icon_color: "blue-500",
+	help: "",
+	description: "识别图中的物体，支持植物/动物/汽车/菜品等等",
 	channel: 1
 }, {
 	name: "屏幕录制",
@@ -36,11 +44,12 @@ export default [{
 	help: "使用百度翻译引擎",
 	channel: 4
 }, {
-	name: "日期计算",
+	name: "日期&时间计算",
 	link: "date_calculator",
 	icon: "date_range",
 	icon_color: "purple-200",
 	help: "输入负数可以向前推算",
+	description: "计算两个日期间隔的天数和时间，或推算几天前后是哪一天，可以算算你活了多久:)",
 	channel: 4
 }, {
 	name: "跨设备文本互传",
@@ -126,7 +135,7 @@ export default [{
 	link: "coming",
 	icon: "font_download",
 	icon_color: "brown-200",
-	description:"批量生成有规律的文本",
+	description: "批量生成有规律的文本",
 	help: "",
 	channel: 4
 }, {
@@ -222,15 +231,7 @@ export default [{
 	icon_color: "red-600",
 	help: "歌单体积太大可能会加载较长时间，请耐心等待##获取链接方法：歌单页面内点击 分享 按钮-复制链接即可##您也可以直接输入歌单ID##站长的网易云音乐账号@过气码农，欢迎互关",
 	channel: 4,
-	network:true
-}, {
-	name: "图像识别",
-	link: "aic",
-	icon: "photo_album",
-	icon_color: "blue-500",
-	help: "",
-	description: "识别图中的物体，支持植物/动物/汽车/菜品等等",
-	channel: 1
+	network: true
 }, {
 	name: "图片压缩",
 	link: "img_compress",
@@ -253,7 +254,7 @@ export default [{
 	help: "一次性最多合成500字符",
 	description: "将文字转成mp3朗读音频，支持多种声线和速度/音调/音量/自定义",
 	channel: 1,
-	network:true
+	network: true
 }, {
 	name: "金额数字大写",
 	link: "num2chinese",
@@ -275,7 +276,7 @@ export default [{
 	icon_color: "brown-700",
 	help: "生成结果仅供参考",
 	channel: 4,
-	network:true
+	network: true
 }, {
 	name: "歇后语查询",
 	link: "xiehouyu",
@@ -283,7 +284,7 @@ export default [{
 	icon_color: "indigo-700",
 	help: "输入谜面谜底均可",
 	channel: 4,
-	network:true
+	network: true
 }, {
 	name: "成语词典",
 	link: "dic_idiom",
@@ -291,7 +292,7 @@ export default [{
 	icon_color: "orange-700",
 	help: "支持缩写哦",
 	channel: 4,
-	network:true
+	network: true
 }, {
 	name: "字典",
 	link: "dic_word",
@@ -300,5 +301,5 @@ export default [{
 	help: "暂不支持太简单的字查询",
 	description: "我们中国的汉字，落笔成画留下五千年的历史",
 	channel: 4,
-	network:true
+	network: true
 }]

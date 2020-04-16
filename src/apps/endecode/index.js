@@ -36,7 +36,7 @@ const PrintRes = ({res, to}) => {
         showRes = ''
     }
     return(
-        <div className="mdui-card mdui-col mdui-textfield">
+        <div className="mdui-card mdui-textfield">
             <div data-clipboard-text={String(showRes)} style={{height:'130px'}} id="becopy"className="mdui-typo mdui-dialog-content mdui-p-a-2">
             {String(showRes)/**/}
             </div>

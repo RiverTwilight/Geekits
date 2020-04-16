@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default _ => (
+export default () => (
     <p className="center-panel mdui-typo">
         <h2 className="mdui-text-center">即将到来</h2>
         <p>

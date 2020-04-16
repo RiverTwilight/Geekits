@@ -1,8 +1,7 @@
 import React from 'react'
-import mdui from 'mdui'
+import { snackbar } from 'mdui'
 import axios from 'axios'
 import ClipboardJS from 'clipboard'
-
 import Input from '../../utils/Component/Input.tsx'
 
 const VideoList = ({list}) => {
@@ -37,7 +36,7 @@ const Result = props =>{
     )
 }
 
-class Ui extends React.Component {
+export default class Ui extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -50,7 +49,7 @@ class Ui extends React.Component {
         clipboard && clipboard.destroy();
         var clipboard = new ClipboardJS('.becopy');
         clipboard.on('success', e=> {
-            mdui.snackbar({message:'已复制链接'})
+            snackbar({message:'已复制链接'})
             e.clearSelection();
         })
     }
@@ -60,14 +59,14 @@ class Ui extends React.Component {
         function loadJosnp() {
             var VideoListJson
             return new Promise((resolve, reject) => {
-                axios.get('https://api.ygktool.cn/api/bangumi?url=' + url).then(response => {
+                axios.get('/api/bangumi?url=' + url).then(response => {
                     console.log(response.data);                   
                     var tag = document.createElement('script');
                     tag.innerText = response.data;
                     document.getElementsByTagName('body')[0].appendChild(tag);
                     resolve()       
                 }).catch(error => {
-                    mdui.snackbar({
+                    snackbar({
                         message: error
                     })
                 })
@@ -104,5 +103,3 @@ class Ui extends React.Component {
         )
     }
 }
-
-export default Ui

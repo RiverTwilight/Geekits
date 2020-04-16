@@ -1,6 +1,5 @@
 import React from 'react'
 import mdui from 'mdui'
-
 import Drawer from './drawer'
 
 const turnToDark = checked => {
@@ -80,7 +79,6 @@ export default class Header extends React.Component{
     }
     render(){
         const { saying, title, darkMode } = this.state
-        var today = new Date()
         return (
             <>
                 <Drawer /> 
@@ -134,7 +132,7 @@ export default class Header extends React.Component{
                                     turnToDark(darkMode !== 'true')
                                 }}
                                 className="mdui-btn mdui-btn-icon mdui-text-color-white">
-                                <i className="mdui-icon material-icons">{today.getDate() === 12?'cake':darkMode==='true'?'brightness_4':'brightness_low'}</i>
+                                <i className="mdui-icon material-icons">{new Date().getDate() === 12?'cake':darkMode==='true'?'brightness_4':'brightness_low'}</i>
                             </button>
                         </div>
                     </div>        

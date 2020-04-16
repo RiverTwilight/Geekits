@@ -57,7 +57,7 @@ export default class Index extends React.Component {
     render(){
         window.titleRef.innerText = '云极客工具'
         return(  
-          <div className="mdui-col-md-10">
+          <div className="mdui-col-md-10 mdui-col-sm-12">
             <Page
               page={this.state.page}
             />

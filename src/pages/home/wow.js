@@ -2,24 +2,23 @@ import React from 'react'
 import { Link } from "react-router-dom"
 import applist from '../../utils/appList'
 //栏目下工具组
-const MakeChips = ({apps}) => {
-    var chips = apps.map((a,i)=>{
-        if(!a)return null
-        return(
-            <Link key={i} to={"/app/" + a.link}>
+const MakeChips = ({ apps }) => {
+    return apps.map(a => {
+        if (!a) return null
+        return (
+            <Link key={a.link} to={"/app/" + a.link}>
                 <div className="mdui-chip mdui-text-color-theme-text">
                     <span className="mdui-chip-title">{a.name}</span>
                 </div>
             </Link>
         )
     })
-    return chips
 }
 
 //分类栏目
-const MakeChannels = ({data}) =>{
+const MakeChannels = ({ data }) => {
     const { name, apps, icon } = data;
-    return(
+    return (
         <>
             <div className="channel mdui-card mdui-p-a-1">
                 <li className="mdui-list-item">
@@ -46,14 +45,14 @@ const getChannelIcon = index => {
 }
 
 /********发现*********/
-class Wow extends React.Component {
+export default class Wow extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             data: []
         }
     }
-    render(){
+    render() {
         var channelType = []
         for (let i = applist.length - 1; i >= 0; i--) {
             let app = applist[i];
@@ -61,15 +60,13 @@ class Wow extends React.Component {
                 channelType.push(app.channel)
             }
         }
-        
+
         var data = channelType.map(channel => ({
             name: getChannelName(channel),
             icon: getChannelIcon(channel),
             apps: applist.filter(app => app.channel === channel)
         }))
 
-        return data.map((a,i)=>(<MakeChannels key={i} data={a} />))
-    }    
+        return data.map((a, i) => (<MakeChannels key={i} data={a} />))
+    }
 }
-
-export default Wow

@@ -2,7 +2,7 @@ import React from 'react'
 import {
   NavLink
 } from "react-router-dom"
-import mdui from 'mdui'
+import { Drawer } from 'mdui'
 import applist from '../utils/appList'
 
 const list = [{
@@ -42,7 +42,7 @@ const Menu = () => {
     ))
 }
 
-export default class Drawer extends React.Component  {
+export default class SideDrawer extends React.Component  {
     constructor(props) {
         super(props);
         this.state = {
@@ -52,7 +52,7 @@ export default class Drawer extends React.Component  {
         }
     }
     componentDidMount(){
-        window.leftDrawer = new mdui.Drawer('#left-drawer');
+        window.leftDrawer = new Drawer('#left-drawer');
     }
     render(){
         const { data } = this.state;
@@ -67,7 +67,7 @@ export default class Drawer extends React.Component  {
                 <ul className="mdui-list"> 
                     <NavLink
                         onClick={()=>{
-                            window.leftDrawer.close()
+                            window.innerWidth <= 1024 && window.leftDrawer.close()
                         }}
                         exact className="mdui-list-item mdui-ripple"
                         activeClassName="mdui-list-item-active" to='/user'>                            
