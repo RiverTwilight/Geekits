@@ -7,9 +7,6 @@ export default class BottomAlert extends React.Component<Readonly<{
     onClose(): void;
     children: any
 }>, {}>{
-    constructor(props: Readonly<{ ifShow: boolean; title: string; onClose(): void; children: any; }>) {
-        super(props);
-    }
     render() {
         const { ifShow, title, onClose, children } = this.props;
         if (ifShow) {

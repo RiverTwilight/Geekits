@@ -74,12 +74,12 @@ export default class SideDrawer extends React.Component  {
                         <i className="mdui-list-item-icon mdui-icon material-icons mdui-text-color-blue">account_box</i> 
                         <div className="mdui-list-item-content">我的账户</div>
                     </NavLink>
-                    <a href="https://api.ygktool.cn">
+                    {/*<a href="https://api.ygktool.cn">
                         <li className="mdui-list-item mdui-ripple">                          
                             <i className="mdui-text-color-green mdui-list-item-icon mdui-icon material-icons">all_inclusive</i> 
                             <div className="mdui-list-item-content">开放平台</div>                            
                         </li>
-                    </a>                    
+                    </a> */}                   
                     <div className="mdui-divider"/>
                     <Menu />
                 </ul> 

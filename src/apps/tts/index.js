@@ -49,7 +49,6 @@ export default class Ui extends React.Component {
 		}
 	}
 	loadDataFromSever() {
-		this.loadBtn.disabled = true;
 		window.loadShow()
 		fetch('https://api.ygktool.cn/api/tts', {
 				method: 'POST',
@@ -60,7 +59,6 @@ export default class Ui extends React.Component {
 			})
 			.then(res => res.json())
 			.then(json => {
-				this.loadBtn.disabled = false;
 				var buf = Buffer.from(json.data.data, 'binary')
 				var blob = new Blob([buf], {
 					type: 'audio/mpeg'
@@ -89,7 +87,7 @@ export default class Ui extends React.Component {
 				<div className="mdui-card mdui-p-a-1">
 					<ListControlMenu
 						icon="record_voice_over"
-						text="声线"
+						title="声线"
 						checked={options.per}
 						onCheckedChange={checked=>{
 							options.per = checked;
@@ -131,9 +129,9 @@ export default class Ui extends React.Component {
 						if(options.text === "")return
 						this.loadDataFromSever()
 					}}
-					className="mdui-color-theme mdui-fab mdui-fab-fixed"
+					className="mdui-color-theme loadBtn mdui-fab mdui-fab-fixed"
 				>
-					<i className="mdui-icon material-icons">&#xe5ca;</i>
+					<i className="mdui-icon material-icons">mic</i>
 				</button>
 				<br></br>
 				<span style={{display:res === null?'none':'block'}}>
@@ -146,4 +144,3 @@ export default class Ui extends React.Component {
 		)
 	}
 }
-

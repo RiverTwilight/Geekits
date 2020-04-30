@@ -15,7 +15,7 @@ class DateDiffer extends React.Component {
         super(props);
         this.state = {
             dateLate: '2020-04-17',
-            dateStart: '2020-04-16',
+            dateEarly: '2020-04-16',
             timeEarly: '12:00',
             timeLate: '14:00',
             diffDay: null,
@@ -26,8 +26,8 @@ class DateDiffer extends React.Component {
     componentDidMount() {
         var today = getToday()
         this.setState({
-            dateEarly: today,
-            dateStart: today
+            dateLate: today,
+            dateEarly: today
         })
     }
     render() {
@@ -35,7 +35,6 @@ class DateDiffer extends React.Component {
         return (
             <>
                 <div className="mdui-card mdui-p-a-1">
-                    <p className="mdui-typo-title">日期间隔</p>
                     <Input
                         onValueChange={newText => {
                             this.setState({ dateEarly: newText })
@@ -118,7 +117,6 @@ class WhichDay extends React.Component {
         const { dateStart, day, whichDay } = this.state
         return (
             <div className="mdui-card mdui-p-a-1">
-                <p className="mdui-typo-title">日期推算</p>
                 <Input
                     onValueChange={newText => {
                         this.setState({ dateStart: newText })
@@ -143,9 +141,9 @@ class WhichDay extends React.Component {
                 </p>
                 <button
                     onClick={() => {
-                        var res = calWhichDay(dateStart, day)
-                        const weeks = ['星期天', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六']
-                        var week = weeks[res.week]
+                        const res = calWhichDay(dateStart, day)
+                            , weeks = ['星期天', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六']
+                            , week = weeks[res.week];
                         this.setState({ whichDay: `${res.date} ${week}` })
                     }}
                     className="mdui-color-theme mdui-btn-raised mdui-ripple mdui-btn mdui-float-right">

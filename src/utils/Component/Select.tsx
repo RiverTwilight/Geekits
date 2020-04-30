@@ -5,7 +5,6 @@ import { SelectProps, SelectState } from './types/development'
   *下拉选择
   **/
 
-
 export default class Select extends React.Component<SelectProps, SelectState> {
     selectDom: any
     constructor(props: any) {
@@ -15,7 +14,7 @@ export default class Select extends React.Component<SelectProps, SelectState> {
         }
     }
     componentDidMount(){
-        var inst = new mdui.Drawer(this.selectDom);
+        var inst = new mdui.Select(this.selectDom);
         this.setState({dom: inst})
     }
     componentDidUpdate(){

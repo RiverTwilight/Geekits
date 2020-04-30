@@ -120,7 +120,7 @@ export default class MusicPlayer extends React.Component<MusicProps, MusicState>
                             <img style={{
                                 width:'100%',
                                 height:'100%'
-                            }} src={cover}></img>
+                            }} alt="cover" src={cover}></img>
                     </div>
                 </div>
                     <audio 

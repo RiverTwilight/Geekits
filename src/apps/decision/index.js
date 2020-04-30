@@ -63,7 +63,7 @@ const AddLocal = ({ onLocalChange }) => {
                     localStorage.setItem('decision', JSON.stringify(cache));
                     onLocalChange()
                 },
-                value => {/*取消事件*/ },
+                () => {/*取消事件*/ },
                 {
                     type: 'textarea',
                     confirmText: '保存',
@@ -118,7 +118,7 @@ class Start extends React.Component {
     }
 }
 
-class Ui extends React.Component {
+export default class Ui extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -127,52 +127,62 @@ class Ui extends React.Component {
             items: '糖醋排骨 红烧肉 酸菜鱼 坤徐菜 酸豇豆 炸鸡 烧仙草 汉堡 薯条 可乐 牛肉面 作者'
         }
     }
+    componentDidMount() {
+        window.location.hash && this.setState({
+            items: decodeURI(window.location.hash.substring(1))
+        })
+    }
     render() {
         const { statu, local, items } = this.state
         return (
             <>
-                <InputFiled
-                    items={items}
-                    onItemChange={newItems => {
-                        this.setState({ items: newItems })
-                    }}
-                />
-                <ul className="mdui-list mdui-row-md-2">
-                    <ReadLocal
-                        local={local}
-                        onClickLi={key => {
-                            this.setState({ items: local[key] })
-                        }}
-                        edit={key => {
-                            Prompt('使用空格分隔',
-                                value => {
-                                    var local = this.state.local;
-                                    local.splice(key, 1, value);
-                                    localStorage.setItem('decision', JSON.stringify(local))
-                                },
-                                value => {
-                                    //删除组合
-                                    var local = this.state.local
-                                    local.splice(key, 1);
-                                    localStorage.setItem('decision', JSON.stringify(local))
-                                }, {
-                                type: 'textarea',
-                                defaultValue: local[key],
-                                confirmText: '保存',
-                                cancelText: '删除'
-                            }
-                            )
+                <div
+                    className="mdui-card mdui-p-a-1">
+                    <InputFiled
+                        items={items}
+                        onItemChange={newItems => {
+                            this.setState({ items: newItems })
                         }}
                     />
-                    <AddLocal
-                        onLocalChange={() => {
-                            this.setState({ local: localStorage.item })
-                        }}
-                    />
-                </ul>
+                    <ul className="mdui-list mdui-row-md-2">
+                        <ReadLocal
+                            local={local}
+                            onClickLi={key => {
+                                this.setState({ items: local[key] })
+                            }}
+                            edit={key => {
+                                Prompt('使用空格分隔',
+                                    value => {
+                                        var local = this.state.local;
+                                        local.splice(key, 1, value);
+                                        localStorage.setItem('decision', JSON.stringify(local))
+                                    },
+                                    () => {
+                                        //删除组合
+                                        var local = this.state.local
+                                        local.splice(key, 1);
+                                        localStorage.setItem('decision', JSON.stringify(local))
+                                    }, {
+                                    type: 'textarea',
+                                    defaultValue: local[key],
+                                    confirmText: '保存',
+                                    cancelText: '删除'
+                                }
+                                )
+                            }}
+                        />
+                        <AddLocal
+                            onLocalChange={() => {
+                                this.setState({ local: localStorage.item })
+                            }}
+                        />
+                    </ul>
+                </div>
+                <br></br>
                 <div
                     className="mdui-ripple mdui-card mdui-p-a-1"
-                    onClick={e => {
+                    onClick={() => {
+                        window.history.pushState(null, null, `#${encodeURI(items)}`)
                         this.setState({ statu: 'start' })
                         setTimeout(() => this.setState({ statu: 'stop' }), 3000)
                     }}
@@ -186,5 +196,3 @@ class Ui extends React.Component {
         )
     }
 }
-
-export default Ui

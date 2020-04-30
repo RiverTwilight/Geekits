@@ -82,7 +82,7 @@ const calWhichDay = (dateStart: string, day: number): { week: number; date: stri
         }
     }
 
-    var whichDay = new Date;
+    var whichDay = new Date();
     whichDay.setFullYear(startYear);
     whichDay.setMonth(startMonth - 1);
     whichDay.setDate(startDay)
@@ -154,13 +154,13 @@ const calDiffer = (
     //计算这天剩下的时间与那天已经过的分钟之和
     var timeEarly = parseTime(defaultTimeEarly || '00:00'),
         timeLate = parseTime(defaultTimeLate || '00:00');
-    var overflowDiffMin = 60 * (24 - timeEarly.hour + timeLate.hour) + 60 - timeEarly.min + timeLate.min
+    var overflowDiffMin = 60 * (25 - timeEarly.hour + timeLate.hour) + 60 - timeEarly.min + timeLate.min
     var diffMin = (diffDay - 1) * 1440 + overflowDiffMin
     console.log(timeEarly, timeLate, diffMin)
     return {
         day: diffDay,
         overflowHour: Math.floor(diffMin/60) - diffDay * 24,
-        overflowMin: (overflowDiffMin - 1440 * diffDay) % 60,
+        overflowMin: diffMin % 60,//(overflowDiffMin - 1440 * diffDay) % 60,
         hour: Math.floor(diffMin/60),
         min: diffMin % 60
     }
