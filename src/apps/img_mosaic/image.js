@@ -1,7 +1,6 @@
 import React from 'react'
-
 import FileRead from '../../utils/fileread'
-import Input from '../../utils/Component/ListControlMenu.tsx'
+import ListControlMenu from '../../utils/Component/ListControlMenu'
 
 async function loadImg(src){
 	var img = await new Image();
@@ -81,7 +80,6 @@ async function imgMosaic_Y(assests, callback) {
 	callback(res)
 }
 
-
 //预览相册组件
 const Alubm = (props) => {	
 	return(
@@ -110,12 +108,11 @@ const Alubm = (props) => {
 function Preview(props){
 	if(!props.res)return null
 	return(
-		<img className="mdui-img-fluid" src={ props.res }/>
+		<img className="mdui-img-fluid" alt="结果" src={ props.res }/>
 	)
 }
 
-
-class Ui extends React.Component {
+export default class extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -148,7 +145,7 @@ class Ui extends React.Component {
 	            <Preview src={res} />
 				<ListControlMenu
 					icon="screen_rotation"
-					text="拼接方向"
+					title="拼接方向"
 					checked={this.state.direction}
 					onCheckedChange={checked=>{
 						this.setState({direction:checked})
@@ -190,5 +187,3 @@ class Ui extends React.Component {
 		)
 	}
 }
-
-export default Ui

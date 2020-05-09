@@ -112,7 +112,7 @@ const RandomNum = () => {
     return num
 }
 
-export default class Ui extends React.Component {
+export default class extends React.Component {
     constructor(props) {
         super(props);
         this.state = {

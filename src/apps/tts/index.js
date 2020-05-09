@@ -1,5 +1,4 @@
 import React from 'react'
-
 import Input from '../../utils/Component/Input.tsx'
 import RangeInput from '../../utils/Component/RangeInput.tsx'
 import ListControlMenu from '../../utils/Component/ListControlMenu.tsx'
@@ -34,7 +33,7 @@ const per_types = [{
     value:'5'
 }]
 
-export default class Ui extends React.Component {
+export default class extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {

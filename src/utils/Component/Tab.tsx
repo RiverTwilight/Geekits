@@ -1,6 +1,9 @@
 import * as React from 'react'
 import { TabProps } from './types/development'
 
+/**
+ * Tab组件
+ */
 export default ({ tabs }: TabProps): JSX.Element => (
     <>
         <div className="mdui-tab" mdui-tab="true">

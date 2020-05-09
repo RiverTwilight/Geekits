@@ -10,7 +10,7 @@ declare global {
     }
 }
 
-export default class Ui extends React.Component
+export default class extends React.Component
     <{
         Result: any;
         readonly api: string;

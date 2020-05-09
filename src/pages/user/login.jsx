@@ -289,7 +289,7 @@ class Login extends React.Component {
     }
 }
 
-export default class Ui extends React.Component {
+export default class extends React.Component {
     componentDidMount() {
         mutation();
         window.titleRef.innerText = '登录/注册'

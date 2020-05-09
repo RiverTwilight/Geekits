@@ -8,6 +8,9 @@ export default class TextCreate {
     arithmeticProgression(){
         
     }
+    /**
+     * 等比数列
+     */
     geometricSeries(){
 
     }

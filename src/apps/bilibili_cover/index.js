@@ -31,7 +31,7 @@ class Result extends React.Component {
     }
 }
 
-export default class Ui extends React.Component {
+export default class extends React.Component {
     render(){
         return(
             <>

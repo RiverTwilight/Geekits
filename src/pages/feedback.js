@@ -2,7 +2,7 @@ import React from 'react'
 import { updateSpinners, snackbar } from 'mdui'
 import Input from '../utils/Component/Input'
 
-export default class Ui extends React.Component {
+export default class extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -15,8 +15,7 @@ export default class Ui extends React.Component {
     }
     sendData(){
         const { content, contact } = this.state  
-        const { submit } = this;
-        submit.disabled = true;      
+        window.loadShow()
         fetch('http://api.ygktool.cn/ygktool/feedback', {
                 method: 'POST',
                 headers: {
@@ -27,10 +26,14 @@ export default class Ui extends React.Component {
                     contact:contact
                 })
             })
-            .then(res => res.json())
-            .then(json => {
-                submit.disabled = false;    
+            .then(res => {
                 snackbar({message:'提交成功，我会尽快处理^_^'})                 
+            })
+            .catch(err => {
+                snackbar({message: '出错了！' + err})
+            })
+            .then(() => {   
+                window.loadHide();
             })
     }
     render(){
@@ -58,8 +61,7 @@ export default class Ui extends React.Component {
                     onClick={()=>{
                         this.sendData()
                     }}
-                    ref={r => this.submit = r}
-                    className="mdui-color-theme mdui-btn mdui-btn-raised">
+                    className="mdui-color-theme loadBtn mdui-btn mdui-btn-raised">
                     提交
                 </button>
             </div>

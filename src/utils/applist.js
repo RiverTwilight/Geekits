@@ -132,7 +132,7 @@ export default [{
 	channel: 4
 }, {
 	name: "文本批量生成",
-	link: "coming",
+	link: "text_create",
 	icon: "font_download",
 	icon_color: "brown-200",
 	description: "批量生成有规律的文本",

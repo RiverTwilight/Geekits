@@ -82,6 +82,7 @@ export interface RangeInput{
 export interface SelectProps{
     options:{name: string, value: string}[],
     value: string,
+    config: any,
     onOptionChange(value: string): void
 }
 

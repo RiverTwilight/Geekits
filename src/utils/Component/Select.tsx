@@ -5,7 +5,7 @@ import { SelectProps, SelectState } from './types/development'
   *下拉选择
   **/
 
-export default class Select extends React.Component<SelectProps, SelectState> {
+export default class extends React.Component<SelectProps, SelectState> {
     selectDom: any
     constructor(props: any) {
         super(props);
@@ -14,7 +14,7 @@ export default class Select extends React.Component<SelectProps, SelectState> {
         }
     }
     componentDidMount(){
-        var inst = new mdui.Select(this.selectDom);
+        var inst = new mdui.Select(this.selectDom, this.props.config);
         this.setState({dom: inst})
     }
     componentDidUpdate(){
