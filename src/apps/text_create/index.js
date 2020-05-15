@@ -1,20 +1,44 @@
 import React, { useState } from 'react';
-import Input from '../../utils/Component/Input'
-import Select from '../../utils/Component/Select'
-import textCreate from './engine'
+import Input from '../../components/Input'
+import Select from '../../components/Select'
+import { regularTextCreate } from './engine'
+import Tab from '../../components/Tab'
 
-const Result = ({ data }) => {
+export default () => (
+    <Tab
+        tabs={[
+            {
+                text: '规律文本',
+                id: 'regular',
+                component: <RegularText />
+            }, {
+                text: '模板文本',
+                id: 'template'
+            }
+        ]}
+    />
+)
+
+const ResultCard = ({ data }) => {
     if (!data) return null
     return (
         <div className="mdui-card mdui-p-a-1">
+            <ul className="mdui-list">
+                {data.map((item, i) => (
+                    <li className="mdui-list-item" key={i}>{item}</li>
+                ))}
+            </ul>
         </div>
     )
 }
 
-export default () => {
+const RegularText = () => {
     const [template, changeTemplate] = useState('test${0}');
     const [arrayType, setArrayType] = useState(0);
-    const [func, setFunc] = useState(1)
+    const [func, setFunc] = useState(1);
+    const [length, setLength] = useState(10);
+    const [result, setResult] = useState(null);
+    
     return (
         <>
             <div className="mdui-card mdui-p-a-1">
@@ -29,16 +53,16 @@ export default () => {
                         <Input
                             onValueChange={setFunc}
                             value={func}
-                            placeholder={arrayType === 0 ? '公差' : '公比'}
+                            header={arrayType === 0 ? '公差' : '公比'}
                             type="number"
                             icon="add_circle_outline"
                         />
                     </div>
                     <div className="mdui-col">
                         <Input
-                            onValueChange={setFunc}
-                            value={func}
-                            placeholder={arrayType === 0 ? '公差' : '公比'}
+                            onValueChange={setLength}
+                            value={length}
+                            header="长度"
                             type="number"
                             icon="add_circle_outline"
                         />
@@ -62,14 +86,22 @@ export default () => {
                 />
                 <button
                     onClick={() => {
-                        var engine = new textCreate(template)
+                        const res = regularTextCreate({
+                            template,
+                            length,
+                            func,
+                            arrayType
+                        })
+                        setResult(res)
                     }}
                     className="mdui-float-right mdui-color-theme mdui-btn mdui-btn-raised">
                     生成
                 </button>
             </div>
             <br></br>
-            <Result />
+            <ResultCard
+                data={result}
+            />
         </>
     )
 }

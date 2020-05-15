@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Template from '../../utils/AskForTemplate.tsx'
-import ToTop from '../../utils/Component/ToTop'
+import ToTop from '../../components/ToTop'
 
 const Word = ({item}) => {
     const [open, setOpen] = useState(false);

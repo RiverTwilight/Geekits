@@ -2,9 +2,9 @@ import React from 'react'
 import { snackbar } from 'mdui'
 import axios from 'axios'
 import FileRead from '../../utils/fileread'
-import NewPage from '../../utils/BottomAlert'
+import NewPage from '../../components/BottomAlert'
 import Cropper from '../../utils/Cropper'
-import ListControlMenu from '../../utils/Component/ListControlMenu'
+import ListControlMenu from '../../components/ListControlMenu'
 
 const Result = ({ result }) => {
     if (!result) return null

@@ -1,9 +1,9 @@
 import React from 'react'
 
-import ListControlMenu from '../../utils/Component/ListControlMenu'
-import Input from '../../utils/Component/Input'
-import ColorInput from '../../utils/Component/ColorInput'
-import ListControlCheck from '../../utils/Component/ListControlCheck'
+import ListControlMenu from '../../components/ListControlMenu'
+import Input from '../../components/Input'
+import ColorInput from '../../components/ColorInput'
+import ListControlCheck from '../../components/ListControlCheck'
 
 import saveFile from '../../utils/fileSaver'
 

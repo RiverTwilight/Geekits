@@ -1,11 +1,11 @@
 import React from 'react'
 import saveFile from '../../utils/fileSaver'
 import html2canvas from 'html2canvas'
-import NewPage from '../../utils/BottomAlert'
+import NewPage from '../../components/BottomAlert'
 import FileRead from '../../utils/fileread'
-import ColorInput from '../../utils/Component/ColorInput'
-import RangeInput from '../../utils/Component/RangeInput'
-import Input from '../../utils/Component/Input'
+import ColorInput from '../../components/ColorInput'
+import RangeInput from '../../components/RangeInput'
+import Input from '../../components/Input'
 
 const Result = ({ src }) =>{
     if(!src)return null

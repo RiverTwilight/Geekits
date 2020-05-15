@@ -1,10 +1,10 @@
 import React from 'react'
 import QRCode from 'qrcode'
 
-import ListControlMenu from '../../utils/Component/ListControlMenu'
-import Input from '../../utils/Component/Input'
-import ColorInput from '../../utils/Component/ColorInput'
-import RangeInput from '../../utils/Component/RangeInput'
+import ListControlMenu from '../../components/ListControlMenu'
+import Input from '../../components/Input'
+import ColorInput from '../../components/ColorInput'
+import RangeInput from '../../components/RangeInput'
 
 const create = (opts, text, callback) => {
 	QRCode.toDataURL(text, opts, (err, url) => {

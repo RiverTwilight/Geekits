@@ -1,7 +1,7 @@
 import React from 'react'
 import mdui from 'mdui'
 import axios from 'axios'
-import Input from '../../utils/Component/Input.tsx'
+import Input from '../../components/Input.tsx'
 
 //提取url中的id
 const url2Id = url => {

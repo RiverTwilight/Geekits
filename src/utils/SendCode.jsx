@@ -1,6 +1,6 @@
 import React from 'react'
 import { snackbar } from 'mdui'
-import Input from './Component/Input'
+import Input from '../components/Input'
 import Axios from 'axios';
 
 class Ui extends React.Component {

@@ -1,6 +1,6 @@
 import React from 'react'
-import ListControlMenu from '../../utils/Component/ListControlMenu'
-import ListControlCheck from '../../utils/Component/ListControlCheck'
+import ListControlMenu from '../../components/ListControlMenu'
+import ListControlCheck from '../../components/ListControlCheck'
 
 const setFunc = {
     homeShowNewestTool: checked => {

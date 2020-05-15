@@ -3,7 +3,7 @@ import mdui from 'mdui'
 import ClipboardJS from 'clipboard'
 
 import table from './table'
-import Input from '../../utils/Component/Input.tsx'
+import Input from '../../components/Input.tsx'
 import cem from './dic.js'
 
 const Result = ({ result, eleClass }) =>{

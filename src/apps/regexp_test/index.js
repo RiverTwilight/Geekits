@@ -1,5 +1,5 @@
 import React from 'react'
-import Input from '../../utils/Component/Input.tsx'
+import Input from '../../components/Input.tsx'
 
 const test = (exp, text) => {
     try {

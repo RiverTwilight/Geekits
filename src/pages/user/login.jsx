@@ -1,6 +1,6 @@
 import React from 'react'
 import { snackbar, mutation } from 'mdui'
-import Input from '../../utils/Component/Input'
+import Input from '../../components/Input'
 
 import Axios from 'axios';
 import { MD5 } from 'crypto-js';

@@ -93,6 +93,7 @@ export interface TabProps{
     tabs:{
         text: string;
         id: string;
+        /** 组件 */
         component: JSX.Element
     }[]
 }

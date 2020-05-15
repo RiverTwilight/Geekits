@@ -1,8 +1,8 @@
 import React from 'react'
-import Input from '../../utils/Component/Input.tsx'
-import RangeInput from '../../utils/Component/RangeInput.tsx'
-import ListControlMenu from '../../utils/Component/ListControlMenu.tsx'
-import MusicPlayer from '../../utils/Component/MusicPlayer.tsx'
+import Input from '../../components/Input.tsx'
+import RangeInput from '../../components/RangeInput.tsx'
+import ListControlMenu from '../../components/ListControlMenu.tsx'
+import MusicPlayer from '../../components/MusicPlayer.tsx'
 
 const per_types = [{
     name:'度小宇',

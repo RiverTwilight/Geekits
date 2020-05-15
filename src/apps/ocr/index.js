@@ -3,9 +3,8 @@ import { snackbar } from 'mdui'
 import axios from 'axios'
 import ClipboardJS from 'clipboard'
 
-import ListControlMenu from '../../utils/Component/ListControlMenu'
-import ListControlCheck from '../../utils/Component/ListControlCheck'
-
+import ListControlMenu from '../../components/ListControlMenu'
+import ListControlCheck from '../../components/ListControlCheck'
 
 import FileRead from '../../utils/fileread'
 import Cropper from '../../utils/Cropper'

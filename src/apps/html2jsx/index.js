@@ -2,7 +2,7 @@ import React, { createRef, forwardRef } from 'react'
 import { snackbar } from 'mdui'
 import ClipboardJS from 'clipboard'
 import DragRead from '../../utils/DragReadContainer'
-import Input from '../../utils/Component/Input.tsx'
+import Input from '../../components/Input.tsx'
 
 const PrintRes = ({res}) => (
     <div className="mdui-card mdui-col">
@@ -15,7 +15,7 @@ const PrintRes = ({res}) => (
     </div>
 )
 
-class Ui extends React.Component {
+export default class extends React.Component {
     constructor(props) {
         super(props);
         this.dropBox = createRef()
@@ -97,5 +97,3 @@ class Ui extends React.Component {
         )
     }
 }
-
-export default Ui

@@ -1,6 +1,6 @@
 import React from 'react'
 import ClipboardJS from 'clipboard'
-import RangeInput from '../../utils/Component/RangeInput'
+import RangeInput from '../../components/RangeInput'
 import { snackbar } from 'mdui'
 import FileRead from '../../utils/fileread'
 

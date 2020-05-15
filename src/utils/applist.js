@@ -131,11 +131,12 @@ export default [{
 	help: "",
 	channel: 4
 }, {
-	name: "文本批量生成",
+	name: "文本生成",
 	link: "text_create",
+	//link:"coming",
 	icon: "font_download",
 	icon_color: "brown-200",
-	description: "批量生成有规律的文本",
+	description: "批量生成有规律的文本，或模板文本，例如营销号文案",
 	help: "",
 	channel: 4
 }, {

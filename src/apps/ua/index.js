@@ -1,6 +1,6 @@
 import React from 'react'
 import UAParser from 'ua-parser-js'
-import Input from '../../utils/Component/Input.tsx'
+import Input from '../../components/Input.tsx'
 
 const parser = new UAParser();
 

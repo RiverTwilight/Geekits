@@ -1,5 +1,5 @@
 import React from 'react';
-import Input from '../../utils/Component/Input.tsx'
+import Input from '../../components/Input.tsx'
 import { prompt as Prompt } from 'mdui';
 
 //输入框&清空按钮

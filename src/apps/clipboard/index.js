@@ -5,7 +5,7 @@ import io from 'socket.io-client'
 import QRCode from 'qrcode'
 import saveFile from '../../utils/fileSaver'
 import FileRead from '../../utils/fileread'
-import Input from '../../utils/Component/Input.tsx'
+import Input from '../../components/Input.tsx'
 
 const Share = props =>{
     return(

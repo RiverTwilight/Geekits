@@ -1,8 +1,8 @@
 import React from 'react'
 import WordCloud from 'wordcloud'
 import saveFile from '../../utils/fileSaver'
-import ListControlCheck from '../../utils/Component/ListControlCheck'
-import Input from '../../utils/Component/Input'
+import ListControlCheck from '../../components/ListControlCheck'
+import Input from '../../components/Input'
 
 class Words extends React.Component {
     constructor(props) {

@@ -2,9 +2,9 @@ import React, { createRef, forwardRef } from 'react'
 import { snackbar } from 'mdui'
 import dic from './dictionary'
 import ClipboardJS from 'clipboard'
-import Select from '../../utils/Component/Select'
+import Select from '../../components/Select'
 import DragRead from '../../utils/DragReadContainer'
-import Input from '../../utils/Component/Input.tsx'
+import Input from '../../components/Input.tsx'
 
 //结果展示框
 const PrintRes = ({res, to}) => {

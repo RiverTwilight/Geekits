@@ -1,7 +1,7 @@
 import React from 'react'
-import Input from '../../utils/Component/Input.tsx'
+import Input from '../../components/Input.tsx'
 import { calDiffer, calWhichDay } from './engine.ts'
-import Tab from '../../utils/Component/Tab'
+import Tab from '../../components/Tab'
 
 const getToday = () => {
     var time = new Date();

@@ -16,7 +16,7 @@ export default class BottomAlert extends React.Component<Readonly<{
         }
         //用return null会每次重载图片
         return (
-            <div style={{ height: (ifShow) ? '450px' : '0' }} className=" bottom-alert bottom-dashboard mdui-card">
+            <div style={{ height: ifShow ? '450px' : '0' }} className=" bottom-alert bottom-dashboard mdui-card">
                 <div className="mdui-card-media">
                     <div className="mdui-card-menu">
                         <button

@@ -1,7 +1,7 @@
 import React from 'react'
 import Image from './image'
 import Caption from './caption'
-import Tab from '../../utils/Component/Tab'
+import Tab from '../../components/Tab'
 
 export default _ => (
     <Tab

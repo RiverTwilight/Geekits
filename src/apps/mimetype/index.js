@@ -4,7 +4,7 @@ import ClipboardJS from 'clipboard'
 
 import mimeTypes from './dictionary'
 
-import Input from '../../utils/Component/Input.tsx'
+import Input from '../../components/Input.tsx'
 
 //结果展示
 function Result(props){

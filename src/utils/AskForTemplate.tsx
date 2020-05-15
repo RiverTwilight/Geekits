@@ -1,7 +1,7 @@
 import React from 'react'
 import { snackbar } from 'mdui'
 import axios from 'axios'
-import Input from './Component/Input'
+import Input from '../components/Input'
 
 declare global {
     interface Window {
