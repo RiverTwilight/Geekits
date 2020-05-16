@@ -16,7 +16,7 @@ function regularTextCreate(config: {
         return cleanTemplate.substring(0, temIndex) + element + cleanTemplate.substring(temIndex)
     }
     var result = [];
-    for (let index = 0; index < length; index ++) {
+    for (let index = 0; index < length; index++) {
         let res = '';
         do{
             res = replace(template, index, arrayType)

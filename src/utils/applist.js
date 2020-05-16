@@ -206,11 +206,12 @@ export default [{
 	help: "",
 	channel: 2
 }, {
-	name: "全能文本转码",
+	name: "全能文本转换",
 	link: "endecode",
 	icon: "wb_auto",
 	icon_color: "cyan-200",
-	help: "已知rc4无法解密，全力修复中",
+	description: "可能是最全的文本转换工具，支持多达7种文本",
+	help: "",
 	channel: 3
 }, {
 	name: "图片转base64",

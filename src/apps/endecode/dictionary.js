@@ -52,7 +52,8 @@ function normal2Result(text, key) {
 		url: encodeURI(text),
 		moss: text2Moss(text),
 		md5: CryptoJS.MD5(text),
-		URLcomponent: encodeURIComponent(text)
+		URLcomponent: encodeURIComponent(text),
+		base64: window.btoa(text)
 	}
 	return result
 }
@@ -61,29 +62,34 @@ function start(fromType,inputText,key='') {
 	console.log('type', fromType);
 	console.log('input', inputText);
 	console.log('key',key);
+	var result, normal;
 	switch (fromType) {
 		case 'text':
-			var result = normal2Result(inputText, key);
+			result = normal2Result(inputText, key);
 			return result		
 		case 'url':
-			var normal = decodeURI(inputText);
-			var result = normal2Result(normal, key);
+			normal = decodeURI(inputText);
+			result = normal2Result(normal, key);
 			return result
 		case 'URLcomponent':
-			var normal = decodeURIComponent(inputText);
-			var result = normal2Result(normal,key)
+			normal = decodeURIComponent(inputText);
+			result = normal2Result(normal,key)
 			return result
 		case 'moss':
-			var normal = moss2Text(inputText);
-			var result = normal2Result(normal, key);
+			normal = moss2Text(inputText);
+			result = normal2Result(normal, key);
 			return result
 		case 'md5':
-			var normal = inputText;
-			var result = normal2Result(normal, key);
+			normal = inputText;
+			result = normal2Result(normal, key);
 			return result
 		case 'rc4':
-			var normal = CryptoJS.RC4.decrypt(inputText, key);
-			var result = normal2Result(normal, key);
+			normal = CryptoJS.RC4.decrypt(inputText, key);
+			result = normal2Result(normal, key);
+			return result
+		case 'base64':
+			normal = window.atob(inputText);
+			result = normal2Result(normal, key);
 			return result
 	}
 }

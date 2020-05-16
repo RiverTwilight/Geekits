@@ -1,44 +1,22 @@
-import React, { createRef, forwardRef } from 'react'
+import React from 'react'
 import { snackbar } from 'mdui'
-import dic from './dictionary'
 import ClipboardJS from 'clipboard'
 import Select from '../../components/Select'
-import DragRead from '../../utils/DragReadContainer'
 import Input from '../../components/Input.tsx'
+import DragRead from '../../utils/DragReadContainer'
+import dic from './dictionary'
 
 //结果展示框
 const PrintRes = ({res, to}) => {
-    var showRes
-    if (res !== '') {       
-        switch (to) {
-            case 'text':
-                showRes = res.text
-                break;
-            case 'url':
-                showRes = res.url
-                break;
-            case 'moss':
-                showRes = res.moss
-                break;
-            case 'md5':
-                showRes = res.md5
-                break;
-            case 'rc4':
-                showRes = res.rc4
-                break;
-            case 'URLcomponent':
-                showRes = res.URLcomponent
-                break;
-            default:
-                showRes = 'sdff'
-        }
+    if (res !== '') {   
+        var showRes = res[to]
     } else {
         showRes = ''
     }
     return(
         <div className="mdui-card mdui-textfield">
             <div data-clipboard-text={String(showRes)} style={{height:'130px'}} id="becopy"className="mdui-typo mdui-dialog-content mdui-p-a-2">
-            {String(showRes)/**/}
+            {String(showRes)}
             </div>
         </div>
     )
@@ -62,12 +40,14 @@ const options = [{
 }, {
     name: 'URLcomponent',
     value: 'URLcomponent'
+}, {
+    name: 'base64',
+    value: 'base64'
 }]
 
-class Ui extends React.Component {
+export default class extends React.Component {
     constructor(props) {
         super(props);
-        this.dropBox = createRef()
         this.state = {
             fromType: 'text',
             toType: 'md5',
@@ -97,7 +77,7 @@ class Ui extends React.Component {
                     options={options}
                 />
                 <button 
-                    style={{margin:'0px 30px 0px 30px'}}
+                    style={{margin:'0px 10px 0px 10px'}}
                     className="mdui-btn mdui-btn-icon"
                     onClick={()=>{
                         this.setState({
@@ -157,5 +137,3 @@ class Ui extends React.Component {
         )
     }
 }
-
-export default ()=><Ui />

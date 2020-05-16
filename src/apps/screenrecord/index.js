@@ -1,9 +1,6 @@
 import React from 'react'
-import mdui from 'mdui'
 
-import ClipboardJS from 'clipboard'
-
-class Ui extends React.Component {
+export class extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -108,5 +105,3 @@ class Ui extends React.Component {
         )
     }
 }
-
-export default Ui
