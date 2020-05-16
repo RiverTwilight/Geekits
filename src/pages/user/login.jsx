@@ -1,11 +1,10 @@
 import React from 'react'
 import { snackbar, mutation } from 'mdui'
-import Input from '../../components/Input'
-
 import Axios from 'axios';
 import { MD5 } from 'crypto-js';
 import { getUserInfo } from '../../utils/UserInfo'
 import SendCode from '../../utils/SendCode'
+import Input from '../../components/Input'
 
 const setCookie = (name, value) => {
     var Days = 30;

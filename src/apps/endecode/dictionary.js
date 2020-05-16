@@ -1,4 +1,4 @@
-import CryptoJS from 'crypto-js';
+import { RC4, MD5 } from 'crypto-js';
 
 //字典
 var mossCode = [
@@ -48,17 +48,17 @@ function normal2Result(text, key) {
 	console.log('统一格式', text)
 	var result = {
 		text: text,
-		rc4: CryptoJS.RC4.encrypt(text, key),
+		rc4: RC4.encrypt(text, key),
 		url: encodeURI(text),
 		moss: text2Moss(text),
-		md5: CryptoJS.MD5(text),
+		md5: MD5(text),
 		URLcomponent: encodeURIComponent(text),
 		base64: window.btoa(text)
 	}
 	return result
 }
 
-function start(fromType,inputText,key='') {
+export default function(fromType,inputText,key='') {
 	console.log('type', fromType);
 	console.log('input', inputText);
 	console.log('key',key);
@@ -84,7 +84,7 @@ function start(fromType,inputText,key='') {
 			result = normal2Result(normal, key);
 			return result
 		case 'rc4':
-			normal = CryptoJS.RC4.decrypt(inputText, key);
+			normal = RC4.decrypt(inputText, key);
 			result = normal2Result(normal, key);
 			return result
 		case 'base64':
@@ -93,6 +93,3 @@ function start(fromType,inputText,key='') {
 			return result
 	}
 }
-
-
-export default start
