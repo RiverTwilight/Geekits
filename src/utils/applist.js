@@ -133,12 +133,20 @@ export default [{
 }, {
 	name: "文本生成",
 	link: "text_create",
-	//link:"coming",
 	icon: "font_download",
 	icon_color: "brown-200",
 	description: "批量生成有规律的文本，或模板文本，例如营销号文案",
-	help: "",
+	help: "使用“${}”代表关键字，如“${5}表示首项为5的关键字 ## 暂时只支持统一的公差/公比（其实是因为懒）",
 	channel: 4
+}, {
+	name: "文件树生成",
+	//link: "text_create",
+	link:"coming",
+	icon: "folder",
+	icon_color: "green-200",
+	description: "生成文件夹结构",
+	help: "",
+	channel: 3
 }, {
 	name: "GIF制作",
 	link: "gif",

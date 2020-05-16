@@ -2,16 +2,16 @@ import React, { useState } from 'react'
 import Template from '../../utils/AskForTemplate.tsx'
 import ToTop from '../../components/ToTop'
 
-const Word = ({item}) => {
+const Word = ({ item }) => {
     const [open, setOpen] = useState(false);
     //item.more = item.more.replace(/\n/g, "<br>")
-    return(
+    return (
         <div key={item.word} className="mdui-table-fluid">
             <table className="mdui-table">
                 <tbody>
                     <tr>
                         <td>汉字</td>
-                        <td style={{fontSize:'1.5em'}}>{item.word}</td>
+                        <td style={{ fontSize: '1.5em' }}>{item.word}</td>
                         <td>旧体字</td>
                         <td data-clipboard-text="">{item.oldword}</td>
                     </tr>
@@ -28,19 +28,19 @@ const Word = ({item}) => {
                     <tr>
                         <td colspan="4">{item.explanation}</td>
                     </tr>
-                    <tr style={{display: !open?"contents":"none"}}>
+                    <tr style={{ display: !open ? "contents" : "none" }}>
                         <td colspan="4" >
                             {item.more.substring(0, 200)}...
                             <button onClick={() => setOpen(true)} className="mdui-float-right mdui-btn">展开</button>
                         </td>
                     </tr>
-                    {item.more.length > 200 && 
-                    <tr style={{display: open?"contents":"none"}} >
-                        <td colspan="4" >
-                            {item.more}<br></br>
-                            <button onClick={() => setOpen(false)} className="mdui-float-right mdui-btn">收起</button>
-                        </td>
-                    </tr>}
+                    {item.more.length > 200 &&
+                        <tr style={{ display: open ? "contents" : "none" }} >
+                            <td colspan="4" >
+                                {item.more}<br></br>
+                                <button onClick={() => setOpen(false)} className="mdui-float-right mdui-btn">收起</button>
+                            </td>
+                        </tr>}
                 </tbody>
             </table>
         </div>
@@ -48,32 +48,29 @@ const Word = ({item}) => {
 }
 
 
-const Result = ({data}) =>{
-    if(!data)return null
-    if(!data.length)return <p className="mdui-text-center">暂未收录，建议谷歌一下</p>
-    return(
-        <>  
-        {data.map((item)=>(
-            <Word item={item} />
-        ))}
+const Result = ({ data }) => {
+    if (!data) return null
+    if (!data.length) return <p className="mdui-text-center">暂未收录，建议谷歌一下</p>
+    return (
+        <>
+            {data.map((item) => (
+                <Word item={item} />
+            ))}
         </>
     )
 }
 
-export default class extends React.Component {
-    render(){
-        return(
-            <>
-                <Template
-                    Result={Result}
-                    api="https://api.ygktool.cn/api/dic_word?word="
-                    inputOpt={{
-                        header:'从14502个汉字中查询',
-                        icon:'search'
-                    }}
-                />
-                <ToTop />
-            </>
-        )
-    }
-}
+export default () => (
+    <>
+        <Template
+            Result={Result}
+            api="https://api.ygktool.cn/api/dic_word?word="
+            inputOpt={{
+                header: '从14502个汉字中查询',
+                icon: 'search'
+            }}
+        />
+        <ToTop />
+    </>
+)
+

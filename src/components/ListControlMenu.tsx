@@ -12,7 +12,7 @@ const Dialog = ({items, onCheckedChange, title, checked}:ListControlMenu) => {
             <div className="mdui-dialog-content">
 				<ul className="mdui-list">{
 					items.map((item: any, i: number)=>(
-						<label key={item.title} mdui-dialog-close="true" className="mdui-list-item mdui-ripple">
+						<label key={i} mdui-dialog-close="true" className="mdui-list-item mdui-ripple">
 							<div className="mdui-radio">
 								<input
 									onChange={_=>onCheckedChange && onCheckedChange(i)} 

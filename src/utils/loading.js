@@ -5,7 +5,7 @@ const Loading = props => {
     if (props.pastDelay) {
         return (
             <p className="center-panel">
-                <h4 className="mdui-text-center">Loading</h4>
+                <h3 className="mdui-text-center">精彩即将到来...</h3>
             </p>
         )
     }

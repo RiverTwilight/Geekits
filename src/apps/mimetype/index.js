@@ -1,15 +1,13 @@
-import React from 'react'
-import mdui from 'mdui'
+import { Component } from 'react'
+import { snackbar } from 'mdui'
 import ClipboardJS from 'clipboard'
-
 import mimeTypes from './dictionary'
-
 import Input from '../../components/Input.tsx'
 
 //结果展示
-function Result(props){
+function Result(props) {
     const { kwd } = props;
-    if(kwd === "")return null
+    if (kwd === "") return null
     const length = Object.getOwnPropertyNames(mimeTypes).length;
     const type = Object.values(mimeTypes);
     const extension = Object.keys(mimeTypes)
@@ -22,16 +20,16 @@ function Result(props){
                 extension: extension[i]
             })
         }
-    } 
-    return(
+    }
+    return (
         <div className="mdui-table-fluid">
             <table className="mdui-table">
                 <tbody>
                     <tr>
                         <th>扩展名</th>
-                        <th>类型/子类型</th>                      
+                        <th>类型/子类型</th>
                     </tr>
-                    {res.map((piece,i)=>(
+                    {res.map((piece, i) => (
                         <tr key={i}>
                             <th>{piece.extension}</th>
                             <th>{piece.type}</th>
@@ -43,32 +41,32 @@ function Result(props){
     )
 }
 
-class Ui extends React.Component {
+export default class extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            kwd:''
+            kwd: ''
         }
     }
-    compomenetDidMount(){
-        var clipboard = new ClipboardJS('tr td:nth-child(2)',{
+    compomenetDidMount() {
+        var clipboard = new ClipboardJS('tr td:nth-child(2)', {
             target: () => {
                 return this
             }
         })
         clipboard.on('success', e => {
             console.log(e);
-            mdui.snackbar({
+            snackbar({
                 message: '已复制'
             })
         })
     }
-    render(){
-        return(
-            <> 
+    render() {
+        return (
+            <>
                 <Input
-                    onValueChange={newText=>{
-                        this.setState({kwd:newText})
+                    onValueChange={newText => {
+                        this.setState({ kwd: newText })
                     }}
                     autoFocus
                     header="类型/扩展名"
@@ -78,8 +76,6 @@ class Ui extends React.Component {
                 />
                 <Result kwd={this.state.kwd} />
             </>
-        )   
+        )
     }
 }
-
-export default Ui

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom"
 import pinyin from 'js-pinyin'
 import applist from '../../utils/appList'
 import fiv from '../../utils/fiv'
+import ToTop from '../../components/ToTop'
 
 //收藏列表
 const FivList = () => {
@@ -187,7 +188,7 @@ class Search extends React.Component {
     }
 }
 
-export default class Whole extends React.Component {
+export default class extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -214,6 +215,7 @@ export default class Whole extends React.Component {
                 />
                 <FivList />
                 <AppList />
+                <ToTop />
             </>
         )
     }

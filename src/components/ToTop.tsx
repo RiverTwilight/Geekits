@@ -6,7 +6,7 @@ declare global {
     }
 }
 
-const ToTop: any = () => {
+export default () => {
     const [isHide, setHide] = React.useState(true)
     React.useEffect(()=>{
         window.addEventListener("scroll",() => {
@@ -28,9 +28,7 @@ const ToTop: any = () => {
                 }, 50);
             }}
             className={`mdui-color-theme mdui-fab mdui-fab-fixed ${isHide?'mdui-fab-hide':''}`}>
-            <i className="mdui-icon material-icons">&#xe5d8;</i>
+            <i className="mdui-icon mdui-text-color-white material-icons">&#xe5d8;</i>
         </button>
     )
 }
-
-export default ToTop
