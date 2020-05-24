@@ -50,7 +50,7 @@ const NoMatch = () => (
     </p>
 )
 
-export default class App extends React.Component {
+export default class extends React.Component {
     componentDidMount() {
         const { loading } = this;
         const toggleDisabled = (isDisabled) => {

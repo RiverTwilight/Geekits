@@ -4,9 +4,13 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import './index.css';
 
-ReactDOM.render(<App />, document.getElementById('root'), _=>{
-    if (localStorage.darkMode === 'true') {
-		document.getElementsByTagName('body')[0].classList.add("mdui-theme-layout-dark")
+ReactDOM.render(<App />, document.getElementById('root'), _ => {
+	const setDark = () => document.getElementsByTagName('body')[0].classList.add("mdui-theme-layout-dark")
+	if (localStorage.darkMode === 'true') {
+		setDark()
+	} else if (document.getElementById('isDark').style.display === 'block') {
+		console.log('dark');
+		setDark()
 	}
 });
 

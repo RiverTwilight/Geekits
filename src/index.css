@@ -7,3 +7,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
   -webkit-overflow-scrolling : touch;
 }
+
+
+@media(prefers-color-theme-dark){
+  #isDark{
+      display: block;
+  }
+}

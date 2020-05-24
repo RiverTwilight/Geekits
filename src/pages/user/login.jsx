@@ -5,6 +5,7 @@ import { MD5 } from 'crypto-js';
 import { getUserInfo } from '../../utils/UserInfo'
 import SendCode from '../../utils/SendCode'
 import Input from '../../components/Input'
+import Tab from '../../components/Tab'
 
 const setCookie = (name, value) => {
     var Days = 30;

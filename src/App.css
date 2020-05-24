@@ -1,43 +1,44 @@
-.copyright{
+.copyright {
     position: fixed;
     bottom: 7px;
     left: 10px;
-    right: 10px
+    right: 10px;
 }
-.header-width-saying{
-    padding-bottom:9px;
+
+.header-width-saying {
+    padding-bottom: 9px;
 }
-.saying{
+.saying {
     position: absolute;
     line-height: 5;
     top: 13px;
-    max-width: 70%
+    max-width: 70%;
 }
 #grad {
     width: 100%;
     height: 180px;
-    background-image: linear-gradient(rgb(76, 175, 80),transparent)
+    background-image: linear-gradient(rgb(76, 175, 80), transparent);
     /*background-image: linear-gradient(#9e9e9e,transparent)*/
 }
-#grad .text{
+#grad .text {
     position: absolute;
     left: 20px;
     top: 52px;
-    color: #ffffff
+    color: #ffffff;
 }
 #grad .text p.title {
-    font-size: 2em
+    font-size: 2em;
 }
 #grad .text p.subtitle {
     position: relative;
     font-size: 0.9em;
-    bottom: 18px
+    bottom: 18px;
 }
-.mdui-card.appinfo .mdui-card-primary{
+.mdui-card.appinfo .mdui-card-primary {
     padding: 18px 16px 16px 16px;
 }
-.mdui-fab{
-    z-index: 999
+.mdui-fab {
+    z-index: 999;
 }
 
 .center-panel {
@@ -50,37 +51,54 @@
     color: black;
 }
 
-.bottom-dashboard{
-    z-index:1002;
-    position:fixed !important;
-    bottom:0;
-    right:0;
-    left:0
+.bottom-dashboard {
+    z-index: 1002;
+    position: fixed !important;
+    bottom: 0;
+    right: 0;
+    left: 0;
 }
 
-@media screen and (min-width:1024px ) {
-    .bottom-dashboard{
-        left:240px;
+@media screen and (min-width: 1024px) {
+    .bottom-dashboard {
+        left: 240px;
     }
-    .saying{
+    .saying {
         top: 17px;
     }
 }
 
-.loading{
-    position:fixed !important;
-    top:0px;
+.loading {
+    position: fixed !important;
+    top: 0px;
     z-index: 9999;
     width: 100% !important;
-    left: 0px
+    left: 0px;
 }
 
-.bottom-alert{
-    max-height: 80%;
+.bottom-alert {
+    max-height: 100%;
     transition: 0.5s height;
 }
 
-.bottom-alert .main{
+.bottom-alert .main {
     overflow-y: auto;
-    height: 100%;
+    height: 90%;
+}
+
+/* 撑开底部 */
+.bottom-alert-mask-brace{
+    height: 60px;
+    padding: 20px;
+}
+
+.bottom-alert .mdui-grid-tile {
+    z-index: -1;
+}
+
+.bottom-alert-mask {
+    height: 100px;
+    margin-top: -100px;
+    background-image: linear-gradient(rgba(255, 255, 255, 0), #fff);
+    background: -o-linear-gradient(bottom, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
 }

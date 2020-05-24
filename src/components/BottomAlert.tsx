@@ -1,7 +1,7 @@
 import React from 'react';
 import { JQ } from 'mdui'
 
-export default class BottomAlert extends React.Component<Readonly<{
+export default class extends React.Component<Readonly<{
     ifShow: boolean;
     title: string;
     onClose(): void;
@@ -16,7 +16,7 @@ export default class BottomAlert extends React.Component<Readonly<{
         }
         //用return null会每次重载图片
         return (
-            <div style={{ height: ifShow ? '450px' : '0' }} className=" bottom-alert bottom-dashboard mdui-card">
+            <div style={{ height: ifShow ? '90%' : '0' }} className=" bottom-alert bottom-dashboard mdui-card">
                 <div className="mdui-card-media">
                     <div className="mdui-card-menu">
                         <button
@@ -33,7 +33,11 @@ export default class BottomAlert extends React.Component<Readonly<{
                     className="mdui-card-primary">
                     <div className="mdui-card-primary-title">{title}</div>
                 </div>
-                <div className="main">{children}</div>
+                <div className="main">
+                    {children}
+                    <div className="bottom-alert-mask-brace"></div>
+                </div>
+                <div className="bottom-alert-mask"></div>
                 <div className="mdui-card-actions">
                     {/** TODO */}
                 </div>

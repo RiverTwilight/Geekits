@@ -1,14 +1,14 @@
 import React from 'react'
 import Input from '../../components/Input.tsx'
 
-const test = (exp, text) => {
+const test = (unMarkedExp, unMarkedText) => {
     try {
-        exp = exp.replace(/\\/g, '\\').replace(/\</, '&lt;')
-        text = text.replace(/\s/g, '&nbsp;').replace(/\</, '&lt;')
-        var reg = new RegExp(exp, 'g')
-        console.log(reg, text)
-        text = text.replace(reg, '<span style="background-color:#9be49e">$&</span>')
-        return text
+        const markedExp = unMarkedExp.replace(/\\/g, '\\').replace(/\</, '&lt;')
+          , markedText = unMarkedText.replace(/\</, '&lt;').replace(/\>/, '&gt;').replace(/\n/g, '<br/>').replace(/\s/g, '&nbsp;')
+          , reg = new RegExp(markedExp, 'g');
+          //不要调整replace顺序
+        //console.log(markedExp, markedText)
+        return markedText.replace(reg, '<span style="background-color:#9be49e">$&</span>')
     } catch (err) {
         console.log(err)
     }
