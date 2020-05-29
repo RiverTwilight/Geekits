@@ -140,8 +140,8 @@ export default [{
 	channel: 4
 }, {
 	name: "文件树生成",
-	//link: "text_create",
-	link:"coming",
+	link: "folder_tree",
+	//link:"coming",
 	icon: "folder",
 	icon_color: "green-200",
 	description: "生成文件夹结构",

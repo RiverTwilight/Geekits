@@ -5,7 +5,7 @@ import JSZip from 'jszip'
 import { dataURLtoFile, saveFile } from '../../utils/fileSaver'
 
 //读取文件组件
-import FileRead from '../../utils/fileread'
+import FileRead from '../../components/fileread'
 
 const cropper = React.createRef(null);
 

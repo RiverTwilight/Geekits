@@ -22,7 +22,6 @@
     "libgif": "0.0.3",
     "marked": "^0.8.0",
     "mdui": "^0.4.3",
-    "prop-types": "^15.7.2",
     "qrcode": "^1.4.4",
     "react": "^16.13.0",
     "react-app-rewired": "^2.1.5",

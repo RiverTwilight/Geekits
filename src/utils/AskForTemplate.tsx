@@ -35,7 +35,8 @@ export default class extends React.Component
         axios({
             method: 'get',
             url: api + input,
-            withCredentials: false
+            withCredentials: false,
+            timeout: 10000
         }).then(response => {
             var json = JSON.parse(response.request.response);
             this.setState({ data: json })

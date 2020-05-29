@@ -50,31 +50,3 @@ function getAllChild(e) {
     console.log(result)
     return result
 }
-
- (function inputStyle(obj) {
-     var newBtn = document.querySelector(obj['new'])
-     var input = document.createElement('input');
-     input.innerHTML = '选择文件';
-     document.getElementsByTagName('body').item(0).appendChild(input);
-     input.setAttribute('type', 'file');
-     input.setAttribute('style', 'display:none');
-     input.setAttribute('accept', obj['type']);
-     input.setAttribute('onchange', obj['fun']);
-     input.setAttribute('webkitdirectory', true);
-     newBtn.addEventListener('click', () => {
-         input.click()
-     })
- })({
-     new: '.select',
-     fun: 'start(event)',
-     type: '*'
- })
-
-function start(e) {
-    var save = JSON.stringify(pathsToTree(getAllChild(e)));
-    var export_blob = new Blob([save]);
-    console.log(export_blob);
-    saveAs(export_blob, "folderTree.txt", {
-        type: "text/plain"
-    });
-}

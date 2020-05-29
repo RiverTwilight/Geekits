@@ -37,14 +37,14 @@ export default () =>{
                         </div> 
                     </div>
                 </a> 
-                <a target="_blank" className="mdui-col mdui-list-item mdui-ripple" href="https://github.com/RiverTwilight/mdui-in-react">
+                <a target="_blank" className="mdui-col mdui-list-item mdui-ripple" href="https://github.com/RiverTwilight/Blog/blob/master/web/HowDoIDevelopYgktool.md">
                     <i className="mdui-list-item-icon mdui-icon material-icons">grain</i> 
                     <div className="mdui-list-item-content"> 
                         <div className="mdui-list-item-title mdui-list-item-one-line">
-                        开放源代码
+                        开发博客
                         </div> 
                         <div className="mdui-list-item-text mdui-list-item-one-line">
-                        本网站部分代码将逐步开源出去
+                        云极客工具の开发博客
                         </div> 
                     </div>
                 </a> 

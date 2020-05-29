@@ -4,7 +4,7 @@ import ClipboardJS from 'clipboard'
 import io from 'socket.io-client'
 import QRCode from 'qrcode'
 import saveFile from '../../utils/fileSaver'
-import FileRead from '../../utils/fileread'
+import FileRead from '../../components/fileread'
 import Input from '../../components/Input.tsx'
 
 const Share = props =>{

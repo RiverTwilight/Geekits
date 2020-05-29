@@ -35,9 +35,7 @@ export default class extends React.Component<Readonly<{
                 </div>
                 <div className="main">
                     {children}
-                    <div className="bottom-alert-mask-brace"></div>
                 </div>
-                <div className="bottom-alert-mask"></div>
                 <div className="mdui-card-actions">
                     {/** TODO */}
                 </div>

@@ -3,7 +3,7 @@ import mdui from 'mdui'
 import GIF from 'gif.js'
 
 import Input from '../../components/Input.tsx'
-import FileRead from '../../utils/fileread'
+import FileRead from '../../components/fileread'
 
 function engine(file, config, videoRef, callback) {
 

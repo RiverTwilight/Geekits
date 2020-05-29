@@ -3,7 +3,7 @@ import SuperGif from 'libgif'
 import JSZip from 'jszip'
 import saveFile from '../../utils/fileSaver'
 import './style.css'
-import FileRead from '../../utils/fileread'
+import FileRead from '../../components/fileread'
 
 function dataURLtoFile(dataurl, filename) {
 	//将base64转换为文件

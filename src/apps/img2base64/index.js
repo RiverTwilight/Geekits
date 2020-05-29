@@ -2,7 +2,7 @@ import React from 'react'
 import ClipboardJS from 'clipboard'
 import mdui from 'mdui'
 //读取文件组件
-import FileRead from '../../utils/fileread'
+import FileRead from '../../components/fileread'
 
 class Ui extends React.Component {
 	constructor(props) {

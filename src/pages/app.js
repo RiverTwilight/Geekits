@@ -6,7 +6,6 @@ import {
     Route,
     withRouter
 } from "react-router-dom"
-
 import getInfo from '../utils/appinfo'
 import fiv from '../utils/fiv.ts'
 
@@ -73,8 +72,8 @@ class Info extends React.Component {
                             onClick={()=>{
                                 this.setState({hideHelper:true})
                             }}
-                            className="mdui-btn mdui-btn-icon mdui-text-color-black">
-                            <i className="mdui-icon material-icons">close</i>
+                            className="mdui-btn mdui-btn-icon">
+                            <i className="mdui-icon mdui-text-color-theme-icon material-icons">close</i>
                         </button>
                     </div>
                 </div>

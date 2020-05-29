@@ -1,73 +1,67 @@
 import React from 'react'
-import mdui from 'mdui'
-
-//Pages
+import { mutation } from 'mdui'
 import Wow from './wow'
 import Home from './home'
 
 const Page = props => {
-  if(props.page === 'home')return <Home />
-  return <Wow />
+    if (props.page === 'home') return <Home />
+    return <Wow />
 }
 
-function Nav(props){
-    const items = [{
-        name:'收藏',
-        icon:'favorite',
-        page:'home'
-    },{
-        name:'发现',
-        icon:'apps',
-        page:'wow'
-    }].map((a,i)=>{
-        return(
-            <a 
-                key={i}
-                onClick={()=>{
-                    props.onPageChange(a.page);
-                    window.location.hash = `#${a.page}`
+const Nav = ({ page, onPageChange, items }) => (
+    <div className="mdui-text-color-theme mdui-bottom-nav-scroll-hide mdui-color-white mdui-bottom-nav">
+        {items.map(item => (
+            <a
+                key={item.name}
+                onClick={() => {
+                    onPageChange(item.page);
+                    window.location.hash = `#${item.page}`
                 }}
-                className={`mdui-ripple ${(props.page === a.page)?"mdui-bottom-nav-active":null}`}>
-                <i className="mdui-icon material-icons">{a.icon}</i>
-                <label>{a.name}</label>
+                className={`mdui-ripple ${(page === item.page) ? "mdui-bottom-nav-active" : ""}`}>
+                <i className="mdui-icon material-icons">{item.icon}</i>
+                <label>{item.name}</label>
             </a>
-        )
-    })
-    return(
-        <div className="mdui-text-color-theme mdui-bottom-nav-scroll-hide mdui-color-white mdui-bottom-nav">
-            {items}
-        </div>
-    )
-}
+        ))}
+    </div>
+)
 
-export default class Index extends React.Component {
+export default class extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            page:'home'
+            page: 'home'
         }
     }
-    componentDidMount(){
-        if(window.location.hash){
-            this.setState({page:/\#(\S+)/.exec(window.location.hash)[1]})
-        }     
-        document.title = '云极客工具'
-        mdui.mutation()
-    }
-    render(){
+    componentDidMount() {
+        if (window.location.hash) {
+            this.setState({ page: /\#(\S+)/.exec(window.location.hash)[1] })
+        }
+        document.title = '云极客工具';
         window.titleRef.innerText = '云极客工具'
-        return(  
-          <div className="mdui-col-md-10 mdui-col-sm-12">
-            <Page
-              page={this.state.page}
-            />
-            <Nav
-                page={this.state.page}
-                onPageChange={newPage=>{
-                   this.setState({page:newPage})
-                }}
-            />
-          </div>
+        mutation()
+    }
+    render() {
+        return (
+            <div className="mdui-col-md-10 mdui-col-sm-12">
+                <Page
+                    page={this.state.page}
+                />
+                <Nav
+                    page={this.state.page}
+                    items={[{
+                        name: '收藏',
+                        icon: 'favorite',
+                        page: 'home'
+                    }, {
+                        name: '发现',
+                        icon: 'apps',
+                        page: 'wow'
+                    }]}
+                    onPageChange={newPage => {
+                        this.setState({ page: newPage })
+                    }}
+                />
+            </div>
         )
     }
 }

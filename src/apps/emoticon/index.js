@@ -2,7 +2,7 @@ import React from 'react'
 import saveFile from '../../utils/fileSaver'
 import html2canvas from 'html2canvas'
 import NewPage from '../../components/BottomAlert'
-import FileRead from '../../utils/fileread'
+import FileRead from '../../components/fileread'
 import ColorInput from '../../components/ColorInput'
 import RangeInput from '../../components/RangeInput'
 import Input from '../../components/Input'
@@ -150,7 +150,7 @@ const StyleSet = ({color, handle, style}) => {
 const AssestsList = ({onChoose}) => {
     return (
         <div className="mdui-row-xs-3 mdui-row-sm-4 mdui-row-md-5 mdui-row-lg-6 mdui-row-xl-7 mdui-grid-list">
-        {Array(30).fill(0).map((img,i)=>(
+        {Array(30).fill(0).map((_, i)=>(
                 <div key={i} className="mdui-col">
                     <div onClick={()=>onChoose(i+1)} className="mdui-grid-tile">
                         <img
@@ -165,7 +165,7 @@ const AssestsList = ({onChoose}) => {
     )
 }
 
-class Ui extends React.Component {
+export default class extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -252,6 +252,7 @@ class Ui extends React.Component {
                         />
                         {texts.map((text,i)=>(
                             <Input
+                                key={i}
                                 onValueChange={newText=>{
                                     texts.splice(i,1,newText)
                                     this.setState({texts:texts})
@@ -304,5 +305,3 @@ class Ui extends React.Component {
         )
     }
 }
-
-export default Ui

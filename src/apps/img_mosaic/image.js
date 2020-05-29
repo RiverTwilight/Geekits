@@ -1,5 +1,5 @@
 import React from 'react'
-import FileRead from '../../utils/fileread'
+import FileRead from '../../components/fileread'
 import ListControlMenu from '../../components/ListControlMenu'
 
 async function loadImg(src){

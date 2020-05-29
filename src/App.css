@@ -86,14 +86,11 @@
     height: 90%;
 }
 
-/* 撑开底部 */
+
+/* 撑开底部 
 .bottom-alert-mask-brace{
     height: 60px;
     padding: 20px;
-}
-
-.bottom-alert .mdui-grid-tile {
-    z-index: -1;
 }
 
 .bottom-alert-mask {
@@ -102,3 +99,4 @@
     background-image: linear-gradient(rgba(255, 255, 255, 0), #fff);
     background: -o-linear-gradient(bottom, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
 }
+*/

@@ -1,5 +1,5 @@
 import React from 'react'
-import mdui from 'mdui'
+import { confirm, snackbar } from 'mdui'
 import Drawer from './drawer'
 
 const turnToDark = checked => {
@@ -45,7 +45,7 @@ const addSaying2Fiv = saying => {
 }
 
 
-export default class Header extends React.Component{
+export default class extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
@@ -56,7 +56,7 @@ export default class Header extends React.Component{
                 say:'我一路向北，离开有你的季节',
                 from:'《头文字D》'
             },
-            darkMode:localStorage.getItem('darkMode') || 'false'
+            darkMode: localStorage.getItem('darkMode') || 'false'
         }
     } 
     loadSaying(){
@@ -72,7 +72,7 @@ export default class Header extends React.Component{
                     }
                 })
             })
-    }
+    } 
     componentDidMount(){
         this.loadSaying()
         this.props.getRef(this.headerTitle);//将ref传给父组件，方便修改标题       
@@ -92,12 +92,12 @@ export default class Header extends React.Component{
                             </button>
                             <a
                                 onClick={()=>{
-                                    mdui.confirm(
+                                    confirm(
                                         `${saying.say}<br>来自：${saying.from}`,
                                         '一言',
                                         () => {
                                             addSaying2Fiv(saying);
-                                            mdui.snackbar({
+                                            snackbar({
                                                 message:'已收藏至便签',
                                                 buttonText: '打开便签',
                                                 onButtonClick: () => {

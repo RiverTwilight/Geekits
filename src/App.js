@@ -40,7 +40,7 @@ const RouterList = [{
 }]
 
 const NoMatch = () => (
-    <p className="center-panel">
+    <p className="mdui-text-color-theme-text center-panel">
         <h2 className="mdui-text-center">电波无法到达哦</h2>
         <p>
             是不是地址拼错了？是/app不是/apps哦<br></br>
@@ -60,12 +60,20 @@ export default class extends React.Component {
             }
         }
         window.loadShow = () => {
-            loading.style.display = 'inline-block';
-            toggleDisabled(true)
+            window.loadingDelay = setTimeout(() => {
+                loading.style.display = 'inline-block';
+                toggleDisabled(true);
+                delete window.loadingDelay
+            }, 1000)
         }
         window.loadHide = () => {
-            loading.style.display = 'none';
-            toggleDisabled(false)
+            if(window.loadingDelay){
+                clearTimeout(window.loadingDelay);
+                delete window.loadingDelay
+            }else{
+                loading.style.display = 'none';
+                toggleDisabled(false)
+            }
         }
     }
     render() {

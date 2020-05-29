@@ -1,6 +1,6 @@
 import React from 'react'
 
-import FileRead from '../../utils/fileread'
+import FileRead from '../../components/fileread'
 import RangeInput from '../../components/RangeInput'
 
 async function loadImg(src){
