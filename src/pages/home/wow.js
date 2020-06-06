@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from "react-router-dom"
 import applist from '../../utils/appList'
+
 //栏目下工具组
 const MakeChips = ({ apps }) => {
     return apps.map(a => {
@@ -22,7 +23,7 @@ const MakeChannels = ({ data }) => {
         <>
             <div className="channel mdui-card mdui-p-a-1">
                 <li className="mdui-list-item">
-                    <i class="mdui-list-item-icon mdui-icon material-icons">{icon}</i>
+                    <i className="mdui-list-item-icon mdui-icon material-icons">{icon}</i>
                     <div className="mdui-list-item-content">
                         <div className="mdui-list-item-title">{name}</div>
                     </div>
@@ -45,7 +46,7 @@ const getChannelIcon = index => {
 }
 
 /********发现*********/
-export default class Wow extends React.Component {
+export default class extends React.Component {
     constructor(props) {
         super(props);
         this.state = {

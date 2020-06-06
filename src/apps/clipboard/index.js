@@ -30,7 +30,6 @@ const Share = ({ qrcode, token }) => (
     </>
 )
 
-
 const MsgList = ({ data }) => {
     if (!data.length) {
         return (
@@ -114,11 +113,21 @@ export default class extends React.Component {
             })
         }
     }
+    componentWillUnmount() {
+        document.removeEventListener('visibilitychange', ()=>{})
+    }
     componentDidMount() {
+        
+        document.addEventListener('visibilitychange', () => {
+            if(!document.hidden){
+                document.title = document.title.substring(document.title.lastIndexOf('跨'))
+            }
+        });
+
         const cb = data => {
             this.setState(data);
-            if(document){
-                //todo
+            if(document.hidden){
+                document.title = '(新消息)' + document.title 
             }
         }
 

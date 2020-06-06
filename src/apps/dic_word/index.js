@@ -11,32 +11,32 @@ const Word = ({ item }) => {
                 <tbody>
                     <tr>
                         <td>汉字</td>
-                        <td style={{ fontSize: '1.5em' }}>{item.word}</td>
+                        <td style={{ fontSize: '1.5em' }}>
+                            <ruby>
+                                {item.word}<rp>(</rp><rt>{item.pinyin}</rt><rp>)</rp>
+                            </ruby>
+                        </td>
                         <td>旧体字</td>
-                        <td data-clipboard-text="">{item.oldword}</td>
+                        <td>{item.oldword}</td>
                     </tr>
                     <tr>
-                        <td>拼音</td>
-                        <td>{item.pinyin}</td>
+                        <td>偏旁</td>
+                        <td>{item.radicals}</td>
                         <td>笔画</td>
                         <td>{item.strokes}</td>
                     </tr>
                     <tr>
-                        <td>偏旁</td>
-                        <td colspan="3" >{item.radicals}</td>
-                    </tr>
-                    <tr>
-                        <td colspan="4">{item.explanation}</td>
+                        <td colSpan="4">{item.explanation}</td>
                     </tr>
                     <tr style={{ display: !open ? "contents" : "none" }}>
-                        <td colspan="4" >
+                        <td colSpan="4" >
                             {item.more.substring(0, 200)}...
                             <button onClick={() => setOpen(true)} className="mdui-float-right mdui-btn">展开</button>
                         </td>
                     </tr>
                     {item.more.length > 200 &&
                         <tr style={{ display: open ? "contents" : "none" }} >
-                            <td colspan="4" >
+                            <td colSpan="4" >
                                 {item.more}<br></br>
                                 <button onClick={() => setOpen(false)} className="mdui-float-right mdui-btn">收起</button>
                             </td>
@@ -47,14 +47,13 @@ const Word = ({ item }) => {
     )
 }
 
-
 const Result = ({ data }) => {
     if (!data) return null
     if (!data.length) return <p className="mdui-text-center">暂未收录，建议谷歌一下</p>
     return (
         <>
             {data.map((item) => (
-                <Word item={item} />
+                <Word key={item.word} item={item} />
             ))}
         </>
     )
@@ -73,4 +72,3 @@ export default () => (
         <ToTop />
     </>
 )
-

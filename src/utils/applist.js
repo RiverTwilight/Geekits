@@ -61,6 +61,13 @@ export default [{
 	description: "不同设备间互相传输文本和小文件，扫码即可配对",
 	channel: 4
 }, {
+	name: "SVG图表制作",
+	link: "coming",
+	icon: "assessment",
+	icon_color: "red",
+	help: "",
+	channel: 2
+}, {
 	name: "GIF分解",
 	link: "gif_lib",
 	icon: "collections",
@@ -141,11 +148,10 @@ export default [{
 }, {
 	name: "文件树生成",
 	link: "folder_tree",
-	//link:"coming",
 	icon: "folder",
 	icon_color: "green-200",
 	description: "生成文件夹结构",
-	help: "",
+	help: "不支持移动端使用 ## 文件数量过多可能会有卡顿",
 	channel: 3
 }, {
 	name: "GIF制作",
@@ -160,7 +166,8 @@ export default [{
 	icon: "ondemand_video",
 	icon_color: "pink",
 	help: "部分番剧无法解析（因为是流视频）",
-	channel: 2
+	channel: 2,
+	network: true
 }, {
 	name: "九格切图",
 	link: "img_split",

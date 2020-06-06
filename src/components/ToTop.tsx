@@ -17,8 +17,8 @@ export default () => {
                 setHide(false)
             }
         })
-        return window.removeEventListener("scroll", () => { })
-    }, [])
+        return () => { window.removeEventListener("scroll", () => {}) }
+    })
     return (
         <button
             onClick={() => {
