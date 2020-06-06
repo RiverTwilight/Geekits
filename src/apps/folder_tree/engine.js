@@ -1,4 +1,4 @@
-function pathsToTree(fileList) {
+export default function pathsToTree(fileList) {
     let result = {
         name: '_root',
         children: []
@@ -37,16 +37,34 @@ function pathsToTree(fileList) {
             })
         }
     }
-    return result.children
+    return (decoration(result.children))
 }
 
-//获取所有文件夹路径
-function getAllChild(e) {
-    var result = [];
-    for (var i = 0; i < e.target.files.length; i++) {
-        var cache = e.target.files[i].webkitRelativePath;
-        result.push(cache)
+function decoration(fileListObj) {
+    console.log(fileListObj);
+    const addSymbol = (folder) => {
+        var space = Array(spaceNum).fill(' ').join('');
+        folder.map((obj, i, correctFolder) => {
+            if (obj.type === 'file') {
+                if (!correctFolder[i + 1]) {
+                    graph += `${space}└ ${obj.name}\n`;
+                    spaceNum--
+                } else {
+                    graph += `${space}├ ${obj.name}\n`
+                }
+            } else if (obj.type === 'folder') {
+                if (!correctFolder[i - 1]) {
+                    graph += `${space}${obj.name}\n`;
+                } else {
+                    graph += `${space}└ ${obj.name}\n`;
+                }
+                spaceNum++
+                addSymbol(correctFolder[i].children)
+            }
+        })
     }
-    console.log(result)
-    return result
+    var graph = '';
+    var spaceNum = 0;
+    addSymbol(fileListObj)
+    return graph
 }

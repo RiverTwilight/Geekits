@@ -6,7 +6,7 @@ import ClipboardJS from 'clipboard'
 import ListControlMenu from '../../components/ListControlMenu'
 import ListControlCheck from '../../components/ListControlCheck'
 
-import FileRead from '../../components/fileread'
+import FileRead from '../../components/FileReader'
 import Cropper from '../../utils/Cropper'
 
 const numMark = text => {

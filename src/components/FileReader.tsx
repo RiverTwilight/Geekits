@@ -11,18 +11,24 @@ export default class extends React.Component<IProps, IState> {
 		}
 	}
 	readFile(e: React.ChangeEvent<HTMLInputElement>) {
-		const { maxSize = 9999999, onFileChange } = this.props
+		const { maxSize = 99999999, onFileChange } = this.props
 		if(!e.target.files)return null
-		for (var i = 0; i < e.target.files.length; i++) {
-			var file = e.target.files[i];
+		var fileList = e.target.files;
+		console.log(e.target.attributes.getNamedItem('webkitdirectory'))
+		if(e.target.attributes.getNamedItem('webkitdirectory')){
+			onFileChange && onFileChange(null, null, fileList);
+			return
+		}
+		for (var i = 0; i < fileList.length; i++) {
+			let file = e.target.files[i];
 			if (file.size > maxSize) {
 				snackbar({ message: '文件大小不能超过' + maxSize / 1024 / 1024 + 'MB' })
 			} else {
-				this.setState({ file: file.name })
+				fileList.length >=2 && this.setState({ file: file.name })
 				var freader = new FileReader();
 				freader.readAsDataURL(file);
 				freader.onload = fe => {
-					onFileChange && fe.target && onFileChange(fe.target.result, file)
+					onFileChange && fe.target && onFileChange(fe.target.result, file, fileList)
 				}
 			}
 		}
@@ -68,7 +74,7 @@ interface IProps {
 	/** 按钮宽度 */
 	maxWidth?: '120px',
 	maxSize?: number,
-	onFileChange?(base64: string | ArrayBuffer | null, file: File): void,
+	onFileChange?(base64: string | ArrayBuffer | null, file: File |　null, fileList: FileList | null): void,
 	fileType?: string,
 	/* 显示在按钮上的文本 */
 	text: string

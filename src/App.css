@@ -5,6 +5,10 @@
     right: 10px;
 }
 
+.hidden{
+    display: none;
+}
+
 .header-width-saying {
     padding-bottom: 9px;
 }

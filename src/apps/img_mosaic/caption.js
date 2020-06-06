@@ -1,7 +1,7 @@
 import React from 'react'
 import { snackbar } from 'mdui'
 
-import FileRead from '../../components/fileread'
+import FileRead from '../../components/FileReader'
 import './caption.css'
 
 class captionMosaic {

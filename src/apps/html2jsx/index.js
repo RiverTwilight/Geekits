@@ -1,4 +1,4 @@
-import React, { createRef, forwardRef } from 'react'
+import React, { createRef } from 'react'
 import { snackbar } from 'mdui'
 import ClipboardJS from 'clipboard'
 import DragRead from '../../utils/DragReadContainer'

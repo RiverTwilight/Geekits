@@ -4,9 +4,9 @@ import Loadable from 'react-loadable';
 const Loading = props => {
     if (props.pastDelay) {
         return (
-            <p className="center-panel">
+            <div className="center-panel mdui-text-color-theme-text">
                 <h3 className="mdui-text-center">精彩即将到来...</h3>
-            </p>
+            </div>
         )
     }
     return null;

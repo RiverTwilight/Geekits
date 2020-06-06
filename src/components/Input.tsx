@@ -6,7 +6,7 @@ export default (props: InputProps) => {
     const TagType = rows ? 'textarea' : 'input';
     const [showPwd, setShowPwd] = React.useState(false);
     return (
-        <div className={`${error ? "mdui-textfield-invalid" : ""}mdui-textfield ${(placeholder) ? '' : 'mdui-textfield-floating-label'}`}>
+        <div className={`${error ? "mdui-textfield-invalid" : ""} mdui-textfield ${(placeholder) ? '' : 'mdui-textfield-floating-label'}`}>
             {icon &&
                 <i className="mdui-icon material-icons">{icon}</i>
             }
@@ -31,7 +31,7 @@ export default (props: InputProps) => {
                         cursor: 'pointer'
                     }}
                     onClick = {()=>{
-                        setShowPwd(! showPwd)
+                        setShowPwd(!showPwd)
                     }}
                     className="mdui-icon material-icons">{showPwd?'visibility_off':'visibility'}</i>
             }

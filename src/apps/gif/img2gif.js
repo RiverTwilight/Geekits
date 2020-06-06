@@ -1,6 +1,6 @@
 import React from 'react'
 import GIF from 'gif.js'
-import FileRead from '../../components/fileread'
+import FileRead from '../../components/FileReader'
 import BottomAlert from '../../components/BottomAlert';
 
 //图片转gif配置对话框
