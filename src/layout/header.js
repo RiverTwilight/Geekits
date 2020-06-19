@@ -40,18 +40,17 @@ export default class extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            title:props.title,
+            title: props.title,
             searchResult:'',
             kwd:'',//用于传给结果组件的百度搜索,
             saying:{
                 say:'我一路向北，离开有你的季节',
                 from:'《头文字D》'
-            },
-            darkMode: localStorage.getItem('darkMode') || 'false'
+            }
         }
     } 
     loadSaying(){
-        const { hitokotoTopic } = localStorage;
+        const { hitokotoTopic=0 } = JSON.parse(localStorage.setting || '{}');
         const url = (!hitokotoTopic)?"":`?topic=${hitokotoTopic}`       
         fetch('https://api.ygktool.cn/api/hitokoto' + url)
             .then(res => res.json())
@@ -69,7 +68,7 @@ export default class extends React.Component{
         this.props.getRef(this.headerTitle);//将ref传给父组件，方便修改标题       
     }
     render(){
-        const { saying, title, darkMode } = this.state
+        const { saying, title } = this.state
         return (
             <>
                 <Drawer /> 
@@ -115,6 +114,13 @@ export default class extends React.Component{
                             <span className="mdui-typo-caption-opacity mdui-text-truncate saying mdui-text-color-white">{saying.say}</span>
                             </a>
                             <div className="mdui-toolbar-spacer"></div>
+                            <button 
+                                onClick={()=>{
+                                    window.menu && window.menu()
+                                }}
+                                className="mdui-hidden-sm-up mdui-btn mdui-btn-icon mdui-text-color-white">
+                                <i className="mdui-icon material-icons">more_vert</i>
+                            </button>
                         </div>
                     </div>        
                 </header>

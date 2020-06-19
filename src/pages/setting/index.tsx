@@ -4,7 +4,6 @@ import ListControlCheck from '../../components/ListControlCheck'
 
 interface ISetting {
     homeShowNewestTool: boolean,
-    hideHelper: boolean,
     hitokotoTopic: number,
     theme: number
 }
@@ -56,7 +55,6 @@ const parseHitokoto = (value: string): string => {
     return ''
 }
 
-
 export default class extends React.Component<{}, { setting: ISetting }> {
     constructor(props: Readonly<{}>) {
         super(props);
@@ -65,7 +63,7 @@ export default class extends React.Component<{}, { setting: ISetting }> {
         }
     }
     render() {
-        const { homeShowNewestTool, hideHelper, hitokotoTopic, theme } = this.state.setting
+        const { homeShowNewestTool, hitokotoTopic, theme } = this.state.setting
         //window.titleRef.innerText = '设置'
         return (
             <div className="mdui-col-md-10">
@@ -77,14 +75,6 @@ export default class extends React.Component<{}, { setting: ISetting }> {
                         checked={homeShowNewestTool || true}
                         onCheckedChange={checked => {
                             this.setState({ setting: setFunc('homeShowNewestTool', checked) })
-                        }}
-                    />
-                    <ListControlCheck
-                        icon="help"
-                        title="隐藏使用说明"
-                        checked={hideHelper || false}
-                        onCheckedChange={checked => {
-                            this.setState({ setting: setFunc('hideHelper', checked) })
                         }}
                     />
                     <li className="mdui-subheader">个性化</li>

@@ -5,7 +5,7 @@
     right: 10px;
 }
 
-.hidden{
+.hidden {
     display: none;
 }
 
@@ -55,18 +55,23 @@
     color: black;
 }
 
-.bottom-dashboard {
-    z-index: 1002;
-    position: fixed !important;
-    bottom: 0;
-    right: 0;
-    left: 0;
+.bottom-dashboard .mdui-card {
+    position: static;
+}
+
+@media screen and (max-width: 640px) {
+    .bottom-dashboard {
+        z-index: 1002;
+        position: fixed !important;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        max-height: 100%;
+        transition: 0.5s height;
+    }
 }
 
 @media screen and (min-width: 1024px) {
-    .bottom-dashboard {
-        left: 240px;
-    }
     .saying {
         top: 17px;
     }
@@ -80,16 +85,10 @@
     left: 0px;
 }
 
-.bottom-alert {
-    max-height: 100%;
-    transition: 0.5s height;
-}
-
 .bottom-alert .main {
     overflow-y: auto;
     height: 90%;
 }
-
 
 /* 撑开底部 
 .bottom-alert-mask-brace{
