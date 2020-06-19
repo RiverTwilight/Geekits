@@ -13,12 +13,12 @@ export interface InputProps {
 }
 
 export interface ListControlMenu {
-    /** 对话框以及列表的标题 */
+    /** 对话框以及列表的标题，不要与页面上的其他元素的ID名冲突 */
     title?: string;
     /** 选中的项目索引 */
     checked: number;
     /** 待选项目 */
-    items: { name: string; value: string }[];
+    items: { name: string; value?: string }[];
     /** 选项更改后的回调函数 */
     onCheckedChange?(checkedIndex: number): void;
     icon?: string;

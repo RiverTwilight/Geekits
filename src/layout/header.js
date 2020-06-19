@@ -2,15 +2,6 @@ import React from 'react'
 import { confirm, snackbar } from 'mdui'
 import Drawer from './drawer'
 
-const turnToDark = checked => {
-    if (checked) {
-        document.body.classList.add("mdui-theme-layout-dark")
-    } else {
-        document.body.classList.remove("mdui-theme-layout-dark")
-    }
-    localStorage.setItem('darkMode', String(checked))
-}
-
 //将一言添加到便签
 const addSaying2Fiv = saying => {
     var content = `  <br>${saying.say}  ———来自 ${saying.from}`
@@ -124,16 +115,6 @@ export default class extends React.Component{
                             <span className="mdui-typo-caption-opacity mdui-text-truncate saying mdui-text-color-white">{saying.say}</span>
                             </a>
                             <div className="mdui-toolbar-spacer"></div>
-                            <button 
-                                onClick={()=>{
-                                    this.setState({
-                                        darkMode:darkMode === 'true'?'false':'true'
-                                    })
-                                    turnToDark(darkMode !== 'true')
-                                }}
-                                className="mdui-btn mdui-btn-icon mdui-text-color-white">
-                                <i className="mdui-icon material-icons">{new Date().getDate() === 12?'cake':darkMode==='true'?'brightness_4':'brightness_low'}</i>
-                            </button>
                         </div>
                     </div>        
                 </header>

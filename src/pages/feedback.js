@@ -16,7 +16,7 @@ export default class extends React.Component {
     sendData(){
         const { content, contact } = this.state  
         window.loadShow()
-        fetch('http://api.ygktool.cn/ygktool/feedback', {
+        fetch('https://api.ygktool.cn/ygktool/feedback', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
