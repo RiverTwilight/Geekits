@@ -55,7 +55,7 @@ export default class extends React.Component {
         const { loading } = this;
         const toggleDisabled = (isDisabled) => {
             var btns = document.getElementsByClassName('loadBtn');
-            for(let i = 0; i < btns.length; i++){
+            for (let i = 0; i < btns.length; i++) {
                 btns[i].disabled = isDisabled
             }
         }
@@ -67,10 +67,10 @@ export default class extends React.Component {
             }, 1000)
         }
         window.loadHide = () => {
-            if(window.loadingDelay){
+            if (window.loadingDelay) {
                 clearTimeout(window.loadingDelay);
                 delete window.loadingDelay
-            }else{
+            } else {
                 loading.style.display = 'none';
                 toggleDisabled(false)
             }
@@ -83,8 +83,11 @@ export default class extends React.Component {
                     <div className="mdui-progress-indeterminate"></div>
                 </div>
                 <Header
-                    getRef={ref => {
-                        window.titleRef = ref
+                    getRef={(refs) => {
+                        window.globalRef = {}
+                        refs.map(ref => {
+                            window.globalRef[ref.name] = ref.ref
+                        })
                     }}
                 />
                 <br></br>

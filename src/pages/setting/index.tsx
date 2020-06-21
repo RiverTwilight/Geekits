@@ -1,6 +1,8 @@
 import * as React from 'react'
+import { Link } from 'react-router-dom';
 import ListControlMenu from '../../components/ListControlMenu'
 import ListControlCheck from '../../components/ListControlCheck'
+import List from '../../components/List'
 
 interface ISetting {
     homeShowNewestTool: boolean,
@@ -10,15 +12,16 @@ interface ISetting {
 
 declare global {
     interface Window {
-        webchatMethods:any;
+        globalRef: any
     }
 }
 
 function setFunc<T extends keyof ISetting>(name?: T, value?: any): ISetting {
     var originSetting: ISetting = JSON.parse(localStorage.getItem('setting') || '{}');
-    if (!name || !value && value !== 0) return originSetting
+    if (!name) return originSetting
     originSetting[name] = value;
     localStorage.setItem('setting', JSON.stringify(originSetting))
+    console.log(originSetting)
     return originSetting
 }
 
@@ -62,24 +65,25 @@ export default class extends React.Component<{}, { setting: ISetting }> {
             setting: setFunc()
         }
     }
+    componentDidMount(){
+        window.globalRef.title.innerText = '设置'
+    }
     render() {
         const { homeShowNewestTool, hitokotoTopic, theme } = this.state.setting
-        //window.titleRef.innerText = '设置'
         return (
             <div className="mdui-col-md-10">
                 <ul className="mdui-list">
-                    <li className="mdui-subheader">通用</li>
-                    <ListControlCheck
+                    <li className="mdui-text-color-theme mdui-subheader">通用</li>
+                    {/*<ListControlCheck
                         icon="apps"
                         title="首页展示最新工具"
                         checked={homeShowNewestTool || true}
                         onCheckedChange={checked => {
                             this.setState({ setting: setFunc('homeShowNewestTool', checked) })
                         }}
-                    />
-                    <li className="mdui-subheader">个性化</li>
+                    />*/}
+                    <li className="mdui-text-color-theme mdui-subheader">个性化</li>
                     <ListControlMenu
-                        icon="stars"
                         title="一言来源"
                         checked={hitokotoTopic || 0}
                         onCheckedChange={checked => {
@@ -104,6 +108,23 @@ export default class extends React.Component<{}, { setting: ISetting }> {
                             value: 'dark'
                         }]}
                     />
+                    <li className="mdui-text-color-theme mdui-subheader">联系</li>
+                    <Link to="/feedback">
+                        <List
+                            text='意见反馈'
+                        />
+                    </Link>
+                    <a href="//wpa.qq.com/msgrd?v=3&amp;uin=1985386335&amp;site=qq&amp;menu=yes">
+                        <List
+                            text='联系开发者'
+                        />
+                    </a>
+                    <li className="mdui-text-color-theme mdui-subheader">关于</li>
+                    <Link to="/about">
+                        <List
+                            text='关于云极客'
+                        />
+                    </Link>
                 </ul>
             </div>
         )

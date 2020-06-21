@@ -26,7 +26,7 @@ const FivList = () => {
                 </a>
             </li>
             {!list.length ?
-                <div className="mdui-text-center mdui-typo-body-1-opacity">点击工具使用说明下方的星型按钮或按Ctrl + A收藏</div>
+                <div className="mdui-text-center mdui-typo-body-1-opacity">点击工具菜单中的星型按钮或Ctrl + A收藏</div>
                 :
                 list.map((a, i) => (
                     <Link
@@ -47,7 +47,7 @@ const FivList = () => {
 
 //工具列表
 const AppList = () => {
-    if (localStorage.homeShowNewestTool === 'false') return null
+    if (JSON.parse(localStorage.setting || '{}').homeShowNewestTool == 'false') return null
     return (
         <ul className="mdui-row-md-3 mdui-list">
             <li className="mdui-subheader">全部工具</li>

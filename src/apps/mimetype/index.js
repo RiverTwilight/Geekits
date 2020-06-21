@@ -1,4 +1,4 @@
-import { Component } from 'react'
+import React from 'react'
 import { snackbar } from 'mdui'
 import ClipboardJS from 'clipboard'
 import mimeTypes from './dictionary'
@@ -41,7 +41,7 @@ function Result(props) {
     )
 }
 
-export default class extends Component {
+export default class extends React.Component {
     constructor(props) {
         super(props);
         this.state = {

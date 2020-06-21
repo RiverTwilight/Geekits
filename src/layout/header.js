@@ -35,7 +35,6 @@ const addSaying2Fiv = saying => {
     localStorage.setItem('note', JSON.stringify(notes))
 }
 
-
 export default class extends React.Component{
     constructor(props) {
         super(props);
@@ -65,7 +64,10 @@ export default class extends React.Component{
     } 
     componentDidMount(){
         this.loadSaying()
-        this.props.getRef(this.headerTitle);//将ref传给父组件，方便修改标题       
+        this.props.getRef([
+            {name: 'title', ref: this.headerTitle},
+            {name: 'menuBtn', ref: this.menuBtn}
+        ]);//将ref传给父组件      
     }
     render(){
         const { saying, title } = this.state
@@ -114,7 +116,9 @@ export default class extends React.Component{
                             <span className="mdui-typo-caption-opacity mdui-text-truncate saying mdui-text-color-white">{saying.say}</span>
                             </a>
                             <div className="mdui-toolbar-spacer"></div>
-                            <button 
+                            <button
+                                style={{ display: 'none' }}
+                                ref={r => this.menuBtn = r}
                                 onClick={()=>{
                                     window.menu && window.menu()
                                 }}

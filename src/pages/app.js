@@ -51,12 +51,13 @@ class Info extends React.Component {
     }
     componentDidMount() {
         (this.props.appinfo.network && !navigator.onLine) && mduiAlert('此工具需要联网才能使用', '', () => { }, { history: false })
+        window.globalRef.menuBtn.style.display = 'block'
         window.menu = () => {
             this.setState({
                 showHelper: true
             })
         }
-        document.addEventListener('keydown', e => {
+        window.addEventListener('keydown', e => {
             if (e.ctrlKey && e.keyCode === 65) {
                 e.preventDefault()
                 this.fiv()
@@ -64,7 +65,8 @@ class Info extends React.Component {
         })
     }
     componentWillUnmount() {
-        document.removeEventListener('keydown', () => { })
+        window.removeEventListener('keydown', () => { })
+        window.globalRef.menuBtn.style.display = 'none'
     }
     componentWillReceiveProps(nextProps) {
         if (nextProps.appinfo) this.setState({ fived: fiv.get(nextProps.appinfo.link) })
@@ -147,7 +149,6 @@ class AppContainer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            timer: null,
             appinfo: null
         }
     }
@@ -157,16 +158,15 @@ class AppContainer extends React.Component {
             this.setState({
                 appinfo: info
             });
-            window.titleRef.innerText = info.name;
+            window.globalRef.title.innerText = info.name;
             document.title = info.name + " - 云极客工具";
         }
     }
     componentWillUnmount() {
-        clearInterval(this.state.timer);
         window.loadHide()
     }
     componentDidMount() {
-        this.setState({ timer: setInterval(_ => mutation(), 100) })
+        setInterval(_ => mutation(), 100)
         //隐藏头部
         if (window.location.search.indexOf('fullscreen=true') !== -1) document.getElementsByTagName('header')[0].style.display = 'none'
     }

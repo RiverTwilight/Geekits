@@ -292,7 +292,7 @@ class Login extends React.Component {
 export default class extends React.Component {
     componentDidMount() {
         mutation();
-        window.titleRef.innerText = '登录/注册'
+        window.globalRef.title.innerText = '登录/注册'
         if (getUserInfo()) window.location.href = "/user"
     }
     render() {

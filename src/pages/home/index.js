@@ -37,7 +37,7 @@ export default class extends React.Component {
             this.setState({ page: /\#(\S+)/.exec(window.location.hash)[1] })
         }
         document.title = '云极客工具';
-        window.titleRef.innerText = '云极客工具'
+        window.globalRef.title.innerText = '云极客工具'
         mutation()
     }
     render() {

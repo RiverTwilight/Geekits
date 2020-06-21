@@ -15,16 +15,6 @@ const list = [{
   iconColor: '',
   text: '设置',
   link: '/setting'
-}, {
-  icon: 'comment',
-  iconColor: '',
-  text: '意见反馈',
-  link: '/feedback'
-}, {
-  icon: 'bubble_chart',
-  iconColor: '',
-  text: '关于',
-  link: '/about'
 }]
 
 const Menu = () => {   

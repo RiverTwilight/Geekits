@@ -37,7 +37,7 @@ export default class extends React.Component {
             })
     }
     render(){
-        window.titleRef.innerText = '意见反馈'
+        window.globalRef.title.innerText = '意见反馈'
         const { content, contact } = this.state
     	return(
             <div className="mdui-col-md-10">

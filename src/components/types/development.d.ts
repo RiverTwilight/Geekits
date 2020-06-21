@@ -12,6 +12,10 @@ export interface InputProps {
     type?: string;
 }
 
+export interface ListProps {
+    text: string
+}
+
 export interface ListControlMenu {
     /** 对话框以及列表的标题，不要与页面上的其他元素的ID名冲突 */
     title?: string;
@@ -24,25 +28,25 @@ export interface ListControlMenu {
     icon?: string;
 }
 
-export interface ColorProps { 
+export interface ColorProps {
     /**
      * 颜色值(16进制或RGB)
      */
-    color: string; 
+    color: string;
     /**
      * 显示在按钮上的文本
      */
-    text?: string; 
+    text?: string;
     /**
      * 颜色更改时的回调函数
      * @param color 新的颜色值
      */
-	onColorChange(color: string): void;
+    onColorChange(color: string): void;
 }
 
-export interface ListControlCheck{
-    title?:string;
-    checked:boolean;
+export interface ListControlCheck {
+    title?: string;
+    checked: boolean;
     /**
      * 状态更改时回调函数
      * @param isChecked 是否选中
@@ -51,14 +55,14 @@ export interface ListControlCheck{
     /**
      * 显示在开关前的图标
      */
-    icon?:string;
+    icon?: string;
 }
 
 export interface MusicProps {
     /** 音频链接 */
-    audio:string;
+    audio: string;
     /** 卡片标题 */
-    title?:string;
+    title?: string;
     /** 卡片副标题 */
     subtitle?: string;
     cover?: string;
@@ -70,27 +74,27 @@ export interface MusicState {
     audioLength: number;
 }
 
-export interface RangeInput{
-    max?:string,
-    min?:string,
-    step?:string,
-    value:string,
+export interface RangeInput {
+    max?: string,
+    min?: string,
+    step?: string,
+    value: string,
     onValueChange(newValue: string): void,
-    title:string,
+    title: string,
 }
 
-export interface SelectProps{
-    options:{name: string, value: string}[],
+export interface SelectProps {
+    options: { name: string, value: string }[],
     value: string,
     config: any,
     onOptionChange(value: string): void
 }
 
-export interface SelectState{
+export interface SelectState {
     dom: any
 }
-export interface TabProps{
-    tabs:{
+export interface TabProps {
+    tabs: {
         text: string;
         id: string;
         /** 组件 */

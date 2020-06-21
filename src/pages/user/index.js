@@ -28,7 +28,7 @@ export default class Home extends React.Component {
     }
     render(){
         const { userInfo } = this.state
-        window.titleRef.innerText = '我的账户'
+        window.globalRef.title.innerText = '我的账户'
     	if(!userInfo)return <NoLogined />
         return <Logined />
     }
