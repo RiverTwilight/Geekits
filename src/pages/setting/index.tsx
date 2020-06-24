@@ -65,7 +65,7 @@ export default class extends React.Component<{}, { setting: ISetting }> {
             setting: setFunc()
         }
     }
-    componentDidMount(){
+    componentDidMount() {
         window.globalRef.title.innerText = '设置'
     }
     render() {
@@ -95,7 +95,17 @@ export default class extends React.Component<{}, { setting: ISetting }> {
                         title="主题"
                         checked={theme || 0}
                         onCheckedChange={checked => {
-                            this.setState({ setting: setFunc('theme', checked) })
+                            this.setState({ setting: setFunc('theme', checked) });
+                            const fn = [
+                                () => { window.location.reload() },
+                                () => {
+                                    document.body.classList.remove("mdui-theme-layout-dark");
+                                },
+                                () => {
+                                    document.body.classList.add("mdui-theme-layout-dark");
+                                }
+                            ]
+                            fn[checked]()
                         }}
                         items={[{
                             name: '跟随系统',

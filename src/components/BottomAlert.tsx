@@ -7,7 +7,9 @@ import { JQ } from 'mdui'
  */
 
 export default class extends React.Component<Readonly<{
+    /** 是否显示 */
     ifShow: boolean;
+    /** 标题 */
     title: string;
     onClose(): void;
     children: any;
