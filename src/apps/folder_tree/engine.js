@@ -3,14 +3,22 @@ export default function pathsToTree(fileList, exceptList) {
         name: '_root',
         children: []
     }
-    // TODO
-    /*const markedExp = unMarkedExp.replace(/\\/g, '\\').replace(/\</, '&lt;')
-        , reg = new RegExp(`^markedExp`, 'g');
-    fileList.find(item => {
-        if(exceptList.includes(path.substr(path.indexOf('\/'),)))continue;
-    })*/
-    for (let path of fileList) {
-        console.log('path', path)
+    console.log(exceptList)
+    const correctFileList = [];
+    fileList.map(path => {
+        let absolutePath = '.' + path.substr(path.indexOf('/'),);
+        let willBeExcept = false;
+        for (let except of exceptList) {
+            console.log(absolutePath)
+            if (absolutePath.match(except) && except !== "") willBeExcept = true
+        }
+        !willBeExcept && correctFileList.push(path)
+    })
+    console.log(correctFileList)
+    for (let path of correctFileList) {
+        console.group('pathList');
+        console.log('path', path);
+        console.groupEnd();
         if (path.includes('/')) { // 文件夹
             let paths = path.split('/')
             let currentPath = result
@@ -47,22 +55,24 @@ export default function pathsToTree(fileList, exceptList) {
 }
 
 function decoration(fileListObj) {
-    console.log(fileListObj);
+    console.log(fileListObj)
+
     const addSymbol = (folder) => {
-        var space = Array(spaceNum).fill(' ').join('');
+        var space = Array(spaceNum).fill('     ').join('');
         folder.map((obj, i, correctFolder) => {
             if (obj.type === 'file') {
                 if (!correctFolder[i + 1]) {
-                    graph += `${space}└ ${obj.name}\n`;
+                    //最后一个文件
+                    graph += `${space}└── ${obj.name}\n`;
                     spaceNum--
                 } else {
-                    graph += `${space}├ ${obj.name}\n`
+                    graph += `${space}├── ${obj.name}\n`
                 }
             } else if (obj.type === 'folder') {
                 if (!correctFolder[i - 1]) {
                     graph += `${space}${obj.name}\n`;
                 } else {
-                    graph += `${space}└ ${obj.name}\n`;
+                    graph += `${space}└── ${obj.name}\n`;
                 }
                 spaceNum++
                 addSymbol(correctFolder[i].children)
@@ -71,6 +81,6 @@ function decoration(fileListObj) {
     }
     var graph = '';
     var spaceNum = 0;
-    addSymbol(fileListObj)
+    addSymbol(fileListObj);
     return graph
 }

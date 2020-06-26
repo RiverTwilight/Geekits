@@ -5,13 +5,10 @@ import FileRead from '../../components/FileReader'
 import Input from '../../components/Input'
 import pathToTree from './engine'
 
-/**
- * @TODO 排除列表
- */
-
 export default () => {
     const [fileList, setFileList] = useState([]);
-    const [except, setExcept] = useState('')
+    const [except, setExcept] = useState('');
+    const [tree, setTree] = useState('')
     useEffect(() => {
         var clipboard = new ClipboardJS('.copy');
         clipboard.on('success', e => {
@@ -19,15 +16,13 @@ export default () => {
             e.clearSelection();
         })
         return () => clipboard && clipboard.destroy();
-    })
-    const tree = pathToTree(fileList, except.split('\n'));
+    }, [])
     return (
         <>
             <center>
                 <FileRead
                     multiple={true}
-                    maxWidth="140px"
-                    text="选择文件夹"
+                    maxWidth="200px"
                     onFileChange={(_, _file, fileList) => {
                         var result = [];
                         for (var i = 0; i < fileList.length; i++) {
@@ -38,14 +33,17 @@ export default () => {
                     webkitdirectory="true"
                 />
             </center>
-            {/*<Input
+            <Input
                 value={except}
                 onValueChange={setExcept}
                 rows="5"
-                placeholder="排除的路径，一行一个"
-            />*/}
+                placeholder="排除的文件夹/文件，一行一个"
+            />
+            <button className="mdui-btn mdui-color-theme" onClick={() => {
+                setTree(pathToTree(fileList, except.split('\n')));
+            }}>生成</button>
             <br></br>
-            <div className={`${fileList.length === 0 ? 'hidden' : ''} mdui-typo`}>
+            <div className={`${tree === '' ? 'hidden' : ''} mdui-typo`}>
                 <button data-clipboard-text={tree} className="copy mdui-btn mdui-btn-icon">
                     <i className="mdui-icon material-icons">&#xe14d;</i>
                 </button>

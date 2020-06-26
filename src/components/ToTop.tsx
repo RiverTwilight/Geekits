@@ -18,7 +18,7 @@ export default () => {
             }
         })
         return () => { window.removeEventListener("scroll", () => {}) }
-    })
+    }, [])
     return (
         <button
             onClick={() => {
@@ -26,7 +26,7 @@ export default () => {
                     window.toTop = setInterval(() => {
                         if (document.documentElement.scrollTop === 0) clearInterval(window.toTop)
                         document.documentElement.scrollTop -= 200
-                    }, 50);
+                    }, 40);
                 }else{
                     window.history.pushState(null, '', '#')//兼容
                 }
