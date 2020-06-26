@@ -1,6 +1,6 @@
 import React from 'react'
 import mdui from 'mdui'
-import axios from 'axios'
+import axios from '../../utils/axios'
 import Input from '../../components/Input.tsx'
 
 //提取url中的id

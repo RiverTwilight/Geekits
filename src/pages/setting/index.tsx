@@ -69,19 +69,19 @@ export default class extends React.Component<{}, { setting: ISetting }> {
         window.globalRef.title.innerText = '设置'
     }
     render() {
-        const { homeShowNewestTool, hitokotoTopic, theme } = this.state.setting
+        const { homeShowNewestTool = true, hitokotoTopic, theme } = this.state.setting
         return (
             <div className="mdui-col-md-10">
                 <ul className="mdui-list">
                     <li className="mdui-text-color-theme mdui-subheader">通用</li>
-                    {/*<ListControlCheck
+                    <ListControlCheck
                         icon="apps"
                         title="首页展示最新工具"
-                        checked={homeShowNewestTool || true}
+                        checked={homeShowNewestTool}
                         onCheckedChange={checked => {
                             this.setState({ setting: setFunc('homeShowNewestTool', checked) })
                         }}
-                    />*/}
+                    />
                     <li className="mdui-text-color-theme mdui-subheader">个性化</li>
                     <ListControlMenu
                         title="一言来源"

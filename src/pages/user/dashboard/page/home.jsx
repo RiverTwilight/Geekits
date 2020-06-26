@@ -68,7 +68,7 @@ export default class extends React.Component {
                     <button
                         onClick={_=>{
                             removeUserInfo()
-                            window.location.reload()
+                            window.location.href = '/user/login'
                         }}
                         className="mdui-btn-block mdui-btn mdui-text-color-red">
                             退出登录

@@ -1,6 +1,6 @@
 import React from 'react'
 import { snackbar, mutation } from 'mdui'
-import Axios from 'axios';
+import Axios from '../../utils/axios';
 import { MD5 } from 'crypto-js';
 import { getUserInfo } from '../../utils/UserInfo'
 import SendCode from '../../utils/SendCode'
@@ -132,7 +132,7 @@ class Forget extends React.Component {
         window.loadShow();
         Axios({
             method: 'post',
-            url: 'https://api.ygktool.cn/ygktool/user/reset',
+            url: '/ygktool/user/reset',
             withCredentials: false,
             data: {
                 username: email,
@@ -201,7 +201,7 @@ class Forget extends React.Component {
                         this.reset()
                     }}
                     disabled={!xcode || re_password !== password}
-                    className="mdui-ripple mdui-color-theme mdui-fab mdui-fab-fixed">
+                    className="loadBtn mdui-ripple mdui-color-theme mdui-fab mdui-fab-fixed">
                     <i className="mdui-icon material-icons">&#xe5ca;</i>
                 </button>
             </>

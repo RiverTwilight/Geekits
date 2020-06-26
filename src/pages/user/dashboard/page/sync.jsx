@@ -1,10 +1,10 @@
 import React from 'react'
-import { getUserInfo } from '../../../../utils/UserInfo'
-import Axios from 'axios';
+import Axios from '../../../../utils/axios';
 import fiv from '../../../../utils/fiv'
 import { snackbar } from 'mdui'
+import { getUserInfo } from '../../../../utils/UserInfo'
 
-class Ui extends React.Component {
+export default class extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -70,5 +70,3 @@ class Ui extends React.Component {
         )
     }
 }
-
-export default Ui

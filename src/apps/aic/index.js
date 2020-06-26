@@ -1,6 +1,6 @@
 import React from 'react'
 import { snackbar } from 'mdui'
-import axios from 'axios'
+import axios from '../../utils/axios'
 import FileRead from '../../components/FileReader'
 import NewPage from '../../components/BottomAlert'
 import Cropper from '../../utils/Cropper'

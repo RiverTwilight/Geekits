@@ -2,7 +2,7 @@ import React from 'react'
 import { snackbar } from 'mdui'
 import ClipboardJS from 'clipboard'
 import Select from '../../components/Select'
-import axios from 'axios'
+import axios from '../../utils/axios'
 import DragRead from '../../utils/DragReadContainer'
 import Input from '../../components/Input.tsx'
 

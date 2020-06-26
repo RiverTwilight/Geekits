@@ -1,8 +1,10 @@
 import * as React from 'react';
 import { RangeInput } from './types/development'
+
 /**
   *进度调节Slidebar
   **/
+
 export default ({
 	max = "10", min = "1", step = "1", value = "5", title = "调节", onValueChange }: RangeInput
 ) => {

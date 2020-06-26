@@ -4,14 +4,12 @@ export default function pathsToTree(fileList, exceptList) {
         children: []
     }
     // TODO
-    const markedExp = unMarkedExp.replace(/\\/g, '\\').replace(/\</, '&lt;')
+    /*const markedExp = unMarkedExp.replace(/\\/g, '\\').replace(/\</, '&lt;')
         , reg = new RegExp(`^markedExp`, 'g');
     fileList.find(item => {
-
-    })
-    for (let path of fileList) {
-        
         if(exceptList.includes(path.substr(path.indexOf('\/'),)))continue;
+    })*/
+    for (let path of fileList) {
         console.log('path', path)
         if (path.includes('/')) { // 文件夹
             let paths = path.split('/')

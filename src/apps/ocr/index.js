@@ -1,6 +1,6 @@
 import React from 'react'
 import { snackbar } from 'mdui'
-import axios from 'axios'
+import axios from '../../utils/axios'
 import ClipboardJS from 'clipboard'
 
 import ListControlMenu from '../../components/ListControlMenu'

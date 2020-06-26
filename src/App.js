@@ -5,14 +5,10 @@ import {
     Route,
     Link
 } from "react-router-dom"
-import Axios from 'axios'
 import Header from './layout/header'
 import loadable from './utils/loading'
 import './App.css'
 import '../node_modules/mdui/dist/css/mdui.min.css'
-
-Axios.defaults.baseURL = 'https://api.ygktool.cn';
-//Axios.defaults.baseURL = 'http://localhost:444';
 
 const RouterList = [{
     component: loadable(() => import('./pages/home')),
@@ -32,7 +28,7 @@ const RouterList = [{
     component: loadable(() => import('./pages/setting')),
     path: "/setting"
 }, {
-    component: loadable(() => import('./pages/app.js')),
+    component: loadable(() => import('./pages/app/index')),
     path: "/app/:name"
 }, {
     component: loadable(() => import('./pages/feedback.js')),
@@ -40,14 +36,14 @@ const RouterList = [{
 }]
 
 const NoMatch = () => (
-    <p className="mdui-text-color-theme-text center-panel">
+    <div className="mdui-text-color-theme-text center-panel">
         <h2 className="mdui-text-center">电波无法到达哦</h2>
         <p>
             是不是地址拼错了？是/app不是/apps哦<br></br>
         想要的工具不见了？返回首页找找吧！<br></br>
         </p>
         <Link to="/" className="mdui-color-theme mdui-btn mdui-btn-raised">返回首页</Link>
-    </p>
+    </div>
 )
 
 export default class extends React.Component {

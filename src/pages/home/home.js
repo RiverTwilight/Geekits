@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { alert as mduiAlert } from 'mdui'
 import { Link } from "react-router-dom"
 import pinyin from 'js-pinyin'
+import axios from '../../utils/axios'
 import applist from '../../utils/appList'
 import fiv from '../../utils/fiv'
 import ToTop from '../../components/ToTop'
@@ -47,7 +48,7 @@ const FivList = () => {
 
 //工具列表
 const AppList = () => {
-    if (JSON.parse(localStorage.setting || '{}').homeShowNewestTool == 'false') return null
+    if (localStorage.setting && !JSON.parse(localStorage.setting).homeShowNewestTool) return null
     return (
         <ul className="mdui-row-md-3 mdui-list">
             <li className="mdui-subheader">全部工具</li>
@@ -96,10 +97,9 @@ class Notice extends React.Component {
     }
     getNoticeFromSever() {
         //if(sessionStorage.loadedNotice == 1)return
-        fetch('https://api.ygktool.cn/ygktool/notice')
-            .then(res => res.json())
+        axios.get('https://api.ygktool.cn/ygktool/notice')
             .then(json => {
-                const { primary, content, date } = json[0]
+                const { primary, content, date } = json.data[0]
                 this.setState({
                     id: primary,
                     content: content.replace(/\n/g, '<br>'),
@@ -116,9 +116,8 @@ class Notice extends React.Component {
 }
 
 //显示结果
-const SearchResult = ({ result, kwd }) => {
+const SearchResult = ({ result = [], kwd }) => {
     if (!result.length && (kwd === '' || !kwd)) return null
-    if (!result.length) result = []
     return (
         <ul className="mdui-list">
             {result.map(a => (

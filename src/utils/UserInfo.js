@@ -1,4 +1,4 @@
-import Axios from 'axios';
+import Axios from './axios';
 
 const setCookie = (name, value) => {
     var Days = 30;

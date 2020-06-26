@@ -4,6 +4,7 @@ import {
 } from "react-router-dom"
 import { Drawer } from 'mdui'
 import applist from '../utils/appList'
+import { getUserInfo } from '../utils/UserInfo'
 
 const list = [{
   icon: 'home',
@@ -60,7 +61,7 @@ export default class SideDrawer extends React.Component  {
                             window.innerWidth <= 1024 && window.leftDrawer.close()
                         }}
                         exact className="mdui-list-item mdui-ripple"
-                        activeClassName="mdui-list-item-active" to='/user'>                            
+                        activeClassName="mdui-list-item-active" to={getUserInfo()?'/user':'/user/login'}>                            
                         <i className="mdui-list-item-icon mdui-icon material-icons mdui-text-color-blue">account_box</i> 
                         <div className="mdui-list-item-content">我的账户</div>
                     </NavLink>

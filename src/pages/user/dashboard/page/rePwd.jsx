@@ -2,7 +2,7 @@ import React from 'react'
 import { removeUserInfo, getUserInfo } from '../../../../utils/UserInfo'
 import Input from '../../../../components/Input'
 import SendCode from '../../../../utils/SendCode'
-import Axios from 'axios'
+import Axios from '../../../../utils/axios'
 import { snackbar } from 'mdui'
 
 class Ui extends React.Component {

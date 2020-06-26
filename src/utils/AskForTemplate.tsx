@@ -1,6 +1,6 @@
 import React from 'react'
 import { snackbar } from 'mdui'
-import axios from 'axios'
+import axios from '../utils/axios'
 import Input from '../components/Input'
 
 declare global {
@@ -35,8 +35,7 @@ export default class extends React.Component
         axios({
             method: 'get',
             url: api + input,
-            withCredentials: false,
-            timeout: 10000
+            withCredentials: false
         }).then(response => {
             var json = JSON.parse(response.request.response);
             this.setState({ data: json })
