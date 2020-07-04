@@ -4,7 +4,7 @@ import {
 } from "react-router-dom"
 import { Drawer } from 'mdui'
 import { getUserInfo } from '../utils/UserInfo'
-//import applist from '../utils/appList.js'
+import applist from '../utils/applist'
 
 const list = [{
   icon: 'home',
@@ -38,7 +38,7 @@ export default class SideDrawer extends React.Component  {
         super(props);
         this.state = {
             data:{
-                appsNumber: 42//applist.length
+                appsNumber: applist.length
             }
         }
     }

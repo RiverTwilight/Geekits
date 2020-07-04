@@ -3,7 +3,7 @@ import { alert as mduiAlert } from 'mdui'
 import { Link } from "react-router-dom"
 import pinyin from 'js-pinyin'
 import axios from '../../utils/axios'
-import applist from '../../utils/appList'
+import applist from '../../utils/applist'
 import fiv from '../../utils/fiv'
 import ToTop from '../../components/ToTop'
 
