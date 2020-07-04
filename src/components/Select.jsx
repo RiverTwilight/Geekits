@@ -1,15 +1,13 @@
 import * as React from 'react'
 import * as mdui from 'mdui'
-import { SelectProps, SelectState } from './types/development'
 /**
   *下拉选择
   **/
 
 //@ts-nocheck
 
-export default class extends React.Component<SelectProps, SelectState> {
-    selectDom: any
-    constructor(props: any) {
+export default class extends React.Component {
+    constructor(props) {
         super(props);
         this.state = {
             dom:null
