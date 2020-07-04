@@ -5,6 +5,8 @@ import { SelectProps, SelectState } from './types/development'
   *下拉选择
   **/
 
+//@ts-nocheck
+
 export default class extends React.Component<SelectProps, SelectState> {
     selectDom: any
     constructor(props: any) {
