@@ -3,8 +3,8 @@ import {
   NavLink
 } from "react-router-dom"
 import { Drawer } from 'mdui'
-import applist from '../utils/appList.js'
 import { getUserInfo } from '../utils/UserInfo'
+import applist from '../utils/appList.js'
 
 const list = [{
   icon: 'home',
