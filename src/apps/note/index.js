@@ -174,7 +174,7 @@ class Home extends React.Component {
 		const { local, editStatu, editHome } = this.state;
 		return (
 			<>
-				{!local.length && <p className="mdui-text-center">点击右下角+号添加便签</p>}
+				{!local.length && <p className="mdui-text-center mdui-text-color-white">点击右下角+号添加便签</p>}
 				<button
 					style={{ display: local.length ? "block" : "none" }}
 					onClick={() => {

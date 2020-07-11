@@ -5,6 +5,7 @@ import fiv from '../../utils/fiv.ts'
 
 /**
  * 工具菜单
+ * @todo 点击外部关闭
  */
 
 const ShareBtn = () => {
@@ -65,7 +66,7 @@ export default class extends React.Component {
                 e.preventDefault()
                 this.fiv()
             }
-        })
+        });
     }
     componentWillUnmount() {
         window.removeEventListener('keydown', () => { })
@@ -78,6 +79,11 @@ export default class extends React.Component {
         const { fived, showHelper } = this.state;
         if (!this.props.appinfo) return null
         const { help, link } = this.props.appinfo;
+        if (showHelper) {
+            document.body.addEventListener('click', () => {
+                this.setState({ showHelper: false })
+            })
+        }
         return (
             <BottomAlert
                 title="菜单"

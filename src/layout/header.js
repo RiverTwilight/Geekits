@@ -5,7 +5,7 @@ import Drawer from './drawer'
 //将一言添加到便签
 const addSaying2Fiv = saying => {
     var content = `  <br>${saying.say}  ———来自 ${saying.from}`
-    var today = new Date()   
+    var today = new Date()
     var newNote = {
         title: '一言收藏',
         content: content,
@@ -35,62 +35,72 @@ const addSaying2Fiv = saying => {
     localStorage.setItem('note', JSON.stringify(notes))
 }
 
-export default class extends React.Component{
+export default class extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            title: props.title,
-            searchResult:'',
-            kwd:'',//用于传给结果组件的百度搜索,
-            saying:{
-                say:'我一路向北，离开有你的季节',
-                from:'《头文字D》'
+            isTop: true,
+            searchResult: '',
+            kwd: '',//用于传给结果组件的百度搜索,
+            saying: {
+                say: '我一路向北，离开有你的季节',
+                from: '《头文字D》'
             }
         }
-    } 
-    loadSaying(){
-        const { hitokotoTopic=0 } = JSON.parse(localStorage.setting || '{}');
-        const url = (!hitokotoTopic)?"":`?topic=${hitokotoTopic}`       
+    }
+    loadSaying() {
+        const { hitokotoTopic = 0 } = JSON.parse(localStorage.setting || '{}');
+        const url = (!hitokotoTopic) ? "" : `?topic=${hitokotoTopic}`
         fetch('https://api.ygktool.cn/api/hitokoto' + url)
             .then(res => res.json())
             .then(json => {
                 this.setState({
-                    saying:{
-                        say:json.hitokoto,
-                        from:json.from
+                    saying: {
+                        say: json.hitokoto,
+                        from: json.from
                     }
                 })
             })
-    } 
-    componentDidMount(){
+    }
+    componentDidMount() {
         this.loadSaying()
         this.props.getRef([
-            {name: 'title', ref: this.headerTitle},
-            {name: 'menuBtn', ref: this.menuBtn}
-        ]);//将ref传给父组件      
+            { name: 'title', ref: this.headerTitle },
+            { name: 'menuBtn', ref: this.menuBtn }
+        ]);//将ref传给父组件   
+        window.addEventListener("scroll", () => {
+            var t = document.documentElement.scrollTop || document.body.scrollTop;
+            this.setState({
+                isTop: t <= 56
+            })
+        })
     }
-    render(){
-        const { saying, title } = this.state
+    render() {
+        const { saying, isTop } = this.state
         return (
             <>
-                <Drawer /> 
-                <header className="header mdui-appbar mdui-appbar-fixed">
-                    <div className="mdui-appbar">
-                        <div className="mdui-toolbar mdui-color-theme">
-                            <button 
-                                onClick={()=>window.leftDrawer.toggle()}
-                                className="mdui-btn mdui-btn-icon mdui-text-color-white">
+                <Drawer />
+                <header
+                    style={{
+                        transition: '0.3s box-shadow'
+                    }}
+                    className={`${isTop ? ' mdui-shadow-0' : ''} header mdui-appbar mdui-appbar-fixed`}>
+                    <div className="mdui-appbar mdui-shadow-0 ">
+                        <div className="mdui-toolbar mdui-color-white">
+                            <button
+                                onClick={() => window.leftDrawer.toggle()}
+                                className="mdui-btn mdui-btn-icon mdui-text-color-theme">
                                 <i className="mdui-icon material-icons">menu</i>
                             </button>
                             <a
-                                onClick={()=>{
+                                onClick={() => {
                                     confirm(
                                         `${saying.say}<br>来自：${saying.from}`,
                                         '一言',
                                         () => {
                                             addSaying2Fiv(saying);
                                             snackbar({
-                                                message:'已收藏至便签',
+                                                message: '已收藏至便签',
                                                 buttonText: '打开便签',
                                                 onButtonClick: () => {
                                                     window.location.href = "/app/note"
@@ -99,36 +109,37 @@ export default class extends React.Component{
                                         },
                                         () => {
                                             this.loadSaying()
-                                        },{
-                                            history:false,
-                                            confirmText:'收藏',
-                                            cancelText:'刷新'
-                                        }
+                                        }, {
+                                        history: false,
+                                        confirmText: '收藏',
+                                        cancelText: '刷新'
+                                    }
                                     )
                                 }}
                             >
-                            <div 
-                                ref={r => this.headerTitle = r}
-                                className="mdui-typo-title mdui-text-color-white header-width-saying"
-                            >
-                            {title || '云极客工具'}                               
-                            </div>
-                            <span className="mdui-typo-caption-opacity mdui-text-truncate saying mdui-text-color-white">{saying.say}</span>
+                                <div
+                                    ref={r => this.headerTitle = r}
+                                    className="mdui-typo-title header-width-saying"
+                                >
+                                    {this.props.title || '云极客工具'}
+                                </div>
+                                <span className="mdui-typo-caption-opacity mdui-text-truncate saying">{saying.say}</span>
                             </a>
                             <div className="mdui-toolbar-spacer"></div>
                             <button
                                 style={{ display: 'none' }}
                                 ref={r => this.menuBtn = r}
-                                onClick={()=>{
+                                onClick={() => {
                                     window.menu && window.menu()
                                 }}
-                                className="mdui-hidden-sm-up mdui-btn mdui-btn-icon mdui-text-color-white">
+                                className="mdui-hidden-sm-up mdui-btn mdui-btn-icon mdui-text-color-theme">
                                 <i className="mdui-icon material-icons">more_vert</i>
                             </button>
                         </div>
-                    </div>        
+                    </div>
+                    <div className="mdui-divider"></div>
                 </header>
             </>
         )
-    }  
+    }
 }

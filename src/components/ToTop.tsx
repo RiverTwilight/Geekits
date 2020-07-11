@@ -31,7 +31,7 @@ export default () => {
                     window.history.pushState(null, '', '#')//兼容
                 }
             }}
-            className={`mdui-color-theme mdui-fab mdui-fab-fixed ${isHide ? 'mdui-fab-hide' : ''}`}>
+            className={`mdui-color-theme mdui-fab mdui-fab-mini mdui-fab-fixed ${isHide ? 'mdui-fab-hide' : ''}`}>
             <i className="mdui-icon mdui-text-color-white material-icons">&#xe5d8;</i>
         </button>
     )

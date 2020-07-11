@@ -1,68 +1,74 @@
 import React from 'react'
 import {
-  NavLink
+    NavLink
 } from "react-router-dom"
 import { Drawer } from 'mdui'
 import { getUserInfo } from '../utils/UserInfo'
 import applist from '../utils/applist'
 
 const list = [{
-  icon: 'home',
-  iconColor: 'red',
-  text: '首页',
-  link: '/#home'
+    icon: 'home',
+    iconColor: 'red',
+    text: '首页',
+    link: '/#home'
 }, {
-  icon: 'settings',
-  iconColor: '',
-  text: '设置',
-  link: '/setting'
+    icon: 'settings',
+    iconColor: '',
+    text: '设置',
+    link: '/setting'
 }]
 
-const Menu = () => {   
-    return list.map((a)=>(
-        <NavLink 
-            onClick={()=>{
+const Menu = () => {
+    return list.map((a) => (
+        <NavLink
+            onClick={() => {
                 window.innerWidth <= 1024 && window.leftDrawer.close()
             }}
             key={a.link}
             exact className="mdui-list-item mdui-ripple"
-            activeClassName="mdui-list-item-active" to={a.link}>        
-            <i className={"mdui-list-item-icon mdui-icon material-icons mdui-text-color-"+ a.iconColor}>{a.icon}</i> 
-            <div className="mdui-list-item-content">{a.text}</div>       
+            activeClassName="mdui-list-item-active" to={a.link}>
+            <i className={"mdui-list-item-icon mdui-icon material-icons mdui-text-color-" + a.iconColor}>{a.icon}</i>
+            <div className="mdui-list-item-content">{a.text}</div>
         </NavLink>
     ))
 }
 
-export default class SideDrawer extends React.Component  {
+export default class SideDrawer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            data:{
+            data: {
                 appsNumber: applist.length
             }
         }
     }
-    componentDidMount(){
+    componentDidMount() {
         window.leftDrawer = new Drawer('#left-drawer');
     }
-    render(){
+    render() {
         const { data } = this.state;
         return (
-            <div id="left-drawer" className="mdui-drawer">            
-                <div id="grad">
+            <div id="left-drawer" className="mdui-drawer">
+                {/*} <div id="grad">
                     <div className="text">
                         <p className="title">云极客工具</p>
                         <p className="subtitle">{`共有${data.appsNumber}个工具`}</p>
                     </div>
-                </div>     
-                <ul className="mdui-list"> 
+        </div>*/}
+                <div style={{height: '130px'}} className="mdui-shadow-0 mdui-card">
+                        <div className="mdui-card-primary">
+                            <div className="mdui-card-primary-title mdui-text-color-theme">云极客工具</div>
+                            <div className="mdui-card-primary-subtitle">{`共有${data.appsNumber}个工具`}</div>
+                        </div>
+                </div>
+                <ul className="mdui-list">
                     <NavLink
-                        onClick={()=>{
+                        onClick={() => {
                             window.innerWidth <= 1024 && window.leftDrawer.close()
                         }}
                         exact className="mdui-list-item mdui-ripple"
-                        activeClassName="mdui-list-item-active" to={getUserInfo()?'/user':'/user/login'}>                            
-                        <i className="mdui-list-item-icon mdui-icon material-icons mdui-text-color-blue">account_box</i> 
+                        activeClassName="mdui-list-item-active" to={getUserInfo() ? '/user' : '/user/login'}>
+                        <i className="mdui-list-item-icon mdui-icon material-icons mdui-text-color-blue">account_box</i>
                         <div className="mdui-list-item-content">我的账户</div>
                     </NavLink>
                     {/*<a href="https://api.ygktool.cn">
@@ -70,11 +76,11 @@ export default class SideDrawer extends React.Component  {
                             <i className="mdui-text-color-green mdui-list-item-icon mdui-icon material-icons">all_inclusive</i> 
                             <div className="mdui-list-item-content">开放平台</div>                            
                         </li>
-                    </a> */}                   
-                    <div className="mdui-divider"/>
+                    </a> */}
+                    <div className="mdui-divider" />
                     <Menu />
-                </ul> 
-                <p className="mdui-text-center copyright">©2019-2020&nbsp;云极客工具</p>
+                </ul>
+                <p className="mdui-text-center copyright">©2019-2020&nbsp;江村暮</p>
             </div>
         )
     }

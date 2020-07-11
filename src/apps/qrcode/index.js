@@ -88,7 +88,7 @@ export default class extends React.Component {
 				<div className="mdui-card mdui-p-a-1">
 					<ListControlMenu
                         icon="language"
-                        text="二维码类型"
+                        title="二维码类型"
                         checked={mode}
                         onCheckedChange={checked=>{
                             this.setState({mode:checked})
@@ -152,7 +152,7 @@ export default class extends React.Component {
 						}
 						create(opts,string,callback)
 					}}
-					className="mdui-color-theme mdui-fab mdui-fab-fixed"
+					className="mdui-color-theme mdui-text-color-white mdui-fab mdui-fab-fixed"
 				>
 					<i class="mdui-icon material-icons">&#xe5ca;</i>
 				</button>
