@@ -52,7 +52,7 @@ const AppList = () => {
     return (
         <ul className="mdui-row-md-3 mdui-list">
             <li className="mdui-subheader">全部工具</li>
-            {applist.map(a => (
+            {applist.filter(app => app.channel !== 5).map(a => (
                 <React.Fragment key={a.link} >
                     <Link
                         to={'/app/' + a.link}

@@ -4,14 +4,22 @@ import applist from '../../utils/applist'
 
 //栏目下工具组
 const MakeChips = ({ apps }) => {
+    const ChipTag = ({ text }) => (
+        <div className="mdui-chip mdui-text-color-theme-text">
+            <span className="mdui-chip-title">{text}</span>
+        </div>
+    )
     return apps.map(a => {
-        if (!a) return null
+        if (!a) return null;
         return (
-            <Link key={a.link} to={"/app/" + a.link}>
-                <div className="mdui-chip mdui-text-color-theme-text">
-                    <span className="mdui-chip-title">{a.name}</span>
-                </div>
-            </Link>
+            a.channel === 5 ?
+                <a target="_blank" rel="no_reffer" href={a.link}>
+                    <ChipTag text={a.name}></ChipTag>
+                </a>
+                :
+                <Link key={a.link} to={a.link}>
+                    <ChipTag text={a.name}></ChipTag>
+                </Link>
         )
     })
 }
@@ -36,12 +44,12 @@ const MakeChannels = ({ data }) => {
 }
 
 const getChannelName = index => {
-    const channels = ['AI人工智能', '图片视频', '编程开发', '生活常用']
+    const channels = ['AI人工智能', '图片视频', '编程开发', '生活常用', "第三方工具&友情链接"]
     return channels[index - 1]
 }
 
 const getChannelIcon = index => {
-    const icons = ['brightness_auto', 'photo', 'code', 'brightness_7']
+    const icons = ['brightness_auto', 'photo', 'code', 'brightness_7', "link"]
     return icons[index - 1]
 }
 
