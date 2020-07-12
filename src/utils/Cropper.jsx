@@ -9,26 +9,25 @@ class ImgCropper extends React.Component {
         this.state = {
         }
     }
-    _crop(){
+    _crop() {
         var img = this.refs.cropper.getCroppedCanvas().toDataURL()
         this.props.onCropperChange(img)
     }
-    render(){
-        return(
+    render() {
+        return (
             <Cropper
                 ref='cropper'
                 src={this.props.file}
-                style={{height: 500, width: '100%'}}
+                style={{ height: 500, width: '100%' }}
                 //aspectRatio={1 / 1}
                 //guides={true}
                 crop={this._crop.bind(this)}
-             />
+            />
         )
     }
 }
 
-
-export default class CropWindow extends React.Component{
+export default class CropWindow extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -36,104 +35,104 @@ export default class CropWindow extends React.Component{
             yScaled: false,
             cropperCache: props.img
         }
-    } 
-    componentWillReceiveProps({ifShow}){
-        if(ifShow)window.history.pushState(null, null, '#cropper')
     }
-    render(){
+    componentWillReceiveProps({ ifShow }) {
+        if (ifShow) window.history.pushState(null, null, '#cropper')
+    }
+    render() {
         const { xScaled, yScaled, cropperCache } = this.state
-    	const { ifShow, title, onClose, onConfirm, img } = this.props
-    	//用return null会每次重载图片
+        const { ifShow, title, onClose, onConfirm, img } = this.props
+        //用return null会每次重载图片
         return (
-            <span style={{display:(!ifShow)?'none':'block'}}>
+            <span style={{ display: (!ifShow) ? 'none' : 'block' }}>
                 <header className="mdui-shadow-0 header mdui-appbar mdui-appbar-fixed">
                     <div className="mdui-shadow-0 mdui-appbar">
-                        <div className="mdui-shadow-0 mdui-toolbar mdui-color-theme">
-                            <button 
-	                            onClick={()=>{
+                        <div className="mdui-color-white mdui-toolbar">
+                            <button
+                                onClick={() => {
                                     window.history.go(-1)
-	                            	onClose()
-	                            }}
-                                className="mdui-btn mdui-btn-icon mdui-text-color-white">
+                                    onClose()
+                                }}
+                                className="mdui-btn mdui-btn-icon mdui-text-color-theme">
                                 <i className="mdui-icon material-icons">arrow_back</i>
                             </button>
-                            <div className="mdui-typo-title mdui-text-color-white">
-                                {title}                               
+                            <div className="mdui-typo-title mdui-text-color-theme">
+                                {title}
                             </div>
                             <div className="mdui-toolbar-spacer"></div>
-                            <button 
+                            <button
                                 mdui-menu="{target: '#scale-menu',covered:false}"
                                 className="mdui-text-color-white mdui-btn mdui-btn-icon"
-                                >
+                            >
                                 <i className="mdui-icon material-icons">flip</i>
-                            </button>               
+                            </button>
                             <ul className="mdui-menu" id="scale-menu">
                                 <li className="mdui-menu-item">
-                                    <a 
-                                    onClick={()=>{
-                                        const { cropper } = this.refs.cropper.refs.cropper
-                                        if (xScaled) {
-                                            cropper.scaleX(1,-1)
-                                        } else {
-                                            cropper.scaleX(-1,1)
-                                        }
-                                        this.setState({xScaled:!xScaled})
-                                    }}
+                                    <a
+                                        onClick={() => {
+                                            const { cropper } = this.refs.cropper.refs.cropper
+                                            if (xScaled) {
+                                                cropper.scaleX(1, -1)
+                                            } else {
+                                                cropper.scaleX(-1, 1)
+                                            }
+                                            this.setState({ xScaled: !xScaled })
+                                        }}
                                     >水平翻转</a>
                                 </li>
                                 <li className="mdui-menu-item">
-                                    <a 
-                                    onClick={()=>{
-                                        const { cropper } = this.refs.cropper.refs.cropper
-                                        if (yScaled) {
-                                            cropper.scaleY(1,-1)
-                                        } else {
-                                            cropper.scaleY(-1,1)
-                                        }
-                                        this.setState({yScaled:!yScaled})
-                                    }}
+                                    <a
+                                        onClick={() => {
+                                            const { cropper } = this.refs.cropper.refs.cropper
+                                            if (yScaled) {
+                                                cropper.scaleY(1, -1)
+                                            } else {
+                                                cropper.scaleY(-1, 1)
+                                            }
+                                            this.setState({ yScaled: !yScaled })
+                                        }}
                                     >竖直翻转</a>
                                 </li>
                             </ul>
-                            <button 
-                                onClick={()=>{
-                                    this.refs.cropper.refs.cropper.cropper.rotate(90)                                   
+                            <button
+                                onClick={() => {
+                                    this.refs.cropper.refs.cropper.cropper.rotate(90)
                                 }}
-                                className="mdui-btn mdui-btn-icon mdui-text-color-white">
+                                className="mdui-btn mdui-btn-icon mdui-text-color-theme">
                                 <i className="mdui-icon material-icons">rotate_left</i>
                             </button>
-                            <button 
-                                onClick={()=>{
+                            <button
+                                onClick={() => {
                                     onConfirm(cropperCache)
                                 }}
-                                className="mdui-btn mdui-btn-icon mdui-text-color-white">
+                                className="mdui-btn mdui-btn-icon mdui-text-color-theme">
                                 <i className="mdui-icon material-icons">check</i>
                             </button>
                         </div>
-                    </div>        
+                    </div>
                 </header>
                 <button
-                    onClick={()=>{
+                    onClick={() => {
                         saveFile({
                             filename: 'ygktool-cropper',
                             type: 'png',
                             file: cropperCache
                         })
                     }}
-                    className="mdui-fab mdui-color-theme mdui-fab-fixed mdui-fab-mini">
+                    className="mdui-fab mdui-color-theme mdui-text-color-white mdui-fab-fixed mdui-fab-mini">
                     <i className="mdui-icon material-icons">file_download</i>
                 </button>
                 <ImgCropper
                     ref="cropper"
-                    getCropper={ref=>{
-                        this.setState({cropper:ref})
+                    getCropper={ref => {
+                        this.setState({ cropper: ref })
                     }}
-                    onCropperChange={newImg=>{
-                        this.setState({cropperCache:newImg})
+                    onCropperChange={newImg => {
+                        this.setState({ cropperCache: newImg })
                     }}
                     file={img}
                 />
             </span>
         )
-    }  
+    }
 }

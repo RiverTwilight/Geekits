@@ -68,7 +68,7 @@ export default class extends React.Component {
             { name: 'title', ref: this.headerTitle },
             { name: 'menuBtn', ref: this.menuBtn }
         ]);//将ref传给父组件   
-        window.addEventListener("scroll", () => {
+        window.innerWidth <= 640 && window.addEventListener("scroll", () => {
             var t = document.documentElement.scrollTop || document.body.scrollTop;
             this.setState({
                 isTop: t <= 56
@@ -81,11 +81,8 @@ export default class extends React.Component {
             <>
                 <Drawer />
                 <header
-                    style={{
-                        transition: '0.3s box-shadow'
-                    }}
-                    className={`${isTop ? ' mdui-shadow-0' : ''} header mdui-appbar mdui-appbar-fixed`}>
-                    <div className="mdui-appbar mdui-shadow-0 ">
+                    className={`mdui-shadow-0 mdui-appbar mdui-appbar-fixed`}>
+                    <div className="mdui-appbar mdui-shadow-0">
                         <div className="mdui-toolbar mdui-color-white">
                             <button
                                 onClick={() => window.leftDrawer.toggle()}
@@ -137,7 +134,7 @@ export default class extends React.Component {
                             </button>
                         </div>
                     </div>
-                    <div className="mdui-divider"></div>
+                    <div className={`mdui-divider ${isTop ? 'mdui-hidden' : ''} `}></div>
                 </header>
             </>
         )

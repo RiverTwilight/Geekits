@@ -47,6 +47,7 @@ export default class SideDrawer extends React.Component {
     }
     render() {
         const { data } = this.state;
+        const user = getUserInfo();
         return (
             <div id="left-drawer" className="mdui-drawer">
                 {/*} <div id="grad">
@@ -55,11 +56,11 @@ export default class SideDrawer extends React.Component {
                         <p className="subtitle">{`共有${data.appsNumber}个工具`}</p>
                     </div>
         </div>*/}
-                <div style={{height: '130px'}} className="mdui-shadow-0 mdui-card">
-                        <div className="mdui-card-primary">
-                            <div className="mdui-card-primary-title mdui-text-color-theme">云极客工具</div>
-                            <div className="mdui-card-primary-subtitle">{`共有${data.appsNumber}个工具`}</div>
-                        </div>
+                <div style={{ height: '130px' }} className="mdui-shadow-0 mdui-card">
+                    <div className="mdui-card-primary">
+                        <div className="mdui-card-primary-title mdui-text-color-theme">云极客工具</div>
+                        <div className="mdui-card-primary-subtitle">{`共有${data.appsNumber}个工具`}</div>
+                    </div>
                 </div>
                 <ul className="mdui-list">
                     <NavLink
@@ -67,9 +68,9 @@ export default class SideDrawer extends React.Component {
                             window.innerWidth <= 1024 && window.leftDrawer.close()
                         }}
                         exact className="mdui-list-item mdui-ripple"
-                        activeClassName="mdui-list-item-active" to={getUserInfo() ? '/user' : '/user/login'}>
-                        <i className="mdui-list-item-icon mdui-icon material-icons mdui-text-color-blue">account_box</i>
-                        <div className="mdui-list-item-content">我的账户</div>
+                        activeClassName="mdui-list-item-active" to={user ? '/user' : '/user/login'}>
+                        <i class="mdui-list-item-avatar mdui-icon material-icons">face</i>
+                        <div className="mdui-list-item-content">{user ? user.username : '未登录'}</div>
                     </NavLink>
                     {/*<a href="https://api.ygktool.cn">
                         <li className="mdui-list-item mdui-ripple">                          

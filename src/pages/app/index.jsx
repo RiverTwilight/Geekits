@@ -49,6 +49,7 @@ export default withRouter(class AppContainer extends React.Component {
     }
     componentWillUnmount() {
         window.loadHide() //清除滚动条
+        document.getElementsByClassName('mdui-overlay').length && document.getElementsByClassName('mdui-overlay')[0].remove()
     }
     componentDidMount() {
         setInterval(_ => mutation(), 100)

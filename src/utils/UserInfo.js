@@ -1,40 +1,48 @@
-import Axios from './axios';
+//import Axios from './axios';
+import { AES, enc } from 'crypto-js'
+const SECRET = '0412';
 
-const setCookie = (name, value) => {
-    var Days = 30;
-    var exp = new Date();
-    exp.setTime(exp.getTime() + Days * 24 * 60 * 60 * 1000);
-    document.cookie = `${name}=${escape(value)};expires=${exp.toGMTString()};path='../'`;
+//设置cookie
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    var expires = "expires=" + d.toUTCString();
+    document.cookie = `${cname}=${cvalue};${expires};path=/`;
 }
 
-const removeCookie = name => {
-    var exp = new Date();
-    exp.setTime(exp.getTime() - 1);
-    var cval = getCookie(name);
-    if (cval != null)
-        document.cookie = `${name}=${cval};expires=${exp.toGMTString()};path='../'`;
+//获取cookie
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') c = c.substring(1);
+        if (c.indexOf(name) != -1) return c.substring(name.length, c.length);
+    }
+    return "";
 }
 
-const getCookie = (name) => {
-    var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
-
-    if (arr = document.cookie.match(reg))
-
-        return unescape(arr[2]);
-    else
-        return null;
+//清除cookie  
+function clearCookie(name) {
+    document.cookie = `${name}= ; expires = Thu, 01 Jan 1970 00:00:00 GMT;`
 }
 
-const removeUserInfo = _ => {
-    removeCookie('userInfo');
+const removeUserInfo = () => {
+    clearCookie('userInfo');
     sessionStorage.userInfo && sessionStorage.removeItem('userInfo')
+}
+
+const setUserInfo = (data, remember) => {
+    const encryptedData = AES.encrypt(data, SECRET);
+    remember && setCookie('userInfo', encryptedData, 30);
+    sessionStorage.setItem('userInfo', encryptedData)
 }
 
 const getUserInfo = _ => {
     const dataStr = sessionStorage.userInfo || getCookie('userInfo')
     if (!dataStr) return null;
-    const data = JSON.parse(dataStr);
-    Axios({
+    const data = JSON.parse(enc.Utf8.stringify(AES.decrypt(dataStr, SECRET)));
+    /*Axios({
         method: 'post',
         url: '/ygktool/user/login',
         withCredentials: false,
@@ -55,8 +63,8 @@ const getUserInfo = _ => {
                 getCookie('userInfo') && setCookie('userInfo', newData)
                 sessionStorage.setItem('userInfo', newData)
         }
-    })
+    })*/
     return data
 }
 
-export { getUserInfo, removeUserInfo }
+export { getUserInfo, removeUserInfo, setUserInfo }

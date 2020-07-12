@@ -2,17 +2,10 @@ import React from 'react'
 import { snackbar, mutation } from 'mdui'
 import Axios from '../../utils/axios';
 import { MD5 } from 'crypto-js';
-import { getUserInfo } from '../../utils/UserInfo'
+import { getUserInfo, setUserInfo } from '../../utils/UserInfo'
 import SendCode from '../../utils/SendCode'
 import Input from '../../components/Input'
 import Tab from '../../components/Tab'
-
-const setCookie = (name, value) => {
-    var Days = 30;
-    var exp = new Date();
-    exp.setTime(exp.getTime() + Days * 24 * 60 * 60 * 1000);
-    document.cookie = `${name}=${escape(value)};expires=${exp.toGMTString()};path='../'`;
-}
 
 class Signin extends React.Component {
     constructor(props) {
@@ -213,8 +206,8 @@ class Login extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: null,
-            password: null,
+            username: /*'wrj2014@126.com',*/null,
+            password: /*'123456',*/null,
             remember: false
         }
     }
@@ -237,8 +230,7 @@ class Login extends React.Component {
                     break;
                 case 666:
                     var data = JSON.stringify(json.data);
-                    remember && setCookie('userInfo', data);
-                    sessionStorage.setItem('userInfo', data)
+                    setUserInfo(data, remember);
                     window.location.href = "/user"
             }
         }).catch(e => {

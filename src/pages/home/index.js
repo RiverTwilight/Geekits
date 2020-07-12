@@ -17,9 +17,9 @@ const Nav = ({ page, onPageChange, items }) => (
                     onPageChange(item.page);
                     window.location.hash = `#${item.page}`
                 }}
+                title={item.name}
                 className={`mdui-ripple ${(page === item.page) ? "mdui-bottom-nav-active" : ""}`}>
                 <i className="mdui-icon material-icons">{item.icon}</i>
-                <label>{item.name}</label>
             </a>
         ))}
     </div>

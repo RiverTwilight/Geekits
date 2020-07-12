@@ -8,12 +8,11 @@ export default class extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            userInfo: getUserInfo(),
             mode: 'upload'
         }       
     }
     sync(){
-        const { userInfo, mode } = this.state
+        const { mode } = this.state
         window.loadShow();
         Axios({
             method: 'post',
@@ -21,7 +20,7 @@ export default class extends React.Component {
             withCredentials: false,
             data:{
                 fivData: mode === 'upload' ? JSON.stringify(fiv.getAll()) : false,
-                username: userInfo.username
+                username: getUserInfo().username
             }
         }).then(response =>{
             var json = JSON.parse(response.request.response);
