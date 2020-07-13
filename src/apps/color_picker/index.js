@@ -90,7 +90,7 @@ export default class extends React.Component {
         clipboard && clipboard.destroy();
         var clipboard = new ClipboardJS('.copy');
         clipboard.on('success', e => {
-            snackbar({ message: '已复制颜色代码' })
+            snackbar({ message: '已复制' })
             e.clearSelection();
         });
         this.setState({

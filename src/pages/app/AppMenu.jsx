@@ -3,10 +3,6 @@ import { snackbar, prompt, alert as mduiAlert } from 'mdui'
 import BottomAlert from '../../components/BottomAlert';
 import fiv from '../../utils/fiv.ts'
 
-/**
- * 工具菜单
- * @todo 点击外部关闭
- */
 
 const ShareBtn = () => {
     if (navigator.share) {
@@ -29,12 +25,30 @@ const ShareBtn = () => {
     return null
 }
 
+const GetCodeBtn = ({ cb }) => (
+    <button
+        onClick={cb}
+        mdui-tooltip="{content: '获取代码'}" className="mdui-btn mdui-btn-icon mdui-ripple">
+        <i className="mdui-text-color-theme mdui-icon material-icons">code</i>
+    </button>
+)
+
+/**
+ * 工具菜单
+ */
+
 export default class extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             fived: fiv.get(this.props.appinfo.link),
             showHelper: false
+        }
+    }
+    handleFivKeyDown(e) {
+        if (e.ctrlKey && e.keyCode === 65) {
+            e.preventDefault()
+            this.fiv()
         }
     }
     fiv() {
@@ -61,22 +75,10 @@ export default class extends React.Component {
                 showHelper: true
             })
         }
-        window.addEventListener('keydown', e => {
-            if (e.ctrlKey && e.keyCode === 65) {
-                e.preventDefault()
-                this.fiv()
-            }
-        });
-    }
-    componentDidUpdate(){
-        if (this.state.showHelper) {
-            document.getElementsByClassName('mdui-overlay')[0].addEventListener('click', () => {
-                this.setState({ showHelper: false })
-            })
-        }
+        window.addEventListener('keydown', this.handleFivKeyDown.bind(this));
     }
     componentWillUnmount() {
-        window.removeEventListener('keydown', () => { })
+        window.removeEventListener('keydown', this.handleFivKeyDown.bind(this))
         window.globalRef.menuBtn.style.display = 'none'
     }
     componentWillReceiveProps(nextProps) {
@@ -90,7 +92,6 @@ export default class extends React.Component {
             <BottomAlert
                 title="菜单"
                 ifShow={window.innerWidth <= 640 ? showHelper : true}
-                height=""
                 onClose={() => {
                     this.setState({ showHelper: false })
                 }}
@@ -114,27 +115,23 @@ export default class extends React.Component {
                         </i>
                     </button>
                     <ShareBtn />
-                    <button
-                        onClick={() => {
-                            this.setState({ showHelper: false }, () => {
-                                prompt('将以下嵌入代码粘贴到您的网页即可使用。欲获取应用源代码，请加群联系开发者',
-                                    () => {
-                                        window.open('https://jq.qq.com/?_wv=1027&k=59hWPFs')
-                                    },
-                                    () => { },
-                                    {
-                                        history: false,
-                                        type: 'textarea',
-                                        confirmText: '加群',
-                                        cancelText: '关闭',
-                                        defaultValue: `<iframe src="https://www.ygktool.cn/app/${link}?fullscreen=true" width="100%" height="400px" scrolling="no" style="border:0;"></iframe>`
-                                    }
-                                )
-                            })
-                        }}
-                        mdui-tooltip="{content: '获取代码'}" className="mdui-btn mdui-btn-icon mdui-ripple">
-                        <i className="mdui-text-color-theme mdui-icon material-icons">code</i>
-                    </button>
+                    <GetCodeBtn cb={() => {
+                        this.setState({ showHelper: false }, () => {
+                            prompt('将以下嵌入代码粘贴到您的网页即可使用。欲获取应用源代码，请加群联系开发者',
+                                () => {
+                                    window.open('https://jq.qq.com/?_wv=1027&k=59hWPFs')
+                                },
+                                () => { },
+                                {
+                                    history: false,
+                                    type: 'textarea',
+                                    confirmText: '加群',
+                                    cancelText: '关闭',
+                                    defaultValue: `<iframe src="https://www.ygktool.cn/app/${link}?fullscreen=true" width="100%" height="400px" scrolling="no" style="border:0;"></iframe>`
+                                }
+                            )
+                        })
+                    }} />
                     <a
                         href="https://jq.qq.com/?_wv=1027&amp;k=59hWPFs" target="_blank"
                         mdui-tooltip="{content: '获取帮助'}" className="mdui-btn mdui-btn-icon mdui-ripple">

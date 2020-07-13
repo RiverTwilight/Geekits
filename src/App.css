@@ -71,8 +71,8 @@ header{
         bottom: 0;
         right: 0;
         left: 0;
-        max-height: 100%;
-        transition: 0.5s height;
+        max-height: 90%;
+        transition: 0.5s bottom;
     }
 }
 

@@ -10,7 +10,7 @@ import Input from '../../components/Input.tsx'
 const Share = ({ qrcode, token }) => (
     <>
         <ul className="mdui-menu" id="share">
-            <img src={qrcode}></img>
+            <img alt="扫描此二维码" src={qrcode}></img>
             <li>
                 从其他设备访问此页链接[<a
                     data-clipboard-text={window.location.href + "#/" + token}
@@ -43,12 +43,11 @@ const MsgList = ({ data }) => {
                     onClick={() => {
                         mduiAlert(a.content, () => { }, { history: false })
                     }}
-                    key={i} className="mdui-col mdui-list-item mdui-ripple">
+                    key={i} className="mdui-list-item mdui-ripple">
+                    <i className="mdui-list-item-avatar mdui-icon material-icons">assignment</i>
                     <div className="mdui-list-item-content">
-                        <div className="mdui-list-item-text">
-                            <div className="mdui-list-item-title mdui-list-item-one-line">{a.content}</div>
-                            <div className="mdui-list-item-text mdui-list-item-one-line">{a.time}</div>
-                        </div>
+                        <div className="mdui-list-item-title mdui-list-item-two-line">{a.content}</div>
+                        <div className="mdui-list-item-text mdui-list-item-one-line">{a.time}</div>
                     </div>
                     <button
                         data-clipboard-text={a.content}
@@ -88,13 +87,15 @@ export default class extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            content: "",
-            type: '',
-            data: [],
-            token: "",
+            textData: "",
+            fileData: null,
+            receivedData: [],
+            token: "", //所有设备的共同口令
+            deviceId: parseInt(Math.random() * (9999 - 0 + 1) + 0, 10), //当前设备标识口令
             qrcode: "",
             socket: null,
-            pwd: null
+            pwd: null,
+            originTitle: document.title
         }
     }
     componentWillMount() {
@@ -114,20 +115,24 @@ export default class extends React.Component {
         }
     }
     componentWillUnmount() {
-        document.removeEventListener('visibilitychange', ()=>{})
+        document.removeEventListener('visibilitychange', () => { })
     }
     componentDidMount() {
-        
-        document.addEventListener('visibilitychange', () => {
-            if(!document.hidden){
-                document.title = document.title.substring(document.title.lastIndexOf('跨'))
+        window.addEventListener('visibilitychange', () => {
+            //还原默认标题
+            if (!document.hidden) {
+                document.title = this.state.originTitle
             }
         });
 
         const cb = data => {
             this.setState(data);
-            if(document.hidden){
-                document.title = '(新消息)' + document.title 
+            if (document.hidden) {
+                if (document.title.match('新消息')) {
+
+                } else {
+                    document.title = '(新消息)' + document.title
+                }
             }
         }
 
@@ -138,7 +143,7 @@ export default class extends React.Component {
             e.clearSelection();
         })
 
-        const { token, data } = this.state;
+        const { token, receivedData, deviceId } = this.state;
 
         QRCode.toDataURL(window.location.href + "#/" + this.state.token, (err, url) => {
             if (err) throw err
@@ -157,55 +162,69 @@ export default class extends React.Component {
 
         this.setState({ socket: socket });
 
-        socket.on('error', msg => {
-            //mdui.snackbar({message:'电波无法到达哟~'})
-            this.sendBtn.disabled = false;
-            this.sendBtn.innerText = '发送';
+        socket.on('disconnect', msg => {
+            snackbar({ message: '电波无法到达哟~' })
         })
 
         socket.on('chat_message', msg => {
-            this.sendBtn.disabled = false;
-            this.sendBtn.innerText = '发送';
-            let { type, content, time } = msg;
+            if (msg.deviceId === deviceId) {
+                console.log('clint message');
+                window.loadHide();
+                // 接收到本机消息后清空草稿
+                if (msg.type === 'text') {
+                    this.setState({
+                        textData: ""
+                    })
+                } else {
+                    this.setState({
+                        fileData: null
+                    })
+                }
+            }
+            let { type, content, time } = msg
             let newData = { type, content, time }
-            data.push(newData);
-            cb({ data: data, content: '' })
+            receivedData.push(newData);
+            cb({ data: receivedData, content: '' })
         })
     }
     sendMsg() {
-        this.sendBtn.disabled = true
-        this.sendBtn.innerText = '发送中...';
-        var now = new Date;
-        var time = now.toLocaleTimeString()
-        const { content, token, socket, type, pwd } = this.state;
-        socket.emit('chat_message', { content, type, token, time, pwd })
+        window.loadShow()
+        const metaDate = new Date().toLocaleTimeString()
+        const { textData, fileData, token, socket, pwd, deviceId } = this.state;
+        (textData !== "") && socket.emit('chat_message', {
+            content: textData,
+            type: 'text',
+            token,
+            time: metaDate,
+            deviceId,
+        }
+        );
+        fileData && socket.emit('chat_message', {
+            content: fileData, type: 'file', token, time: metaDate, deviceId
+        }
+        )
     }
     render() {
-        const { qrcode, type, data, content, token } = this.state
+        const { qrcode, receivedData, textData, token } = this.state
         return (
             <>
-                <MsgList data={data} />
+                <MsgList data={receivedData} />
                 <div
                     className="bottom-dashboard mdui-card mdui-p-a-1">
                     <Input
-                        disabled={type === 'file'}
                         onValueChange={newText => {
                             this.setState({
-                                content: newText,
-                                type: 'text'
+                                textData: newText
                             })
                         }}
                         rows="2"
                         maxlength="3000"
                         header="输入要发送的内容，大于3000字符请发送文件"
-                        value={(type === 'text') ? content : ''}
+                        value={textData}
                     />
                     <button
-                        ref={r => this.sendBtn = r}
-                        onClick={() => {
-                            this.sendMsg()
-                        }}
-                        className="mdui-ripple mdui-float-right mdui-color-theme mdui-btn-raised mdui-btn">
+                        onClick={this.sendMsg.bind(this)}
+                        className="loadBtn mdui-ripple mdui-float-right mdui-color-theme mdui-btn-raised mdui-btn">
                         发送
                     </button>
                     {/*<button
@@ -233,12 +252,11 @@ export default class extends React.Component {
                             fileType="*/*"
                             onFileChange={(dataUrl, file) => {
                                 this.setState({
-                                    content: {
+                                    fileData: {
                                         name: file.name,
                                         size: Math.round(file.size / 1024 * 10) / 10 + 'KB',
                                         data: dataUrl
-                                    },
-                                    type: 'file'
+                                    }
                                 })
                             }}
                         />

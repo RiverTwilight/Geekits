@@ -323,4 +323,8 @@ export default [{
 	name: "表格数据流程化处理",
 	link: "https://wk.phitrellis.com",
 	channel: 5
+},{
+	name: "Hello Tool",
+	link: "http://hellotool.htm.kim",
+	channel: 5
 }]

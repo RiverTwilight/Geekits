@@ -68,7 +68,7 @@ export default class extends React.Component {
             { name: 'title', ref: this.headerTitle },
             { name: 'menuBtn', ref: this.menuBtn }
         ]);//将ref传给父组件   
-        window.innerWidth <= 640 && window.addEventListener("scroll", () => {
+        window.addEventListener("scroll", () => {
             var t = document.documentElement.scrollTop || document.body.scrollTop;
             this.setState({
                 isTop: t <= 56

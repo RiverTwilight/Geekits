@@ -35,7 +35,7 @@ export default withRouter(class AppContainer extends React.Component {
         }
     }
     componentDidCatch(error, info) {
-        mduiAlert(error, '您的浏览器捕获到一个错误')
+        mduiAlert(error, '您的浏览器捕获到一个错误', null, { history: false })
     }
     componentWillMount() {
         const info = getInfo(/\/([^\/]+)$/.exec(this.props.location.pathname)[1]);

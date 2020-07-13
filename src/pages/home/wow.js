@@ -17,7 +17,7 @@ const MakeChips = ({ apps }) => {
                     <ChipTag text={a.name}></ChipTag>
                 </a>
                 :
-                <Link key={a.link} to={a.link}>
+                <Link key={a.link} to={"/app/" + a.link}>
                     <ChipTag text={a.name}></ChipTag>
                 </Link>
         )

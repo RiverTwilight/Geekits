@@ -67,7 +67,8 @@ const AddLocal = ({ onLocalChange }) => {
                 {
                     type: 'textarea',
                     confirmText: '保存',
-                    cancelText: '取消'
+                    cancelText: '取消',
+                    history: false
                 }
             )
         }} className="mdui-col mdui-list-item mdui-ripple">

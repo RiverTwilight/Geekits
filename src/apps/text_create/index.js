@@ -25,7 +25,6 @@ export default () => (
 const ResultCard = ({ data }) => {
     if (!data) return null;
     useEffect(() => {
-        clipboard && clipboard.destroy();
         var clipboard = new ClipboardJS('.copy');
         clipboard.on('success', e => {
             snackbar({ message: '已复制' })
@@ -35,6 +34,9 @@ const ResultCard = ({ data }) => {
             snackbar({ message: '文本太长无法复制' })
             e.clearSelection()
         })
+        return () => {
+            clipboard && clipboard.destroy();
+        }
     }, [])
     return (
         <div className="mdui-card mdui-p-a-1">
