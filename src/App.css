@@ -5,6 +5,10 @@
     right: 10px;
 }
 
+.mdui-fab i{
+    color: white;
+}
+
 header{
     transition: 0.3s box-shadow;
 }

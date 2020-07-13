@@ -77,7 +77,7 @@ export default class extends React.Component {
                     options={options}
                 />
                 <button 
-                    style={{margin:'0px 10px 0px 10px'}}
+                    style={{margin:'0px 5px'}}
                     className="mdui-btn mdui-btn-icon"
                     onClick={()=>{
                         this.setState({

@@ -9,7 +9,7 @@ const Page = props => {
 }
 
 const Nav = ({ page, onPageChange, items }) => (
-    <div className="mdui-text-color-theme mdui-bottom-nav-scroll-hide mdui-color-white mdui-bottom-nav">
+    <div className="mdui-shadow-17 mdui-text-color-theme mdui-bottom-nav-scroll-hide mdui-color-white mdui-bottom-nav">
         {items.map(item => (
             <a
                 key={item.name}

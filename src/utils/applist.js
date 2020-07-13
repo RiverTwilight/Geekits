@@ -52,6 +52,13 @@ export default [{
 	description: "计算两个日期间隔的天数和时间，或推算几天前后是哪一天，可以算算你活了多久:)",
 	channel: 4
 }, {
+	name: "番茄钟",
+	link: "tomato",
+	icon: "access_alarm",
+	icon_color: "red",
+	help: "",
+	channel: 4
+}, {
 	name: "跨设备文本互传",
 	link: "clipboard",
 	icon: "call_split",

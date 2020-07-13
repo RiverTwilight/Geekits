@@ -95,7 +95,8 @@ export default class extends React.Component {
             qrcode: "",
             socket: null,
             pwd: null,
-            originTitle: document.title
+            originTitle: document.title,
+            connectState: 'ok'
         }
     }
     componentWillMount() {
@@ -115,6 +116,7 @@ export default class extends React.Component {
         }
     }
     componentWillUnmount() {
+        this.state.socket.close()
         document.removeEventListener('visibilitychange', () => { })
     }
     componentDidMount() {
@@ -163,7 +165,15 @@ export default class extends React.Component {
         this.setState({ socket: socket });
 
         socket.on('disconnect', msg => {
-            snackbar({ message: '电波无法到达哟~' })
+            this.setState({
+                connectState: '正在尝试重连...'
+            })
+        })
+
+        socket.on('connect', ()=>{
+            this.setState({
+                connectState: 'OK'
+            })
         })
 
         socket.on('chat_message', msg => {
@@ -205,7 +215,7 @@ export default class extends React.Component {
         )
     }
     render() {
-        const { qrcode, receivedData, textData, token } = this.state
+        const { qrcode, receivedData, textData, token, connectState } = this.state
         return (
             <>
                 <MsgList data={receivedData} />
@@ -226,6 +236,11 @@ export default class extends React.Component {
                         onClick={this.sendMsg.bind(this)}
                         className="loadBtn mdui-ripple mdui-float-right mdui-color-theme mdui-btn-raised mdui-btn">
                         发送
+                    </button>
+                    <button
+                        className="mdui-float-left mdui-btn">
+                        <i class="mdui-icon mdui-icon-left material-icons">&#xe63e;</i>
+                        {connectState}
                     </button>
                     {/*<button
                         onClick={()=>{

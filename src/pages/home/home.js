@@ -48,27 +48,30 @@ const FivList = () => {
 
 //工具列表
 const AppList = () => {
-    if (localStorage.setting && !JSON.parse(localStorage.setting).homeShowNewestTool) return null
-    return (
-        <ul className="mdui-row-md-3 mdui-list">
-            <li className="mdui-subheader">全部工具</li>
-            {applist.filter(app => app.channel !== 5).map(a => (
-                <React.Fragment key={a.link} >
-                    <Link
-                        to={'/app/' + a.link}
-                        className="mdui-col mdui-list-item mdui-ripple"
-                    >
-                        <i className={"mdui-list-item-icon mdui-icon material-icons mdui-text-color-" + a.icon_color}>{a.icon}</i>
-                        <div className="mdui-list-item-content">
-                            <div className="mdui-list-item-title">{a.name}</div>
-                            {a.description && <div className="mdui-list-item-text">{a.description}</div>}
-                        </div>
-                    </Link>
-                    <li className="mdui-hidden-md-up mdui-divider-inset mdui-m-y-0"></li>
-                </React.Fragment>
-            ))}
-        </ul>
-    )
+    //console.log(JSON.parse(localStorage.setting).homeShowNewestTool)
+    if (!localStorage.setting || JSON.parse(localStorage.setting).homeShowNewestTool) {
+        return (
+            <ul className="mdui-row-md-3 mdui-list">
+                <li className="mdui-subheader">全部工具</li>
+                {applist.filter(app => app.channel !== 5).map(a => (
+                    <React.Fragment key={a.link} >
+                        <Link
+                            to={'/app/' + a.link}
+                            className="mdui-col mdui-list-item mdui-ripple"
+                        >
+                            <i className={"mdui-list-item-icon mdui-icon material-icons mdui-text-color-" + a.icon_color}>{a.icon}</i>
+                            <div className="mdui-list-item-content">
+                                <div className="mdui-list-item-title">{a.name}</div>
+                                {a.description && <div className="mdui-list-item-text">{a.description}</div>}
+                            </div>
+                        </Link>
+                        <li className="mdui-hidden-md-up mdui-divider-inset mdui-m-y-0"></li>
+                    </React.Fragment>
+                ))}
+            </ul>
+        )
+    }
+    return null
 }
 
 //公告栏
@@ -97,7 +100,7 @@ class Notice extends React.Component {
     }
     getNoticeFromSever() {
         //if(sessionStorage.loadedNotice == 1)return
-        axios.get('https://api.ygktool.cn/ygktool/notice')
+        axios.get('/ygktool/notice')
             .then(json => {
                 const { primary, content, date } = json.data[0]
                 this.setState({

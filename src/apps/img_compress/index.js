@@ -3,7 +3,7 @@ import React from 'react'
 import FileRead from '../../components/FileReader'
 import RangeInput from '../../components/RangeInput'
 
-async function loadImg(src){
+async function loadImg(src) {
 	var img = await new Image();
 	img.src = src;
 	return img
@@ -24,55 +24,53 @@ const compress = async (base64, quality, cb, type) => {
 	cb && cb(data)
 }
 
-class Ui extends React.Component {
+export default class extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			file:null,
-			type:'.jpg',
-			res:null,
-			quality:0.5
+			file: null,
+			type: '.jpg',
+			res: null,
+			quality: 0.5
 		}
 	}
-	render(){
+	render() {
 		const { file, quality, res, type } = this.state;
-		return(
-			<> 
+		return (
+			<>
 				<center>
-					<FileRead 
+					<FileRead
 						fileType="image/*"
 						multiple={false}
-						onFileChange={(data, file)=>{
+						onFileChange={(data, file) => {
 							this.setState({
-								file:data,
-								type:file.type
+								file: data,
+								type: file.type
 							})
 						}}
 						maxWidth="200px"
 					/>
 				</center>
-				<RangeInput 
-				    value={quality}
+				<RangeInput
+					value={quality}
 					min={0.1} max={1} step={0.1}
-					onValueChange={newValue=>{
-						this.setState({quality:Number(newValue)})
+					onValueChange={newValue => {
+						this.setState({ quality: Number(newValue) })
 					}}
 					title={`压缩比率${quality * 100}%`}
-				/>	
-                <button 
-	                onClick={()=>{
-	                	compress(file,quality,(res)=>{
-	                		this.setState({res:res})
-	                	}, type)
-	                }}
-	                disabled={file === null}
-	                className="mdui-fab mdui-color-theme-accent mdui-fab-fixed">
-	                <i className="mdui-icon material-icons">check</i>
-                </button>
-                <img src={res} className="mdui-img-fluid" />
+				/>
+				<button
+					onClick={() => {
+						compress(file, quality, (res) => {
+							this.setState({ res: res })
+						}, type)
+					}}
+					disabled={file === null}
+					className="mdui-fab mdui-color-theme mdui-fab-fixed">
+					<i className="mdui-icon material-icons">check</i>
+				</button>
+				<img src={res} className="mdui-img-fluid" />
 			</>
-		)  	
+		)
 	}
 }
-
-export default Ui
