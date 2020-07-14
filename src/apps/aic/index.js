@@ -82,7 +82,7 @@ export default class extends React.Component {
         return (
             <>
                 <div style={{ display: ifShowCropper ? 'none' : 'block' }}>
-                    <div className="mdui-card">
+                    <div className="mdui-shadow-0 mdui-card">
                         <div className="mdui-card-content">
                             {image && <img
                                 style={{
@@ -117,7 +117,10 @@ export default class extends React.Component {
                             </button>
                             <FileRead
                                 fileType="image/*"
-                                onFileChange={file => {
+                                onFileChange={(file, fileObj) => {
+                                    if(fileObj.size >= 1 * 1024 * 1024){
+                                        // todo
+                                    }
                                     this.setState({
                                         ifShowCropper: true,
                                         image: file,

@@ -11,7 +11,7 @@ const leapYearMonth: Array<any> = [null, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31,
 
 /**
  * 是否为闰年
- * */
+ **/
 const isLeap = (year: number): boolean => {
     if (year % 400 === 0 && year % 100 === 0) return true
     if (year % 4 === 0 && year % 100 !== 0) return true

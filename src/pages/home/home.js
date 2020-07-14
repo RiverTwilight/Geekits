@@ -7,6 +7,22 @@ import applist from '../../utils/applist'
 import fiv from '../../utils/fiv'
 import ToTop from '../../components/ToTop'
 
+const AppListItem = ({ icon, icon_color, name, link, description }) => (
+    <>
+        <Link
+            to={'/app/' + link}
+            className="mdui-col mdui-list-item mdui-ripple"
+        >
+            <i className={"mdui-list-item-icon mdui-icon material-icons mdui-text-color-" + icon_color}>{icon}</i>
+            <div className="mdui-list-item-content">
+                <div className="mdui-list-item-title">{name}</div>
+                {description && <div className="mdui-list-item-text">{description}</div>}
+            </div>
+        </Link>
+        <li className="mdui-hidden-md-up mdui-divider-inset mdui-m-y-0"></li>
+    </>
+)
+
 //收藏列表
 const FivList = () => {
     const [edit, setEdit] = useState(false)
@@ -53,19 +69,7 @@ const AppList = () => {
             <ul className="mdui-row-md-3 mdui-list">
                 <li className="mdui-subheader">全部工具</li>
                 {applist.filter(app => app.channel !== 5).map(a => (
-                    <React.Fragment key={a.link + a.icon} >
-                        <Link
-                            to={'/app/' + a.link}
-                            className="mdui-col mdui-list-item mdui-ripple"
-                        >
-                            <i className={"mdui-list-item-icon mdui-icon material-icons mdui-text-color-" + a.icon_color}>{a.icon}</i>
-                            <div className="mdui-list-item-content">
-                                <div className="mdui-list-item-title">{a.name}</div>
-                                {a.description && <div className="mdui-list-item-text">{a.description}</div>}
-                            </div>
-                        </Link>
-                        <li className="mdui-hidden-md-up mdui-divider-inset mdui-m-y-0"></li>
-                    </React.Fragment>
+                    <AppListItem key={a.link + a.icon} {...a} />
                 ))}
             </ul>
         )
@@ -73,7 +77,9 @@ const AppList = () => {
     return null
 }
 
-//公告栏
+/**
+ * 公告栏
+ **/
 class Notice extends React.Component {
     constructor(props) {
         super(props);
@@ -123,10 +129,7 @@ const SearchResult = ({ result = [], kwd }) => {
     return (
         <ul className="mdui-list">
             {result.map(a => (
-                <Link key={a.link} to={`/app/${a.link}`} className="mdui-list-item mdui-ripple" >
-                    <i className={"mdui-list-item-icon mdui-icon material-icons mdui-text-color-" + a.icon_color}>{a.icon}</i>
-                    <div className="mdui-list-item-content">{a.name}</div>
-                </Link>
+                <AppListItem key={a.link + a.icon} {...a} />
             ))}
             <p className="mdui-typo mdui-text-center">
                 没找到想要的工具?试试<a href={"https://www.baidu.com/s?ie=UTF-8&wd=" + kwd}>百度搜索</a>
@@ -140,28 +143,28 @@ class Search extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            getResult: (res, kwd) => props.getResult(res, kwd),//储存回调函数
             kwd: ''
         }
     }
+    handleSearchKeydown(e) {
+        if (e.ctrlKey && e.keyCode === 70) {
+            e.preventDefault()
+            this.searchInput.focus()
+        }
+    }
     componentDidMount() {
-        document.addEventListener('keydown', e => {
-            if (e.ctrlKey && e.keyCode === 70) {
-                e.preventDefault()
-                this.searchInput.focus()
-            }
-        })
+        document.addEventListener('keydown', this.handleSearchKeydown.bind(this))
     }
     componentWillUnmount() {
-        document.removeEventListener('keydown', () => { })
+        document.removeEventListener('keydown', this.handleSearchKeydown.bind(this))
     }
     search() {
         pinyin.setOptions({ checkPolyphone: false, charCase: 0 });
-        const { kwd, getResult } = this.state
-        var res = []
-        applist.map(app => {
+        const { kwd } = this.state;
+        const { getResult } = this.props;
+        const res = applist.filter(app => {
             let keyword = kwd.toLowerCase().trim()
-            if (pinyin.getFullChars(app.name).toLowerCase().indexOf(keyword) !== -1 || app.name.toLowerCase().indexOf(keyword) !== -1) res.push(app)
+            return (pinyin.getFullChars(app.name).toLowerCase().indexOf(keyword) !== -1 || app.name.toLowerCase().indexOf(keyword) !== -1)
         })
         if (kwd !== '') {
             getResult(res, kwd)

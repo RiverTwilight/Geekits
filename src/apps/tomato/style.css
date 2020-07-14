@@ -1,0 +1,17 @@
+@font-face {
+    font-family: font;
+    src: url(../scoreboard/electronic.ttf);
+}
+
+.score {
+    font-family: font;
+    font-size: 3.2em;
+    color: #E80000;
+    z-index: 2;
+}
+
+.score small{
+    font-size: 20px;
+    margin-bottom: -20px;
+}
+

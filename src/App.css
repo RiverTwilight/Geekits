@@ -54,15 +54,6 @@ header{
     z-index: 999;
 }
 
-.center-panel {
-    min-height: 60vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: black;
-}
 
 .bottom-dashboard .mdui-card {
     position: static;
