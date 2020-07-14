@@ -51,13 +51,6 @@ const hitokotoItems = [{
     value: 'g'
 }]
 
-const parseHitokoto = (value: string): string => {
-    for (let i in hitokotoItems) {
-        if (hitokotoItems[i].value === value) return i
-    }
-    return ''
-}
-
 export default class extends React.Component<{}, { setting: ISetting }> {
     constructor(props: Readonly<{}>) {
         super(props);

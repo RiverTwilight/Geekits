@@ -53,7 +53,7 @@ export default [{
 	channel: 4
 }, {
 	name: "番茄钟",
-	link: "tomato",
+	link: "coming",
 	icon: "access_alarm",
 	icon_color: "red",
 	help: "",
@@ -333,5 +333,9 @@ export default [{
 },{
 	name: "Hello Tool",
 	link: "http://hellotool.htm.kim",
+	channel: 5
+},{
+	name: "精品网站导航",
+	link: "https://imyshare.com/?from=ygktool",
 	channel: 5
 }]

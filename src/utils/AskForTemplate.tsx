@@ -10,6 +10,10 @@ declare global {
     }
 }
 
+/**
+ * 查询工具模板
+ */
+
 export default class extends React.Component
     <{
         Result: any;
@@ -27,6 +31,17 @@ export default class extends React.Component
             input: '',
             data: null
         }
+    }
+    handleEnterKeydown(e: { ctrlKey: any; keyCode: number; preventDefault: () => void; }) {
+        // 监听回车键
+        //debugger
+        if (e.keyCode === 13) {
+            e.preventDefault();
+            this.loadCommentsFromServer()
+        }
+    }
+    componentDidMount() {
+        document.addEventListener('keydown', this.handleEnterKeydown.bind(this))
     }
     loadCommentsFromServer() {
         const { api } = this.props;

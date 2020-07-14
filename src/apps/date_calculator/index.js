@@ -34,7 +34,7 @@ class DateDiffer extends React.Component {
         const { timeEarly, timeLate, dateEarly, dateLate, diffDay, diffDayMin, diffDayHour, diffHour, diffMin } = this.state
         return (
             <>
-                <div className="mdui-card mdui-p-a-1">
+                <div className="">
                     <Input
                         onValueChange={newText => {
                             this.setState({ dateEarly: newText })
@@ -116,7 +116,7 @@ class WhichDay extends React.Component {
     render() {
         const { dateStart, day, whichDay } = this.state
         return (
-            <div className="mdui-card mdui-p-a-1">
+            <div className="">
                 <Input
                     onValueChange={newText => {
                         this.setState({ dateStart: newText })

@@ -78,7 +78,7 @@ export default class extends React.Component {
 					rows="3"
 					maxlength="500"
 				/>
-				<div className="mdui-card mdui-p-a-1">
+				<div className="mdui-shadow-1 mdui-card mdui-p-a-1">
 					<ListControlMenu
 						icon="record_voice_over"
 						title="声线"

@@ -31,7 +31,7 @@ const FivList = () => {
                 :
                 list.map((a, i) => (
                     <Link
-                        key={a.link} to={edit ? '#' : '/app/' + a.link}
+                        key={a.link + a.icon} to={edit ? '#' : '/app/' + a.link}
                         disabled={edit} className="mdui-col mdui-list-item mdui-ripple">
                         <i className="mdui-list-item-icon mdui-icon material-icons">star_border</i>
                         <div className="mdui-list-item-content">{a.name}</div>
@@ -48,13 +48,12 @@ const FivList = () => {
 
 //工具列表
 const AppList = () => {
-    //console.log(JSON.parse(localStorage.setting).homeShowNewestTool)
     if (!localStorage.setting || JSON.parse(localStorage.setting).homeShowNewestTool) {
         return (
             <ul className="mdui-row-md-3 mdui-list">
                 <li className="mdui-subheader">全部工具</li>
                 {applist.filter(app => app.channel !== 5).map(a => (
-                    <React.Fragment key={a.link} >
+                    <React.Fragment key={a.link + a.icon} >
                         <Link
                             to={'/app/' + a.link}
                             className="mdui-col mdui-list-item mdui-ripple"

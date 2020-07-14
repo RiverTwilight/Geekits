@@ -4,6 +4,15 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import './index.css';
 
+/**
+ * 初始化设置
+ */
+localStorage.setItem('setting', JSON.stringify({
+	homeShowNewestTool: true,
+	theme: 0,
+	hitokotoTopic: 0
+}))
+
 const setDark = () => {
 	document.getElementsByTagName('body')[0].classList.add("mdui-theme-layout-dark");
 }

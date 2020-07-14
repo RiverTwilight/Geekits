@@ -50,8 +50,7 @@ export default class extends React.Component {
     }
     loadSaying() {
         const { hitokotoTopic = 0 } = JSON.parse(localStorage.setting || '{}');
-        const url = (!hitokotoTopic) ? "" : `?topic=${hitokotoTopic}`
-        fetch('https://api.ygktool.cn/api/hitokoto' + url)
+        fetch(`https://api.ygktool.cn/api/hitokoto?topic=${'abcdefg'[hitokotoTopic]}`)
             .then(res => res.json())
             .then(json => {
                 this.setState({

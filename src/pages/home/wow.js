@@ -25,23 +25,22 @@ const MakeChips = ({ apps }) => {
 }
 
 //分类栏目
-const MakeChannels = ({ data }) => {
-    const { name, apps, icon } = data;
-    return (
-        <>
-            <div className="channel mdui-card mdui-p-a-1">
-                <li className="mdui-list-item">
-                    <i className="mdui-list-item-icon mdui-icon material-icons">{icon}</i>
-                    <div className="mdui-list-item-content">
-                        <div className="mdui-list-item-title">{name}</div>
-                    </div>
-                </li>
-                <MakeChips apps={apps} />
-            </div>
-            <br></br>
-        </>
-    )
-}
+const MakeChannels = ({ data: { name, apps, icon } }) => (
+    <>
+        <div className="mdui-shadow-0 channel mdui-card mdui-p-a-1">
+            <li className="mdui-list-item">
+                <i className="mdui-list-item-icon mdui-icon material-icons">{icon}</i>
+                <div className="mdui-list-item-content">
+                    <div className="mdui-list-item-title">{name}</div>
+                </div>
+            </li>
+            <MakeChips apps={apps} />
+            <br></br><br></br>
+            <div className="mdui-divider"></div>
+        </div>
+    </>
+)
+
 
 const getChannelName = index => {
     const channels = ['AI人工智能', '图片视频', '编程开发', '生活常用', "第三方工具&友情链接"]
@@ -53,7 +52,9 @@ const getChannelIcon = index => {
     return icons[index - 1]
 }
 
-/********发现*********/
+/**
+ * 发现页面
+ */
 export default class extends React.Component {
     constructor(props) {
         super(props);

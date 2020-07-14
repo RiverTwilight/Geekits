@@ -78,6 +78,10 @@ header{
         max-height: 90%;
         transition: 0.5s bottom;
     }
+    .channel{
+        margin-left: -20px;
+        margin-right: -20px;
+    }
 }
 
 @media screen and (min-width: 1024px) {
