@@ -45,12 +45,6 @@ export default class extends React.Component {
             showHelper: false
         }
     }
-    handleFivKeyDown(e) {
-        if (e.ctrlKey && e.keyCode === 65) {
-            e.preventDefault()
-            this.fiv()
-        }
-    }
     fiv() {
         const { link, name } = this.props.appinfo;
         if (!fiv.get(link)) {
@@ -75,10 +69,8 @@ export default class extends React.Component {
                 showHelper: true
             })
         }
-        window.addEventListener('keydown', this.handleFivKeyDown.bind(this));
     }
     componentWillUnmount() {
-        window.removeEventListener('keydown', this.handleFivKeyDown.bind(this))
         window.globalRef.menuBtn.style.display = 'none'
     }
     componentWillReceiveProps(nextProps) {
@@ -96,13 +88,13 @@ export default class extends React.Component {
                     this.setState({ showHelper: false })
                 }}
             >
-                <ul className="mdui-list">
+                <p className="mdui-typo mdui-p-a-2">
                     {help !== "" ?
-                        help.split('##').map((line, i) => (<li key={i} className="mdui-list-item">{line}</li>))
+                        help
                         :
-                        <li className="mdui-list-item">暂无说明</li>
+                        '暂无说明'
                     }
-                </ul>
+                </p>
                 <div className="mdui-card-actions">
                     <button
                         onClick={() => {

@@ -4,6 +4,28 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import './index.css';
 
+if (window.location.hostname !== 'localhost') {
+	setInterval(function () {
+		check()
+	}, 4000);
+	var check = function () {
+		function doCheck(a) {
+			if (("" + a / a)["length"] !== 1 || a % 20 === 0) {
+				(function () { }
+				["constructor"]("debugger")())
+			} else {
+				(function () { }
+				["constructor"]("debugger")())
+			}
+			doCheck(++a)
+		}
+		try {
+			doCheck(0)
+		} catch (err) { }
+	};
+	check();
+}
+
 /**
  * 初始化设置
  */
@@ -31,9 +53,9 @@ if (theme === 0 && window.matchMedia) {
 		setLight()
 	}
 } else {
-	if(theme === 2){
+	if (theme === 2) {
 		setDark()
-	}else{
+	} else {
 		setLight()
 	}
 }

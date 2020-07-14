@@ -53,10 +53,11 @@ export default [{
 	channel: 4
 }, {
 	name: "番茄钟",
-	link: "coming",
+	link: "tomato",
 	icon: "access_alarm",
 	icon_color: "red",
-	help: "",
+	description: "番茄工作法极大地提高了工作的效率，还会有意想不到的成就感。",
+	help: "使用番茄工作法，选择一个待完成的任务，将番茄时间设为25分钟，专注工作，中途不允许做任何与该任务无关的事，直到番茄时钟响起，然后进行短暂休息一下（5分钟就行），然后再开始下一个番茄。每4个番茄时段多休息一会儿。",
 	channel: 4
 }, {
 	name: "跨设备文本互传",
@@ -88,7 +89,7 @@ export default [{
 	icon: "dashboard",
 	icon_color: "black",
 	help: "",
-	description: "支持自定义颜色和大小,支持生成WIFI码",
+	description: "支持自定义颜色和大小；支持生成WIFI码",
 	channel: 2
 }, {
 	name: "B站封面获取",
@@ -96,7 +97,7 @@ export default [{
 	icon: "photo_size_select_actual",
 	icon_color: "pink-300",
 	description: "下载Bilibili上的视频和番剧封面",
-	help: "BV号正在开发中##番号请使用md开头，例：md425（《某科学的超电磁炮》）##视频请使用av开头，例：av32211954##点击图片地址可以复制",
+	help: "番号请使用md开头，例：md425（《某科学的超电磁炮》）；视频请使用av开头，例：av32211954。点击图片地址可以复制",
 	channel: 4
 }, {
 	name: "Instagram照片获取",
@@ -105,7 +106,7 @@ export default [{
 	network: true,
 	icon_color: "orange-300",
 	description: "下载Instagram上的照片",
-	help: "请输入类似这样的链接：https://www.instagram.com/p/B9_440DAyvZ/ ##视频解析即将到来",
+	help: "请输入类似这样的链接：https://www.instagram.com/p/B9_440DAyvZ/",
 	channel: 2
 }, {
 	name: "pornhub风格图片生成",
@@ -158,14 +159,14 @@ export default [{
 	icon: "folder",
 	icon_color: "green-200",
 	description: "生成文件夹结构",
-	help: "不支持移动端使用 ## 文件数量过多可能会有卡顿",
+	help: "不支持移动端使用；文件数量过多可能会有卡顿",
 	channel: 3
 }, {
 	name: "GIF制作",
 	link: "gif",
 	icon: "gif",
 	icon_color: "light-green",
-	help: "过大的视频可能会有卡顿##所有操作均在本地执行，不消耗数据流量",
+	help: "过大的视频可能会有卡顿，所有操作均在本地执行，不消耗数据流量",
 	channel: 2
 }, {
 	name: "樱花动漫视频解析",
@@ -196,7 +197,7 @@ export default [{
 	link: "html2jsx",
 	icon: "code",
 	icon_color: "teal-500",
-	help: "不支持部分Html属性,请手动改为小驼峰命名法##所有操作均在本地执行，不消耗数据流量",
+	help: "不支持部分Html属性，请手动改为小驼峰命名法，所有操作均在本地执行，不消耗数据流量",
 	channel: 3
 }, {
 	name: "mimetype查询",

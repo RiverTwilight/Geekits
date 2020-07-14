@@ -22,6 +22,8 @@ export default class extends React.Component<Readonly<{
     componentDidUpdate() {
         if (this.props.ifShow) {
             document.getElementsByClassName('mdui-overlay')[0].addEventListener('click', this.close.bind(this))
+        }else{
+            //JQ.hideOverlay();
         }
     }
     render() {
@@ -29,10 +31,9 @@ export default class extends React.Component<Readonly<{
         if (window.innerWidth <= 640 && ifShow) {
             JQ.showOverlay(1001);//刚好超过头部
         }
-        !ifShow && JQ.hideOverlay();
         //用return null会每次重载图片
         return (
-            <div style={{ bottom: ifShow ? '0' : `-90%`}} className="mdui-card bottom-alert bottom-dashboard">
+            <div style={{ bottom: ifShow ? '0' : `-90%` }} className="mdui-card bottom-alert bottom-dashboard">
                 <div className="mdui-hidden-sm-up mdui-card-media">
                     <div className="mdui-card-menu">
                         <button

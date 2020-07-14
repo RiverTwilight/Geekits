@@ -42,11 +42,11 @@ export default () => {
             <button className="mdui-btn mdui-color-theme" onClick={() => {
                 setTree(pathToTree(fileList, except.split('\n')));
             }}>生成</button>
+            <button data-clipboard-text={tree} className={`${tree === '' ? 'hidden' : ''} copy mdui-btn mdui-btn-icon`}>
+                <i className="mdui-icon material-icons">&#xe14d;</i>
+            </button>
             <br></br>
             <div className={`${tree === '' ? 'hidden' : ''} mdui-typo`}>
-                <button data-clipboard-text={tree} className="copy mdui-btn mdui-btn-icon">
-                    <i className="mdui-icon material-icons">&#xe14d;</i>
-                </button>
                 <pre>{tree}</pre>
             </div>
         </>

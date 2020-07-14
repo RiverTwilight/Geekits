@@ -5,9 +5,11 @@
 
 .score {
     font-family: font;
-    font-size: 3.2em;
+    font-size: 3em;
     color: #E80000;
     z-index: 2;
+    text-align: center;
+    margin-top: -130px;
 }
 
 .score small{

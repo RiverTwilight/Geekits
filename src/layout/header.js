@@ -39,7 +39,6 @@ export default class extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isTop: true,
             searchResult: '',
             kwd: '',//用于传给结果组件的百度搜索,
             saying: {
@@ -67,15 +66,9 @@ export default class extends React.Component {
             { name: 'title', ref: this.headerTitle },
             { name: 'menuBtn', ref: this.menuBtn }
         ]);//将ref传给父组件   
-        window.addEventListener("scroll", () => {
-            var t = document.documentElement.scrollTop || document.body.scrollTop;
-            this.setState({
-                isTop: t <= 56
-            })
-        })
     }
     render() {
-        const { saying, isTop } = this.state
+        const { saying } = this.state
         return (
             <>
                 <Drawer />
@@ -133,7 +126,7 @@ export default class extends React.Component {
                             </button>
                         </div>
                     </div>
-                    <div className={`mdui-divider ${isTop ? 'mdui-hidden' : ''} `}></div>
+                    <div className="mdui-divider"></div>
                 </header>
             </>
         )
