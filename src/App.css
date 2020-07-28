@@ -54,7 +54,6 @@ header{
     z-index: 999;
 }
 
-
 .bottom-dashboard .mdui-card {
     position: static;
 }
@@ -69,6 +68,9 @@ header{
         max-height: 90%;
         transition: 0.5s bottom;
     }
+    .bottom-dashboard-hidden{
+        bottom: -90%;
+    }
     .channel{
         margin-left: -20px;
         margin-right: -20px;
@@ -78,6 +80,15 @@ header{
 @media screen and (min-width: 1024px) {
     .saying {
         top: 17px;
+    }
+    .bottom-dashboard-hidden{
+        display: none;
+    }
+    .mdui-drawer{
+        border-right: 1px solid rgba(0,0,0,.12);
+    }
+    .mdui-theme-layout-dark .mdui-drawer{
+        border-right: 1px solid rgba(255,255,255,.12);
     }
 }
 

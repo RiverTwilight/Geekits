@@ -11,25 +11,24 @@ class Signin extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: null,
+            username: "",
             password: null,
-            re_password: null,
             xcode: null,
             inviteCode: null
         }
     }
     signin() {
-        const { username, password, xcode, inviteCode } = this.state
+        const { username, password, xcode } = this.state
         window.loadShow();
         Axios({
             method: 'post',
             url: '/ygktool/user/signin',
             withCredentials: false,
             data: {
-                username: username,
-                password: password,
-                xcode: xcode,
-                inviteCode: inviteCode
+                ...username,
+                ...password,
+                ...xcode,
+                inviteCode: 20284
             }
         }).then(response => {
             var json = JSON.parse(response.request.response);
@@ -50,7 +49,7 @@ class Signin extends React.Component {
         })
     }
     render() {
-        const { password, re_password, username, xcode, inviteCode } = this.state
+        const { password, re_password, username, xcode } = this.state
         return (
             <>
                 <Input
@@ -71,37 +70,20 @@ class Signin extends React.Component {
                     type="password"
                     value={password}
                 />
-                <Input
-                    onValueChange={newText => {
-                        this.setState({ re_password: newText })
-                    }}
-                    header="确认密码"
-                    icon="lock"
-                    type="password"
-                    error={re_password === password ? null : true}
-                    value={re_password}
-                />
-                <Input
-                    onValueChange={newText => {
-                        this.setState({ inviteCode: newText })
-                    }}
-                    header="邀请码"
-                    placeholder="加群查看邀请码,群号:923724755"
-                    icon="card_membership"
-                    value={inviteCode}
-                />
-                <SendCode
-                    onInput={code => {
-                        this.setState({ xcode: code })
-                    }}
-                    xcode={xcode}
-                    email={username}
-                />
+                <div className={`${username === "" && "hidden"}`}>
+                    <SendCode
+                        onInput={code => {
+                            this.setState({ xcode: code })
+                        }}
+                        xcode={xcode}
+                        email={username}
+                    />
+                </div>
                 <button
                     onClick={() => {
                         this.signin()
                     }}
-                    disabled={!xcode || re_password !== password}
+                    disabled={!xcode || !password}
                     className="mdui-ripple mdui-color-theme mdui-fab mdui-fab-fixed">
                     <i className="mdui-icon material-icons">&#xe5ca;</i>
                 </button>
@@ -114,9 +96,8 @@ class Forget extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            email: null,
+            email: "",
             password: null,
-            re_password: null,
             xcode: null
         }
     }
@@ -151,7 +132,7 @@ class Forget extends React.Component {
         })
     }
     render() {
-        const { password, re_password, email, xcode } = this.state
+        const { password, email, xcode } = this.state
         return (
             <>
                 <Input
@@ -172,28 +153,20 @@ class Forget extends React.Component {
                     type="password"
                     value={password}
                 />
-                <Input
-                    onValueChange={newText => {
-                        this.setState({ re_password: newText })
-                    }}
-                    header="确认密码"
-                    icon="lock"
-                    type="password"
-                    error={re_password === password ? null : true}
-                    value={re_password}
-                />
-                <SendCode
-                    onInput={code => {
-                        this.setState({ xcode: code })
-                    }}
-                    xcode={xcode}
-                    email={email}
-                />
+                <div className={`${email === "" && "hidden"}`}>
+                    <SendCode
+                        onInput={code => {
+                            this.setState({ xcode: code })
+                        }}
+                        xcode={xcode}
+                        email={email}
+                    />
+                </div>
                 <button
                     onClick={() => {
                         this.reset()
                     }}
-                    disabled={!xcode || re_password !== password}
+                    disabled={!xcode || !password}
                     className="loadBtn mdui-ripple mdui-color-theme mdui-fab mdui-fab-fixed">
                     <i className="mdui-icon material-icons">&#xe5ca;</i>
                 </button>
@@ -269,7 +242,7 @@ class Login extends React.Component {
                     className="loadBtn mdui-ripple mdui-color-theme mdui-float-right mdui-btn-raised mdui-btn">
                     登录
                 </button>
-                <label style={{ marginRight: '24px' }} className="mdui-float-right mdui-checkbox">
+                <label style={{ marginRight: '20px' }} className="mdui-float-right mdui-checkbox">
                     <input onChange={e => {
                         this.setState({ remember: e.target.checked })
                     }} type="checkbox" checked={remember} />
@@ -301,7 +274,7 @@ export default class extends React.Component {
                             id: 'signin',
                             component: <Signin />
                         }, {
-                            text: '忘记密码',
+                            text: '找回密码',
                             id: 'forget',
                             component: <Forget />
                         }

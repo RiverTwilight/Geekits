@@ -110,6 +110,7 @@ export default class CropWindow extends React.Component {
                             </button>
                         </div>
                     </div>
+                    <div className="mdui-divider"></div>
                 </header>
                 <button
                     onClick={() => {

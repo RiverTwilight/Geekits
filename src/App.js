@@ -60,7 +60,7 @@ export default class extends React.Component {
                 loading.style.display = 'inline-block';
                 toggleDisabled(true);
                 delete window.loadingDelay
-            }, 1000)
+            }, 700)
         }
         window.loadHide = () => {
             if (window.loadingDelay) {

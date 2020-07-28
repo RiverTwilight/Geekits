@@ -1,28 +1,7 @@
 import React from 'react'
-
+import ImgCompress from './engine.ts'
 import FileRead from '../../components/FileReader'
 import RangeInput from '../../components/RangeInput'
-
-async function loadImg(src) {
-	var img = await new Image();
-	img.src = src;
-	return img
-}
-
-const compress = async (base64, quality, cb, type) => {
-	var image = await loadImg(base64);
-	var canvas = document.createElement('canvas'),
-		context = canvas.getContext('2d'),
-		imageWidth = image.width * quality, //压缩后图片的大小
-		imageHeight = image.height * quality;
-
-	canvas.width = imageWidth
-	canvas.height = imageHeight
-
-	context.drawImage(image, 0, 0, imageWidth, imageHeight)
-	var data = canvas.toDataURL(type);
-	cb && cb(data)
-}
 
 export default class extends React.Component {
 	constructor(props) {
@@ -61,7 +40,7 @@ export default class extends React.Component {
 				/>
 				<button
 					onClick={() => {
-						compress(file, quality, (res) => {
+						ImgCompress(file, quality, (res) => {
 							this.setState({ res: res })
 						}, type)
 					}}
