@@ -49,7 +49,7 @@ class Signin extends React.Component {
         })
     }
     render() {
-        const { password, re_password, username, xcode } = this.state
+        const { password, username, xcode } = this.state
         return (
             <>
                 <Input
@@ -84,7 +84,7 @@ class Signin extends React.Component {
                         this.signin()
                     }}
                     disabled={!xcode || !password}
-                    className="mdui-ripple mdui-color-theme mdui-fab mdui-fab-fixed">
+                    className="loadBtn mdui-ripple mdui-color-theme mdui-fab mdui-fab-fixed">
                     <i className="mdui-icon material-icons">&#xe5ca;</i>
                 </button>
             </>

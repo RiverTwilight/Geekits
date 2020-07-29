@@ -270,7 +270,7 @@ export default class extends React.Component {
     render() {
         const { kwd, searchResult } = this.state
         return (
-            <>
+            <div className="mdui-col-md-10">
                 <Notice />
                 <Search
                     getResult={(res, kwd) => {
@@ -287,7 +287,7 @@ export default class extends React.Component {
                 <FivList />
                 <AppList />
                 <ToTop />
-            </>
+            </div>
         )
     }
 }

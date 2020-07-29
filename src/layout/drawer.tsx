@@ -16,7 +16,7 @@ const list = [{
     icon: 'home',
     iconColor: 'red',
     text: '首页',
-    link: '/#home'
+    link: '/'
 }, {
     icon: 'settings',
     iconColor: '',

@@ -142,6 +142,7 @@ export default class extends React.Component {
                     onClose={() => {
                         this.setState({ ifShow: false })
                     }}
+                    height={500}
                     title="识别结果"
                     ifShow={ifShow}
                 >

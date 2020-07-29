@@ -247,6 +247,7 @@ export default class extends React.Component {
                     }}
                     title="选择素材"
                     ifShow={ifShow}
+                    height={500}
                 >
                     <AssestsList
                         onChoose={i => {

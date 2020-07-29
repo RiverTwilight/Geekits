@@ -339,4 +339,8 @@ export default [{
 	name: "精品网站导航",
 	link: "https://imyshare.com/?from=ygktool",
 	channel: 5
+},{
+	name: "墨灵音乐",
+	link: "https://yinyue.qugeek.com/",
+	channel: 5
 }]
