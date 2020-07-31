@@ -1,18 +1,19 @@
-import React, { useState } from 'react'
-import { Link } from "react-router-dom"
+import React, { useState, useRef } from 'react'
+import { Link, useHistory } from "react-router-dom"
 import { alert as mduiAlert } from 'mdui'
 import pinyin from 'js-pinyin'
 import axios from '../../utils/axios'
 import applist from '../../utils/applist'
 import fiv from '../../utils/fiv'
+import useEventListener from '../../utils/Hooks/useEventListener'
 import ToTop from '../../components/ToTop'
 import { mutation } from 'mdui'
 
-const AppListItem = ({ channel, icon, icon_color, name, link, description }) => {
+const AppListItem = ({ isActive, channel, icon, icon_color, name, link, description }) => {
     return (
         channel === 5 ?
             <>
-                <a className="mdui-col mdui-list-item mdui-ripple" target="_blank" rel="no_reffer" href={link}>
+                <a className={`${isActive && 'mdui-list-item-active'} mdui-col mdui-list-item mdui-ripple`} target="_blank" rel="no_reffer" href={link}>
                     <i className={"mdui-list-item-icon mdui-icon material-icons mdui-text-color-grey"}>link</i>
                     <div className="mdui-list-item-content">
                         <div className="mdui-list-item-title">{name}</div>
@@ -23,7 +24,7 @@ const AppListItem = ({ channel, icon, icon_color, name, link, description }) => 
             <>
                 <Link
                     to={'/app/' + link}
-                    className="mdui-col mdui-list-item mdui-ripple"
+                    className={`${isActive && 'mdui-list-item-active'} mdui-col mdui-list-item mdui-ripple`}
                 >
                     <i className={"mdui-list-item-icon mdui-icon material-icons mdui-text-color-" + icon_color}>{icon}</i>
                     <div className="mdui-list-item-content">
@@ -123,13 +124,32 @@ class Notice extends React.Component {
     }
 }
 
-//显示结果
+/**
+ * 搜索结果
+ */
+
 const SearchResult = ({ result = [], kwd }) => {
-    if (!result.length && (kwd === '' || !kwd)) return null
+    if (!result.length || kwd === '') return null
+    const [activeItem, setActiveItem] = useState(-1);
+    let history = useHistory();
+    function handleClick(url) {
+        history.push(url);
+    }
+    const handleKeydown = e => {
+        if (e.keyCode === 38 || e.keyCode === 40) {
+            e.preventDefault()
+            setActiveItem(e.keyCode === 38 ? (activeItem - 1) : (activeItem + 1))
+        } else if (e.keyCode === 13) {
+            e.preventDefault();
+            handleClick(`/app/${result[activeItem].link}`);
+        }
+    }
+    useEventListener('keydown', handleKeydown.bind(this))
+    console.log(activeItem)
     return (
         <ul className="mdui-list">
-            {result.map(a => (
-                <AppListItem key={a.link + a.icon} {...a} />
+            {result.map((a, i) => (
+                <AppListItem isActive={activeItem === i} key={a.link + a.icon} {...a} />
             ))}
             <p className="mdui-typo mdui-text-center">
                 没找到想要的工具?试试<a href={"https://www.baidu.com/s?ie=UTF-8&wd=" + kwd}>百度搜索</a>
@@ -143,7 +163,8 @@ class Search extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            kwd: ''
+            kwd: '',
+            searchResult: []
         }
     }
     handleSearchKeydown(e) {
@@ -161,33 +182,39 @@ class Search extends React.Component {
     search() {
         pinyin.setOptions({ checkPolyphone: false, charCase: 0 });
         const { kwd } = this.state;
-        const { getResult } = this.props;
         const res = applist.filter(app => {
             let keyword = kwd.toLowerCase().trim()
             return (pinyin.getFullChars(app.name).toLowerCase().indexOf(keyword) !== -1 || app.name.toLowerCase().indexOf(keyword) !== -1)
         })
         if (kwd !== '') {
-            getResult(res, kwd)
-        } else {
-            getResult('')
+            this.setState({
+                searchResult: res
+            })
         }
     }
     render() {
+        const { kwd, searchResult } = this.state;
         return (
-            <div className="mdui-textfield">
-                <i className="mdui-icon material-icons">search</i>
-                <input
-                    ref={r => this.searchInput = r}
-                    onChange={e => {
-                        this.setState({ kwd: e.target.value }, () => {
-                            this.search()
-                        })
-                    }}
-                    value={this.state.kwd}
-                    className="mdui-textfield-input"
-                    placeholder="搜索(ctrl+F)">
-                </input>
-            </div>
+            <>
+                <div className="mdui-textfield">
+                    <i className="mdui-icon material-icons">search</i>
+                    <input
+                        ref={r => this.searchInput = r}
+                        onChange={e => {
+                            this.setState({ kwd: e.target.value }, () => {
+                                this.search()
+                            })
+                        }}
+                        value={this.state.kwd}
+                        className="mdui-textfield-input"
+                        placeholder="搜索(ctrl+F)">
+                    </input>
+                </div>
+                <SearchResult
+                    kwd={kwd}
+                    result={searchResult}
+                />
+            </>
         )
     }
 }
@@ -202,7 +229,7 @@ const MakeChannels = ({ data: { name, apps, icon } }) => (
                 <i className="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
             </div>
             <ul className="mdui-collapse-item-body mdui-row-md-2 mdui-list">
-                {apps.map(app => <AppListItem {...app} />)}
+                {apps.map(app => <AppListItem key={app.name} {...app} />)}
             </ul>
         </li>
     </>
@@ -259,31 +286,23 @@ class AppList extends React.Component {
 export default class extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            kwd: '',
-            searchResult: []
-        }
+    }/*
+    componentWillMount() {
+        this.unlisten = this.props.history.listen((location, action) => {
+            console.log("on route change");
+        });
     }
-    componentDidMount(){
+    componentWillUnmount(){
+        this.unlisten();
+    }*/
+    componentDidMount() {
         window.globalRef.title.innerText = '云极客工具'
     }
     render() {
-        const { kwd, searchResult } = this.state
         return (
             <div className="mdui-col-md-10">
                 <Notice />
-                <Search
-                    getResult={(res, kwd) => {
-                        this.setState({
-                            searchResult: res,
-                            kwd: kwd
-                        })
-                    }}
-                />
-                <SearchResult
-                    kwd={kwd}
-                    result={searchResult}
-                />
+                <Search />
                 <FivList />
                 <AppList />
                 <ToTop />

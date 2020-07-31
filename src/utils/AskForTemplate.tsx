@@ -41,7 +41,10 @@ export default class extends React.Component
         }
     }
     componentDidMount() {
-        document.addEventListener('keydown', this.handleEnterKeydown.bind(this))
+        window.addEventListener('keydown', this.handleEnterKeydown.bind(this))
+    }
+    componentWillUnmount() {
+        window.removeEventListener('keydown', this.handleEnterKeydown.bind(this))
     }
     loadCommentsFromServer() {
         const { api } = this.props;

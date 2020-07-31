@@ -5,6 +5,7 @@ import FileRead from '../../components/FileReader'
 import NewPage from '../../components/BottomAlert'
 import Cropper from '../../utils/Cropper'
 import ListControlMenu from '../../components/ListControlMenu'
+import ImgCompress from '../img_compress/engine'
 
 const Result = ({ result }) => {
     if (!result) return null
@@ -118,14 +119,19 @@ export default class extends React.Component {
                             <FileRead
                                 fileType="image/*"
                                 onFileChange={(file, fileObj) => {
-                                    if(fileObj.size >= 1 * 1024 * 1024){
-                                        // todo
+                                    const cb = (fileToSet) => {
+                                        this.setState({
+                                            ifShowCropper: true,
+                                            image: fileToSet,
+                                            defaultImage: file
+                                        })
                                     }
-                                    this.setState({
-                                        ifShowCropper: true,
-                                        image: file,
-                                        defaultImage: file
-                                    })
+                                    if (fileObj.size >= 1.4 * 1024 * 1024) {
+                                        ImgCompress(file, 0.1, cb)
+                                        //cb(file)
+                                    }else{
+                                        cb(file)
+                                    }
                                 }}
                             />
                             <button

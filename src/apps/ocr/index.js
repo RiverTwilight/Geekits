@@ -2,12 +2,11 @@ import React from 'react'
 import { snackbar } from 'mdui'
 import axios from '../../utils/axios'
 import ClipboardJS from 'clipboard'
-
 import ListControlMenu from '../../components/ListControlMenu'
 import ListControlCheck from '../../components/ListControlCheck'
-
 import FileRead from '../../components/FileReader'
 import Cropper from '../../utils/Cropper'
+import ImgCompress from '../img_compress/engine'
 
 const numMark = text => {
     var reg = /^1[3|4|5|7|8]\d{9}$/g;
@@ -143,7 +142,7 @@ export default class extends React.Component {
         return (
             <>
                 <div style={{ display: ifShowCropper ? 'none' : 'block' }}>
-                    <div className="mdui-card">
+                    <div className="mdui-shadow-0 mdui-card">
                         <div className="mdui-card-content">
                             {image && <img
                                 style={{
@@ -178,12 +177,20 @@ export default class extends React.Component {
                             </button>
                             <FileRead
                                 fileType="image/*"
-                                onFileChange={file => {
-                                    this.setState({
-                                        ifShowCropper: true,
-                                        image: file,
-                                        defaultImage: file
-                                    })
+                                onFileChange={(file, fileObj) => {
+                                    const cb = (fileToSet) => {
+                                        this.setState({
+                                            ifShowCropper: true,
+                                            image: fileToSet,
+                                            defaultImage: file
+                                        })
+                                    }
+                                    if (fileObj.size >= 1.4 * 1024 * 1024) {
+                                        ImgCompress(file, 0.1, cb)
+                                        //cb(file)
+                                    } else {
+                                        cb(file)
+                                    }
                                 }}
                             />
                             <button
