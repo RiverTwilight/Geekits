@@ -15,7 +15,11 @@ import AppMenu from './AppMenu'
 
 const LoadApp = loader => {
     return Loadable({
-        loader: () => import('../../apps/' + loader),
+        loader: () => {
+            const info = getInfo(loader);
+            info && window.updateTitle(info.name)
+            return import('../../apps/' + loader)
+        },
         delay: 1000,
         loading() {
             return (
@@ -30,22 +34,9 @@ const LoadApp = loader => {
 export default withRouter(class AppContainer extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            appinfo: null
-        }
     }
     componentDidCatch(error, info) {
         mduiAlert(error, '您的浏览器捕获到一个错误', null, { history: false })
-    }
-    componentWillMount() {
-        const info = getInfo(/\/([^\/]+)$/.exec(this.props.location.pathname)[1]);
-        if (info) {
-            this.setState({
-                appinfo: info
-            });
-            window.globalRef.title.innerText = info.name;
-            document.title = info.name + " - 云极客工具";
-        }
     }
     componentWillUnmount() {
         window.loadHide() //清除滚动条
@@ -60,6 +51,7 @@ export default withRouter(class AppContainer extends React.Component {
         }
     }
     render() {
+        const appInfo = getInfo(this.props.match.params.name);
         return (
             <div className="mdui-row mdui-row-gapless">
                 <div className="mdui-col-md-12">
@@ -71,7 +63,7 @@ export default withRouter(class AppContainer extends React.Component {
                     <div className="mdui-col-md-3 mdui-col-offset-md-1">
                         <br></br>
                         <AppMenu
-                            appinfo={this.state.appinfo}
+                            appinfo={appInfo}
                         />
                     </div>
                 </div>

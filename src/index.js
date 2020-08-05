@@ -4,7 +4,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import './index.css';
 
-if (window.location.hostname !== 'localhost') {
+if (process.env.NODE_ENV !== 'development') {
 	setInterval(function () {
 		check()
 	}, 4000);

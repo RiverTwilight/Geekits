@@ -286,17 +286,9 @@ class AppList extends React.Component {
 export default class extends React.Component {
     constructor(props) {
         super(props);
-    }/*
-    componentWillMount() {
-        this.unlisten = this.props.history.listen((location, action) => {
-            console.log("on route change");
-        });
     }
-    componentWillUnmount(){
-        this.unlisten();
-    }*/
     componentDidMount() {
-        window.globalRef.title.innerText = '云极客工具'
+        window.updateTitle()
     }
     render() {
         return (

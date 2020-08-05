@@ -83,7 +83,7 @@ const ShowCode = ({ src, index, type }) => (
             <i className="mdui-list-item-icon mdui-icon material-icons">code</i>
             <div className="mdui-list-item-content">{src}</div>
         </li>
-        <li class="mdui-subheader-inset"></li>
+        <li className="mdui-subheader-inset"></li>
     </React.Fragment>
 )
 

@@ -154,7 +154,7 @@ export default class extends React.Component {
 					}}
 					className="mdui-color-theme mdui-text-color-white mdui-fab mdui-fab-fixed"
 				>
-					<i class="mdui-icon material-icons">&#xe5ca;</i>
+					<i className="mdui-icon material-icons">&#xe5ca;</i>
 				</button>
 			</>
 		)

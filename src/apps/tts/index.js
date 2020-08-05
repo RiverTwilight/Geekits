@@ -76,7 +76,7 @@ export default class extends React.Component {
 					header="输入文本"
 					value={options.text}
 					rows="3"
-					maxlength="500"
+					maxLength="500"
 				/>
 				<div className="mdui-shadow-1 mdui-card mdui-p-a-1">
 					<ListControlMenu

@@ -239,7 +239,7 @@ export default class extends React.Component {
                     </button>
                     <button
                         className="mdui-float-left mdui-btn">
-                        <i class="mdui-icon mdui-icon-left material-icons">&#xe63e;</i>
+                        <i className="mdui-icon mdui-icon-left material-icons">&#xe63e;</i>
                         {connectState}
                     </button>
                     {/*<button

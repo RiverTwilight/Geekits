@@ -71,6 +71,10 @@ export default class extends React.Component {
                 toggleDisabled(false)
             }
         }
+        window.updateTitle = (pageName) => {
+            window.globalRef.title.innerText = pageName || '云极客工具'
+            document.title = pageName ? `${pageName} - 云极客工具` : '云极客工具'
+        }
     }
     render() {
         return (

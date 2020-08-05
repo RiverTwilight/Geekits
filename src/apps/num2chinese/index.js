@@ -44,7 +44,7 @@ export default class extends React.Component {
                     id="becopy" data-clipboard-text={res}
                     className="mdui-text-center mdui-typo-title">
                     {res}
-                    <button className="mdui-btn-icon mdui-btn"><i class="mdui-icon material-icons">&#xe14d;</i></button>
+                    <button className="mdui-btn-icon mdui-btn"><i className="mdui-icon material-icons">&#xe14d;</i></button>
                 </p>
             </>
         )

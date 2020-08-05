@@ -3,13 +3,6 @@ import { snackbar } from 'mdui'
 import axios from '../utils/axios'
 import Input from '../components/Input'
 
-declare global {
-    interface Window {
-        loadShow(): void;
-        loadHide(): void
-    }
-}
-
 /**
  * 查询工具模板
  */

@@ -39,8 +39,8 @@ const Record = ({ closeBottomAlert }) => {
     const now = new Date()
     return (
         <>
-            <div class="mdui-progress">
-                <div class="mdui-progress-determinate" style={{
+            <div className="mdui-progress">
+                <div className="mdui-progress-determinate" style={{
                     width: `${(historyData.length / 4 > 1 ? historyData.length / 4 - 1 : historyData.length / 4) * 100}%`
                 }}></div>
             </div>
@@ -75,7 +75,7 @@ const Record = ({ closeBottomAlert }) => {
                             history: false,
                         });
                     }}
-                    class="mdui-btn mdui-btn-block mdui-ripple">清空记录</button>
+                    className="mdui-btn mdui-btn-block mdui-ripple">清空记录</button>
             </ul>
         </>
     )
@@ -191,7 +191,7 @@ export default class extends React.Component {
                 </div>
                 <button onClick={() => { this.setState({ showHistory: true }) }}
                     className="mdui-hidden-sm-up mdui-btn mdui-btn-icon">
-                    <i class="mdui-icon material-icons">&#xe192;</i>
+                    <i className="mdui-icon material-icons">&#xe192;</i>
                 </button>
                 <Saying index={sayingIndex}/>
                 <button

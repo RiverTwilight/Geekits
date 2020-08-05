@@ -10,12 +10,6 @@ interface ISetting {
     theme: number
 }
 
-declare global {
-    interface Window {
-        globalRef: any
-    }
-}
-
 function setFunc<T extends keyof ISetting>(name?: T, value?: any): ISetting {
     var originSetting: ISetting = JSON.parse(localStorage.getItem('setting') || '{}');
     if (!name) return originSetting
@@ -59,7 +53,7 @@ export default class extends React.Component<{}, { setting: ISetting }> {
         }
     }
     componentDidMount() {
-        window.globalRef.title.innerText = '设置'
+        window.updateTitle('设置')
     }
     render() {
         const { homeShowNewestTool = true, hitokotoTopic, theme } = this.state.setting

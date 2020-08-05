@@ -22,7 +22,7 @@ class Result extends React.Component {
         return (
             <>
                 <div disabled={true} id="input" data-clipboard-text={src} className="mdui-textfield">
-                    <label class="mdui-textfield-label">点击即可复制</label>
+                    <label className="mdui-textfield-label">点击即可复制</label>
                     <input value={src} className="mdui-textfield-input" type="text" />
                 </div>
                 <img alt="预览封面" src={src} className="mdui-img-fluid" />
