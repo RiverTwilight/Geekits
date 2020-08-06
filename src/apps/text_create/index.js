@@ -39,7 +39,7 @@ const ResultCard = ({ data }) => {
         }
     }, [])
     return (
-        <div className="mdui-card mdui-p-a-1">
+        <div className="mdui-p-a-1">
             <button data-clipboard-text={data.join('\n')} className="copy mdui-btn mdui-btn-block mdui-color-theme mdui-ripple mdui-btn-raised">
                 全部复制
             </button>
@@ -69,7 +69,7 @@ const TemplateText = () => {
         }]
     return (
         <>
-            <div className="mdui-card mdui-p-a-1">
+            <div className="mdui-p-a-1">
                 <Input
                     onValueChange={changeTemplate}
                     placeholder="模板串"
@@ -136,7 +136,7 @@ const RegularText = () => {
     const [result, setResult] = useState(null);
     return (
         <>
-            <div className="mdui-card mdui-p-a-1">
+            <div className="mdui-p-a-1">
                 <Input
                     onValueChange={changeTemplate}
                     placeholder="模板串"

@@ -59,7 +59,9 @@ const FivList = () => {
                 </a>
             </li>
             {!list.length ?
-                <div className="mdui-text-center mdui-typo-body-1-opacity">点击工具菜单中的星型按钮或Ctrl + A收藏</div>
+                <div className="mdui-text-center mdui-typo-body-1-opacity">
+                    点击工具菜单中的星型按钮收藏
+                </div>
                 :
                 list.map((a, i) => (
                     <Link

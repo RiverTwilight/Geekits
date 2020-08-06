@@ -49,7 +49,9 @@ export default class extends React.Component {
     }
     loadSaying() {
         const { hitokotoTopic = 0 } = JSON.parse(localStorage.setting || '{}');
-        fetch(`https://api.ygktool.cn/api/hitokoto?topic=${'abcdefg'[hitokotoTopic]}`)
+        fetch(`https://api.ygktool.cn/api/hitokoto?topic=${'abcdefg'[hitokotoTopic]}`, {
+            cache: 'no-store'
+        })
             .then(res => res.json())
             .then(json => {
                 this.setState({
@@ -65,7 +67,7 @@ export default class extends React.Component {
         this.props.getRef([
             { name: 'title', ref: this.headerTitle },
             { name: 'menuBtn', ref: this.menuBtn }
-        ]);//将ref传给父组件   
+        ]);// 将ref传给父组件   
     }
     render() {
         const { saying } = this.state

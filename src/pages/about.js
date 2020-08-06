@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default () => {
-    window.globalRef.title.innerText = '关于'
+    window.updateTitle('关于')
     return (
         <div className="mdui-col-md-9">
             <img style={{ display: 'block', margin: '0 auto' }} className="mdui-img-rounded" wdith="80" height="80" src="/logo192.png" />

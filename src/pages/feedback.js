@@ -37,7 +37,7 @@ export default class extends React.Component {
             })
     }
     render(){
-        window.globalRef.title.innerText = '意见反馈'
+        window.updateTitle('意见反馈')
         const { content, contact } = this.state
     	return(
             <div className="mdui-col-md-10">
@@ -58,9 +58,7 @@ export default class extends React.Component {
                     rows="5"
                 />             
                 <button 
-                    onClick={()=>{
-                        this.sendData()
-                    }}
+                    onClick={this.sendData.bind(this)}
                     className="mdui-color-theme loadBtn mdui-btn mdui-btn-raised">
                     提交
                 </button>
