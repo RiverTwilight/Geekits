@@ -1,11 +1,10 @@
 import React from 'react'
-import mdui from 'mdui'
+import { mutation, snackbar } from 'mdui'
 import GIF from 'gif.js'
-
 import Input from '../../components/Input.tsx'
 import FileRead from '../../components/FileReader'
 
-function engine(file, config, videoRef, callback) {
+function engine(config, videoRef, callback, loading) {
 
 	var v = videoRef,
 		delay = config.delay * 100 || 200,
@@ -14,24 +13,27 @@ function engine(file, config, videoRef, callback) {
 			quality: 10,
 			width: v.videoWidth,
 			height: v.videoHeight,
-			workerScript:'/gif.worker.js'			
+			workerScript: '/gif.worker.js'
 		}),
-        i
+		i,
+		readVideo
 
-	v.addEventListener('play', () => {		
-		mdui.snackbar({
-			message: '视频渲染中，请等待视频播放完毕'
-		})
+	v.addEventListener('play', () => {
 		i = window.setInterval(() => {
 			gif.addFrame(v, {
 				copy: true,
 				delay: i
 			});
 		}, delay);
+
+		readVideo = window.setInterval(()=>{
+			loading('正在读取视频', v.currentTime / v.duration)
+		}, 1000)
 	}, false)
 
 	v.addEventListener('ended', () => {
 		clearInterval(i)
+		clearInterval(readVideo)
 		gif.render()
 	}, false)
 
@@ -42,30 +44,24 @@ function engine(file, config, videoRef, callback) {
 		var reader = new FileReader();
 		reader.readAsDataURL(blob);
 		reader.onload = e => {
-			callback(e.target.result)
+			callback(e.target.result),
+			loading('', 0)
 		}
 
-		/*
-				saveFile({
-                    file: blob,
-                    filename: "ygktool-gif.gif"
-                })*/
 	})
 
-	gif.on('progress', function(p) {		
-	})
+	gif.on('progress', p => loading('正在生成GIF', p))
 
 	v.play()
 }
 
 //预览图片
-const Preview = ({src}) => {
-	if(!src)return null
-    const element = <img alt="预览" height="100%"width='100%' src={src} />;
-    return element
+const Preview = ({ src }) => {
+	if (!src) return null
+	return <img alt="预览" height="100%" width='100%' src={src} />
 }
 
-class Video2Gif extends React.Component {
+export default class extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -73,60 +69,69 @@ class Video2Gif extends React.Component {
 			config: {
 				delay: 1
 			},
-			onConv:false,
-			res:null
+			onConv: false,
+			res: null,
+			process: 0,
+			state: ''
 		}
 	}
-	componentDidUpdate(){
-		mdui.mutation() 
+	componentDidUpdate() {
+		mutation()
 	}
-	render(){
-		var { file, config, onConv, res } = this.state;
-		var button = (onConv)?
-			<div style={{marginTop:'7px'}} className="mdui-spinner"></div>
-			:
-		    <i className="mdui-icon material-icons">&#xe5ca;</i>;
-		return(
+	render() {
+		const { file, config, onConv, res, process, state } = this.state;
+		return (
 			<>
-			    <video
-					style={{display:file?'block':'none'}}
-				    ref={r => this.videoDom = r}
-				    className="mdui-video-fluid" src={file}>
+				<video
+					style={{ display: 'none' }}
+					ref={r => this.videoDom = r}
+					src={file}>
 				</video>
 				<Input
 					header="速度(数值越低速度越快，建议使用默认值)"
 					value={config.delay}
-					onValueChange={newText=>{
-						this.setState({config:{delay:newText}})
+					onValueChange={newText => {
+						this.setState({ config: { delay: newText } })
 					}}
 					type="number"
 				/>
-				<FileRead 
-				    fileType="video/*"
-				    multiple={false}
-				    onFileChange={ video =>{
-				        this.setState({file:video})
-				    }}
-				/>	  
+				<FileRead
+					fileType="video/*"
+					onFileChange={video => {
+						this.setState({ file: video })
+					}}
+				/>
+				<br></br>
+				<p>{state}</p>
+				<div class="mdui-progress" style={{
+					display: process === 0 ? 'none' : ''
+				}}>
+					<div class="mdui-progress-determinate" style={{
+						width: `${process * 100}%`
+					}}></div>
+				</div>
 				<button
-		            className="mdui-fab mdui-fab-fixed mdui-color-theme"
-		            disabled={onConv}
-		            onClick={()=>{
-		            	this.setState({onConv:true})
-		            	engine(file,config,this.videoDom,blob=>{
-		            		this.setState({
-								onConv:false,
-								res:blob
+					className="mdui-fab mdui-fab-fixed mdui-color-theme"
+					disabled={onConv}
+					onClick={() => {
+						this.setState({ onConv: true })
+						engine(config, this.videoDom, blob => {
+							this.setState({
+								onConv: false,
+								res: blob
 							})
-		            	})
-		            }}>
-		            {button}			        
-	            </button>   
-				<br></br> 
-				<Preview src={res}/>
-		    </>
+						}, (state, process) => {
+							this.setState({
+								process: process,
+								state: state
+							})
+						})
+					}}>
+					<i className="mdui-icon material-icons">&#xe5ca;</i>
+				</button>
+				<br></br>
+				<Preview src={res} />
+			</>
 		)
 	}
 }
-
-export default Video2Gif

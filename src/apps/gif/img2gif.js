@@ -1,7 +1,7 @@
 import React from 'react'
 import GIF from 'gif.js'
 import FileRead from '../../components/FileReader'
-import BottomAlert from '../../components/BottomAlert';
+import BottomAlert from '../../components/BottomAlert'
 
 //图片转gif配置对话框
 class ImgSetting extends React.Component {
@@ -136,9 +136,7 @@ function img2gif(assests, config, callback) {
 
 const Preview = ({ src }) => {
 	if (!src) return null
-	return (
-		<img alt="预览" className="mdui-img-fluid" src={src} />
-	)
+	return <img alt="预览" className="mdui-img-fluid" src={src} />
 }
 
 export default class extends React.Component {
@@ -157,7 +155,7 @@ export default class extends React.Component {
 		}
 	}
 	render() {
-		var { assests, config, res, openConfigPanel } = this.state;
+		const { assests, config, res, openConfigPanel } = this.state;
 		return (
 			<>
 				<Alubm
