@@ -170,7 +170,7 @@ export default class extends React.Component {
             })
         })
 
-        socket.on('connect', ()=>{
+        socket.on('connect', () => {
             this.setState({
                 connectState: 'OK'
             })
@@ -264,6 +264,7 @@ export default class extends React.Component {
                     <span style={{ marginRight: '5px' }} className="mdui-float-right">
                         <FileRead
                             maxSize={3 * 1024 * 1024}
+                            readbydrag
                             fileType="*/*"
                             onFileChange={(dataUrl, file) => {
                                 this.setState({

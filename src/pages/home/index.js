@@ -294,7 +294,7 @@ export default class extends React.Component {
     }
     render() {
         return (
-            <div className="mdui-col-md-10">
+            <div className="mdui-col-md-9">
                 <Notice />
                 <Search />
                 <FivList />

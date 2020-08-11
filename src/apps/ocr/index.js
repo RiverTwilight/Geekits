@@ -137,6 +137,13 @@ export default class extends React.Component {
             window.loadHide()
         })
     }
+    handleFileUpdate(file) {
+        this.setState({
+            ifShowCropper: true,
+            image: file,
+            defaultImage: file
+        })
+    }
     render() {
         const { image, defaultImage, ifIgnoreLine, ifShowCropper, data, language_type } = this.state
         return (
@@ -176,15 +183,10 @@ export default class extends React.Component {
                                 重新裁剪
                             </button>
                             <FileRead
+                                readbydrag
                                 fileType="image/*"
                                 onFileChange={(file, fileObj) => {
-                                    const cb = (fileToSet) => {
-                                        this.setState({
-                                            ifShowCropper: true,
-                                            image: fileToSet,
-                                            defaultImage: file
-                                        })
-                                    }
+                                    const cb = this.handleFileUpdate.bind(this)
                                     if (fileObj.size >= 1.4 * 1024 * 1024) {
                                         ImgCompress(file, 0.1, cb)
                                         //cb(file)

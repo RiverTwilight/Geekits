@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { snackbar } from 'mdui'
+import { signListener, removeListener } from '../utils/Hooks/useFileDrager'
 
 //读取文件组件
 export default class extends React.Component<IProps, IState> {
@@ -10,31 +11,38 @@ export default class extends React.Component<IProps, IState> {
 			btnText: props.webkitdirectory ? '选择文件夹' : props.title ? props.title : '选择文件'
 		}
 	}
-	readFile(e: React.ChangeEvent<HTMLInputElement>) {
-		if (!e.target.files) return null
+	componentDidMount() {
+		if (this.props.webkitdirectory) {
+			this.realInput.webkitdirectory = true
+		}
+		this.props.readbydrag && signListener(() => { }, (e: any) => this.readFile(null, e))
+	}
+	componentWillUnmount() {
+		this.props.readbydrag && removeListener()
+	}
+	readFile(inputEvent?: any, dragEvent?: any) {
+		if (!inputEvent && !dragEvent) return null
 		const { maxSize = 99999999, onFileChange } = this.props
-		const fileList = e.target.files;
-		console.log(e.target.attributes.getNamedItem('webkitdirectory'))
+		const currentFileList = inputEvent ? inputEvent.target.files : dragEvent.dataTransfer.files;
 
 		this.setState({
-			btnText: fileList.length < 2 ? fileList[0].name : `${fileList.length}个文件`
+			btnText: currentFileList.length < 2 ? currentFileList[0].name : `${currentFileList.length}个文件`
 		})
 
-		if (e.target.attributes.getNamedItem('webkitdirectory')) {
-			onFileChange && onFileChange(null, null, fileList);
+		if (this.props.webkitdirectory) {
+			onFileChange && onFileChange(null, null, currentFileList);
 			return
 		}
 
-
-		for (var i = 0; i < fileList.length; i++) {
-			let file = e.target.files[i];
+		for (var i = 0; i < currentFileList.length; i++) {
+			let file = currentFileList[i];
 			if (file.size > maxSize) {
 				snackbar({ message: '文件大小不能超过' + maxSize / 1024 / 1024 + 'MB' })
 			} else {
 				var freader = new FileReader();
 				freader.readAsDataURL(file);
 				freader.onload = fe => {
-					onFileChange && fe.target && onFileChange(fe.target.result, file, fileList)
+					onFileChange && fe.target && onFileChange(fe.target.result, file, currentFileList)
 				}
 			}
 		}
@@ -43,7 +51,7 @@ export default class extends React.Component<IProps, IState> {
 		this.realInput.click();
 	}
 	render() {
-		const { fileType, onFileChange, maxWidth = '120px', ...props } = this.props;
+		const { webkitdirectory, fileType, onFileChange, maxWidth = '120px', ...props } = this.props;
 		var icon = 'file_upload';
 		if (fileType) {
 			let execArr = fileType.match(/^(\S+)\/\S+$/)
@@ -77,14 +85,15 @@ export default class extends React.Component<IProps, IState> {
 }
 
 interface IProps
-	extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size' | 'prefix' | 'type'> {
+	extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'webkitdirectory' | 'size' | 'prefix' | 'type'> {
 	/** 按钮宽度 */
 	maxWidth?: string,
 	maxSize?: number,
 	onFileChange?(base64: any, file: File | null, fileList: FileList | null): void,
 	fileType?: string,
 	webkitdirectory?: boolean,
-	title?: string
+	title?: string,
+	readbydrag?: boolean
 }
 
 interface IState {

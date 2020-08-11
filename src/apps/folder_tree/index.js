@@ -30,7 +30,7 @@ export default () => {
                         }
                         setFileList(result)
                     }}
-                    webkitdirectory="true"
+                    webkitdirectory={true}
                 />
             </center>
             <Input

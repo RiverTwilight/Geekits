@@ -21,19 +21,19 @@ function dataURLtoFile(dataurl, filename) {
 }
 
 const Gallery = props => {
-	var gallery = props.res.map((img,i)=>{
-		return(
+	var gallery = props.res.map((img, i) => {
+		return (
 			<div className="mdui-col">
-			    <div className="mdui-grid-tile">
-			       <img src={img}/>
-			    </div>
+				<div className="mdui-grid-tile">
+					<img src={img} />
+				</div>
 			</div>
 		)
 	})
-	return(
-		<div 
+	return (
+		<div
 			className="mdui-row-xs-3 mdui-row-sm-4 mdui-row-md-5 mdui-row-lg-6 mdui-row-xl-7 mdui-grid-list">
-		{gallery}
+			{gallery}
 		</div>
 	)
 }
@@ -42,41 +42,41 @@ class Ui extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			file:null,
-			rub:null,
-			res:[]
+			file: null,
+			rub: null,
+			res: []
 		}
 	}
-	render(){
+	render() {
 		const { file, res } = this.state;
-		return(
-			<> 
+		return (
+			<>
 				<center>
-					<img className="mdui-img-fluid" ref={r => this.img = r}src={file} />
-					<FileRead 
+					<img className="mdui-img-fluid" ref={r => this.img = r} src={file} />
+					<FileRead
 						fileType="image/gif"
-						multiple={false}
-						onFileChange = {
+						readbydrag
+						onFileChange={
 							file => {
 								this.setState({
 									rub: null
 								}, () => {
-									this.setState({file:file},()=>{
+									this.setState({ file: file }, () => {
 										var rub = new SuperGif({
 											gif: this.img
 										})
-										this.setState({rub:rub})
+										this.setState({ rub: rub })
 										rub.load(() => {
 											console.log('oh hey, now the gif is loaded');
 										})
-									})									
+									})
 								})
 							}
 						}
 					/>
 				</center>
-				<button 
-					onClick={()=>{
+				<button
+					onClick={() => {
 						var zip = new JSZip();
 						res.map((img, i) => {
 							zip.file(i + ".png", dataURLtoFile(img, i + '.png'))
@@ -85,32 +85,32 @@ class Ui extends React.Component {
 							type: "blob"
 						}).then(content => {
 							saveFile({
-		                        file: content,
-		                        type: "zip",
-		                        filename: "ygktool.gif_lib"
-		                    })
+								file: content,
+								type: "zip",
+								filename: "ygktool.gif_lib"
+							})
 						})
 					}}
-					style={{display:(res.length)?'block':'none'}}
+					style={{ display: (res.length) ? 'block' : 'none' }}
 					className="mdui-btn mdui-color-theme">打包下载</button>
 				<button
-				    disabled={(file === null)}
-				    onClick={()=>{
-				    	var res = [];				    	
-				    	const { rub } = this.state;
-				    	for (var i = 0; i <= rub.get_length(); i++) {
-				    		rub.move_to(i);
-				    		res.push(rub.get_canvas().toDataURL('image/jpeg', 0.8));
-				    	}
-				    	this.setState({res:res})				    	
-				    }}
-				    className="mdui-color-theme mdui-fab mdui-fab-fixed">
-				    <i className="mdui-icon material-icons">check</i>					
+					disabled={(file === null)}
+					onClick={() => {
+						var res = [];
+						const { rub } = this.state;
+						for (var i = 0; i <= rub.get_length(); i++) {
+							rub.move_to(i);
+							res.push(rub.get_canvas().toDataURL('image/jpeg', 0.8));
+						}
+						this.setState({ res: res })
+					}}
+					className="mdui-color-theme mdui-fab mdui-fab-fixed">
+					<i className="mdui-icon material-icons">check</i>
 				</button>
 				<br></br>
 				<Gallery res={res} />
 			</>
-		)  	
+		)
 	}
 }
 

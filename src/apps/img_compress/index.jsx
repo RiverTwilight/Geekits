@@ -19,8 +19,8 @@ export default class extends React.Component {
 			<>
 				<center>
 					<FileRead
+						readbydrag
 						fileType="image/*"
-						multiple={false}
 						onFileChange={(data, file) => {
 							this.setState({
 								file: data,

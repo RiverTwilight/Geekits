@@ -189,11 +189,11 @@ export default class extends React.Component {
                         <small>{sec < 10 ? `0${sec}` : sec}</small>
                     </div>
                 </div>
-                <button onClick={() => { this.setState({ showHistory: true }) }}
-                    className="mdui-hidden-sm-up mdui-btn mdui-btn-icon">
+                <button onClick={() => { this.setState({ showHistory: !showHistory }) }}
+                    className="mdui-btn mdui-btn-icon">
                     <i className="mdui-icon material-icons">&#xe192;</i>
                 </button>
-                <Saying index={sayingIndex}/>
+                <Saying index={sayingIndex} />
                 <button
                     onClick={() => {
                         if (state === 'playing') {
@@ -220,7 +220,6 @@ export default class extends React.Component {
                         this.setState({ showHistory: false })
                     }} />
                 </BottomAlert>
-
             </>
         )
     }

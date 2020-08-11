@@ -161,6 +161,7 @@ export default class extends React.Component {
                 <div
                     className="bottom-dashboard mdui-card mdui-p-a-1">
                     <FileRead
+                        readbydrag
                         fileType="image/*"
                         onFileChange={file => {
                             this.setState({

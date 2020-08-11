@@ -3,8 +3,8 @@ import { snackbar } from 'mdui'
 import ClipboardJS from 'clipboard'
 import Select from '../../components/Select'
 import axios from '../../utils/axios'
-import DragRead from '../../utils/DragReadContainer'
 import Input from '../../components/Input.tsx'
+import { signListener, removeListener } from '../../utils/Hooks/useFileDrager'
 
 const options = [{
     name: '自动',
@@ -71,6 +71,14 @@ export default class extends React.Component {
             snackbar({ message: '已复制结果' })
             e.clearSelection();
         })
+        signListener(text => {
+            this.setState({
+                text: text
+            })
+        })
+    }
+    componentWillUnmount() {
+        removeListener()
     }
     sendRequest() {
         const { text, fromLang, toLang } = this.state

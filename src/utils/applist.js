@@ -69,10 +69,10 @@ export default [{
 	description: "不同设备间互相传输文本和小文件，扫码即可配对",
 	channel: 4
 }, {
-	name: "SVG图表制作",
+	name: "抖音风格文字生成",
 	link: "coming",
-	icon: "assessment",
-	icon_color: "red",
+	icon: "music_note",
+	icon_color: "black",
 	help: "",
 	channel: 2
 }, {
@@ -327,19 +327,15 @@ export default [{
 	description: "我们中国的汉字，落笔成画留下五千年的历史",
 	channel: 4,
 	network: true
-},{
-	name: "表格数据流程化处理",
-	link: "https://wk.phitrellis.com",
-	channel: 5
-},{
+}, {
 	name: "Hello Tool",
 	link: "http://hellotool.htm.kim",
 	channel: 5
-},{
+}, {
 	name: "精品网站导航",
 	link: "https://imyshare.com/?from=ygktool",
 	channel: 5
-},{
+}, {
 	name: "墨灵音乐",
 	link: "https://yinyue.qugeek.com/",
 	channel: 5
