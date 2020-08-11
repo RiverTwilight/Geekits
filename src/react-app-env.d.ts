@@ -12,3 +12,13 @@ interface Window {
      */
     loadHide(): void
 }
+
+declare module 'gif.js' {
+    class GIF {
+        constructor(config);
+        public addFrame(videoDom, config)
+        public render()
+        public on(eventName, cb)
+    }
+    export = GIF;
+}

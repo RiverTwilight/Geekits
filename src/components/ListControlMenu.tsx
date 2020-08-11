@@ -16,7 +16,7 @@ const Dialog = ({ items, onCheckedChange, title, checked }: ListControlMenu) => 
 							<input
 								onChange={() => onCheckedChange && onCheckedChange(i)}
 								type="radio"
-								checked={items[checked].value == item.value} />
+								checked={items[checked].value === item.value} />
 							<i className="mdui-radio-icon"></i>
 						</div>
 						<div className="mdui-list-item-content">{item.name}</div>

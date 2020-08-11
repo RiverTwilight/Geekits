@@ -7,7 +7,7 @@ export default class extends React.Component<IProps, IState> {
 	constructor(props: Readonly<IProps>) {
 		super(props);
 		this.state = {
-			btnText: props.webkitdirectory === "true" ? '选择文件夹' : '选择文件'
+			btnText: props.webkitdirectory ? '选择文件夹' : props.title ? props.title : '选择文件'
 		}
 	}
 	readFile(e: React.ChangeEvent<HTMLInputElement>) {
@@ -76,13 +76,15 @@ export default class extends React.Component<IProps, IState> {
 	}
 }
 
-interface IProps {
+interface IProps
+	extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size' | 'prefix' | 'type'> {
 	/** 按钮宽度 */
 	maxWidth?: string,
 	maxSize?: number,
-	onFileChange?(base64: string | ArrayBuffer | null, file: File | null, fileList: FileList | null): void,
+	onFileChange?(base64: any, file: File | null, fileList: FileList | null): void,
 	fileType?: string,
-	webkitdirectory: "true" | "false"
+	webkitdirectory?: boolean,
+	title?: string
 }
 
 interface IState {
