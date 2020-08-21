@@ -60,8 +60,7 @@ export default withRouter(class AppContainer extends React.Component {
                             <Route path="/app/:name" component={LoadApp(this.props.match.params.name)}></Route>
                         </Router>
                     </div>
-                    <div className="mdui-col-md-3 mdui-col-offset-md-1">
-                        <br></br>
+                    <div className="mdui-col-md-4 mdui-p-l-2">
                         <AppMenu
                             appinfo={appInfo}
                         />

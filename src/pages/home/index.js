@@ -80,52 +80,6 @@ const FivList = () => {
 }
 
 /**
- * 公告栏
- **/
-class Notice extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            date: null,
-            id: null,
-            content: null
-        }
-    }
-    componentDidMount() {
-        this.getNoticeFromSever()
-    }
-    showNotice() {
-        const { date, content, id } = this.state;
-        mduiAlert(content, date.split('T')[0] + '公告',
-            () => {
-                localStorage.setItem('readedNotice', id)
-            },
-            {
-                confirmText: '我知道了',
-                history: false,
-            })
-    }
-    getNoticeFromSever() {
-        //if(sessionStorage.loadedNotice == 1)return
-        axios.get('/ygktool/notice')
-            .then(json => {
-                const { primary, content, date } = json.data[0]
-                this.setState({
-                    id: primary,
-                    content: content.replace(/\n/g, '<br>'),
-                    date: date
-                }, () => {
-                    //sessionStorage.setItem('loadedNotice', 1)
-                    if (!localStorage.readedNotice || localStorage.readedNotice != primary) this.showNotice()
-                })
-            })
-    }
-    render() {
-        return null
-    }
-}
-
-/**
  * 搜索结果
  */
 
@@ -287,18 +241,61 @@ class AppList extends React.Component {
 class Index extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            notice: null
+        }
+    }
+    showNotice() {
+        const { notice: { date, content, id } } = this.state;
+        mduiAlert(content, date.split('T')[0] + '公告',
+            () => {
+                localStorage.setItem('readedNotice', id)
+            },
+            {
+                confirmText: '我知道了',
+                history: false,
+            })
     }
     componentDidMount() {
+        this.getNotice()
         window.updateTitle()
     }
+    getNotice() {
+        //if(sessionStorage.loadedNotice == 1)return
+        axios.get('/ygktool/notice')
+            .then(json => {
+                const { primary, content, date } = json.data[0]
+                this.setState({
+                    notice: {
+                        id: primary,
+                        content: content.replace(/\n/g, '<br>'),
+                        date: date
+                    }
+                }, () => {
+                    //sessionStorage.setItem('loadedNotice', 1)
+                    if (window.innerWidth <= 640 && (!localStorage.readedNotice || localStorage.readedNotice != primary)) this.showNotice()
+                })
+            })
+    }
     render() {
+        const { notice } = this.state
         return (
-            <div className="mdui-col-md-9">
-                <Notice />
-                <Search />
-                <FivList />
-                <AppList />
-                <ToTop />
+            <div className="mdui-row">
+                <div className="mdui-col-md-9 mdui-p-r-1">
+                    <Search />
+                    <FivList />
+                    <AppList />
+                    <ToTop />
+                </div>
+                <div className="mdui-col-md-3">
+                    <div className="mdui-card">
+                        <div className="mdui-card-primary">
+                            <div className="mdui-card-primary-title">公告</div>
+                            <div className="mdui-card-primary-subtitle">{notice && notice.date.split('T')[0]}</div>
+                        </div>
+                        <div dangerouslySetInnerHTML={{ __html: notice ? notice.content : '没有公告' }} className="mdui-card-content"></div>
+                    </div>
+                </div>
             </div>
         )
     }

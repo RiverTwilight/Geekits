@@ -7078,10 +7078,10 @@ mdn-data@2.0.6:
   resolved "https://registry.npm.taobao.org/mdn-data/download/mdn-data-2.0.6.tgz#852dc60fcaa5daa2e8cf6c9189c440ed3e042978"
   integrity sha1-hS3GD8ql2qLoz2yRicRA7T4EKXg=
 
-mdui-in-react@^1.2.5:
-  version "1.2.5"
-  resolved "https://registry.yarnpkg.com/mdui-in-react/-/mdui-in-react-1.2.5.tgz#7b5d079ebf439b5cd6b33963a7eb8b3b8c9f985f"
-  integrity sha512-JPLf1+ds+ezwnLR0zzIW4m/Dp4SfWHXLKVnj71yMn74jE8kVueNuQ/+YvzffhXUFZJEAY5rE7xAJCqjt2I6fHA==
+mdui-in-react@^1.2.6:
+  version "1.2.6"
+  resolved "https://registry.yarnpkg.com/mdui-in-react/-/mdui-in-react-1.2.6.tgz#ead76bc543d99387a5b575ca636b95900260d3df"
+  integrity sha512-vg36WXZ//Y31W7f0YYMS5kXl5NQmJtBZc5/RD4v+kCNfCFBT/GIlUm1Af1CVUbdYzlHVc9vlATEAViI9dCXp+g==
   dependencies:
     "@types/node" "^13.11.0"
     mdui "^0.4.3"

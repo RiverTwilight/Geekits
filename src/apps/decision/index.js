@@ -138,7 +138,7 @@ export default class extends React.Component {
         return (
             <>
                 <div
-                    className="mdui-card mdui-p-a-1">
+                    className=" mdui-p-a-1">
                     <InputFiled
                         items={items}
                         onItemChange={newItems => {
@@ -181,7 +181,7 @@ export default class extends React.Component {
                 </div>
                 <br></br>
                 <div
-                    className="mdui-ripple mdui-card mdui-p-a-1"
+                    className="mdui-ripple  mdui-p-a-1"
                     onClick={() => {
                         window.history.pushState(null, null, `#${encodeURI(items)}`)
                         this.setState({ statu: 'start' })

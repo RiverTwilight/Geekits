@@ -2,6 +2,7 @@ const {
     override
 } = require('customize-cra');
 const WorkboxPlugin = require('workbox-webpack-plugin');
+const path = require('path')
 
 module.exports = function override(config, env) {
     config.plugins.push(
@@ -19,6 +20,10 @@ module.exports = function override(config, env) {
             ]
         })
     )
+    config.resolve.alias = {
+        // 解决npm link的包中hook报错
+        react: path.resolve('./node_modules/react')
+    }
     config.mode = 'production';
     config.devtool = config.mode === 'development' ? 'cheap-module-source-map' : false // 生产环境关闭sourcemap关闭
     return config
