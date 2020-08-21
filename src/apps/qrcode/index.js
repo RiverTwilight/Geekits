@@ -1,10 +1,6 @@
 import React from 'react'
 import QRCode from 'qrcode'
-import ListControlMenu from '../../components/ListControlMenu'
-import Input from '../../components/Input'
-import ColorInput from '../../components/ColorInput'
-import RangeInput from '../../components/RangeInput'
-import FileReader from '../../components/FileReader'
+import { Input, ListControlMenu, ColorPicker, RangeInput, FileInput } from 'mdui-in-react'
 
 const create = (opts, text, callback, iconData) => {
 
@@ -39,7 +35,11 @@ const create = (opts, text, callback, iconData) => {
 	}
 	QRCode.toDataURL(text, opts, (err, url) => {
 		if (err) throw erricon.width
-		addIcon(url, iconData)
+		if (iconData) {
+			addIcon(url, iconData)
+		} else {
+			callback(url)
+		}
 	})
 }
 
@@ -52,7 +52,7 @@ const Result = ({ qrcode }) => {
 	)
 }
 
-export default class extends React.Component {
+class Qrcode extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -147,7 +147,7 @@ export default class extends React.Component {
 					/>
 					<div className="mdui-row-xs-2">
 						<div className="mdui-col">
-							<ColorInput
+							<ColorPicker
 								text="亮色"
 								color={colorLight}
 								onColorChange={newColor => {
@@ -156,7 +156,7 @@ export default class extends React.Component {
 							/>
 						</div>
 						<div className="mdui-col">
-							<ColorInput
+							<ColorPicker
 								text="暗色"
 								color={colorDark}
 								onColorChange={newColor => {
@@ -169,7 +169,7 @@ export default class extends React.Component {
 					<br></br>
 					<div class="mdui-typo-headline">图标</div>
 					<br></br>
-					<FileReader
+					<FileInput
 						fileType="image/*"
 						file={icon}
 						onFileChange={file => {
@@ -208,3 +208,5 @@ export default class extends React.Component {
 		)
 	}
 }
+
+export default Qrcode

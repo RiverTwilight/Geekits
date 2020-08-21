@@ -1,8 +1,7 @@
 import React from 'react'
 import ClipboardJS from 'clipboard'
-import RangeInput from '../../components/RangeInput'
+import { RangeInput, FileInput } from 'mdui-in-react'
 import { snackbar } from 'mdui'
-import FileRead from '../../components/FileReader'
 
 //调色盘
 const ColorLens = ({ onChange, rgb, isHide }) => {
@@ -19,6 +18,7 @@ const ColorLens = ({ onChange, rgb, isHide }) => {
                 <RangeInput
                     {...SameProps}
                     title="R"
+                    value={r}
                     onValueChange={newValue => {
                         onChange(`${newValue}, ${g}, ${b}, ${a}`)
                     }}
@@ -28,6 +28,7 @@ const ColorLens = ({ onChange, rgb, isHide }) => {
                 <RangeInput
                     {...SameProps}
                     title="G"
+                    value={g}
                     onValueChange={newValue => {
                         onChange(`${r}, ${newValue}, ${b}, ${a}`)
                     }}
@@ -37,6 +38,7 @@ const ColorLens = ({ onChange, rgb, isHide }) => {
                 <RangeInput
                     {...SameProps}
                     title="B"
+                    value={b}
                     onValueChange={newValue => {
                         onChange(`${r}, ${g}, ${newValue}, ${a}`)
                     }}
@@ -45,6 +47,7 @@ const ColorLens = ({ onChange, rgb, isHide }) => {
             <div className="mdui-col">
                 <RangeInput
                     {...SameProps}
+                    value={a}
                     title="A"
                     onValueChange={newValue => {
                         onChange(`${r}, ${g}, ${b}, ${Math.floor(newValue / 255 * 100) / 100}`)
@@ -160,7 +163,7 @@ export default class extends React.Component {
                 />
                 <div
                     className="bottom-dashboard mdui-card mdui-p-a-1">
-                    <FileRead
+                    <FileInput
                         readbydrag
                         fileType="image/*"
                         onFileChange={file => {

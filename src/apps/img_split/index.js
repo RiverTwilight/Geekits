@@ -5,7 +5,7 @@ import JSZip from 'jszip'
 import { dataURLtoFile, saveFile } from '../../utils/fileSaver'
 
 //读取文件组件
-import FileRead from '../../components/FileReader'
+import { FileInput } from 'mdui-in-react'
 
 const cropper = React.createRef(null);
 
@@ -90,7 +90,7 @@ class Ui extends React.Component {
 		return(
 			<> 
 				<center>
-					<FileRead 
+					<FileInput 
 						fileType="image/*"
 						multiple={false}
 						onFileChange={file=>{

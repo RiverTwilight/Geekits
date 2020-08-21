@@ -1,63 +1,63 @@
 import React from 'react'
 import { updateSpinners, snackbar } from 'mdui'
-import Input from '../components/Input'
+import { Input } from 'mdui-in-react'
 
 export default class extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-        	contact:'',
-            content:''
-        }       
+            contact: '',
+            content: ''
+        }
     }
     componentDidMount() {
         updateSpinners()
     }
-    sendData(){
-        const { content, contact } = this.state  
+    sendData() {
+        const { content, contact } = this.state
         window.loadShow()
         fetch('https://api.ygktool.cn/ygktool/feedback', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    content:content,
-                    contact:contact
-                })
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                content: content,
+                contact: contact
             })
+        })
             .then(res => {
-                snackbar({message:'提交成功，我会尽快处理^_^'})                 
+                snackbar({ message: '提交成功，我会尽快处理^_^' })
             })
             .catch(err => {
-                snackbar({message: '出错了！' + err})
+                snackbar({ message: '出错了！' + err })
             })
-            .then(() => {   
+            .then(() => {
                 window.loadHide();
             })
     }
-    render(){
+    render() {
         window.updateTitle('意见反馈')
         const { content, contact } = this.state
-    	return(
+        return (
             <div className="mdui-col-md-10">
                 <Input
-                    onValueChange={newText=>{
-                        this.setState({contact:newText})
+                    onValueChange={newText => {
+                        this.setState({ contact: newText })
                     }}
                     header="联系方式"
                     placeholder="例 QQ:1985386335"
                     value={contact}
                 />
                 <Input
-                    onValueChange={newText=>{
-                        this.setState({content:newText})
+                    onValueChange={newText => {
+                        this.setState({ content: newText })
                     }}
                     placeholder="内容"
                     value={content}
                     rows="5"
-                />             
-                <button 
+                />
+                <button
                     onClick={this.sendData.bind(this)}
                     className="mdui-color-theme loadBtn mdui-btn mdui-btn-raised">
                     提交

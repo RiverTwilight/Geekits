@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { snackbar } from 'mdui'
-import Input from '../../components/Input'
-import Tab from '../../components/Tab'
-import Select from '../../components/Select'
+import { Tab, Select, Input } from 'mdui-in-react'
 import { regularTextCreate, templateTextCreate } from './engine'
 import ClipboardJS from 'clipboard'
 
@@ -23,7 +21,6 @@ export default () => (
 )
 
 const ResultCard = ({ data }) => {
-    if (!data) return null;
     useEffect(() => {
         var clipboard = new ClipboardJS('.copy');
         clipboard.on('success', e => {
@@ -38,6 +35,7 @@ const ResultCard = ({ data }) => {
             clipboard && clipboard.destroy();
         }
     }, [])
+    if (!data) return null;
     return (
         <div className="mdui-p-a-1">
             <button data-clipboard-text={data.join('\n')} className="copy mdui-btn mdui-btn-block mdui-color-theme mdui-ripple mdui-btn-raised">

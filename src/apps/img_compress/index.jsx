@@ -1,7 +1,6 @@
 import React from 'react'
 import ImgCompress from './engine.ts'
-import FileRead from '../../components/FileReader'
-import RangeInput from '../../components/RangeInput'
+import { FileInput, RangeInput } from 'mdui-in-react'
 
 export default class extends React.Component {
 	constructor(props) {
@@ -18,7 +17,7 @@ export default class extends React.Component {
 		return (
 			<>
 				<center>
-					<FileRead
+					<FileInput
 						readbydrag
 						fileType="image/*"
 						onFileChange={(data, file) => {

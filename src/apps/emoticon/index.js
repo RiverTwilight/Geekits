@@ -1,11 +1,7 @@
 import React from 'react'
 import saveFile from '../../utils/fileSaver'
 import html2canvas from 'html2canvas'
-import NewPage from '../../components/BottomAlert'
-import FileRead from '../../components/FileReader'
-import ColorInput from '../../components/ColorInput'
-import RangeInput from '../../components/RangeInput'
-import Input from '../../components/Input'
+import { FileInput, Input, ColorPicker, RangeInput, BottomAlert as NewPage  } from 'mdui-in-react'
 
 const Result = ({ src }) => {
     if (!src) return null
@@ -122,7 +118,7 @@ const StyleSet = ({ color, handle, style }) => {
     return (
         <div className="mdui-row-xs-2">
             <div className="mdui-col">
-                <ColorInput
+                <ColorPicker
                     text="文本颜色"
                     color={color}
                     onColorChange={newColor => {
@@ -207,7 +203,7 @@ export default class extends React.Component {
                     <br></br>
                     <div className="mdui-row-xs-3">
                         <div className="mdui-col">
-                            <FileRead
+                            <FileInput
                                 fileType="image/*"
                                 multiple={false}
                                 onFileChange={file => {

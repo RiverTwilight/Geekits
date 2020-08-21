@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { snackbar } from 'mdui'
 import ClipboardJS from 'clipboard'
-import FileRead from '../../components/FileReader'
-import Input from '../../components/Input'
+import { Input, FileInput } from 'mdui-in-react'
 import pathToTree from './engine'
 
 export default () => {
@@ -20,7 +19,7 @@ export default () => {
     return (
         <>
             <center>
-                <FileRead
+                <FileInput
                     multiple={true}
                     maxWidth="200px"
                     onFileChange={(_, _file, fileList) => {

@@ -1,8 +1,6 @@
 import * as React from 'react'
 import { Link } from 'react-router-dom';
-import ListControlMenu from '../../components/ListControlMenu'
-import ListControlCheck from '../../components/ListControlCheck'
-import List from '../../components/List'
+import { ListControlMenu, ListControlCheck, List } from 'mdui-in-react'
 
 interface ISetting {
     homeShowNewestTool: boolean,
@@ -108,18 +106,24 @@ export default class extends React.Component<{}, { setting: ISetting }> {
                     <li className="mdui-text-color-theme mdui-subheader">联系</li>
                     <Link to="/feedback">
                         <List
-                            text='意见反馈'
+                            items={[{
+                                text: '意见反馈'
+                            }]}
                         />
                     </Link>
                     <a href="//wpa.qq.com/msgrd?v=3&amp;uin=1985386335&amp;site=qq&amp;menu=yes">
                         <List
-                            text='联系开发者'
+                            items={[{
+                                text: '联系开发者'
+                            }]}
                         />
                     </a>
                     <li className="mdui-text-color-theme mdui-subheader">关于</li>
                     <Link to="/about">
                         <List
-                            text='关于云极客'
+                            items={[{
+                                text: '关于'
+                            }]}
                         />
                     </Link>
                 </ul>

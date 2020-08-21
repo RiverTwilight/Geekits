@@ -1,6 +1,5 @@
 import React from 'react'
-import FileRead from '../../components/FileReader'
-import ListControlMenu from '../../components/ListControlMenu'
+import { FileInput, ListControlMenu } from 'mdui-in-react'
 
 async function loadImg(src){
 	var img = await new Image();
@@ -133,7 +132,7 @@ export default class extends React.Component {
 				    }} 
 				    />
 			    <br></br>
-			    <FileRead 
+			    <FileInput 
 	                fileType="image/*"
 	                multiple={true}
 	                onFileChange={ file =>{

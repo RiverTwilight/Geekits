@@ -1,7 +1,6 @@
 import React from 'react'
 import mdui from 'mdui'
-import BottomAlert from '../../components/BottomAlert'
-import Input from '../../components/Input'
+import { Input, BottomAlert } from 'mdui-in-react'
 import './style.css'
 
 function d2a(n) {

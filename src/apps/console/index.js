@@ -2,7 +2,7 @@ import React from 'react';
 import { JQ } from 'mdui';
 import Template from '../../utils/AskForTemplate.tsx'
 
-import ToTop from '../../components/ToTop'
+import { ToTop } from 'mdui-in-react'
 const $ = JQ;
 
 //检查资源类型，链接或代码

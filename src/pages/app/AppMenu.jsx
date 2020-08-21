@@ -1,7 +1,7 @@
 import React from 'react'
 import { snackbar, prompt, alert as mduiAlert } from 'mdui'
-import BottomAlert from '../../components/BottomAlert';
-import fiv from '../../utils/fiv.ts'
+import { BottomAlert } from 'mdui-in-react';
+import fiv from '../../utils/Services/fiv.ts'
 
 
 const ShareBtn = () => {

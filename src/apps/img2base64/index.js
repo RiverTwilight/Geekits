@@ -1,7 +1,7 @@
 import React from 'react'
 import ClipboardJS from 'clipboard'
 import { snackbar } from 'mdui'
-import FileRead from '../../components/FileReader'
+import { FileInput } from 'mdui-in-react'
 
 class Ui extends React.Component {
 	constructor(props) {
@@ -27,7 +27,7 @@ class Ui extends React.Component {
 		return (
 			<>
 				<center>
-					<FileRead
+					<FileInput
 						readByDrag
 						fileType="image/*"
 						onFileChange={file => {

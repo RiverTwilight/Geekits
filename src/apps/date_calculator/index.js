@@ -1,7 +1,7 @@
 import React from 'react'
-import Input from '../../components/Input.tsx'
+import { Input } from 'mdui-in-react'
 import { calDiffer, calWhichDay } from './engine.ts'
-import Tab from '../../components/Tab'
+import { Tab } from 'mdui-in-react'
 
 const getToday = () => {
     var time = new Date();

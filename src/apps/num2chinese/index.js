@@ -2,7 +2,7 @@ import React from 'react'
 import { snackbar } from 'mdui'
 import ClipboardJS from 'clipboard'
 import num2chinese from './engine'
-import Input from '../../components/Input.tsx'
+import { Input } from 'mdui-in-react'
 
 export default class extends React.Component {
     constructor(props) {

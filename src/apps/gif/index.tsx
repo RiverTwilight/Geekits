@@ -1,7 +1,6 @@
 import React from 'react'
 import GIF from 'gif.js'
-import FileRead from '../../components/FileReader'
-import BottomAlert from '../../components/BottomAlert'
+import { FileInput, BottomAlert } from 'mdui-in-react'
 
 type FormComp = {
     name: string,
@@ -263,7 +262,7 @@ export default class extends React.Component<{}, {
                     }}
                 />
                 <br></br>
-                <FileRead
+                <FileInput
                     title="选择照片"
                     fileType="image/*"
                     multiple={true}
@@ -276,7 +275,7 @@ export default class extends React.Component<{}, {
                     }}
                 />
                 <span className="mdui-p-a-1">或者</span>
-                <FileRead
+                <FileInput
                     title="选择视频"
                     fileType="video/*"
                     multiple={true}

@@ -1,13 +1,12 @@
-import React, { useState, useRef } from 'react'
+import React, { useState } from 'react'
 import { Link, useHistory } from "react-router-dom"
-import { alert as mduiAlert } from 'mdui'
+import { alert as mduiAlert, mutation } from 'mdui'
 import pinyin from 'js-pinyin'
+import { ToTop } from 'mdui-in-react'
 import axios from '../../utils/axios'
 import applist from '../../utils/applist'
-import fiv from '../../utils/fiv'
+import fiv from '../../utils/Services/fiv'
 import useEventListener from '../../utils/Hooks/useEventListener'
-import ToTop from '../../components/ToTop'
-import { mutation } from 'mdui'
 
 const AppListItem = ({ isActive, channel, icon, icon_color, name, link, description }) => {
     return (
@@ -131,12 +130,6 @@ class Notice extends React.Component {
  */
 
 const SearchResult = ({ result = [], kwd }) => {
-    if (!result.length || kwd === '') return null
-    const [activeItem, setActiveItem] = useState(-1);
-    let history = useHistory();
-    function handleClick(url) {
-        history.push(url);
-    }
     const handleKeydown = e => {
         if (e.keyCode === 38 || e.keyCode === 40) {
             e.preventDefault()
@@ -146,7 +139,13 @@ const SearchResult = ({ result = [], kwd }) => {
             handleClick(`/app/${result[activeItem].link}`);
         }
     }
+    const [activeItem, setActiveItem] = useState(-1);
     useEventListener('keydown', handleKeydown.bind(this))
+    let history = useHistory();
+    if (!result.length || kwd === '') return null
+    function handleClick(url) {
+        history.push(url);
+    }
     console.log(activeItem)
     return (
         <ul className="mdui-list">
@@ -285,7 +284,7 @@ class AppList extends React.Component {
     }
 }
 
-export default class extends React.Component {
+class Index extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -304,3 +303,5 @@ export default class extends React.Component {
         )
     }
 }
+
+export default Index

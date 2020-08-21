@@ -2,10 +2,9 @@ import React from 'react'
 import { snackbar, mutation } from 'mdui'
 import Axios from '../../utils/axios';
 import { MD5 } from 'crypto-js';
-import { getUserInfo, setUserInfo } from '../../utils/UserInfo'
-import SendCode from '../../utils/SendCode'
-import Input from '../../components/Input'
-import Tab from '../../components/Tab'
+import { getUserInfo, setUserInfo } from '../../utils/Services/UserInfo'
+import SendCode from '../../utils/Services/SendCode'
+import { Input, Tab } from 'mdui-in-react'
 
 class Signin extends React.Component {
     constructor(props) {

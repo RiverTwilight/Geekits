@@ -1,6 +1,6 @@
 import React from 'react'
 import UAParser from 'ua-parser-js'
-import Input from '../../components/Input.tsx'
+import { Input } from 'mdui-in-react'
 
 const parser = new UAParser();
 

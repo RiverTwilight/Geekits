@@ -6,7 +6,7 @@ import {
 	Link
 } from "react-router-dom"
 import marked from 'marked'
-import Input from '../../components/Input.tsx'
+import { Input } from 'mdui-in-react'
 import MdEditor from '../../components/MdEditor'
 
 //Markdown预览

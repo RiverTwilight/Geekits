@@ -1,7 +1,7 @@
 import React from 'react'
 import { snackbar } from 'mdui'
 import axios from '../utils/axios'
-import Input from '../components/Input'
+import { Input } from 'mdui-in-react'
 
 /**
  * 查询工具模板

@@ -3,7 +3,7 @@ import {
     NavLink
 } from "react-router-dom"
 import { Drawer } from 'mdui'
-import { getUserInfo } from '../utils/UserInfo'
+import { getUserInfo } from '../utils/Services/UserInfo'
 import applist from '../utils/applist'
 
 declare global {

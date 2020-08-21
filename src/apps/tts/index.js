@@ -1,11 +1,8 @@
 import React from 'react'
-import Input from '../../components/Input.tsx'
-import RangeInput from '../../components/RangeInput.tsx'
-import ListControlMenu from '../../components/ListControlMenu.tsx'
-import MusicPlayer from '../../components/MusicPlayer.tsx'
+import { Input, RangeInput, ListControlMenu, MusicPlayer } from 'mdui-in-react'
 import Axios from '../../utils/axios'
 
-const per_types = [{
+const VOICE_SOURCE = [{
 	name: '度小宇',
 	value: '1'
 }, {
@@ -87,7 +84,7 @@ export default class extends React.Component {
 							options.per = checked;
 							this.setState({ options: options })
 						}}
-						items={per_types}
+						items={VOICE_SOURCE}
 					/>
 					<RangeInput
 						value={options.vol}

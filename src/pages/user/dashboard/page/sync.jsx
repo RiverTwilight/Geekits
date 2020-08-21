@@ -1,8 +1,8 @@
 import React from 'react'
 import Axios from '../../../../utils/axios';
-import fiv from '../../../../utils/fiv'
+import fiv from '../../../../utils/Services/fiv'
 import { snackbar } from 'mdui'
-import { getUserInfo } from '../../../../utils/UserInfo'
+import { getUserInfo } from '../../../../utils/Services/UserInfo'
 
 export default class extends React.Component {
     constructor(props) {

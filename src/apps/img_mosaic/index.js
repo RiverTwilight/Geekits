@@ -1,7 +1,7 @@
 import React from 'react'
 import Image from './image'
 import Caption from './caption'
-import Tab from '../../components/Tab'
+import { Tab } from 'mdui-in-react'
 
 export default _ => (
     <Tab

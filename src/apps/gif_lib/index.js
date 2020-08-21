@@ -2,8 +2,8 @@ import React from 'react'
 import SuperGif from 'libgif'
 import JSZip from 'jszip'
 import saveFile from '../../utils/fileSaver'
+import { FileInput } from 'mdui-in-react'
 import './style.css'
-import FileRead from '../../components/FileReader'
 
 function dataURLtoFile(dataurl, filename) {
 	//将base64转换为文件
@@ -53,7 +53,7 @@ class Ui extends React.Component {
 			<>
 				<center>
 					<img className="mdui-img-fluid" ref={r => this.img = r} src={file} />
-					<FileRead
+					<FileInput
 						fileType="image/gif"
 						readbydrag
 						onFileChange={

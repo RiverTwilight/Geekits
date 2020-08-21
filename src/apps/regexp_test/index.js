@@ -1,5 +1,5 @@
 import React from 'react'
-import Input from '../../components/Input.tsx'
+import { Input } from 'mdui-in-react'
 
 const test = (unMarkedExp, unMarkedText) => {
     try {

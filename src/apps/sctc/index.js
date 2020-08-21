@@ -1,9 +1,9 @@
 import React from 'react'
 import { snackbar } from 'mdui'
 import dic from './dictionary'
-import DragRead from '../../utils/DragReadContainer'
-import Input from '../../components/Input.tsx'
+import { Input } from 'mdui-in-react'
 import ClipboardJS from 'clipboard'
+import { signListener, removeListener } from '../../utils/Hooks/useFileDrager'
 
 //结果展示框
 function PrintRes(props) {
@@ -34,25 +34,27 @@ export default class extends React.Component {
             snackbar({ message: '已复制结果' })
             e.clearSelection()
         })
+        signListener(text => {
+            this.setState({
+                text: text
+            })
+        })
+    }
+    componentWillUnmount() {
+        removeListener()
     }
     render() {
         const { text } = this.state
         return (
             <>
-                <DragRead
-                    cb={newValue => {
+                <Input
+                    value={text}
+                    onValueChange={newValue => {
                         this.setState({ text: newValue })
                     }}
-                >
-                    <Input
-                        value={text}
-                        onValueChange={newValue => {
-                            this.setState({ text: newValue })
-                        }}
-                        placeholder="输入内容或拖入txt文件"
-                        rows="5"
-                    />
-                </DragRead>
+                    placeholder="输入内容或拖入txt文件"
+                    rows="5"
+                />
                 <center>
                     <button
                         onClick={() => {

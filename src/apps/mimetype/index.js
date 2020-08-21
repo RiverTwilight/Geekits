@@ -2,7 +2,7 @@ import React from 'react'
 import { snackbar } from 'mdui'
 import ClipboardJS from 'clipboard'
 import mimeTypes from './dictionary'
-import Input from '../../components/Input.tsx'
+import { Input } from 'mdui-in-react'
 
 //结果展示
 function Result(props) {

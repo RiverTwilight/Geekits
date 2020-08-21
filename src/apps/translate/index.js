@@ -1,9 +1,8 @@
 import React from 'react'
 import { snackbar } from 'mdui'
 import ClipboardJS from 'clipboard'
-import Select from '../../components/Select'
+import { Input, Select } from 'mdui-in-react'
 import axios from '../../utils/axios'
-import Input from '../../components/Input.tsx'
 import { signListener, removeListener } from '../../utils/Hooks/useFileDrager'
 
 const options = [{
@@ -127,20 +126,14 @@ export default class extends React.Component {
                         options={options}
                     />
                 </center>
-                <DragRead
-                    cb={newValue => {
+                <Input
+                    value={text}
+                    onValueChange={newValue => {
                         this.setState({ text: newValue })
                     }}
-                >
-                    <Input
-                        value={text}
-                        onValueChange={newValue => {
-                            this.setState({ text: newValue })
-                        }}
-                        placeholder="输入内容或拖入txt文件"
-                        rows="5"
-                    />
-                </DragRead>
+                    placeholder="输入内容或拖入txt文件"
+                    rows="5"
+                />
                 <center>
                     <button
                         onClick={() => {

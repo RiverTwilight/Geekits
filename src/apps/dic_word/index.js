@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Template from '../../utils/AskForTemplate.tsx'
-import ToTop from '../../components/ToTop'
+import { ToTop } from 'mdui-in-react'
 
 const Word = ({ item }) => {
     const [open, setOpen] = useState(false);

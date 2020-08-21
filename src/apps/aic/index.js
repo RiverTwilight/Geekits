@@ -1,10 +1,8 @@
 import React from 'react'
 import { snackbar } from 'mdui'
+import { FileInput, ListControlMenu, BottomAlert } from 'mdui-in-react'
 import axios from '../../utils/axios'
-import FileRead from '../../components/FileReader'
-import NewPage from '../../components/BottomAlert'
 import Cropper from '../../utils/Cropper'
-import ListControlMenu from '../../components/ListControlMenu'
 import ImgCompress from '../img_compress/engine'
 
 const Result = ({ result }) => {
@@ -123,7 +121,7 @@ export default class extends React.Component {
                                 className="mdui-ripple mdui-btn">
                                 重新裁剪
                             </button>
-                            <FileRead
+                            <FileInput
                                 fileType="image/*"
                                 readbydrag
                                 onFileChange={(file, fileObj) => {
@@ -147,7 +145,7 @@ export default class extends React.Component {
                         </div>
                     </div>
                 </div>
-                <NewPage
+                <BottomAlert
                     onClose={() => {
                         this.setState({ ifShow: false })
                     }}
@@ -156,7 +154,7 @@ export default class extends React.Component {
                     ifShow={ifShow}
                 >
                     <Result result={data} />
-                </NewPage>
+                </BottomAlert>
                 <Cropper
                     ifShow={ifShowCropper}
                     img={image}

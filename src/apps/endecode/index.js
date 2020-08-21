@@ -1,9 +1,7 @@
 import React from 'react'
 import { snackbar } from 'mdui'
 import ClipboardJS from 'clipboard'
-import Select from '../../components/Select'
-import Input from '../../components/Input.tsx'
-import DragRead from '../../utils/DragReadContainer'
+import { Input, Select } from 'mdui-in-react'
 import dic from './dictionary'
 import { signListener, removeListener } from '../../utils/Hooks/useFileDrager'
 
@@ -112,20 +110,14 @@ export default class extends React.Component {
                     placeholder="输入密钥（可选）"
                 />
                 <div className="mdui-row-md-2">
-                    <DragRead
-                        cb={newValue => {
+                    <Input
+                        value={text}
+                        onValueChange={newValue => {
                             this.setState({ text: newValue })
                         }}
-                    >
-                        <Input
-                            value={text}
-                            onValueChange={newValue => {
-                                this.setState({ text: newValue })
-                            }}
-                            placeholder="输入内容或拖入txt文件"
-                            rows="5"
-                        />
-                    </DragRead>
+                        placeholder="输入内容或拖入txt文件"
+                        rows="5"
+                    />
                     <center>
                         <button
                             onClick={() => {

@@ -4,8 +4,8 @@ import ClipboardJS from 'clipboard'
 import io from 'socket.io-client'
 import QRCode from 'qrcode'
 import saveFile from '../../utils/fileSaver'
-import FileRead from '../../components/FileReader'
-import Input from '../../components/Input.tsx'
+import { FileInput } from 'mdui-in-react'
+import { Input } from 'mdui-in-react'
 
 const Share = ({ qrcode, token }) => (
     <>
@@ -262,7 +262,7 @@ export default class extends React.Component {
                         设置密码
                     </button>*/}
                     <span style={{ marginRight: '5px' }} className="mdui-float-right">
-                        <FileRead
+                        <FileInput
                             maxSize={3 * 1024 * 1024}
                             readbydrag
                             fileType="*/*"

@@ -1,7 +1,7 @@
 import React from 'react'
 import { snackbar } from 'mdui'
 
-import FileRead from '../../components/FileReader'
+import { FileInput } from 'mdui-in-react'
 import './caption.css'
 
 class captionMosaic {
@@ -272,7 +272,7 @@ export default class extends React.Component {
 				/>
                 <div
 					className="bottom-dashboard mdui-card mdui-p-a-1">
-				    <FileRead 
+				    <FileInput 
 		                fileType="image/*"
 		                multiple={true}
 		                onFileChange={ file =>{
@@ -286,7 +286,7 @@ export default class extends React.Component {
 		                }}
 		            />
 		            <span style={{margin:'0px 5px 0px 5px'}}></span>	
-		            <FileRead 
+		            <FileInput 
 		                fileType="video/*"
 		                onFileChange={ file =>{
 		                    this.setState({video:file})

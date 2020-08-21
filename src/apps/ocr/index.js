@@ -2,9 +2,7 @@ import React from 'react'
 import { snackbar } from 'mdui'
 import axios from '../../utils/axios'
 import ClipboardJS from 'clipboard'
-import ListControlMenu from '../../components/ListControlMenu'
-import ListControlCheck from '../../components/ListControlCheck'
-import FileRead from '../../components/FileReader'
+import { FileInput, ListControlCheck, ListControlMenu } from 'mdui-in-react'
 import Cropper from '../../utils/Cropper'
 import ImgCompress from '../img_compress/engine'
 
@@ -182,7 +180,7 @@ export default class extends React.Component {
                                 className="mdui-ripple mdui-btn">
                                 重新裁剪
                             </button>
-                            <FileRead
+                            <FileInput
                                 readbydrag
                                 fileType="image/*"
                                 onFileChange={(file, fileObj) => {

@@ -12,15 +12,15 @@ function regularTextCreate(config: {
             , temIndex = temExec.index//出现标识符的下标
             , origin = parseInt(temExec[1])//匹配首项
             , element = type === 0 ? (origin + index * func) : (origin * Math.pow(func, index))
-            , cleanTemplate = str.replace(reg, '');                  
+            , cleanTemplate = str.replace(reg, '');
         return cleanTemplate.substring(0, temIndex) + element + cleanTemplate.substring(temIndex)
     }
     var result = [];
     for (let index = 0; index < length; index++) {
         let res = '';
-        do{
+        do {
             res = replace(template, index, arrayType)
-        }while(regGlobal.test(res)){
+        } while (regGlobal.test(res)) {
             res = replace(res, index, arrayType)
         }
         result.push(res)
@@ -31,7 +31,7 @@ function regularTextCreate(config: {
 function templateTextCreate(config: {
     template: string,
     func: string
-}): string[]{
+}): string[] {
     const { template, func } = config
     const reg = /\$\{()\}/g;
     return [template.replace(reg, func)]

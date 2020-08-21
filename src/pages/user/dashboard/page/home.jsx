@@ -2,7 +2,7 @@ import React from 'react'
 import {
   Link
 } from "react-router-dom"
-import { getUserInfo, removeUserInfo } from '../../../../utils/UserInfo'
+import { getUserInfo, removeUserInfo } from '../../../../utils/Services/UserInfo'
 
 const SettingMenu = _ => {
     return(

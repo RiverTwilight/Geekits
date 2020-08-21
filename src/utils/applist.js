@@ -69,13 +69,6 @@ export default [{
 	description: "不同设备间互相传输文本和小文件，扫码即可配对",
 	channel: 4
 }, {
-	name: "抖音风格文字生成",
-	link: "coming",
-	icon: "music_note",
-	icon_color: "black",
-	help: "",
-	channel: 2
-}, {
 	name: "GIF分解",
 	link: "gif_lib",
 	icon: "collections",
@@ -99,7 +92,7 @@ export default [{
 	description: "下载Bilibili上的视频和番剧封面",
 	help: "番号请使用md开头，例：md425（《某科学的超电磁炮》）；视频请使用av开头，例：av32211954。点击图片地址可以复制",
 	channel: 4
-}, {
+}/*, {
 	name: "Instagram照片获取",
 	link: "instagram",
 	icon: "add_a_photo",
@@ -108,7 +101,7 @@ export default [{
 	description: "下载Instagram上的照片",
 	help: "请输入类似这样的链接：https://www.instagram.com/p/B9_440DAyvZ/",
 	channel: 2
-}, {
+}*/, {
 	name: "pornhub风格图片生成",
 	link: "fake_pornhub_logo",
 	icon: "insert_emoticon",
@@ -327,6 +320,12 @@ export default [{
 	description: "我们中国的汉字，落笔成画留下五千年的历史",
 	channel: 4,
 	network: true
+}, {
+	name: "js键盘码查询",
+	link: "js_keycode",
+	icon: "settings_applications",
+	icon_color: "yellow",
+	channel: 3
 }, {
 	name: "Hello Tool",
 	link: "http://hellotool.htm.kim",

@@ -1,13 +1,13 @@
 import React, { createRef } from 'react'
 import { snackbar } from 'mdui'
 import ClipboardJS from 'clipboard'
-import DragRead from '../../utils/DragReadContainer'
-import Input from '../../components/Input.tsx'
+import { Input } from 'mdui-in-react'
+import { signListener, removeListener } from '../../utils/Hooks/useFileDrager'
 
-const PrintRes = ({res}) => (
+const PrintRes = ({ res }) => (
     <div className="mdui-card mdui-col">
-        <div style={{height:'130px'}} className="mdui-typo mdui-dialog-content mdui-p-a-2">
-        {res}
+        <div style={{ height: '130px' }} className="mdui-typo mdui-dialog-content mdui-p-a-2">
+            {res}
         </div>
         <a id="becopy" data-clipboard-text={res} className="mdui-float-right mdui-btn mdui-btn-icon">
             <i className="mdui-icon material-icons">&#xe14d;</i>
@@ -24,15 +24,23 @@ export default class extends React.Component {
             res: ''
         }
     }
-    componentDidMount(){
+    componentDidMount() {
         clipboard && clipboard.destroy();
         var clipboard = new ClipboardJS('#becopy');
-        clipboard.on('success', e=> {
-            snackbar({message:'已复制结果'})
+        clipboard.on('success', e => {
+            snackbar({ message: '已复制结果' })
             e.clearSelection();
         })
+        signListener(text => {
+            this.setState({
+                text: text
+            })
+        })
     }
-    html2jsx(){
+    componentWillUnmount() {
+        removeListener()
+    }
+    html2jsx() {
         const { text } = this.state;
         var inlineStyle = /\bstyle="(.+)"/.exec(String(text))[1]
         var dom = document.createElement('div');
@@ -41,14 +49,14 @@ export default class extends React.Component {
         var jsxStyle = {}
         var usefulStyle = Object.keys(styleObj).map(style => {
             let content = styleObj[style]
-            if(content !== '' && content !== undefined)return style
+            if (content !== '' && content !== undefined) return style
         }).filter(style => style);
-        usefulStyle.slice(usefulStyle.length/2, usefulStyle.length).map(style=>jsxStyle[style] = styleObj[style])
+        usefulStyle.slice(usefulStyle.length / 2, usefulStyle.length).map(style => jsxStyle[style] = styleObj[style])
         var res = text
             .replace(/\b([a-z]+)-([a-z]+)\b/g, (word, sub1, sub2) => (
-                        sub1 + sub2.substring(0, 1).toUpperCase() + sub2.substring(1)
-                    )
-                )
+                sub1 + sub2.substring(0, 1).toUpperCase() + sub2.substring(1)
+            )
+            )
             .replace(/\bclass[\=]/g, 'className=')
             .replace(/\bstyle="(.+)"/g, `style={${JSON.stringify(jsxStyle)}}`)
             .replace(/\bautofocus\b/g, 'autoFocus')
@@ -61,28 +69,22 @@ export default class extends React.Component {
             res: res
         })
     }
-    render(){
+    render() {
         const { text, res } = this.state
-        return(
+        return (
             <>
                 <div className="mdui-row-md-2">
-                    <DragRead
-                        cb={newValue=>{
-                            this.setState({text: newValue})
+                    <Input
+                        value={text}
+                        onValueChange={newValue => {
+                            this.setState({ text: newValue })
                         }}
-                    >
-                         <Input
-                            value={text}
-                            onValueChange={newValue=>{
-                                this.setState({text: newValue})
-                            }}
-                            placeholder="输入内容或拖入txt文件"
-                            rows="5"
-                        />
-                    </DragRead>
+                        placeholder="输入内容或拖入txt文件"
+                        rows="5"
+                    />
                     <center>
                         <button
-                            onClick={()=>{
+                            onClick={() => {
                                 this.html2jsx()
                             }} className="mdui-btn-raised mdui-color-theme mdui-btn mdui-ripple">
                             转换为jsx
