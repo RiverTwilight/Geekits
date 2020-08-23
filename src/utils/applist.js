@@ -322,7 +322,7 @@ export default [{
 	network: true
 }, {
 	name: "js键盘码查询",
-	link: "js_keycode",
+	link: "coming",
 	icon: "settings_applications",
 	icon_color: "yellow",
 	channel: 3
