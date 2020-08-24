@@ -6,12 +6,6 @@ import { Drawer } from 'mdui'
 import { getUserInfo } from '../utils/Services/UserInfo'
 import applist from '../utils/applist'
 
-declare global {
-    interface Window {
-        leftDrawer: any;
-    }
-}
-
 const list = [{
     icon: 'home',
     iconColor: 'red',
@@ -41,7 +35,7 @@ const Menu = () => (
     }</>
 )
 
-export default class extends React.Component<{}, {}> {
+class DrawerMenu extends React.Component<{}, {}> {
     componentDidMount() {
         window.leftDrawer = new Drawer('#left-drawer');
     }
@@ -73,3 +67,5 @@ export default class extends React.Component<{}, {}> {
         )
     }
 }
+
+export default DrawerMenu

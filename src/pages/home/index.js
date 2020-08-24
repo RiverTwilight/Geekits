@@ -12,7 +12,7 @@ const AppListItem = ({ isActive, channel, icon, icon_color, name, link, descript
     return (
         channel === 5 ?
             <>
-                <a className={`${isActive && 'mdui-list-item-active'} mdui-col mdui-list-item mdui-ripple`} target="_blank" rel="no_reffer" href={link}>
+                <a className={`${isActive && 'mdui-list-item-active'} mdui-col mdui-list-item mdui-ripple`} target="_blank" rel="noopener noreferrer" href={link}>
                     <i className={"mdui-list-item-icon mdui-icon material-icons mdui-text-color-grey"}>link</i>
                     <div className="mdui-list-item-content">
                         <div className="mdui-list-item-title">{name}</div>

@@ -7,6 +7,7 @@ interface Window {
      */
     updateTitle(pageName: string | null): void,
     loadShow(): void;
+    leftDrawer: any;
     /**
      * 隐藏加载动画
      */
