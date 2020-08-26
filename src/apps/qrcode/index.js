@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
 import QRCode from 'qrcode'
 import { Input, ListControlMenu, ColorPicker, RangeInput, FileInput } from 'mdui-in-react'
@@ -34,7 +35,7 @@ const create = (opts, text, callback, iconData) => {
 		})
 	}
 	QRCode.toDataURL(text, opts, (err, url) => {
-		if (err) throw erricon.width
+		if (err) throw err
 		if (iconData) {
 			addIcon(url, iconData)
 		} else {
@@ -47,7 +48,7 @@ const Result = ({ qrcode }) => {
 	if (!qrcode) return null
 	return (
 		<div className="mdui-card mdui-shadow-2 mdui-p-a-1">
-			<center><img src={qrcode}></img></center>
+			<center><img alt="qrcode" src={qrcode}></img></center>
 		</div>
 	)
 }
@@ -167,7 +168,7 @@ class Qrcode extends React.Component {
 					</div>
 					<div className="mdui-divider"></div>
 					<br></br>
-					<div class="mdui-typo-headline">图标</div>
+					<div className="mdui-typo-headline">图标</div>
 					<br></br>
 					<FileInput
 						fileType="image/*"

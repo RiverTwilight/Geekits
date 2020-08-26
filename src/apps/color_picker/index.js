@@ -1,5 +1,6 @@
 import React from 'react'
 import ClipboardJS from 'clipboard'
+import { ReactComponent as Cursor } from './position.svg'
 import { RangeInput, FileInput } from 'mdui-in-react'
 import { snackbar } from 'mdui'
 
@@ -117,7 +118,7 @@ export default class extends React.Component {
             var g = pixels[1];
             var b = pixels[2];
             var a = pixels[3] / 255;
-            var grey = 0.3 * r + 0.59 * g + 0.11 * b;//灰度公式
+            // var grey = 0.3 * r + 0.59 * g + 0.11 * b;//灰度公式
             this.setState({
                 rgb: `${r}, ${g}, ${b}, ${a}`,
                 binary: '#' + r.toString(16) + g.toString(16) + b.toString(16)
@@ -128,7 +129,7 @@ export default class extends React.Component {
         const { imgFile } = this.state;
         const { canvas } = this;
         var ctx = this.canvas.getContext('2d');
-        var img = new Image;
+        var img = new Image();
         img.src = imgFile;
         img.onload = _ => {
             canvas.height = img.height;
@@ -144,10 +145,12 @@ export default class extends React.Component {
                 <span
                     style={{
                         position: 'absolute',
+                        height: '20px',
+                        width: '20px',
                         top: positionY - 10,
                         left: positionX - 10
                     }}>
-                    <img height="20" width="20" src="/position.svg"></img>
+                    <Cursor />
                 </span>
                 <canvas
                     onClick={e => {

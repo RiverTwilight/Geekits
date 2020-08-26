@@ -60,6 +60,7 @@
   },
   "devDependencies": {
     "@types/clipboard": "^2.0.1",
-    "@types/react-router-dom": "^5.1.5"
+    "@types/react-router-dom": "^5.1.5",
+    "ts-migrate": "^0.1.0"
   }
 }

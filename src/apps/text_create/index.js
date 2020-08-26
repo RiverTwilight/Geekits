@@ -4,7 +4,7 @@ import { Tab, Select, Input } from 'mdui-in-react'
 import { regularTextCreate, templateTextCreate } from './engine'
 import ClipboardJS from 'clipboard'
 
-export default () => (
+const TextCreate = () => (
     <Tab
         tabs={[
             {
@@ -198,3 +198,5 @@ const RegularText = () => {
         </>
     )
 }
+
+export default TextCreate

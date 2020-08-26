@@ -30,8 +30,8 @@ const exportSame = (a, b) => {
     if (!a || !b) return false;
     var num = 0;
     var same = [];
-    a.map(songa=>{
-        b.map(songb=>{
+    a.forEach(songa=>{
+        b.forEach(songb=>{
             if(songa.name === songb.name){
                 same.push(songb);
                 num ++

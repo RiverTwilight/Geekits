@@ -4,7 +4,7 @@ export default () => {
     window.updateTitle('关于')
     return (
         <div className="mdui-col-md-9">
-            <img style={{ display: 'block', margin: '0 auto' }} className="mdui-img-rounded" wdith="80" height="80" src="/logo192.png" />
+            <img alt="logo" style={{ display: 'block', margin: '0 auto' }} className="mdui-img-rounded" wdith="80" height="80" src="/logo192.png" />
             <h3 className="mdui-typo-title mdui-text-center">极简，强大，高效</h3>
             <br></br>
             <div className="mdui-card mdui-p-a-2">
@@ -37,7 +37,7 @@ export default () => {
                         </div>
                         </div>
                     </a>
-                    <a target="_blank" className="mdui-col mdui-list-item mdui-ripple" href="https://blog.yungeeker.com/blog/%E4%BA%91%E6%9E%81%E5%AE%A2%E5%B7%A5%E5%85%B7%E5%BC%80%E5%8F%91%E6%97%A5%E5%BF%97">
+                    <a rel="noopener noreferrer" target="_blank" className="mdui-col mdui-list-item mdui-ripple" href="https://blog.yungeeker.com/blog/1">
                         <i className="mdui-list-item-icon mdui-icon material-icons">grain</i>
                         <div className="mdui-list-item-content">
                             <div className="mdui-list-item-title mdui-list-item-one-line">

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
 import { snackbar } from 'mdui'
 import { FileInput, ListControlMenu, BottomAlert } from 'mdui-in-react'
@@ -47,7 +48,7 @@ const aic_types = [{
     value: 'dish'
 }]
 
-export default class extends React.Component {
+class AIC extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -96,6 +97,7 @@ export default class extends React.Component {
                                     margin: '0 auto',
                                     maxHeight: '200px'
                                 }}
+                                alt="预览"
                                 src={image} />}
                             <ListControlMenu
                                 icon="language"
@@ -170,3 +172,5 @@ export default class extends React.Component {
         )
     }
 }
+
+export default AIC

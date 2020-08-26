@@ -6,7 +6,7 @@ import { FileInput, Input, ColorPicker, RangeInput, BottomAlert as NewPage  } fr
 const Result = ({ src }) => {
     if (!src) return null
     return (
-        <img src={src} className="mdui-img-fluid" />
+        <img alt="生成结果" src={src} className="mdui-img-fluid" />
     )
 }
 

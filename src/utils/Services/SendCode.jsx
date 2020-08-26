@@ -35,6 +35,8 @@ class Ui extends React.Component {
                 case 666:
                     snackbar({message:'验证码已发送，请注意检查邮箱垃圾桶'});
                     break;
+                default:
+                    snackbar({message:'验证码发送失败，请重试'});
             }      
         })
     }

@@ -25,7 +25,7 @@ const Gallery = props => {
 		return (
 			<div className="mdui-col">
 				<div className="mdui-grid-tile">
-					<img src={img} />
+					<img alt={`第${i}帧`} src={img} />
 				</div>
 			</div>
 		)
@@ -52,7 +52,7 @@ class Ui extends React.Component {
 		return (
 			<>
 				<center>
-					<img className="mdui-img-fluid" ref={r => this.img = r} src={file} />
+					<img alt="上传的文件" className="mdui-img-fluid" ref={r => this.img = r} src={file} />
 					<FileInput
 						fileType="image/gif"
 						readbydrag
@@ -78,7 +78,7 @@ class Ui extends React.Component {
 				<button
 					onClick={() => {
 						var zip = new JSZip();
-						res.map((img, i) => {
+						res.forEach((img, i) => {
 							zip.file(i + ".png", dataURLtoFile(img, i + '.png'))
 						})
 						zip.generateAsync({
