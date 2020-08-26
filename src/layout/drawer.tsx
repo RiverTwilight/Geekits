@@ -21,10 +21,8 @@ const list = [{
 }]
 
 const Menu = () => (
-    // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
     <>{
         list.map((a) => (
-            // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
             <NavLink
                 onClick={() => {
                     // @ts-expect-error ts-migrate(2339) FIXME: Property 'leftDrawer' does not exist on type 'Wind... Remove this comment to see the full error message
@@ -33,9 +31,7 @@ const Menu = () => (
                 key={a.link}
                 exact className="mdui-list-item mdui-ripple"
                 activeClassName="mdui-list-item-active" to={a.link}>
-                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                 <i className={"mdui-list-item-icon mdui-icon material-icons mdui-text-color-" + a.iconColor}>{a.icon}</i>
-                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                 <div className="mdui-list-item-content">{a.text}</div>
             </NavLink>
         ))

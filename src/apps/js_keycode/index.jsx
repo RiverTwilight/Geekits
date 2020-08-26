@@ -1,14 +1,22 @@
-import * as React from 'react'
-import { List } from 'mdui-in-react'
+import * as React from "react";
+import { Input } from "mdui-in-react";
+
+const TABLE = {
+	k: 200,
+};
 
 const JsKeycode = () => {
-    return(
-        <List 
-            items={[{
-                text: 'dsf'
-            }]}
-        />
-    )
-}
+	const [key, setKey] = React.useState("");
+	return (
+		<>
+			<Input
+				onKeyDown={(e) => {
+					console.log(e);
+				}}
+			/>
+			<p>{TABLE[key]}</p>
+		</>
+	);
+};
 
-export default JsKeycode
+export default JsKeycode;
