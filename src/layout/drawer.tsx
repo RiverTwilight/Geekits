@@ -40,31 +40,32 @@ class DrawerMenu extends React.Component<{}, {}> {
         window.leftDrawer = new Drawer('#left-drawer');
     }
     render() {
+        // @ts-expect-error ts-migrate(2554) FIXME: Expected 1 arguments, but got 0.
         const user = getUserInfo();
         return (
             <div id="left-drawer" className="mdui-drawer">
                 <div style={{ height: '130px' }} className="mdui-shadow-0 mdui-card">
-                    <div className="mdui-card-primary">
-                        <div className="mdui-card-primary-title mdui-text-color-theme">云极客工具</div>
-                        <div className="mdui-card-primary-subtitle">{`共有${applist.filter(app => app.channel !== 5).length}个工具`}</div>
+                            <div className="mdui-card-primary">
+                                        <div className="mdui-card-primary-title mdui-text-color-theme">云极客工具</div>
+                                        <div className="mdui-card-primary-subtitle">{`共有${applist.filter((app: any) => app.channel !== 5).length}个工具`}</div>
                     </div>
                 </div>
                 <ul className="mdui-list">
-                    <NavLink
+                            <NavLink
                         onClick={() => {
                             window.innerWidth <= 1024 && window.leftDrawer.close()
                         }}
                         exact className="mdui-list-item mdui-ripple"
                         activeClassName="mdui-list-item-active" to={user ? '/user' : '/user/login'}>
-                        <i className="mdui-list-item-avatar mdui-icon material-icons">face</i>
-                        <div className="mdui-list-item-content">{user ? user.username : '未登录'}</div>
+                                        <i className="mdui-list-item-avatar mdui-icon material-icons">face</i>
+                                        <div className="mdui-list-item-content">{user ? user.username : '未登录'}</div>
                     </NavLink>
-                    <div className="mdui-divider" />
-                    <Menu />
+                            <div className="mdui-divider" />
+                            <Menu />
                 </ul>
                 <p className="mdui-text-center copyright">©2019-2020&nbsp;江村暮</p>
             </div>
-        )
+        );
     }
 }
 

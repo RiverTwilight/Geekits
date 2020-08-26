@@ -44,7 +44,7 @@ const hitokotoItems = [{
 }]
 
 export default class extends React.Component<{}, { setting: ISetting }> {
-    constructor(props: Readonly<{}>) {
+    constructor(props: {}) {
         super(props);
         this.state = {
             setting: setFunc()
@@ -56,9 +56,13 @@ export default class extends React.Component<{}, { setting: ISetting }> {
     render() {
         const { homeShowNewestTool = true, hitokotoTopic, theme } = this.state.setting
         return (
+            
             <div className="mdui-col-md-10">
+                
                 <ul className="mdui-list">
+                    
                     <li className="mdui-text-color-theme mdui-subheader">通用</li>
+                    
                     <ListControlCheck
                         icon="apps"
                         title="首页展示最新工具"
@@ -67,7 +71,9 @@ export default class extends React.Component<{}, { setting: ISetting }> {
                             this.setState({ setting: setFunc('homeShowNewestTool', checked) })
                         }}
                     />
+                    
                     <li className="mdui-text-color-theme mdui-subheader">个性化</li>
+                    
                     <ListControlMenu
                         title="一言来源"
                         checked={hitokotoTopic || 0}
@@ -76,6 +82,7 @@ export default class extends React.Component<{}, { setting: ISetting }> {
                         }}
                         items={hitokotoItems}
                     />
+                    
                     <ListControlMenu
                         title="主题"
                         checked={theme || 0}
@@ -103,23 +110,31 @@ export default class extends React.Component<{}, { setting: ISetting }> {
                             value: 'dark'
                         }]}
                     />
+                    
                     <li className="mdui-text-color-theme mdui-subheader">联系</li>
+                    
                     <Link to="/feedback">
+                        
                         <List
                             items={[{
                                 text: '意见反馈'
                             }]}
                         />
                     </Link>
+                    
                     <a href="//wpa.qq.com/msgrd?v=3&amp;uin=1985386335&amp;site=qq&amp;menu=yes">
+                        
                         <List
                             items={[{
                                 text: '联系开发者'
                             }]}
                         />
                     </a>
+                    
                     <li className="mdui-text-color-theme mdui-subheader">关于</li>
+                    
                     <Link to="/about">
+                        
                         <List
                             items={[{
                                 text: '关于'

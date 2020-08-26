@@ -5,7 +5,7 @@ interface Window {
     /**
      * 修改文档标题和头部标题
      */
-    updateTitle(pageName: string | null): void,
+    updateTitle(pageName?: string): void,
     loadShow(): void;
     leftDrawer: any;
     /**
