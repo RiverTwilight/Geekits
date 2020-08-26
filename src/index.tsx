@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+// @ts-expect-error ts-migrate(6142) FIXME: Module './App' was resolved to '/mnt/h/Bob/Web/Pro... Remove this comment to see the full error message
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import './index.css';
@@ -9,6 +10,7 @@ if (process.env.NODE_ENV !== 'development') {
 		check()
 	}, 4000);
 	var check = function () {
+// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'a' implicitly has an 'any' type.
 		function doCheck(a) {
 			if (("" + a / a)["length"] !== 1 || a % 20 === 0) {
 				(function () { }
@@ -60,9 +62,11 @@ if (theme === 0 && window.matchMedia) {
 	}
 }
 
+// @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
 ReactDOM.render(<App />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
+// @ts-expect-error ts-migrate(2554) FIXME: Expected 1 arguments, but got 0.
 serviceWorker.register();

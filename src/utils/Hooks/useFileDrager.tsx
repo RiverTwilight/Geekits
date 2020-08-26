@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-const signListener = (cb, getEventCb) => {
+const signListener = (cb: any, getEventCb: any) => {
     document.ondragover = e => {
         e.preventDefault()
     }
@@ -12,8 +12,10 @@ const signListener = (cb, getEventCb) => {
     }
     document.ondrop = e => {
         e.preventDefault()
+        // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
         var dataFile = e.dataTransfer.files[0];
         var fr = new FileReader();
+        // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
         if (e.dataTransfer.files[0].type.match(/text\/.+/)) {
             fr.readAsText(dataFile, "gb2312");
         } else {
@@ -21,6 +23,7 @@ const signListener = (cb, getEventCb) => {
         }
         getEventCb && getEventCb(e)
         fr.onload = () => {
+            // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
             cb && cb(fr.result, dataFile, e.dataTransfer.files)
         }
     }
@@ -33,8 +36,9 @@ const removeListener = () => {
     document.ondragenter = null
 }
 
-const useFileDrager = (cb) => {
+const useFileDrager = (cb: any) => {
     useEffect(() => {
+        // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
         signListener(cb)
         return removeListener
     }, [cb])

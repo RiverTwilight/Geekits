@@ -45,7 +45,7 @@ const parseDate = (date = '2020-03-06'): Readonly<{
         month: parseInt(match[2].replace(/^0/, '')),
         day: parseInt(match[3].replace(/^0/, '')),
         isLeap: isLeap(parseInt(match[1]))
-    }
+    };
 }
 
 const calWhichDay = (dateStart: string, day: number): { week: number; date: string } => {

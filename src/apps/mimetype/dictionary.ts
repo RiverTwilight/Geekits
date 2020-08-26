@@ -142,13 +142,18 @@ var mimeTypes = (function() {
     var type, subtype, val, index, mimeTypes = {};
     for (type in table) {
         if (table.hasOwnProperty(type)) {
+            // @ts-expect-error ts-migrate(7053) FIXME: No index signature with a parameter of type 'strin... Remove this comment to see the full error message
             for (subtype in table[type]) {
+                // @ts-expect-error ts-migrate(7053) FIXME: No index signature with a parameter of type 'strin... Remove this comment to see the full error message
                 if (table[type].hasOwnProperty(subtype)) {
+                    // @ts-expect-error ts-migrate(7053) FIXME: No index signature with a parameter of type 'strin... Remove this comment to see the full error message
                     val = table[type][subtype];
                     if (typeof val == "string") {
+                        // @ts-expect-error ts-migrate(7053) FIXME: No index signature with a parameter of type 'strin... Remove this comment to see the full error message
                         mimeTypes[val] = type + "/" + subtype;
                     } else {
                         for (index = 0; index < val.length; index++) {
+                            // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
                             mimeTypes[val[index]] = type + "/" + subtype;
                         }
                     }

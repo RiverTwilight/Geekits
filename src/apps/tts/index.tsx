@@ -31,8 +31,10 @@ const VOICE_SOURCE = [{
 	value: '5'
 }]
 
-export default class extends React.Component {
-	constructor(props) {
+type State = any;
+
+export default class extends React.Component<{}, State> {
+	constructor(props: {}) {
 		super(props);
 		this.state = {
 			options: {
@@ -64,7 +66,9 @@ export default class extends React.Component {
 	render() {
 		const { options, res } = this.state
 		return (
+// @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
 			<>
+{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
 				<Input
 					onValueChange={newText => {
 						options.text = newText;
@@ -72,10 +76,13 @@ export default class extends React.Component {
 					}}
 					header="输入文本"
 					value={options.text}
+// @ts-expect-error ts-migrate(2322) FIXME: Type 'string' is not assignable to type 'number | ... Remove this comment to see the full error message
 					rows="3"
 					maxLength="500"
 				/>
+{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
 				<div className="mdui-shadow-1 mdui-card mdui-p-a-1">
+{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
 					<ListControlMenu
 						icon="record_voice_over"
 						title="声线"
@@ -86,6 +93,7 @@ export default class extends React.Component {
 						}}
 						items={VOICE_SOURCE}
 					/>
+{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
 					<RangeInput
 						value={options.vol}
 						min="1" max="10"
@@ -95,6 +103,7 @@ export default class extends React.Component {
 						}}
 						title={"音量：" + options.vol}
 					/>
+{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
 					<RangeInput
 						value={options.pit}
 						min="1" max="10"
@@ -104,6 +113,7 @@ export default class extends React.Component {
 						}}
 						title={"音调：" + options.pit}
 					/>
+{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
 					<RangeInput
 						value={options.spd}
 						min="1" max="10"
@@ -114,7 +124,9 @@ export default class extends React.Component {
 						title={"语速：" + options.spd}
 					/>
 				</div>
+{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
 				<button
+// @ts-expect-error ts-migrate(2339) FIXME: Property 'loadBtn' does not exist on type 'default... Remove this comment to see the full error message
 					ref={r => this.loadBtn = r}
 					onClick={() => {
 						if (options.text === "") return
@@ -122,10 +134,14 @@ export default class extends React.Component {
 					}}
 					className="mdui-color-theme loadBtn mdui-fab mdui-fab-fixed"
 				>
+{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
 					<i className="mdui-icon material-icons">mic</i>
 				</button>
+{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
 				<br></br>
+{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
 				<span style={{ display: res === null ? 'none' : 'block' }}>
+{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
 					<MusicPlayer
 						title="合成结果"
 						audio={res}

@@ -1,12 +1,13 @@
 import React from 'react'
 import { FileInput, ListControlMenu } from 'mdui-in-react'
 
-async function loadImg(src){
+async function loadImg(src: any){
 	var img = await new Image();
 	img.src = src;
 	return img
 }
 
+// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'assests' implicitly has an 'any' type.
 async function imgMosaic_X(assests, callback) {
 	var c = document.createElement('canvas')
 	var ctx = c.getContext("2d");
@@ -33,6 +34,7 @@ async function imgMosaic_X(assests, callback) {
 
 	for (var j = 0; j <= imgs.length - 1; j++) {	
 		//console.log(imgs[j])	
+// @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
 		ctx.drawImage(imgs[j], startX, 0, imgs[j].width, imgs[j].height);
 		startX += imgs[j].width;
 	}
@@ -42,6 +44,7 @@ async function imgMosaic_X(assests, callback) {
 	callback(res)
 }
 
+// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'assests' implicitly has an 'any' type.
 async function imgMosaic_Y(assests, callback) {
 	var c = document.createElement('canvas')
 	var ctx = c.getContext("2d");
@@ -70,6 +73,7 @@ async function imgMosaic_Y(assests, callback) {
 
 	for (var j = 0; j <= imgs.length - 1; j++) {	
 		//console.log(imgs[j])	
+// @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
 		ctx.drawImage(imgs[j], 0, startY, imgs[j].width, imgs[j].height);
 		startY += imgs[j].height;
 	}
@@ -80,20 +84,29 @@ async function imgMosaic_Y(assests, callback) {
 }
 
 //预览相册组件
+// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'props' implicitly has an 'any' type.
 const Alubm = (props) => {	
 	return(
+// @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
 		<div className="mdui-row-xs-3">{
+// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'a' implicitly has an 'any' type.
 			props.assests.map((a,i)=>(
+// @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
 				<div className="mdui-card mdui-col">
+{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
 					<div key={i} className="mdui-card-media mdui-center">
+{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
 		                <img width="100" height="120" src={a}/>
+{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
 		                <div className="mdui-card-menu">
+{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
 		                    <button 
 			                    style={{background: 'rgba(0, 0, 0, 0.27)'}}
 			                    onClick={()=>{
 			                    	props.delete(i)
 			                    }}
 			                    className="mdui-btn mdui-btn-icon mdui-text-color-white">
+{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
 		                       <i className="mdui-icon material-icons">close</i>
 		                    </button>
 		                </div>
@@ -104,15 +117,19 @@ const Alubm = (props) => {
 	)
 }
 
+// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'props' implicitly has an 'any' type.
 function Preview(props){
 	if(!props.res)return null
 	return(
+// @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
 		<img className="mdui-img-fluid" alt="结果" src={ props.res }/>
 	)
 }
 
-export default class extends React.Component {
-	constructor(props) {
+type ComponentState = any;
+
+export default class extends React.Component<{}, ComponentState> {
+	constructor(props: {}) {
 		super(props);
 		this.state = {
 			assests: [],
@@ -123,15 +140,20 @@ export default class extends React.Component {
 	render(){
 		const { assests, res, direction } = this.state;
 		return(
+// @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
 			<>
+{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
 			    <Alubm 
 				    assests={assests}
+// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'i' implicitly has an 'any' type.
 				    delete={i=>{
 				    	assests.splice(i,1);
 	                    this.setState({assests:assests})					    	
 				    }} 
 				    />
+{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
 			    <br></br>
+{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
 			    <FileInput 
 	                fileType="image/*"
 	                multiple={true}
@@ -140,8 +162,11 @@ export default class extends React.Component {
 	                    this.setState({assests:assests})
 	                }}
 	            />		            
+{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
 	            <br></br><br></br>
+{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
 	            <Preview src={res} />
+{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
 				<ListControlMenu
 					icon="screen_rotation"
 					title="拼接方向"
@@ -159,11 +184,13 @@ export default class extends React.Component {
 						}
 					]}
 				/>
+{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
 	            <button
 		            className="mdui-fab mdui-fab-fixed mdui-color-theme"
 		            onClick={()=>{
 		            	switch(direction){
 		            		case 0:
+// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'res' implicitly has an 'any' type.
 			            		imgMosaic_X(assests, res => {
 									this.setState({
 										res: res
@@ -171,6 +198,7 @@ export default class extends React.Component {
 								})
 								break;
 							case 1:
+// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'res' implicitly has an 'any' type.
 			            		imgMosaic_Y(assests, res => {
 									this.setState({
 										res: res
@@ -179,8 +207,10 @@ export default class extends React.Component {
 								break;
 		            	}
 		            }}>
+{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
 		            <i className="mdui-icon material-icons">&#xe5ca;</i>
 	            </button>	
+{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
 	            <Preview res = {res}/>            
 		    </>
 		)

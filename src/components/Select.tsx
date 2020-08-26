@@ -1,19 +1,22 @@
 import * as React from 'react'
 import * as mdui from 'mdui'
+
+type State = any;
 /**
   *下拉选择
   **/
 
 //@ts-nocheck
 
-export default class extends React.Component {
-    constructor(props) {
+export default class extends React.Component<{}, State> {
+    constructor(props: {}) {
         super(props);
         this.state = {
             dom:null
         }
     }
     componentDidMount(){
+        // @ts-expect-error ts-migrate(2339) FIXME: Property 'Select' does not exist on type 'IMduiSta... Remove this comment to see the full error message
         var inst = new mdui.Select(this.selectDom, this.props.config);
         this.setState({dom: inst})
     }
@@ -22,19 +25,21 @@ export default class extends React.Component {
         setTimeout(()=>this.state.dom.handleUpdate(),100)
     }
     render(){
+        // @ts-expect-error ts-migrate(2339) FIXME: Property 'options' does not exist on type 'Readonl... Remove this comment to see the full error message
         const {options, value, onOptionChange} = this.props;
-        return(
+        return (
+            // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
             <select 
                 onChange={e=>{
                     onOptionChange(e.target.value)
                 }}
+                // @ts-expect-error ts-migrate(2339) FIXME: Property 'selectDom' does not exist on type 'defau... Remove this comment to see the full error message
                 ref={r => this.selectDom = r}
                 value={value} className="mdui-select"
             >
-                {options.map(a=>(
-                    <option key={a.value} value={a.value}>{a.name}</option>
-                ))}
+                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                {options.map((a: any) => <option key={a.value} value={a.value}>{a.name}</option>)}
             </select>
-        )
+        );
     }
 }

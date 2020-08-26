@@ -44,7 +44,7 @@ const hitokotoItems = [{
 }]
 
 export default class extends React.Component<{}, { setting: ISetting }> {
-    constructor(props: Readonly<{}>) {
+    constructor(props: {}) {
         super(props);
         this.state = {
             setting: setFunc()
@@ -56,9 +56,13 @@ export default class extends React.Component<{}, { setting: ISetting }> {
     render() {
         const { homeShowNewestTool = true, hitokotoTopic, theme } = this.state.setting
         return (
+            // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
             <div className="mdui-col-md-10">
+                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                 <ul className="mdui-list">
+                    {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                     <li className="mdui-text-color-theme mdui-subheader">通用</li>
+                    {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                     <ListControlCheck
                         icon="apps"
                         title="首页展示最新工具"
@@ -67,7 +71,9 @@ export default class extends React.Component<{}, { setting: ISetting }> {
                             this.setState({ setting: setFunc('homeShowNewestTool', checked) })
                         }}
                     />
+                    {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                     <li className="mdui-text-color-theme mdui-subheader">个性化</li>
+                    {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                     <ListControlMenu
                         title="一言来源"
                         checked={hitokotoTopic || 0}
@@ -76,6 +82,7 @@ export default class extends React.Component<{}, { setting: ISetting }> {
                         }}
                         items={hitokotoItems}
                     />
+                    {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                     <ListControlMenu
                         title="主题"
                         checked={theme || 0}
@@ -103,23 +110,31 @@ export default class extends React.Component<{}, { setting: ISetting }> {
                             value: 'dark'
                         }]}
                     />
+                    {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                     <li className="mdui-text-color-theme mdui-subheader">联系</li>
+                    {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                     <Link to="/feedback">
+                        {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                         <List
                             items={[{
                                 text: '意见反馈'
                             }]}
                         />
                     </Link>
+                    {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                     <a href="//wpa.qq.com/msgrd?v=3&amp;uin=1985386335&amp;site=qq&amp;menu=yes">
+                        {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                         <List
                             items={[{
                                 text: '联系开发者'
                             }]}
                         />
                     </a>
+                    {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                     <li className="mdui-text-color-theme mdui-subheader">关于</li>
+                    {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                     <Link to="/about">
+                        {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                         <List
                             items={[{
                                 text: '关于'

@@ -3,24 +3,25 @@ import { snackbar } from 'mdui'
 import axios from '../../utils/axios'
 import ClipboardJS from 'clipboard'
 import { FileInput, ListControlCheck, ListControlMenu } from 'mdui-in-react'
+// @ts-expect-error ts-migrate(6142) FIXME: Module '../../utils/Cropper' was resolved to '/mnt... Remove this comment to see the full error message
 import Cropper from '../../utils/Cropper'
 import ImgCompress from '../img_compress/engine'
 
-const numMark = text => {
+const numMark = (text: any) => {
     var reg = /^1[3|4|5|7|8]\d{9}$/g;
     if (reg.test(text)) return text
     var text = text.replace(reg, '<span data-clipboard-text="$&" class="copy mdui-text-color-theme">$&</span>');
     return text
 }
 
-const emailMark = text => {
+const emailMark = (text: any) => {
     var reg = /^[A-Za-z0-9._%-]+@([A-Za-z0-9-]+\.)+[A-Za-z]{2,4}$/g;
     if (reg.test(text)) return text
     var text = text.replace(reg, '<span data-clipboard-text="$&" class="copy mdui-text-color-theme">$&</span>');
     return text
 }
 
-const urlMark = text => {
+const urlMark = (text: any) => {
     var reg = /http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?/g;
     console.log(text + ' is a url', reg.test(text))
     if (reg.test(text)) return text
@@ -28,20 +29,28 @@ const urlMark = text => {
     return text
 }
 
-const Result = ({ data, ifIgnoreLine, onIgnoreLine }) => {
+const Result = ({
+    data,
+    ifIgnoreLine,
+    onIgnoreLine
+}: any) => {
     if (data === null) return null
     const Tag = ifIgnoreLine ? "span" : "p";
-    var markedText = [];
+    var markedText: any = [];
     var copiedText = '';
-    data.words_result.map(line => {
+    data.words_result.map((line: any) => {
         markedText.push(emailMark(urlMark(line.words)))
         copiedText += line.words
     })
     console.log(markedText)
     return (
+        // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
         <>
+            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
             <div className="mdui-card">
+                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                 <div className="mdui-card-content">
+                    {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                     <ListControlCheck
                         icon="keyboard_return"
                         title="忽略换行"
@@ -51,12 +60,16 @@ const Result = ({ data, ifIgnoreLine, onIgnoreLine }) => {
                         }}
                     />
                     {
+                        // @ts-expect-error ts-migrate(7006) FIXME: Parameter 'line' implicitly has an 'any' type.
                         markedText.map((line, i) => (
+                            // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
                             <Tag key={i} dangerouslySetInnerHTML={{ __html: line }}></Tag>
                         ))
                     }
                 </div>
+                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                 <div className="mdui-card-actions">
+                    {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                     <button
                         data-clipboard-text={copiedText}
                         className="copy mdui-btn mdui-color-theme mdui-btn-raised">
@@ -100,8 +113,10 @@ const language_types = [{
     value: 'KOR'
 },]
 
-export default class extends React.Component {
-    constructor(props) {
+type ComponentState = any;
+
+export default class extends React.Component<{}, ComponentState> {
+    constructor(props: {}) {
         super(props);
         this.state = {
             language_type: 0,
@@ -113,6 +128,7 @@ export default class extends React.Component {
         }
     }
     componentDidMount() {
+        // @ts-expect-error ts-migrate(2454) FIXME: Variable 'clipboard' is used before being assigned... Remove this comment to see the full error message
         clipboard && clipboard.destroy();
         var clipboard = new ClipboardJS('.copy');
         clipboard.on('success', e => {
@@ -135,7 +151,7 @@ export default class extends React.Component {
             window.loadHide()
         })
     }
-    handleFileUpdate(file) {
+    handleFileUpdate(file: any) {
         this.setState({
             ifShowCropper: true,
             image: file,
@@ -144,88 +160,102 @@ export default class extends React.Component {
     }
     render() {
         const { image, defaultImage, ifIgnoreLine, ifShowCropper, data, language_type } = this.state
-        return (
-            <>
-                <div style={{ display: ifShowCropper ? 'none' : 'block' }}>
-                    <div className="mdui-shadow-0 mdui-card">
-                        <div className="mdui-card-content">
-                            {image && <img
-                                style={{
-                                    display: 'block',
-                                    margin: '0 auto',
-                                    maxHeight: '200px'
-                                }}
-                                src={image} />}
-                            <ListControlMenu
-                                icon="language"
-                                title="语言"
-                                checked={language_type}
-                                onCheckedChange={checked => {
-                                    this.setState({ language_type: checked })
-                                }}
-                                items={language_types}
-                            />
-                        </div>
-                        <div className="mdui-card-actions">
-                            <button
-                                style={{
-                                    display: image ? 'inline-block' : 'none'
-                                }}
-                                onClick={() => {
-                                    this.setState({
-                                        ifShowCropper: true,
-                                        image: defaultImage
-                                    })
-                                }}
-                                className="mdui-ripple mdui-btn">
-                                重新裁剪
-                            </button>
-                            <FileInput
-                                readbydrag
-                                fileType="image/*"
-                                onFileChange={(file, fileObj) => {
-                                    const cb = this.handleFileUpdate.bind(this)
-                                    if (fileObj.size >= 1.4 * 1024 * 1024) {
-                                        ImgCompress(file, 0.1, cb)
-                                        //cb(file)
-                                    } else {
-                                        cb(file)
-                                    }
-                                }}
-                            />
-                            <button
-                                onClick={() => {
-                                    image && this.loadDataFromServer()
-                                }}
-                                className="loadBtn mdui-btn-raised mdui-ripple mdui-color-theme mdui-btn">
-                                <i className="mdui-icon mdui-icon-left material-icons">&#xe5ca;</i>识别
-                            </button>
-
-                        </div>
+        // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+        return <>
+            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+            <div style={{ display: ifShowCropper ? 'none' : 'block' }}>
+                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                <div className="mdui-shadow-0 mdui-card">
+                    {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                    <div className="mdui-card-content">
+                        {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                        {image && <img
+                            style={{
+                                display: 'block',
+                                margin: '0 auto',
+                                maxHeight: '200px'
+                            }}
+                            src={image} />}
+                        {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                        <ListControlMenu
+                            icon="language"
+                            title="语言"
+                            checked={language_type}
+                            onCheckedChange={checked => {
+                                this.setState({ language_type: checked })
+                            }}
+                            items={language_types}
+                        />
                     </div>
-                    <br></br>
-                    <Result
-                        onIgnoreLine={
-                            newCheck => {
-                                this.setState({ ifIgnoreLine: newCheck })
-                            }
-                        }
-                        ifIgnoreLine={ifIgnoreLine}
-                        data={data}
-                    />
+                    {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                    <div className="mdui-card-actions">
+                        {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                        <button
+                            style={{
+                                display: image ? 'inline-block' : 'none'
+                            }}
+                            onClick={() => {
+                                this.setState({
+                                    ifShowCropper: true,
+                                    image: defaultImage
+                                })
+                            }}
+                            className="mdui-ripple mdui-btn">
+                            重新裁剪
+                        </button>
+                        {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                        <FileInput
+                            readbydrag
+                            fileType="image/*"
+                            onFileChange={(file, fileObj) => {
+                                const cb = this.handleFileUpdate.bind(this)
+                                // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
+                                if (fileObj.size >= 1.4 * 1024 * 1024) {
+                                    // @ts-expect-error ts-migrate(2554) FIXME: Expected 4 arguments, but got 3.
+                                    ImgCompress(file, 0.1, cb)
+                                    //cb(file)
+                                } else {
+                                    cb(file)
+                                }
+                            }}
+                        />
+                        {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                        <button
+                            onClick={() => {
+                                image && this.loadDataFromServer()
+                            }}
+                            className="loadBtn mdui-btn-raised mdui-ripple mdui-color-theme mdui-btn">
+                            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                            <i className="mdui-icon mdui-icon-left material-icons">&#xe5ca;</i>识别
+                        </button>
+
+                    </div>
                 </div>
-                <Cropper
-                    ifShow={ifShowCropper}
-                    img={image}
-                    onClose={() => {
-                        this.setState({ ifShowCropper: false })
-                    }}
-                    onConfirm={img => {
-                        this.setState({ ifShowCropper: false, image: img })
-                    }}
-                    title=""
+                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                <br></br>
+                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                <Result
+                    onIgnoreLine={
+                        (newCheck: any) => {
+                            this.setState({ ifIgnoreLine: newCheck })
+                        }
+                    }
+                    ifIgnoreLine={ifIgnoreLine}
+                    data={data}
                 />
-            </>
-        )
+            </div>
+            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+            <Cropper
+                ifShow={ifShowCropper}
+                img={image}
+                onClose={() => {
+                    this.setState({ ifShowCropper: false })
+                }}
+                onConfirm={(img: any) => {
+                    this.setState({ ifShowCropper: false, image: img })
+                }}
+                title=""
+            />
+        </>;
     }
 }

@@ -5,7 +5,11 @@ import { RangeInput, FileInput } from 'mdui-in-react'
 import { snackbar } from 'mdui'
 
 //调色盘
-const ColorLens = ({ onChange, rgb, isHide }) => {
+const ColorLens = ({
+    onChange,
+    rgb,
+    isHide
+}: any) => {
     if (isHide) return null
     const [r, g, b, a] = rgb.replace(/\s/g, '').split(',');
     const SameProps = {
@@ -14,8 +18,11 @@ const ColorLens = ({ onChange, rgb, isHide }) => {
         step: "1"
     }
     return (
+        // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
         <div className="mdui-row-md-2">
+            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
             <div className="mdui-col">
+                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                 <RangeInput
                     {...SameProps}
                     title="R"
@@ -25,7 +32,9 @@ const ColorLens = ({ onChange, rgb, isHide }) => {
                     }}
                 />
             </div>
+            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
             <div className="mdui-col">
+                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                 <RangeInput
                     {...SameProps}
                     title="G"
@@ -35,7 +44,9 @@ const ColorLens = ({ onChange, rgb, isHide }) => {
                     }}
                 />
             </div>
+            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
             <div className="mdui-col">
+                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                 <RangeInput
                     {...SameProps}
                     title="B"
@@ -45,12 +56,15 @@ const ColorLens = ({ onChange, rgb, isHide }) => {
                     }}
                 />
             </div>
+            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
             <div className="mdui-col">
+                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                 <RangeInput
                     {...SameProps}
                     value={a}
                     title="A"
                     onValueChange={newValue => {
+                        // @ts-expect-error ts-migrate(2362) FIXME: The left-hand side of an arithmetic operation must... Remove this comment to see the full error message
                         onChange(`${r}, ${g}, ${b}, ${Math.floor(newValue / 255 * 100) / 100}`)
                     }}
                 />
@@ -59,8 +73,10 @@ const ColorLens = ({ onChange, rgb, isHide }) => {
     )
 }
 
-export default class extends React.Component {
-    constructor(props) {
+type ComponentState = any;
+
+export default class extends React.Component<{}, ComponentState> {
+    constructor(props: {}) {
         super(props);
         this.state = {
             imgFile: null,
@@ -76,21 +92,26 @@ export default class extends React.Component {
     }
     moveUp() {
         const { positionY, positionX } = this.state
-        this.setState({ positionY: positionY - 1 }, _ => { this.getColor(positionX, positionY) })
+        // @ts-expect-error ts-migrate(2345) FIXME: Argument of type '(_: any) => void' is not assigna... Remove this comment to see the full error message
+        this.setState({ positionY: positionY - 1 }, (_: any) => { this.getColor(positionX, positionY) })
     }
     moveDown() {
         const { positionY, positionX } = this.state
-        this.setState({ positionY: positionY + 1 }, _ => { this.getColor(positionX, positionY) })
+        // @ts-expect-error ts-migrate(2345) FIXME: Argument of type '(_: any) => void' is not assigna... Remove this comment to see the full error message
+        this.setState({ positionY: positionY + 1 }, (_: any) => { this.getColor(positionX, positionY) })
     }
     moveLeft() {
         const { positionX, positionY } = this.state
-        this.setState({ positionX: positionX - 1 }, _ => { this.getColor(positionX, positionY) })
+        // @ts-expect-error ts-migrate(2345) FIXME: Argument of type '(_: any) => void' is not assigna... Remove this comment to see the full error message
+        this.setState({ positionX: positionX - 1 }, (_: any) => { this.getColor(positionX, positionY) })
     }
     moveRight() {
         const { positionX, positionY } = this.state
-        this.setState({ positionX: positionX + 1 }, _ => { this.getColor(positionX, positionY) })
+        // @ts-expect-error ts-migrate(2345) FIXME: Argument of type '(_: any) => void' is not assigna... Remove this comment to see the full error message
+        this.setState({ positionX: positionX + 1 }, (_: any) => { this.getColor(positionX, positionY) })
     }
     componentDidMount() {
+        // @ts-expect-error ts-migrate(2454) FIXME: Variable 'clipboard' is used before being assigned... Remove this comment to see the full error message
         clipboard && clipboard.destroy();
         var clipboard = new ClipboardJS('.copy');
         clipboard.on('success', e => {
@@ -98,7 +119,9 @@ export default class extends React.Component {
             e.clearSelection();
         });
         this.setState({
+            // @ts-expect-error ts-migrate(2339) FIXME: Property 'canvas' does not exist on type 'default'... Remove this comment to see the full error message
             marginLeft: this.canvas.getBoundingClientRect().left,
+            // @ts-expect-error ts-migrate(2339) FIXME: Property 'canvas' does not exist on type 'default'... Remove this comment to see the full error message
             marginTop: this.canvas.getBoundingClientRect().top
         })
         document.addEventListener('keydown', e => {
@@ -110,7 +133,7 @@ export default class extends React.Component {
             }
         })
     }
-    getColor(positionX, positionY) {
+    getColor(positionX: any, positionY: any) {
         const { ctx } = this.state;
         if (ctx) {
             var pixels = ctx.getImageData(positionX, positionY, 1, 1).data;
@@ -127,7 +150,9 @@ export default class extends React.Component {
     }
     drawImage() {
         const { imgFile } = this.state;
+        // @ts-expect-error ts-migrate(2339) FIXME: Property 'canvas' does not exist on type 'default'... Remove this comment to see the full error message
         const { canvas } = this;
+        // @ts-expect-error ts-migrate(2339) FIXME: Property 'canvas' does not exist on type 'default'... Remove this comment to see the full error message
         var ctx = this.canvas.getContext('2d');
         var img = new Image();
         img.src = imgFile;
@@ -140,93 +165,115 @@ export default class extends React.Component {
     }
     render() {
         const { rgb, binary, positionX, positionY, marginLeft, marginTop, isHideLens } = this.state
-        return (
-            <>
-                <span
-                    style={{
-                        position: 'absolute',
-                        height: '20px',
-                        width: '20px',
-                        top: positionY - 10,
-                        left: positionX - 10
-                    }}>
-                    <Cursor />
-                </span>
-                <canvas
-                    onClick={e => {
-                        var absoluteLeft = e.pageX - marginLeft;
-                        var absoluteTop = e.pageY - marginTop;
+        // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+        return <>
+            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+            <span
+                style={{
+                    position: 'absolute',
+                    height: '20px',
+                    width: '20px',
+                    top: positionY - 10,
+                    left: positionX - 10
+                }}>
+                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                <Cursor />
+            </span>
+            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+            <canvas
+                onClick={e => {
+                    var absoluteLeft = e.pageX - marginLeft;
+                    var absoluteTop = e.pageY - marginTop;
+                    this.setState({
+                        positionX: absoluteLeft,
+                        positionY: absoluteTop
+                    })
+                    this.getColor(absoluteLeft, absoluteTop);
+                }}
+                // @ts-expect-error ts-migrate(2339) FIXME: Property 'canvas' does not exist on type 'default'... Remove this comment to see the full error message
+                ref={c => { this.canvas = c; }}
+            />
+            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+            <div
+                className="bottom-dashboard mdui-card mdui-p-a-1">
+                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                <FileInput
+                    readbydrag
+                    fileType="image/*"
+                    onFileChange={file => {
                         this.setState({
-                            positionX: absoluteLeft,
-                            positionY: absoluteTop
-                        })
-                        this.getColor(absoluteLeft, absoluteTop);
+                            imgFile: file
+                        // @ts-expect-error ts-migrate(2345) FIXME: Argument of type '(_: any) => void' is not assigna... Remove this comment to see the full error message
+                        }, (_: any) => { this.drawImage() })
                     }}
-                    ref={c => { this.canvas = c; }}
                 />
-                <div
-                    className="bottom-dashboard mdui-card mdui-p-a-1">
-                    <FileInput
-                        readbydrag
-                        fileType="image/*"
-                        onFileChange={file => {
-                            this.setState({
-                                imgFile: file
-                            }, _ => { this.drawImage() })
-                        }}
-                    />
-                    <div className="mdui-btn-group">
-                        <button onClick={_ => {
-                            this.moveLeft()
-                        }} type="button" className="mdui-btn">
-                            <i className="mdui-icon material-icons">chevron_left</i>
-                        </button>
-                        <button onClick={_ => {
-                            this.moveUp()
-                        }} type="button" className="mdui-btn">
-                            <i className="mdui-icon material-icons">arrow_drop_up</i>
-                        </button>
-                        <button onClick={_ => {
-                            this.moveDown()
-                        }} type="button" className="mdui-btn">
-                            <i className="mdui-icon material-icons">arrow_drop_down</i>
-                        </button>
-                        <button onClick={_ => {
-                            this.moveRight()
-                        }} type="button" className="mdui-btn">
-                            <i className="mdui-icon material-icons">chevron_right</i>
-                        </button>
-                    </div>
-                    <button
-                        style={{ color: `rgb(${rgb})` }}
-                        className="mdui-btn mdui-btn-icon"
-                    >
-                        <i className="mdui-icon material-icons">lens</i>
+                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                <div className="mdui-btn-group">
+                    {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                    <button onClick={_ => {
+                        this.moveLeft()
+                    }} type="button" className="mdui-btn">
+                        {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                        <i className="mdui-icon material-icons">chevron_left</i>
                     </button>
-                    <button data-clipboard-text={`rgba(${rgb})`} className="copy mdui-btn">rgba({rgb})</button>
-                    <button data-clipboard-text={binary} className="copy mdui-btn">{binary}</button>
-                    <button
-                        onClick={_ => {
-                            this.setState({ isHideLens: !isHideLens })
-                        }}
-                        className="mdui-btn mdui-btn-icon"
-                    >
-                        <i className="mdui-icon material-icons">color_lens</i>
+                    {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                    <button onClick={_ => {
+                        this.moveUp()
+                    }} type="button" className="mdui-btn">
+                        {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                        <i className="mdui-icon material-icons">arrow_drop_up</i>
                     </button>
-                    <ColorLens
-                        onChange={newColor => {
-                            const [r, g, b, ,] = newColor.replace(/\s/g, '').split(',').map(a => (parseInt(a)));
-                            this.setState({
-                                rgb: newColor,
-                                binary: '#' + r.toString(16) + g.toString(16) + b.toString(16)
-                            })
-                        }}
-                        isHide={isHideLens}
-                        rgb={rgb}
-                        binary={binary}
-                    />
+                    {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                    <button onClick={_ => {
+                        this.moveDown()
+                    }} type="button" className="mdui-btn">
+                        {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                        <i className="mdui-icon material-icons">arrow_drop_down</i>
+                    </button>
+                    {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                    <button onClick={_ => {
+                        this.moveRight()
+                    }} type="button" className="mdui-btn">
+                        {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                        <i className="mdui-icon material-icons">chevron_right</i>
+                    </button>
                 </div>
-            </>
-        )
+                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                <button
+                    style={{ color: `rgb(${rgb})` }}
+                    className="mdui-btn mdui-btn-icon"
+                >
+                    {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                    <i className="mdui-icon material-icons">lens</i>
+                </button>
+                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                <button data-clipboard-text={`rgba(${rgb})`} className="copy mdui-btn">rgba({rgb})</button>
+                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                <button data-clipboard-text={binary} className="copy mdui-btn">{binary}</button>
+                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                <button
+                    onClick={_ => {
+                        this.setState({ isHideLens: !isHideLens })
+                    }}
+                    className="mdui-btn mdui-btn-icon"
+                >
+                    {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                    <i className="mdui-icon material-icons">color_lens</i>
+                </button>
+                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                <ColorLens
+                    onChange={(newColor: any) => {
+                        const [r, g, b, ,] = newColor.replace(/\s/g, '').split(',').map((a: any) => parseInt(a));
+                        this.setState({
+                            rgb: newColor,
+                            binary: '#' + r.toString(16) + g.toString(16) + b.toString(16)
+                        })
+                    }}
+                    isHide={isHideLens}
+                    rgb={rgb}
+                    binary={binary}
+                />
+            </div>
+        </>;
     }
 }

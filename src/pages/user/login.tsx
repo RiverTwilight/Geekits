@@ -1,13 +1,19 @@
 import React from 'react'
+// @ts-expect-error ts-migrate(2305) FIXME: Module '"mdui"' has no exported member 'mutation'.
 import { snackbar, mutation } from 'mdui'
 import Axios from '../../utils/axios';
+// @ts-expect-error ts-migrate(7016) FIXME: Try `npm install @types/crypto-js` if it exists or... Remove this comment to see the full error message
 import { MD5 } from 'crypto-js';
 import { getUserInfo, setUserInfo } from '../../utils/Services/UserInfo'
+// @ts-expect-error ts-migrate(6142) FIXME: Module '../../utils/Services/SendCode' was resolve... Remove this comment to see the full error message
 import SendCode from '../../utils/Services/SendCode'
+// @ts-expect-error ts-migrate(2305) FIXME: Module '"mdui-in-react"' has no exported member 'T... Remove this comment to see the full error message
 import { Input, Tab } from 'mdui-in-react'
 
-class Signin extends React.Component {
-    constructor(props) {
+type SigninState = any;
+
+class Signin extends React.Component<{}, SigninState> {
+    constructor(props: {}) {
         super(props);
         this.state = {
             username: "",
@@ -49,50 +55,58 @@ class Signin extends React.Component {
     }
     render() {
         const { password, username, xcode } = this.state
-        return (
-            <>
-                <Input
-                    onValueChange={newText => {
-                        this.setState({ username: newText })
+        // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+        return <>
+            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+            <Input
+                onValueChange={newText => {
+                    this.setState({ username: newText })
+                }}
+                header="邮箱"
+                icon="email"
+                // @ts-expect-error ts-migrate(2322) FIXME: Type '"email"' is not assignable to type '"number"... Remove this comment to see the full error message
+                type="email"
+                value={username}
+            />
+            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+            <Input
+                onValueChange={newText => {
+                    this.setState({ password: newText })
+                }}
+                header="密码"
+                icon="lock"
+                type="password"
+                value={password}
+            />
+            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+            <div className={`${username === "" && "hidden"}`}>
+                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                <SendCode
+                    onInput={(code: any) => {
+                        this.setState({ xcode: code })
                     }}
-                    header="邮箱"
-                    icon="email"
-                    type="email"
-                    value={username}
+                    xcode={xcode}
+                    email={username}
                 />
-                <Input
-                    onValueChange={newText => {
-                        this.setState({ password: newText })
-                    }}
-                    header="密码"
-                    icon="lock"
-                    type="password"
-                    value={password}
-                />
-                <div className={`${username === "" && "hidden"}`}>
-                    <SendCode
-                        onInput={code => {
-                            this.setState({ xcode: code })
-                        }}
-                        xcode={xcode}
-                        email={username}
-                    />
-                </div>
-                <button
-                    onClick={() => {
-                        this.signin()
-                    }}
-                    disabled={!xcode || !password}
-                    className="loadBtn mdui-ripple mdui-color-theme mdui-fab mdui-fab-fixed">
-                    <i className="mdui-icon material-icons">&#xe5ca;</i>
-                </button>
-            </>
-        )
+            </div>
+            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+            <button
+                onClick={() => {
+                    this.signin()
+                }}
+                disabled={!xcode || !password}
+                className="loadBtn mdui-ripple mdui-color-theme mdui-fab mdui-fab-fixed">
+                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                <i className="mdui-icon material-icons">&#xe5ca;</i>
+            </button>
+        </>;
     }
 }
 
-class Forget extends React.Component {
-    constructor(props) {
+type ForgetState = any;
+
+class Forget extends React.Component<{}, ForgetState> {
+    constructor(props: {}) {
         super(props);
         this.state = {
             email: "",
@@ -132,50 +146,58 @@ class Forget extends React.Component {
     }
     render() {
         const { password, email, xcode } = this.state
-        return (
-            <>
-                <Input
-                    onValueChange={newText => {
-                        this.setState({ email: newText })
+        // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+        return <>
+            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+            <Input
+                onValueChange={newText => {
+                    this.setState({ email: newText })
+                }}
+                header="邮箱"
+                icon="email"
+                // @ts-expect-error ts-migrate(2322) FIXME: Type '"email"' is not assignable to type '"number"... Remove this comment to see the full error message
+                type="email"
+                value={email}
+            />
+            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+            <Input
+                onValueChange={newText => {
+                    this.setState({ password: newText })
+                }}
+                header="新的密码"
+                icon="lock"
+                type="password"
+                value={password}
+            />
+            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+            <div className={`${email === "" && "hidden"}`}>
+                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                <SendCode
+                    onInput={(code: any) => {
+                        this.setState({ xcode: code })
                     }}
-                    header="邮箱"
-                    icon="email"
-                    type="email"
-                    value={email}
+                    xcode={xcode}
+                    email={email}
                 />
-                <Input
-                    onValueChange={newText => {
-                        this.setState({ password: newText })
-                    }}
-                    header="新的密码"
-                    icon="lock"
-                    type="password"
-                    value={password}
-                />
-                <div className={`${email === "" && "hidden"}`}>
-                    <SendCode
-                        onInput={code => {
-                            this.setState({ xcode: code })
-                        }}
-                        xcode={xcode}
-                        email={email}
-                    />
-                </div>
-                <button
-                    onClick={() => {
-                        this.reset()
-                    }}
-                    disabled={!xcode || !password}
-                    className="loadBtn mdui-ripple mdui-color-theme mdui-fab mdui-fab-fixed">
-                    <i className="mdui-icon material-icons">&#xe5ca;</i>
-                </button>
-            </>
-        )
+            </div>
+            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+            <button
+                onClick={() => {
+                    this.reset()
+                }}
+                disabled={!xcode || !password}
+                className="loadBtn mdui-ripple mdui-color-theme mdui-fab mdui-fab-fixed">
+                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                <i className="mdui-icon material-icons">&#xe5ca;</i>
+            </button>
+        </>;
     }
 }
 
-class Login extends React.Component {
-    constructor(props) {
+type LoginState = any;
+
+class Login extends React.Component<{}, LoginState> {
+    constructor(props: {}) {
         super(props);
         this.state = {
             username: /*'wrj2014@126.com',*/"",
@@ -214,16 +236,20 @@ class Login extends React.Component {
     render() {
         const { password, username, remember } = this.state
         return (
+            // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
             <>
+                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                 <Input
                     onValueChange={newText => {
                         this.setState({ username: newText })
                     }}
                     header="邮箱"
                     icon="email"
+                    // @ts-expect-error ts-migrate(2322) FIXME: Type '"email"' is not assignable to type '"number"... Remove this comment to see the full error message
                     type="email"
                     value={username}
                 />
+                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                 <Input
                     onValueChange={newText => {
                         this.setState({ password: newText })
@@ -232,8 +258,10 @@ class Login extends React.Component {
                     icon="lock"
                     type="password"
                     value={password}
+                    // @ts-expect-error ts-migrate(2322) FIXME: Property 'capsLock' does not exist on type 'Intrin... Remove this comment to see the full error message
                     capsLock
                 />
+                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                 <button
                     onClick={() => {
                         this.clientServer()
@@ -241,10 +269,13 @@ class Login extends React.Component {
                     className="loadBtn mdui-ripple mdui-color-theme mdui-float-right mdui-btn-raised mdui-btn">
                     登录
                 </button>
+                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                 <label style={{ marginRight: '20px' }} className="mdui-float-right mdui-checkbox">
+                    {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                     <input onChange={e => {
                         this.setState({ remember: e.target.checked })
                     }} type="checkbox" checked={remember} />
+                    {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                     <i className="mdui-checkbox-icon"></i>
                     记住我
                 </label>
@@ -257,24 +288,30 @@ export default class extends React.Component {
     componentDidMount() {
         mutation();
         window.globalRef.title.innerText = '登录/注册'
+        // @ts-expect-error ts-migrate(2554) FIXME: Expected 1 arguments, but got 0.
         if (getUserInfo()) window.location.href = "/user"
     }
     render() {
         return (
+            // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
             <div className={`mdui-col-md-8 ${window.innerWidth >= 648 ? "mdui-card mdui-p-a-2" : ""}`} >
+                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                 <Tab
                     tabs={[
                         {
                             text: '登录',
                             id: 'login',
+                            // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
                             component: <Login />
                         }, {
                             text: '注册',
                             id: 'signin',
+                            // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
                             component: <Signin />
                         }, {
                             text: '找回密码',
                             id: 'forget',
+                            // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
                             component: <Forget />
                         }
                     ]}

@@ -18,7 +18,12 @@ export default class extends React.Component
         data: null | object
     }>
 {
-    constructor(props: Readonly<{ Result: any; api: string; inputOpt?: any; btnText?: string | undefined; }>) {
+    constructor(props: {
+    Result: any;
+    readonly api: string;
+    readonly inputOpt?: any;
+    readonly btnText?: string;
+}) {
         super(props);
         this.state = {
             input: '',
@@ -60,7 +65,9 @@ export default class extends React.Component
         const { Result, inputOpt, btnText } = this.props
         const { input } = this.state
         return (
+            // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
             <>
+                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                 <Input
                     onValueChange={(newText: any) => {
                         this.setState({ input: newText })
@@ -68,6 +75,7 @@ export default class extends React.Component
                     {...inputOpt}
                     value={input}
                 />
+                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                 <button
                     onClick={() => {
                         this.loadCommentsFromServer()
@@ -75,7 +83,9 @@ export default class extends React.Component
                     className="loadBtn mdui-ripple mdui-color-theme mdui-float-right mdui-btn-raised mdui-btn">
                     {btnText || "查询"}
                 </button>
+                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                 <div className="mdui-clearfix"></div><br></br>
+                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                 <Result
                     data={this.state.data}
                     input={input}

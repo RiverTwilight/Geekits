@@ -2,8 +2,10 @@ import React from 'react'
 import { updateSpinners, snackbar } from 'mdui'
 import { Input } from 'mdui-in-react'
 
-export default class extends React.Component {
-    constructor(props) {
+type State = any;
+
+export default class extends React.Component<{}, State> {
+    constructor(props: {}) {
         super(props);
         this.state = {
             contact: '',
@@ -40,7 +42,9 @@ export default class extends React.Component {
         window.updateTitle('意见反馈')
         const { content, contact } = this.state
         return (
+            // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
             <div className="mdui-col-md-10">
+                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                 <Input
                     onValueChange={newText => {
                         this.setState({ contact: newText })
@@ -49,14 +53,17 @@ export default class extends React.Component {
                     placeholder="例 QQ:1985386335"
                     value={contact}
                 />
+                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                 <Input
                     onValueChange={newText => {
                         this.setState({ content: newText })
                     }}
                     placeholder="内容"
                     value={content}
+                    // @ts-expect-error ts-migrate(2322) FIXME: Type 'string' is not assignable to type 'number | ... Remove this comment to see the full error message
                     rows="5"
                 />
+                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                 <button
                     onClick={this.sendData.bind(this)}
                     className="mdui-color-theme loadBtn mdui-btn mdui-btn-raised">

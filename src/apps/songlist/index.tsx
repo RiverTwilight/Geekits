@@ -4,7 +4,7 @@ import axios from '../../utils/axios'
 import { Input } from 'mdui-in-react'
 
 //提取url中的id
-const url2Id = url => {
+const url2Id = (url: any) => {
     const pattweb = /id=(\d+)/,
         pattmob = /\/(playlist)\/(\d+)\//,
         pattid = /^\d+$/;
@@ -14,9 +14,11 @@ const url2Id = url => {
     if (url.search(pattmob) !== -1 || url.search(pattweb) !== -1) {
         if (url.search(pattmob) !== -1) {
             //类似http://music.163.com/playlist/10222067/11720510/?userid=11720510的链接
+            // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
             return pattmob.exec(url)[2]
         } else {
             //类似https://music.163.com/#/my/m/music/playlist?id=2995734275的链接
+            // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
             return pattweb.exec(url)[1]
         }
     } else {
@@ -26,12 +28,12 @@ const url2Id = url => {
 }
 
 //提取相同歌曲
-const exportSame = (a, b) => {
+const exportSame = (a: any, b: any) => {
     if (!a || !b) return false;
     var num = 0;
-    var same = [];
-    a.forEach(songa=>{
-        b.forEach(songb=>{
+    var same: any = [];
+    a.forEach((songa: any) => {
+        b.forEach((songb: any) => {
             if(songa.name === songb.name){
                 same.push(songb);
                 num ++
@@ -41,33 +43,47 @@ const exportSame = (a, b) => {
     return { same, num }
 }
 
-const Result = props =>{
+const Result = (props: any) => {
     if(!props.similar)return null
     window.loadHide()
     return (
+        // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
         <ul className="mdui-list">
+            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
             <li className="mdui-subheader">对比歌单</li>
+            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
             <li className="mdui-list-item mdui-ripple">
+                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                 <i className="mdui-list-item-icon mdui-text-color-red-600 mdui-icon material-icons">queue_music</i>
+                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                 <div className="mdui-list-item-content">{props.songlistA}</div>
             </li>
+            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
             <li className="mdui-list-item mdui-ripple">
+                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                 <i className="mdui-list-item-icon mdui-text-color-red-600 mdui-icon material-icons">queue_music</i>
+                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                 <div className="mdui-list-item-content">{props.songlistB}</div>
             </li>
+            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
             <li className="mdui-subheader">有{props.similar.num}首相同歌曲</li>
-            {props.similar.same.map((song,i)=>(
+            {props.similar.same.map((song: any,i: any)=>(
+                // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
                 <a target="_blank" href={"https://music.163.com/#/song?id=" + song.id} key={i} className="mdui-list-item mdui-ripple">
+                    {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                     <i className="mdui-list-item-icon mdui-icon material-icons">audiotrack</i>
+                    {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                     <div className="mdui-list-item-content">{song.name}</div>
                 </a>
             ))}
         </ul>
-    )
+    );
 }
 
-class Ui extends React.Component {
-    constructor(props) {
+type UiState = any;
+
+class Ui extends React.Component<{}, UiState> {
+    constructor(props: {}) {
         super(props);
         this.state = {
             listidA:"https://music.163.com/playlist/10222067/11720510/?userid=11720510",
@@ -84,7 +100,7 @@ class Ui extends React.Component {
             engine:'netease'
         }
     }
-    loadCommentsFromServer(url, callback) {
+    loadCommentsFromServer(url: any, callback: any) {
         if(!url2Id(url)){
             mdui.snackbar({message:'解析链接失败'})
             return
@@ -103,8 +119,9 @@ class Ui extends React.Component {
     }
     render(){
         const { listidA, listidB, dataA, dataB, engine } = this.state;
-        return (
-        <>
+        // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+        return <>
+            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
             <Input
                 onValueChange={newText=>{
                     this.setState({listidA:newText});
@@ -114,6 +131,7 @@ class Ui extends React.Component {
                 icon="attachment"
                 value={this.state.listidA}
             />  
+            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
             <Input
                 onValueChange={newText=>{
                     this.setState({listidB:newText});
@@ -123,6 +141,7 @@ class Ui extends React.Component {
                 icon="attachment"
                 value={this.state.listidB}
             />      
+            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
             <select 
                 value={engine}
                 onChange={e=>{
@@ -130,18 +149,21 @@ class Ui extends React.Component {
                 }}
                 className="mdui-select" mdui-select="{position:'top'}"
             >
+                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                 <option value="normal">网易云音乐</option>
+                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                 <option disabled value="qq">QQ音乐</option>         
             </select>    
+            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
             <button 
                 onClick={()=>{
-                    this.loadCommentsFromServer(listidA,data=>{
+                    this.loadCommentsFromServer(listidA,(data: any) => {
                         this.setState({dataA:{
                             list:data.tracks || null,
                             name:data.name || ''
                         }})
                     })
-                    this.loadCommentsFromServer(listidB,data=>{
+                    this.loadCommentsFromServer(listidB,(data: any) => {
                         this.setState({dataB:{
                             list:data.tracks || null,
                             name:data.name || ''
@@ -151,14 +173,15 @@ class Ui extends React.Component {
                 className="mdui-ripple mdui-color-red-600 mdui-float-right mdui-btn-raised mdui-btn">
                 音樂的力量
             </button>
+            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
             <div className="mdui-clearfix"></div>
+            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
             <Result
                 similar={exportSame(dataA.list,dataB.list)}
                 songlistA={dataA.name}
                 songlistB={dataB.name}
             />
-        </>
-    )
+        </>;
     }
 }
 

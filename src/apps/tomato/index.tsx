@@ -32,17 +32,22 @@ const Saying = ({ index }) => {
 };
 */
 
+// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'n' implicitly has an 'any' type.
 function d2a(n) {
 	return (n * Math.PI) / 180;
 }
 
+// @ts-expect-error ts-migrate(7031) FIXME: Binding element 'closeBottomAlert' implicitly has ... Remove this comment to see the full error message
 const Record = ({ closeBottomAlert }) => {
 	!localStorage.tomato && localStorage.setItem("tomato", "[]");
 	const historyData = JSON.parse(localStorage.tomato);
 	const now = new Date();
 	return (
+// @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
 		<>
+{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
 			<div className="mdui-progress">
+{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
 				<div
 					className="mdui-progress-determinate"
 					style={{
@@ -54,37 +59,52 @@ const Record = ({ closeBottomAlert }) => {
 					}}
 				></div>
 			</div>
+{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
 			<div className="mdui-p-a-2 mdui-typo">
+{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
 				<b>今日：</b>
 				{
 					historyData.filter(
+// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'item' implicitly has an 'any' type.
 						(item) => item.metaDate === now.toLocaleDateString()
 					).length
 				}
+{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
 				<br></br>
+{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
 				<b>总计：</b>
 				{historyData.length}
+{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
 				<p className="mdui-text-color-black-secondary">
 					每个番茄完成后，你可以休息5分钟。每四个番茄完成后，你可以休息地更久一点。
 				</p>
 			</div>
+{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
 			<div className="mdui-divider"></div>
+{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
 			<ul className="mdui-list">
+{/* @ts-expect-error ts-migrate(7006) FIXME: Parameter 'item' implicitly has an 'any' type. */}
 				{historyData.map((item, i) => (
+// @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
 					<li key={i} className="mdui-list-item mdui-ripple">
+{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
 						<i className="mdui-icon mdui-text-color-red material-icons">
 							access_alarms
 						</i>
+{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
 						<div className="mdui-list-item-content">
+{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
 							<div className="mdui-list-item-title">
 								{item.name}
 							</div>
+{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
 							<div className="mdui-list-item-text">
 								{item.date}
 							</div>
 						</div>
 					</li>
 				))}
+{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
 				<button
 				style={{
 					display: historyData.length ? 'block' : 'none'
@@ -92,6 +112,7 @@ const Record = ({ closeBottomAlert }) => {
 					onClick={() => {
 						mdui.JQ.hideOverlay();
 						closeBottomAlert && closeBottomAlert();
+// @ts-expect-error ts-migrate(2339) FIXME: Property 'confirm' does not exist on type 'IMduiSt... Remove this comment to see the full error message
 						mdui.confirm(
 							"此操作不可逆！",
 							"清除历史记录",
@@ -118,14 +139,19 @@ const Record = ({ closeBottomAlert }) => {
 const Tomato = ({
 	r = 34,
 	ang = 20,
+// @ts-expect-error ts-migrate(7031) FIXME: Binding element 'startWorking' implicitly has an '... Remove this comment to see the full error message
 	startWorking,
+// @ts-expect-error ts-migrate(7031) FIXME: Binding element 'addTime' implicitly has an 'any' ... Remove this comment to see the full error message
 	addTime,
+// @ts-expect-error ts-migrate(7031) FIXME: Binding element 'timeStr' implicitly has an 'any' ... Remove this comment to see the full error message
 	timeStr,
+// @ts-expect-error ts-migrate(7031) FIXME: Binding element 'statu' implicitly has an 'any' ty... Remove this comment to see the full error message
 	statu,
 }) => {
 	const ang1 = ang;
 	const ang2 = 360;
 	return (
+// @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
 		<button
 			onClick={() => {
 				let func = {
@@ -133,17 +159,21 @@ const Tomato = ({
 					rest: addTime,
 					working: () => {},
 				};
+// @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
 				func[statu]();
 			}}
 			className="mdui-shadow-0 mdui-fab mdui-color-theme tomato-box"
 		>
+{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
 			<button className="mdui-shadow-0 mdui-color-white mdui-fab mask"></button>
+{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
 			<svg
 				width="250"
 				height="250"
 				xmlns="http://www.w3.org/2000/svg"
 				viewBox="15 15 70 70"
 			>
+{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
 				<circle
 					cx="50"
 					cy="50"
@@ -152,6 +182,7 @@ const Tomato = ({
 					strokeWidth="8"
 					fill="transparent"
 				/>
+{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
 				<path
 					strokeLinecap="round"
 					d={`M50 50 
@@ -164,8 +195,10 @@ const Tomato = ({
 					strokeWidth="2.8"
 				/>
 			</svg>
+{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
 			<div className="statu mdui-text-color-theme">
 				{
+// @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
 					{
 						working: "工作中",
 						rest: "点击延长休息时间",
@@ -173,13 +206,16 @@ const Tomato = ({
 					}[statu]
 				}
 			</div>
+{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
 			<div className="tt-countdown mdui-text-color-theme">{timeStr}</div>
 		</button>
 	);
 };
 
-class TomatoClock extends React.Component {
-	constructor(props) {
+type TomatoClockState = any;
+
+class TomatoClock extends React.Component<{}, TomatoClockState> {
+	constructor(props: {}) {
 		super(props);
 		this.state = {
 			min: 25,
@@ -191,6 +227,7 @@ class TomatoClock extends React.Component {
 		};
 	}
 	startATomato(minute = 25) {
+// @ts-expect-error ts-migrate(2339) FIXME: Property 'tomato' does not exist on type 'Window &... Remove this comment to see the full error message
 		window.tomato && clearInterval(window.tomato);
 		const cb = () => {
 			const { min, sec, title, statu } = this.state;
@@ -240,6 +277,7 @@ class TomatoClock extends React.Component {
 		this.setState({
 			min: minute,
 		});
+// @ts-expect-error ts-migrate(2339) FIXME: Property 'tomato' does not exist on type 'Window &... Remove this comment to see the full error message
 		window.tomato = setInterval(cb, 1000);
 	}
 	playRingtone() {
@@ -254,6 +292,7 @@ class TomatoClock extends React.Component {
 		statu === "working" &&
 			min &&
 			sec &&
+// @ts-expect-error ts-migrate(2339) FIXME: Property 'confirm' does not exist on type 'IMduiSt... Remove this comment to see the full error message
 			mdui.confirm(
 				"此次专注将无法保存",
 				"确定要放弃这1/4个番茄吗？",
@@ -263,6 +302,7 @@ class TomatoClock extends React.Component {
 						min: 25,
 						sec: 0,
 					});
+// @ts-expect-error ts-migrate(2339) FIXME: Property 'tomato' does not exist on type 'Window &... Remove this comment to see the full error message
 					clearInterval(window.tomato);
 					document.title = originTitle;
 				},
@@ -287,8 +327,11 @@ class TomatoClock extends React.Component {
 	render() {
 		const { min, sec, showHistory, title, statu } = this.state;
 		return (
+// @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
 			<>
+{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
 				<div className="center">
+{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
 					<Input
 						value={title}
 						placeholder="给这颗番茄起个名字吧"
@@ -298,7 +341,9 @@ class TomatoClock extends React.Component {
 							});
 						}}
 					/>
+{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
 					<br></br>
+{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
 					<Tomato
 						ang={((1500.1 - min * 60 - sec) / 1500) * 360}
 						timeStr={`${min}:${sec < 10 ? `0${sec}` : sec}`}
@@ -315,7 +360,9 @@ class TomatoClock extends React.Component {
 						}}
 						statu={statu}
 					/>
+{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
 					<br></br>
+{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
 					<button
 						style={{
 							display: statu !== "sleep" ? "block" : "none",
@@ -324,6 +371,7 @@ class TomatoClock extends React.Component {
 						className="mdui-color-theme mdui-btn mdui-btn-raised"
 					>
 						{
+// @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
 							{
 								rest: "跳过休息",
 								working: "重置",
@@ -331,14 +379,17 @@ class TomatoClock extends React.Component {
 						}
 					</button>
 				</div>
+{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
 				<button
 					onClick={() => {
 						this.setState({ showHistory: !showHistory });
 					}}
 					className="mdui-color-theme mdui-fab mdui-fab-mini mdui-fab-fixed"
 				>
+{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
 					<i className="mdui-icon material-icons">&#xe192;</i>
 				</button>
+{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
 				<BottomAlert
 					title="记录"
 					height={500}
@@ -349,6 +400,7 @@ class TomatoClock extends React.Component {
 					}}
 					ifShow={showHistory}
 				>
+{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
 					<Record
 						closeBottomAlert={() => {
 							this.setState({ showHistory: false });

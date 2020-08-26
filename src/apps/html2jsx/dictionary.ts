@@ -1,3 +1,4 @@
+// @ts-expect-error ts-migrate(7016) FIXME: Try `npm install @types/crypto-js` if it exists or... Remove this comment to see the full error message
 import CryptoJS from 'crypto-js';
 
 //字典
@@ -21,29 +22,38 @@ var textCode = [
 	'.', ':', ',', ';', '?', '=', "'", '/', '!', '-', '_', '"', '(', ')', '$', '&', '@', '+'
 ];
 
+// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'text' implicitly has an 'any' type.
 function text2Moss(text) {
 	console.log('text2Moss', text)
 	var cache = text.split("");
+// @ts-expect-error ts-migrate(7034) FIXME: Variable 'string' implicitly has type 'any[]' in s... Remove this comment to see the full error message
 	var string = [];
+// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'e' implicitly has an 'any' type.
 	cache.map(e => {
 		var index = textCode.indexOf(e);
 		if (index === -1) return '摩斯电码只支持英文、数字、空格'
 		string.push(mossCode[index])
 	})
+// @ts-expect-error ts-migrate(7005) FIXME: Variable 'string' implicitly has an 'any[]' type.
 	return string.join(' ')
 }
 
+// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'moss' implicitly has an 'any' type.
 function moss2Text(moss) {
 	var cache = moss.split(" "); //摩斯电码以空格分隔
+// @ts-expect-error ts-migrate(7034) FIXME: Variable 'string' implicitly has type 'any[]' in s... Remove this comment to see the full error message
 	var string = [];
+// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'e' implicitly has an 'any' type.
 	cache.map(e => {
 		var index = mossCode.indexOf(e);
 		string.push(textCode[index]);
 		//console.log(index)
 	})
+// @ts-expect-error ts-migrate(7005) FIXME: Variable 'string' implicitly has an 'any[]' type.
 	return string.join('')
 }
 
+// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'text' implicitly has an 'any' type.
 function normal2Result(text, key) {
 	console.log('统一格式', text)
 	var result = {
@@ -57,6 +67,7 @@ function normal2Result(text, key) {
 	return result
 }
 
+// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'fromType' implicitly has an 'any' type.
 function start(fromType,inputText,key='') {
 	console.log('type', fromType);
 	console.log('input', inputText);
@@ -78,6 +89,7 @@ function start(fromType,inputText,key='') {
 			var result = normal2Result(normal, key);
 			return result
 		case 'md5':
+// @ts-expect-error ts-migrate(2403) FIXME: Subsequent variable declarations must have the sam... Remove this comment to see the full error message
 			var normal = inputText;
 			var result = normal2Result(normal, key);
 			return result

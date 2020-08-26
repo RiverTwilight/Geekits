@@ -1,6 +1,6 @@
 import { useRef, useEffect } from 'react';
 
-export default (eventName, handler, element = window) => {
+export default (eventName: any, handler: any, element = window) => {
     // Create a ref that stores handler
     const savedHandler = useRef();
 
@@ -20,7 +20,8 @@ export default (eventName, handler, element = window) => {
             if (!isSupported) return;
 
             // Create event listener that calls handler function stored in ref
-            const eventListener = event => savedHandler.current(event);
+            // @ts-expect-error ts-migrate(2722) FIXME: Cannot invoke an object which is possibly 'undefin... Remove this comment to see the full error message
+            const eventListener = (event: any) => savedHandler.current(event);
 
             // Add event listener
             element.addEventListener(eventName, eventListener);

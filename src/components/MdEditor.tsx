@@ -1,6 +1,6 @@
 import React from 'react'
 
-const text2md = (str, style, start, end) => {
+const text2md = (str: any, style: any, start: any, end: any) => {
     //截取选中字符串
     var arr = str.split("");
     var md;
@@ -99,7 +99,7 @@ const textApps = [{
     name: "下划线"
 }]
 
-const makeFunc = (textarea, content, style, cb) => {
+const makeFunc = (textarea: any, content: any, style: any, cb: any) => {
     return () => {
         var start = textarea.selectionStart,
             end = textarea.selectionEnd;
@@ -110,8 +110,10 @@ const makeFunc = (textarea, content, style, cb) => {
     }
 }
 
-class EditTools extends React.Component {
-    constructor(props) {
+type EditToolsState = any;
+
+class EditTools extends React.Component<{}, EditToolsState> {
+    constructor(props: {}) {
         super(props);
         this.state = {
             showTextApps: false,
@@ -120,52 +122,67 @@ class EditTools extends React.Component {
     }
     render() {
         const { showTextApps } = this.state;
+        // @ts-expect-error ts-migrate(2339) FIXME: Property 'textarea' does not exist on type 'Readon... Remove this comment to see the full error message
         const { textarea, cb, content, undo, redo } = this.props;
         return (
+            // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
             <>
+                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                 <div className="mdui-btn-group">
+                    {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                     <button
                         onClick={() => {
                             this.setState({ showTextApps: !showTextApps })
                         }}
                         type="button" className="mdui-btn">
+                        {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                         <i className={`${showTextApps ? 'mdui-text-color-theme-accent' : ''} mdui-icon material-icons`}>font_download</i>
                     </button>
+                    {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                     <button
                         onClick={() => {
                             undo()
                         }}
                         type="button" className="mdui-btn">
+                        {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                         <i className="mdui-icon material-icons">undo</i>
                     </button>
+                    {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                     <button
                         onClick={() => {
                             redo()
                         }}
                         type="button" className="mdui-btn">
+                        {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                         <i className="mdui-icon material-icons">redo</i>
                     </button>
                     {appMenu.map((a, i) => (
+                        // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
                         <button
                             key={i}
                             mdui-tooltip={`{content: '${a.name}'}`}
                             onClick={makeFunc(textarea, content, a.style, cb)}
                             type="button" className="mdui-btn">
+                            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                             {a.icon ? <i className="mdui-icon material-icons">{a.icon}</i> : a.text}
                         </button>
                     ))}
                 </div>
+                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                 <div
                     style={{ display: (showTextApps) ? 'block' : 'none' }}
                     className="bottom-dashboard mdui-card mdui-p-a-1">
+                    {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                     <div className="mdui-btn-group">
                         {textApps.map((a, i) => (
+                            // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
                             <button
                                 key={i}
                                 mdui-tooltip={`{content: '${a.name ? a.name : a.text}'}`}
                                 onClick={makeFunc(textarea, content, a.style, cb)}
                                 type="button" className="mdui-btn"
                             >
+                                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
                                 {a.icon ? <i className="mdui-icon material-icons">{a.icon}</i> : a.text}
                             </button>
                         ))}
@@ -176,6 +193,8 @@ class EditTools extends React.Component {
     }
 }
 
+type ComponentState = any;
+
 /**
   * Markdown编辑器 2020-2-12 江村暮
   * @param function cb(mdText) {
@@ -183,68 +202,77 @@ class EditTools extends React.Component {
   }
   */
 
-export default class extends React.Component {
-    constructor(props) {
+export default class extends React.Component<{}, ComponentState> {
+    constructor(props: {}) {
         super(props);
         this.state = {
+            // @ts-expect-error ts-migrate(2339) FIXME: Property 'content' does not exist on type '{}'.
             history: [props.content],
             editVersion: 0
         }
     }
     render() {
+        // @ts-expect-error ts-migrate(2339) FIXME: Property 'content' does not exist on type 'Readonl... Remove this comment to see the full error message
         const { content, cb } = this.props
         const { editVersion, history } = this.state
-        return (
-            <>
-                <EditTools
-                    content={content}
-                    textarea={this.textarea}
-                    cb={newSet => {
-                        cb(newSet);
-                        history.push(newSet)
+        // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+        return <>
+            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+            <EditTools
+                // @ts-expect-error ts-migrate(2322) FIXME: Property 'content' does not exist on type 'Intrins... Remove this comment to see the full error message
+                content={content}
+                // @ts-expect-error ts-migrate(2339) FIXME: Property 'textarea' does not exist on type 'defaul... Remove this comment to see the full error message
+                textarea={this.textarea}
+                cb={(newSet: any) => {
+                    cb(newSet);
+                    history.push(newSet)
+                    this.setState({
+                        history: history,
+                        editVersion: history.length - 1
+                    })
+                }}
+                undo={() => {
+                    if (editVersion > 0) {
+                        cb(history[editVersion - 1])
+                        this.setState({
+                            editVersion: editVersion - 1
+                        })
+                    }
+                }}
+                redo={() => {
+                    if (editVersion < history.length - 1) {
+                        cb(history[editVersion + 1])
+                        this.setState({
+                            editVersion: editVersion + 1
+                        })
+                    }
+                }}
+            />
+            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+            <div className="mdui-divider"></div>
+            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+            <div
+                className="mdui-textfield">
+                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                <textarea
+                    style={{ cursor: 'text' }}
+                    // @ts-expect-error ts-migrate(2339) FIXME: Property 'textarea' does not exist on type 'defaul... Remove this comment to see the full error message
+                    ref={r => this.textarea = r}
+                    placeholder='内容会自动保存，支持markdown'
+                    // @ts-expect-error ts-migrate(2322) FIXME: Type 'string' is not assignable to type 'number | ... Remove this comment to see the full error message
+                    rows="40"
+                    onChange={e => {
+                        cb(e.target.value);
+                        history.push(e.target.value)
                         this.setState({
                             history: history,
                             editVersion: history.length - 1
                         })
                     }}
-                    undo={() => {
-                        if (editVersion > 0) {
-                            cb(history[editVersion - 1])
-                            this.setState({
-                                editVersion: editVersion - 1
-                            })
-                        }
-                    }}
-                    redo={() => {
-                        if (editVersion < history.length - 1) {
-                            cb(history[editVersion + 1])
-                            this.setState({
-                                editVersion: editVersion + 1
-                            })
-                        }
-                    }}
-                />
-                <div className="mdui-divider"></div>
-                <div
-                    className="mdui-textfield">
-                    <textarea
-                        style={{ cursor: 'text' }}
-                        ref={r => this.textarea = r}
-                        placeholder='内容会自动保存，支持markdown'
-                        rows="40"
-                        onChange={e => {
-                            cb(e.target.value);
-                            history.push(e.target.value)
-                            this.setState({
-                                history: history,
-                                editVersion: history.length - 1
-                            })
-                        }}
-                        value={content}
-                        autoFocus type='text' className="mdui-textfield-input">
-                    </textarea>
-                </div>
-            </>
-        )
+                    value={content}
+                    autoFocus type='text' className="mdui-textfield-input">
+                </textarea>
+            </div>
+        </>;
     }
 }

@@ -1,11 +1,11 @@
-export default function pathsToTree(fileList, exceptList) {
+export default function pathsToTree(fileList: any, exceptList: any) {
     let result = {
         name: '_root',
         children: []
     }
     console.log(exceptList)
-    const correctFileList = [];
-    fileList.map(path => {
+    const correctFileList: any = [];
+    fileList.map((path: any) => {
         let absolutePath = '.' + path.substr(path.indexOf('/'),);
         let willBeExcept = false;
         for (let except of exceptList) {
@@ -26,6 +26,7 @@ export default function pathsToTree(fileList, exceptList) {
             for (let i = 0; i < paths.length; i++) {
                 let p = paths[i]
                 console.log('item', p)
+                // @ts-expect-error ts-migrate(2339) FIXME: Property 'name' does not exist on type 'never'.
                 let findItem = currentPath.children.find(item => item.name === p)
                 //如果这一项已经存在，那么不理他
                 if (findItem) {
@@ -38,15 +39,20 @@ export default function pathsToTree(fileList, exceptList) {
                         name: p,
                     }
                     if (!isFile) {
+                        // @ts-expect-error ts-migrate(2339) FIXME: Property 'children' does not exist on type '{ type... Remove this comment to see the full error message
                         folder.children = []
                     }
+                    // @ts-expect-error ts-migrate(2345) FIXME: Argument of type '{ type: string; name: any; }' is... Remove this comment to see the full error message
                     currentPath.children.push(folder)
+                    // @ts-expect-error ts-migrate(2741) FIXME: Property 'children' is missing in type '{ type: st... Remove this comment to see the full error message
                     currentPath = folder
                 }
             }
         } else { // 文件
             result.children.push({
+                // @ts-expect-error ts-migrate(2322) FIXME: Type 'string' is not assignable to type 'never'.
                 type: 'file',
+                // @ts-expect-error ts-migrate(2322) FIXME: Type 'any' is not assignable to type 'never'.
                 name: path
             })
         }
@@ -54,12 +60,12 @@ export default function pathsToTree(fileList, exceptList) {
     return (decoration(result.children))
 }
 
-function decoration(fileListObj) {
+function decoration(fileListObj: any) {
     console.log(fileListObj)
 
-    const addSymbol = (folder) => {
+    const addSymbol = (folder: any) => {
         var space = Array(spaceNum).fill('     ').join('');
-        folder.map((obj, i, correctFolder) => {
+        folder.map((obj: any, i: any, correctFolder: any) => {
             if (obj.type === 'file') {
                 if (!correctFolder[i + 1]) {
                     //最后一个文件
