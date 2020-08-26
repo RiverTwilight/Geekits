@@ -47,32 +47,32 @@ const Result = (props: any) => {
     if(!props.similar)return null
     window.loadHide()
     return (
-        // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+        
         <ul className="mdui-list">
-            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+            
             <li className="mdui-subheader">对比歌单</li>
-            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+            
             <li className="mdui-list-item mdui-ripple">
-                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                
                 <i className="mdui-list-item-icon mdui-text-color-red-600 mdui-icon material-icons">queue_music</i>
-                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                
                 <div className="mdui-list-item-content">{props.songlistA}</div>
             </li>
-            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+            
             <li className="mdui-list-item mdui-ripple">
-                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                
                 <i className="mdui-list-item-icon mdui-text-color-red-600 mdui-icon material-icons">queue_music</i>
-                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                
                 <div className="mdui-list-item-content">{props.songlistB}</div>
             </li>
-            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+            
             <li className="mdui-subheader">有{props.similar.num}首相同歌曲</li>
             {props.similar.same.map((song: any,i: any)=>(
-                // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+                
                 <a target="_blank" href={"https://music.163.com/#/song?id=" + song.id} key={i} className="mdui-list-item mdui-ripple">
-                    {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                    
                     <i className="mdui-list-item-icon mdui-icon material-icons">audiotrack</i>
-                    {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                    
                     <div className="mdui-list-item-content">{song.name}</div>
                 </a>
             ))}
@@ -119,9 +119,9 @@ class Ui extends React.Component<{}, UiState> {
     }
     render(){
         const { listidA, listidB, dataA, dataB, engine } = this.state;
-        // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+        
         return <>
-            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+            
             <Input
                 onValueChange={newText=>{
                     this.setState({listidA:newText});
@@ -131,7 +131,7 @@ class Ui extends React.Component<{}, UiState> {
                 icon="attachment"
                 value={this.state.listidA}
             />  
-            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+            
             <Input
                 onValueChange={newText=>{
                     this.setState({listidB:newText});
@@ -141,7 +141,7 @@ class Ui extends React.Component<{}, UiState> {
                 icon="attachment"
                 value={this.state.listidB}
             />      
-            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+            
             <select 
                 value={engine}
                 onChange={e=>{
@@ -149,12 +149,12 @@ class Ui extends React.Component<{}, UiState> {
                 }}
                 className="mdui-select" mdui-select="{position:'top'}"
             >
-                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                
                 <option value="normal">网易云音乐</option>
-                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                
                 <option disabled value="qq">QQ音乐</option>         
             </select>    
-            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+            
             <button 
                 onClick={()=>{
                     this.loadCommentsFromServer(listidA,(data: any) => {
@@ -173,9 +173,9 @@ class Ui extends React.Component<{}, UiState> {
                 className="mdui-ripple mdui-color-red-600 mdui-float-right mdui-btn-raised mdui-btn">
                 音樂的力量
             </button>
-            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+            
             <div className="mdui-clearfix"></div>
-            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+            
             <Result
                 similar={exportSame(dataA.list,dataB.list)}
                 songlistA={dataA.name}

@@ -58,7 +58,7 @@ const create = (opts: any, text: any, callback: any, iconData: any) => {
 const Result = ({ qrcode }) => {
 	if (!qrcode) return null
 	return (
-// @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+
 		<div className="mdui-card mdui-shadow-2 mdui-p-a-1">
 {/* @ts-expect-error ts-migrate(2339) FIXME: Property 'center' does not exist on type 'JSX.Intr... Remove this comment to see the full error message */}
 			<center><img alt="qrcode" src={qrcode}></img></center>
@@ -90,7 +90,7 @@ class Qrcode extends React.Component<{}, QrcodeState> {
 		const Form = mode === 0
 			?
 			(
-// @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+
 				<Input
 					onValueChange={newText => {
 						this.setState({ text: newText })
@@ -100,9 +100,9 @@ class Qrcode extends React.Component<{}, QrcodeState> {
 				/>)
 			:
 			(
-// @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+
 				<>
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 					<Input
 						onValueChange={newText => {
 							this.setState({
@@ -116,7 +116,7 @@ class Qrcode extends React.Component<{}, QrcodeState> {
 						icon="account_circle"
 						value={wifi.account}
 					/>
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 					<Input
 						onValueChange={newText => {
 							this.setState({
@@ -133,19 +133,19 @@ class Qrcode extends React.Component<{}, QrcodeState> {
 				</>
 			)
 		return (
-// @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+
 			<>
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 				<div className="mdui-tab" mdui-tab="true">
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 					<a href="#normal" className="mdui-ripple">基本设置</a>
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 					<a href="#advance" className="mdui-ripple">高级</a>
 				</div>
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 				<div id="normal">
 					{Form}
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 					<RangeInput
 						value={width}
 						min="50" max="200"
@@ -155,9 +155,9 @@ class Qrcode extends React.Component<{}, QrcodeState> {
 						title={"大小" + width + "px"}
 					/>
 				</div>
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 				<div id="advance">
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 					<ListControlMenu
 						icon="language"
 						title="二维码类型"
@@ -173,11 +173,11 @@ class Qrcode extends React.Component<{}, QrcodeState> {
 							value: 'wifi'
 						}]}
 					/>
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 					<div className="mdui-row-xs-2">
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 						<div className="mdui-col">
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 							<ColorPicker
 								text="亮色"
 								color={colorLight}
@@ -186,9 +186,9 @@ class Qrcode extends React.Component<{}, QrcodeState> {
 								}}
 							/>
 						</div>
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 						<div className="mdui-col">
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 							<ColorPicker
 								text="暗色"
 								color={colorDark}
@@ -198,15 +198,15 @@ class Qrcode extends React.Component<{}, QrcodeState> {
 							/>
 						</div>
 					</div>
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 					<div className="mdui-divider"></div>
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 					<br></br>
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 					<div className="mdui-typo-headline">图标</div>
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 					<br></br>
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 					<FileInput
 						fileType="image/*"
 // @ts-expect-error ts-migrate(2769) FIXME: Property 'file' does not exist on type 'IntrinsicA... Remove this comment to see the full error message
@@ -218,11 +218,11 @@ class Qrcode extends React.Component<{}, QrcodeState> {
 						}}
 					/>
 				</div>
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 				<br></br>
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 				<Result qrcode={qrcode} />
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 				<button
 					onClick={() => {
 						var opts = {
@@ -245,7 +245,7 @@ class Qrcode extends React.Component<{}, QrcodeState> {
 					}}
 					className="mdui-color-theme mdui-text-color-white mdui-fab mdui-fab-fixed"
 				>
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 					<i className="mdui-icon material-icons">&#xe5ca;</i>
 				</button>
 			</>

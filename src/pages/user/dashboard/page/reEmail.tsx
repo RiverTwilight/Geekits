@@ -1,7 +1,6 @@
 import React from 'react'
 import { removeUserInfo, getUserInfo } from '../../../../utils/Services/UserInfo'
 import { Input } from 'mdui-in-react'
-// @ts-expect-error ts-migrate(6142) FIXME: Module '../../../../utils/Services/SendCode' was r... Remove this comment to see the full error message
 import SendCode from '../../../../utils/Services/SendCode'
 import Axios from '../../../../utils/axios'
 import { snackbar } from 'mdui'
@@ -55,9 +54,9 @@ class Ui extends React.Component<{}, State> {
     render(){
         const { email, xcode }  = this.state
     	return (
-    // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+    
     		<>
-                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                
                 <Input
                     onValueChange={newText=>{
                         this.setState({email:newText})
@@ -68,23 +67,22 @@ class Ui extends React.Component<{}, State> {
                     type="email"
                     value={email}
                 />    
-                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                
                 <SendCode
-                    // @ts-expect-error ts-migrate(7006) FIXME: Parameter 'code' implicitly has an 'any' type.
                     onInput={code=>{
                         this.setState({xcode: code})
                     }}
                     xcode={xcode}
                     email={email}
                 />       
-                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                
                 <button 
                     onClick={()=>{
                         this.reset()
                     }} 
                     disabled={!xcode}
                     className="mdui-ripple mdui-color-theme mdui-fab mdui-fab-fixed">
-                    {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                    
                     <i className="mdui-icon material-icons">&#xe5ca;</i>
                 </button>
             </>

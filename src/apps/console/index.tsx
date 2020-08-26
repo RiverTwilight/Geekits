@@ -36,9 +36,9 @@ const GetCode = ({
 }: any) => {
     if (!html) return null
     return (
-        // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+        
         <div className="mdui-typo">
-            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+            
             <pre>{html}</pre>
         </div>
     )
@@ -75,11 +75,11 @@ const GetStyle = ({
     var data = style.concat(link);
     //style.splice(link.length - 1,1);
     return (
-        // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+        
         <ul className="mdui-list">
             {/* @ts-expect-error ts-migrate(7006) FIXME: Parameter 'script' implicitly has an 'any' type. */}
             {data.map((script, index) => (
-                // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+                
                 <ShowCode index={index} type={codeType(script.src, url)} src={script.src} />
             ))}
         </ul>
@@ -91,9 +91,9 @@ const ShowCode = ({
     index,
     type
 }: any) => (
-    // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+    
     <React.Fragment key={index} >
-        {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+        
         <li
             onClick={() => {
                 if (type.type === 'url') {
@@ -101,12 +101,12 @@ const ShowCode = ({
                 }
             }}
             className="mdui-list-item mdui-ripple">
-            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+            
             <i className="mdui-list-item-icon mdui-icon material-icons">code</i>
-            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+            
             <div className="mdui-list-item-content">{src}</div>
         </li>
-        {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+        
         <li className="mdui-subheader-inset"></li>
     </React.Fragment>
 )
@@ -127,11 +127,11 @@ const GetScript = ({
     })
     data.splice(data.length - 1, 1);
     return (
-        // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+        
         <ul className="mdui-list">
             {/* @ts-expect-error ts-migrate(7006) FIXME: Parameter 'script' implicitly has an 'any' type. */}
             {data.map((script, index) => (
-                // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+                
                 <ShowCode index={index} type={codeType(script.src, url)} src={script.src} />
             ))}
         </ul>
@@ -140,7 +140,7 @@ const GetScript = ({
 
 function GetOther(props: any) {
     return (
-        // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+        
         <p>更多功能开发中...</p>
     )
 }
@@ -176,18 +176,18 @@ const GetImg = ({
             "是否为绝对路径": patt_absolute.test(img)
         })
         list.push(
-            // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+            
             <div key={i} className="mdui-col">
-                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                
                 <div className="mdui-grid-tile">
-                    {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                    
                     <img src={imgUrl} />
                 </div>
             </div>
         )
     }
     return (
-        // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+        
         <div className="mdui-row-xs-3 mdui-row-sm-4 mdui-row-md-5 mdui-row-lg-6 mdui-row-xl-7 mdui-grid-list">
             {list}
         </div>
@@ -202,9 +202,9 @@ const html2Jq = (html: any) => {
 }
 
 export default () => (
-    // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+    
     <>
-        {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+        
         <Template
             Result={Result}
             api="https://api.ygktool.cn/api/console?url="
@@ -214,7 +214,7 @@ export default () => (
             }}
             btnText="获取"
         />
-        {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+        
         <ToTop />
     </>
 )
@@ -235,26 +235,26 @@ class Result extends React.Component {
             url: this.props.input
         }
         return (
-            // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+            
             <>
-                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                
                 <div className="mdui-tab" mdui-tab="true">
-                    {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                    
                     <a href="#code" className="mdui-ripple">源码</a>
-                    {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                    
                     <a href="#script" className="mdui-ripple">脚本</a>
-                    {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                    
                     <a href="#css" className="mdui-ripple">样式</a>
-                    {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                    
                     <a href="#imagex" className="mdui-ripple">图片</a>
                 </div>
-                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                
                 <div id="code"><GetCode html={html} /></div>
-                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                
                 <div id="script"><GetScript {...dataToPass} /></div>
-                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                
                 <div id="css"><GetStyle {...dataToPass} /></div>
-                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                
                 <div id="imagex"><GetImg {...dataToPass} /></div>
             </>
         )

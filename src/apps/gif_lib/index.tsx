@@ -26,18 +26,18 @@ const Gallery = props => {
 // @ts-expect-error ts-migrate(7006) FIXME: Parameter 'img' implicitly has an 'any' type.
 	var gallery = props.res.map((img, i) => {
 		return (
-// @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+
 			<div className="mdui-col">
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 				<div className="mdui-grid-tile">
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 					<img alt={`第${i}帧`} src={img} />
 				</div>
 			</div>
 		)
 	})
 	return (
-// @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+
 		<div
 			className="mdui-row-xs-3 mdui-row-sm-4 mdui-row-md-5 mdui-row-lg-6 mdui-row-xl-7 mdui-grid-list">
 			{gallery}
@@ -48,6 +48,7 @@ const Gallery = props => {
 type UiState = any;
 
 class Ui extends React.Component<{}, UiState> {
+	img: any
 	constructor(props: {}) {
 		super(props);
 		this.state = {
@@ -59,13 +60,13 @@ class Ui extends React.Component<{}, UiState> {
 	render() {
 		const { file, res } = this.state;
 		return (
-// @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+
 			<>
 {/* @ts-expect-error ts-migrate(2339) FIXME: Property 'center' does not exist on type 'JSX.Intr... Remove this comment to see the full error message */}
 				<center>
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 					<img alt="上传的文件" className="mdui-img-fluid" ref={r => this.img = r} src={file} />
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 					<FileInput
 						fileType="image/gif"
 						readbydrag
@@ -76,7 +77,6 @@ class Ui extends React.Component<{}, UiState> {
 								}, () => {
 									this.setState({ file: file }, () => {
 										var rub = new SuperGif({
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'img' does not exist on type 'Ui'.
 											gif: this.img
 										})
 										this.setState({ rub: rub })
@@ -90,7 +90,7 @@ class Ui extends React.Component<{}, UiState> {
 					/>
 {/* @ts-expect-error ts-migrate(2339) FIXME: Property 'center' does not exist on type 'JSX.Intr... Remove this comment to see the full error message */}
 				</center>
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 				<button
 					onClick={() => {
 						var zip = new JSZip();
@@ -110,7 +110,7 @@ class Ui extends React.Component<{}, UiState> {
 					}}
 					style={{ display: (res.length) ? 'block' : 'none' }}
 					className="mdui-btn mdui-color-theme">打包下载</button>
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 				<button
 					disabled={(file === null)}
 					onClick={() => {
@@ -123,12 +123,12 @@ class Ui extends React.Component<{}, UiState> {
 						this.setState({ res: res })
 					}}
 					className="mdui-color-theme mdui-fab mdui-fab-fixed">
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 					<i className="mdui-icon material-icons">check</i>
 				</button>
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 				<br></br>
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 				<Gallery res={res} />
 			</>
 		)

@@ -18,11 +18,11 @@ export default class extends React.Component<{}, State> {
 	render() {
 		const { file, quality, res, type } = this.state;
 		return (
-// @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+
 			<>
 {/* @ts-expect-error ts-migrate(2339) FIXME: Property 'center' does not exist on type 'JSX.Intr... Remove this comment to see the full error message */}
 				<center>
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 					<FileInput
 						readbydrag
 						fileType="image/*"
@@ -37,7 +37,7 @@ export default class extends React.Component<{}, State> {
 					/>
 {/* @ts-expect-error ts-migrate(2339) FIXME: Property 'center' does not exist on type 'JSX.Intr... Remove this comment to see the full error message */}
 				</center>
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 				<RangeInput
 					value={quality}
 // @ts-expect-error ts-migrate(2322) FIXME: Type 'number' is not assignable to type 'string | ... Remove this comment to see the full error message
@@ -47,7 +47,7 @@ export default class extends React.Component<{}, State> {
 					}}
 					title={`压缩比率${quality * 100}%`}
 				/>
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 				<button
 					onClick={() => {
 // @ts-expect-error ts-migrate(7006) FIXME: Parameter 'res' implicitly has an 'any' type.
@@ -57,10 +57,10 @@ export default class extends React.Component<{}, State> {
 					}}
 					disabled={file === null}
 					className="mdui-fab mdui-color-theme mdui-fab-fixed">
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 					<i className="mdui-icon material-icons">check</i>
 				</button>
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 				<img src={res} className="mdui-img-fluid" />
 			</>
 		)

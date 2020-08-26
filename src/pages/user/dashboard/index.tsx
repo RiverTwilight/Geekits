@@ -11,9 +11,9 @@ const LoadPage = (loader: any) => {
     return Loadable({
         loader:() => import( './page/' + loader),
         loading () {return(
-            // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+            
             <div style={{display:'inline-block'}} className="mdui-color-green-100 mdui-progress loading">
-                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                
                 <div className="mdui-progress-indeterminate"></div>
             </div> 
         )}
@@ -44,14 +44,14 @@ class Ui extends React.Component {
 	}
     render(){
     	return (
-            // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+            
             <>
-                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                
                 <Router>       
-                    {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                    
                     <Switch>
                         {UserRouterList.map(route=>(
-                            // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+                            
                             <Route {...route}></Route>
                         ))}
                     </Switch>

@@ -28,7 +28,7 @@ export default class extends React.Component<{}, State> {
         // @ts-expect-error ts-migrate(2339) FIXME: Property 'options' does not exist on type 'Readonl... Remove this comment to see the full error message
         const {options, value, onOptionChange} = this.props;
         return (
-            // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+            
             <select 
                 onChange={e=>{
                     onOptionChange(e.target.value)
@@ -37,7 +37,7 @@ export default class extends React.Component<{}, State> {
                 ref={r => this.selectDom = r}
                 value={value} className="mdui-select"
             >
-                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                
                 {options.map((a: any) => <option key={a.value} value={a.value}>{a.name}</option>)}
             </select>
         );

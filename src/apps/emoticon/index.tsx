@@ -8,7 +8,7 @@ const Result = ({
 }: any) => {
     if (!src) return null
     return (
-        // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+        
         <img alt="生成结果" src={src} className="mdui-img-fluid" />
     )
 }
@@ -38,7 +38,7 @@ class DragText extends React.Component<{}, DragTextState> {
         const { color, style, size, text } = this.props;
         const { drag, startPosition, x_axis, y_axis } = this.state
         return (
-            // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+            
             <span
                 onTouchMove={e => {
                     var ev = e || window.event;
@@ -112,7 +112,7 @@ class DragText extends React.Component<{}, DragTextState> {
 
 //预览图片
 const Preview = (props: any) => {
-    // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+    
     const element = <img
         crossOrigin="anonymous"
         alt="选择一张图片" height="100%" width='100%'
@@ -128,11 +128,11 @@ const StyleSet = ({
     style
 }: any) => {
     return (
-        // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+        
         <div className="mdui-row-xs-2">
-            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+            
             <div className="mdui-col">
-                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                
                 <ColorPicker
                     text="文本颜色"
                     color={color}
@@ -141,9 +141,9 @@ const StyleSet = ({
                     }}
                 />
             </div>
-            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+            
             <div className="mdui-col">
-                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                
                 <select
                     value={style}
                     onChange={e => {
@@ -151,11 +151,11 @@ const StyleSet = ({
                     }}
                     className="mdui-select" mdui-select="{position:'top'}"
                 >
-                    {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                    
                     <option value="normal">正常字体风格</option>
-                    {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                    
                     <option value="bold">加粗字体风格</option>
-                    {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                    
                     <option value="italic">倾斜字体风格</option>
                 </select>
             </div>
@@ -167,14 +167,14 @@ const AssestsList = ({
     onChoose
 }: any) => {
     return (
-        // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+        
         <div className="mdui-row-xs-3 mdui-row-sm-4 mdui-row-md-5 mdui-row-lg-6 mdui-row-xl-7 mdui-grid-list">
             {Array(30).fill(0).map((_, i) => (
-                // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+                
                 <div key={i} className="mdui-col">
-                    {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                    
                     <div onClick={() => onChoose(i + 1)} className="mdui-grid-tile">
-                        {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                        
                         <img
                             alt={`(${i + 1}).jpg`}
                             src={`/emoticon/${i + 1}.jpg`}
@@ -206,20 +206,20 @@ export default class extends React.Component<{}, ComponentState> {
     }
     render() {
         const { src, result, ifShow, texts, style, size, color } = this.state
-        // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+        
         return <>
-            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+            
             <div className="mdui-card mdui-p-a-1" >
                 {/* @ts-expect-error ts-migrate(2339) FIXME: Property 'center' does not exist on type 'JSX.Intr... Remove this comment to see the full error message */}
                 <center>
-                    {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                    
                     <div
                         id="capture"
                         style={{
                             height: '250px', width: '250px'//border:'1px solid #888888'
                         }}>
                         {texts.map((text: any, i: any) => (
-                            // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+                            
                             <DragText
                                 key={i}
                                 // @ts-expect-error ts-migrate(2322) FIXME: Property 'text' does not exist on type 'IntrinsicA... Remove this comment to see the full error message
@@ -230,18 +230,18 @@ export default class extends React.Component<{}, ComponentState> {
                             />
                         ))
                         }
-                        {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                        
                         <Preview src={src} />
                     </div>
                 {/* @ts-expect-error ts-migrate(2339) FIXME: Property 'center' does not exist on type 'JSX.Intr... Remove this comment to see the full error message */}
                 </center>
-                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                
                 <br></br>
-                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                
                 <div className="mdui-row-xs-3">
-                    {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                    
                     <div className="mdui-col">
-                        {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                        
                         <FileInput
                             fileType="image/*"
                             multiple={false}
@@ -250,23 +250,23 @@ export default class extends React.Component<{}, ComponentState> {
                             }}
                         />
                     </div>
-                    {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                    
                     <div className="mdui-col">
-                        {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                        
                         <button
                             onClick={() => {
                                 texts.push(`输入文字${texts.length + 1}`)
                                 this.setState({ texts: texts })
                             }}
                             className="mdui-btn">
-                            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                            
                             <i className="mdui-icon-left mdui-icon material-icons">add</i>
                             新增输入框
                             </button>
                     </div>
-                    {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                    
                     <div className="mdui-col">
-                        {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                        
                         <button
                             onClick={() => {
                                 this.setState({ ifShow: true })
@@ -274,16 +274,16 @@ export default class extends React.Component<{}, ComponentState> {
                                 //this.setState({src:`/emo_assests/ (${index}).jpg`})         
                             }}
                             className="mdui-btn">
-                            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                            
                             <i className="mdui-icon-left mdui-icon material-icons">add_shopping_cart</i>
                             换个素材
                             </button>
                     </div>
                 </div>
             </div>
-            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+            
             <br></br>
-            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+            
             <NewPage
                 onClose={() => {
                     this.setState({ ifShow: false })
@@ -292,18 +292,18 @@ export default class extends React.Component<{}, ComponentState> {
                 ifShow={ifShow}
                 height={500}
             >
-                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                
                 <AssestsList
                     onChoose={(i: any) => {
                         this.setState({ ifShow: false, src: `/emoticon/${i}.jpg` })
                     }}
                 />
             </NewPage>
-            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+            
             <br></br>
-            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+            
             <div className="mdui-card mdui-p-a-1" >
-                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                
                 <RangeInput
                     value={size}
                     min="5" max="100"
@@ -313,7 +313,7 @@ export default class extends React.Component<{}, ComponentState> {
                     title={"文字大小" + size + "px"}
                 />
                 {texts.map((text: any, i: any) => (
-                    // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+                    
                     <Input
                         key={i}
                         onValueChange={newText => {
@@ -325,7 +325,7 @@ export default class extends React.Component<{}, ComponentState> {
                     />
                 ))
                 }
-                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                
                 <StyleSet
                     color={color}
                     style={style}
@@ -334,7 +334,7 @@ export default class extends React.Component<{}, ComponentState> {
                     }}
                 />
             </div>
-            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+            
             <button
                 onClick={() => {
                     // @ts-expect-error ts-migrate(2345) FIXME: Type 'null' is not assignable to type 'HTMLElement... Remove this comment to see the full error message
@@ -352,10 +352,10 @@ export default class extends React.Component<{}, ComponentState> {
                     })
                 }}
                 className="mdui-color-theme mdui-fab mdui-fab-fixed">
-                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                
                 <i className="mdui-icon material-icons">&#xe5ca;</i>
             </button>
-            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+            
             <Result src={result} />
         </>;
     }

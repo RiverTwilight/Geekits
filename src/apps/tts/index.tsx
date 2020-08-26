@@ -66,9 +66,9 @@ export default class extends React.Component<{}, State> {
 	render() {
 		const { options, res } = this.state
 		return (
-// @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+
 			<>
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 				<Input
 					onValueChange={newText => {
 						options.text = newText;
@@ -80,9 +80,9 @@ export default class extends React.Component<{}, State> {
 					rows="3"
 					maxLength="500"
 				/>
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 				<div className="mdui-shadow-1 mdui-card mdui-p-a-1">
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 					<ListControlMenu
 						icon="record_voice_over"
 						title="声线"
@@ -93,7 +93,7 @@ export default class extends React.Component<{}, State> {
 						}}
 						items={VOICE_SOURCE}
 					/>
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 					<RangeInput
 						value={options.vol}
 						min="1" max="10"
@@ -103,7 +103,7 @@ export default class extends React.Component<{}, State> {
 						}}
 						title={"音量：" + options.vol}
 					/>
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 					<RangeInput
 						value={options.pit}
 						min="1" max="10"
@@ -113,7 +113,7 @@ export default class extends React.Component<{}, State> {
 						}}
 						title={"音调：" + options.pit}
 					/>
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 					<RangeInput
 						value={options.spd}
 						min="1" max="10"
@@ -124,7 +124,7 @@ export default class extends React.Component<{}, State> {
 						title={"语速：" + options.spd}
 					/>
 				</div>
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 				<button
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'loadBtn' does not exist on type 'default... Remove this comment to see the full error message
 					ref={r => this.loadBtn = r}
@@ -134,14 +134,14 @@ export default class extends React.Component<{}, State> {
 					}}
 					className="mdui-color-theme loadBtn mdui-fab mdui-fab-fixed"
 				>
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 					<i className="mdui-icon material-icons">mic</i>
 				</button>
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 				<br></br>
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 				<span style={{ display: res === null ? 'none' : 'block' }}>
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 					<MusicPlayer
 						title="合成结果"
 						audio={res}

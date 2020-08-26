@@ -4,7 +4,6 @@ import ClipboardJS from 'clipboard'
 // @ts-expect-error ts-migrate(2305) FIXME: Module '"mdui-in-react"' has no exported member 'S... Remove this comment to see the full error message
 import { Input, Select } from 'mdui-in-react'
 import dic from './dictionary'
-// @ts-expect-error ts-migrate(6142) FIXME: Module '../../utils/Hooks/useFileDrager' was resol... Remove this comment to see the full error message
 import { signListener, removeListener } from '../../utils/Hooks/useFileDrager'
 
 //结果展示框
@@ -18,9 +17,9 @@ const PrintRes = ({
         showRes = ''
     }
     return (
-        // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+        
         <div className="mdui-card mdui-textfield">
-            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+            
             <div data-clipboard-text={String(showRes)} style={{ height: '130px' }} id="becopy" className="mdui-typo mdui-dialog-content mdui-p-a-2">
                 {String(showRes)}
             </div>
@@ -83,11 +82,11 @@ export default class extends React.Component<{}, ComponentState> {
     }
     render() {
         const { text, fromType, toType, key, res } = this.state
-        // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+        
         return <>
             {/* @ts-expect-error ts-migrate(2339) FIXME: Property 'center' does not exist on type 'JSX.Intr... Remove this comment to see the full error message */}
             <center style={{ margin: '0 auto' }}>
-                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                
                 <Select
                     onOptionChange={(val: any) => {
                         this.setState({ fromType: val })
@@ -95,7 +94,7 @@ export default class extends React.Component<{}, ComponentState> {
                     value={fromType}
                     options={options}
                 />
-                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                
                 <button
                     style={{ margin: '0px 5px' }}
                     className="mdui-btn mdui-btn-icon"
@@ -105,10 +104,10 @@ export default class extends React.Component<{}, ComponentState> {
                             toType: fromType
                         })
                     }}>
-                    {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                    
                     <i className="mdui-icon material-icons">arrow_forward</i>
                 </button>
-                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                
                 <Select
                     onOptionChange={(val: any) => {
                         this.setState({ toType: val })
@@ -118,7 +117,7 @@ export default class extends React.Component<{}, ComponentState> {
                 />
             {/* @ts-expect-error ts-migrate(2339) FIXME: Property 'center' does not exist on type 'JSX.Intr... Remove this comment to see the full error message */}
             </center>
-            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+            
             <Input
                 onValueChange={newText => {
                     this.setState({ key: newText })
@@ -126,9 +125,9 @@ export default class extends React.Component<{}, ComponentState> {
                 value={key}
                 placeholder="输入密钥（可选）"
             />
-            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+            
             <div className="mdui-row-md-2">
-                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                
                 <Input
                     value={text}
                     onValueChange={newValue => {
@@ -140,21 +139,21 @@ export default class extends React.Component<{}, ComponentState> {
                 />
                 {/* @ts-expect-error ts-migrate(2339) FIXME: Property 'center' does not exist on type 'JSX.Intr... Remove this comment to see the full error message */}
                 <center>
-                    {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                    
                     <button
                         onClick={() => {
                             //console.log(dic(this.state.from,this.state.text,this.state.key))
                             this.setState({ res: dic(fromType, text, key) })
                         }} className="mdui-btn-raised mdui-color-theme mdui-btn mdui-ripple">
-                        {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                        
                         <i className="mdui-icon-left mdui-icon material-icons">translate</i>
                     转换
                 </button>
                 {/* @ts-expect-error ts-migrate(2339) FIXME: Property 'center' does not exist on type 'JSX.Intr... Remove this comment to see the full error message */}
                 </center>
-                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                
                 <br></br>
-                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                
                 <PrintRes
                     res={res}
                     to={toType}

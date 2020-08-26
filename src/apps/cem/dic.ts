@@ -1,4 +1,4 @@
-import calTable from './balance.js'
+import calTable from './balance'
 
 let chemSymbol = [
   'fuckjs', 'H', 'He', 'Li', 'Be', 'B', 'C', 'N', 'O', 'F', 'Ne', 'Na', 'Mg', 'Al', 'Si', 'P', 'S', 'Cl', 'Ar',

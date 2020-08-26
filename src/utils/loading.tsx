@@ -5,9 +5,9 @@ import Loadable from 'react-loadable';
 const Loading = (props: any) => {
     if (props.pastDelay) {
         return (
-            // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+            
             <div className="center-panel mdui-text-color-theme-text">
-                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                
                 <h3 className="mdui-text-center">精彩即将到来...</h3>
             </div>
         )

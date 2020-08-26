@@ -17,11 +17,11 @@ export default () => {
         return () => clipboard && clipboard.destroy();
     }, [])
     return (
-        // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+        
         <>
             {/* @ts-expect-error ts-migrate(2339) FIXME: Property 'center' does not exist on type 'JSX.Intr... Remove this comment to see the full error message */}
             <center>
-                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                
                 <FileInput
                     multiple={true}
                     maxWidth="200px"
@@ -39,7 +39,7 @@ export default () => {
                 />
             {/* @ts-expect-error ts-migrate(2339) FIXME: Property 'center' does not exist on type 'JSX.Intr... Remove this comment to see the full error message */}
             </center>
-            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+            
             <Input
                 value={except}
                 onValueChange={setExcept}
@@ -47,20 +47,20 @@ export default () => {
                 rows="5"
                 placeholder="排除的文件夹/文件，一行一个"
             />
-            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+            
             <button className="mdui-btn mdui-color-theme" onClick={() => {
                 setTree(pathToTree(fileList, except.split('\n')));
             }}>生成</button>
-            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+            
             <button data-clipboard-text={tree} className={`${tree === '' ? 'hidden' : ''} copy mdui-btn mdui-btn-icon`}>
-                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                
                 <i className="mdui-icon material-icons">&#xe14d;</i>
             </button>
-            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+            
             <br></br>
-            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+            
             <div className={`${tree === '' ? 'hidden' : ''} mdui-typo`}>
-                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                
                 <pre>{tree}</pre>
             </div>
         </>

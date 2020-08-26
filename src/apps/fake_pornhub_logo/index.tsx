@@ -6,7 +6,7 @@ import saveFile from "../../utils/fileSaver";
 const IfBr = ({
     statu
 }: any) => {
-// @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+
 	if (statu === "vertical") return <br></br>;
 	return null;
 };
@@ -14,7 +14,7 @@ const IfBr = ({
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'hStyle' does not exist on type '{ childr... Remove this comment to see the full error message
 const FakeLogo = React.forwardRef(({ hStyle, frontStyle, lastStyle }, ref) => {
 	var logo = (
-// @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+
 		<div
 			style={{
 				paddingTop: "50px",
@@ -26,7 +26,7 @@ const FakeLogo = React.forwardRef(({ hStyle, frontStyle, lastStyle }, ref) => {
 			}}
 			id="blackborad"
 		>
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 			<h1
 				style={{
 					marginTop: "20px",
@@ -38,7 +38,7 @@ const FakeLogo = React.forwardRef(({ hStyle, frontStyle, lastStyle }, ref) => {
 				}}
 				className="mdui-text-center"
 			>
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 				<span
 					style={{
 						borderRadius: "4px",
@@ -57,9 +57,9 @@ const FakeLogo = React.forwardRef(({ hStyle, frontStyle, lastStyle }, ref) => {
 				>
 					Ygkt
 				</span>
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 				<IfBr statu={hStyle.array} />
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 				<span
 					style={{
 						display: "inline",
@@ -85,13 +85,13 @@ const FakeLogo = React.forwardRef(({ hStyle, frontStyle, lastStyle }, ref) => {
 // @ts-expect-error ts-migrate(7031) FIXME: Binding element 'onTextChange' implicitly has an '... Remove this comment to see the full error message
 const FontSize = ({ onTextChange, hStyle }) => {
 	return (
-// @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+
 		<div className="mdui-textfield">
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 			<label className="mdui-textfield-label">字体大小</label>
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 			<label className="mdui-slider">
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 				<input
 					onChange={(e) => {
 						onTextChange({
@@ -116,16 +116,16 @@ const FontSize = ({ onTextChange, hStyle }) => {
 // @ts-expect-error ts-migrate(7031) FIXME: Binding element 'onStatuChange' implicitly has an ... Remove this comment to see the full error message
 const ColorTurn = ({ onStatuChange }) => {
 	return (
-// @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+
 		<label className="mdui-checkbox">
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 			<input
 				onChange={(e) => {
 					onStatuChange(e.target.checked);
 				}}
 				type="checkbox"
 			/>
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 			<i className="mdui-checkbox-icon"></i>
 			颜色翻转
 		</label>
@@ -136,16 +136,16 @@ const ColorTurn = ({ onStatuChange }) => {
 // @ts-expect-error ts-migrate(7031) FIXME: Binding element 'onStatuChange' implicitly has an ... Remove this comment to see the full error message
 const ArrayTurn = ({ onStatuChange }) => {
 	return (
-// @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+
 		<label className="mdui-checkbox">
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 			<input
 				onChange={(e) => {
 					onStatuChange(e.target.checked);
 				}}
 				type="checkbox"
 			/>
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 			<i className="mdui-checkbox-icon"></i>
 			竖直排列
 		</label>
@@ -177,11 +177,11 @@ class Ui extends React.Component<{}, UiState> {
 	render() {
 		const { hStyle, front, last } = this.state;
 		return (
-// @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+
 			<>
 {/* @ts-expect-error ts-migrate(2339) FIXME: Property 'center' does not exist on type 'JSX.Intr... Remove this comment to see the full error message */}
 				<center>
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 					<FakeLogo
 // @ts-expect-error ts-migrate(2322) FIXME: Property 'hStyle' does not exist on type 'Intrinsi... Remove this comment to see the full error message
 						hStyle={hStyle}
@@ -192,9 +192,9 @@ class Ui extends React.Component<{}, UiState> {
 					/>
 {/* @ts-expect-error ts-migrate(2339) FIXME: Property 'center' does not exist on type 'JSX.Intr... Remove this comment to see the full error message */}
 				</center>
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 				<div className="mdui-card mdui-p-a-1">
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 					<FontSize
 						hStyle={hStyle}
 // @ts-expect-error ts-migrate(7006) FIXME: Parameter 'newStyle' implicitly has an 'any' type.
@@ -202,7 +202,7 @@ class Ui extends React.Component<{}, UiState> {
 							this.setState(newStyle);
 						}}
 					/>
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 					<ArrayTurn
 // @ts-expect-error ts-migrate(7006) FIXME: Parameter 'statu' implicitly has an 'any' type.
 						onStatuChange={(statu) => {
@@ -223,9 +223,9 @@ class Ui extends React.Component<{}, UiState> {
 							}
 						}}
 					/>
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 					<br></br>
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 					<ColorTurn
 // @ts-expect-error ts-migrate(7006) FIXME: Parameter 'statu' implicitly has an 'any' type.
 						onStatuChange={(statu) => {
@@ -255,7 +255,7 @@ class Ui extends React.Component<{}, UiState> {
 						}}
 					/>
 				</div>
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 				<button
 					onClick={() => {
 // @ts-expect-error ts-migrate(2345) FIXME: Type 'null' is not assignable to type 'HTMLElement... Remove this comment to see the full error message
@@ -272,7 +272,7 @@ class Ui extends React.Component<{}, UiState> {
 					}}
 					className="mdui-color-theme mdui-fab mdui-fab-fixed"
 				>
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 					<i className="mdui-icon material-icons">check</i>
 				</button>
 			</>

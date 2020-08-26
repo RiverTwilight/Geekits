@@ -31,7 +31,7 @@ class ImgCropper extends React.Component<{}, ImgCropperState> {
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'ifHide' does not exist on type 'Readonly... Remove this comment to see the full error message
 		if(this.props.ifHide)return null
 		return(
-// @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+
 			<Cropper
 		        ref='cropper'
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'file' does not exist on type 'Readonly<{... Remove this comment to see the full error message
@@ -76,15 +76,15 @@ function Split(src,onCompleted) {
 const Gallary = ({res}) => {
 	if (res === [])return null
 	return(
-// @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+
 		<div className="mdui-row-xs-3 mdui-row-sm-4 mdui-row-md-5 mdui-row-lg-6 mdui-row-xl-7 mdui-grid-list">
         {/* @ts-expect-error ts-migrate(7006) FIXME: Parameter 'a' implicitly has an 'any' type. */}
         {res.map((a,i)=>(
-// @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+
 			<div key={i} className="mdui-col">
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 				<div className="mdui-grid-tile">
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 					<img src={a}/>
 				</div>
 			</div>
@@ -108,11 +108,11 @@ class Ui extends React.Component<{}, UiState> {
 	render(){
 		const { file, ifHideCropper } = this.state;
 		return(
-// @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+
 			<> 
 {/* @ts-expect-error ts-migrate(2339) FIXME: Property 'center' does not exist on type 'JSX.Intr... Remove this comment to see the full error message */}
 				<center>
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 					<FileInput 
 						fileType="image/*"
 						multiple={false}
@@ -125,7 +125,7 @@ class Ui extends React.Component<{}, UiState> {
 					/>
 {/* @ts-expect-error ts-migrate(2339) FIXME: Property 'center' does not exist on type 'JSX.Intr... Remove this comment to see the full error message */}
 				</center>
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 				<ImgCropper
 // @ts-expect-error ts-migrate(2322) FIXME: Property 'ifHide' does not exist on type 'Intrinsi... Remove this comment to see the full error message
 					ifHide={ifHideCropper}
@@ -135,7 +135,7 @@ class Ui extends React.Component<{}, UiState> {
 					}}
 				    file={file}
 				/>
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 				<button
 				    disabled={file === null}
 				    onClick={()=>{
@@ -162,10 +162,10 @@ class Ui extends React.Component<{}, UiState> {
 						})
 				    }}
 				    className="mdui-color-theme mdui-fab mdui-fab-fixed">
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 				    <i className="mdui-icon material-icons">check</i>					
 				</button>
-{/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+
 				<Gallary res={this.state.res} />
 			</>
 		)  	

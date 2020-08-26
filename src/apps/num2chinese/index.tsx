@@ -26,9 +26,9 @@ export default class extends React.Component<{}, State> {
     render() {
         const { input, res } = this.state
         return (
-            // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+            
             <>
-                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                
                 <Input
                     onValueChange={newText => {
                         var cal = new num2chinese(newText);
@@ -45,13 +45,13 @@ export default class extends React.Component<{}, State> {
                     type="number"
                     value={input}
                 />
-                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                
                 <p
                     style={{ display: (res === '') ? 'none' : 'block' }}
                     id="becopy" data-clipboard-text={res}
                     className="mdui-text-center mdui-typo-title">
                     {res}
-                    {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                    
                     <button className="mdui-btn-icon mdui-btn"><i className="mdui-icon material-icons">&#xe14d;</i></button>
                 </p>
             </>

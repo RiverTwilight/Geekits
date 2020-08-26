@@ -6,18 +6,18 @@ import { regularTextCreate, templateTextCreate } from './engine'
 import ClipboardJS from 'clipboard'
 
 const TextCreate = () => (
-    // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+    
     <Tab
         tabs={[
             {
                 text: '规律文本',
                 id: 'regular',
-                // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+                
                 component: <RegularText />
             }, {
                 text: '模板文本',
                 id: 'template',
-                // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+                
                 component: <TemplateText />
             }
         ]}
@@ -43,16 +43,16 @@ const ResultCard = ({
     }, [])
     if (!data) return null;
     return (
-        // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+        
         <div className="mdui-p-a-1">
-            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+            
             <button data-clipboard-text={data.join('\n')} className="copy mdui-btn mdui-btn-block mdui-color-theme mdui-ripple mdui-btn-raised">
                 全部复制
             </button>
-            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+            
             <ul className="mdui-list">
                 {data.map((item: any, i: any) => (
-                    // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+                    
                     <li data-clipboard-text={item} className="copy mdui-list-item" key={i}>{item}</li>
                 ))}
             </ul>
@@ -75,11 +75,11 @@ const TemplateText = () => {
         }, {
             template: ''
         }]
-    // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+    
     return <>
-        {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+        
         <div className="mdui-p-a-1">
-            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+            
             <Input
                 onValueChange={changeTemplate}
                 placeholder="模板串"
@@ -88,14 +88,14 @@ const TemplateText = () => {
                 value={template}
                 icon="functions"
             />
-            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+            
             <Input
                 onValueChange={setFunc}
                 placeholder="关键字"
                 value={func}
                 icon="font_download"
             />
-            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+            
             <Select
                 onOptionChange={(value: any) => {
                     setArrayType(value)
@@ -121,7 +121,7 @@ const TemplateText = () => {
                     }
                 ]}
             />
-            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+            
             <button
                 onClick={() => {
                     const res = templateTextCreate({
@@ -135,9 +135,9 @@ const TemplateText = () => {
                 生成
             </button>
         </div>
-        {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+        
         <br></br>
-        {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+        
         <ResultCard
             data={result}
         />
@@ -151,22 +151,22 @@ const RegularText = () => {
     const [length, setLength] = useState(10);
     const [result, setResult] = useState(null);
     return (
-        // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+        
         <>
-            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+            
             <div className="mdui-p-a-1">
-                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                
                 <Input
                     onValueChange={changeTemplate}
                     placeholder="模板串"
                     value={template}
                     icon="functions"
                 />
-                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                
                 <div className="mdui-row-xs-2">
-                    {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                    
                     <div className="mdui-col">
-                        {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                        
                         <Input
                             // @ts-expect-error ts-migrate(2322) FIXME: Type 'string' is not assignable to type 'SetStateA... Remove this comment to see the full error message
                             onValueChange={setFunc}
@@ -177,9 +177,9 @@ const RegularText = () => {
                             icon="add_circle_outline"
                         />
                     </div>
-                    {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                    
                     <div className="mdui-col">
-                        {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                        
                         <Input
                             // @ts-expect-error ts-migrate(2322) FIXME: Type 'Dispatch<SetStateAction<number>>' is not ass... Remove this comment to see the full error message
                             onValueChange={setLength}
@@ -191,7 +191,7 @@ const RegularText = () => {
                         />
                     </div>
                 </div>
-                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                
                 <Select
                     onOptionChange={setArrayType}
                     value={arrayType}
@@ -208,7 +208,7 @@ const RegularText = () => {
                         }
                     ]}
                 />
-                {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+                
                 <button
                     onClick={() => {
                         const res = regularTextCreate({
@@ -225,9 +225,9 @@ const RegularText = () => {
                     生成
                 </button>
             </div>
-            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+            
             <br></br>
-            {/* @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
+            
             <ResultCard
                 data={result}
             />
