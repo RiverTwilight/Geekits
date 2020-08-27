@@ -58,7 +58,7 @@ export default class extends React.Component {
 		const toggleDisabled = (isDisabled: any) => {
 			var btns = document.getElementsByClassName("loadBtn");
 			for (let i = 0; i < btns.length; i++) {
-				// @ts-expect-error ts-migrate(2339) FIXME: Property 'disabled' does not exist on type 'Elemen... Remove this comment to see the full error message
+				//@ts-expect-error
 				btns[i].disabled = isDisabled;
 			}
 		};
@@ -100,7 +100,6 @@ export default class extends React.Component {
 				>
 					<div className="mdui-progress-indeterminate"></div>
 				</div>
-
 				<Header
 					getRef={(refs: any) => {
 						window.globalRef = {};
@@ -109,9 +108,7 @@ export default class extends React.Component {
 						});
 					}}
 				/>
-
 				<br></br>
-
 				<Switch>
 					{RouterList.map((route) => (
                         //@ts-expect-error
@@ -120,6 +117,6 @@ export default class extends React.Component {
 					<Route component={NoMatch} />
 				</Switch>
 			</Router>
-		);
+		)
 	}
 }

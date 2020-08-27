@@ -43,11 +43,8 @@ const Record = ({ closeBottomAlert }) => {
 	const historyData = JSON.parse(localStorage.tomato);
 	const now = new Date();
 	return (
-
 		<>
-
 			<div className="mdui-progress">
-
 				<div
 					className="mdui-progress-determinate"
 					style={{
@@ -59,13 +56,11 @@ const Record = ({ closeBottomAlert }) => {
 					}}
 				></div>
 			</div>
-
 			<div className="mdui-p-a-2 mdui-typo">
-
 				<b>今日：</b>
 				{
 					historyData.filter(
-// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'item' implicitly has an 'any' type.
+						// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'item' implicitly has an 'any' type.
 						(item) => item.metaDate === now.toLocaleDateString()
 					).length
 				}
@@ -83,36 +78,30 @@ const Record = ({ closeBottomAlert }) => {
 			<div className="mdui-divider"></div>
 
 			<ul className="mdui-list">
-{/* @ts-expect-error ts-migrate(7006) FIXME: Parameter 'item' implicitly has an 'any' type. */}
+				{/* @ts-expect-error ts-migrate(7006) FIXME: Parameter 'item' implicitly has an 'any' type. */}
 				{historyData.map((item, i) => (
-
 					<li key={i} className="mdui-list-item mdui-ripple">
-
 						<i className="mdui-icon mdui-text-color-red material-icons">
 							access_alarms
 						</i>
-
 						<div className="mdui-list-item-content">
-
 							<div className="mdui-list-item-title">
 								{item.name}
 							</div>
-
 							<div className="mdui-list-item-text">
 								{item.date}
 							</div>
 						</div>
 					</li>
 				))}
-
 				<button
-				style={{
-					display: historyData.length ? 'block' : 'none'
-				}}
+					style={{
+						display: historyData.length ? "block" : "none",
+					}}
 					onClick={() => {
 						mdui.JQ.hideOverlay();
 						closeBottomAlert && closeBottomAlert();
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'confirm' does not exist on type 'IMduiSt... Remove this comment to see the full error message
+						// @ts-expect-error ts-migrate(2339) FIXME: Property 'confirm' does not exist on type 'IMduiSt... Remove this comment to see the full error message
 						mdui.confirm(
 							"此操作不可逆！",
 							"清除历史记录",
@@ -139,19 +128,18 @@ const Record = ({ closeBottomAlert }) => {
 const Tomato = ({
 	r = 34,
 	ang = 20,
-// @ts-expect-error ts-migrate(7031) FIXME: Binding element 'startWorking' implicitly has an '... Remove this comment to see the full error message
+	// @ts-expect-error ts-migrate(7031) FIXME: Binding element 'startWorking' implicitly has an '... Remove this comment to see the full error message
 	startWorking,
-// @ts-expect-error ts-migrate(7031) FIXME: Binding element 'addTime' implicitly has an 'any' ... Remove this comment to see the full error message
+	// @ts-expect-error ts-migrate(7031) FIXME: Binding element 'addTime' implicitly has an 'any' ... Remove this comment to see the full error message
 	addTime,
-// @ts-expect-error ts-migrate(7031) FIXME: Binding element 'timeStr' implicitly has an 'any' ... Remove this comment to see the full error message
+	// @ts-expect-error ts-migrate(7031) FIXME: Binding element 'timeStr' implicitly has an 'any' ... Remove this comment to see the full error message
 	timeStr,
-// @ts-expect-error ts-migrate(7031) FIXME: Binding element 'statu' implicitly has an 'any' ty... Remove this comment to see the full error message
+	// @ts-expect-error ts-migrate(7031) FIXME: Binding element 'statu' implicitly has an 'any' ty... Remove this comment to see the full error message
 	statu,
 }) => {
 	const ang1 = ang;
 	const ang2 = 360;
 	return (
-
 		<button
 			onClick={() => {
 				let func = {
@@ -159,21 +147,25 @@ const Tomato = ({
 					rest: addTime,
 					working: () => {},
 				};
-// @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+				// @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
 				func[statu]();
 			}}
 			className="mdui-shadow-0 mdui-fab mdui-color-theme tomato-box"
 		>
-
-			<button className="mdui-shadow-0 mdui-color-white mdui-fab mask"></button>
-
+			<button
+			style={{
+				backgroundColor: document.body.classList.contains("mdui-theme-layout-dark")
+				? "#303030"
+				: "#fff"
+			}}
+				className={`mdui-shadow-0 mdui-fab mask`}
+			></button>
 			<svg
 				width="250"
 				height="250"
 				xmlns="http://www.w3.org/2000/svg"
 				viewBox="15 15 70 70"
 			>
-
 				<circle
 					cx="50"
 					cy="50"
@@ -198,7 +190,7 @@ const Tomato = ({
 
 			<div className="statu mdui-text-color-theme">
 				{
-// @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+					// @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
 					{
 						working: "工作中",
 						rest: "点击延长休息时间",
@@ -227,7 +219,7 @@ class TomatoClock extends React.Component<{}, TomatoClockState> {
 		};
 	}
 	startATomato(minute = 25) {
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'tomato' does not exist on type 'Window &... Remove this comment to see the full error message
+		// @ts-expect-error ts-migrate(2339) FIXME: Property 'tomato' does not exist on type 'Window &... Remove this comment to see the full error message
 		window.tomato && clearInterval(window.tomato);
 		const cb = () => {
 			const { min, sec, title, statu } = this.state;
@@ -277,7 +269,7 @@ class TomatoClock extends React.Component<{}, TomatoClockState> {
 		this.setState({
 			min: minute,
 		});
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'tomato' does not exist on type 'Window &... Remove this comment to see the full error message
+		// @ts-expect-error ts-migrate(2339) FIXME: Property 'tomato' does not exist on type 'Window &... Remove this comment to see the full error message
 		window.tomato = setInterval(cb, 1000);
 	}
 	playRingtone() {
@@ -292,7 +284,7 @@ class TomatoClock extends React.Component<{}, TomatoClockState> {
 		statu === "working" &&
 			min &&
 			sec &&
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'confirm' does not exist on type 'IMduiSt... Remove this comment to see the full error message
+			// @ts-expect-error ts-migrate(2339) FIXME: Property 'confirm' does not exist on type 'IMduiSt... Remove this comment to see the full error message
 			mdui.confirm(
 				"此次专注将无法保存",
 				"确定要放弃这1/4个番茄吗？",
@@ -302,7 +294,7 @@ class TomatoClock extends React.Component<{}, TomatoClockState> {
 						min: 25,
 						sec: 0,
 					});
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'tomato' does not exist on type 'Window &... Remove this comment to see the full error message
+					// @ts-expect-error ts-migrate(2339) FIXME: Property 'tomato' does not exist on type 'Window &... Remove this comment to see the full error message
 					clearInterval(window.tomato);
 					document.title = originTitle;
 				},
@@ -327,11 +319,8 @@ class TomatoClock extends React.Component<{}, TomatoClockState> {
 	render() {
 		const { min, sec, showHistory, title, statu } = this.state;
 		return (
-
 			<>
-
 				<div className="center">
-
 					<Input
 						value={title}
 						placeholder="给这颗番茄起个名字吧"
@@ -371,7 +360,7 @@ class TomatoClock extends React.Component<{}, TomatoClockState> {
 						className="mdui-color-theme mdui-btn mdui-btn-raised"
 					>
 						{
-// @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+							// @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
 							{
 								rest: "跳过休息",
 								working: "重置",
@@ -386,7 +375,6 @@ class TomatoClock extends React.Component<{}, TomatoClockState> {
 					}}
 					className="mdui-color-theme mdui-fab mdui-fab-mini mdui-fab-fixed"
 				>
-
 					<i className="mdui-icon material-icons">&#xe192;</i>
 				</button>
 
@@ -400,7 +388,6 @@ class TomatoClock extends React.Component<{}, TomatoClockState> {
 					}}
 					ifShow={showHistory}
 				>
-
 					<Record
 						closeBottomAlert={() => {
 							this.setState({ showHistory: false });
