@@ -1,26 +1,56 @@
 import * as React from "react";
-import { Input } from "mdui-in-react";
-
-const TABLE:{
-	[key: string]: number
-} = {
-	k: 200,
-};
+import { Input, ListControlCheck } from "mdui-in-react";
+import { TABLE, TABLE_REVERSE } from "./dic";
 
 const JsKeycode = () => {
-	const [key, setKey] = React.useState("");
+	const [value, setValue] = React.useState("");
+	const [lock, setLock] = React.useState(true);
+	const resKey = TABLE_REVERSE[value.toLocaleLowerCase()] || "未找到",
+		resCode = TABLE[value.toLocaleLowerCase()] || "未找到";
 	return (
-
 		<>
-
 			<Input
-// @ts-expect-error ts-migrate(2322) FIXME: Property 'onKeyDown' does not exist on type 'Intri... Remove this comment to see the full error message
+				// @ts-expect-error ts-migrate(2322) FIXME: Property 'onKeyDown' does not exist on type 'Intri... Remove this comment to see the full error message
+				autoFocus={true}
+				// @ts-expect-error ts-migrate(2322) FIXME: Property 'onKeyDown' does not exist on type 'Intri... Remove this comment to see the full error message
 				onKeyDown={(e) => {
-					console.log(e);
+					console.log(e.key);
+					if (e.key === "Escape") {
+						setLock(false);
+						setValue("27");
+					} else {
+						lock && setValue(e.key);
+					}
 				}}
+				value={value}
+				helper="按ESC解除锁定"
+				placeholder="支持按键和键盘码相互查询"
+				onValueChange={(newText) => {
+					!lock && setValue(newText);
+				}}
+				data-testId="inputKey"
 			/>
-
-			<p>{TABLE[key]}</p>
+			<ListControlCheck
+				title="锁定"
+				checked={lock}
+				onCheckedChange={setLock}
+			/>
+			<div className="mdui-table-fluid">
+				<table className="mdui-table">
+					<thead>
+						<tr>
+							<th>键盘码</th>
+							<th>按键名</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>{lock ? resCode : value}</td>
+							<td>{lock ? value : resKey}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 		</>
 	);
 };
