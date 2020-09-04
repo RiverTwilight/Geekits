@@ -1,5 +1,4 @@
 import React from 'react';
-// @ts-expect-error ts-migrate(7016) FIXME: Try `npm install @types/react-loadable` if it exis... Remove this comment to see the full error message
 import Loadable from 'react-loadable';
 
 const Loading = (props: any) => {

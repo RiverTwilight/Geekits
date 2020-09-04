@@ -148,7 +148,7 @@ const SearchResult = ({ result = [], kwd }: any) => {
 	// @ts-expect-error ts-migrate(7041) FIXME: The containing arrow function captures the global ... Remove this comment to see the full error message
 	useEventListener("keydown", handleKeydown.bind(this));
 	let history = useHistory();
-	if (!result.length || kwd === "") return null;
+	if (!result.length && kwd === "") return null;
 	function handleClick(url: any) {
 		history.push(url);
 	}
@@ -163,14 +163,10 @@ const SearchResult = ({ result = [], kwd }: any) => {
 					{...a}
 				/>
 			))}
-
 			<p className="mdui-typo mdui-text-center">
 				没找到想要的工具?试试
-				<a href={"https://www.baidu.com/s?ie=UTF-8&wd=" + kwd}>
-					百度搜索
-				</a>
+				<a href={"https://www.google.com/search?q=" + kwd}>谷歌搜索</a>
 			</p>
-
 			<div className="mdui-divider"></div>
 		</ul>
 	);
@@ -179,6 +175,7 @@ const SearchResult = ({ result = [], kwd }: any) => {
 type SearchState = any;
 
 class Search extends React.Component<{}, SearchState> {
+	searchInput: any;
 	constructor(props: {}) {
 		super(props);
 		this.state = {
@@ -189,11 +186,11 @@ class Search extends React.Component<{}, SearchState> {
 	handleSearchKeydown(e: any) {
 		if (e.ctrlKey && e.keyCode === 70) {
 			e.preventDefault();
-			// @ts-expect-error ts-migrate(2339) FIXME: Property 'searchInput' does not exist on type 'Sea... Remove this comment to see the full error message
 			this.searchInput.focus();
 		}
 	}
 	componentDidMount() {
+		pinyin.setOptions({ checkPolyphone: false, charCase: 0 });
 		document.addEventListener(
 			"keydown",
 			this.handleSearchKeydown.bind(this)
@@ -205,21 +202,30 @@ class Search extends React.Component<{}, SearchState> {
 			this.handleSearchKeydown.bind(this)
 		);
 	}
+	handleInput = (e: { target: { value: any } }) => {
+		const {
+			target: { value },
+		} = e;
+		this.setState({ kwd: value }, () => {
+			this.search();
+		});
+	};
 	search() {
-		pinyin.setOptions({ checkPolyphone: false, charCase: 0 });
 		const { kwd } = this.state;
 		const res = applist.filter((app) => {
 			let keyword = kwd.toLowerCase().trim();
 			return (
-				pinyin.getFullChars(app.name).toLowerCase().indexOf(keyword) !==
-					-1 || app.name.toLowerCase().indexOf(keyword) !== -1
+				(pinyin
+					.getFullChars(app.name)
+					.toLowerCase()
+					.indexOf(keyword) !== -1 ||
+					app.name.toLowerCase().indexOf(keyword) !== -1) &&
+				kwd !== ""
 			);
 		});
-		if (kwd !== "") {
-			this.setState({
-				searchResult: res,
-			});
-		}
+		this.setState({
+			searchResult: res,
+		});
 	}
 	render() {
 		const { kwd, searchResult } = this.state;
@@ -227,21 +233,14 @@ class Search extends React.Component<{}, SearchState> {
 			<>
 				<div className="mdui-textfield">
 					<i className="mdui-icon material-icons">search</i>
-
 					<input
-						// @ts-expect-error ts-migrate(2339) FIXME: Property 'searchInput' does not exist on type 'Sea... Remove this comment to see the full error message
 						ref={(r) => (this.searchInput = r)}
-						onChange={(e) => {
-							this.setState({ kwd: e.target.value }, () => {
-								this.search();
-							});
-						}}
+						onChange={this.handleInput}
 						value={this.state.kwd}
 						className="mdui-textfield-input"
 						placeholder="搜索(ctrl+F)"
 					></input>
 				</div>
-
 				<SearchResult kwd={kwd} result={searchResult} />
 			</>
 		);

@@ -22,7 +22,6 @@ export default class extends React.Component<{}, State> {
             withCredentials: false,
             data: {
                 fivData: mode === 'upload' ? JSON.stringify(fiv.getAll()) : false,
-                // @ts-expect-error ts-migrate(2554) FIXME: Expected 1 arguments, but got 0.
                 username: getUserInfo().username
             }
         }).then(response => {

@@ -40,7 +40,6 @@ class DrawerMenu extends React.Component<{}, {}> {
         window.leftDrawer = new Drawer('#left-drawer');
     }
     render() {
-        // @ts-expect-error ts-migrate(2554) FIXME: Expected 1 arguments, but got 0.
         const user = getUserInfo();
         return (
             <div id="left-drawer" className="mdui-drawer">

@@ -36,7 +36,6 @@ export default class extends React.Component<{}, ComponentState> {
     constructor(props: {}) {
         super(props);
         this.state = {
-// @ts-expect-error ts-migrate(2554) FIXME: Expected 1 arguments, but got 0.
 			userInfo: getUserInfo()
         }       
 	}

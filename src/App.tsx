@@ -5,35 +5,39 @@ import loadable from "./utils/loading";
 import "./App.css";
 import "../node_modules/mdui/dist/css/mdui.min.css";
 
-const RouterList = [
+const RouterList: {
+	component: any,
+	path: string,
+	exact?: boolean;
+}[] = [
 	{
-		component: loadable(() => import("./pages/home")),
+		component: loadable(() => import("./views/home")),
 		path: "/",
 		exact: true,
 	},
 	{
-		component: loadable(() => import("./pages/user")),
+		component: loadable(() => import("./views/user")),
 		path: "/user",
 		exact: true,
 	},
 	{
-		component: loadable(() => import("./pages/user/login")),
+		component: loadable(() => import("./views/user/login")),
 		path: "/user/login",
 	},
 	{
-		component: loadable(() => import("./pages/about")),
+		component: loadable(() => import("./views/about")),
 		path: "/about",
 	},
 	{
-		component: loadable(() => import("./pages/setting")),
+		component: loadable(() => import("./views/setting")),
 		path: "/setting",
 	},
 	{
-		component: loadable(() => import("./pages/app/index")),
+		component: loadable(() => import("./views/app/index")),
 		path: "/app/:name",
 	},
 	{
-		component: loadable(() => import("./pages/feedback")),
+		component: loadable(() => import("./views/feedback")),
 		path: "/feedback",
 	},
 ];
@@ -51,7 +55,7 @@ const NoMatch = () => (
 	</div>
 );
 
-export default class extends React.Component {
+class App extends React.Component {
 	loading: any;
 	componentDidMount() {
 		const { loading } = this;
@@ -111,12 +115,13 @@ export default class extends React.Component {
 				<br></br>
 				<Switch>
 					{RouterList.map((route) => (
-                        //@ts-expect-error
 						<Route key={route.path} {...route}></Route>
 					))}
 					<Route component={NoMatch} />
 				</Switch>
 			</Router>
-		)
+		);
 	}
 }
+
+export default App;

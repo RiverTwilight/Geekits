@@ -42,7 +42,7 @@ const Result = ({ result }: any) => {
 	);
 };
 
-const aic_types = [
+const AIC_TYPES = [
 	{
 		name: "通用物体和场景",
 		value: "normal",
@@ -141,7 +141,7 @@ class AIC extends React.Component<{}, AICState> {
 								onCheckedChange={(checked) => {
 									this.setState({ aic_type: checked });
 								}}
-								items={aic_types}
+								items={AIC_TYPES}
 							/>
 						</div>
 

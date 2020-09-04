@@ -39,7 +39,7 @@ const setUserInfo = (data: any, remember: any) => {
     sessionStorage.setItem('userInfo', encryptedData)
 }
 
-const getUserInfo = (_: any) => {
+const getUserInfo = () => {
     const dataStr = sessionStorage.userInfo || getCookie('userInfo')
     if (!dataStr) return null;
     const data = JSON.parse(enc.Utf8.stringify(AES.decrypt(dataStr, SECRET)));

@@ -144,7 +144,7 @@ export default [{
 	icon: "font_download",
 	icon_color: "brown-200",
 	description: "批量生成有规律的文本，或模板文本，例如营销号文案",
-	help: "使用“${}”代表关键字，如“${5}表示首项为5的关键字 ## 暂时只支持统一的公差/公比（其实是因为懒）",
+	help: "使用“${}”代表关键字，如“${5}表示首项为5的关键字。暂时只支持统一的公差/公比（其实是因为懒）",
 	channel: 4
 }, {
 	name: "文件树生成",
@@ -233,21 +233,21 @@ export default [{
 	link: "img_mosaic",
 	icon: "view_column",
 	icon_color: "amber-600",
-	help: "图片过大可能会卡顿##拉动阴影部分可调整拼接范围，适合字幕或长图拼接",
+	help: "图片过大可能会卡顿；拉动阴影部分可调整拼接范围，适合字幕或长图拼接",
 	channel: 2
 }, {
 	name: "化学方程式配平",
 	link: "cem",
 	icon: "linear_scale",
 	icon_color: "blue-600",
-	help: "请将所有下标输入为正常数字，例如## H2 + O2 = H20 ##Cu(NO3)2 + Fe = Fe(NO3)2 + Cu",
+	help: "请将所有下标输入为正常数字，例如： H2 + O2 = H20 ；Cu(NO3)2 + Fe = Fe(NO3)2 + Cu",
 	channel: 4
 }, {
 	name: "云音乐歌单对比",
 	link: "songlist",
 	icon: "queue_music",
 	icon_color: "red-600",
-	help: "歌单体积太大可能会加载较长时间，请耐心等待##获取链接方法：歌单页面内点击 分享 按钮-复制链接即可##您也可以直接输入歌单ID##站长的网易云音乐账号@过气码农，欢迎互关",
+	help: "歌单体积太大可能会加载较长时间，请耐心等待；获取链接方法：歌单页面内点击 分享 按钮-复制链接即可。您也可以直接输入歌单ID；站长的网易云音乐账号@过气码农，欢迎互关",
 	channel: 4,
 	network: true
 }, {
@@ -262,7 +262,7 @@ export default [{
 	link: "word_cloud",
 	icon: "cloud_circle",
 	icon_color: "green-300",
-	help: "点击图片可保存图片##不写文字大小则为随机大小",
+	help: "点击图片可保存图；不写文字大小则为随机大小",
 	channel: 2
 }, {
 	name: "文字转语音",
