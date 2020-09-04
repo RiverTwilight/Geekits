@@ -25,17 +25,14 @@ const UserRouterList = [
 	},
 ];
 
-class UserDashboard extends React.Component {
-	constructor(props: any) {
-		super(props);
-	}
+class UserDashboard extends React.PureComponent {
 	render() {
 		return (
 			<>
 				<Router>
 					<Switch>
 						{UserRouterList.map((route) => (
-							<Route {...route}></Route>
+							<Route key={route.path} {...route}></Route>
 						))}
 					</Switch>
 				</Router>

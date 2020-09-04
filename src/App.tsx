@@ -16,7 +16,7 @@ const RouterList: {
 		exact: true,
 	},
 	{
-		component: loadable(() => import("./views/user")),
+		component: loadable(() => import("./views/user/index")),
 		path: "/user",
 		exact: true,
 	},
