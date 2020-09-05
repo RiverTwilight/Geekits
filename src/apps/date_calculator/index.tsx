@@ -2,7 +2,7 @@ import React from 'react'
 import { Input } from 'mdui-in-react'
 // @ts-expect-error ts-migrate(2691) FIXME: An import path cannot end with a '.ts' extension. ... Remove this comment to see the full error message
 import { calDiffer, calWhichDay } from './engine.ts'
-// @ts-expect-error ts-migrate(2305) FIXME: Module '"mdui-in-react"' has no exported member 'T... Remove this comment to see the full error message
+
 import { Tab } from 'mdui-in-react'
 
 const getToday = () => {
@@ -184,13 +184,11 @@ export default () => (
         tabs={[
             {
                 text: '日期&时间间隔',
-                id: 'calDiffer',
-                
+                id: 'calDiffer',                
                 component: <DateDiffer />
             }, {
                 text: '日期推算',
-                id: 'calWhichDay',
-                
+                id: 'calWhichDay',               
                 component: <WhichDay />
             }
         ]}

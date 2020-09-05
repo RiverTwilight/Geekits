@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { snackbar } from 'mdui'
-// @ts-expect-error ts-migrate(2305) FIXME: Module '"mdui-in-react"' has no exported member 'T... Remove this comment to see the full error message
+
 import { Tab, Select, Input } from 'mdui-in-react'
 import { regularTextCreate, templateTextCreate } from './engine'
 import ClipboardJS from 'clipboard'

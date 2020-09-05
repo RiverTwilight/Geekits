@@ -1,4 +1,4 @@
-// @ts-expect-error ts-migrate(7016) FIXME: Try `npm install @types/crypto-js` if it exists or... Remove this comment to see the full error message
+// 
 import { RC4, MD5 } from 'crypto-js';
 
 //字典

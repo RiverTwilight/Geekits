@@ -1,5 +1,3 @@
-//import Axios from './axios';
-// @ts-expect-error ts-migrate(7016) FIXME: Try `npm install @types/crypto-js` if it exists or... Remove this comment to see the full error message
 import { AES, enc } from 'crypto-js'
 const SECRET = '0412';
 
@@ -36,7 +34,7 @@ const removeUserInfo = () => {
 const setUserInfo = (data: any, remember: any) => {
     const encryptedData = AES.encrypt(data, SECRET);
     remember && setCookie('userInfo', encryptedData, 30);
-    sessionStorage.setItem('userInfo', encryptedData)
+    sessionStorage.setItem('userInfo', String(encryptedData))
 }
 
 const getUserInfo = () => {

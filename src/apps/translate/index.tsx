@@ -1,7 +1,7 @@
 import React from "react";
 import { snackbar } from "mdui";
 import ClipboardJS from "clipboard";
-// @ts-expect-error ts-migrate(2305) FIXME: Module '"mdui-in-react"' has no exported member 'S... Remove this comment to see the full error message
+
 import { Input, Select } from "mdui-in-react";
 import axios from "../../utils/axios";
 import { signListener, removeListener } from "../../utils/Hooks/useFileDrager";

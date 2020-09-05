@@ -4,7 +4,7 @@ import { Link, useHistory } from "react-router-dom";
 import { alert as mduiAlert, mutation } from "mdui";
 // @ts-expect-error ts-migrate(7016) FIXME: Try `npm install @types/js-pinyin` if it exists or... Remove this comment to see the full error message
 import pinyin from "js-pinyin";
-// @ts-expect-error ts-migrate(2305) FIXME: Module '"mdui-in-react"' has no exported member 'T... Remove this comment to see the full error message
+
 import { ToTop } from "mdui-in-react";
 import axios from "../../utils/axios";
 import applist from "../../utils/applist";
