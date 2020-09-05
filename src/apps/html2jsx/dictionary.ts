@@ -1,4 +1,3 @@
-// @ts-expect-error ts-migrate(7016) FIXME: Try `npm install @types/crypto-js` if it exists or... Remove this comment to see the full error message
 import CryptoJS from 'crypto-js';
 
 //字典
@@ -22,13 +21,11 @@ var textCode = [
 	'.', ':', ',', ';', '?', '=', "'", '/', '!', '-', '_', '"', '(', ')', '$', '&', '@', '+'
 ];
 
-// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'text' implicitly has an 'any' type.
-function text2Moss(text) {
+function text2Moss(text: string) {
 	console.log('text2Moss', text)
 	var cache = text.split("");
 // @ts-expect-error ts-migrate(7034) FIXME: Variable 'string' implicitly has type 'any[]' in s... Remove this comment to see the full error message
 	var string = [];
-// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'e' implicitly has an 'any' type.
 	cache.map(e => {
 		var index = textCode.indexOf(e);
 		if (index === -1) return '摩斯电码只支持英文、数字、空格'
@@ -72,30 +69,30 @@ function start(fromType,inputText,key='') {
 	console.log('type', fromType);
 	console.log('input', inputText);
 	console.log('key',key);
+	var normal, result
 	switch (fromType) {
 		case 'text':
-			var result = normal2Result(inputText, key);
+			result = normal2Result(inputText, key);
 			return result		
 		case 'url':
-			var normal = decodeURI(inputText);
-			var result = normal2Result(normal, key);
+			normal = decodeURI(inputText);
+			result = normal2Result(normal, key);
 			return result
 		case 'URLcomponent':
-			var normal = decodeURIComponent(inputText);
-			var result = normal2Result(normal,key)
+			normal = decodeURIComponent(inputText);
+			result = normal2Result(normal,key)
 			return result
 		case 'moss':
-			var normal = moss2Text(inputText);
-			var result = normal2Result(normal, key);
+			normal = moss2Text(inputText);
+			result = normal2Result(normal, key);
 			return result
 		case 'md5':
-// @ts-expect-error ts-migrate(2403) FIXME: Subsequent variable declarations must have the sam... Remove this comment to see the full error message
-			var normal = inputText;
-			var result = normal2Result(normal, key);
+			normal = inputText;
+			result = normal2Result(normal, key);
 			return result
 		case 'rc4':
-			var normal = CryptoJS.RC4.decrypt(inputText, key);
-			var result = normal2Result(normal, key);
+			normal = CryptoJS.RC4.decrypt(inputText, key);
+			result = normal2Result(normal, key);
 			return result
 	}
 }

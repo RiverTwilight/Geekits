@@ -1,13 +1,15 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Header from "./layout/header";
+import Drawer from "./layout/drawer";
+import LoginDialog from "./components/LoginDialog";
 import loadable from "./utils/loading";
 import "./App.css";
 import "../node_modules/mdui/dist/css/mdui.min.css";
 
 const RouterList: {
-	component: any,
-	path: string,
+	component: any;
+	path: string;
 	exact?: boolean;
 }[] = [
 	{
@@ -55,8 +57,14 @@ const NoMatch = () => (
 	</div>
 );
 
-class App extends React.Component {
+class App extends React.Component<any, any> {
 	loading: any;
+	constructor(props: any) {
+		super(props);
+		this.state = {
+			showLoginDialog: false,
+		};
+	}
 	componentDidMount() {
 		const { loading } = this;
 		const toggleDisabled = (isDisabled: any) => {
@@ -71,16 +79,12 @@ class App extends React.Component {
 			window.loadingDelay = setTimeout(() => {
 				loading.style.display = "inline-block";
 				toggleDisabled(true);
-				// @ts-expect-error ts-migrate(2339) FIXME: Property 'loadingDelay' does not exist on type 'Wi... Remove this comment to see the full error message
 				delete window.loadingDelay;
 			}, 700);
 		};
 		window.loadHide = () => {
-			// @ts-expect-error ts-migrate(2339) FIXME: Property 'loadingDelay' does not exist on type 'Wi... Remove this comment to see the full error message
 			if (window.loadingDelay) {
-				// @ts-expect-error ts-migrate(2339) FIXME: Property 'loadingDelay' does not exist on type 'Wi... Remove this comment to see the full error message
 				clearTimeout(window.loadingDelay);
-				// @ts-expect-error ts-migrate(2339) FIXME: Property 'loadingDelay' does not exist on type 'Wi... Remove this comment to see the full error message
 				delete window.loadingDelay;
 			} else {
 				loading.style.display = "none";
@@ -94,9 +98,21 @@ class App extends React.Component {
 				: "云极客工具";
 		};
 	}
+	openLoginDialog = () => {
+		this.setState({
+			showLoginDialog: true,
+		});
+	}
+	getGlobalRef = (refs: any) => {
+		window.globalRef = {};
+		refs.map((ref: any) => {
+			window.globalRef[ref.name] = ref.ref;
+		});
+	};
 	render() {
+		const { showLoginDialog } = this.state;
 		return (
-			<Router>
+			<>
 				<div
 					ref={(r) => (this.loading = r)}
 					style={{ display: "none" }}
@@ -104,22 +120,22 @@ class App extends React.Component {
 				>
 					<div className="mdui-progress-indeterminate"></div>
 				</div>
-				<Header
-					getRef={(refs: any) => {
-						window.globalRef = {};
-						refs.map((ref: any) => {
-							window.globalRef[ref.name] = ref.ref;
-						});
-					}}
-				/>
-				<br></br>
-				<Switch>
-					{RouterList.map((route) => (
-						<Route key={route.path} {...route}></Route>
-					))}
-					<Route component={NoMatch} />
-				</Switch>
-			</Router>
+				<Router>
+					<LoginDialog ifOpen={showLoginDialog} />
+					<Drawer openLoginDialog={this.openLoginDialog} />
+					<Header
+						openLoginDialog={this.openLoginDialog}
+						getRef={this.getGlobalRef}
+					/>
+					<br></br>
+					<Switch>
+						{RouterList.map((route) => (
+							<Route key={route.path} {...route}></Route>
+						))}
+						<Route component={NoMatch} />
+					</Switch>
+				</Router>
+			</>
 		);
 	}
 }

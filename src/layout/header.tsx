@@ -1,7 +1,6 @@
 import React from "react";
 // @ts-expect-error ts-migrate(2305) FIXME: Module '"mdui"' has no exported member 'confirm'.
 import { confirm, snackbar } from "mdui";
-import Drawer from "./drawer";
 
 //将一言添加到便签
 const addSaying2Fiv = (saying: any) => {
@@ -38,10 +37,14 @@ const addSaying2Fiv = (saying: any) => {
 
 type State = any;
 
-export default class extends React.Component<{
-    getRef(ref: any): void
-}, State> {
-	constructor(props: Readonly<{ getRef(ref: any): void; }>) {
+export default class extends React.Component<
+	{
+		getRef(ref: any): void;
+		openLoginDialog: any;
+	},
+	State
+> {
+	constructor(props: any) {
 		super(props);
 		this.state = {
 			searchResult: "",
@@ -83,85 +86,79 @@ export default class extends React.Component<{
 	}
 	render() {
 		const { saying } = this.state;
+		const { openLoginDialog } = this.props;
 		return (
-			<>
-				<Drawer />
+			<header className={`mdui-shadow-0 mdui-appbar mdui-appbar-fixed`}>
+				<div className="mdui-appbar mdui-shadow-0">
+					<div className="mdui-toolbar mdui-color-white">
+						<button
+							onClick={() => window.leftDrawer.toggle()}
+							className="mdui-btn mdui-btn-icon mdui-text-color-theme"
+						>
+							<i className="mdui-icon material-icons">menu</i>
+						</button>
 
-				<header
-					className={`mdui-shadow-0 mdui-appbar mdui-appbar-fixed`}
-				>
-					<div className="mdui-appbar mdui-shadow-0">
-						<div className="mdui-toolbar mdui-color-white">
-							<button
-								onClick={() => window.leftDrawer.toggle()}
-								className="mdui-btn mdui-btn-icon mdui-text-color-theme"
+						<a
+							onClick={() => {
+								confirm(
+									`${saying.say}<br>来自：${saying.from}`,
+									"一言",
+									() => {
+										addSaying2Fiv(saying);
+										snackbar({
+											message: "已收藏至便签",
+											buttonText: "打开便签",
+											onButtonClick: () => {
+												window.location.href =
+													"/app/note";
+											},
+										});
+									},
+									() => {
+										this.loadSaying();
+									},
+									{
+										history: false,
+										confirmText: "收藏",
+										cancelText: "刷新",
+									}
+								);
+							}}
+						>
+							<div
+								// @ts-expect-error ts-migrate(2339) FIXME: Property 'headerTitle' does not exist on type 'def... Remove this comment to see the full error message
+								ref={(r) => (this.headerTitle = r)}
+								className="mdui-typo-title header-width-saying"
 							>
-								<i className="mdui-icon material-icons">menu</i>
-							</button>
+								{/* @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type 'Readonly<... Remove this comment to see the full error message */}
+								{this.props.title || "云极客工具"}
+							</div>
 
-							<a
-								onClick={() => {
-									confirm(
-										`${saying.say}<br>来自：${saying.from}`,
-										"一言",
-										() => {
-											addSaying2Fiv(saying);
-											snackbar({
-												message: "已收藏至便签",
-												buttonText: "打开便签",
-												onButtonClick: () => {
-													window.location.href =
-														"/app/note";
-												},
-											});
-										},
-										() => {
-											this.loadSaying();
-										},
-										{
-											history: false,
-											confirmText: "收藏",
-											cancelText: "刷新",
-										}
-									);
-								}}
-							>
-								<div
-									// @ts-expect-error ts-migrate(2339) FIXME: Property 'headerTitle' does not exist on type 'def... Remove this comment to see the full error message
-									ref={(r) => (this.headerTitle = r)}
-									className="mdui-typo-title header-width-saying"
-								>
-									{/* @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type 'Readonly<... Remove this comment to see the full error message */}
-									{this.props.title || "云极客工具"}
-								</div>
+							<span className="mdui-typo-caption-opacity mdui-text-truncate saying">
+								{saying.say}
+							</span>
+						</a>
 
-								<span className="mdui-typo-caption-opacity mdui-text-truncate saying">
-									{saying.say}
-								</span>
-							</a>
+						<div className="mdui-toolbar-spacer"></div>
 
-							<div className="mdui-toolbar-spacer"></div>
-
-							<button
-								style={{ display: "none" }}
-								// @ts-expect-error ts-migrate(2339) FIXME: Property 'menuBtn' does not exist on type 'default... Remove this comment to see the full error message
-								ref={(r) => (this.menuBtn = r)}
-								onClick={() => {
-									// @ts-expect-error ts-migrate(2339) FIXME: Property 'menu' does not exist on type 'Window & t... Remove this comment to see the full error message
-									window.menu && window.menu();
-								}}
-								className="mdui-hidden-sm-up mdui-btn mdui-btn-icon mdui-text-color-theme"
-							>
-								<i className="mdui-icon material-icons">
-									more_vert
-								</i>
-							</button>
-						</div>
+						<button
+							style={{ display: "none" }}
+							// @ts-expect-error ts-migrate(2339) FIXME: Property 'menuBtn' does not exist on type 'default... Remove this comment to see the full error message
+							ref={(r) => (this.menuBtn = r)}
+							onClick={() => {
+								// @ts-expect-error ts-migrate(2339) FIXME: Property 'menu' does not exist on type 'Window & t... Remove this comment to see the full error message
+								window.menu && window.menu();
+							}}
+							className="mdui-hidden-sm-up mdui-btn mdui-btn-icon mdui-text-color-theme"
+						>
+							<i className="mdui-icon material-icons">
+								more_vert
+							</i>
+						</button>
 					</div>
-
-					<div className="mdui-divider"></div>
-				</header>
-			</>
+				</div>
+				<div className="mdui-divider"></div>
+			</header>
 		);
 	}
 }

@@ -2,7 +2,7 @@ import React from 'react'
 // @ts-expect-error ts-migrate(2305) FIXME: Module '"mdui"' has no exported member 'mutation'.
 import { snackbar, mutation } from 'mdui'
 import Axios from '../../utils/axios';
-// @ts-expect-error ts-migrate(7016) FIXME: Try `npm install @types/crypto-js` if it exists or... Remove this comment to see the full error message
+// 
 import { MD5 } from 'crypto-js';
 import { getUserInfo, setUserInfo } from '../../utils/Services/UserInfo'
 import SendCode from '../../utils/Services/SendCode'
