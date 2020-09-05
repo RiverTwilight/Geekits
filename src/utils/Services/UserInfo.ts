@@ -34,7 +34,7 @@ const removeUserInfo = () => {
 const setUserInfo = (data: any, remember: any) => {
     const encryptedData = AES.encrypt(data, SECRET);
     remember && setCookie('userInfo', encryptedData, 30);
-    sessionStorage.setItem('userInfo', JSON.stringify(encryptedData))
+    sessionStorage.setItem('userInfo', String(encryptedData))
 }
 
 const getUserInfo = () => {

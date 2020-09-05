@@ -12,7 +12,8 @@ interface Window {
      * 隐藏加载动画
      */
     loadHide(): void;
-    loadingDelay: number
+    loadingDelay: number;
+    dialogInst: any
 }
 
 declare module 'gif.js' {

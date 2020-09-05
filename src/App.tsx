@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Header from "./layout/header";
 import Drawer from "./layout/drawer";
-import LoginDialog from "./components/LoginDialog";
+import LoginDialog from "./layout/LoginDialog";
 import loadable from "./utils/loading";
 import "./App.css";
 import "../node_modules/mdui/dist/css/mdui.min.css";

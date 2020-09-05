@@ -58,7 +58,6 @@ class DrawerMenu extends React.Component<
 	render() {
 		const user = getUserInfo();
 		const { openLoginDialog } = this.props;
-
 		return (
 			<div id="left-drawer" className="mdui-drawer">
 				<div
@@ -76,26 +75,41 @@ class DrawerMenu extends React.Component<
 					</div>
 				</div>
 				<ul className="mdui-list">
-					<li
-						onClick={() => {
-							window.innerWidth <= 1024 &&
-								window.leftDrawer.close();
-							if (!user) {
-								openLoginDialog();
-							} else {
-								let history = useHistory();
-								history.push("/user/");
-							}
-						}}
-						className="mdui-list-item mdui-ripple"
-					>
-						<i className="mdui-list-item-avatar mdui-icon material-icons">
-							face
-						</i>
-						<div className="mdui-list-item-content">
-							{user ? user.username : "未登录"}
-						</div>
-					</li>
+					{user ? (
+						<NavLink
+							onClick={() => {
+								window.innerWidth <= 1024 &&
+									window.leftDrawer.close();
+							}}
+							exact
+							className="mdui-list-item mdui-ripple"
+							activeClassName="mdui-list-item-active"
+							to="/user"
+						>
+							<i className="mdui-list-item-avatar mdui-icon material-icons">
+								face
+							</i>
+							<div className="mdui-list-item-content">
+								{user.username}
+							</div>
+						</NavLink>
+					) : (
+						<li
+							onClick={() => {
+								window.innerWidth <= 1024 &&
+									window.leftDrawer.close();
+									openLoginDialog();
+							}}
+							className="mdui-list-item mdui-ripple"
+						>
+							<i className="mdui-list-item-avatar mdui-icon material-icons">
+								face
+							</i>
+							<div className="mdui-list-item-content">
+								{"未登录"}
+							</div>
+						</li>
+					)}
 					<div className="mdui-divider" />
 					<Menu />
 				</ul>

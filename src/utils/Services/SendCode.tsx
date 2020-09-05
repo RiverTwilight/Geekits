@@ -5,7 +5,7 @@ import Axios from "../axios";
 
 type State = any;
 
-class Ui extends React.Component<
+class SendCode extends React.Component<
 	{
 		onInput(newText: string): void;
 		xcode: any;
@@ -13,7 +13,13 @@ class Ui extends React.Component<
 	},
 	State
 > {
-	constructor(props: Readonly<{ onInput(newText: string): void; xcode: any; email: string; }>) {
+	constructor(
+		props: Readonly<{
+			onInput(newText: string): void;
+			xcode: any;
+			email: string;
+		}>
+	) {
 		super(props);
 		this.state = {
 			waitProgress: 61,
@@ -31,7 +37,7 @@ class Ui extends React.Component<
 				// @ts-expect-error ts-migrate(2551) FIXME: Property 'waiting' does not exist on type 'Window ... Remove this comment to see the full error message
 				clearInterval(window.waiting);
 				this.setState({ waitProgress: 61 }, () =>
-				// @ts-expect-error
+					// @ts-expect-error
 					setInterval(window.waiting)
 				);
 			} else {
@@ -60,43 +66,26 @@ class Ui extends React.Component<
 		const onWaiting = waitProgress >= 0 && waitProgress <= 60;
 		const { onInput, xcode, email } = this.props;
 		return (
-			<div className="mdui-col mdui-card">
-				<div className="mdui-card-media">
-					<div className="mdui-card-primary">
-						<div className="mdui-card-primary-title">验证</div>
-
-						<div className="mdui-card-primary-subtitle">
-							验证码将发送到{email}
-						</div>
-					</div>
-
-					<div className="mdui-card-content">
-						<Input
-							onValueChange={onInput}
-							header="验证码"
-							icon="verified_user"
-							type="number"
-							value={xcode}
-						/>
-					</div>
-
-					<div className="mdui-card-actions">
-						<button
-							onClick={(_) => {
-								this.getCode();
-							}}
-							disabled={onWaiting}
-							className="mdui-btn"
-						>
-							{`发送验证码${
-								onWaiting ? `(${waitProgress}s)` : ""
-							}`}
-						</button>
-					</div>
-				</div>
-			</div>
+			<>
+				<Input
+					onValueChange={onInput}
+					header="验证码"
+					icon="verified_user"
+					type="number"
+					value={xcode}
+				/>
+				<button
+					onClick={(_) => {
+						this.getCode();
+					}}
+					disabled={onWaiting}
+					className="mdui-float-right mdui-btn mdui-color-theme"
+				>
+					{`发送验证码${onWaiting ? `(${waitProgress}s)` : ""}`}
+				</button>
+			</>
 		);
 	}
 }
 
-export default Ui;
+export default SendCode;
