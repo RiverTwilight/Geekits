@@ -1,26 +1,20 @@
-## 关于
+## About
 
-于2020年7月启动，一个在线工具网站，技术栈是React + Typescript + Create React App.
+于2020年2月启动，一个在线工具网站，技术栈是React + Typescript + Create React App.
 
-### 开发者
-
-+ 江村暮
-
-
-## 脚本
-
-### 启动开发服务器
+## Contribution
 
 ```sh
 npm start
 ```
 
-### 编译生产版本
-
 ```sh
 npm run build
 ```
 
+## API接口规范
+
+### 用户
 ## 结构
 
 ### 工具列表

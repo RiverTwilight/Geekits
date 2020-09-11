@@ -1,6 +1,6 @@
 import React from 'react'
 // @ts-expect-error ts-migrate(2691) FIXME: An import path cannot end with a '.tsx' extension.... Remove this comment to see the full error message
-import Template from '../../utils/AskForTemplate.tsx'
+import Template from '../../layout/EnquireTemplate.tsx'
 
 const Result = ({
     data

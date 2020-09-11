@@ -27,9 +27,9 @@ class Login extends React.Component<
 		window.dialogInst = new Dialog("#loginDialog", {
 			history: false,
 			destroyOnClosed: true,
-			closeOnCancel: true,
+			closeOnCancel: false,
 			closeOnEsc: true,
-			closeOnConfirm: true,
+			closeOnConfirm: false,
 		});
 		this.props.ifOpen && window.dialogInst.open();
 		!this.props.ifOpen && window.dialogInst.close();

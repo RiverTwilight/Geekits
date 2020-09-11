@@ -5,21 +5,20 @@ import { FileInput } from "mdui-in-react";
 import "./caption.css";
 
 class captionMosaic {
+	img: any[]
 	constructor() {
-		// @ts-expect-error ts-migrate(2339) FIXME: Property 'img' does not exist on type 'captionMosa... Remove this comment to see the full error message
 		this.img = [];
 		// @ts-expect-error ts-migrate(2551) FIXME: Property 'cutedImg' does not exist on type 'captio... Remove this comment to see the full error message
 		this.cutedImg = [];
 	}
 	// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'base64' implicitly has an 'any' type.
 	async loadImg(base64) {
-		var img = await new Image();
+		var img = new Image();
 		img.src = base64;
 		return img;
 	}
 	// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'base64' implicitly has an 'any' type.
 	addImg(base64, top, bottom) {
-		// @ts-expect-error ts-migrate(2339) FIXME: Property 'img' does not exist on type 'captionMosa... Remove this comment to see the full error message
 		this.img.push({
 			base64,
 			top,
@@ -62,13 +61,11 @@ class captionMosaic {
 		return res;
 	}
 	async imgMosaic_Y() {
-		// @ts-expect-error ts-migrate(2339) FIXME: Property 'img' does not exist on type 'captionMosa... Remove this comment to see the full error message
 		for (var i = 0; i <= this.img.length - 1; i++) {
 			let {
 				top,
 				bottom,
 				base64,
-				// @ts-expect-error ts-migrate(2339) FIXME: Property 'img' does not exist on type 'captionMosa... Remove this comment to see the full error message
 			} = this.img[i];
 			// @ts-expect-error ts-migrate(2551) FIXME: Property 'cutedImg' does not exist on type 'captio... Remove this comment to see the full error message
 			this.cutedImg.push(await this.cutImg(base64, top, bottom));
@@ -105,23 +102,34 @@ class captionMosaic {
 	}
 }
 
-// @ts-expect-error ts-migrate(7031) FIXME: Binding element 'res' implicitly has an 'any' type... Remove this comment to see the full error message
-const Preview = ({ res }) => {
+const Preview = ({ res }: { res: any }) => {
 	if (!res) return null;
 	return <img className="mdui-img-fluid" src={res} />;
 };
 
 type AlubmState = any;
 
-class Alubm extends React.Component<{
-	assets: {
-		img: string,
-		top: number,
-		bottom: number,
-		getConHeight(): void
-	}[]
-}, AlubmState> {
-	constructor(props: Readonly<{ assets: { img: string; top: number; bottom: number; getConHeight: any; }[]; }>) {
+class Alubm extends React.Component<
+	{
+		assets: {
+			img: string;
+			top: number;
+			bottom: number;
+			getConHeight(): void;
+		}[];
+	},
+	AlubmState
+> {
+	constructor(
+		props: Readonly<{
+			assets: {
+				img: string;
+				top: number;
+				bottom: number;
+				getConHeight: any;
+			}[];
+		}>
+	) {
 		super(props);
 		this.state = {
 			startPosition: 0,
@@ -133,175 +141,192 @@ class Alubm extends React.Component<{
 		const { startPosition } = this.state;
 		return (
 			<div className="mdui-row-xs-1">
-				{
-					assets.map((assest, i) => (
-						<div
-							style={{ marginTop: "5px" }}
-							className="mdui-card mdui-col"
-						>
-							<div
-								key={i}
-								className="mdui-card-media mdui-center"
-							>
-								<img
-									onLoad={(e) => {
-										// @ts-expect-error
-										this.props.getConHeight(
-											// @ts-expect-error ts-migrate(2339) FIXME: Property 'getConHeight' does not exist on type 'Re... Remove this comment to see the full error message
-											e.target.offsetHeight,
-											i
-										);
-									}}
-									src={assest.img}
-								/>
-								<span
-									draggable={true}
-									onDragStart={(e) => {
-										e.pageY >= 0 &&
-											this.setState({
-												startPosition: e.pageY,
-											});
-									}}
-									onDrag={(e) => {
-										var distance = e.pageY - startPosition;
-										console.log(distance);
-										e.pageY > 0 && onTopDrag(distance, i);
-										e.pageY > 0 &&
-											this.setState({
-												startPosition: e.pageY,
-											});
-									}}
-									onTouchStart={(e) => {
-										var ev = e || window.event;
-										var touch = ev.targetTouches[0];
+				{assets.map((assest, i) => (
+					<div
+						style={{ marginTop: "5px" }}
+						className="mdui-card mdui-col"
+					>
+						<div key={i} className="mdui-card-media mdui-center">
+							<img
+								onLoad={(e) => {
+									// @ts-expect-error
+									this.props.getConHeight(
+										// @ts-expect-error ts-migrate(2339) FIXME: Property 'getConHeight' does not exist on type 'Re... Remove this comment to see the full error message
+										e.target.offsetHeight,
+										i
+									);
+								}}
+								src={assest.img}
+							/>
+							<span
+								draggable={true}
+								onDragStart={(e) => {
+									e.pageY >= 0 &&
 										this.setState({
-											startPosition: touch.clientY,
+											startPosition: e.pageY,
 										});
-									}}
-									onTouchMove={(e) => {
-										var ev = e || window.event;
-										var touch = ev.targetTouches[0];
-										var distance =
-											touch.clientY - startPosition;
-										console.log(distance);
-										onTopDrag(distance, i);
+								}}
+								onDrag={(e) => {
+									var distance = e.pageY - startPosition;
+									console.log(distance);
+									e.pageY > 0 && onTopDrag(distance, i);
+									e.pageY > 0 &&
 										this.setState({
-											startPosition: touch.clientY,
+											startPosition: e.pageY,
 										});
-									}}
-									style={{ height: `${assest.top}px` }}
-									className="mask mask-top"
-								></span>
+								}}
+								onTouchStart={(e) => {
+									var ev = e || window.event;
+									var touch = ev.targetTouches[0];
+									this.setState({
+										startPosition: touch.clientY,
+									});
+								}}
+								onTouchMove={(e) => {
+									var ev = e || window.event;
+									var touch = ev.targetTouches[0];
+									var distance =
+										touch.clientY - startPosition;
+									console.log(distance);
+									onTopDrag(distance, i);
+									this.setState({
+										startPosition: touch.clientY,
+									});
+								}}
+								style={{ height: `${assest.top}px` }}
+								className="mask mask-top"
+							></span>
 
-								<span
-									draggable={true}
-									onDragStart={(e) => {
-										e.pageY >= 0 &&
-											this.setState({
-												startPosition: e.pageY,
-											});
-									}}
-									onDrag={(e) => {
-										var distance = e.pageY - startPosition;
-										console.log(distance);
-										e.pageY > 0 &&
-											onBottomDrag(distance, i);
-										e.pageY > 0 &&
-											this.setState({
-												startPosition: e.pageY,
-											});
-									}}
-									onTouchStart={(e) => {
-										e.preventDefault();
-										var ev = e || window.event;
-										var touch = ev.targetTouches[0];
+							<span
+								draggable={true}
+								onDragStart={(e) => {
+									e.pageY >= 0 &&
 										this.setState({
-											startPosition: touch.clientY,
+											startPosition: e.pageY,
 										});
-									}}
-									onTouchMove={(e) => {
-										e.preventDefault();
-										var ev = e || window.event;
-										var touch = ev.targetTouches[0];
-										var distance =
-											touch.clientY - startPosition;
-										console.log(distance);
-										onBottomDrag(distance, i);
+								}}
+								onDrag={(e) => {
+									var distance = e.pageY - startPosition;
+									console.log(distance);
+									e.pageY > 0 && onBottomDrag(distance, i);
+									e.pageY > 0 &&
 										this.setState({
-											startPosition: touch.clientY,
+											startPosition: e.pageY,
 										});
+								}}
+								onTouchStart={(e) => {
+									e.preventDefault();
+									var ev = e || window.event;
+									var touch = ev.targetTouches[0];
+									this.setState({
+										startPosition: touch.clientY,
+									});
+								}}
+								onTouchMove={(e) => {
+									e.preventDefault();
+									var ev = e || window.event;
+									var touch = ev.targetTouches[0];
+									var distance =
+										touch.clientY - startPosition;
+									console.log(distance);
+									onBottomDrag(distance, i);
+									this.setState({
+										startPosition: touch.clientY,
+									});
+								}}
+								style={{ height: `${assest.bottom}px` }}
+								className="mask mask-bottom"
+							></span>
+
+							<div className="mdui-card-menu">
+								<button
+									style={{
+										background: "rgba(0, 0, 0, 0.27)",
 									}}
-									style={{ height: `${assest.bottom}px` }}
-									className="mask mask-bottom"
-								></span>
+									onClick={() => {
+										deleteImg(i);
+									}}
+									className="mdui-btn mdui-btn-icon mdui-text-color-white"
+								>
+									<i className="mdui-icon material-icons">
+										close
+									</i>
+								</button>
 
-								<div className="mdui-card-menu">
-									<button
-										style={{
-											background: "rgba(0, 0, 0, 0.27)",
-										}}
-										onClick={() => {
-											deleteImg(i);
-										}}
-										className="mdui-btn mdui-btn-icon mdui-text-color-white"
-									>
-										<i className="mdui-icon material-icons">
-											close
-										</i>
-									</button>
+								<button
+									style={{
+										display: i >= 1 ? "block" : "none",
+									}}
+									onClick={() => {
+										// @ts-expect-error ts-migrate(2339) FIXME: Property 'putForward' does not exist on type 'Read... Remove this comment to see the full error message
+										this.props.putForward(i);
+									}}
+									className="mdui-btn mdui-btn-icon mdui-text-color-white"
+								>
+									<i className="mdui-icon material-icons">
+										arrow_upward
+									</i>
+								</button>
 
-									<button
-										style={{
-											display: i >= 1 ? "block" : "none",
-										}}
-										onClick={() => {
-											// @ts-expect-error ts-migrate(2339) FIXME: Property 'putForward' does not exist on type 'Read... Remove this comment to see the full error message
-											this.props.putForward(i);
-										}}
-										className="mdui-btn mdui-btn-icon mdui-text-color-white"
-									>
-										<i className="mdui-icon material-icons">
-											arrow_upward
-										</i>
-									</button>
-
-									<button
-										style={{
-											display:
-												i >= 1 && i < assets.length - 1
-													? "block"
-													: "none",
-										}}
-										onClick={() => {
-											// @ts-expect-error ts-migrate(2339) FIXME: Property 'putBack' does not exist on type 'Readonl... Remove this comment to see the full error message
-											this.props.putBack(i);
-										}}
-										className="mdui-btn mdui-btn-icon mdui-text-color-white"
-									>
-										<i className="mdui-icon material-icons">
-											arrow_downward
-										</i>
-									</button>
-								</div>
+								<button
+									style={{
+										display:
+											i >= 1 && i < assets.length - 1
+												? "block"
+												: "none",
+									}}
+									onClick={() => {
+										// @ts-expect-error ts-migrate(2339) FIXME: Property 'putBack' does not exist on type 'Readonl... Remove this comment to see the full error message
+										this.props.putBack(i);
+									}}
+									className="mdui-btn mdui-btn-icon mdui-text-color-white"
+								>
+									<i className="mdui-icon material-icons">
+										arrow_downward
+									</i>
+								</button>
 							</div>
 						</div>
-					))
-				}
+					</div>
+				))}
 			</div>
 		);
 	}
 }
 
-class VideoShotter extends React.Component {
-	video: any;
+class VideoShotter extends React.Component<
+	{
+		addImg(imgSrc: string): void;
+		video: any;
+	},
+	{}
+> {
+	videoDom: any;
+	takeShot() {
+		const { addImg } = this.props;
+		var { videoDom } = this;
+		var canvas = document.createElement("canvas");
+		var ctx = canvas.getContext("2d");
+		canvas.width = videoDom.videoWidth;
+		canvas.height = videoDom.videoHeight;
+		ctx &&
+			ctx.drawImage(
+				videoDom,
+				0,
+				0,
+				videoDom.videoWidth,
+				videoDom.videoHeight
+			);
+		var res = canvas.toDataURL();
+		addImg(res);
+	}
 	render() {
-		// @ts-expect-error ts-migrate(2339) FIXME: Property 'video' does not exist on type 'Readonly<... Remove this comment to see the full error message
-		const { video, addImg } = this.props;
+		const { video } = this.props;
 		if (!video) return null;
 		return (
 			<>
 				<video
-					ref={(r) => (this.video = r)}
+					ref={(r) => (this.videoDom = r)}
 					className="mdui-video-fluid"
 					controls
 				>
@@ -310,22 +335,7 @@ class VideoShotter extends React.Component {
 				<br></br>
 				<button
 					className="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme"
-					onClick={() => {
-						var canvas = document.createElement("canvas");
-						var video = this.video;
-						var ctx = canvas.getContext("2d");
-						canvas.width = video.videoWidth;
-						canvas.height = video.videoHeight;
-						ctx && ctx.drawImage(
-							video,
-							0,
-							0,
-							video.videoWidth,
-							video.videoHeight
-						);
-						var res = canvas.toDataURL();
-						addImg(res);
-					}}
+					onClick={this.takeShot.bind(this)}
 				>
 					截图
 				</button>
@@ -413,15 +423,12 @@ export default class extends React.Component<{}, ComponentState> {
 						onFileChange={(file) => {
 							this.setState({ video: file });
 						}}
-						// @ts-expect-error ts-migrate(2769) FIXME: Property 'text' does not exist on type 'IntrinsicA... Remove this comment to see the full error message
-						text="截取视频"
+						title="截取视频"
 					/>
 				</div>
 
 				<VideoShotter
-					// @ts-expect-error ts-migrate(2769) FIXME: Property 'video' does not exist on type 'Intrinsic... Remove this comment to see the full error message
 					video={video}
-					// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'img' implicitly has an 'any' type.
 					addImg={(img) => {
 						assets.push({
 							img: img,
@@ -441,8 +448,7 @@ export default class extends React.Component<{}, ComponentState> {
 				/>
 
 				<button
-					// @ts-expect-error ts-migrate(2322) FIXME: Type '"1003"' is not assignable to type '"-moz-ini... Remove this comment to see the full error message
-					style={{ zIndex: "1003" }}
+					style={{ zIndex: 1003 }}
 					className="mdui-fab mdui-fab-fixed mdui-color-theme"
 					onClick={() => {
 						var mos = new captionMosaic();
@@ -465,9 +471,7 @@ export default class extends React.Component<{}, ComponentState> {
 				>
 					<i className="mdui-icon material-icons">&#xe5ca;</i>
 				</button>
-
 				<br></br>
-
 				<Preview res={res} />
 			</>
 		);

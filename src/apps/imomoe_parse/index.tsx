@@ -114,16 +114,12 @@ export default class extends React.Component<{}, ComponentState> {
 				/>
 
 				<button
-					onClick={() => {
-						this.loadCommentsFromServer();
-					}}
+					onClick={this.loadCommentsFromServer.bind(this)}
 					className="mdui-color-theme mdui-ripple mdui-float-right mdui-btn-raised mdui-btn"
 				>
 					获取
 				</button>
-
 				<div className="mdui-clearfix"></div>
-
 				<Result src={this.state.data} />
 			</>
 		);
