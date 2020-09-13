@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink, useHistory } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { Drawer } from "mdui";
 import { getUserInfo } from "../utils/Services/UserInfo";
 import applist from "../utils/applist";
@@ -17,11 +17,25 @@ const list = [
 		text: "设置",
 		link: "/setting",
 	},
+	{
+		icon: "code",
+		iconColor: "black",
+		text: "Github",
+		link: "https://github.com/rivertwilight/ygktool",
+	},
 ];
 
-const Menu = () => (
-	<>
-		{list.map((a) => (
+const Menu = () => {
+	const Warpper = ({ a, children }: { a: any; children: any }) => {
+		if (a.link.match(/(http|https)/)) {
+			return (
+				<a href={a.link} className="mdui-list-item mdui-ripple">
+					{children}
+					<i className="mdui-list-item-icon mdui-icon material-icons mdui-text-color-grey-400">open_in_new</i>
+				</a>
+			);
+		}
+		return (
 			<NavLink
 				onClick={() => {
 					window.innerWidth <= 1024 && window.leftDrawer.close();
@@ -32,19 +46,28 @@ const Menu = () => (
 				activeClassName="mdui-list-item-active"
 				to={a.link}
 			>
-				<i
-					className={
-						"mdui-list-item-icon mdui-icon material-icons mdui-text-color-" +
-						a.iconColor
-					}
-				>
-					{a.icon}
-				</i>
-				<div className="mdui-list-item-content">{a.text}</div>
+				{children}
 			</NavLink>
-		))}
-	</>
-);
+		);
+	};
+	return (
+		<>
+			{list.map((a) => (
+				<Warpper a={a}>
+					<i
+						className={
+							"mdui-list-item-icon mdui-icon material-icons mdui-text-color-" +
+							a.iconColor
+						}
+					>
+						{a.icon}
+					</i>
+					<div className="mdui-list-item-content">{a.text}</div>
+				</Warpper>
+			))}
+		</>
+	);
+};
 
 class DrawerMenu extends React.Component<
 	{
@@ -98,7 +121,7 @@ class DrawerMenu extends React.Component<
 							onClick={() => {
 								window.innerWidth <= 1024 &&
 									window.leftDrawer.close();
-									openLoginDialog();
+								openLoginDialog();
 							}}
 							className="mdui-list-item mdui-ripple"
 						>

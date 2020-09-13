@@ -37,13 +37,16 @@ const addSaying2Fiv = (saying: any) => {
 
 type State = any;
 
-export default class extends React.Component<
+class Header extends React.Component<
 	{
 		getRef(ref: any): void;
 		openLoginDialog: any;
+		title?: string;
 	},
 	State
 > {
+	headerTitle: any;
+	menuBtn: any;
 	constructor(props: any) {
 		super(props);
 		this.state = {
@@ -78,15 +81,12 @@ export default class extends React.Component<
 	componentDidMount() {
 		this.loadSaying();
 		this.props.getRef([
-			// @ts-expect-error ts-migrate(2339) FIXME: Property 'headerTitle' does not exist on type 'def... Remove this comment to see the full error message
 			{ name: "title", ref: this.headerTitle },
-			// @ts-expect-error ts-migrate(2339) FIXME: Property 'menuBtn' does not exist on type 'default... Remove this comment to see the full error message
 			{ name: "menuBtn", ref: this.menuBtn },
 		]); // 将ref传给父组件
 	}
 	render() {
 		const { saying } = this.state;
-		const { openLoginDialog } = this.props;
 		return (
 			<header className={`mdui-shadow-0 mdui-appbar mdui-appbar-fixed`}>
 				<div className="mdui-appbar mdui-shadow-0">
@@ -97,7 +97,6 @@ export default class extends React.Component<
 						>
 							<i className="mdui-icon material-icons">menu</i>
 						</button>
-
 						<a
 							onClick={() => {
 								confirm(
@@ -126,24 +125,23 @@ export default class extends React.Component<
 							}}
 						>
 							<div
-								// @ts-expect-error ts-migrate(2339) FIXME: Property 'headerTitle' does not exist on type 'def... Remove this comment to see the full error message
 								ref={(r) => (this.headerTitle = r)}
 								className="mdui-typo-title header-width-saying"
 							>
-								{/* @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type 'Readonly<... Remove this comment to see the full error message */}
 								{this.props.title || "云极客工具"}
 							</div>
-
 							<span className="mdui-typo-caption-opacity mdui-text-truncate saying">
 								{saying.say}
 							</span>
 						</a>
-
 						<div className="mdui-toolbar-spacer"></div>
-
+						<button className="mdui-btn mdui-btn-icon mdui-text-color-theme">
+							<i className="mdui-icon material-icons">
+								translate
+							</i>
+						</button>
 						<button
 							style={{ display: "none" }}
-							// @ts-expect-error ts-migrate(2339) FIXME: Property 'menuBtn' does not exist on type 'default... Remove this comment to see the full error message
 							ref={(r) => (this.menuBtn = r)}
 							onClick={() => {
 								// @ts-expect-error ts-migrate(2339) FIXME: Property 'menu' does not exist on type 'Window & t... Remove this comment to see the full error message
@@ -162,3 +160,5 @@ export default class extends React.Component<
 		);
 	}
 }
+
+export default Header;
