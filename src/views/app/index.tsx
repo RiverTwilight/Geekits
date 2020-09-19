@@ -21,9 +21,10 @@ class AppContainer extends React.Component {
 	}
 	componentWillUnmount() {
 		window.loadHide(); // 清除滚动条
-		window.appMenu.close()
+		window.appMenu.close();
 		document.getElementsByClassName("mdui-overlay").length &&
 			document.getElementsByClassName("mdui-overlay")[0].remove();
+		window.globalRef.menuBtn.style.display = "none";
 	}
 	componentDidMount() {
 		setInterval(() => mutation(), 100);
@@ -33,6 +34,7 @@ class AppContainer extends React.Component {
 			document.body.classList.remove("mdui-appbar-with-toolbar");
 		}
 		document.body.classList.add("mdui-drawer-body-right");
+		window.globalRef.menuBtn.style.display = "block";
 	}
 	render() {
 		// @ts-expect-error ts-migrate(2339) FIXME: Property 'match' does not exist on type 'Readonly<... Remove this comment to see the full error message

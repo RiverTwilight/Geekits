@@ -141,6 +141,9 @@ class Header extends React.Component<
 						</button>
 						<button
 							ref={(r) => (this.menuBtn = r)}
+							style={{
+								display: "none",
+							}}
 							onClick={() => {
 								// @ts-expect-error ts-migrate(2339) FIXME: Property 'menu' does not exist on type 'Window & t... Remove this comment to see the full error message
 								window.menu && window.menu();
