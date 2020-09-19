@@ -1,14 +1,15 @@
 /* eslint-disable react/prop-types */
 import React from "react";
 // @ts-expect-error ts-migrate(2305) FIXME: Module '"mdui"' has no exported member 'prompt'.
-import { snackbar, prompt, alert as mduiAlert } from "mdui";
-import { BottomAlert } from "mdui-in-react";
+import { snackbar, Drawer, prompt, alert as mduiAlert } from "mdui";
+import { Button } from "mdui-in-react";
 import fiv from "../../utils/Services/fiv";
+import { ReactComponent as GithubLogo } from "../../svg/logo-github.svg";
 
 const ShareBtn = () => {
 	if (navigator.share) {
 		return (
-			<button
+			<Button
 				onClick={() => {
 					navigator
 						.share({
@@ -21,27 +22,12 @@ const ShareBtn = () => {
 						});
 				}}
 				mdui-tooltip="{content: '分享'}"
-				className="mdui-btn mdui-btn-icon mdui-ripple"
-			>
-				<i className="mdui-text-color-theme mdui-icon material-icons">
-					share
-				</i>
-			</button>
+				icon="share"
+			></Button>
 		);
 	}
 	return null;
 };
-
-// @ts-expect-error ts-migrate(7031) FIXME: Binding element 'cb' implicitly has an 'any' type.
-const GetCodeBtn = ({ cb }) => (
-	<button
-		onClick={cb}
-		mdui-tooltip="{content: '获取代码'}"
-		className="mdui-btn mdui-btn-icon mdui-ripple"
-	>
-		<i className="mdui-text-color-theme mdui-icon material-icons">code</i>
-	</button>
-);
 
 type AppMenuState = any;
 
@@ -78,7 +64,28 @@ class AppMenu extends React.Component<
 			this.setState({ fived: false });
 		}
 	}
+	getIframeCode = () => {
+		const { appinfo } = this.props;
+		this.setState({ showHelper: false }, () => {
+			prompt(
+				"将以下嵌入代码粘贴到您的网页即可使用",
+				() => {
+					// window.open("https://jq.qq.com/?_wv=1027&k=59hWPFs");
+					window.open("https://github.com/RiverTwilight/ygktool");
+				},
+				() => {},
+				{
+					history: false,
+					type: "textarea",
+					confirmText: "开放源代码",
+					cancelText: "关闭",
+					defaultValue: `<iframe src="${window.location.origin}/app/${appinfo.link}?fullscreen=true" width="100%" height="400px" scrolling="no" style="border:0;"></iframe>`,
+				}
+			);
+		});
+	};
 	componentDidMount() {
+		window.appMenu = new Drawer("#appMenu");
 		this.props.appinfo.network &&
 			!navigator.onLine &&
 			mduiAlert("此工具需要联网才能使用", "", () => {}, {
@@ -87,9 +94,7 @@ class AppMenu extends React.Component<
 		window.globalRef.menuBtn.style.display = "block";
 		// @ts-expect-error ts-migrate(2339) FIXME: Property 'menu' does not exist on type 'Window & t... Remove this comment to see the full error message
 		window.menu = () => {
-			this.setState({
-				showHelper: true,
-			});
+			window.appMenu.toggle();
 		};
 	}
 	componentWillUnmount() {
@@ -101,76 +106,49 @@ class AppMenu extends React.Component<
 			this.setState({ fived: fiv.get(nextProps.appinfo.link) });
 	}
 	render() {
-		const { fived, showHelper } = this.state;
+		const { fived } = this.state;
 		if (!this.props.appinfo) return null;
 		const { help, link } = this.props.appinfo;
 		return (
-			<BottomAlert
-				title="菜单"
-				ifShow={window.innerWidth <= 640 ? showHelper : true}
-				onClose={() => {
-					this.setState({ showHelper: false });
-				}}
+			<div
+				id="appMenu"
+				className="mdui-p-a-1 mdui-drawer mdui-drawer-right"
 			>
-				<p className="mdui-typo mdui-p-a-2">
+				<Button
+					onClick={() => {
+						this.fiv();
+					}}
+					raised
+					icon={fived ? "star" : "star_border"}
+					title={fived ? "取消收藏" : "收藏"}
+				></Button>
+				<ShareBtn />
+				<Button
+					icon="code"
+					raised
+					title="嵌入代码"
+					onClick={this.getIframeCode}
+				/>
+				<p className="mdui-typo">
 					{help !== "" ? help : "暂无说明"}
 				</p>
-
-				<div className="mdui-card-actions">
-					<button
-						onClick={() => {
-							this.fiv();
+				<a
+					href={`https://github.com/RiverTwilight/ygktool/tree/master/src/apps/${link}`}
+					target="_blank"
+					rel="noopener noreferrer"
+					className="mdui-btn mdui-ripple"
+				>
+					<i
+						style={{
+							transform: "translate(2px, -2px);",
 						}}
-						mdui-tooltip={
-							fived
-								? "{content: '取消收藏'}"
-								: "{content: '收藏'}"
-						}
-						className="mdui-btn mdui-btn-icon mdui-ripple"
+						className="mdui-text-color-theme mdui-icon-left mdui-icon material-icons"
 					>
-						<i className="mdui-text-color-theme mdui-icon material-icons">
-							{fived ? "star" : "star_border"}
-						</i>
-					</button>
-
-					<ShareBtn />
-
-					<GetCodeBtn
-						cb={() => {
-							this.setState({ showHelper: false }, () => {
-								prompt(
-									"将以下嵌入代码粘贴到您的网页即可使用。欲获取应用源代码，请加群联系开发者",
-									() => {
-										window.open(
-											"https://jq.qq.com/?_wv=1027&k=59hWPFs"
-										);
-									},
-									() => {},
-									{
-										history: false,
-										type: "textarea",
-										confirmText: "加群",
-										cancelText: "关闭",
-										defaultValue: `<iframe src="https://www.ygktool.cn/app/${link}?fullscreen=true" width="100%" height="400px" scrolling="no" style="border:0;"></iframe>`,
-									}
-								);
-							});
-						}}
-					/>
-
-					<a
-						href="https://jq.qq.com/?_wv=1027&amp;k=59hWPFs"
-						target="_blank"
-						rel="noopener noreferrer"
-						mdui-tooltip="{content: '获取帮助'}"
-						className="mdui-btn mdui-btn-icon mdui-ripple"
-					>
-						<i className="mdui-text-color-theme mdui-icon material-icons">
-							help
-						</i>
-					</a>
-				</div>
-			</BottomAlert>
+						<GithubLogo />
+					</i>
+					在github上编辑此页面
+				</a>
+			</div>
 		);
 	}
 }

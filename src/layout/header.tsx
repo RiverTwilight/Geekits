@@ -1,6 +1,7 @@
 import React from "react";
 // @ts-expect-error ts-migrate(2305) FIXME: Module '"mdui"' has no exported member 'confirm'.
 import { confirm, snackbar } from "mdui";
+import { Button } from "mdui-in-react";
 
 //将一言添加到便签
 const addSaying2Fiv = (saying: any) => {
@@ -91,12 +92,10 @@ class Header extends React.Component<
 			<header className={`mdui-shadow-0 mdui-appbar mdui-appbar-fixed`}>
 				<div className="mdui-appbar mdui-shadow-0">
 					<div className="mdui-toolbar mdui-color-white">
-						<button
+						<Button
 							onClick={() => window.leftDrawer.toggle()}
-							className="mdui-btn mdui-btn-icon mdui-text-color-theme"
-						>
-							<i className="mdui-icon material-icons">menu</i>
-						</button>
+							icon="menu"
+						/>
 						<a
 							onClick={() => {
 								confirm(
@@ -141,13 +140,12 @@ class Header extends React.Component<
 							</i>
 						</button>
 						<button
-							style={{ display: "none" }}
 							ref={(r) => (this.menuBtn = r)}
 							onClick={() => {
 								// @ts-expect-error ts-migrate(2339) FIXME: Property 'menu' does not exist on type 'Window & t... Remove this comment to see the full error message
 								window.menu && window.menu();
 							}}
-							className="mdui-hidden-sm-up mdui-btn mdui-btn-icon mdui-text-color-theme"
+							className="mdui-btn mdui-btn-icon mdui-text-color-theme"
 						>
 							<i className="mdui-icon material-icons">
 								more_vert

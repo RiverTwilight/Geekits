@@ -38,10 +38,6 @@ const RouterList: {
 		component: loadable(() => import("./views/app/index")),
 		path: "/app/:name",
 	},
-	{
-		component: loadable(() => import("./views/feedback")),
-		path: "/feedback",
-	},
 ];
 
 const NoMatch = () => (

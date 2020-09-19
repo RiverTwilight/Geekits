@@ -31,7 +31,9 @@ const Menu = () => {
 			return (
 				<a href={a.link} className="mdui-list-item mdui-ripple">
 					{children}
-					<i className="mdui-list-item-icon mdui-icon material-icons mdui-text-color-grey-400">open_in_new</i>
+					<i className="mdui-list-item-icon mdui-icon material-icons mdui-text-color-grey-400">
+						open_in_new
+					</i>
 				</a>
 			);
 		}
@@ -136,9 +138,9 @@ class DrawerMenu extends React.Component<
 					<div className="mdui-divider" />
 					<Menu />
 				</ul>
-				<p className="mdui-text-center copyright">
+				{/**<p className="mdui-text-center copyright">
 					©2019-2020&nbsp;江村暮
-				</p>
+						</p>**/}
 			</div>
 		);
 	}
