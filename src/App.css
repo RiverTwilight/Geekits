@@ -5,6 +5,10 @@
 	right: 10px;
 }
 
+.mdui-fab{
+	z-index: 5001;/*To ensure the fab is over the drawer*/
+}
+
 .mdui-fab i {
 	color: white;
 }
@@ -54,9 +58,6 @@ header {
 */
 .mdui-card.appinfo .mdui-card-primary {
 	padding: 18px 16px 16px 16px;
-}
-.mdui-fab {
-	z-index: 999;
 }
 
 .bottom-dashboard .mdui-card {
