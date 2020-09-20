@@ -13,7 +13,6 @@ import MdEditor from '../../components/MdEditor'
 // @ts-expect-error ts-migrate(7006) FIXME: Parameter 'props' implicitly has an 'any' type.
 const MarkDown = props => {
 	return (
-
 		<p
 			dangerouslySetInnerHTML={{ __html: marked(props.md) }}
 			className="mdui-typo">
