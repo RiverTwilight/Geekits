@@ -134,11 +134,6 @@ class Header extends React.Component<
 							</span>
 						</a>
 						<div className="mdui-toolbar-spacer"></div>
-						<button className="mdui-btn mdui-btn-icon mdui-text-color-theme">
-							<i className="mdui-icon material-icons">
-								translate
-							</i>
-						</button>
 						<button
 							ref={(r) => (this.menuBtn = r)}
 							style={{

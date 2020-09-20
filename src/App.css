@@ -5,10 +5,6 @@
 	right: 10px;
 }
 
-.mdui-fab{
-	z-index: 5001;/*To ensure the fab is over the drawer*/
-}
-
 .mdui-fab i {
 	color: white;
 }
@@ -33,6 +29,9 @@ header {
 @media screen and (min-width: 1024px) {
 	.mdui-drawer {
 		border-left: 1px solid rgba(0, 0, 0, 0.12);
+	}
+	.mdui-fab {
+		z-index: 5001; /*To ensure the fab is over the drawer*/
 	}
 }
 /*

@@ -1,9 +1,9 @@
-/* eslint-disable react/prop-types */
 import React from "react";
 // @ts-expect-error ts-migrate(2305) FIXME: Module '"mdui"' has no exported member 'prompt'.
-import { snackbar, Drawer, prompt, alert as mduiAlert } from "mdui";
-import { Button } from "mdui-in-react";
+import { snackbar, Drawer, alert as mduiAlert } from "mdui";
+import { Button, Input } from "mdui-in-react";
 import fiv from "../../utils/Services/fiv";
+import marked from "marked";
 import { ReactComponent as GithubLogo } from "../../svg/logo-github.svg";
 
 const ShareBtn = () => {
@@ -44,7 +44,8 @@ class AppMenu extends React.Component<
 		super(props);
 		this.state = {
 			fived: fiv.get(this.props.appinfo.link),
-			showHelper: false,
+			showIframeCode: false,
+			help: "",
 		};
 	}
 	fiv() {
@@ -64,26 +65,25 @@ class AppMenu extends React.Component<
 		}
 	}
 	getIframeCode = () => {
-		const { appinfo } = this.props;
-		this.setState({ showHelper: false }, () => {
-			prompt(
-				"将以下嵌入代码粘贴到您的网页即可使用",
-				() => {
-					// window.open("https://jq.qq.com/?_wv=1027&k=59hWPFs");
-					window.open("https://github.com/RiverTwilight/ygktool");
-				},
-				() => {},
-				{
-					history: false,
-					type: "textarea",
-					confirmText: "开放源代码",
-					cancelText: "关闭",
-					defaultValue: `<iframe src="${window.location.origin}/app/${appinfo.link}?fullscreen=true" width="100%" height="400px" scrolling="no" style="border:0;"></iframe>`,
-				}
-			);
+		const { showIframeCode } = this.state;
+		this.setState({
+			showIframeCode: !showIframeCode,
 		});
 	};
 	componentDidMount() {
+		try {
+			const helpMdPath = require(`../../apps/${this.props.appinfo.link}/README.md`);
+			fetch(helpMdPath)
+				.then((response) => {
+					return response.text();
+				})
+				.then((text) => {
+					this.setState({
+						help: text,
+					});
+				});
+		} finally {
+		}
 		window.appMenu = new Drawer("#appMenu");
 		this.props.appinfo.network &&
 			!navigator.onLine &&
@@ -105,9 +105,9 @@ class AppMenu extends React.Component<
 			this.setState({ fived: fiv.get(nextProps.appinfo.link) });
 	}
 	render() {
-		const { fived } = this.state;
+		const { fived, showIframeCode, help } = this.state;
 		if (!this.props.appinfo) return null;
-		const { help, link } = this.props.appinfo;
+		const { link } = this.props.appinfo;
 		return (
 			<div
 				id="appMenu"
@@ -117,45 +117,37 @@ class AppMenu extends React.Component<
 					onClick={() => {
 						this.fiv();
 					}}
-					raised
 					icon={fived ? "star" : "star_border"}
-					title={fived ? "取消收藏" : "收藏"}
 				></Button>
 				<ShareBtn />
-				<Button
-					icon="code"
-					raised
-					title="嵌入代码"
-					onClick={this.getIframeCode}
-				/>
-				<div className="mdui-clearfix"></div>
+				<Button icon="code" onClick={this.getIframeCode} />
+				<a
+					href={`https://github.com/RiverTwilight/ygktool/tree/master/src/apps/${link}`}
+					target="_blank"
+					rel="noopener noreferrer"
+					className="mdui-btn mdui-btn-icon mdui-ripple"
+					mdui-tooltip="{content: '在Github上编辑此页面'}"
+				>
+					<GithubLogo />
+				</a>
+				{showIframeCode && (
+					<Input
+						header="将以下嵌入代码粘贴到您的网页即可使用"
+						rows={5}
+						value={`<iframe src="${window.location.origin}/app/${link}?fullscreen=true" width="100%" height="400px" scrolling="no" style="border:0;"></iframe>`}
+					/>
+				)}
+				<div className="mdui-divider"></div>
 				{help !== "" && (
-					<p
+					<div
 						style={{
 							// Fix word-warp doesn't work
 							whiteSpace: "normal",
 						}}
 						className="mdui-typo"
-					>
-						{help}
-					</p>
+						dangerouslySetInnerHTML={{ __html: marked(help) }}
+					/>
 				)}
-				<a
-					href={`https://github.com/RiverTwilight/ygktool/tree/master/src/apps/${link}`}
-					target="_blank"
-					rel="noopener noreferrer"
-					className="mdui-btn mdui-ripple"
-				>
-					<i
-						style={{
-							transform: "translate(2px, -2px);",
-						}}
-						className="mdui-text-color-theme mdui-icon-left mdui-icon material-icons"
-					>
-						<GithubLogo />
-					</i>
-					在github上编辑此页面
-				</a>
 			</div>
 		);
 	}

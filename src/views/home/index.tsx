@@ -7,7 +7,7 @@ import pinyin from "js-pinyin";
 
 import { ToTop } from "mdui-in-react";
 import axios from "../../utils/axios";
-import applist from "../../utils/applist";
+import applist from "../../data/applist";
 import fiv from "../../utils/Services/fiv";
 import useEventListener from "../../utils/Hooks/useEventListener";
 

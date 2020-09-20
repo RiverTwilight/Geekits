@@ -57,7 +57,6 @@ export default [{
 	icon: "access_alarm",
 	icon_color: "red",
 	description: "番茄工作法极大地提高了工作的效率，还会有意想不到的成就感。",
-	help: "使用番茄工作法，选择一个待完成的任务，将番茄时间设为25分钟，专注工作，中途不允许做任何与该任务无关的事，直到番茄时钟响起，然后进行短暂休息一下（5分钟就行），然后再开始下一个番茄。每4个番茄时段多休息一会儿。",
 	channel: 4
 }, {
 	name: "跨设备文本互传",
@@ -66,7 +65,6 @@ export default [{
 	icon_color: "green",
 	help: "大文件可能会有很大延迟",
 	network: true,
-	description: "不同设备间互相传输文本和小文件，扫码即可配对",
 	channel: 4
 }, {
 	name: "GIF分解",
@@ -74,7 +72,6 @@ export default [{
 	icon: "collections",
 	icon_color: "teal",
 	description: "将GIF图片逐帧分解",
-	help: "过大的图片可能会无法转换，视设备性能而定",
 	channel: 2
 }, {
 	name: "二维码生成",
@@ -240,14 +237,12 @@ export default [{
 	link: "cem",
 	icon: "linear_scale",
 	icon_color: "blue-600",
-	help: "请将所有下标输入为正常数字，例如： H2 + O2 = H20 ；Cu(NO3)2 + Fe = Fe(NO3)2 + Cu",
 	channel: 4
 }, {
 	name: "云音乐歌单对比",
 	link: "songlist",
 	icon: "queue_music",
 	icon_color: "red-600",
-	help: "歌单体积太大可能会加载较长时间，请耐心等待；获取链接方法：歌单页面内点击 分享 按钮-复制链接即可。您也可以直接输入歌单ID；站长的网易云音乐账号@过气码农，欢迎互关",
 	channel: 4,
 	network: true
 }, {

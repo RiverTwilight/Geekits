@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { Drawer } from "mdui";
 import { getUserInfo } from "../utils/Services/UserInfo";
-import applist from "../utils/applist";
+import applist from "../data/applist";
 
 const list = [
 	{

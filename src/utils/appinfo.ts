@@ -1,4 +1,4 @@
-import list from './applist'
+import list from '../data/applist'
 
 export default (link: any) => {
 		for(let i in list){
