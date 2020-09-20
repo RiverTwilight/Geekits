@@ -5,7 +5,6 @@ import {
 	Route,
 	Link
 } from "react-router-dom"
-// @ts-expect-error ts-migrate(7016) FIXME: Try `npm install @types/marked` if it exists or ad... Remove this comment to see the full error message
 import marked from 'marked'
 import { Input } from 'mdui-in-react'
 import MdEditor from '../../components/MdEditor'

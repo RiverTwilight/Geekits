@@ -1,6 +1,10 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
+//@ts-expect-error
+import { alert as mduiAlert } from "mdui";
 import { ListControlMenu, ListControlCheck, List } from "mdui-in-react";
+import marked from "marked";
+const PrivacyPath = require("./privacy.md");
 
 interface ISetting {
 	homeShowNewestTool: boolean;
@@ -54,19 +58,38 @@ const hitokotoItems = [
 	},
 ];
 
-export default class extends React.Component<{}, { setting: ISetting }> {
+export default class extends React.Component<
+	{},
+	{ setting: ISetting; privacy: string }
+> {
 	constructor(props: {}) {
 		super(props);
 		this.state = {
 			setting: setFunc(),
+			privacy: "",
 		};
 	}
 	componentDidMount() {
 		window.updateTitle("设置");
+
+		fetch(PrivacyPath)
+			.then((response) => {
+				return response.text();
+			})
+			.then((text) => {
+				this.setState({
+					privacy: text,
+				});
+			});
+	}
+	showPrivacy = () => {
+		const { privacy } = this.state;
+		mduiAlert(marked(privacy), "", () => {}, {
+			confirmText: "关闭",
+		});
 	}
 	render() {
 		const {
-			homeShowNewestTool = true,
 			hitokotoTopic,
 			theme,
 		} = this.state.setting;
@@ -74,24 +97,8 @@ export default class extends React.Component<{}, { setting: ISetting }> {
 			<div className="mdui-col-md-10">
 				<ul className="mdui-list">
 					<li className="mdui-text-color-theme mdui-subheader">
-						通用
-					</li>
-
-					<ListControlCheck
-						icon="apps"
-						title="首页展示最新工具"
-						checked={homeShowNewestTool}
-						onCheckedChange={(checked) => {
-							this.setState({
-								setting: setFunc("homeShowNewestTool", checked),
-							});
-						}}
-					/>
-
-					<li className="mdui-text-color-theme mdui-subheader">
 						个性化
 					</li>
-
 					<ListControlMenu
 						title="一言来源"
 						checked={hitokotoTopic || 0}
@@ -102,7 +109,6 @@ export default class extends React.Component<{}, { setting: ISetting }> {
 						}}
 						items={hitokotoItems}
 					/>
-
 					<ListControlMenu
 						title="主题"
 						checked={theme || 0}
@@ -152,23 +158,24 @@ export default class extends React.Component<{}, { setting: ISetting }> {
 								text: "到Github提交反馈",
 								href:
 									"https://github.com/RiverTwilight/ygktool/issues",
-							},
-						]}
-					/>
-					<List
-						items={[
-							{
+							},{
 								text: "联系开发者",
 								href:
 									"//wpa.qq.com/msgrd?v=3&amp;uin=1985386335&amp;site=qq&amp;menu=yes",
 							},
 						]}
 					/>
-
 					<li className="mdui-text-color-theme mdui-subheader">
 						关于
 					</li>
-
+					<List
+						items={[
+							{
+								onClick: this.showPrivacy,
+								text: "用户协议",
+							},
+						]}
+					/>
 					<Link to="/about">
 						<List
 							items={[

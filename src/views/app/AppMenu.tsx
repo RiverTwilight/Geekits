@@ -13,8 +13,7 @@ const ShareBtn = () => {
 				onClick={() => {
 					navigator
 						.share({
-							// @ts-expect-error ts-migrate(2339) FIXME: Property 'title' does not exist on type 'Location'... Remove this comment to see the full error message
-							title: window.location.title,
+							title: document.title,
 							url: window.location.href,
 						})
 						.then(() => {
@@ -129,9 +128,18 @@ class AppMenu extends React.Component<
 					title="嵌入代码"
 					onClick={this.getIframeCode}
 				/>
-				<p className="mdui-typo">
-					{help !== "" ? help : "暂无说明"}
-				</p>
+				<div className="mdui-clearfix"></div>
+				{help !== "" && (
+					<p
+						style={{
+							// Fix word-warp doesn't work
+							whiteSpace: "normal",
+						}}
+						className="mdui-typo"
+					>
+						{help}
+					</p>
+				)}
 				<a
 					href={`https://github.com/RiverTwilight/ygktool/tree/master/src/apps/${link}`}
 					target="_blank"

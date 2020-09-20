@@ -1712,6 +1712,11 @@
   resolved "https://registry.npm.taobao.org/@types/json-schema/download/@types/json-schema-7.0.5.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fjson-schema%2Fdownload%2F%40types%2Fjson-schema-7.0.5.tgz#dcce4430e64b443ba8945f0290fb564ad5bac6dd"
   integrity sha1-3M5EMOZLRDuolF8CkPtWStW6xt0=
 
+"@types/marked@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.npm.taobao.org/@types/marked/download/@types/marked-1.1.0.tgz?cache=0&sync_timestamp=1596841489508&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fmarked%2Fdownload%2F%40types%2Fmarked-1.1.0.tgz#53509b5f127e0c05c19176fcf1d743a41e00ff19"
+  integrity sha1-U1CbXxJ+DAXBkXb88ddDpB4A/xk=
+
 "@types/minimatch@*":
   version "3.0.3"
   resolved "https://registry.npm.taobao.org/@types/minimatch/download/@types/minimatch-3.0.3.tgz?cache=0&sync_timestamp=1596839516496&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fminimatch%2Fdownload%2F%40types%2Fminimatch-3.0.3.tgz#3dca0e3f33b200fc7d1139c0cd96c1268cadfd9d"
@@ -7314,16 +7319,16 @@ mdn-data@2.0.6:
   resolved "https://registry.npm.taobao.org/mdn-data/download/mdn-data-2.0.6.tgz#852dc60fcaa5daa2e8cf6c9189c440ed3e042978"
   integrity sha1-hS3GD8ql2qLoz2yRicRA7T4EKXg=
 
-mdui-in-react@^1.2.7:
-  version "1.2.7"
-  resolved "https://registry.npm.taobao.org/mdui-in-react/download/mdui-in-react-1.2.7.tgz#7ea60157d31bbb2dc6894ca9dcd2876db20de868"
-  integrity sha1-fqYBV9Mbuy3GiUyp3NKHbbIN6Gg=
+mdui-in-react@^1.2.11:
+  version "1.2.11"
+  resolved "https://registry.npm.taobao.org/mdui-in-react/download/mdui-in-react-1.2.11.tgz#ff7dfe68174b4fa34c788f6ea385e897e8748618"
+  integrity sha1-/33+aBdLT6NMeI9uo4Xol+h0hhg=
   dependencies:
     "@types/node" "^13.11.0"
     mdui "^0.4.3"
     react "16.13.1"
 
-mdui@^0.4.3:
+mdui@0.4.3, mdui@^0.4.3:
   version "0.4.3"
   resolved "https://registry.npm.taobao.org/mdui/download/mdui-0.4.3.tgz#7860a979863a8a6d8b1a22d88b1a943a5527acea"
   integrity sha1-eGCpeYY6im2LGiLYixqUOlUnrOo=
