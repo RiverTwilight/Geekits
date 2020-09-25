@@ -10,9 +10,17 @@ import AppMenu from "./AppMenu";
  * 工具加载框架
  */
 
-class AppContainer extends React.Component {
+class AppContainer extends React.Component<
+	{},
+	{
+		appInfo: any;
+	}
+> {
 	constructor(props: any) {
 		super(props);
+		this.state = {
+			appInfo: getInfo(props.match.params.name),
+		};
 	}
 	componentDidCatch(error: any, info: any) {
 		mduiAlert(error, "您的浏览器捕获到一个错误", null, {
@@ -21,24 +29,21 @@ class AppContainer extends React.Component {
 	}
 	componentWillUnmount() {
 		window.loadHide(); // 清除滚动条
-		window.appMenu.close();
 		document.getElementsByClassName("mdui-overlay").length &&
 			document.getElementsByClassName("mdui-overlay")[0].remove();
-		window.globalRef.menuBtn.style.display = "none";
 	}
 	componentDidMount() {
+		const { appInfo } = this.state;
 		setInterval(() => mutation(), 100);
 		// 链接带有全屏参数，隐藏头部
 		if (window.location.search.indexOf("fullscreen=true") !== -1) {
 			document.getElementsByTagName("header")[0].style.display = "none";
 			document.body.classList.remove("mdui-appbar-with-toolbar");
 		}
-		document.body.classList.add("mdui-drawer-body-right");
-		window.globalRef.menuBtn.style.display = "block";
+		window.setRightDrawer(<AppMenu appinfo={appInfo} />);
 	}
 	render() {
-		// @ts-expect-error ts-migrate(2339) FIXME: Property 'match' does not exist on type 'Readonly<... Remove this comment to see the full error message
-		const appInfo = getInfo(this.props.match.params.name);
+		const { appInfo } = this.state;
 		return (
 			<>
 				<Router>
@@ -49,7 +54,6 @@ class AppContainer extends React.Component {
 							return import("../../apps/" + appInfo?.link);
 						})}
 					></Route>
-					<AppMenu appinfo={appInfo} />
 				</Router>
 			</>
 		);

@@ -1,16 +1,12 @@
-.copyright {
+/*.copyright {
 	position: fixed;
 	bottom: 7px;
 	left: 10px;
 	right: 10px;
 }
-
+*/
 .mdui-fab i {
 	color: white;
-}
-
-header {
-	transition: 0.3s box-shadow;
 }
 
 .hidden {

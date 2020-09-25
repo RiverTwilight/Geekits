@@ -350,8 +350,23 @@ class Index extends React.Component<{}, IndexState> {
 		);
 	}
 	componentDidMount() {
+		const { notice } = this.state;
 		this.getNotice();
 		window.updateTitle();
+		window.setRightDrawer(
+			<div className="mdui-typo">
+				<h3>公告</h3>
+				<div className="mdui-card-primary-subtitle">
+					{notice && notice.date.split("T")[0]}
+				</div>
+				<div
+					dangerouslySetInnerHTML={{
+						__html: notice ? notice.content : "没有公告",
+					}}
+					className="mdui-card-content"
+				></div>
+			</div>
+		);
 	}
 	getNotice() {
 		//if(sessionStorage.loadedNotice == 1)return
@@ -378,32 +393,13 @@ class Index extends React.Component<{}, IndexState> {
 		});
 	}
 	render() {
-		const { notice } = this.state;
 		return (
-			<div className="mdui-row">
-				<div className="mdui-col-md-9 mdui-p-r-1">
-					<Search />
-					<FivList />
-					<AppList />
-					<ToTop />
-				</div>
-				<div className="mdui-col-md-3">
-					<div className="mdui-card">
-						<div className="mdui-card-primary">
-							<div className="mdui-card-primary-title">公告</div>
-							<div className="mdui-card-primary-subtitle">
-								{notice && notice.date.split("T")[0]}
-							</div>
-						</div>
-						<div
-							dangerouslySetInnerHTML={{
-								__html: notice ? notice.content : "没有公告",
-							}}
-							className="mdui-card-content"
-						></div>
-					</div>
-				</div>
-			</div>
+			<>
+				<Search />
+				<FivList />
+				<AppList />
+				<ToTop />
+			</>
 		);
 	}
 }

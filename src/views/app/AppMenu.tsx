@@ -1,6 +1,6 @@
 import React from "react";
 // @ts-expect-error ts-migrate(2305) FIXME: Module '"mdui"' has no exported member 'prompt'.
-import { snackbar, Drawer, alert as mduiAlert } from "mdui";
+import { snackbar, alert as mduiAlert } from "mdui";
 import { Button, Input } from "mdui-in-react";
 import fiv from "../../utils/Services/fiv";
 import marked from "marked";
@@ -84,20 +84,11 @@ class AppMenu extends React.Component<
 				});
 		} finally {
 		}
-		window.appMenu = new Drawer("#appMenu");
 		this.props.appinfo.network &&
 			!navigator.onLine &&
 			mduiAlert("此工具需要联网才能使用", "", () => {}, {
 				history: false,
 			});
-		window.globalRef.menuBtn.style.display = "block";
-		// @ts-expect-error ts-migrate(2339) FIXME: Property 'menu' does not exist on type 'Window & t... Remove this comment to see the full error message
-		window.menu = () => {
-			window.appMenu.toggle();
-		};
-	}
-	componentWillUnmount() {
-		window.globalRef.menuBtn.style.display = "none";
 	}
 	// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'nextProps' implicitly has an 'any' type... Remove this comment to see the full error message
 	UNSAFE_componentWillReceiveProps(nextProps) {
@@ -109,10 +100,7 @@ class AppMenu extends React.Component<
 		if (!this.props.appinfo) return null;
 		const { link } = this.props.appinfo;
 		return (
-			<div
-				id="appMenu"
-				className="mdui-p-a-1 mdui-drawer mdui-drawer-right"
-			>
+			<div className="mdui-p-a-1">
 				<Button
 					onClick={() => {
 						this.fiv();

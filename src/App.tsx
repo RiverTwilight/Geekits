@@ -1,7 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Header from "./layout/header";
-import Drawer from "./layout/drawer";
+import LeftDrawer from "./layout/LeftDrawer";
+import RightDrawer from "./layout/RightDrawer";
 import LoginDialog from "./layout/LoginDialog";
 import loadable from "./utils/loading";
 import "./App.css";
@@ -59,6 +60,7 @@ class App extends React.Component<any, any> {
 		super(props);
 		this.state = {
 			showLoginDialog: false,
+			rightDrawerContent: null,
 		};
 	}
 	componentDidMount() {
@@ -93,12 +95,22 @@ class App extends React.Component<any, any> {
 				? `${pageName} - 云极客工具`
 				: "云极客工具";
 		};
+		window.setRightDrawer = (content, icon) => {
+			this.setState({
+				rightDrawerContent: content,
+			});
+			document.body.classList.add("mdui-drawer-body-right");
+			window.globalRef.menuBtn.style.display = "block";
+			window.menu = () => {
+				window.RightDrawer.toggle();
+			};
+		};
 	}
 	openLoginDialog = () => {
 		this.setState({
 			showLoginDialog: true,
 		});
-	}
+	};
 	getGlobalRef = (refs: any) => {
 		window.globalRef = {};
 		refs.map((ref: any) => {
@@ -106,7 +118,7 @@ class App extends React.Component<any, any> {
 		});
 	};
 	render() {
-		const { showLoginDialog } = this.state;
+		const { showLoginDialog, rightDrawerContent } = this.state;
 		return (
 			<>
 				<div
@@ -118,7 +130,10 @@ class App extends React.Component<any, any> {
 				</div>
 				<Router>
 					<LoginDialog ifOpen={showLoginDialog} />
-					<Drawer openLoginDialog={this.openLoginDialog} />
+					<LeftDrawer openLoginDialog={this.openLoginDialog} />
+					{rightDrawerContent && (
+						<RightDrawer content={rightDrawerContent} />
+					)}
 					<Header
 						openLoginDialog={this.openLoginDialog}
 						getRef={this.getGlobalRef}
