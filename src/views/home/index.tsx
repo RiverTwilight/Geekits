@@ -361,8 +361,11 @@ class Index extends React.Component<{}, IndexState> {
 			window.setRightDrawer(
 				<div className="mdui-typo mdui-p-a-1">
 					<h3>公告</h3>
-					{notice && notice.date.split("T")[0]}
 					<div
+						style={{
+							// Fix word-warp doesn't work
+							whiteSpace: "normal",
+						}}
 						dangerouslySetInnerHTML={{
 							__html: notice ? notice.content : "没有公告",
 						}}
