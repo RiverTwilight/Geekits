@@ -76,8 +76,8 @@ export default class extends React.Component<{}, State> {
 					}}
 					header="输入文本"
 					value={options.text}
-// @ts-expect-error ts-migrate(2322) FIXME: Type 'string' is not assignable to type 'number | ... Remove this comment to see the full error message
-					rows="3"
+					rows={3}
+					// @ts-expect-error ts-migrate(2322) FIXME: Type 'string' is not assignable to type 'number | ... Remove this comment to see the full error message
 					maxLength="500"
 				/>
 

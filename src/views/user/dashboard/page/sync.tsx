@@ -22,7 +22,8 @@ export default class extends React.Component<{}, State> {
             withCredentials: false,
             data: {
                 fivData: mode === 'upload' ? JSON.stringify(fiv.getAll()) : false,
-                username: getUserInfo().username
+                //@ts-expect-error
+                username: getUserInfo().username 
             }
         }).then(response => {
             var json = JSON.parse(response.request.response);
@@ -46,9 +47,7 @@ export default class extends React.Component<{}, State> {
     render() {
         
         return <>
-            
-            <div className="mdui-col-md-8">
-                
+            <div className="mdui-col-md-8"> 
                 <div className="mdui-row-xs-2">
                     
                     <div className="mdui-col">
@@ -62,9 +61,7 @@ export default class extends React.Component<{}, State> {
                             上传到云端
                         </button>
                     </div>
-                    
                     <div className="mdui-col">
-                        
                         <button
                             onClick={() => {
                                 this.setState({ mode: 'download' }, () => this.sync());

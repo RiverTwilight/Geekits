@@ -11,6 +11,7 @@ class Ui extends React.Component<{}, State> {
     constructor(props: {}) {
         super(props);
         this.state = {
+            //@ts-expect-error
             username:getUserInfo().username,
             password:null,
             xcode:null

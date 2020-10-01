@@ -121,7 +121,6 @@ class Ui extends React.Component<{}, UiState> {
         const { listidA, listidB, dataA, dataB, engine } = this.state;
         
         return <>
-            
             <Input
                 onValueChange={newText=>{
                     this.setState({listidA:newText});
@@ -131,7 +130,6 @@ class Ui extends React.Component<{}, UiState> {
                 icon="attachment"
                 value={this.state.listidA}
             />  
-            
             <Input
                 onValueChange={newText=>{
                     this.setState({listidB:newText});
@@ -141,7 +139,6 @@ class Ui extends React.Component<{}, UiState> {
                 icon="attachment"
                 value={this.state.listidB}
             />      
-            
             <select 
                 value={engine}
                 onChange={e=>{

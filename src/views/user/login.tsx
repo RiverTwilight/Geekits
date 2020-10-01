@@ -58,11 +58,9 @@ class Forget extends React.Component<{}, ForgetState> {
                 }}
                 header="邮箱"
                 icon="email"
-                // @ts-expect-error ts-migrate(2322) FIXME: Type '"email"' is not assignable to type '"number"... Remove this comment to see the full error message
                 type="email"
                 value={email}
             />
-            
             <Input
                 onValueChange={newText => {
                     this.setState({ password: newText })

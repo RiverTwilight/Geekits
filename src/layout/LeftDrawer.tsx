@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { Drawer } from "mdui";
 import { getUserInfo } from "../utils/Services/UserInfo";
-import applist from "../data/applist";
+import applist from "../data/appData";
 
 const list = [
 	{
@@ -26,6 +26,9 @@ const list = [
 ];
 
 const Menu = () => {
+	const handleClick = () => {
+		window.innerWidth <= 1024 && window.leftDrawer.close();
+	};
 	const Warpper = ({ a, children }: { a: any; children: any }) => {
 		if (a.link.match(/(http|https)/)) {
 			return (
@@ -39,9 +42,7 @@ const Menu = () => {
 		}
 		return (
 			<NavLink
-				onClick={() => {
-					window.innerWidth <= 1024 && window.leftDrawer.close();
-				}}
+				onClick={handleClick}
 				key={a.link}
 				exact
 				className="mdui-list-item mdui-ripple"
@@ -131,7 +132,7 @@ class DrawerMenu extends React.Component<
 								face
 							</i>
 							<div className="mdui-list-item-content">
-								{"未登录"}
+								{"启用完整功能"}
 							</div>
 						</li>
 					)}

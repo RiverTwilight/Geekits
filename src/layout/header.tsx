@@ -59,7 +59,7 @@ class Header extends React.Component<
 			},
 		};
 	}
-	loadSaying() {
+	loadSaying = () => {
 		const { hitokotoTopic = 0 } = JSON.parse(localStorage.setting || "{}");
 		fetch(
 			`https://api.ygktool.cn/api/hitokoto?topic=${
@@ -78,7 +78,32 @@ class Header extends React.Component<
 					},
 				});
 			});
-	}
+	};
+	starSaying = () => {
+		const { saying } = this.state;
+		addSaying2Fiv(saying);
+		snackbar({
+			message: "已收藏至便签",
+			buttonText: "打开便签",
+			onButtonClick: () => {
+				window.location.href = "/app/note";
+			},
+		});
+	};
+	checkSaying = () => {
+		const { saying } = this.state;
+		confirm(
+			`${saying.say}<br>来自：${saying.from}`,
+			"一言",
+			this.starSaying,
+			this.loadSaying,
+			{
+				history: false,
+				confirmText: "收藏",
+				cancelText: "刷新",
+			}
+		);
+	};
 	componentDidMount() {
 		this.loadSaying();
 		this.props.getRef([
@@ -96,33 +121,7 @@ class Header extends React.Component<
 							onClick={() => window.leftDrawer.toggle()}
 							icon="menu"
 						/>
-						<a
-							onClick={() => {
-								confirm(
-									`${saying.say}<br>来自：${saying.from}`,
-									"一言",
-									() => {
-										addSaying2Fiv(saying);
-										snackbar({
-											message: "已收藏至便签",
-											buttonText: "打开便签",
-											onButtonClick: () => {
-												window.location.href =
-													"/app/note";
-											},
-										});
-									},
-									() => {
-										this.loadSaying();
-									},
-									{
-										history: false,
-										confirmText: "收藏",
-										cancelText: "刷新",
-									}
-								);
-							}}
-						>
+						<a onClick={this.checkSaying}>
 							<div
 								ref={(r) => (this.headerTitle = r)}
 								className="mdui-typo-title header-width-saying"

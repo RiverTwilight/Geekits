@@ -1,9 +1,7 @@
 import React from "react";
-import { Input } from "mdui-in-react";
 // @ts-expect-error ts-migrate(2691) FIXME: An import path cannot end with a '.ts' extension. ... Remove this comment to see the full error message
 import { calDiffer, calWhichDay } from "./engine.ts";
-
-import { Tab, Button } from "mdui-in-react";
+import { Tab, Button, Input } from "mdui-in-react";
 
 const getToday = () => {
 	var time = new Date();
@@ -169,7 +167,6 @@ class WhichDay extends React.Component<{}, WhichDayState> {
 					type="date"
 					value={dateStart}
 				/>
-
 				<Input
 					onValueChange={(newText) => {
 						this.setState({ day: newText });
@@ -179,7 +176,6 @@ class WhichDay extends React.Component<{}, WhichDayState> {
 					type="number"
 					value={day}
 				/>
-
 				<p
 					style={{ display: whichDay === "" ? "none" : "block" }}
 					className="mdui-typo-title mdui-text-center"
@@ -187,7 +183,7 @@ class WhichDay extends React.Component<{}, WhichDayState> {
 					{whichDay}
 				</p>
 
-				<button
+				<Button
 					onClick={() => {
 						const res = calWhichDay(dateStart, day),
 							weeks = [
@@ -202,10 +198,11 @@ class WhichDay extends React.Component<{}, WhichDayState> {
 							week = weeks[res.week];
 						this.setState({ whichDay: `${res.date} ${week}` });
 					}}
-					className="mdui-color-theme mdui-btn-raised mdui-ripple mdui-btn mdui-float-right"
-				>
-					计算
-				</button>
+					primary
+					raised
+					ripple
+					title="计算"
+				/>
 			</div>
 		);
 	}

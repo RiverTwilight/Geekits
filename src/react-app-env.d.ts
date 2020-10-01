@@ -19,6 +19,10 @@ interface Window {
 	dialogInst: any;
 }
 
+type userInfoFromLocal = {
+	username: string;
+}
+
 declare module "gif.js" {
 	class GIF {
 		constructor(config);

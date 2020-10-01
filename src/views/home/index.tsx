@@ -4,10 +4,9 @@ import { Link, useHistory } from "react-router-dom";
 import { alert as mduiAlert, mutation } from "mdui";
 // @ts-expect-error ts-migrate(7016) FIXME: Try `npm install @types/js-pinyin` if it exists or... Remove this comment to see the full error message
 import pinyin from "js-pinyin";
-
 import { ToTop } from "mdui-in-react";
 import axios from "../../utils/axios";
-import applist from "../../data/applist";
+import applist from "../../data/appData";
 import fiv from "../../utils/Services/fiv";
 import useEventListener from "../../utils/Hooks/useEventListener";
 
@@ -329,9 +328,6 @@ type IndexState = any;
 class Index extends React.Component<{}, IndexState> {
 	constructor(props: {}) {
 		super(props);
-		this.state = {
-			notice: null,
-		};
 	}
 	showNotice() {
 		const {
@@ -350,46 +346,36 @@ class Index extends React.Component<{}, IndexState> {
 		);
 	}
 	componentDidMount() {
-		const { notice } = this.state;
 		this.getNotice();
 		window.updateTitle();
-		window.setRightDrawer(
-			<div className="mdui-typo">
-				<h3>公告</h3>
-				<div className="mdui-card-primary-subtitle">
-					{notice && notice.date.split("T")[0]}
-				</div>
-				<div
-					dangerouslySetInnerHTML={{
-						__html: notice ? notice.content : "没有公告",
-					}}
-					className="mdui-card-content"
-				></div>
-			</div>
-		);
 	}
 	getNotice() {
 		//if(sessionStorage.loadedNotice == 1)return
 		axios.get("/ygktool/notice").then((json) => {
 			const { primary, content, date } = json.data[0];
-			this.setState(
-				{
-					notice: {
-						id: primary,
-						content: content.replace(/\n/g, "<br>"),
-						date: date,
-					},
-				},
-				() => {
-					//sessionStorage.setItem('loadedNotice', 1)
-					if (
-						window.innerWidth <= 640 &&
-						(!localStorage.readedNotice ||
-							localStorage.readedNotice != primary)
-					)
-						this.showNotice();
-				}
+			const notice = {
+				id: primary,
+				content: content.replace(/\n/g, "<br>"),
+				date: date,
+			};
+			window.setRightDrawer(
+				<div className="mdui-typo mdui-p-a-1">
+					<h3>公告</h3>
+					{notice && notice.date.split("T")[0]}
+					<div
+						dangerouslySetInnerHTML={{
+							__html: notice ? notice.content : "没有公告",
+						}}
+					></div>
+				</div>
 			);
+			//sessionStorage.setItem('loadedNotice', 1)
+			if (
+				window.innerWidth <= 640 &&
+				(!localStorage.readedNotice ||
+					localStorage.readedNotice != primary)
+			)
+				this.showNotice();
 		});
 	}
 	render() {

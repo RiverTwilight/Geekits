@@ -43,10 +43,10 @@
     "start": "react-app-rewired start",
     "startWithApi": "react-app-rewired start --env=api",
     "dev": "npm-link-shared ./node_modules/mdui-in-react/node_modules . react && npm start",
-    "build": "sh build.sh",
     "test": "react-app-rewired test --env=jsdom",
     "eject": "react-scripts eject",
-    "newApp": "scripts/newApp.sh"
+    "build": "bash scripts/build.sh",
+    "newApp": "bash scripts/newApp.sh"
   },
   "eslintConfig": {
     "extends": "react-app"

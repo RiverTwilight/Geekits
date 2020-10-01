@@ -128,7 +128,6 @@ class Login extends React.Component<
 							header="邮箱"
 							placeholder="账户不存在将自动创建"
 							icon="email"
-							// @ts-expect-error ts-migrate(2322) FIXME: Type '"email"' is not assignable to type '"number"... Remove this comment to see the full error message
 							type="email"
 							value={username}
 						/>
