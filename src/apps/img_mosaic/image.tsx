@@ -199,7 +199,6 @@ export default class extends React.Component<{}, ComponentState> {
 				>
 					<i className="mdui-icon material-icons">&#xe5ca;</i>
 				</button>
-
 				<Preview res={res} />
 			</>
 		);

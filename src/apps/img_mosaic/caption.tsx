@@ -142,7 +142,7 @@ class Album extends React.Component<AlbumProps, AlbumState> {
 		} = this.props;
 		const { startPosition } = this.state;
 		return (
-			<div className="mdui-row-xs-1">
+			<div className="mdui-row-xs-2 mdui-row-sm-3">
 				{assets.map((assest, i) => (
 					<div
 						style={{ marginTop: "5px" }}
@@ -306,6 +306,9 @@ class VideoShotter extends React.Component<
 			);
 		var res = canvas.toDataURL();
 		addImg(res);
+	}
+	componentDidUpdate(){
+		this.videoDom.load()
 	}
 	render() {
 		const { video } = this.props;
