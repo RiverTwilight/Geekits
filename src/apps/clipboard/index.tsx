@@ -314,7 +314,7 @@ export default class extends React.Component<{}, ComponentState> {
                             maxSize={3 * 1024 * 1024}
                             readbydrag
                             fileType="*/*"
-                            onFileChange={(dataUrl, file) => {
+                            onFileUpload={(dataUrl, file) => {
                                 this.setState({
                                     fileData: {
                                         // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.

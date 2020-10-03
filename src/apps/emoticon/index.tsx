@@ -245,7 +245,7 @@ export default class extends React.Component<{}, ComponentState> {
                         <FileInput
                             fileType="image/*"
                             multiple={false}
-                            onFileChange={file => {
+                            onFileUpload={file => {
                                 this.setState({ src: file })
                             }}
                         />

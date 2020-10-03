@@ -82,7 +82,7 @@ const FivList = () => {
 		<ul className="mdui-row-md-3 mdui-list">
 			<li className="mdui-subheader">
 				收藏&nbsp;
-				<a
+				<span
 					onClick={() => {
 						setEdit(!edit);
 					}}
@@ -92,7 +92,7 @@ const FivList = () => {
 					className="mdui-text-color-theme mdui-float-right"
 				>
 					{edit ? "保存" : "编辑"}
-				</a>
+				</span>
 			</li>
 			{!list.length ? (
 				<div className="mdui-text-center mdui-typo-body-1-opacity">
@@ -285,9 +285,6 @@ const getChannelIcon = (index: any) => {
 };
 
 class AppList extends React.Component {
-	constructor(props: any) {
-		super(props);
-	}
 	componentDidMount() {
 		mutation();
 	}
@@ -326,9 +323,6 @@ class AppList extends React.Component {
 type IndexState = any;
 
 class Index extends React.Component<{}, IndexState> {
-	constructor(props: {}) {
-		super(props);
-	}
 	showNotice() {
 		const {
 			notice: { date, content, id },
@@ -376,7 +370,7 @@ class Index extends React.Component<{}, IndexState> {
 			if (
 				window.innerWidth <= 640 &&
 				(!localStorage.readedNotice ||
-					localStorage.readedNotice != primary)
+					parseInt(localStorage.readedNotice) !== primary)
 			)
 				this.showNotice();
 		});

@@ -23,7 +23,7 @@ export default () => {
 				<FileInput
 					multiple={true}
 					maxWidth="200px"
-					onFileChange={(_, _file, fileList) => {
+					onFileUpload={(_, _file, fileList) => {
 						var result = [];
 						// @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
 						for (var i = 0; i < fileList.length; i++) {

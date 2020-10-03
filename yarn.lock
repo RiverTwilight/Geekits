@@ -7319,16 +7319,16 @@ mdn-data@2.0.6:
   resolved "https://registry.npm.taobao.org/mdn-data/download/mdn-data-2.0.6.tgz#852dc60fcaa5daa2e8cf6c9189c440ed3e042978"
   integrity sha1-hS3GD8ql2qLoz2yRicRA7T4EKXg=
 
-mdui-in-react@^1.2.11:
-  version "1.2.11"
-  resolved "https://registry.npm.taobao.org/mdui-in-react/download/mdui-in-react-1.2.11.tgz#ff7dfe68174b4fa34c788f6ea385e897e8748618"
-  integrity sha1-/33+aBdLT6NMeI9uo4Xol+h0hhg=
+mdui-in-react@^1.2.15:
+  version "1.2.15"
+  resolved "https://registry.npm.taobao.org/mdui-in-react/download/mdui-in-react-1.2.15.tgz#b8eb55f558d0e196537b348faa48ba26de70e441"
+  integrity sha1-uOtV9VjQ4ZZTezSPqki6Jt5w5EE=
   dependencies:
     "@types/node" "^13.11.0"
-    mdui "^0.4.3"
+    mdui "0.4.3"
     react "16.13.1"
 
-mdui@0.4.3, mdui@^0.4.3:
+mdui@0.4.3:
   version "0.4.3"
   resolved "https://registry.npm.taobao.org/mdui/download/mdui-0.4.3.tgz#7860a979863a8a6d8b1a22d88b1a943a5527acea"
   integrity sha1-eGCpeYY6im2LGiLYixqUOlUnrOo=
@@ -9358,7 +9358,7 @@ react-dev-utils@^10.2.1:
 
 react-dom@^16.13.1:
   version "16.13.1"
-  resolved "https://registry.npm.taobao.org/react-dom/download/react-dom-16.13.1.tgz#c1bd37331a0486c078ee54c4740720993b2e0e7f"
+  resolved "https://registry.npm.taobao.org/react-dom/download/react-dom-16.13.1.tgz?cache=0&sync_timestamp=1600734121985&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Freact-dom%2Fdownload%2Freact-dom-16.13.1.tgz#c1bd37331a0486c078ee54c4740720993b2e0e7f"
   integrity sha1-wb03MxoEhsB47lTEdAcgmTsuDn8=
   dependencies:
     loose-envify "^1.1.0"
@@ -9472,9 +9472,18 @@ react-scripts@^3.4.3:
   optionalDependencies:
     fsevents "2.1.2"
 
-react@16.13.1, react@^16.13.1:
+react@16.13.1:
   version "16.13.1"
   resolved "https://registry.npm.taobao.org/react/download/react-16.13.1.tgz#2e818822f1a9743122c063d6410d85c1e3afe48e"
+  integrity sha1-LoGIIvGpdDEiwGPWQQ2FweOv5I4=
+  dependencies:
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
+    prop-types "^15.6.2"
+
+react@^16.13.1:
+  version "16.13.1"
+  resolved "https://registry.npm.taobao.org/react/download/react-16.13.1.tgz?cache=0&sync_timestamp=1600734121557&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Freact%2Fdownload%2Freact-16.13.1.tgz#2e818822f1a9743122c063d6410d85c1e3afe48e"
   integrity sha1-LoGIIvGpdDEiwGPWQQ2FweOv5I4=
   dependencies:
     loose-envify "^1.1.0"

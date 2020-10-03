@@ -1,11 +1,10 @@
 import React from "react";
 import { snackbar } from "mdui";
-
-import { FileInput } from "mdui-in-react";
+import { FileInput, Button } from "mdui-in-react";
 import "./caption.css";
 
 class captionMosaic {
-	img: any[]
+	img: any[];
 	constructor() {
 		this.img = [];
 		// @ts-expect-error ts-migrate(2551) FIXME: Property 'cutedImg' does not exist on type 'captio... Remove this comment to see the full error message
@@ -62,11 +61,7 @@ class captionMosaic {
 	}
 	async imgMosaic_Y() {
 		for (var i = 0; i <= this.img.length - 1; i++) {
-			let {
-				top,
-				bottom,
-				base64,
-			} = this.img[i];
+			let { top, bottom, base64 } = this.img[i];
 			// @ts-expect-error ts-migrate(2551) FIXME: Property 'cutedImg' does not exist on type 'captio... Remove this comment to see the full error message
 			this.cutedImg.push(await this.cutImg(base64, top, bottom));
 		}
@@ -107,37 +102,44 @@ const Preview = ({ res }: { res: any }) => {
 	return <img className="mdui-img-fluid" src={res} />;
 };
 
-type AlubmState = any;
+type AlbumState = any;
+type AlbumProps = {
+	assets: {
+		img: string;
+		top: number;
+		bottom: number;
+		getConHeight(): void;
+	}[];
+	/**上边界移动 */
+	onTopDrag: (distance: number, index: number) => void;
+	/** 下边界移动 */
+	onBottomDrag: (distance: number, index: number) => void;
+	/** 删除照片 */
+	deleteImg: (index: number) => void;
+	/**  */
+	getConHeight: (height: number, index: number) => void;
+	/** 图片前移 */
+	putForward: (index: number) => void;
+	putBack: (index: number) => void;
+};
 
-class Alubm extends React.Component<
-	{
-		assets: {
-			img: string;
-			top: number;
-			bottom: number;
-			getConHeight(): void;
-		}[];
-	},
-	AlubmState
-> {
-	constructor(
-		props: Readonly<{
-			assets: {
-				img: string;
-				top: number;
-				bottom: number;
-				getConHeight: any;
-			}[];
-		}>
-	) {
+/** 相册组件
+ */
+class Album extends React.Component<AlbumProps, AlbumState> {
+	constructor(props: AlbumProps) {
 		super(props);
 		this.state = {
 			startPosition: 0,
 		};
 	}
 	render() {
-		// @ts-expect-error ts-migrate(2339) FIXME: Property 'assets' does not exist on type 'Readonl... Remove this comment to see the full error message
-		const { assets, onTopDrag, onBottomDrag, deleteImg } = this.props;
+		const {
+			assets,
+			onTopDrag,
+			onBottomDrag,
+			deleteImg,
+			getConHeight,
+		} = this.props;
 		const { startPosition } = this.state;
 		return (
 			<div className="mdui-row-xs-1">
@@ -149,8 +151,7 @@ class Alubm extends React.Component<
 						<div key={i} className="mdui-card-media mdui-center">
 							<img
 								onLoad={(e) => {
-									// @ts-expect-error
-									this.props.getConHeight(
+									getConHeight(
 										// @ts-expect-error ts-migrate(2339) FIXME: Property 'getConHeight' does not exist on type 'Re... Remove this comment to see the full error message
 										e.target.offsetHeight,
 										i
@@ -252,39 +253,24 @@ class Alubm extends React.Component<
 										close
 									</i>
 								</button>
-
-								<button
-									style={{
-										display: i >= 1 ? "block" : "none",
-									}}
-									onClick={() => {
-										// @ts-expect-error ts-migrate(2339) FIXME: Property 'putForward' does not exist on type 'Read... Remove this comment to see the full error message
-										this.props.putForward(i);
-									}}
-									className="mdui-btn mdui-btn-icon mdui-text-color-white"
-								>
-									<i className="mdui-icon material-icons">
-										arrow_upward
-									</i>
-								</button>
-
-								<button
-									style={{
-										display:
-											i >= 1 && i < assets.length - 1
-												? "block"
-												: "none",
-									}}
-									onClick={() => {
-										// @ts-expect-error ts-migrate(2339) FIXME: Property 'putBack' does not exist on type 'Readonl... Remove this comment to see the full error message
-										this.props.putBack(i);
-									}}
-									className="mdui-btn mdui-btn-icon mdui-text-color-white"
-								>
-									<i className="mdui-icon material-icons">
-										arrow_downward
-									</i>
-								</button>
+								{i >= 1 && (
+									<Button
+										onClick={() => {
+											this.props.putForward(i);
+										}}
+										icon="arrow_upward"
+										iconColor="white"
+									/>
+								)}
+								{i >= 1 && i < assets.length - 1 && (
+									<Button
+										onClick={() => {
+											this.props.putBack(i);
+										}}
+										icon="arrow_downward"
+										iconColor="white"
+									/>
+								)}
 							</div>
 						</div>
 					</div>
@@ -294,6 +280,7 @@ class Alubm extends React.Component<
 	}
 }
 
+/** 视频截图器 */
 class VideoShotter extends React.Component<
 	{
 		addImg(imgSrc: string): void;
@@ -333,12 +320,12 @@ class VideoShotter extends React.Component<
 					<source src={video} type="video/mp4" />
 				</video>
 				<br></br>
-				<button
-					className="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme"
+				<Button
 					onClick={this.takeShot.bind(this)}
-				>
-					截图
-				</button>
+					primary
+					raised
+					title="截图"
+				/>
 			</>
 		);
 	}
@@ -359,31 +346,26 @@ export default class extends React.Component<{}, ComponentState> {
 		const { assets, res, video } = this.state;
 		return (
 			<>
-				<Alubm
-					// @ts-expect-error ts-migrate(2322) FIXME: Property 'onTopDrag' does not exist on type 'Intri... Remove this comment to see the full error message
+				<Album
 					onTopDrag={(distance, i) => {
 						if (assets[i].top + distance >= 0)
 							assets[i].top += distance;
 						this.setState({ assets: assets });
 					}}
-					// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'distance' implicitly has an 'any' type.
 					onBottomDrag={(distance, i) => {
 						if (assets[i].bottom - distance >= 0)
 							assets[i].bottom -= distance;
 						this.setState({ assets: assets });
 					}}
-					// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'cHeight' implicitly has an 'any' type.
 					getConHeight={(cHeight, i) => {
 						assets[i].cHeight = cHeight;
 					}}
-					// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'i' implicitly has an 'any' type.
 					putForward={(i) => {
 						var cache = assets[i];
 						assets.splice(i, 1);
 						assets.splice(i - 1, 0, cache);
 						this.setState({ assets: assets });
 					}}
-					// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'i' implicitly has an 'any' type.
 					putBack={(i) => {
 						var cache = assets[i];
 						assets.splice(i, 1);
@@ -391,7 +373,6 @@ export default class extends React.Component<{}, ComponentState> {
 						this.setState({ assets: assets });
 					}}
 					assets={assets}
-					// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'i' implicitly has an 'any' type.
 					deleteImg={(i) => {
 						assets.splice(i, 1);
 						this.setState({ assets: assets });
@@ -402,7 +383,7 @@ export default class extends React.Component<{}, ComponentState> {
 					<FileInput
 						fileType="image/*"
 						multiple={true}
-						onFileChange={(file) => {
+						onFileUpload={(file) => {
 							assets.push({
 								img: file,
 								top:
@@ -420,7 +401,7 @@ export default class extends React.Component<{}, ComponentState> {
 
 					<FileInput
 						fileType="video/*"
-						onFileChange={(file) => {
+						onFileUpload={(file) => {
 							this.setState({ video: file });
 						}}
 						title="截取视频"

@@ -73,7 +73,6 @@ export default class extends React.Component<{}, ComponentState> {
 					onValueChange={(newText) => {
 						this.setState({ kwd: newText });
 					}}
-					// @ts-expect-error ts-migrate(2322) FIXME: Property 'autoFocus' does not exist on type 'Intri... Remove this comment to see the full error message
 					autoFocus
 					header="类型/扩展名"
 					placeholder={

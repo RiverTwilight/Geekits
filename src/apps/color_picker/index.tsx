@@ -200,7 +200,7 @@ export default class extends React.Component<{}, ComponentState> {
                 <FileInput
                     readbydrag
                     fileType="image/*"
-                    onFileChange={file => {
+                    onFileUpload={file => {
                         this.setState({
                             imgFile: file
                         // @ts-expect-error ts-migrate(2345) FIXME: Argument of type '(_: any) => void' is not assigna... Remove this comment to see the full error message

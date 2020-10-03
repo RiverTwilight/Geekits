@@ -164,7 +164,7 @@ class AIC extends React.Component<{}, AICState> {
 							<FileInput
 								fileType="image/*"
 								readbydrag
-								onFileChange={(file, fileObj) => {
+								onFileUpload={(file, fileObj) => {
 									console.log(fileObj);
 									const cb = this.handleFileUpdate.bind(this);
 									// @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.

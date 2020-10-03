@@ -10,9 +10,7 @@ const JsKeycode = () => {
 	return (
 		<>
 			<Input
-				// @ts-expect-error ts-migrate(2322) FIXME: Property 'onKeyDown' does not exist on type 'Intri... Remove this comment to see the full error message
 				autoFocus={true}
-				// @ts-expect-error ts-migrate(2322) FIXME: Property 'onKeyDown' does not exist on type 'Intri... Remove this comment to see the full error message
 				onKeyDown={(e) => {
 					console.log(e.key);
 					if (e.key === "Escape") {

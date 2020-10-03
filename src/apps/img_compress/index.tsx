@@ -26,7 +26,7 @@ export default class extends React.Component<{}, State> {
 					<FileInput
 						readbydrag
 						fileType="image/*"
-						onFileChange={(data, file) => {
+						onFileUpload={(data, file) => {
 							this.setState({
 								file: data,
 // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.

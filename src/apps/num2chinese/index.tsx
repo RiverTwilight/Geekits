@@ -38,7 +38,6 @@ export default class extends React.Component<{}, State> {
                             res: result
                         })
                     }}
-                    // @ts-expect-error ts-migrate(2322) FIXME: Property 'autoFocus' does not exist on type 'Intri... Remove this comment to see the full error message
                     autoFocus
                     header="输入小写数字"
                     icon="attach_money"
