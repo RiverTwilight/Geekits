@@ -1,7 +1,7 @@
 import React, { createRef } from "react";
 import { snackbar } from "mdui";
 import ClipboardJS from "clipboard";
-import { Input } from "mdui-in-react";
+import { Input, Button } from "mdui-in-react";
 import { signListener, removeListener } from "../../utils/Hooks/useFileDrager";
 
 const PrintRes = ({ res }: any) => (
@@ -53,6 +53,7 @@ export default class extends React.Component<{}, ComponentState> {
 		removeListener();
 	}
 	html2jsx() {
+		// TODO 短横线转小驼峰
 		const { text } = this.state;
 		// @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
 		var inlineStyle = /\bstyle="(.+)"/.exec(String(text))[1];
@@ -68,9 +69,9 @@ export default class extends React.Component<{}, ComponentState> {
 			})
 			.filter((style) => style);
 		usefulStyle
-            .slice(usefulStyle.length / 2, usefulStyle.length)
-				// @ts-expect-error ts-migrate(7015) FIXME: Element implicitly has an 'any' type because index... Remove this comment to see the full error message
-			.map(style => (jsxStyle[style] = styleObj[style]));
+			.slice(usefulStyle.length / 2, usefulStyle.length)
+			// @ts-expect-error ts-migrate(7015) FIXME: Element implicitly has an 'any' type because index... Remove this comment to see the full error message
+			.map((style) => (jsxStyle[style] = styleObj[style]));
 		var res = text
 			.replace(
 				/\b([a-z]+)-([a-z]+)\b/g,
@@ -110,14 +111,12 @@ export default class extends React.Component<{}, ComponentState> {
 					/>
 					{/* @ts-expect-error ts-migrate(2339) FIXME: Property 'center' does not exist on type 'JSX.Intr... Remove this comment to see the full error message */}
 					<center>
-						<button
-							onClick={() => {
-								this.html2jsx();
-							}}
-							className="mdui-btn-raised mdui-color-theme mdui-btn mdui-ripple"
-						>
-							转换为jsx
-						</button>
+						<Button
+							onClick={this.html2jsx.bind(this)}
+							title="转换为jsx"
+							raised
+							primary
+						/>
 						{/* @ts-expect-error ts-migrate(2339) FIXME: Property 'center' does not exist on type 'JSX.Intr... Remove this comment to see the full error message */}
 					</center>
 

@@ -8,12 +8,13 @@ import loadable from "./utils/loading";
 import "./App.css";
 import "../node_modules/mdui/dist/css/mdui.min.css";
 
+// FIXME 发布前取消注释
 const RouterList: {
 	component: any;
 	path: string;
 	exact?: boolean;
 }[] = [
-	{
+	/*{
 		component: loadable(() => import("./views/home")),
 		path: "/",
 		exact: true,
@@ -34,7 +35,7 @@ const RouterList: {
 	{
 		component: loadable(() => import("./views/setting")),
 		path: "/setting",
-	},
+	},*/
 	{
 		component: loadable(() => import("./views/app/index")),
 		path: "/app/:name",
@@ -73,7 +74,6 @@ class App extends React.Component<any, any> {
 			}
 		};
 		window.loadShow = () => {
-			// @ts-expect-error ts-migrate(2339) FIXME: Property 'loadingDelay' does not exist on type 'Wi... Remove this comment to see the full error message
 			window.loadingDelay = setTimeout(() => {
 				loading.style.display = "inline-block";
 				toggleDisabled(true);

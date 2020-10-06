@@ -7,6 +7,7 @@ interface Window {
 	 */
 	updateTitle(pageName?: string): void;
 	loadShow(): void;
+	loadingDelay: Timeout;
 	leftDrawer: any;
 	RightDrawer: any;
 	/**
