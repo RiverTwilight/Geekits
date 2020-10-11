@@ -8,13 +8,12 @@ import loadable from "./utils/loading";
 import "./App.css";
 import "../node_modules/mdui/dist/css/mdui.min.css";
 
-// FIXME 发布前取消注释
 const RouterList: {
 	component: any;
 	path: string;
 	exact?: boolean;
 }[] = [
-	/*{
+	{
 		component: loadable(() => import("./views/home")),
 		path: "/",
 		exact: true,
@@ -35,7 +34,7 @@ const RouterList: {
 	{
 		component: loadable(() => import("./views/setting")),
 		path: "/setting",
-	},*/
+	},
 	{
 		component: loadable(() => import("./views/app/index")),
 		path: "/app/:name",

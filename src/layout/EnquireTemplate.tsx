@@ -80,7 +80,7 @@ class EnquireTemplate extends React.Component<
 					value={input}
 				/>
 				<button
-					onClick={this.loadCommentsFromServer}
+					onClick={this.loadCommentsFromServer.bind(this)}
 					className="loadBtn mdui-ripple mdui-color-theme mdui-float-right mdui-btn-raised mdui-btn"
 				>
 					{btnText || "查询"}

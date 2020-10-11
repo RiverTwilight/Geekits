@@ -118,6 +118,7 @@ class Header extends React.Component<
 				<div className="mdui-appbar mdui-shadow-0">
 					<div className="mdui-toolbar mdui-color-white">
 						<Button
+							// 请勿取消箭头函数嵌套
 							onClick={() => window.leftDrawer.toggle()}
 							icon="menu"
 						/>

@@ -5,10 +5,10 @@ import { alert as mduiAlert, mutation } from "mdui";
 // @ts-expect-error ts-migrate(7016) FIXME: Try `npm install @types/js-pinyin` if it exists or... Remove this comment to see the full error message
 import pinyin from "js-pinyin";
 import { ToTop } from "mdui-in-react";
-import axios from "../../utils/axios";
 import applist from "../../data/appData";
 import fiv from "../../utils/Services/fiv";
 import useEventListener from "../../utils/Hooks/useEventListener";
+import marked from "marked";
 
 const AppListItem = ({
 	isActive,
@@ -132,7 +132,6 @@ const FivList = () => {
 /**
  * 搜索结果
  */
-
 const SearchResult = ({ result = [], kwd }: any) => {
 	const handleKeydown = (e: any) => {
 		if (e.keyCode === 38 || e.keyCode === 40) {
@@ -322,58 +321,59 @@ class AppList extends React.Component {
 
 type IndexState = any;
 
-class Index extends React.Component<{}, IndexState> {
-	showNotice() {
-		const {
-			notice: { date, content, id },
-		} = this.state;
-		mduiAlert(
-			content,
-			date.split("T")[0] + "公告",
-			() => {
-				localStorage.setItem("readedNotice", id);
-			},
-			{
-				confirmText: "我知道了",
-				history: false,
-			}
-		);
-	}
+export default class Index extends React.Component<{}, IndexState> {
+	// showNotice() {
+	// 	const {
+	// 		notice: { date, content, id },
+	// 	} = this.state;
+	// 	mduiAlert(
+	// 		content,
+	// 		date.split("T")[0] + "公告",
+	// 		() => {
+	// 			localStorage.setItem("readedNotice", id);
+	// 		},
+	// 		{
+	// 			confirmText: "我知道了",
+	// 			history: false,
+	// 		}
+	// 	);
+	// }
 	componentDidMount() {
 		this.getNotice();
 		window.updateTitle();
 	}
 	getNotice() {
 		//if(sessionStorage.loadedNotice == 1)return
-		axios.get("/ygktool/notice").then((json) => {
-			const { primary, content, date } = json.data[0];
-			const notice = {
-				id: primary,
-				content: content.replace(/\n/g, "<br>"),
-				date: date,
-			};
-			window.setRightDrawer(
-				<div className="mdui-typo mdui-p-a-1">
-					<h3>公告</h3>
-					<div
-						style={{
-							// Fix word-warp doesn't work
-							whiteSpace: "normal",
-						}}
-						dangerouslySetInnerHTML={{
-							__html: notice ? notice.content : "没有公告",
-						}}
-					></div>
-				</div>
-			);
-			//sessionStorage.setItem('loadedNotice', 1)
-			if (
-				window.innerWidth <= 640 &&
-				(!localStorage.readedNotice ||
-					parseInt(localStorage.readedNotice) !== primary)
-			)
-				this.showNotice();
-		});
+		const helpMdPath = require(`../../data/notice.md`);
+		fetch(helpMdPath)
+			.then((response) => {
+				return response.text();
+			})
+			.then((text) => {
+				const notice = {
+					content: marked(text),
+				};
+				window.setRightDrawer(
+					<div className="mdui-typo mdui-p-a-1">
+						<div
+							style={{
+								// Fix word-warp doesn't work
+								whiteSpace: "normal",
+							}}
+							dangerouslySetInnerHTML={{
+								__html: notice ? notice.content : "没有公告",
+							}}
+						></div>
+					</div>
+				);
+				// sessionStorage.setItem('loadedNotice', 1)
+				// if (
+				// 	window.innerWidth <= 640 &&
+				// 	(!localStorage.readedNotice ||
+				// 		parseInt(localStorage.readedNotice) !== primary)
+				// )
+				// 	this.showNotice();
+			});
 	}
 	render() {
 		return (
@@ -386,5 +386,3 @@ class Index extends React.Component<{}, IndexState> {
 		);
 	}
 }
-
-export default Index;

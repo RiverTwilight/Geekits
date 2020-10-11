@@ -37,11 +37,28 @@ function d2a(n) {
 	return (n * Math.PI) / 180;
 }
 
-// @ts-expect-error ts-migrate(7031) FIXME: Binding element 'closeBottomAlert' implicitly has ... Remove this comment to see the full error message
-const Record = ({ closeBottomAlert }) => {
+const Record = ({ closeBottomAlert }: { closeBottomAlert: any }) => {
 	!localStorage.tomato && localStorage.setItem("tomato", "[]");
 	const historyData = JSON.parse(localStorage.tomato);
 	const now = new Date();
+	const clearHistory = () => {
+		mdui.JQ.hideOverlay();
+		closeBottomAlert && closeBottomAlert();
+		// @ts-expect-error ts-migrate(2339) FIXME: Property 'confirm' does not exist on type 'IMduiSt... Remove this comment to see the full error message
+		mdui.confirm(
+			"此操作不可逆！",
+			"清除历史记录",
+			() => {
+				localStorage.setItem("tomato", "[]");
+			},
+			() => {},
+			{
+				confirmText: "确定",
+				cancelText: "我手残了",
+				history: false,
+			}
+		);
+	};
 	return (
 		<>
 			<div className="mdui-progress">
@@ -98,24 +115,7 @@ const Record = ({ closeBottomAlert }) => {
 					style={{
 						display: historyData.length ? "block" : "none",
 					}}
-					onClick={() => {
-						mdui.JQ.hideOverlay();
-						closeBottomAlert && closeBottomAlert();
-						// @ts-expect-error ts-migrate(2339) FIXME: Property 'confirm' does not exist on type 'IMduiSt... Remove this comment to see the full error message
-						mdui.confirm(
-							"此操作不可逆！",
-							"清除历史记录",
-							() => {
-								localStorage.setItem("tomato", "[]");
-							},
-							() => {},
-							{
-								confirmText: "确定",
-								cancelText: "我手残了",
-								history: false,
-							}
-						);
-					}}
+					onClick={clearHistory}
 					className="mdui-btn mdui-btn-block mdui-ripple"
 				>
 					清空记录
@@ -153,11 +153,13 @@ const Tomato = ({
 			className="mdui-shadow-0 mdui-fab mdui-color-theme tomato-box"
 		>
 			<button
-			style={{
-				backgroundColor: document.body.classList.contains("mdui-theme-layout-dark")
-				? "#303030"
-				: "#fff"
-			}}
+				style={{
+					backgroundColor: document.body.classList.contains(
+						"mdui-theme-layout-dark"
+					)
+						? "#303030"
+						: "#fff",
+				}}
 				className={`mdui-shadow-0 mdui-fab mask`}
 			></button>
 			<svg
