@@ -1,7 +1,6 @@
 import React from "react";
 import { snackbar } from "mdui";
 import ClipboardJS from "clipboard";
-
 import { Input, Select } from "mdui-in-react";
 import dic from "./dictionary";
 import { signListener, removeListener } from "../../utils/Hooks/useFileDrager";
