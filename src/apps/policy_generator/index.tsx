@@ -1,31 +1,43 @@
 import * as React from "react";
 import { Input, Button } from "mdui-in-react";
+import Form from "../../components/Form";
 import useInput from "../../utils/Hooks/useInput";
 import PG from "./generator";
+import fileSaver, { saveFile } from "../../utils/fileSaver"
 import marked from "marked";
 // TODO 隐私政策生成器
 
 const PGI = new PG();
 
 const BasicInfo = ({ display }: { display: boolean }) => {
-	const [firmName, setFirmName] = useInput("");
-	const [shortName, setShortName] = useInput("");
-	const [websiteName, setWebsiteName] = useInput("");
-	const [url, setUrl] = useInput("");
+	const FORM_CONFIG = [
+		{
+			id: "firmName",
+			header: "公司名称",
+		},
+		{
+			id: "shortName",
+			header: "公司简称",
+		},
+		{
+			id: "websiteName",
+			header: "网站名称",
+		},
+		{
+			id: "url",
+			header: "网站地址",
+		},
+	];
+	const handleInput = ({ key, event }: { key: string; event: any }) => {
+		PGI.setConfig(key, event.value);
+	};
 	return (
 		<div
 			style={{
 				display: display ? "block" : "none",
 			}}
 		>
-			<Input header="公司名称" onInput={setFirmName} value={firmName} />
-			<Input header="公司简称" onInput={setShortName} value={shortName} />
-			<Input
-				header="网站名称"
-				onInput={setWebsiteName}
-				value={websiteName}
-			/>
-			<Input header="网站地址" onInput={setUrl} value={url} />
+			<Form config={FORM_CONFIG} onValueChange={handleInput} />
 		</div>
 	);
 };
@@ -53,15 +65,25 @@ const AdditionalInfo = ({ display }: { display: boolean }) => {
 	);
 };
 
-const Result = ({ display }: { display: boolean }) => {
+const Result = () => {
+	const exportAsMd = ()=>{
+		saveFile({
+			filename: "隐私政策-云极客工具.md",
+			type: "md",
+			file: new Blob([PGI.generator()], {type: "text/markdown"})
+		})
+	}
 	return (
-		<div
-			style={{
-				display: display ? "block" : "none",
-			}}
-		>
+		<div style={{}}>
 			<h3>完毕</h3>
+			<Button onClick={exportAsMd} raised icon="file_download" title="导出Markdown" />
+			<Button raised disabled icon="file_download" title="导出HTML" />
+			<div className="mdui-divider" />
 			<div
+				style={{
+					maxHeight: "250px",
+					overflow: "scroll",
+				}}
 				dangerouslySetInnerHTML={{
 					__html: marked(PGI.generator()),
 				}}
@@ -127,7 +149,7 @@ const PolicyType = ({ display }: { display: boolean }) => {
 
 export default () => {
 	const [step, setStep] = React.useState(0);
-	const TOTAL_STEP = 3;
+	const TOTAL_STEP = 2;
 	const nextStep = () => {
 		setStep(step + 1);
 	};
@@ -147,8 +169,7 @@ export default () => {
 			<div className="mdui-typo">
 				<PolicyType display={step === 0} />
 				<BasicInfo display={step === 1} />
-				<BasicInfo display={step === 2} />
-				<Result display={step === 3} />
+				{step === 2 && <Result />}
 			</div>
 
 			<br></br>
