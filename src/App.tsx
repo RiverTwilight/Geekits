@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Header from "./layout/header";
-import { snackbar, Dialog } from "mdui";
+import { Dialog } from "mdui";
 import LeftDrawer from "./layout/LeftDrawer";
 import RightDrawer from "./layout/RightDrawer";
 import LoginDialog from "./layout/LoginDialog";

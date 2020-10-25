@@ -8,7 +8,6 @@ import './index.css';
  * 初始化设置
  */
 !localStorage.setting && localStorage.setItem('setting', JSON.stringify({
-	homeShowNewestTool: true,
 	theme: 0,
 	hitokotoTopic: 0
 }))

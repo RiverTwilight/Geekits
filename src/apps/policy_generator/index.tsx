@@ -3,7 +3,7 @@ import { Input, Button } from "mdui-in-react";
 import Form from "../../components/Form";
 import useInput from "../../utils/Hooks/useInput";
 import PG from "./generator";
-import fileSaver, { saveFile } from "../../utils/fileSaver"
+import fileSaver, { saveFile } from "../../utils/fileSaver";
 import marked from "marked";
 // TODO 隐私政策生成器
 
@@ -66,18 +66,37 @@ const AdditionalInfo = ({ display }: { display: boolean }) => {
 };
 
 const Result = () => {
-	const exportAsMd = ()=>{
+	const exportAsMd = () => {
 		saveFile({
 			filename: "隐私政策-云极客工具.md",
 			type: "md",
-			file: new Blob([PGI.generator()], {type: "text/markdown"})
-		})
-	}
+			file: new Blob([PGI.generator()], { type: "text/markdown" }),
+		});
+	};
+	const exportAsHTML = () => {
+		saveFile({
+			filename: "隐私政策-云极客工具.html",
+			type: "html",
+			file: new Blob([marked(PGI.generator())], {
+				type: "text/markdown",
+			}),
+		});
+	};
 	return (
 		<div style={{}}>
 			<h3>完毕</h3>
-			<Button onClick={exportAsMd} raised icon="file_download" title="导出Markdown" />
-			<Button raised disabled icon="file_download" title="导出HTML" />
+			<Button
+				onClick={exportAsMd}
+				raised
+				icon="file_download"
+				title="导出Markdown"
+			/>
+			<Button
+				raised
+				onClick={exportAsHTML}
+				icon="file_download"
+				title="导出HTML"
+			/>
 			<div className="mdui-divider" />
 			<div
 				style={{
@@ -107,7 +126,7 @@ const PolicyType = ({ display }: { display: boolean }) => {
 			<div
 				key={title}
 				className={`${
-					type === index && "mdui-shadow-12"
+					type === index && "mdui-shadow-10"
 				} mdui-card mdui-hoverable`}
 				onClick={() => {
 					setType(index);
@@ -132,16 +151,17 @@ const PolicyType = ({ display }: { display: boolean }) => {
 				display: display ? "block" : "none",
 			}}
 		>
-			<h3>你要生成的类型</h3>
+			<h3>选择你要生成的类型</h3>
 			<p>欢迎使用服务协议生成器</p>
 			{[
+				// TODO 服务协议生成器
 				{
 					title: "隐私协议",
 					description:
 						"我们的隐私政策生成器可以帮助您确保您的业务符合法律规定。我们在这里帮助您保护您的业务，您自己和您的客户",
 				},
 			].map((type, i) => (
-				<TypeCrad {...type} index={i} />
+				<TypeCrad key={type.title} {...type} index={i} />
 			))}
 		</div>
 	);

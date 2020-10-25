@@ -95,7 +95,7 @@ class ToolBar extends React.Component<ToolBarProps, ToolBarState> {
 	render() {
 		const { showTextApps } = this.state;
 		const { textarea, cb, content, undo, redo } = this.props;
-		// TODO 使用component
+		// HACK 使用component
 		return (
 			<>
 				<div className="mdui-btn-group">

@@ -1,5 +1,5 @@
 import React from "react";
-import { snackbar, Dialog } from "mdui";
+import { snackbar } from "mdui";
 import Axios from "../utils/axios";
 import { MD5 } from "crypto-js";
 import { getUserInfo, setUserInfo } from "../utils/Services/UserInfo";
@@ -22,15 +22,6 @@ class Login extends React.Component<
 			dialogInst: null,
 			xcode: "",
 		};
-	}
-	// shouldComponentUpdate(nextProps: { ifOpen: boolean }, nextState: any) {
-	// 	return (
-	// 		nextProps.ifOpen !==
-	// 		(window.dialogInst && window.dialogInst.getState() === "opened")
-	// 	);
-	// }
-	componentDidMount() {
-
 	}
 	signin() {
 		const { username, password, xcode, remember } = this.state;
@@ -163,6 +154,7 @@ class Login extends React.Component<
 						</label>
 					</div>
 					<div className="mdui-dialog-actions">
+						{/*// TODO 忘记密码 */}
 						<button className="mdui-btn mdui-ripple">
 							忘记密码
 						</button>

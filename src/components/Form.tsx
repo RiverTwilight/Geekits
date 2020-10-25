@@ -48,11 +48,13 @@ const Form = ({
 					default:
 						return (
 							<Input
+								key={id}
 								onInput={(e) => {
-									onValueChange && onValueChange({
-                                        key: id,
-                                        event: e.target
-                                    });
+									onValueChange &&
+										onValueChange({
+											key: id,
+											event: e.target,
+										});
 								}}
 								header={header}
 								placeholder={placeholder}
