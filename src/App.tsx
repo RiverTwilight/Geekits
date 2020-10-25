@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Header from "./layout/header";
+import { snackbar, Dialog } from "mdui";
 import LeftDrawer from "./layout/LeftDrawer";
 import RightDrawer from "./layout/RightDrawer";
 import LoginDialog from "./layout/LoginDialog";
@@ -54,7 +55,13 @@ const NoMatch = () => (
 	</div>
 );
 
-class App extends React.Component<any, any> {
+class App extends React.Component<
+	any,
+	{
+		showLoginDialog: boolean;
+		rightDrawerContent: any;
+	}
+> {
 	loading: any;
 	constructor(props: any) {
 		super(props);
@@ -63,8 +70,28 @@ class App extends React.Component<any, any> {
 			rightDrawerContent: null,
 		};
 	}
+	componentDidUpdate() {
+		this.state.showLoginDialog && window.dialogInst.open();
+		!this.state.showLoginDialog && window.dialogInst.close();
+	}
 	componentDidMount() {
 		const { loading } = this;
+
+		window.dialogInst = new Dialog("#loginDialog", {
+			history: false,
+			destroyOnClosed: false,
+			closeOnCancel: false,
+			closeOnEsc: true,
+			closeOnConfirm: false,
+		});
+		//@ts-expect-error
+		document
+			.getElementById("loginDialog")
+			.addEventListener(
+				"closed.mdui.dialog",
+				this.closeLoginDialog.bind(this)
+			);
+
 		const toggleDisabled = (isDisabled: any) => {
 			var btns = document.getElementsByClassName("loadBtn");
 			for (let i = 0; i < btns.length; i++) {
@@ -108,6 +135,11 @@ class App extends React.Component<any, any> {
 	openLoginDialog = () => {
 		this.setState({
 			showLoginDialog: true,
+		});
+	};
+	closeLoginDialog = () => {
+		this.setState({
+			showLoginDialog: false,
 		});
 	};
 	getGlobalRef = (refs: any) => {

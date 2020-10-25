@@ -4,7 +4,7 @@
 
 Launched in February 2020, a progressive online tool website, the technology stack is Typescript + Create React App.
 
-## Contribution
+## Contribute
 
 ```sh
 # start devServer

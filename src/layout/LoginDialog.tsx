@@ -23,16 +23,14 @@ class Login extends React.Component<
 			xcode: "",
 		};
 	}
-	componentDidUpdate() {
-		window.dialogInst = new Dialog("#loginDialog", {
-			history: false,
-			destroyOnClosed: true,
-			closeOnCancel: false,
-			closeOnEsc: true,
-			closeOnConfirm: false,
-		});
-		this.props.ifOpen && window.dialogInst.open();
-		!this.props.ifOpen && window.dialogInst.close();
+	// shouldComponentUpdate(nextProps: { ifOpen: boolean }, nextState: any) {
+	// 	return (
+	// 		nextProps.ifOpen !==
+	// 		(window.dialogInst && window.dialogInst.getState() === "opened")
+	// 	);
+	// }
+	componentDidMount() {
+
 	}
 	signin() {
 		const { username, password, xcode, remember } = this.state;
@@ -60,7 +58,7 @@ class Login extends React.Component<
 					case 666:
 						var data = JSON.stringify(json.data);
 						setUserInfo(data, remember);
-						 window.location.href = "/user";
+						window.location.href = "/user";
 						break;
 				}
 			})
@@ -101,7 +99,7 @@ class Login extends React.Component<
 						var data = JSON.stringify(json.data);
 						setUserInfo(data, remember);
 						window.location.href = "/user";
-						break
+						break;
 				}
 			})
 			.catch((e) => {
@@ -120,10 +118,10 @@ class Login extends React.Component<
 					<div className="mdui-dialog-content">
 						<Input
 							onValueChange={(newText) => {
-								this.setState({ 
+								this.setState({
 									username: newText,
-									showXcode: false
-								 });
+									showXcode: false,
+								});
 							}}
 							header="邮箱"
 							placeholder="账户不存在将自动创建"
@@ -176,7 +174,7 @@ class Login extends React.Component<
 							}
 							className="mdui-btn mdui-ripple"
 						>
-							登录
+							注册/登录
 						</button>
 					</div>
 				</div>
