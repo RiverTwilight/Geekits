@@ -2,15 +2,21 @@ import React from "react";
 import { snackbar } from "mdui";
 import Axios from "../utils/axios";
 import { MD5 } from "crypto-js";
-import { getUserInfo, setUserInfo } from "../utils/Services/UserInfo";
-import SendCode from "../utils/Services/SendCode";
 import { Input } from "mdui-in-react";
+import { setUserInfo } from "../utils/Services/UserInfo";
+import SendCode from "../utils/Services/SendCode";
 
 class Login extends React.Component<
 	{
 		ifOpen: boolean;
 	},
-	any
+	{
+		statu: "login" | "signin";
+		username: string;
+		password: string;
+		remember: boolean;
+		xcode: string;
+	}
 > {
 	constructor(props: any) {
 		super(props);
@@ -18,9 +24,8 @@ class Login extends React.Component<
 			username: /*'wrj2014@126.com',*/ "",
 			password: /*'123456',*/ "",
 			remember: false,
-			showXcode: false,
-			dialogInst: null,
 			xcode: "",
+			statu: "login",
 		};
 	}
 	signin() {
@@ -79,7 +84,7 @@ class Login extends React.Component<
 						// 切换成注册模式
 						this.setState(
 							{
-								showXcode: true,
+								statu: "signin",
 							},
 							() => {
 								window.dialogInst.handleUpdate();
@@ -101,7 +106,7 @@ class Login extends React.Component<
 			});
 	}
 	render() {
-		const { password, username, remember, xcode, showXcode } = this.state;
+		const { password, username, remember, xcode, statu } = this.state;
 		return (
 			<>
 				<div id="loginDialog" className="mdui-dialog">
@@ -111,7 +116,6 @@ class Login extends React.Component<
 							onValueChange={(newText) => {
 								this.setState({
 									username: newText,
-									showXcode: false,
 								});
 							}}
 							header="邮箱"
@@ -129,7 +133,7 @@ class Login extends React.Component<
 							type="password"
 							value={password}
 						/>
-						{showXcode && (
+						{statu === "signin" && (
 							<SendCode
 								onInput={(code: any) => {
 									this.setState({ xcode: code });
@@ -155,14 +159,19 @@ class Login extends React.Component<
 					</div>
 					<div className="mdui-dialog-actions">
 						{/*// TODO 忘记密码 */}
-						<button className="mdui-btn mdui-ripple">
+						<button
+							onClick={() => {
+								window.open("/user/forget");
+							}}
+							className="mdui-btn mdui-ripple"
+						>
 							忘记密码
 						</button>
 						<button
 							onClick={
-								showXcode
-									? this.signin.bind(this)
-									: this.login.bind(this)
+								statu === "login"
+									? this.login.bind(this)
+									: this.signin.bind(this)
 							}
 							className="mdui-btn mdui-ripple"
 						>

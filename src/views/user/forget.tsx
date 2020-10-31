@@ -1,13 +1,15 @@
 import React from 'react'
 import { snackbar } from 'mdui'
 import Axios from '../../utils/axios';
-import { MD5 } from 'crypto-js';
-import { getUserInfo, setUserInfo } from '../../utils/Services/UserInfo'
 import SendCode from '../../utils/Services/SendCode'
-import { Input } from 'mdui-in-react'
+import { Input, Button } from 'mdui-in-react'
 
 type ForgetState = any;
 
+/**
+ * 忘记密码页面
+ * @author 江村暮
+ */
 class Forget extends React.Component<{}, ForgetState> {
     constructor(props: {}) {
         super(props);
