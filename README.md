@@ -1,21 +1,76 @@
-## About
+<p align="center">
+  <a href="https://ant.design">
+    <img width="200" src="https://www.ygktool.cn/logo_design.svg">
+  </a>
+</p>
 
-于 2020 年 2 月启动，一个渐进式在线工具网站，技术栈是 Typescript + Create React App.
+<h1 align="center">云极客工具</h1>
 
-Launched in February 2020, a progressive online tool website, the technology stack is Typescript + Create React App.
+<div align="center">
 
-## Contribute
+[English](./README-en.md) | 简体中文
 
-```sh
-# start devServer
-npm start
-# build produnction
-npm run build
+</div>
+
+一个渐进式在线工具网站，是由 MaterialDesign , Typescript , React 等许多爱意构建成的.
+
+我们希望把她打造成一个精美但简约、实用又简单的在线工具箱。
+
+## 贡献
+
+**请在 dev 分支上开发，master 分支将自动部署到网站正式地址。**
+
+你可以使用 Gitpod 进行在线开发：
+
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/rivertwilight/ygktool)
+
+或者克隆到本地开发:
+
+```bash
+$ git clone git@github.com:rivertwilight/ygktool.git
+$ cd ygktool
+$ npm install
+$ npm start
 ```
 
-### 详细开发文档请参阅[Wiki](https://github.com/RiverTwilight/ygktool/wiki/Ygktool-Development-Document)
+打开浏览器访问 http://127.0.0.1:3000.
 
-### Please refer to [Wiki](https://github.com/RiverTwilight/ygktool/wiki/Ygktool-Development-Document) for detailed development documentation
+建议安装这个[vscode 插件](https://github.com/Gruntfuggly/todo-tree)来查看和增添待办事项。
+
+### 风格
+
+统一使用 MDUI 这个 css 框架，由于它是基于 html 的，所以我单独封装了一个 [React 版本](https://github.com/RiverTwilight/mdui-in-react)，你也可以在这里添加新组件。
+
+布局需尽量遵循 [Material Design 设计规范](http://material.io/design).
+
+### 新增工具
+
+首先需要添加工具配置。文件位于`./utils/appList.js`，包含了所有工具配置。
+
+建议使用编写好的脚本快速添加。
+
+```bash
+npm run new:App
+```
+
+| Name        | type    | default | description                                                               |
+| ----------- | ------- | ------- | ------------------------------------------------------------------------- |
+| link        | string  | --      | 工具对应的 app 文件夹下的文件名。设置成*coming*即可作为即将到来的工具发布 |
+| name        | string  | --      | 工具的名称                                                                |
+| network     | boolean | false   | 【可选】是否需要联网使用，需要联网的工具在离线使用时会提示。              |
+| help        | string  | --      | 【可选】工具使用帮助                                                      |
+| description | string  | --      | 【可选】工具描述                                                          |
+| icon        | string  | --      | 工具对应的 MaterialDesign 图标名                                          |
+
+添加配置后，在`./apps/`下添加一个和配置中 Link 同名的文件夹，默认 index.\*为入口文件。
+
+访问/app/\<link\>即可调试.
+
+### 开发规范
+
+欢迎随时纠正我在代码中的不良习惯。
+
+由于学业繁忙，项目时间跨度久，我也处在技术成长期，仍旧有许多“破窗”。若能斧正不胜感激！
 
 ## License
 
@@ -23,14 +78,9 @@ Copyright (c) RiverTwilight. All rights reserved.
 
 Licensed under the MIT license.
 
-## Donate
+## 捐赠
 
-I am a high school student without any source of income. If you like my project, you can buy me a cup of coffee!
+我是一个没有任何收入来源的高中生，如果你喜欢云极客，可以给我买一杯奶茶!
 
-### WechatPay
-
-![Wechat Pay](https://i.loli.net/2020/09/12/CoJjtlHBskeMdKI.png)
-
-### AliPay
-
-![Ali Pay](https://i.loli.net/2020/09/12/Mq1TBZSwnDHVRxv.png)
+<img width="200" height="200" src="https://i.loli.net/2020/09/12/CoJjtlHBskeMdKI.png">
+<img width="200" height="200" src="https://i.loli.net/2020/09/12/Mq1TBZSwnDHVRxv.png">

@@ -158,7 +158,6 @@ class Login extends React.Component<
 						</label>
 					</div>
 					<div className="mdui-dialog-actions">
-						{/*// TODO 忘记密码 */}
 						<button
 							onClick={() => {
 								window.open("/user/forget");

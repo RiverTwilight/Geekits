@@ -1,7 +1,6 @@
 {
   "name": "ygktool",
   "version": "0.1.0",
-  "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
@@ -46,6 +45,7 @@
     "test": "react-app-rewired test --env=jsdom",
     "eject": "react-scripts eject",
     "build": "bash scripts/build.sh",
+    "prebuild": "npm version",
     "newApp": "bash scripts/newApp.sh"
   },
   "eslintConfig": {

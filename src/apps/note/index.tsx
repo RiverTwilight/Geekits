@@ -31,6 +31,12 @@ const MarkDown = ({ md }: { md: string }) => {
 // 	return result;
 // };
 
+type note = {
+	title?: string;
+	content?: string;
+	tags?: string;
+	date?: string;
+};
 type EditState = any;
 
 class Edit extends React.Component<{}, EditState> {
@@ -77,7 +83,7 @@ class Edit extends React.Component<{}, EditState> {
 		const { noteId, title, local } = this.state;
 		this.setState({ content: newText });
 		var today = new Date();
-		var newNote = {
+		var newNote: note = {
 			title: title,
 			content: newText,
 			tags: "a b c",
@@ -127,8 +133,7 @@ const updateNote = (local, i, newNote, cb?) => {
 	cb && cb(local);
 };
 
-// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'local' implicitly has an 'any' type.
-const addNote = (local, newNote, cb) => {
+const addNote = (local: note[], newNote: note, cb?: (local: note[]) => void) => {
 	local.push(newNote);
 	localStorage.setItem("note", JSON.stringify(local));
 	cb && cb(local);
@@ -203,15 +208,14 @@ class Home extends React.Component<{}, HomeState> {
 	constructor(props: {}) {
 		super(props);
 		this.state = {
-			// @ts-expect-error ts-migrate(2345) FIXME: Type 'null' is not assignable to type 'string'.
-			local: JSON.parse(localStorage.getItem("note")) || [],
+			local: JSON.parse(localStorage.getItem("note") || "[]");
 			editStatu: false,
 			editHome: false,
 			view: "list",
 		};
 	}
 	render() {
-		const { local, editStatu, editHome } = this.state;
+		const { local, editHome } = this.state;
 		return (
 			<>
 				{!local.length && (
@@ -232,7 +236,6 @@ class Home extends React.Component<{}, HomeState> {
 				<Link to={`/app/note/edit?id=${local.length}`}>
 					<button
 						onClick={() => {
-							// @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
 							addNote(local, {
 								content: "",
 							});

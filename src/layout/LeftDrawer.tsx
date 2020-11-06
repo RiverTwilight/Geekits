@@ -132,16 +132,16 @@ class DrawerMenu extends React.Component<
 								face
 							</i>
 							<div className="mdui-list-item-content">
-								{"启用完整功能"}
+								{"注册/登录"}
 							</div>
 						</li>
 					)}
 					<div className="mdui-divider" />
 					<Menu />
 				</ul>
-				{/**<p className="mdui-text-center copyright">
+				{/* <p className="mdui-text-center copyright">
 					©2019-2020&nbsp;江村暮
-						</p>**/}
+				</p> */}
 			</div>
 		);
 	}
