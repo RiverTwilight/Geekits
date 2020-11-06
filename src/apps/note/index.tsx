@@ -208,7 +208,7 @@ class Home extends React.Component<{}, HomeState> {
 	constructor(props: {}) {
 		super(props);
 		this.state = {
-			local: JSON.parse(localStorage.getItem("note") || "[]");
+			local: JSON.parse(localStorage.getItem("note") || "[]"),
 			editStatu: false,
 			editHome: false,
 			view: "list",
