@@ -1,5 +1,8 @@
 import React from "react";
-import text2md from "./text2md"
+import InsertLink from "./InsertLink";
+import text2md from "./text2md";
+import { Button } from "mdui-in-react";
+import { isObject } from "util";
 
 const APP_MENU = [
 	{
@@ -11,11 +14,6 @@ const APP_MENU = [
 		icon: "format_list_bulleted",
 		style: "list",
 		name: "列表",
-	},
-	{
-		icon: "link",
-		style: "link",
-		name: "链接",
 	},
 	{
 		icon: "keyboard_return",
@@ -90,14 +88,21 @@ class ToolBar extends React.Component<ToolBarProps, ToolBarState> {
 		this.state = {
 			showTextApps: false,
 			history: [],
+			isOpen: false,
 		};
 	}
 	render() {
-		const { showTextApps } = this.state;
+		const { showTextApps, isOpen } = this.state;
 		const { textarea, cb, content, undo, redo } = this.props;
 		// HACK 使用component
 		return (
 			<>
+				<InsertLink
+					isOpen={isOpen}
+					onConfirm={() => {
+						this.setState({ isOpen: false });
+					}}
+				/>
 				<div className="mdui-btn-group">
 					<button
 						onClick={() => {
@@ -116,12 +121,25 @@ class ToolBar extends React.Component<ToolBarProps, ToolBarState> {
 							font_download
 						</i>
 					</button>
-
 					<button
-						onClick={undo}
+						onClick={() => {
+							this.setState({ isOpen: !isOpen });
+						}}
 						type="button"
 						className="mdui-btn"
 					>
+						<i
+							className={`${
+								showTextApps
+									? "mdui-text-color-theme-accent"
+									: ""
+							} mdui-icon material-icons`}
+						>
+							link
+						</i>
+					</button>
+
+					<button onClick={undo} type="button" className="mdui-btn">
 						<i className="mdui-icon material-icons">undo</i>
 					</button>
 
