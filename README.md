@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://ant.design">
-    <img width="200" src="https://www.ygktool.cn/logo_design.svg">
+    <img width="180" src="https://www.ygktool.cn/logo_design.svg">
   </a>
 </p>
 

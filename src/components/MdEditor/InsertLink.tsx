@@ -25,8 +25,11 @@ const InsertLink = ({
 			.getElementById("insertLink")
 			.addEventListener("closed.mdui.dialog", onConfirm);
 	}, [isOpen]);
-	const [text, setText] = useInput("");
 	const [link, setLink] = useInput("");
+	const [text, setText] = useInput("");
+	const ok = () => {
+		onConfirm && onConfirm(link, text);
+	};
 	return (
 		<div id="insertLink" className="mdui-dialog">
 			<div className="mdui-dialog-content">
@@ -35,7 +38,9 @@ const InsertLink = ({
 			</div>
 			<div className="mdui-dialog-actions">
 				<button className="mdui-btn mdui-ripple">取消</button>
-				<button className="mdui-btn mdui-ripple">确认</button>
+				<button onClick={ok} className="mdui-btn mdui-ripple">
+					确认
+				</button>
 			</div>
 		</div>
 	);

@@ -45,7 +45,7 @@
 		"test": "react-app-rewired test --env=jsdom",
 		"eject": "react-scripts eject",
 		"build": "bash scripts/build.sh",
-		"prebuild": "git log --pretty='- %s' > CHANGELOG.md && npm version patch",
+		"prebuild": "git log --pretty='- %s' > CHANGELOG.md",
 		"newApp": "bash scripts/newApp.sh"
 	},
 	"eslintConfig": {
