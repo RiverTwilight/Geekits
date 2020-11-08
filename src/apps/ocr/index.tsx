@@ -2,7 +2,12 @@ import React from "react";
 import { snackbar } from "mdui";
 import axios from "../../utils/axios";
 import ClipboardJS from "clipboard";
-import { FileInput, ListControlCheck, ListControlMenu } from "mdui-in-react";
+import {
+	FileInput,
+	ListControlCheck,
+	ListControlMenu,
+	Button,
+} from "mdui-in-react";
 import Cropper from "../../utils/Cropper";
 import ImgCompress from "../img_compress/engine";
 
@@ -36,7 +41,8 @@ const urlMark = (text: any) => {
 	);
 	return text;
 };
-
+// TODO 结果保存到便签
+// TODO 结果高亮
 const Result = ({ data, ifIgnoreLine, onIgnoreLine }: any) => {
 	if (data === null) return null;
 	const Tag = ifIgnoreLine ? "span" : "p";
@@ -59,15 +65,12 @@ const Result = ({ data, ifIgnoreLine, onIgnoreLine }: any) => {
 							onIgnoreLine(checked);
 						}}
 					/>
-					{
-						// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'line' implicitly has an 'any' type.
-						markedText.map((line, i) => (
-							<Tag
-								key={i}
-								dangerouslySetInnerHTML={{ __html: line }}
-							></Tag>
-						))
-					}
+					{markedText.map((line: string, i: number) => (
+						<Tag
+							key={i}
+							dangerouslySetInnerHTML={{ __html: line }}
+						></Tag>
+					))}
 				</div>
 
 				<div className="mdui-card-actions">
@@ -141,8 +144,6 @@ export default class extends React.Component<{}, ComponentState> {
 		};
 	}
 	componentDidMount() {
-		// @ts-expect-error ts-migrate(2454) FIXME: Variable 'clipboard' is used before being assigned... Remove this comment to see the full error message
-		clipboard && clipboard.destroy();
 		var clipboard = new ClipboardJS(".copy");
 		clipboard.on("success", (e) => {
 			snackbar({ message: "已复制" });
@@ -235,7 +236,6 @@ export default class extends React.Component<{}, ComponentState> {
 									const cb = this.handleFileUpdate.bind(this);
 									// @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
 									if (fileObj.size >= 1.4 * 1024 * 1024) {
-										// @ts-expect-error ts-migrate(2554) FIXME: Expected 4 arguments, but got 3.
 										ImgCompress(file, 0.1, cb);
 										//cb(file)
 									} else {
@@ -244,17 +244,15 @@ export default class extends React.Component<{}, ComponentState> {
 								}}
 							/>
 
-							<button
+							<Button
 								onClick={() => {
 									image && this.loadDataFromServer();
 								}}
-								className="loadBtn mdui-btn-raised mdui-ripple mdui-color-theme mdui-btn"
-							>
-								<i className="mdui-icon mdui-icon-left material-icons">
-									&#xe5ca;
-								</i>
-								识别
-							</button>
+								primary
+								title="识别"
+								icon="check"
+								className="loadBtn"
+							/>
 						</div>
 					</div>
 					<br></br>

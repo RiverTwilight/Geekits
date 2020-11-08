@@ -8,14 +8,11 @@ import { signListener, removeListener } from '../../utils/Hooks/useFileDrager'
 //结果展示框
 function PrintRes(props: any) {
     return (
-        
         <div className="mdui-col mdui-textfield">
-            
             <textarea
                 value={props.res}
                 data-clipboard-text={String(props.res)}
-                // @ts-expect-error ts-migrate(2322) FIXME: Type 'string' is not assignable to type 'number | ... Remove this comment to see the full error message
-                rows="5" id="becopy"
+                rows={5} id="becopy"
                 className="mdui-textfield-input">
             </textarea>
         </div>

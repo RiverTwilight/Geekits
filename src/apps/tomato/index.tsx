@@ -32,8 +32,7 @@ const Saying = ({ index }) => {
 };
 */
 
-// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'n' implicitly has an 'any' type.
-function d2a(n) {
+function d2a(n: number) {
 	return (n * Math.PI) / 180;
 }
 
@@ -208,6 +207,7 @@ const Tomato = ({
 
 type TomatoClockState = any;
 
+// FIXME 退出后将标题复原
 class TomatoClock extends React.Component<{}, TomatoClockState> {
 	constructor(props: {}) {
 		super(props);
@@ -362,7 +362,7 @@ class TomatoClock extends React.Component<{}, TomatoClockState> {
 						className="mdui-color-theme mdui-btn mdui-btn-raised"
 					>
 						{
-							// @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+							//@ts-expect-error
 							{
 								rest: "跳过休息",
 								working: "重置",

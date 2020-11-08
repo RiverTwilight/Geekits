@@ -16,11 +16,11 @@ type TProps = {
 };
 
 /**
-  * Markdown编辑器
-  * @author 江村暮
-  * // TODO 插入链接显示对话框
-  * // TODO 移动端保存选中状态
-  */
+ * Markdown编辑器
+ * @author 江村暮
+ * // TODO 插入链接显示对话框
+ * // TODO 移动端保存选中状态
+ */
 
 class MdEditor extends React.Component<TProps, TState> {
 	textareaDom: HTMLTextAreaElement | null | undefined;

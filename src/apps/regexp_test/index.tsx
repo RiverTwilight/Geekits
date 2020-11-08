@@ -83,6 +83,7 @@ const Link = ({ onInput }: any) => {
 
 type ComponentState = any;
 
+// TODO 正则测试多行显示不正常
 export default class extends React.Component<{}, ComponentState> {
 	constructor(props: {}) {
 		super(props);
@@ -113,7 +114,7 @@ export default class extends React.Component<{}, ComponentState> {
 				<div
 					style={{
 						position: "relative",
-						height: "180px",
+						height: "250px",
 						overflowY: "auto",
 						fontSize: "1.2em",
 					}}

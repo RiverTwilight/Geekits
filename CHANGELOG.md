@@ -1,8 +1,130 @@
-## 2020年10月3日
-```diff
-<FileInput
--    onFileChange={...}
-+    onFileUpload={...}
-/>
-
-```
+-   <doc>编辑文档
+-   <fix>重置密码后跳转首页
+-   <feat>登录框跳转忘记密码页面
+-   <fix>object-path alert
+-   <fix>添加大量待办事项
+-   <fix>登录模态框重复打开
+-   <style>Use spinner to indecate progress
+-   <feat>basic privacy policy generator <feat>mimetype supports markdown
+-   <feat>九格切图
+-   <feat>policy generator
+-   <feat>local notice
+-   <lint>code split
+-   <lint>html to component
+-   <fix>video does not change after re-upload
+-   <fix>onFileChange => onFileUpload
+-   <fix>tts result cover fab
+-   <build>automaticlly-adding app script <factor>ts bug
+-   <feat>Global Drawer
+-   [feat]Use markdown for app's help [impr&style]img_split
+-   [style]edit privacy policy
+-   [feat]add privacy policy [fix]app's help text has no warp
+-   [fix]fab is coverd by Drawer
+-   [fix]appMenu button display on Home
+-   [feat]Appmenu appears in Drawer [style]'Edit on github' Button
+-   <fix>gitf_lib ui <style>add github link
+-   edit readme
+-   add license
+-   <fix>destory keydown listener
+-   <fix>global api
+-   Merge pull request #3 from RiverTwilight/Merge-login-&-signin
+-   <impr>merge login&signin
+-   <style>use dialog for login
+-   <fix>user dashboard route
+-   <fix>User dashboard route <build>pages => views
+-   <fix>番茄钟适配深色模式 <lint>pornhub logo 代码简化
+-   Merge branch 'master' of github.com:RiverTwilight/ygktool
+-   Merge branch 'ts-migrate'
+-   Merge pull request #2 from RiverTwilight/ts-migrate
+-   <feat>js 键盘码工具
+-   Merge pull request #1 from RiverTwilight/ts-migrate
+-   <rebuild>use ts 100%
+-   [ts-migrate][.] Run TS Migrate
+-   [ts-migrate][.] Rename files from JS/JSX to TS/TSX
+-   [ts-migrate][.] Init tsconfig.json file
+-   [ts-migrate][src] Init tsconfig.json file
+-   [ts-migrate][layout] Run TS Migrate
+-   [ts-migrate][layout] Rename files from JS/JSX to TS/TSX
+-   [ts-migrate][layout] Init tsconfig.json file
+-   <code>web hint
+-   <fix>mdui-in-react 版本太低
+-   <style>重写番茄钟样式
+-   <style>优化工具菜单显示位置 <style>首页永久展示公告
+-   <rebuild>ui 库独立成 npm 包
+-   [improve]Supprt drag to upload files👆
+-   😀Optimized the experience of gif tool
+-   [improve]视频转 gif 支持显示进度
+-   [fix]路由切换修改标题 [fix]同步后自动刷新页面
+-   [new]二维码支持添加图标
+-   [fix]title display [add]declare global methods
+-   [new]搜索时可以用方向键选择 [fix]博客链接 [new]aic & ocr 图片过大会自动压缩
+-   [add]添加一个友链 [bug]底部列表无法滚动
+-   [ui]首页两个栏目合并 [bug]修复了底部菜单在 PC 上的 bug
+-   [new]tomato clock
+-   [style]edit logo
+-   [style]edit logo
+-   [new]new logo
+-   [new]Press Enter to send querying [bug]hitokoto topic [bug]Show newest tools in Home
+-   [fix]close the ws connect after quiting CP tool
+-   [style]add bottomboard animation [bug]clipbored's notifacation bug
+-   添加友链
+-   修复了无法退出的 Bug 加密账户信息
+-   头部和侧栏简约化
+-   fix bugs
+-   deploy test
+-   deploy test
+-   deploy test
+-   fix bugs
+-   fix bugs
+-   【改进】文件树生成支持排除路径 【修复】修复了文件读取组件显示文本问题
+-   统一配置 axios
+-   编辑文档
+-   新增列表组件 意见反馈和关于移动到设置中
+-   底部面板自适应屏幕大小
+-   增加自动化编译脚本 设置数据全部存放到一个 localstorage 中 主题迁移到设置中
+-   跨设备文本互传会有新消息提醒 字典拼音显示优化
+-   新增文件树生成 自动识别设备夜间模式
+-   加载条延时出现 gif 配置面板采用底部弹出形式 检测设备夜间模式
+-   自动判断手机是否设置夜间模式 底部菜单增加底部模糊效果 修复了正则测试和登录页面的 bug
+-   优化代码
+-   文本转换支持 Base64 回顶按钮兼容处理
+-   新增模板文案生成器 首页增加回顶按钮
+-   优化文件夹结构 新增文本批量生成功能
+-   优化代码
+-   做决定附带参数 fix bugs
+-   日期推算精确到分钟 将 TAB 封装为组件 修复了便签的 bug 密码输入框新增显示密码按钮
+-   give up mdui-in-react package
+-   增强账号的安全性，歇后语支持模糊查询，新增一些工具描述
+-   在 index.html 添加了兼容 IOS 和网络优化的头 修复了日期推算的 Bug
+-   细节打磨计划 底部弹出式新页面 裁剪功能支持保存图片
+-   add typescript 首页会显示工具介绍，工具之间新增分割线
+-   为清明换上灰色主题
+-   新增 html 转 jsx
+-   新增图片取色器
+-   完善用户系统
+-   修复了表情制作的问题，日期推算支持往后推，工具加载动画与全局同步
+-   解决了首次加载卡住的问题，需要手动替换编译后的文件
+-   新增词典/UA 检测，加载过渡画面
+-   新增网络日志抓取
+-   将 apps 路径改为 app;新增工具正则测试;夜间模式按钮移到头部
+-   add translate; use mdui-in-react package
+-   improve perfermence
+-   新增日期计算
+-   较大更新
+-   新增金额大小写转换，文字转语音，词云图制作，意见反馈页面
+-   字幕拼接支持视频截图 修复了 bug
+-   新增图片压缩
+-   新增图像识别
+-   表情制作支持浏览素材
+-   新增字幕拼接
+-   修复了查询不到信息的 Bug(map 不能跳出)
+-   新增化学方程式配平
+-   链接了工具数据库，有了图标和使用说明
+-   新增开发平台链接，表情制作支持多个输入框
+-   支持识别结果中的 URL
+-   新增文字识别
+-   修正了 api 链接
+-   简化了 map 的形式
+-   优化了性能
+-   v1
+-   '2 月 17 号版本'

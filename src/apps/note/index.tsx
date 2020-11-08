@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import marked from "marked";
-import { Input } from "mdui-in-react";
+import { Input, Button } from "mdui-in-react";
 import MdEditor from "../../components/MdEditor";
 
 /** Markdown预览*/
@@ -14,23 +14,29 @@ const MarkDown = ({ md }: { md: string }) => {
 	);
 };
 
-// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'props' implicitly has an 'any' type.
-const Search = (props) => {
-	const { local, kwd } = props;
-	// @ts-expect-error ts-migrate(7034) FIXME: Variable 'result' implicitly has type 'any[]' in s... Remove this comment to see the full error message
-	var result = [];
-	// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'a' implicitly has an 'any' type.
-	local.map((a, i) => {
-		if (a.name.indexOf(kwd) !== -1) {
-			result.push(i);
-		} else {
-			if (a.content.indexOf(kwd) !== -1) result.push(i);
-		}
-	});
-	// @ts-expect-error ts-migrate(7005) FIXME: Variable 'result' implicitly has an 'any[]' type.
-	return result;
-};
+// // @ts-expect-error ts-migrate(7006) FIXME: Parameter 'props' implicitly has an 'any' type.
+// const Search = (props) => {
+// 	const { local, kwd } = props;
+// 	// @ts-expect-error ts-migrate(7034) FIXME: Variable 'result' implicitly has type 'any[]' in s... Remove this comment to see the full error message
+// 	var result = [];
+// 	// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'a' implicitly has an 'any' type.
+// 	local.map((a, i) => {
+// 		if (a.name.indexOf(kwd) !== -1) {
+// 			result.push(i);
+// 		} else {
+// 			if (a.content.indexOf(kwd) !== -1) result.push(i);
+// 		}
+// 	});
+// 	// @ts-expect-error ts-migrate(7005) FIXME: Variable 'result' implicitly has an 'any[]' type.
+// 	return result;
+// };
 
+type note = {
+	title?: string;
+	content?: string;
+	tags?: string;
+	date?: string;
+};
 type EditState = any;
 
 class Edit extends React.Component<{}, EditState> {
@@ -74,10 +80,10 @@ class Edit extends React.Component<{}, EditState> {
 		content !== "" && updateNote(local, noteId, newNote);
 	};
 	handleContentChange = (newText: string) => {
-		const { noteId, title, local} = this.state;
+		const { noteId, title, local } = this.state;
 		this.setState({ content: newText });
 		var today = new Date();
-		var newNote = {
+		var newNote: note = {
 			title: title,
 			content: newText,
 			tags: "a b c",
@@ -127,8 +133,7 @@ const updateNote = (local, i, newNote, cb?) => {
 	cb && cb(local);
 };
 
-// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'local' implicitly has an 'any' type.
-const addNote = (local, newNote, cb) => {
+const addNote = (local: note[], newNote: note, cb?: (local: note[]) => void) => {
 	local.push(newNote);
 	localStorage.setItem("note", JSON.stringify(local));
 	cb && cb(local);
@@ -146,8 +151,7 @@ const deleteNote = (local, i, cb?) => {
  * @param {local} 便签列表
  * @param editHome 是否处于编辑模式
  */
-// @ts-expect-error ts-migrate(7031) FIXME: Binding element 'local' implicitly has an 'any' ty... Remove this comment to see the full error message
-const NotesList = ({ local, editHome }) => {
+const NotesList = ({ local, editHome }: { local: any; editHome: any }) => {
 	// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'a' implicitly has an 'any' type.
 	var list = local.map((a, i) => {
 		if (a.content === "") {
@@ -193,21 +197,25 @@ const NotesList = ({ local, editHome }) => {
 	return <ul className="mdui-list">{list}</ul>;
 };
 
-type HomeState = any;
+type HomeState = {
+	editStatu: boolean;
+	local: any;
+	view: any;
+	editHome: any;
+};
 
 class Home extends React.Component<{}, HomeState> {
 	constructor(props: {}) {
 		super(props);
 		this.state = {
-			// @ts-expect-error ts-migrate(2345) FIXME: Type 'null' is not assignable to type 'string'.
-			local: JSON.parse(localStorage.getItem("note")) || [],
+			local: JSON.parse(localStorage.getItem("note") || "[]"),
 			editStatu: false,
 			editHome: false,
 			view: "list",
 		};
 	}
 	render() {
-		const { local, editStatu, editHome } = this.state;
+		const { local, editHome } = this.state;
 		return (
 			<>
 				{!local.length && (
@@ -215,29 +223,19 @@ class Home extends React.Component<{}, HomeState> {
 						点击右下角+号添加便签
 					</p>
 				)}
-				<button
-					style={{ display: local.length ? "block" : "none" }}
-					onClick={() => {
-						this.setState({ editHome: !editHome });
-					}}
-					className="mdui-float-right mdui-btn mdui-btn-icon"
-				>
-					<i className="mdui-icon material-icons">
-						{editHome ? "check" : "delete_sweep"}
-					</i>
-				</button>
+				{local.length && (
+					<Button
+						onClick={() => {
+							this.setState({ editHome: !editHome });
+						}}
+						icon={editHome ? "check" : "delete_sweep"}
+					/>
+				)}
 				<div className="mdui-clearfix"></div>
-				<NotesList
-					// @ts-expect-error ts-migrate(2322) FIXME: Property 'editStatu' does not exist on type 'Intri... Remove this comment to see the full error message
-					editStatu={editStatu}
-					local={local}
-					editHome={editHome}
-				/>
-
+				<NotesList local={local} editHome={editHome} />
 				<Link to={`/app/note/edit?id=${local.length}`}>
 					<button
 						onClick={() => {
-							// @ts-expect-error ts-migrate(2554) FIXME: Expected 3 arguments, but got 2.
 							addNote(local, {
 								content: "",
 							});
@@ -252,6 +250,7 @@ class Home extends React.Component<{}, HomeState> {
 	}
 }
 
+// TODO 外部添加内容接口
 const Note = () => (
 	<Router>
 		<Switch>

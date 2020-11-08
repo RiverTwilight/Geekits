@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React from "react";
 import { snackbar } from "mdui";
 import { FileInput, ListControlMenu, BottomAlert } from "mdui-in-react";
@@ -6,9 +5,9 @@ import axios from "../../utils/axios";
 import Cropper from "../../utils/Cropper";
 import ImgCompress from "../img_compress/engine";
 
+// TODO 快速保存到便签
 const Result = ({ result }: any) => {
 	if (!result) return null;
-
 	return (
 		<>
 			{result.map(({ keyword, baike_info, score }: any, i: any) => (
@@ -16,17 +15,14 @@ const Result = ({ result }: any) => {
 					<div key={i} className="mdui-col mdui-card">
 						<div className="mdui-card-media">
 							{/*baike_info?<img src={baike_info.image_url}/>:""*/}
-
 							<div className="mdui-card-primary">
 								<div className="mdui-card-primary-title">
 									{keyword}
 								</div>
-
 								<div className="mdui-card-primary-subtitle">
 									相似度:{score}
 								</div>
 							</div>
-
 							<div className="mdui-card-content">
 								{baike_info.description
 									? baike_info.description
@@ -169,7 +165,6 @@ class AIC extends React.Component<{}, AICState> {
 									const cb = this.handleFileUpdate.bind(this);
 									// @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
 									if (fileObj.size >= 1.4 * 1024 * 1024) {
-										// @ts-expect-error ts-migrate(2554) FIXME: Expected 4 arguments, but got 3.
 										ImgCompress(file, 0.1, cb);
 										//cb(file)
 									} else {

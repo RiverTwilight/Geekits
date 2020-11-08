@@ -10,7 +10,7 @@ import saveFile from "../../utils/fileSaver";
 import { FileInput } from "mdui-in-react";
 import { Input, Button } from "mdui-in-react";
 
-// TODO 使用component
+// HACK 使用component
 const Share = ({ qrcode, token }: any) => (
 	<>
 		<ul className="mdui-menu" id="share">

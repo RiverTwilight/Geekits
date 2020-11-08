@@ -1,16 +1,22 @@
 import React from "react";
-import { snackbar, Dialog } from "mdui";
+import { snackbar } from "mdui";
 import Axios from "../utils/axios";
 import { MD5 } from "crypto-js";
-import { getUserInfo, setUserInfo } from "../utils/Services/UserInfo";
-import SendCode from "../utils/Services/SendCode";
 import { Input } from "mdui-in-react";
+import { setUserInfo } from "../utils/Services/UserInfo";
+import SendCode from "../utils/Services/SendCode";
 
 class Login extends React.Component<
 	{
 		ifOpen: boolean;
 	},
-	any
+	{
+		statu: "login" | "signin";
+		username: string;
+		password: string;
+		remember: boolean;
+		xcode: string;
+	}
 > {
 	constructor(props: any) {
 		super(props);
@@ -18,21 +24,9 @@ class Login extends React.Component<
 			username: /*'wrj2014@126.com',*/ "",
 			password: /*'123456',*/ "",
 			remember: false,
-			showXcode: false,
-			dialogInst: null,
 			xcode: "",
+			statu: "login",
 		};
-	}
-	componentDidUpdate() {
-		window.dialogInst = new Dialog("#loginDialog", {
-			history: false,
-			destroyOnClosed: true,
-			closeOnCancel: false,
-			closeOnEsc: true,
-			closeOnConfirm: false,
-		});
-		this.props.ifOpen && window.dialogInst.open();
-		!this.props.ifOpen && window.dialogInst.close();
 	}
 	signin() {
 		const { username, password, xcode, remember } = this.state;
@@ -60,7 +54,7 @@ class Login extends React.Component<
 					case 666:
 						var data = JSON.stringify(json.data);
 						setUserInfo(data, remember);
-						 window.location.href = "/user";
+						window.location.href = "/user";
 						break;
 				}
 			})
@@ -90,7 +84,7 @@ class Login extends React.Component<
 						// 切换成注册模式
 						this.setState(
 							{
-								showXcode: true,
+								statu: "signin",
 							},
 							() => {
 								window.dialogInst.handleUpdate();
@@ -101,7 +95,7 @@ class Login extends React.Component<
 						var data = JSON.stringify(json.data);
 						setUserInfo(data, remember);
 						window.location.href = "/user";
-						break
+						break;
 				}
 			})
 			.catch((e) => {
@@ -112,7 +106,7 @@ class Login extends React.Component<
 			});
 	}
 	render() {
-		const { password, username, remember, xcode, showXcode } = this.state;
+		const { password, username, remember, xcode, statu } = this.state;
 		return (
 			<>
 				<div id="loginDialog" className="mdui-dialog">
@@ -120,10 +114,9 @@ class Login extends React.Component<
 					<div className="mdui-dialog-content">
 						<Input
 							onValueChange={(newText) => {
-								this.setState({ 
+								this.setState({
 									username: newText,
-									showXcode: false
-								 });
+								});
 							}}
 							header="邮箱"
 							placeholder="账户不存在将自动创建"
@@ -140,7 +133,7 @@ class Login extends React.Component<
 							type="password"
 							value={password}
 						/>
-						{showXcode && (
+						{statu === "signin" && (
 							<SendCode
 								onInput={(code: any) => {
 									this.setState({ xcode: code });
@@ -165,18 +158,23 @@ class Login extends React.Component<
 						</label>
 					</div>
 					<div className="mdui-dialog-actions">
-						<button className="mdui-btn mdui-ripple">
+						<button
+							onClick={() => {
+								window.open("/user/forget");
+							}}
+							className="mdui-btn mdui-ripple"
+						>
 							忘记密码
 						</button>
 						<button
 							onClick={
-								showXcode
-									? this.signin.bind(this)
-									: this.login.bind(this)
+								statu === "login"
+									? this.login.bind(this)
+									: this.signin.bind(this)
 							}
 							className="mdui-btn mdui-ripple"
 						>
-							登录
+							注册/登录
 						</button>
 					</div>
 				</div>

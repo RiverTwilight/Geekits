@@ -5,7 +5,7 @@ async function loadImg(src: string) {
 	return img
 }
 
-export default async (base64: string, quality: number, cb: (dataUrl: string) => any, type: string | undefined) => {
+export default async (base64: string, quality: number, cb: (dataUrl: string) => any, type?: string | undefined) => {
 	var image = await loadImg(base64);
 	var canvas = document.createElement('canvas'),
 		context = canvas.getContext('2d'),
