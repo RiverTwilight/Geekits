@@ -20,10 +20,12 @@ const InsertLink = ({
 			closeOnConfirm: false,
 		});
 		isOpen && insertDialogIns.open();
-		// @ts-expect-error
-		document
-			.getElementById("insertLink")
-			.addEventListener("closed.mdui.dialog", onConfirm);
+		var dom = document.getElementById("insertLink");
+		//@ts-expect-error
+		dom && dom.addEventListener("confirm.mdui.dialog", onConfirm);
+		//@ts-expect-error
+		dom && dom.addEventListener("close.mdui.dialog", onConfirm);
+
 	}, [isOpen]);
 	const [link, setLink] = useInput("");
 	const [text, setText] = useInput("");
@@ -37,8 +39,8 @@ const InsertLink = ({
 				<Input placeholder="链接文字" onInput={setLink} />
 			</div>
 			<div className="mdui-dialog-actions">
-				<button className="mdui-btn mdui-ripple">取消</button>
-				<button onClick={ok} className="mdui-btn mdui-ripple">
+				<button mdui-dialog-cancel="true" className="mdui-btn mdui-ripple">取消</button>
+				<button mdui-dialog-confirm="true" className="mdui-btn mdui-ripple">
 					确认
 				</button>
 			</div>

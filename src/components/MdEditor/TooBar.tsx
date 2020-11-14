@@ -2,7 +2,6 @@ import React from "react";
 import InsertLink from "./InsertLink";
 import text2md from "./text2md";
 import { Button } from "mdui-in-react";
-import { isObject } from "util";
 
 const APP_MENU = [
 	{
@@ -91,67 +90,50 @@ class ToolBar extends React.Component<ToolBarProps, ToolBarState> {
 			isOpen: false,
 		};
 	}
+	handleInsertLink = (link: any, text: any) => {
+		const point = this.props.textarea.selectionStart;
+		this.props.cb(`[${text}](${link})`);
+		this.setState({ isOpen: false });
+	};
 	render() {
 		const { showTextApps, isOpen } = this.state;
 		const { textarea, cb, content, undo, redo } = this.props;
-		// HACK 使用component
 		return (
 			<>
-				<InsertLink
-					isOpen={isOpen}
-					onConfirm={() => {
-						this.setState({ isOpen: false });
-					}}
-				/>
+				<InsertLink isOpen={isOpen} onConfirm={this.handleInsertLink} />
 				<div className="mdui-btn-group">
-					<button
+					<Button
 						onClick={() => {
 							this.setState({ showTextApps: !showTextApps });
 						}}
 						type="button"
-						className="mdui-btn"
-					>
-						<i
-							className={`${
-								showTextApps
-									? "mdui-text-color-theme-accent"
-									: ""
-							} mdui-icon material-icons`}
-						>
-							font_download
-						</i>
-					</button>
-					<button
+						icon="font_download"
+						iconColor={`${
+							showTextApps ? "theme" : "default"
+						}`}
+					/>
+					<Button
 						onClick={() => {
 							this.setState({ isOpen: !isOpen });
 						}}
 						type="button"
-						className="mdui-btn"
-					>
-						<i
-							className={`${
-								showTextApps
-									? "mdui-text-color-theme-accent"
-									: ""
-							} mdui-icon material-icons`}
-						>
-							link
-						</i>
-					</button>
+						icon="link"
+						iconColor="default"
+					/>
 
-					<button onClick={undo} type="button" className="mdui-btn">
-						<i className="mdui-icon material-icons">undo</i>
-					</button>
-
-					<button
-						onClick={() => {
-							redo();
-						}}
+					<Button
+						iconColor="default"
+						icon="undo"
+						onClick={undo}
 						type="button"
-						className="mdui-btn"
-					>
-						<i className="mdui-icon material-icons">redo</i>
-					</button>
+					/>
+					<Button
+						iconColor="default"
+						icon="redo"
+						onClick={redo}
+						type="button"
+					/>
+
 					{APP_MENU.map((a, i) => (
 						<button
 							key={i}

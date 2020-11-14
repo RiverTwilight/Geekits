@@ -1,7 +1,7 @@
 import React from "react";
 import { Input } from "mdui-in-react";
 
-const test = (unMarkedExp: any, unMarkedText: any) => {
+const test = (unMarkedExp: any, unMarkedText: any): string => {
 	try {
 		const markedExp = unMarkedExp
 				.replace(/\\/g, "\\")
@@ -19,7 +19,7 @@ const test = (unMarkedExp: any, unMarkedText: any) => {
 			'<span style="background-color:#9be49e">$&</span>'
 		);
 	} catch (err) {
-		console.log(err);
+		return err;
 	}
 };
 
@@ -83,7 +83,6 @@ const Link = ({ onInput }: any) => {
 
 type ComponentState = any;
 
-// TODO 正则测试多行显示不正常
 export default class extends React.Component<{}, ComponentState> {
 	constructor(props: {}) {
 		super(props);
@@ -95,7 +94,6 @@ export default class extends React.Component<{}, ComponentState> {
 	}
 	render() {
 		const { exp, toTest, tempTest } = this.state;
-
 		return (
 			<>
 				<Input
@@ -113,13 +111,15 @@ export default class extends React.Component<{}, ComponentState> {
 				<br></br>
 				<div
 					style={{
-						position: "relative",
-						height: "250px",
-						overflowY: "auto",
+						height: `${
+							toTest.split("\n").length * 40 + 100
+						}px`,
+						overflowY: "hidden",
 						fontSize: "1.2em",
 					}}
 					className="mdui-card mdui-col"
 				>
+					{/* 绿色高亮层 */}
 					<div
 						style={{
 							position: "absolute",
@@ -133,6 +133,7 @@ export default class extends React.Component<{}, ComponentState> {
 						}}
 						className="mdui-typo mdui-p-a-2"
 					></div>
+					{/* 文字输入层 */}
 					<textarea
 						style={{
 							position: "absolute",
