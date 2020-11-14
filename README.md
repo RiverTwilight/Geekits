@@ -37,7 +37,26 @@ $ npm start
 
 建议安装这个[vscode 插件](https://github.com/Gruntfuggly/todo-tree)来查看和增添待办事项。
 
-### 风格
+### 目录结构
+
+```
+src
+  └── views页面
+
+  └── utils工具函数
+
+  └── svg
+
+  └── layout布局组件
+
+  └── data数据
+
+  └── components组件
+
+  └── apps应用
+```
+
+### 样式
 
 统一使用 MDUI 这个 css 框架，由于它是基于 html 的，所以我单独封装了一个 [React 版本](https://github.com/RiverTwilight/mdui-in-react)，你也可以在这里添加新组件。
 
@@ -71,6 +90,11 @@ npm run new:App
 欢迎随时纠正我在代码中的不良习惯。
 
 由于学业繁忙，项目时间跨度久，我也处在技术成长期，仍旧有许多“破窗”。若能斧正不胜感激！
+
+### 备注
+
+-   请勿改动网站的统计代码
+-   请勿随意修改[关于页面](src\views\about.tsx)信息。
 
 ## License
 
