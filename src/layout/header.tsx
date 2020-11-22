@@ -62,7 +62,7 @@ class Header extends React.Component<
 	loadSaying = () => {
 		const { hitokotoTopic = 0 } = JSON.parse(localStorage.setting || "{}");
 		fetch(
-			`https://api.ygktool.cn/api/hitokoto?topic=${
+			`http://ygk-api.yunser.com/api/hitokoto?topic=${
 				"abcdefg"[hitokotoTopic]
 			}`,
 			{

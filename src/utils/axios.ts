@@ -6,8 +6,9 @@ const source = CancelToken.source();
 export const cancel = source.cancel
 
 export default axios.create({
-	baseURL: "https://api.ygktool.cn",
 	// baseURL: 'http://localhost:444',
+	// baseURL: "https://api.ygktool.cn",
+	baseURL: "http://ygk-api.yunser.com",
 	timeout: 15000,
 	cancelToken: source.token,
 });
