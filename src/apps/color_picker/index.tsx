@@ -69,6 +69,7 @@ const ColorLens = ({ onChange, rgb, isHide }: any) => {
 
 type ComponentState = any;
 
+// FIXME 坐标位置问题
 export default class extends React.Component<{}, ComponentState> {
 	canvas: any;
 	constructor(props: {}) {

@@ -4,7 +4,7 @@ const text2md = (str: any, style: any, start: any, end: any) => {
 	var md;
 	var selectedLength = end - start;
 	var selectedStr = arr.splice(start, selectedLength).join("");
-	// TODO 使用对象选择法
+	// HACK 使用对象选择法
 	switch (style) {
 		case "h1":
 			md = "# " + selectedStr;

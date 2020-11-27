@@ -3,9 +3,9 @@ import { Input, Button } from "mdui-in-react";
 import Form from "../../components/Form";
 import useInput from "../../utils/Hooks/useInput";
 import PG from "./generator";
-import fileSaver, { saveFile } from "../../utils/fileSaver";
+import { saveFile } from "../../utils/fileSaver";
 import marked from "marked";
-// TODO 隐私政策生成器
+// TODO 完善隐私政策生成器
 
 const PGI = new PG();
 

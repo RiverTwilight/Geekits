@@ -3,6 +3,7 @@ import saveFile from '../../utils/fileSaver'
 import html2canvas from 'html2canvas'
 import { FileInput, Input, ColorPicker, RangeInput, BottomAlert as NewPage  } from 'mdui-in-react'
 
+// FIXME 移动端选择完素材阴影不消失
 const Result = ({
     src
 }: any) => {
