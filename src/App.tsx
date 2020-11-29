@@ -13,7 +13,6 @@ const RouterList: {
 	component: any;
 	path: string;
 	exact?: boolean;
-	test?: any;
 }[] = [
 	{
 		component: loadable(() => import("./views/home")),
@@ -36,7 +35,6 @@ const RouterList: {
 	{
 		component: loadable(() => import("./views/setting")),
 		path: "/setting",
-		test: "sdf"
 	},
 	{
 		component: loadable(() => import("./views/app/index")),
@@ -80,9 +78,7 @@ class App extends React.Component<
 		!this.state.showLoginDialog && window.dialogInst.close();
 	}
 	componentDidMount() {
-
 		const { loading } = this;
-
 		window.dialogInst = new Dialog("#loginDialog", {
 			history: false,
 			destroyOnClosed: false,
