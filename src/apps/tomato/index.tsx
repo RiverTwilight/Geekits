@@ -2,6 +2,7 @@ import React from "react";
 import mdui from "mdui";
 import { Input, BottomAlert } from "mdui-in-react";
 import "./style.css";
+import { stat } from "fs";
 
 /*
 const sayings = [
@@ -32,8 +33,7 @@ const Saying = ({ index }) => {
 };
 */
 
-// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'n' implicitly has an 'any' type.
-function d2a(n) {
+function d2a(n: number) {
 	return (n * Math.PI) / 180;
 }
 
@@ -220,8 +220,11 @@ class TomatoClock extends React.Component<{}, TomatoClockState> {
 			title: "",
 		};
 	}
+	componentWillUnmount() {
+		clearInterval(window.tomato)
+		document.title = this.state.originTitle;
+	}
 	startATomato(minute = 25) {
-		// @ts-expect-error ts-migrate(2339) FIXME: Property 'tomato' does not exist on type 'Window &... Remove this comment to see the full error message
 		window.tomato && clearInterval(window.tomato);
 		const cb = () => {
 			const { min, sec, title, statu } = this.state;
@@ -271,7 +274,6 @@ class TomatoClock extends React.Component<{}, TomatoClockState> {
 		this.setState({
 			min: minute,
 		});
-		// @ts-expect-error ts-migrate(2339) FIXME: Property 'tomato' does not exist on type 'Window &... Remove this comment to see the full error message
 		window.tomato = setInterval(cb, 1000);
 	}
 	playRingtone() {
@@ -296,7 +298,6 @@ class TomatoClock extends React.Component<{}, TomatoClockState> {
 						min: 25,
 						sec: 0,
 					});
-					// @ts-expect-error ts-migrate(2339) FIXME: Property 'tomato' does not exist on type 'Window &... Remove this comment to see the full error message
 					clearInterval(window.tomato);
 					document.title = originTitle;
 				},
@@ -362,7 +363,7 @@ class TomatoClock extends React.Component<{}, TomatoClockState> {
 						className="mdui-color-theme mdui-btn mdui-btn-raised"
 					>
 						{
-							// @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+							//@ts-expect-error
 							{
 								rest: "跳过休息",
 								working: "重置",

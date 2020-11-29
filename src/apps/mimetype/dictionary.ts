@@ -101,7 +101,8 @@ var table = {
         "plain": ["txt", "text", "brf", "conf", "def", "list", "log", "in", "bas"],
         "richtext": "rtx",
         "tab-separated-values": "tsv",
-        "x-bibtex": "bib"
+        "x-bibtex": "bib",
+        "markdown": "md"
     },
     "video": {
         "mpeg": ["mpeg", "mpg", "mpe", "m1v", "m2v", "mp2", "mpa", "mpv2"],

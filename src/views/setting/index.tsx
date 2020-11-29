@@ -2,7 +2,7 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 //@ts-expect-error
 import { alert as mduiAlert } from "mdui";
-import { ListControlMenu, ListControlCheck, List } from "mdui-in-react";
+import { ListControlMenu, List } from "mdui-in-react";
 import marked from "marked";
 const PrivacyPath = require("./privacy.md");
 
@@ -59,10 +59,10 @@ const hitokotoItems = [
 ];
 
 export default class extends React.Component<
-	{},
+	{ handleNewPage: any },
 	{ setting: ISetting; privacy: string }
 > {
-	constructor(props: {}) {
+	constructor(props: Readonly<{ handleNewPage: any }>) {
 		super(props);
 		this.state = {
 			setting: setFunc(),
@@ -70,8 +70,8 @@ export default class extends React.Component<
 		};
 	}
 	componentDidMount() {
+		window.destoryRightDrawer();
 		window.updateTitle("设置");
-
 		fetch(PrivacyPath)
 			.then((response) => {
 				return response.text();
@@ -87,12 +87,9 @@ export default class extends React.Component<
 		mduiAlert(marked(privacy), "", () => {}, {
 			confirmText: "关闭",
 		});
-	}
+	};
 	render() {
-		const {
-			hitokotoTopic,
-			theme,
-		} = this.state.setting;
+		const { hitokotoTopic, theme } = this.state.setting;
 		return (
 			<div className="mdui-col-md-10">
 				<ul className="mdui-list">
@@ -158,7 +155,8 @@ export default class extends React.Component<
 								text: "到Github提交反馈",
 								href:
 									"https://github.com/RiverTwilight/ygktool/issues",
-							},{
+							},
+							{
 								text: "联系开发者",
 								href:
 									"//wpa.qq.com/msgrd?v=3&amp;uin=1985386335&amp;site=qq&amp;menu=yes",

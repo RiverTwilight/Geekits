@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Header from "./layout/header";
+import { Dialog } from "mdui";
 import LeftDrawer from "./layout/LeftDrawer";
 import RightDrawer from "./layout/RightDrawer";
 import LoginDialog from "./layout/LoginDialog";
@@ -12,6 +13,7 @@ const RouterList: {
 	component: any;
 	path: string;
 	exact?: boolean;
+	test?: any;
 }[] = [
 	{
 		component: loadable(() => import("./views/home")),
@@ -24,8 +26,8 @@ const RouterList: {
 		exact: true,
 	},
 	{
-		component: loadable(() => import("./views/user/login")),
-		path: "/user/login",
+		component: loadable(() => import("./views/user/forget")),
+		path: "/user/forget",
 	},
 	{
 		component: loadable(() => import("./views/about")),
@@ -34,6 +36,7 @@ const RouterList: {
 	{
 		component: loadable(() => import("./views/setting")),
 		path: "/setting",
+		test: "sdf"
 	},
 	{
 		component: loadable(() => import("./views/app/index")),
@@ -54,7 +57,16 @@ const NoMatch = () => (
 	</div>
 );
 
-class App extends React.Component<any, any> {
+const RightMenuBtnRef = React.createRef<HTMLDivElement>();
+const AppBarRef = React.createRef<HTMLDivElement>();
+
+class App extends React.Component<
+	any,
+	{
+		showLoginDialog: boolean;
+		rightDrawerContent: any;
+	}
+> {
 	loading: any;
 	constructor(props: any) {
 		super(props);
@@ -63,8 +75,29 @@ class App extends React.Component<any, any> {
 			rightDrawerContent: null,
 		};
 	}
+	componentDidUpdate() {
+		this.state.showLoginDialog && window.dialogInst.open();
+		!this.state.showLoginDialog && window.dialogInst.close();
+	}
 	componentDidMount() {
+
 		const { loading } = this;
+
+		window.dialogInst = new Dialog("#loginDialog", {
+			history: false,
+			destroyOnClosed: false,
+			closeOnCancel: false,
+			closeOnEsc: true,
+			closeOnConfirm: false,
+		});
+		//@ts-expect-error
+		document
+			.getElementById("loginDialog")
+			.addEventListener(
+				"closed.mdui.dialog",
+				this.closeLoginDialog.bind(this)
+			);
+
 		const toggleDisabled = (isDisabled: any) => {
 			var btns = document.getElementsByClassName("loadBtn");
 			for (let i = 0; i < btns.length; i++) {
@@ -89,7 +122,8 @@ class App extends React.Component<any, any> {
 			}
 		};
 		window.updateTitle = (pageName) => {
-			window.globalRef.title.innerText = pageName || "云极客工具";
+			if (AppBarRef.current)
+				AppBarRef.current.innerText = pageName || "云极客工具";
 			document.title = pageName
 				? `${pageName} - 云极客工具`
 				: "云极客工具";
@@ -99,23 +133,37 @@ class App extends React.Component<any, any> {
 				rightDrawerContent: content,
 			});
 			document.body.classList.add("mdui-drawer-body-right");
-			window.globalRef.menuBtn.style.display = "block";
+			if (RightMenuBtnRef.current)
+				RightMenuBtnRef.current.style.display = "block";
 			window.menu = () => {
 				window.RightDrawer.toggle();
 			};
 		};
+		window.destoryRightDrawer = () =>{
+			this.setState({
+				rightDrawerContent: null,
+			});
+			document.body.classList.remove("mdui-drawer-body-right");
+			if (RightMenuBtnRef.current)
+				RightMenuBtnRef.current.style.display = "none";
+		}
 	}
 	openLoginDialog = () => {
 		this.setState({
 			showLoginDialog: true,
 		});
 	};
-	getGlobalRef = (refs: any) => {
-		window.globalRef = {};
-		refs.map((ref: any) => {
-			window.globalRef[ref.name] = ref.ref;
+	closeLoginDialog = () => {
+		this.setState({
+			showLoginDialog: false,
 		});
 	};
+	// getGlobalRef = (refs: any) => {
+	// 	window.globalRef = {};
+	// 	refs.map((ref: any) => {
+	// 		window.globalRef[ref.name] = ref.ref;
+	// 	});
+	// };
 	render() {
 		const { showLoginDialog, rightDrawerContent } = this.state;
 		return (
@@ -135,7 +183,7 @@ class App extends React.Component<any, any> {
 					)}
 					<Header
 						openLoginDialog={this.openLoginDialog}
-						getRef={this.getGlobalRef}
+						globalRefs={{ RightMenuBtnRef, AppBarRef }}
 					/>
 					<br></br>
 					<Switch>

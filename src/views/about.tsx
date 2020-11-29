@@ -3,7 +3,7 @@ import React from "react";
 export default () => {
 	window.updateTitle("关于");
 	return (
-		<div className="mdui-col-md-9">
+		<div>
 			<img
 				alt="logo"
 				style={{ display: "block", margin: "0 auto" }}
@@ -21,7 +21,6 @@ export default () => {
 					<h3>
 						<i className="mdui-icon material-icons"></i>开发者
 					</h3>
-
 					<p>
 						一个高中生，坐标蓉城<br></br>有任何不足敬请斧正。
 					</p>
@@ -103,8 +102,7 @@ export default () => {
 
 			<div className="mdui-dialog" id="donation">
 				<div className="mdui-dialog-content">
-					{/* @ts-expect-error ts-migrate(2339) FIXME: Property 'center' does not exist on type 'JSX.Intr... Remove this comment to see the full error message */}
-					<center><img wdith="200" height="200" src="/donation_vx.png"></img></center>
+					<img width="200" height="200" src="/donation_vx.png"></img>
 					<p>
 						目前网站只由我一人维护，
 						需要付出昂贵的资金、精力和时间成本，

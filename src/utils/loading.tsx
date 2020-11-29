@@ -5,7 +5,7 @@ const Loading = (props: any) => {
     if (props.pastDelay) {
         return (
             <div className="center-panel mdui-text-color-theme-text">             
-                <h3 className="mdui-text-center">精彩即将到来...</h3>
+                <div className="mdui-spinner mdui-spinner-colorful"></div>
             </div>
         )
     }
