@@ -4,7 +4,7 @@ import {
 	getUserInfo,
 } from "../../../../utils/Services/UserInfo";
 import { Input, Button } from "mdui-in-react";
-import SendCode from "../../../../utils/Services/SendCode";
+import SendCode from "../../../../components/SendCode";
 import Axios from "../../../../utils/axios";
 import { snackbar } from "mdui";
 

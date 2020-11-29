@@ -13,6 +13,7 @@ const RouterList: {
 	component: any;
 	path: string;
 	exact?: boolean;
+	test?: any;
 }[] = [
 	{
 		component: loadable(() => import("./views/home")),
@@ -35,6 +36,7 @@ const RouterList: {
 	{
 		component: loadable(() => import("./views/setting")),
 		path: "/setting",
+		test: "sdf"
 	},
 	{
 		component: loadable(() => import("./views/app/index")),
@@ -54,6 +56,9 @@ const NoMatch = () => (
 		</Link>
 	</div>
 );
+
+const RightMenuBtnRef = React.createRef<HTMLDivElement>();
+const AppBarRef = React.createRef<HTMLDivElement>();
 
 class App extends React.Component<
 	any,
@@ -75,6 +80,7 @@ class App extends React.Component<
 		!this.state.showLoginDialog && window.dialogInst.close();
 	}
 	componentDidMount() {
+
 		const { loading } = this;
 
 		window.dialogInst = new Dialog("#loginDialog", {
@@ -116,7 +122,8 @@ class App extends React.Component<
 			}
 		};
 		window.updateTitle = (pageName) => {
-			window.globalRef.title.innerText = pageName || "云极客工具";
+			if (AppBarRef.current)
+				AppBarRef.current.innerText = pageName || "云极客工具";
 			document.title = pageName
 				? `${pageName} - 云极客工具`
 				: "云极客工具";
@@ -126,11 +133,20 @@ class App extends React.Component<
 				rightDrawerContent: content,
 			});
 			document.body.classList.add("mdui-drawer-body-right");
-			window.globalRef.menuBtn.style.display = "block";
+			if (RightMenuBtnRef.current)
+				RightMenuBtnRef.current.style.display = "block";
 			window.menu = () => {
 				window.RightDrawer.toggle();
 			};
 		};
+		window.destoryRightDrawer = () =>{
+			this.setState({
+				rightDrawerContent: null,
+			});
+			document.body.classList.remove("mdui-drawer-body-right");
+			if (RightMenuBtnRef.current)
+				RightMenuBtnRef.current.style.display = "none";
+		}
 	}
 	openLoginDialog = () => {
 		this.setState({
@@ -142,12 +158,12 @@ class App extends React.Component<
 			showLoginDialog: false,
 		});
 	};
-	getGlobalRef = (refs: any) => {
-		window.globalRef = {};
-		refs.map((ref: any) => {
-			window.globalRef[ref.name] = ref.ref;
-		});
-	};
+	// getGlobalRef = (refs: any) => {
+	// 	window.globalRef = {};
+	// 	refs.map((ref: any) => {
+	// 		window.globalRef[ref.name] = ref.ref;
+	// 	});
+	// };
 	render() {
 		const { showLoginDialog, rightDrawerContent } = this.state;
 		return (
@@ -167,7 +183,7 @@ class App extends React.Component<
 					)}
 					<Header
 						openLoginDialog={this.openLoginDialog}
-						getRef={this.getGlobalRef}
+						globalRefs={{ RightMenuBtnRef, AppBarRef }}
 					/>
 					<br></br>
 					<Switch>

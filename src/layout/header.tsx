@@ -36,13 +36,30 @@ const addSaying2Fiv = (saying: any) => {
 	localStorage.setItem("note", JSON.stringify(notes));
 };
 
+const RightMenuBtn = React.forwardRef((props: any, ref: any) => {
+	return (
+		<button
+			ref={ref}
+			style={{
+				display: "none",
+			}}
+			onClick={() => {
+				window.menu && window.menu();
+			}}
+			className="mdui-btn mdui-btn-icon mdui-text-color-theme"
+		>
+			<i className="mdui-icon material-icons">more_vert</i>
+		</button>
+	);
+});
+
 type State = any;
 
 class Header extends React.Component<
 	{
-		getRef(ref: any): void;
 		openLoginDialog: any;
 		title?: string;
+		globalRefs?:any
 	},
 	State
 > {
@@ -62,7 +79,7 @@ class Header extends React.Component<
 	loadSaying = () => {
 		const { hitokotoTopic = 0 } = JSON.parse(localStorage.setting || "{}");
 		fetch(
-			`http://ygk-api.yunser.com/api/hitokoto?topic=${
+			`https://ygk-api.yunser.com/api/hitokoto?topic=${
 				"abcdefg"[hitokotoTopic]
 			}`,
 			{
@@ -106,13 +123,10 @@ class Header extends React.Component<
 	};
 	componentDidMount() {
 		this.loadSaying();
-		this.props.getRef([
-			{ name: "title", ref: this.headerTitle },
-			{ name: "menuBtn", ref: this.menuBtn },
-		]); // 将ref传给父组件
 	}
 	render() {
 		const { saying } = this.state;
+		const { globalRefs } = this.props
 		return (
 			<header className={`mdui-shadow-0 mdui-appbar mdui-appbar-fixed`}>
 				<div className="mdui-appbar mdui-shadow-0">
@@ -124,7 +138,7 @@ class Header extends React.Component<
 						/>
 						<a onClick={this.checkSaying}>
 							<div
-								ref={(r) => (this.headerTitle = r)}
+								ref={globalRefs.AppBarRef}
 								className="mdui-typo-title header-width-saying"
 							>
 								{this.props.title || "云极客工具"}
@@ -134,20 +148,7 @@ class Header extends React.Component<
 							</span>
 						</a>
 						<div className="mdui-toolbar-spacer"></div>
-						<button
-							ref={(r) => (this.menuBtn = r)}
-							style={{
-								display: "none",
-							}}
-							onClick={() => {
-								window.menu && window.menu();
-							}}
-							className="mdui-btn mdui-btn-icon mdui-text-color-theme"
-						>
-							<i className="mdui-icon material-icons">
-								more_vert
-							</i>
-						</button>
+						<RightMenuBtn ref={globalRefs.RightMenuBtnRef} />
 					</div>
 				</div>
 				<div className="mdui-divider"></div>

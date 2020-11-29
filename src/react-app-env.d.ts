@@ -15,14 +15,19 @@ interface Window {
 	 */
 	loadHide(): void;
 	setRightDrawer(content, icon?): void;
+	destoryRightDrawer(): void;
 	menu: any;
 	loadingDelay: number;
 	dialogInst: any;
+	/**
+	 * 番茄钟计时器
+	 */
+	tomato: any;
 }
 
 type userInfoFromLocal = {
 	username: string;
-}
+};
 
 declare module "gif.js" {
 	class GIF {

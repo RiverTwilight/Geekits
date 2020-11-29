@@ -1,7 +1,7 @@
 import React from "react";
 import { snackbar } from "mdui";
 import Axios from "../../utils/axios";
-import SendCode from "../../utils/Services/SendCode";
+import SendCode from "../../components/SendCode";
 import { Input } from "mdui-in-react";
 
 type ForgetState = any;

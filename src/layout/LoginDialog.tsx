@@ -4,7 +4,7 @@ import Axios from "../utils/axios";
 import { MD5 } from "crypto-js";
 import { Input } from "mdui-in-react";
 import { setUserInfo } from "../utils/Services/UserInfo";
-import SendCode from "../utils/Services/SendCode";
+import SendCode from "../components/SendCode";
 
 class Login extends React.Component<
 	{
