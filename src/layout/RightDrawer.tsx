@@ -1,7 +1,6 @@
 import React from "react";
 import { Drawer } from "mdui";
 
-// FIXME 设置界面右侧栏不消失
 class DrawerMenu extends React.PureComponent<
 	{
 		content: React.ReactComponentElement<"div">;

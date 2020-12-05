@@ -143,8 +143,7 @@ const SearchResult = ({ result = [], kwd }: any) => {
 		}
 	};
 	const [activeItem, setActiveItem] = useState(-1);
-	// @ts-expect-error ts-migrate(7041) FIXME: The containing arrow function captures the global ... Remove this comment to see the full error message
-	useEventListener("keydown", handleKeydown.bind(this));
+	useEventListener("keydown", handleKeydown);
 	let history = useHistory();
 	if (!result.length && kwd === "") return null;
 	function handleClick(url: any) {
@@ -344,14 +343,19 @@ export default class Index extends React.Component<{}, IndexState> {
 	}
 	getNotice() {
 		//if(sessionStorage.loadedNotice == 1)return
-		const helpMdPath = require(`../../data/notice.md`);
-		fetch(helpMdPath)
+		// const helpMdPath = require(`../../data/notice.md`);
+		const helpMdPath = `https://api.github.com/repos/RiverTwilight/ygktool/issues/7`;
+		fetch(helpMdPath, {
+			headers: new Headers({
+				Accept: "application/vnd.github.squirrel-girl-preview",
+			}),
+		})
 			.then((response) => {
-				return response.text();
+				return response.text()
 			})
 			.then((text) => {
 				const notice = {
-					content: marked(text),
+					content: marked(JSON.parse(text).body),
 				};
 				window.setRightDrawer(
 					<div className="mdui-typo mdui-p-a-1">
