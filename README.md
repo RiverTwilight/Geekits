@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://ant.design">
+  <a href="https://www.ygktool.cn">
     <img width="180" src="https://www.ygktool.cn/logo_design.svg">
   </a>
 </p>
@@ -18,7 +18,7 @@
 
 ## 贡献
 
-**请在 dev 分支上开发，master 分支将自动部署到网站正式地址。**
+**本项目采用开发+部署的分支策略(master + dev)，master 分支将自动部署到网站正式地址。**
 
 你可以使用 Gitpod 进行在线开发：
 
@@ -35,7 +35,7 @@ $ npm start
 
 打开浏览器访问 http://127.0.0.1:3000.
 
-建议安装这个[vscode 插件](https://github.com/Gruntfuggly/todo-tree)来查看和增添待办事项。
+强烈建议安装这个[vscode 插件](https://github.com/Gruntfuggly/todo-tree)来查看和增添待办事项。
 
 ### 目录结构
 
@@ -77,11 +77,12 @@ npm run new:App
 | link        | string  | --      | 工具对应的 app 文件夹下的文件名。设置成*coming*即可作为即将到来的工具发布 |
 | name        | string  | --      | 工具的名称                                                                |
 | network     | boolean | false   | 【可选】是否需要联网使用，需要联网的工具在离线使用时会提示。              |
-| help        | string  | --      | 【可选】工具使用帮助                                                      |
 | description | string  | --      | 【可选】工具描述                                                          |
 | icon        | string  | --      | 工具对应的 MaterialDesign 图标名                                          |
 
 添加配置后，在`./apps/`下添加一个和配置中 Link 同名的文件夹，默认 index.\*为入口文件。
+
+接着，在工具目录添加一个 README.md 作为工具帮助，你可以自由地使用 Markdown 语法创作。
 
 访问/app/\<link\>即可调试.
 

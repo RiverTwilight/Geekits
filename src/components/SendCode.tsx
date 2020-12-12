@@ -5,6 +5,7 @@ import Axios from "../utils/axios";
 
 type State = any;
 
+// HACK 验证码模块重构
 class SendCode extends React.Component<
 	{
 		onInput(newText: string): void;

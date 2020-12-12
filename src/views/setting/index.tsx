@@ -58,7 +58,7 @@ const hitokotoItems = [
 	},
 ];
 
-export default class extends React.Component<
+export default class Setting extends React.Component<
 	{ handleNewPage: any },
 	{ setting: ISetting; privacy: string }
 > {

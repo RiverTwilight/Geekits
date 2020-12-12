@@ -2,7 +2,7 @@ import * as React from "react";
 import { Input } from "mdui-in-react";
 
 /**
- * 表单组件
+ * 表单组件，用于生成配置化表单
  * @author 江村暮
  */
 

@@ -1,5 +1,10 @@
 import { useEffect } from "react";
 
+/**
+ * 监听文件拖入事件
+ * @param cb 文件读取完毕回调
+ * @param getEventCb 事件回调
+ */
 const signListener = (cb: any, getEventCb?: any) => {
 	document.ondragover = (e) => {
 		e.preventDefault();
