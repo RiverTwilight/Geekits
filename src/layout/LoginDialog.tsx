@@ -1,5 +1,5 @@
-import React from "react";
-import { snackbar } from "mdui";
+import React, { useEffect } from "react";
+import { Dialog, snackbar } from "mdui";
 import Axios from "../utils/axios";
 import { MD5 } from "crypto-js";
 import { Input } from "mdui-in-react";
@@ -8,7 +8,7 @@ import SendCode from "../components/SendCode";
 
 class Login extends React.Component<
 	{
-		ifOpen: boolean;
+		ifOpen?: boolean;
 	},
 	{
 		statu: "login" | "signin";
@@ -28,6 +28,7 @@ class Login extends React.Component<
 			statu: "login",
 		};
 	}
+	componentDidMount() {}
 	signin() {
 		const { username, password, xcode, remember } = this.state;
 		window.loadShow();
@@ -183,4 +184,29 @@ class Login extends React.Component<
 	}
 }
 
-export default Login;
+const LoginDialog = ({
+	ifOpen,
+	closeLoginDialog,
+}: {
+	ifOpen?: boolean;
+	closeLoginDialog?: any;
+}) => {
+	useEffect(() => {
+		var dialogInst;
+		dialogInst = new Dialog("#loginDialog", {
+			history: false,
+			destroyOnClosed: false,
+			closeOnCancel: false,
+			closeOnEsc: true,
+			closeOnConfirm: false,
+		});
+		//@ts-expect-error
+		document
+			.getElementById("loginDialog")
+			.addEventListener("closed.mdui.dialog", closeLoginDialog);
+		ifOpen && dialogInst.open();
+	}, [ifOpen]);
+	return <Login ifOpen={ifOpen} />;
+};
+
+export default LoginDialog;

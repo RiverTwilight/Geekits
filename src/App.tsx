@@ -1,10 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Header from "./layout/header";
-import { Dialog } from "mdui";
 import LeftDrawer from "./layout/LeftDrawer";
 import RightDrawer from "./layout/RightDrawer";
-import LoginDialog from "./layout/LoginDialog";
 import loadable from "./utils/loading";
 import "./App.css";
 import "../node_modules/mdui/dist/css/mdui.min.css";
@@ -63,6 +61,7 @@ class App extends React.Component<
 	{
 		showLoginDialog: boolean;
 		rightDrawerContent: any;
+		LoginDialog: any;
 	}
 > {
 	loading: any;
@@ -71,28 +70,11 @@ class App extends React.Component<
 		this.state = {
 			showLoginDialog: false,
 			rightDrawerContent: null,
+			LoginDialog: null,
 		};
-	}
-	componentDidUpdate() {
-		this.state.showLoginDialog && window.dialogInst.open();
-		!this.state.showLoginDialog && window.dialogInst.close();
 	}
 	componentDidMount() {
 		const { loading } = this;
-		window.dialogInst = new Dialog("#loginDialog", {
-			history: false,
-			destroyOnClosed: false,
-			closeOnCancel: false,
-			closeOnEsc: true,
-			closeOnConfirm: false,
-		});
-		//@ts-expect-error
-		document
-			.getElementById("loginDialog")
-			.addEventListener(
-				"closed.mdui.dialog",
-				this.closeLoginDialog.bind(this)
-			);
 
 		const toggleDisabled = (isDisabled: any) => {
 			var btns = document.getElementsByClassName("loadBtn");
@@ -135,16 +117,24 @@ class App extends React.Component<
 				window.RightDrawer.toggle();
 			};
 		};
-		window.destoryRightDrawer = () =>{
+		window.destoryRightDrawer = () => {
 			this.setState({
 				rightDrawerContent: null,
 			});
 			document.body.classList.remove("mdui-drawer-body-right");
 			if (RightMenuBtnRef.current)
 				RightMenuBtnRef.current.style.display = "none";
-		}
+		};
 	}
 	openLoginDialog = () => {
+		let { LoginDialog } = this.state;
+		if (!LoginDialog) {
+			this.setState({
+				LoginDialog:
+					!LoginDialog &&
+					loadable(() => import("./layout/LoginDialog")),
+			});
+		}
 		this.setState({
 			showLoginDialog: true,
 		});
@@ -160,8 +150,9 @@ class App extends React.Component<
 	// 		window.globalRef[ref.name] = ref.ref;
 	// 	});
 	// };
+
 	render() {
-		const { showLoginDialog, rightDrawerContent } = this.state;
+		const { showLoginDialog, rightDrawerContent, LoginDialog } = this.state;
 		return (
 			<>
 				<div
@@ -172,7 +163,16 @@ class App extends React.Component<
 					<div className="mdui-progress-indeterminate"></div>
 				</div>
 				<Router>
-					<LoginDialog ifOpen={showLoginDialog} />
+					{LoginDialog && (
+						<LoginDialog
+							ifOpen={showLoginDialog}
+							closeLoginDialog={() => {
+								this.setState({
+									showLoginDialog: false,
+								});
+							}}
+						/>
+					)}
 					<LeftDrawer openLoginDialog={this.openLoginDialog} />
 					{rightDrawerContent && (
 						<RightDrawer content={rightDrawerContent} />

@@ -7,6 +7,7 @@ const IfBr = ({ statu }: any) => {
 	return statu === "vertical" ? <br></br> : null;
 };
 
+// FIXME 微软浏览器77无法保存
 // @ts-expect-error ts-migrate(2339) FIXME: Property 'hStyle' does not exist on type '{ childr... Remove this comment to see the full error message
 const FakeLogo = React.forwardRef(({ hStyle, frontStyle, lastStyle }, ref) => {
 	var logo = (
@@ -73,7 +74,7 @@ const FakeLogo = React.forwardRef(({ hStyle, frontStyle, lastStyle }, ref) => {
 
 type UiState = any;
 
-class Ui extends React.Component<{}, UiState> {
+export default class FakePornhubLogo extends React.Component<{}, UiState> {
 	inputRef: any;
 	constructor(props: {}) {
 		super(props);
@@ -199,5 +200,3 @@ class Ui extends React.Component<{}, UiState> {
 		);
 	}
 }
-
-export default Ui;

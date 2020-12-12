@@ -81,9 +81,12 @@ class DrawerMenu extends React.Component<
 	componentDidMount() {
 		window.leftDrawer = new Drawer("#left-drawer");
 	}
+	handleLogin = () => {
+		window.innerWidth <= 1024 && window.leftDrawer.close();
+		this.props.openLoginDialog();
+	};
 	render() {
 		const user = getUserInfo();
-		const { openLoginDialog } = this.props;
 		return (
 			<div id="left-drawer" className="mdui-drawer">
 				<div
@@ -121,11 +124,7 @@ class DrawerMenu extends React.Component<
 						</NavLink>
 					) : (
 						<li
-							onClick={() => {
-								window.innerWidth <= 1024 &&
-									window.leftDrawer.close();
-								openLoginDialog();
-							}}
+							onClick={this.handleLogin}
 							className="mdui-list-item mdui-ripple"
 						>
 							<i className="mdui-list-item-avatar mdui-icon material-icons">
