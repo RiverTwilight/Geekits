@@ -1,15 +1,14 @@
-import React, { useEffect } from "react";
-import { Dialog, snackbar } from "mdui";
+import React from "react";
+import { snackbar } from "mdui";
 import Axios from "../utils/axios";
 import { MD5 } from "crypto-js";
 import { Input } from "mdui-in-react";
 import { setUserInfo } from "../utils/Services/UserInfo";
 import SendCode from "../components/SendCode";
+import Dialog from "../components/Dialog";
 
 class Login extends React.Component<
-	{
-		ifOpen?: boolean;
-	},
+	{},
 	{
 		statu: "login" | "signin";
 		username: string;
@@ -109,104 +108,89 @@ class Login extends React.Component<
 	render() {
 		const { password, username, remember, xcode, statu } = this.state;
 		return (
-			<>
-				<div id="loginDialog" className="mdui-dialog">
-					<div className="mdui-dialog-title">加入云极客</div>
-					<div className="mdui-dialog-content">
-						<Input
-							onValueChange={(newText) => {
-								this.setState({
-									username: newText,
-								});
-							}}
-							header="邮箱"
-							placeholder="账户不存在将自动创建"
-							icon="email"
-							type="email"
-							value={username}
-						/>
-						<Input
-							onValueChange={(newText) => {
-								this.setState({ password: newText });
-							}}
-							header="密码"
-							icon="lock"
-							type="password"
-							value={password}
-						/>
-						{statu === "signin" && (
-							<SendCode
-								onInput={(code: any) => {
-									this.setState({ xcode: code });
-								}}
-								xcode={xcode}
-								email={username}
-							/>
-						)}
-						<div className="mdui-clearfix"></div>
-						<label className="mdui-float-right mdui-checkbox">
-							<input
-								onChange={(e) => {
-									this.setState({
-										remember: e.target.checked,
-									});
-								}}
-								type="checkbox"
-								checked={remember}
-							/>
-							<i className="mdui-checkbox-icon"></i>
-							记住我
-						</label>
-					</div>
-					<div className="mdui-dialog-actions">
-						<button
-							onClick={() => {
-								window.open("/user/forget");
-							}}
-							className="mdui-btn mdui-ripple"
-						>
-							忘记密码
-						</button>
-						<button
-							onClick={
-								statu === "login"
-									? this.login.bind(this)
-									: this.signin.bind(this)
-							}
-							className="mdui-btn mdui-ripple"
-						>
-							注册/登录
-						</button>
-					</div>
+			<div className="mdui-dialog-content">
+				<Input
+					onValueChange={(newText) => {
+						this.setState({
+							username: newText,
+						});
+					}}
+					header="邮箱"
+					placeholder="账户不存在将自动创建"
+					icon="email"
+					type="email"
+					value={username}
+				/>
+				<Input
+					onValueChange={(newText) => {
+						this.setState({ password: newText });
+					}}
+					header="密码"
+					icon="lock"
+					type="password"
+					value={password}
+				/>
+				{statu === "signin" && (
+					<SendCode
+						onInput={(code: any) => {
+							this.setState({ xcode: code });
+						}}
+						xcode={xcode}
+						email={username}
+					/>
+				)}
+				<div className="mdui-clearfix"></div>
+				<label className="mdui-float-right mdui-checkbox">
+					<input
+						onChange={(e) => {
+							this.setState({
+								remember: e.target.checked,
+							});
+						}}
+						type="checkbox"
+						checked={remember}
+					/>
+					<i className="mdui-checkbox-icon"></i>
+					记住我
+				</label>
+				<div className="mdui-dialog-actions">
+					<button
+						onClick={() => {
+							window.open("/user/forget");
+						}}
+						className="mdui-btn mdui-ripple"
+					>
+						忘记密码
+					</button>
+					<button
+						onClick={
+							statu === "login"
+								? this.login.bind(this)
+								: this.signin.bind(this)
+						}
+						className="mdui-btn mdui-ripple"
+					>
+						注册/登录
+					</button>
 				</div>
-			</>
+			</div>
 		);
 	}
 }
 
-const LoginDialog = ({
-	ifOpen,
-	closeLoginDialog,
-}: {
-	ifOpen?: boolean;
-	closeLoginDialog?: any;
-}) => {
-	useEffect(() => {
-		var dialogInst;
-		dialogInst = new Dialog("#loginDialog", {
-			history: false,
-			destroyOnClosed: false,
-			closeOnCancel: false,
-			closeOnEsc: true,
-			closeOnConfirm: false,
-		});
-		//@ts-expect-error
-		document
-			.getElementById("loginDialog")
-			.addEventListener("closed.mdui.dialog", closeLoginDialog);
-		ifOpen && dialogInst.open();
-	}, [ifOpen]);
-	return <Login ifOpen={ifOpen} />;
+const LoginDialog = (props: any) => {
+	return (
+		<Dialog
+			config={{
+				title: "加入云极客",
+				confirmText: "登录/注册",
+				cancelText: "忘记密码 ",
+			}}
+			{...props}
+		>
+			<Login />
+		</Dialog>
+	);
 };
 
 export default LoginDialog;

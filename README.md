@@ -88,9 +88,21 @@ npm run new:App
 
 ### 开发规范
 
+我们使用[Angular-commit](https://gist.github.com/brianclements/841ea7bffdb01346392c) 作为提交规范。
+
+-   **build**: Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm)
+-   **ci**: Changes to our CI configuration files and scripts (example scopes: Circle, BrowserStack, SauceLabs)
+-   **docs**: Documentation only changes
+-   **feat**: A new feature
+-   **fix**: A bug fix
+-   **perf**: A code change that improves performance
+-   **refactor**: A code change that neither fixes a bug nor adds a feature
+-   **style**: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)
+-   **test**: Adding missing tests or correcting existing tests
+
 欢迎随时纠正我在代码中的不良习惯。
 
-由于学业繁忙，项目时间跨度久，我也处在技术成长期，仍旧有许多“破窗”。若能斧正不胜感激！
+由于学业繁忙，项目时间跨度久，我也处在技术成长期，仍旧有许多“破窗”。若能帮助重构不胜感激！
 
 ### 备注
 
