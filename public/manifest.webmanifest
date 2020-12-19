@@ -1,25 +1,26 @@
 {
-    "short_name": "云极客工具",
-    "name": "云极客工具",
-    "icons": [
-        {
-            "src": "favicon.ico",
-            "sizes": "32x32",
-            "type": "image/x-icon"
-        },
-        {
-            "src": "logo192.png",
-            "type": "image/png",
-            "sizes": "192x192"
-        },
-        {
-            "src": "logo512.png",
-            "type": "image/png",
-            "sizes": "512x512"
-        }
-    ],
-    "start_url": ".",
-    "display": "standalone",
-    "theme_color": "#fff",
-    "background_color": "#fff"
+	"short_name": "云极客工具",
+	"name": "云极客工具",
+	"icons": [
+		{
+			"src": "favicon.ico",
+			"sizes": "32x32",
+			"type": "image/x-icon"
+		},
+		{
+			"src": "logo192.png",
+			"type": "image/png",
+			"sizes": "192x192",
+			"purpose": "any maskable"
+		},
+		{
+			"src": "logo512.png",
+			"type": "image/png",
+			"sizes": "512x512"
+		}
+	],
+	"start_url": ".",
+	"display": "standalone",
+	"theme_color": "#fff",
+	"background_color": "#fff"
 }

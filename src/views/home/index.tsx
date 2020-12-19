@@ -149,7 +149,6 @@ const SearchResult = ({ result = [], kwd }: any) => {
 	function handleClick(url: any) {
 		history.push(url);
 	}
-	console.log(activeItem);
 	return (
 		<ul className="mdui-list">
 			{/* @ts-expect-error ts-migrate(7006) FIXME: Parameter 'a' implicitly has an 'any' type. */}
