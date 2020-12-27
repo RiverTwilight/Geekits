@@ -25,10 +25,10 @@ const UserRouterList = [
 	},
 ];
 // TODO 优化排版
-class UserDashboard extends React.PureComponent {
+export default class UserDashboard extends React.PureComponent {
 	render() {
 		return (
-			<>
+			<div className="mdui-col-md-10">
 				<Router>
 					<Switch>
 						{UserRouterList.map((route) => (
@@ -36,9 +36,7 @@ class UserDashboard extends React.PureComponent {
 						))}
 					</Switch>
 				</Router>
-			</>
+			</div>
 		);
 	}
 }
-
-export default UserDashboard;

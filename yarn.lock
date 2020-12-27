@@ -7319,10 +7319,10 @@ mdn-data@2.0.6:
   resolved "https://registry.npm.taobao.org/mdn-data/download/mdn-data-2.0.6.tgz#852dc60fcaa5daa2e8cf6c9189c440ed3e042978"
   integrity sha1-hS3GD8ql2qLoz2yRicRA7T4EKXg=
 
-mdui-in-react@^1.2.15:
-  version "1.2.15"
-  resolved "https://registry.npm.taobao.org/mdui-in-react/download/mdui-in-react-1.2.15.tgz#b8eb55f558d0e196537b348faa48ba26de70e441"
-  integrity sha1-uOtV9VjQ4ZZTezSPqki6Jt5w5EE=
+mdui-in-react@^1.2.17:
+  version "1.2.17"
+  resolved "https://registry.npm.taobao.org/mdui-in-react/download/mdui-in-react-1.2.17.tgz#e3b271f88ab8efaa52c39944e2219e4daec4ac7e"
+  integrity sha1-47Jx+Iq476pSw5lE4iGeTa7ErH4=
   dependencies:
     "@types/node" "^13.11.0"
     mdui "0.4.3"
@@ -7839,8 +7839,8 @@ object-keys@^1.0.11, object-keys@^1.0.12, object-keys@^1.1.1:
   resolved "https://registry.npm.taobao.org/object-keys/download/object-keys-1.1.1.tgz#1c47f272df277f3b1daf061677d9c82e2322c60e"
   integrity sha1-HEfyct8nfzsdrwYWd9nILiMixg4=
 
-object-path@0.11.5:
-  version "0.11.5"
+object-path@0.11.4:
+  version "0.11.4"
   resolved "https://registry.npm.taobao.org/object-path/download/object-path-0.11.4.tgz#370ae752fbf37de3ea70a861c23bba8915691949"
   integrity sha1-NwrnUvvzfePqcKhhwju6iRVpGUk=
 
@@ -9472,18 +9472,9 @@ react-scripts@^3.4.3:
   optionalDependencies:
     fsevents "2.1.2"
 
-react@16.13.1:
+react@16.13.1, react@^16.13.1:
   version "16.13.1"
   resolved "https://registry.npm.taobao.org/react/download/react-16.13.1.tgz#2e818822f1a9743122c063d6410d85c1e3afe48e"
-  integrity sha1-LoGIIvGpdDEiwGPWQQ2FweOv5I4=
-  dependencies:
-    loose-envify "^1.1.0"
-    object-assign "^4.1.1"
-    prop-types "^15.6.2"
-
-react@^16.13.1:
-  version "16.13.1"
-  resolved "https://registry.npm.taobao.org/react/download/react-16.13.1.tgz?cache=0&sync_timestamp=1600734121557&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Freact%2Fdownload%2Freact-16.13.1.tgz#2e818822f1a9743122c063d6410d85c1e3afe48e"
   integrity sha1-LoGIIvGpdDEiwGPWQQ2FweOv5I4=
   dependencies:
     loose-envify "^1.1.0"

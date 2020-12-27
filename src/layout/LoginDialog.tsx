@@ -108,51 +108,53 @@ class Login extends React.Component<
 	render() {
 		const { password, username, remember, xcode, statu } = this.state;
 		return (
-			<div className="mdui-dialog-content">
-				<Input
-					onValueChange={(newText) => {
-						this.setState({
-							username: newText,
-						});
-					}}
-					header="邮箱"
-					placeholder="账户不存在将自动创建"
-					icon="email"
-					type="email"
-					value={username}
-				/>
-				<Input
-					onValueChange={(newText) => {
-						this.setState({ password: newText });
-					}}
-					header="密码"
-					icon="lock"
-					type="password"
-					value={password}
-				/>
-				{statu === "signin" && (
-					<SendCode
-						onInput={(code: any) => {
-							this.setState({ xcode: code });
-						}}
-						xcode={xcode}
-						email={username}
-					/>
-				)}
-				<div className="mdui-clearfix"></div>
-				<label className="mdui-float-right mdui-checkbox">
-					<input
-						onChange={(e) => {
+			<>
+				<div className="mdui-dialog-content">
+					<Input
+						onValueChange={(newText) => {
 							this.setState({
-								remember: e.target.checked,
+								username: newText,
 							});
 						}}
-						type="checkbox"
-						checked={remember}
+						header="邮箱"
+						placeholder="账户不存在将自动创建"
+						icon="email"
+						type="email"
+						value={username}
 					/>
-					<i className="mdui-checkbox-icon"></i>
-					记住我
-				</label>
+					<Input
+						onValueChange={(newText) => {
+							this.setState({ password: newText });
+						}}
+						header="密码"
+						icon="lock"
+						type="password"
+						value={password}
+					/>
+					{statu === "signin" && (
+						<SendCode
+							onInput={(code: any) => {
+								this.setState({ xcode: code });
+							}}
+							xcode={xcode}
+							email={username}
+						/>
+					)}
+					<div className="mdui-clearfix"></div>
+					<label className="mdui-float-right mdui-checkbox">
+						<input
+							onChange={(e) => {
+								this.setState({
+									remember: e.target.checked,
+								});
+							}}
+							type="checkbox"
+							checked={remember}
+						/>
+						<i className="mdui-checkbox-icon"></i>
+						记住我
+					</label>
+				</div>
 				<div className="mdui-dialog-actions">
 					<button
 						onClick={() => {
@@ -173,7 +175,7 @@ class Login extends React.Component<
 						注册/登录
 					</button>
 				</div>
-			</div>
+			</>
 		);
 	}
 }

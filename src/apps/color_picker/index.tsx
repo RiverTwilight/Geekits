@@ -2,7 +2,7 @@ import React from "react";
 import ClipboardJS from "clipboard";
 import { ReactComponent as Cursor } from "../../svg/position.svg";
 import { RangeInput, FileInput, Button } from "mdui-in-react";
-import { snackbar } from "mdui";
+import mdui from "mdui";
 
 //调色盘
 const ColorLens = ({ onChange, rgb, isHide }: any) => {
@@ -113,7 +113,7 @@ export default class extends React.Component<{}, ComponentState> {
 	componentDidMount() {
 		var clipboard = new ClipboardJS(".copy");
 		clipboard.on("success", (e) => {
-			snackbar({ message: "已复制" });
+			mdui.snackbar({ message: "已复制" });
 			e.clearSelection();
 		});
 		this.setState({

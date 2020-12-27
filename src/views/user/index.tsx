@@ -9,5 +9,6 @@ import { getUserInfo } from "../../utils/Services/UserInfo";
 export default () => {
 	if (!getUserInfo()) window.location.href = "/";
 	window.updateTitle("我的账户");
+	window.destoryRightDrawer && window.destoryRightDrawer();
 	return <Logined />;
 };

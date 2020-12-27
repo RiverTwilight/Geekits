@@ -70,7 +70,7 @@ export default class extends React.Component<{}, ComponentState> {
 							</button>
 						</p>
 
-						<p>到期时间：2020-4-12 9:00:00</p>
+						<p>到期时间：2021-10-27 9:00:00</p>
 					</div>
 
 					<div className="mdui-card-actions">

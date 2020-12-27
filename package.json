@@ -1,6 +1,12 @@
 {
 	"name": "ygktool",
 	"version": "0.1.0",
+	"description": "A feature-rich progressive online tool website.",
+	"author": {
+		"name": "江村暮",
+		"email": "yungeeker@gmail.com",
+		"url": "https://www.yungeeker.com"
+	},
 	"dependencies": {
 		"@testing-library/jest-dom": "^4.2.4",
 		"@testing-library/react": "^9.5.0",
@@ -65,5 +71,8 @@
 		"@types/clipboard": "^2.0.1",
 		"@types/react-router-dom": "^5.1.5",
 		"ts-migrate": "^0.1.0"
+	},
+	"engines": {
+		"node": ">=14"
 	}
 }

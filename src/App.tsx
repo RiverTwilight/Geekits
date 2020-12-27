@@ -1,8 +1,9 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Header from "./layout/header";
 import LeftDrawer from "./layout/LeftDrawer";
 import RightDrawer from "./layout/RightDrawer";
+import NoMatch from "./views/404";
 import loadable from "./utils/loading";
 import "./App.css";
 import "../node_modules/mdui/dist/css/mdui.min.css";
@@ -39,19 +40,6 @@ const RouterList: {
 		path: "/app/:name",
 	},
 ];
-
-const NoMatch = () => (
-	<div className="mdui-text-color-theme-text center-panel">
-		<h2 className="mdui-text-center">电波无法到达哦</h2>
-		<p>
-			是不是地址拼错了？是/app不是/apps哦<br></br>
-			想要的工具不见了？返回首页找找吧！<br></br>
-		</p>
-		<Link to="/" className="mdui-color-theme mdui-btn mdui-btn-raised">
-			返回首页
-		</Link>
-	</div>
-);
 
 const RightMenuBtnRef = React.createRef<HTMLDivElement>();
 const AppBarRef = React.createRef<HTMLDivElement>();
@@ -118,12 +106,14 @@ class App extends React.Component<
 			};
 		};
 		window.destoryRightDrawer = () => {
-			this.setState({
-				rightDrawerContent: null,
-			});
-			document.body.classList.remove("mdui-drawer-body-right");
-			if (RightMenuBtnRef.current)
-				RightMenuBtnRef.current.style.display = "none";
+			if (this.state.rightDrawerContent) {
+				this.setState({
+					rightDrawerContent: null,
+				});
+				document.body.classList.remove("mdui-drawer-body-right");
+				if (RightMenuBtnRef.current)
+					RightMenuBtnRef.current.style.display = "none";
+			}
 		};
 	}
 	openLoginDialog = () => {
