@@ -1,16 +1,14 @@
 import React from "react";
 import html2canvas from "html2canvas";
 import saveFile from "../../utils/fileSaver";
-import { RangeInput, ListControlCheck } from "mdui-in-react";
+import { RangeInput, ListControlCheck, Button } from "mdui-in-react";
 
 const IfBr = ({ statu }: any) => {
 	return statu === "vertical" ? <br></br> : null;
 };
 
-// FIXME 微软浏览器77无法保存
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'hStyle' does not exist on type '{ childr... Remove this comment to see the full error message
-const FakeLogo = React.forwardRef(({ hStyle, frontStyle, lastStyle }, ref) => {
-	var logo = (
+const FakeLogo = ({ hStyle, frontStyle, lastStyle }: any) => {
+	return (
 		<div
 			style={{
 				paddingTop: "50px",
@@ -60,8 +58,6 @@ const FakeLogo = React.forwardRef(({ hStyle, frontStyle, lastStyle }, ref) => {
 						padding: "0px 4px 0px 4px",
 						marginLeft: "3px",
 					}}
-					// @ts-expect-error ts-migrate(2322) FIXME: Type 'unknown' is not assignable to type 'HTMLSpan... Remove this comment to see the full error message
-					ref={ref}
 					contentEditable={true}
 				>
 					ool
@@ -69,8 +65,7 @@ const FakeLogo = React.forwardRef(({ hStyle, frontStyle, lastStyle }, ref) => {
 			</h1>
 		</div>
 	);
-	return logo;
-});
+};
 
 type UiState = any;
 
@@ -78,7 +73,6 @@ export default class FakePornhubLogo extends React.Component<{}, UiState> {
 	inputRef: any;
 	constructor(props: {}) {
 		super(props);
-		this.inputRef = React.createRef();
 		this.state = {
 			hStyle: {
 				size: 4.0,
@@ -98,18 +92,13 @@ export default class FakePornhubLogo extends React.Component<{}, UiState> {
 		const { hStyle, front, last } = this.state;
 		return (
 			<>
-				{/* @ts-expect-error ts-migrate(2339) FIXME: Property 'center' does not exist on type 'JSX.Intr... Remove this comment to see the full error message */}
-				<center>
+				<div className="center-with-flex">
 					<FakeLogo
-						// @ts-expect-error ts-migrate(2322) FIXME: Property 'hStyle' does not exist on type 'Intrinsi... Remove this comment to see the full error message
 						hStyle={hStyle}
 						frontStyle={front}
 						lastStyle={last}
-						ref={this.inputRef} //没卵用
 					/>
-					{/* @ts-expect-error ts-migrate(2339) FIXME: Property 'center' does not exist on type 'JSX.Intr... Remove this comment to see the full error message */}
-				</center>
-
+				</div>
 				<RangeInput
 					onValueChange={(value) => {
 						this.setState({
@@ -178,24 +167,25 @@ export default class FakePornhubLogo extends React.Component<{}, UiState> {
 						}
 					}}
 				/>
-				<button
+				<Button
+					icon="file_download"
+					title="下载"
 					onClick={() => {
 						// @ts-expect-error ts-migrate(2345) FIXME: Type 'null' is not assignable to type 'HTMLElement... Remove this comment to see the full error message
 						html2canvas(document.querySelector("#blackborad")).then(
 							(canvas) => {
-								var base64 = canvas.toDataURL("image/png");
-								// @ts-expect-error ts-migrate(2345) FIXME: Property 'type' is missing in type '{ file: string... Remove this comment to see the full error message
+								let base64 = canvas.toDataURL("image/png");
 								saveFile({
 									file: base64,
-									filename: "ygktool-fake_pornhub_logo.jpg",
+									type: "png",
+									filename: "ygktool-fake_pornhub_logo.png",
 								});
 							}
 						);
 					}}
-					className="mdui-color-theme mdui-fab mdui-fab-fixed"
-				>
-					<i className="mdui-icon material-icons">check</i>
-				</button>
+					primary
+					raised
+				/>
 			</>
 		);
 	}

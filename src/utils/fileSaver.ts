@@ -45,7 +45,9 @@ function dataURLtoFile(dataurl: any, filename?: string): File {
 
 /**
  * 保存文件
- * @param config 配置
+ * @param {object} config
+ * **type**:文件后缀
+ * **file**:Blob或String
  */
 const saveFile = async (config: {
 	filename: string;
