@@ -135,6 +135,7 @@ class Header extends React.Component<
 							// 请勿取消箭头函数嵌套
 							onClick={() => window.leftDrawer.toggle()}
 							icon="menu"
+							iconColor="theme"
 						/>
 						<a onClick={this.checkSaying}>
 							<div

@@ -29,7 +29,15 @@ const Menu = () => {
 	const handleClick = () => {
 		window.innerWidth <= 1024 && window.leftDrawer.close();
 	};
-	const Warpper = ({ a, children }: { a: any; children: any }) => {
+	const Warpper = ({
+		a,
+		children,
+	}: {
+		a: {
+			link: string;
+		};
+		children: any;
+	}) => {
 		if (a.link.match(/(http|https)/)) {
 			return (
 				<a href={a.link} className="mdui-list-item mdui-ripple">
@@ -43,7 +51,6 @@ const Menu = () => {
 		return (
 			<NavLink
 				onClick={handleClick}
-				key={a.link}
 				exact
 				className="mdui-list-item mdui-ripple"
 				activeClassName="mdui-list-item-active"
@@ -56,7 +63,7 @@ const Menu = () => {
 	return (
 		<>
 			{list.map((a) => (
-				<Warpper a={a}>
+				<Warpper key={a.link} a={a}>
 					<i
 						className={
 							"mdui-list-item-icon mdui-icon material-icons mdui-text-color-" +

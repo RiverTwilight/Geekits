@@ -6,6 +6,7 @@ import {
 	ListControlMenu,
 	MusicPlayer,
 } from "mdui-in-react";
+import { snackbar } from "mdui";
 import Axios from "../../utils/axios";
 
 const VOICE_SOURCE = [
@@ -76,9 +77,16 @@ export default class extends React.Component<{}, State> {
 				});
 				//var file = new File([blob], '1.mp3', {type: 'audio/mpeg', lastModified: Date.now()});
 				var ourl = URL.createObjectURL(blob);
-				this.setState({
-					res: ourl,
-				});
+				this.setState(
+					{
+						res: ourl,
+					},
+					() => {
+						snackbar({
+							message: "✔ 转换成功",
+						});
+					}
+				);
 			})
 			.then(() => window.loadHide());
 	};
@@ -94,8 +102,7 @@ export default class extends React.Component<{}, State> {
 					header="输入文本"
 					value={options.text}
 					rows={3}
-					// @ts-expect-error ts-migrate(2322) FIXME: Type 'string' is not assignable to type 'number | ... Remove this comment to see the full error message
-					maxLength="500"
+					maxLength={500}
 				/>
 				<ListControlMenu
 					icon="record_voice_over"

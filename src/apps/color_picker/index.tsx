@@ -121,6 +121,8 @@ export default class extends React.Component<{}, ComponentState> {
 			marginTop: this.canvas.getBoundingClientRect().top,
 		});
 		document.addEventListener("keydown", (e) => {
+			// "typescript.validate.enable": false
+			// 加入这条可去掉横线
 			switch (e.keyCode) {
 				case 37:
 					e.preventDefault();
