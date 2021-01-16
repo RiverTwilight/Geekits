@@ -10,7 +10,7 @@ import saveFile from "../../utils/fileSaver";
 import { FileInput } from "mdui-in-react";
 import { Input, Button } from "mdui-in-react";
 
-// HACK 使用component
+// FIXME 剪切板后端凉了
 const Share = ({ qrcode, token }: any) => (
 	<>
 		<ul className="mdui-menu" id="share">
@@ -118,9 +118,20 @@ const MsgList = ({ data }: any) => {
 	return <ul className="mdui-list mdui-row-md-2">{list}</ul>;
 };
 
-type ComponentState = any;
+type ComponentState = {
+	connectState: string;
+	textData?: string;
+	receivedData: any[];
+	fileData?: any;
+	token?: string | number;
+	originTitle: string;
+	socket?: any;
+	deviceId?: number;
+	qrcode?: string;
+	pwd?: any;
+};
 
-export default class extends React.Component<{}, ComponentState> {
+class Clipboard extends React.Component<{}, ComponentState> {
 	constructor(props: {}) {
 		super(props);
 		this.state = {
@@ -157,15 +168,16 @@ export default class extends React.Component<{}, ComponentState> {
 	}
 	componentWillUnmount() {
 		this.state.socket.close();
-		document.removeEventListener("visibilitychange", () => {});
+		window.removeEventListener("visibilitychange", this.handleVisibility);
+	}
+	handleVisibility = () => {
+		//还原默认标题
+		if (!document.hidden) {
+			document.title = this.state.originTitle;
+		}
 	}
 	componentDidMount() {
-		window.addEventListener("visibilitychange", () => {
-			//还原默认标题
-			if (!document.hidden) {
-				document.title = this.state.originTitle;
-			}
-		});
+		window.addEventListener("visibilitychange", this.handleVisibility);
 
 		const cb = (data: any) => {
 			this.setState(data);
@@ -272,7 +284,6 @@ export default class extends React.Component<{}, ComponentState> {
 		return (
 			<>
 				<MsgList data={receivedData} />
-
 				<div className="bottom-dashboard mdui-card mdui-p-a-1">
 					<Input
 						onValueChange={(newText) => {
@@ -287,19 +298,20 @@ export default class extends React.Component<{}, ComponentState> {
 						value={textData}
 					/>
 
-					<button
+					<Button
+						title="发送"
 						onClick={this.sendMsg.bind(this)}
-						className="loadBtn mdui-ripple mdui-float-right mdui-color-theme mdui-btn-raised mdui-btn"
-					>
-						发送
-					</button>
+						ripple
+						raised
+						primary
+						className="loadBtn mdui-float-right"
+					/>
 
-					<button className="mdui-float-left mdui-btn">
-						<i className="mdui-icon mdui-icon-left material-icons">
-							&#xe63e;
-						</i>
-						{connectState}
-					</button>
+					<Button
+						icon="wifi"
+						title={connectState}
+						className="mdui-float-left"
+					/>
 					{/*<button
                         onClick={()=>{
                             mdui.prompt(
@@ -352,3 +364,5 @@ export default class extends React.Component<{}, ComponentState> {
 		);
 	}
 }
+
+export default Clipboard;

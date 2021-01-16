@@ -2,7 +2,6 @@ import React from "react";
 import mdui from "mdui";
 import { Input, BottomAlert } from "mdui-in-react";
 import "./style.css";
-import { stat } from "fs";
 
 /*
 const sayings = [
@@ -37,7 +36,13 @@ function d2a(n: number) {
 	return (n * Math.PI) / 180;
 }
 
-const Record = ({ closeBottomAlert }: { closeBottomAlert: any }) => {
+interface recordItem {
+	name: string;
+	metaDate: string;
+	date: string;
+}
+
+const Record = ({ closeBottomAlert }: { closeBottomAlert: () => void }) => {
 	!localStorage.tomato && localStorage.setItem("tomato", "[]");
 	const historyData = JSON.parse(localStorage.tomato);
 	const now = new Date();
@@ -77,26 +82,21 @@ const Record = ({ closeBottomAlert }: { closeBottomAlert: any }) => {
 				<b>今日：</b>
 				{
 					historyData.filter(
-						// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'item' implicitly has an 'any' type.
-						(item) => item.metaDate === now.toLocaleDateString()
+						(item: recordItem) =>
+							item.metaDate === now.toLocaleDateString()
 					).length
 				}
-
 				<br></br>
-
 				<b>总计：</b>
 				{historyData.length}
-
 				<p className="mdui-text-color-black-secondary">
 					每个番茄完成后，你可以休息5分钟。每四个番茄完成后，你可以休息地更久一点。
 				</p>
 			</div>
-
 			<div className="mdui-divider"></div>
-
 			<ul className="mdui-list">
 				{/* @ts-expect-error ts-migrate(7006) FIXME: Parameter 'item' implicitly has an 'any' type. */}
-				{historyData.map((item, i) => (
+				{historyData.map((item: recordItem, i) => (
 					<li key={i} className="mdui-list-item mdui-ripple">
 						<i className="mdui-icon mdui-text-color-red material-icons">
 							access_alarms
@@ -128,28 +128,31 @@ const Record = ({ closeBottomAlert }: { closeBottomAlert: any }) => {
 const Tomato = ({
 	r = 34,
 	ang = 20,
-	// @ts-expect-error ts-migrate(7031) FIXME: Binding element 'startWorking' implicitly has an '... Remove this comment to see the full error message
 	startWorking,
-	// @ts-expect-error ts-migrate(7031) FIXME: Binding element 'addTime' implicitly has an 'any' ... Remove this comment to see the full error message
 	addTime,
-	// @ts-expect-error ts-migrate(7031) FIXME: Binding element 'timeStr' implicitly has an 'any' ... Remove this comment to see the full error message
 	timeStr,
-	// @ts-expect-error ts-migrate(7031) FIXME: Binding element 'statu' implicitly has an 'any' ty... Remove this comment to see the full error message
 	statu,
+}: {
+	r?: number;
+	ang?: number;
+	startWorking: () => void;
+	addTime: () => void;
+	timeStr: string;
+	statu: "sleep" | "rest" | "working";
 }) => {
 	const ang1 = ang;
 	const ang2 = 360;
+	const handleClick = () => {
+		let func = {
+			sleep: startWorking,
+			rest: addTime,
+			working: () => {},
+		};
+		func[statu]();
+	};
 	return (
 		<button
-			onClick={() => {
-				let func = {
-					sleep: startWorking,
-					rest: addTime,
-					working: () => {},
-				};
-				// @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
-				func[statu]();
-			}}
+			onClick={handleClick}
 			className="mdui-shadow-0 mdui-fab mdui-color-theme tomato-box"
 		>
 			<button
@@ -176,7 +179,6 @@ const Tomato = ({
 					strokeWidth="8"
 					fill="transparent"
 				/>
-
 				<path
 					strokeLinecap="round"
 					d={`M50 50 
@@ -189,10 +191,8 @@ const Tomato = ({
 					strokeWidth="2.8"
 				/>
 			</svg>
-
 			<div className="statu mdui-text-color-theme">
 				{
-					// @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
 					{
 						working: "工作中",
 						rest: "点击延长休息时间",
@@ -200,7 +200,6 @@ const Tomato = ({
 					}[statu]
 				}
 			</div>
-
 			<div className="tt-countdown mdui-text-color-theme">{timeStr}</div>
 		</button>
 	);
@@ -208,7 +207,8 @@ const Tomato = ({
 
 type TomatoClockState = any;
 
-class TomatoClock extends React.Component<{}, TomatoClockState> {
+// FIXME 番茄钟无法使用
+export default class TomatoClock extends React.Component<{}, TomatoClockState> {
 	constructor(props: {}) {
 		super(props);
 		this.state = {
@@ -221,7 +221,7 @@ class TomatoClock extends React.Component<{}, TomatoClockState> {
 		};
 	}
 	componentWillUnmount() {
-		clearInterval(window.tomato)
+		clearInterval(window.tomato);
 		document.title = this.state.originTitle;
 	}
 	startATomato(minute = 25) {
@@ -333,9 +333,7 @@ class TomatoClock extends React.Component<{}, TomatoClockState> {
 							});
 						}}
 					/>
-
 					<br></br>
-
 					<Tomato
 						ang={((1500.1 - min * 60 - sec) / 1500) * 360}
 						timeStr={`${min}:${sec < 10 ? `0${sec}` : sec}`}
@@ -352,9 +350,7 @@ class TomatoClock extends React.Component<{}, TomatoClockState> {
 						}}
 						statu={statu}
 					/>
-
 					<br></br>
-
 					<button
 						style={{
 							display: statu !== "sleep" ? "block" : "none",
@@ -401,5 +397,3 @@ class TomatoClock extends React.Component<{}, TomatoClockState> {
 		);
 	}
 }
-
-export default TomatoClock;
