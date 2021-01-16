@@ -207,7 +207,6 @@ const Tomato = ({
 
 type TomatoClockState = any;
 
-// FIXME 番茄钟无法使用
 export default class TomatoClock extends React.Component<{}, TomatoClockState> {
 	constructor(props: {}) {
 		super(props);

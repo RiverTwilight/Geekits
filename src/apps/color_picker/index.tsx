@@ -1,8 +1,8 @@
 import React from "react";
 import ClipboardJS from "clipboard";
-import { ReactComponent as Cursor } from "../../svg/position.svg";
 import { RangeInput, FileInput, Button } from "mdui-in-react";
-import mdui from "mdui";
+import { snackbar } from "mdui";
+import { ReactComponent as Cursor } from "../../svg/position.svg";
 
 //调色盘
 const ColorLens = ({ onChange, rgb, isHide }: any) => {
@@ -69,8 +69,7 @@ const ColorLens = ({ onChange, rgb, isHide }: any) => {
 
 type ComponentState = any;
 
-// FIXME 坐标位置问题
-export default class extends React.Component<{}, ComponentState> {
+export default class ColorPicker extends React.Component<{}, ComponentState> {
 	canvas: any;
 	constructor(props: {}) {
 		super(props);
@@ -113,7 +112,7 @@ export default class extends React.Component<{}, ComponentState> {
 	componentDidMount() {
 		var clipboard = new ClipboardJS(".copy");
 		clipboard.on("success", (e) => {
-			mdui.snackbar({ message: "已复制" });
+			snackbar({ message: "已复制" });
 			e.clearSelection();
 		});
 		this.setState({
@@ -180,8 +179,8 @@ export default class extends React.Component<{}, ComponentState> {
 			marginLeft,
 			marginTop,
 			isHideLens,
+			imgFile,
 		} = this.state;
-
 		return (
 			<>
 				<span
@@ -195,14 +194,18 @@ export default class extends React.Component<{}, ComponentState> {
 				>
 					<Cursor />
 				</span>
-
 				<canvas
+					style={{
+						maxWidth: "100%",
+					}}
 					onClick={(e) => {
-						var absoluteLeft = e.pageX - marginLeft;
-						var absoluteTop = e.pageY - marginTop;
+						let zoomLevel: number =
+							this.canvas.width / this.canvas.clientWidth;
+						let absoluteLeft = (e.pageX - marginLeft) * zoomLevel;
+						let absoluteTop = (e.pageY - marginTop) * zoomLevel;
 						this.setState({
-							positionX: absoluteLeft,
-							positionY: absoluteTop,
+							positionX: e.pageX,
+							positionY: e.pageY,
 						});
 						this.getColor(absoluteLeft, absoluteTop);
 					}}
@@ -210,8 +213,15 @@ export default class extends React.Component<{}, ComponentState> {
 						this.canvas = c;
 					}}
 				/>
-
-				<div className="bottom-dashboard mdui-card mdui-p-a-1">
+				<div
+					style={
+						imgFile && {
+							position: "fixed",
+							bottom: "10px",
+						}
+					}
+					className="mdui-card mdui-p-a-1"
+				>
 					<FileInput
 						readbydrag
 						fileType="image/*"
@@ -226,26 +236,22 @@ export default class extends React.Component<{}, ComponentState> {
 							);
 						}}
 					/>
-
 					<div className="mdui-btn-group">
 						<Button
 							onClick={this.moveLeft.bind(this)}
 							type="button"
 							icon="chevron_left"
 						/>
-
 						<Button
 							onClick={this.moveUp.bind(this)}
 							type="button"
 							icon="arrow_drop_up"
 						/>
-
 						<Button
 							onClick={this.moveDown.bind(this)}
 							type="button"
 							icon="arrow_drop_down"
 						/>
-
 						<Button
 							onClick={this.moveRight.bind(this)}
 							type="button"
@@ -260,28 +266,24 @@ export default class extends React.Component<{}, ComponentState> {
 					>
 						<i className="mdui-icon material-icons">lens</i>
 					</button>
-
 					<button
 						data-clipboard-text={`rgba(${rgb})`}
 						className="copy mdui-btn"
 					>
 						rgba({rgb})
 					</button>
-
 					<button
 						data-clipboard-text={binary}
 						className="copy mdui-btn"
 					>
 						{binary}
 					</button>
-
 					<Button
 						onClick={() => {
 							this.setState({ isHideLens: !isHideLens });
 						}}
 						icon="color_lens"
 					/>
-
 					<ColorLens
 						onChange={(newColor: any) => {
 							const [r, g, b, ,] = newColor
