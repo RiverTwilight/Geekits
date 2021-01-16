@@ -5,7 +5,7 @@ import { Input, Button } from "mdui-in-react";
 import { signListener, removeListener } from "../../utils/Hooks/useFileDrager";
 
 const PrintRes = ({ res }: any) => (
-	<div className="mdui-card mdui-col">
+	<div className="mdui-card">
 		<div
 			style={{ height: "130px" }}
 			className="mdui-typo mdui-dialog-content mdui-p-a-2"
@@ -25,13 +25,11 @@ const PrintRes = ({ res }: any) => (
 
 type ComponentState = any;
 
-export default class extends React.Component<{}, ComponentState> {
+export default class Html2Jsx extends React.Component<{}, ComponentState> {
 	constructor(props: {}) {
 		super(props);
-		// @ts-expect-error ts-migrate(2339) FIXME: Property 'dropBox' does not exist on type 'default... Remove this comment to see the full error message
-		this.dropBox = createRef();
 		this.state = {
-			text: '<span style="color: #66ccff"></span>',
+			text: '<span onclick="go()" style="color: #66ccff"></span>',
 			res: "",
 		};
 	}
@@ -51,7 +49,6 @@ export default class extends React.Component<{}, ComponentState> {
 		removeListener();
 	}
 	html2jsx() {
-		// TODO 短横线转小驼峰
 		const { text } = this.state;
 		// @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
 		var inlineStyle = /\bstyle="(.+)"/.exec(String(text))[1];
@@ -107,19 +104,15 @@ export default class extends React.Component<{}, ComponentState> {
 						placeholder="输入内容或拖入txt文件"
 						rows={5}
 					/>
-					{/* @ts-expect-error ts-migrate(2339) FIXME: Property 'center' does not exist on type 'JSX.Intr... Remove this comment to see the full error message */}
-					<center>
+					<div className="center-with-flex">
 						<Button
 							onClick={this.html2jsx.bind(this)}
 							title="转换为jsx"
 							raised
 							primary
 						/>
-						{/* @ts-expect-error ts-migrate(2339) FIXME: Property 'center' does not exist on type 'JSX.Intr... Remove this comment to see the full error message */}
-					</center>
-
+					</div>
 					<br></br>
-
 					<PrintRes res={res} />
 				</div>
 			</>
