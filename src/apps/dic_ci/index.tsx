@@ -30,7 +30,7 @@ export default () => (
     
     <Template
         Result={Result}
-        api="https://api.ygktool.cn/api/dic_ci?ci="
+        api="/api/dic_ci?ci="
         inputOpt={{
             header: '从262274个词语中查询',
             icon: 'search'

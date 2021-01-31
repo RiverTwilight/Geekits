@@ -82,7 +82,7 @@ export default () => (
 	<>
 		<Template
 			Result={Result}
-			api="https://api.ygktool.cn/api/dic_word?word="
+			api="/api/dic_word?word="
 			inputOpt={{
 				header: "从14502个汉字中查询",
 				icon: "search",

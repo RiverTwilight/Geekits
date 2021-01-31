@@ -29,23 +29,15 @@ const Share = ({ qrcode, token }: any) => (
 		</ul>
 
 		<button
-			style={{
-				position: "fixed",
-				bottom: "180px",
-				right: "10px",
-			}}
 			mdui-menu="{target: '#share',gutter:'-20', covered:false}"
-			className="mdui-color-theme mdui-fab mdui-fab-mini"
+			className="mdui-btn"
 		>
-			<i className="mdui-icon material-icons">&#xe80d;</i>
+			添加设备
 		</button>
 	</>
 );
 
-const MsgList = ({ data }: any) => {
-	if (!data.length) {
-		return <p className="mdui-text-center">点击右下角"分享"按钮添加设备</p>;
-	}
+const MsgList = ({ data, qrcode, token }: any) => {
 	const list = data.map((a: any, i: any) => {
 		if (a.type === "text") {
 			return (
@@ -115,7 +107,14 @@ const MsgList = ({ data }: any) => {
 			);
 		}
 	});
-	return <ul className="mdui-list mdui-row-md-2">{list}</ul>;
+	return (
+		<>
+			<ul className="mdui-list mdui-row-md-2">{list}</ul>
+			<p className="mdui-text-center">
+				<Share qrcode={qrcode} token={token} />
+			</p>
+		</>
+	);
 };
 
 type ComponentState = {
@@ -175,7 +174,7 @@ class Clipboard extends React.Component<{}, ComponentState> {
 		if (!document.hidden) {
 			document.title = this.state.originTitle;
 		}
-	}
+	};
 	componentDidMount() {
 		window.addEventListener("visibilitychange", this.handleVisibility);
 
@@ -209,13 +208,12 @@ class Clipboard extends React.Component<{}, ComponentState> {
 			}
 		);
 
-		const socket = io("https://ygk-api.yunser.com", {
-			path: "/routes/wss/clipboard/",
+		const socket = io("wss://ygk-api.yunser.com", {
+			path: "/clipboard",
 			query: {
 				token: token,
 			},
-			withCredentials: true,
-			//transports: ['websocket']//取消轮询
+			transports: ["websocket"], //取消轮询
 		});
 
 		this.setState({ socket: socket });
@@ -284,7 +282,7 @@ class Clipboard extends React.Component<{}, ComponentState> {
 		} = this.state;
 		return (
 			<>
-				<MsgList data={receivedData} />
+				<MsgList token={token} qrcode={qrcode} data={receivedData} />
 				<div className="bottom-dashboard mdui-card mdui-p-a-1">
 					<Input
 						onValueChange={(newText) => {
@@ -360,7 +358,6 @@ class Clipboard extends React.Component<{}, ComponentState> {
 						/>
 					</span>
 				</div>
-				<Share token={token} qrcode={qrcode} />
 			</>
 		);
 	}
