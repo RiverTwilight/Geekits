@@ -209,11 +209,12 @@ class Clipboard extends React.Component<{}, ComponentState> {
 			}
 		);
 
-		const socket = io("https://api.ygktool.cn", {
+		const socket = io("https://ygk-api.yunser.com", {
 			path: "/routes/wss/clipboard/",
 			query: {
 				token: token,
 			},
+			withCredentials: true,
 			//transports: ['websocket']//取消轮询
 		});
 

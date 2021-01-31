@@ -1,10 +1,11 @@
 import React from "react";
 import mdui from "mdui";
 import ClipboardJS from "clipboard";
-
 import table from "./table";
-import { Input } from "mdui-in-react";
+import { Input, Button } from "mdui-in-react";
 import cem from "./dic";
+
+// TODO 离子方程式配平
 
 const Result = ({ result, eleClass }: any) => {
 	if (result === "") return null;
@@ -51,7 +52,7 @@ const Result = ({ result, eleClass }: any) => {
 
 type UiState = any;
 
-class Ui extends React.Component<{}, UiState> {
+export default class Cem extends React.Component<{}, UiState> {
 	constructor(props: {}) {
 		super(props);
 		this.state = {
@@ -61,8 +62,6 @@ class Ui extends React.Component<{}, UiState> {
 		};
 	}
 	componentDidMount() {
-		// @ts-expect-error ts-migrate(2454) FIXME: Variable 'clipboard' is used before being assigned... Remove this comment to see the full error message
-		clipboard && clipboard.destroy();
 		var clipboard = new ClipboardJS("#input");
 		clipboard.on("success", (e) => {
 			mdui.snackbar({ message: "已复制链接" });
@@ -80,11 +79,9 @@ class Ui extends React.Component<{}, UiState> {
 					header="输入方程式"
 					icon="link"
 					value={this.state.input}
-					// @ts-expect-error ts-migrate(2322) FIXME: Type 'string' is not assignable to type 'number | ... Remove this comment to see the full error message
-					rows="3"
+					rows={3}
 				/>
-
-				<button
+				<Button
 					onClick={() => {
 						var library = cem(this.state.input);
 						this.setState({
@@ -92,13 +89,11 @@ class Ui extends React.Component<{}, UiState> {
 							eleClass: library.eleClass,
 						});
 					}}
-					className="mdui-ripple mdui-color-theme mdui-btn-raised mdui-btn"
-				>
-					配平
-				</button>
-
+					raised
+					primary
+					title="配平"
+				/>
 				<div className="mdui-clearfix"></div>
-
 				<Result
 					eleClass={this.state.eleClass}
 					result={this.state.result}
@@ -107,5 +102,3 @@ class Ui extends React.Component<{}, UiState> {
 		);
 	}
 }
-
-export default Ui;

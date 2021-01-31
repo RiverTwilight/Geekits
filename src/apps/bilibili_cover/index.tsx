@@ -9,8 +9,6 @@ class Result extends React.Component {
 		super(props);
 	}
 	componentDidMount() {
-		// @ts-expect-error ts-migrate(2454) FIXME: Variable 'clipboard' is used before being assigned... Remove this comment to see the full error message
-		clipboard && clipboard.destroy();
 		var clipboard = new ClipboardJS("#input");
 		clipboard.on("success", (e) => {
 			snackbar({ message: "已复制" });
