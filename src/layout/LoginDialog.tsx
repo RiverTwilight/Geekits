@@ -20,7 +20,7 @@ class Login extends React.Component<
 	constructor(props: any) {
 		super(props);
 		this.state = {
-			username: /*'wrj2014@126.com',*/ "",
+			username: 'yungeeker@gmail.com',
 			password: /*'123456',*/ "",
 			remember: false,
 			xcode: "",
@@ -87,7 +87,7 @@ class Login extends React.Component<
 								statu: "signin",
 							},
 							() => {
-								window.dialogInst.handleUpdate();
+								// window.dialogInst.handleUpdate();
 							}
 						);
 						break;

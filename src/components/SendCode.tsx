@@ -5,6 +5,9 @@ import Axios from "../utils/axios";
 
 type State = any;
 
+// see: https://i.stack.imgur.com/KOQrY.png
+var waiting: NodeJS.Timer;
+
 // HACK 验证码模块重构
 class SendCode extends React.Component<
 	{
@@ -27,41 +30,40 @@ class SendCode extends React.Component<
 		};
 	}
 	componentWillUnmount() {
-		// @ts-expect-error ts-migrate(2551) FIXME: Property 'waiting' does not exist on type 'Window ... Remove this comment to see the full error message
-		clearInterval(window.waiting);
+		waiting && clearInterval(waiting);
 	}
-	getCode() {
+	getCode = () => {
 		var { waitProgress } = this.state;
-		// @ts-expect-error ts-migrate(2551) FIXME: Property 'waiting' does not exist on type 'Window ... Remove this comment to see the full error message
-		window.waiting = setInterval((_) => {
+		waiting = setInterval(() => {
 			if (waitProgress < 0) {
-				// @ts-expect-error ts-migrate(2551) FIXME: Property 'waiting' does not exist on type 'Window ... Remove this comment to see the full error message
-				clearInterval(window.waiting);
+				clearInterval(waiting);
 				this.setState({ waitProgress: 61 }, () =>
 					// @ts-expect-error
-					setInterval(window.waiting)
+					setInterval(waiting)
 				);
 			} else {
 				waitProgress--;
 				this.setState({ waitProgress: waitProgress });
 			}
 		}, 1000);
-		Axios.get(
-			"https://api.ygktool.cn/ygktool/xcode?email=" + this.props.email
-		).then((response) => {
-			var json = JSON.parse(response.request.response);
-			switch (json.code) {
-				case 500:
-					snackbar({ message: "验证码发送失败，请重试" });
-					break;
-				case 666:
-					snackbar({ message: "验证码已发送，请注意检查邮箱垃圾桶" });
-					break;
-				default:
-					snackbar({ message: "验证码发送失败，请重试" });
+		Axios.get("/ygktool/xcode?email=" + this.props.email).then(
+			(response) => {
+				var json = JSON.parse(response.request.response);
+				switch (json.code) {
+					case 500:
+						snackbar({ message: "验证码发送失败，请重试" });
+						break;
+					case 666:
+						snackbar({
+							message: "验证码已发送，请注意检查邮箱垃圾桶",
+						});
+						break;
+					default:
+						snackbar({ message: "验证码发送失败，请重试" });
+				}
 			}
-		});
-	}
+		);
+	};
 	render() {
 		const { waitProgress } = this.state;
 		const onWaiting = waitProgress >= 0 && waitProgress <= 60;
@@ -76,9 +78,7 @@ class SendCode extends React.Component<
 					value={xcode}
 				/>
 				<button
-					onClick={(_) => {
-						this.getCode();
-					}}
+					onClick={this.getCode}
 					disabled={onWaiting}
 					className="mdui-float-right mdui-btn mdui-color-theme"
 				>
