@@ -3,7 +3,7 @@ import { Tab } from "mdui-in-react";
 import DateInterval from "./Interval";
 import CalcDate from "./Calculate";
 
-export default () => (
+const DateCalculator = () => (
 	<Tab
 		tabs={[
 			{
@@ -19,3 +19,5 @@ export default () => (
 		]}
 	/>
 );
+
+export default DateCalculator;

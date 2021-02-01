@@ -102,7 +102,7 @@ export default () => {
 
 			<div className="mdui-dialog" id="donation">
 				<div className="mdui-dialog-content">
-					<img width="200" height="200" src="/donation_vx.png"></img>
+					<img alt="DonationByScanning" width="200" height="200" src="/donation_vx.png"></img>
 					<p>
 						目前网站只由我一人维护，
 						需要付出昂贵的资金、精力和时间成本，

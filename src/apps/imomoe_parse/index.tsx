@@ -73,7 +73,7 @@ export default class extends React.Component<{}, ComponentState> {
 		const { url } = this.state;
 		function loadJosnp() {
 			var VideoListJson;
-			return new Promise((resolve, reject) => {
+			return new Promise<void>((resolve, reject) => {
 				axios
 					.get("/api/bangumi?url=" + url)
 					.then((response) => {

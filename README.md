@@ -104,10 +104,24 @@ npm run new:App
 
 由于学业繁忙，项目时间跨度久，我也处在技术成长期，仍旧有许多“破窗”。若能帮助重构不胜感激！
 
+### 常见问题
+
+#### 1.Uncaught Error: Invalid hook call. Hooks can only be called inside of the body of a function component.
+
+如果项目通过`npm link`链接到本地的 mdui-in-react 来调试，就出现了两种 React 版本（尽管版本是一样的）。需要覆盖 webpack 配置来解决。
+
+```js
+config.resolve.alias = {
+		// 解决npm link的包中hook报错
+		react: path.resolve("./node_modules/react"),
+	};
+```
+
 ### 备注
 
 -   请勿改动网站的统计代码
 -   请勿随意修改[关于页面](src\views\about.tsx)信息。
+-   我们曾使用`ts-migrate`来将网站转换为 100% TypeScript
 
 ## License
 

@@ -10,7 +10,7 @@ import axios from "../utils/axios";
 class EnquireTemplate extends React.Component<
 	{
 		Result: any;
-		readonly api: string;
+		api: string;
 		readonly inputOpt?: any;
 		readonly btnText?: string;
 	},

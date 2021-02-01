@@ -10,7 +10,6 @@ import saveFile from "../../utils/fileSaver";
 import { FileInput } from "mdui-in-react";
 import { Input, Button } from "mdui-in-react";
 
-// FIXME 剪切板后端凉了
 const Share = ({ qrcode, token }: any) => (
 	<>
 		<ul className="mdui-menu" id="share">
