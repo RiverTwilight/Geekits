@@ -106,15 +106,22 @@ npm run new:App
 
 ### 常见问题
 
-#### 1.Uncaught Error: Invalid hook call. Hooks can only be called inside of the body of a function component.
+#### 1.如何使用 npm link 调试本地库？
 
-如果项目通过`npm link`链接到本地的 mdui-in-react 来调试，就出现了两种 React 版本（尽管版本是一样的）。需要覆盖 webpack 配置来解决。
+如果项目通过`npm link`链接到本地的 mdui-in-react 来调试，就出现了两种 React 版本（尽管版本是一样的）。会出现类似这样的警告：
+
+```
+Uncaught Error: Invalid hook call. Hooks can only be called inside of the body of a function component.
+```
+
+需要覆盖 webpack 配置来解决。
+首先运行`yarn add react-app-rewired customize-cra`，然后运行`react-app-rewired start`启动调试。（配置文件在[./config-overrides.js](./config-overrides.js)）
 
 ```js
 config.resolve.alias = {
-		// 解决npm link的包中hook报错
-		react: path.resolve("./node_modules/react"),
-	};
+	// 解决npm link的包中hook报错
+	react: path.resolve("./node_modules/react"),
+};
 ```
 
 ### 备注
