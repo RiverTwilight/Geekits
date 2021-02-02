@@ -71,19 +71,22 @@ class AppMenu extends React.Component<
 		});
 	};
 	componentDidMount() {
-		try {
-			const helpMdPath = require(`../../apps/${this.props.appinfo.link}/README.md`);
-			fetch(helpMdPath.default)
-				.then((response) => {
-					return response.text();
-				})
-				.then((text) => {
-					this.setState({
-						help: text,
+		if (this.props.appinfo.link !== "coming") {
+			try {
+				const helpMdPath = require(`../../apps/${this.props.appinfo.link}/README.md`);
+				fetch(helpMdPath.default)
+					.then((response) => {
+						return response.text();
+					})
+					.then((text) => {
+						this.setState({
+							help: text,
+						});
 					});
-				});
-		} finally {
+			} finally {
+			}
 		}
+
 		this.props.appinfo.network &&
 			!navigator.onLine &&
 			mduiAlert("此工具需要联网才能使用", "", () => {}, {
