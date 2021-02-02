@@ -61,7 +61,7 @@ const Result = ({ qrcode }) => {
 
 		<div className="mdui-card mdui-shadow-2 mdui-p-a-1">
 {/* @ts-expect-error ts-migrate(2339) FIXME: Property 'center' does not exist on type 'JSX.Intr... Remove this comment to see the full error message */}
-			<center><img alt="qrcode" src={qrcode}></img></center>
+			<div className="center-with-flex"><img alt="qrcode" src={qrcode}></img></div>
 		</div>
 	)
 }

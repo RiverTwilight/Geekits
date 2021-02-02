@@ -4,10 +4,9 @@ import ClipboardJS from "clipboard";
 import Template from "../../layout/EnquireTemplate.tsx";
 import { snackbar } from "mdui";
 
-class Result extends React.Component {
-	constructor(props: any) {
-		super(props);
-	}
+class Result extends React.Component<{
+	data: any
+}, {}> {
 	componentDidMount() {
 		var clipboard = new ClipboardJS("#input");
 		clipboard.on("success", (e) => {
@@ -16,7 +15,6 @@ class Result extends React.Component {
 		});
 	}
 	render() {
-		// @ts-expect-error ts-migrate(2339) FIXME: Property 'data' does not exist on type 'Readonly<{... Remove this comment to see the full error message
 		const { data } = this.props;
 		if (!data) return null;
 		var src = data.cover;
@@ -41,7 +39,7 @@ class Result extends React.Component {
 	}
 }
 
-export default () => (
+const BilibiliCover = () => (
 	<>
 		<Template
 			Result={Result}
@@ -53,3 +51,5 @@ export default () => (
 		/>
 	</>
 );
+
+export default BilibiliCover;

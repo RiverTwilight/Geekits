@@ -203,8 +203,7 @@ export default class extends React.Component<{}, ComponentState> {
 		return (
 			<>
 				<div className="mdui-card mdui-p-a-1">
-					{/* @ts-expect-error ts-migrate(2339) FIXME: Property 'center' does not exist on type 'JSX.Intr... Remove this comment to see the full error message */}
-					<center>
+					<div className="center-with-flex">
 						<div
 							id="capture"
 							style={{
@@ -224,8 +223,7 @@ export default class extends React.Component<{}, ComponentState> {
 
 							<Preview src={src} />
 						</div>
-						{/* @ts-expect-error ts-migrate(2339) FIXME: Property 'center' does not exist on type 'JSX.Intr... Remove this comment to see the full error message */}
-					</center>
+					</div>
 
 					<br></br>
 

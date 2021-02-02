@@ -1,7 +1,7 @@
 import React from "react";
 import { snackbar } from "mdui";
 import ClipboardJS from "clipboard";
-import { Input, Select } from "mdui-in-react";
+import { Input, Select, Button } from "mdui-in-react";
 import dic from "./dictionary";
 import { signListener, removeListener } from "../../utils/Hooks/useFileDrager";
 
@@ -57,9 +57,7 @@ const options = [
 	},
 ];
 
-type ComponentState = any;
-
-export default class extends React.Component<{}, ComponentState> {
+class Endecode extends React.Component<{}, any> {
 	constructor(props: {}) {
 		super(props);
 		this.state = {
@@ -71,8 +69,6 @@ export default class extends React.Component<{}, ComponentState> {
 		};
 	}
 	componentDidMount() {
-		// @ts-expect-error ts-migrate(2454) FIXME: Variable 'clipboard' is used before being assigned... Remove this comment to see the full error message
-		clipboard && clipboard.destroy();
 		var clipboard = new ClipboardJS("#becopy");
 		clipboard.on("success", (e) => {
 			snackbar({ message: "已复制结果" });
@@ -89,11 +85,9 @@ export default class extends React.Component<{}, ComponentState> {
 	}
 	render() {
 		const { text, fromType, toType, key, res } = this.state;
-
 		return (
 			<>
-				{/* @ts-expect-error ts-migrate(2339) FIXME: Property 'center' does not exist on type 'JSX.Intr... Remove this comment to see the full error message */}
-				<center style={{ margin: "0 auto" }}>
+				<div className="center-with-flex">
 					<Select
 						onOptionChange={(val: any) => {
 							this.setState({ fromType: val });
@@ -122,8 +116,7 @@ export default class extends React.Component<{}, ComponentState> {
 						value={toType}
 						options={options}
 					/>
-					{/* @ts-expect-error ts-migrate(2339) FIXME: Property 'center' does not exist on type 'JSX.Intr... Remove this comment to see the full error message */}
-				</center>
+				</div>
 				<Input
 					onValueChange={(newText) => {
 						this.setState({ key: newText });
@@ -138,33 +131,27 @@ export default class extends React.Component<{}, ComponentState> {
 							this.setState({ text: newValue });
 						}}
 						placeholder="输入内容或拖入txt文件"
-						// @ts-expect-error ts-migrate(2322) FIXME: Type 'string' is not assignable to type 'number | ... Remove this comment to see the full error message
-						rows="5"
+						rows={5}
 					/>
-					{/* @ts-expect-error ts-migrate(2339) FIXME: Property 'center' does not exist on type 'JSX.Intr... Remove this comment to see the full error message */}
-					<center>
-						<button
+					<div className="center-with-flex">
+						<Button
 							onClick={() => {
-								//console.log(dic(this.state.from,this.state.text,this.state.key))
 								this.setState({
 									res: dic(fromType, text, key),
 								});
 							}}
-							className="mdui-btn-raised mdui-color-theme mdui-btn mdui-ripple"
-						>
-							<i className="mdui-icon-left mdui-icon material-icons">
-								translate
-							</i>
-							转换
-						</button>
-						{/* @ts-expect-error ts-migrate(2339) FIXME: Property 'center' does not exist on type 'JSX.Intr... Remove this comment to see the full error message */}
-					</center>
-
+							icon="translate"
+							title="转换"
+							raised
+							primary
+						/>
+					</div>
 					<br></br>
-
 					<PrintRes res={res} to={toType} />
 				</div>
 			</>
 		);
 	}
 }
+
+export default Endecode;

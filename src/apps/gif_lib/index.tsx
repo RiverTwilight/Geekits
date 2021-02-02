@@ -57,7 +57,7 @@ class Giflib extends React.Component<{}, UiState> {
 		return (
 			<>
 				{/* @ts-expect-error ts-migrate(2339) FIXME: Property 'center' does not exist on type 'JSX.Intr... Remove this comment to see the full error message */}
-				<center>
+				<div className="center-with-flex">
 					{file && (
 						<img
 							alt="上传的文件"
@@ -91,7 +91,7 @@ class Giflib extends React.Component<{}, UiState> {
 						}}
 					/>
 					{/* @ts-expect-error ts-migrate(2339) FIXME: Property 'center' does not exist on type 'JSX.Intr... Remove this comment to see the full error message */}
-				</center>
+				</div>
 				<button
 					onClick={() => {
 						var zip = new JSZip();

@@ -97,8 +97,7 @@ class Ui extends React.Component<{}, UiState> {
 		const valueB = this.state.valueB;
 		const valueA = this.state.valueA;
 		return (
-			// @ts-expect-error ts-migrate(2339) FIXME: Property 'center' does not exist on type 'JSX.Intr... Remove this comment to see the full error message
-			<center className="mdui-container mdui-row-xs-3">
+			<div className="center-with-flex mdui-container mdui-row-xs-3">
 				<div className="mdui-col">
 					<Input default="菜虚鲲队" />
 
@@ -218,8 +217,7 @@ class Ui extends React.Component<{}, UiState> {
 						});
 					}}
 				/>
-				{/* @ts-expect-error ts-migrate(2339) FIXME: Property 'center' does not exist on type 'JSX.Intr... Remove this comment to see the full error message */}
-			</center>
+			</div>
 		);
 	}
 }

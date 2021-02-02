@@ -19,7 +19,7 @@ export default () => {
 	return (
 		<>
 			{/* @ts-expect-error ts-migrate(2339) FIXME: Property 'center' does not exist on type 'JSX.Intr... Remove this comment to see the full error message */}
-			<center>
+			<div className="center-with-flex">
 				<FileInput
 					multiple={true}
 					maxWidth="200px"
@@ -36,7 +36,7 @@ export default () => {
 					webkitdirectory={true}
 				/>
 				{/* @ts-expect-error ts-migrate(2339) FIXME: Property 'center' does not exist on type 'JSX.Intr... Remove this comment to see the full error message */}
-			</center>
+			</div>
 
 			<Input
 				value={except}

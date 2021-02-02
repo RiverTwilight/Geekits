@@ -66,10 +66,10 @@ src
 
 首先需要添加工具配置。文件位于`./utils/appList.js`，包含了所有工具配置。
 
-建议使用编写好的脚本快速添加。
+建议使用编写好的脚本快速添加。(不要在 vscode 内置终端中运行)
 
 ```bash
-npm run new:App
+npm run newApp
 ```
 
 | Name        | type    | default | description                                                               |

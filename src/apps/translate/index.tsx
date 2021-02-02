@@ -161,7 +161,7 @@ export default class extends React.Component<{}, ComponentState> {
 						options={options}
 					/>
 					{/* @ts-expect-error ts-migrate(2339) FIXME: Property 'center' does not exist on type 'JSX.Intr... Remove this comment to see the full error message */}
-				</center>
+				</div>
 
 				<Input
 					value={text}
@@ -173,7 +173,7 @@ export default class extends React.Component<{}, ComponentState> {
 					rows="5"
 				/>
 				{/* @ts-expect-error ts-migrate(2339) FIXME: Property 'center' does not exist on type 'JSX.Intr... Remove this comment to see the full error message */}
-				<center>
+				<div className="center-with-flex">
 					<button
 						onClick={() => {
 							text !== "" && this.sendRequest();
@@ -186,7 +186,7 @@ export default class extends React.Component<{}, ComponentState> {
 						翻译
 					</button>
 					{/* @ts-expect-error ts-migrate(2339) FIXME: Property 'center' does not exist on type 'JSX.Intr... Remove this comment to see the full error message */}
-				</center>
+				</div>
 
 				<br></br>
 
