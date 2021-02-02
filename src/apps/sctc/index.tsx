@@ -61,7 +61,7 @@ export default class extends React.Component<{}, ComponentState> {
                     // @ts-expect-error ts-migrate(2322) FIXME: Type 'string' is not assignable to type 'number | ... Remove this comment to see the full error message
                     rows="5"
                 />
-                {/* @ts-expect-error ts-migrate(2339) FIXME: Property 'center' does not exist on type 'JSX.Intr... Remove this comment to see the full error message */}
+                
                 <div className="center-with-flex">
                     
                     <button
@@ -81,7 +81,7 @@ export default class extends React.Component<{}, ComponentState> {
                         className="mdui-color-theme mdui-btn-raised mdui-btn mdui-ripple">
                         转为繁体
                     </button>
-                {/* @ts-expect-error ts-migrate(2339) FIXME: Property 'center' does not exist on type 'JSX.Intr... Remove this comment to see the full error message */}
+                
                 </div>
                 
                 <br></br>

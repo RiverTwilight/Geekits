@@ -18,7 +18,6 @@ export default () => {
 	}, []);
 	return (
 		<>
-			{/* @ts-expect-error ts-migrate(2339) FIXME: Property 'center' does not exist on type 'JSX.Intr... Remove this comment to see the full error message */}
 			<div className="center-with-flex">
 				<FileInput
 					multiple={true}
@@ -35,14 +34,12 @@ export default () => {
 					}}
 					webkitdirectory={true}
 				/>
-				{/* @ts-expect-error ts-migrate(2339) FIXME: Property 'center' does not exist on type 'JSX.Intr... Remove this comment to see the full error message */}
 			</div>
 
 			<Input
 				value={except}
 				onValueChange={setExcept}
-				// @ts-expect-error ts-migrate(2322) FIXME: Type 'string' is not assignable to type 'number | ... Remove this comment to see the full error message
-				rows="5"
+				rows={5}
 				placeholder="排除的文件夹/文件，一行一个"
 			/>
 

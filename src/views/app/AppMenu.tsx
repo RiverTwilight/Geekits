@@ -73,7 +73,7 @@ class AppMenu extends React.Component<
 	componentDidMount() {
 		try {
 			const helpMdPath = require(`../../apps/${this.props.appinfo.link}/README.md`);
-			fetch(helpMdPath)
+			fetch(helpMdPath.default)
 				.then((response) => {
 					return response.text();
 				})

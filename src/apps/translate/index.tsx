@@ -1,7 +1,6 @@
 import React from "react";
 import { snackbar } from "mdui";
 import ClipboardJS from "clipboard";
-
 import { Input, Select } from "mdui-in-react";
 import axios from "../../utils/axios";
 import { signListener, removeListener } from "../../utils/Hooks/useFileDrager";
@@ -128,8 +127,7 @@ export default class extends React.Component<{}, ComponentState> {
 
 		return (
 			<>
-				{/* @ts-expect-error ts-migrate(2339) FIXME: Property 'center' does not exist on type 'JSX.Intr... Remove this comment to see the full error message */}
-				<center style={{ margin: "0 auto" }}>
+				<div className="center-with-flex">
 					<Select
 						onOptionChange={(val: any) => {
 							this.setState({ fromLang: val });
@@ -160,7 +158,6 @@ export default class extends React.Component<{}, ComponentState> {
 						value={toLang}
 						options={options}
 					/>
-					{/* @ts-expect-error ts-migrate(2339) FIXME: Property 'center' does not exist on type 'JSX.Intr... Remove this comment to see the full error message */}
 				</div>
 
 				<Input
@@ -172,7 +169,6 @@ export default class extends React.Component<{}, ComponentState> {
 					// @ts-expect-error ts-migrate(2322) FIXME: Type 'string' is not assignable to type 'number | ... Remove this comment to see the full error message
 					rows="5"
 				/>
-				{/* @ts-expect-error ts-migrate(2339) FIXME: Property 'center' does not exist on type 'JSX.Intr... Remove this comment to see the full error message */}
 				<div className="center-with-flex">
 					<button
 						onClick={() => {
@@ -185,7 +181,6 @@ export default class extends React.Component<{}, ComponentState> {
 						</i>
 						翻译
 					</button>
-					{/* @ts-expect-error ts-migrate(2339) FIXME: Property 'center' does not exist on type 'JSX.Intr... Remove this comment to see the full error message */}
 				</div>
 
 				<br></br>

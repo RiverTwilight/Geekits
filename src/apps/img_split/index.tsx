@@ -109,7 +109,7 @@ class ImgSplit extends React.Component<{}, UiState> {
 				ifHideCropper: true,
 			});
 			var zip = new JSZip();
-			res.map((img: string, i: number) => {
+			res.foreach((img: string, i: number) => {
 				zip.file(i + 1 + ".png", dataURLtoFile(img, i + 1 + ".png"));
 			});
 			zip.generateAsync({

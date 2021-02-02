@@ -199,33 +199,30 @@ export default class extends React.Component<{}, ComponentState> {
 	}
 	render() {
 		const { src, result, ifShow, texts, style, size, color } = this.state;
-
 		return (
 			<>
 				<div className="mdui-card mdui-p-a-1">
-					<div className="center-with-flex">
-						<div
-							id="capture"
-							style={{
-								height: "250px",
-								width: "250px", //border:'1px solid #888888'
-							}}
-						>
-							{texts.map((text: any, i: any) => (
-								<DragText
-									key={i}
-									text={text}
-									style={style}
-									size={size}
-									color={color}
-								/>
-							))}
-
-							<Preview src={src} />
-						</div>
+					<div
+						className="center-with-flex"
+						id="capture"
+						style={{
+							height: "250px",
+							width: "250px", //border:'1px solid #888888'
+						}}
+					>
+						{texts.map((text: any, i: any) => (
+							<DragText
+								key={i}
+								text={text}
+								style={style}
+								size={size}
+								color={color}
+							/>
+						))}
+						<Preview src={src} />
 					</div>
 
-					<br></br>
+					<br />
 
 					<div className="mdui-row-xs-3">
 						<div className="mdui-col">

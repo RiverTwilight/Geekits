@@ -94,10 +94,9 @@ class Ui extends React.Component<{}, UiState> {
 		};
 	}
 	render() {
-		const valueB = this.state.valueB;
-		const valueA = this.state.valueA;
+		const { valueB, valueA } = this.state;
 		return (
-			<div className="center-with-flex mdui-container mdui-row-xs-3">
+			<div className="mdui-container mdui-row-xs-3">
 				<div className="mdui-col">
 					<Input default="菜虚鲲队" />
 

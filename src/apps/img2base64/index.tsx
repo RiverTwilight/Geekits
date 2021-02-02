@@ -29,7 +29,7 @@ class Ui extends React.Component<{}, State> {
 		const { file } = this.state;
 		return (
 			<>
-				{/* @ts-expect-error ts-migrate(2339) FIXME: Property 'center' does not exist on type 'JSX.Intr... Remove this comment to see the full error message */}
+				
 				<div className="center-with-flex">
 					<FileInput
 						// @ts-expect-error ts-migrate(2769) FIXME: Property 'readByDrag' does not exist on type 'Intr... Remove this comment to see the full error message
@@ -39,7 +39,7 @@ class Ui extends React.Component<{}, State> {
 							this.setState({ file: file });
 						}}
 					/>
-					{/* @ts-expect-error ts-migrate(2339) FIXME: Property 'center' does not exist on type 'JSX.Intr... Remove this comment to see the full error message */}
+					
 				</div>
 
 				<div
