@@ -207,7 +207,7 @@ class Clipboard extends React.Component<{}, ComponentState> {
 			}
 		);
 
-		const socket = io("ws://localhost:444", {
+		const socket = io("wss://ygk-api.yunser.com", {
 			path: "/clipboard",
 			query: {
 				token: token,

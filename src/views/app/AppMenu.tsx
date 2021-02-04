@@ -35,9 +35,7 @@ type AppMenuState = any;
  */
 
 class AppMenu extends React.Component<
-	{
-		appinfo: any;
-	},
+	any,
 	AppMenuState
 > {
 	constructor(props: Readonly<{ appinfo: any }>) {
@@ -45,7 +43,7 @@ class AppMenu extends React.Component<
 		this.state = {
 			fived: fiv.get(this.props.appinfo.link),
 			showIframeCode: false,
-			help: "",
+			help: ""
 		};
 	}
 	fiv() {
@@ -99,51 +97,62 @@ class AppMenu extends React.Component<
 			this.setState({ fived: fiv.get(nextProps.appinfo.link) });
 	}
 	render() {
-		const { fived, showIframeCode, help } = this.state;
+		const {
+			fived,
+			showIframeCode,
+			help
+		} = this.state;
 		if (!this.props.appinfo) return null;
 		const { link } = this.props.appinfo;
 		return (
-			<div className="mdui-p-a-1">
-				<Button
-					onClick={() => {
-						this.fiv();
-					}}
-					icon={fived ? "star" : "star_border"}
-				></Button>
-				<ShareBtn />
-				<Button icon="code" onClick={this.getIframeCode} />
-				<a
-					href={`https://github.com/RiverTwilight/ygktool/tree/master/src/apps/${link}`}
-					target="_blank"
-					rel="noopener noreferrer"
-					className="mdui-btn mdui-btn-icon mdui-ripple"
-					mdui-tooltip="{content: '在Github上编辑此页面'}"
-				>
-					<GithubLogo />
-				</a>
-				{showIframeCode && (
-					<Input
-						onClick={(e) => {
-							//@ts-expect-error
-							e.target.select();
+			<>
+				<div className="mdui-p-a-1">
+					<Button
+						onClick={() => {
+							this.fiv();
 						}}
-						header="将以下嵌入代码粘贴到您的网页即可使用"
-						rows={5}
-						value={`<iframe src="${window.location.origin}/app/${link}?fullscreen=true" width="100%" height="400px" scrolling="no" style="border:0;"></iframe>`}
+						icon={fived ? "star" : "star_border"}
+					></Button>
+					<ShareBtn />
+					<Button icon="code" onClick={this.getIframeCode} />
+					<a
+						href={`https://github.com/RiverTwilight/ygktool/tree/master/src/apps/${link}`}
+						target="_blank"
+						rel="noopener noreferrer"
+						className="mdui-btn mdui-btn-icon mdui-ripple"
+						mdui-tooltip="{content: '在Github上编辑此页面'}"
+					>
+						<GithubLogo />
+					</a>
+					<Button
+						title="快速反馈"
+						icon="insert_comment"
+						onClick={this.props.feedback}
 					/>
-				)}
-				<div className="mdui-divider"></div>
-				{help !== "" && (
-					<div
-						style={{
-							// Fix word-warp doesn't work
-							whiteSpace: "normal",
-						}}
-						className="mdui-typo"
-						dangerouslySetInnerHTML={{ __html: marked(help) }}
-					/>
-				)}
-			</div>
+					{showIframeCode && (
+						<Input
+							onClick={(e) => {
+								//@ts-expect-error
+								e.target.select();
+							}}
+							header="将以下嵌入代码粘贴到您的网页即可使用"
+							rows={5}
+							value={`<iframe src="${window.location.origin}/app/${link}?fullscreen=true" width="100%" height="400px" scrolling="no" style="border:0;"></iframe>`}
+						/>
+					)}
+					<div className="mdui-divider"></div>
+					{help !== "" && (
+						<div
+							style={{
+								// Fix word-warp doesn't work
+								whiteSpace: "normal",
+							}}
+							className="mdui-typo"
+							dangerouslySetInnerHTML={{ __html: marked(help) }}
+						/>
+					)}
+				</div>
+			</>
 		);
 	}
 }

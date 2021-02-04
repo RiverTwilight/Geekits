@@ -155,8 +155,8 @@ class App extends React.Component<
 				<Router>
 					{LoginDialog && (
 						<LoginDialog
-							ifOpen={showLoginDialog}
-							closeLoginDialog={() => {
+							open={showLoginDialog}
+							onClose={() => {
 								this.setState({
 									showLoginDialog: false,
 								});

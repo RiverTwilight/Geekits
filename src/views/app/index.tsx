@@ -8,20 +8,16 @@ import AppMenu from "./AppMenu";
 
 /**
  * 工具加载框架
- * // TODO 快捷反馈
  * // TODO 文章板块
  */
 
-class AppContainer extends React.Component<
-	{},
-	{
-		appInfo: any;
-	}
-> {
+class AppContainer extends React.Component<{}, any> {
 	constructor(props: any) {
 		super(props);
 		this.state = {
 			appInfo: getInfo(props.match.params.name),
+			FeedbackComp: null,
+			showFeedbackComp: false,
 		};
 	}
 	componentDidCatch(error: any, info: any) {
@@ -42,12 +38,37 @@ class AppContainer extends React.Component<
 			document.getElementsByTagName("header")[0].style.display = "none";
 			document.body.classList.remove("mdui-appbar-with-toolbar");
 		}
-		window.setRightDrawer(<AppMenu appinfo={appInfo} />);
+		window.setRightDrawer(
+			<AppMenu feedback={this.feedback} appinfo={appInfo} />
+		);
 	}
+	feedback = () => {
+		let { FeedbackComp } = this.state;
+		if (!FeedbackComp) {
+			this.setState({
+				FeedbackComp:
+					!FeedbackComp &&
+					loadable(() => import("../../layout/FeedbackComp")),
+			});
+		}
+		this.setState({
+			showFeedbackComp: true,
+		});
+	};
 	render() {
-		const { appInfo } = this.state;
+		const { appInfo, FeedbackComp, showFeedbackComp } = this.state;
 		return (
 			<>
+				{FeedbackComp && (
+					<FeedbackComp
+						open={showFeedbackComp}
+						onClose={() => {
+							this.setState({
+								showFeedbackComp: false,
+							});
+						}}
+					/>
+				)}
 				<Router>
 					<Route
 						path="/app/:name"

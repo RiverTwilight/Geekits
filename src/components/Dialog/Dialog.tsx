@@ -1,24 +1,38 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { Dialog } from "mdui";
 
+function makeid(length: number) {
+	var result = "";
+	var characters =
+		"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+	var charactersLength = characters.length;
+	for (var i = 0; i < length; i++) {
+		result += characters.charAt(
+			Math.floor(Math.random() * charactersLength)
+		);
+	}
+	return result;
+}
+
 const ReactDialog = ({
-	ifOpen,
-	closeLoginDialog,
+	open,
+	onClose,
 	children,
 	config,
 }: {
-	ifOpen?: boolean;
-	closeLoginDialog?: any;
+	open?: boolean;
+	onClose?: any;
 	children?: any;
 	config?: {
-        title: string,
-        confirmText?: string,
-        cancelText?: string
-    };
+		title: string;
+		confirmText?: string;
+		cancelText?: string;
+	};
 }) => {
+	var id = makeid(5)
 	useEffect(() => {
 		var dialogInst;
-		dialogInst = new Dialog("#loginDialog", {
+		dialogInst = new Dialog(`#${id}`, {
 			history: false,
 			destroyOnClosed: false,
 			closeOnCancel: false,
@@ -27,16 +41,16 @@ const ReactDialog = ({
 		});
 		//@ts-expect-error
 		document
-			.getElementById("loginDialog")
-            .addEventListener("closed.mdui.dialog", closeLoginDialog);
-		ifOpen && dialogInst.open();
-	}, [ifOpen]);
+			.getElementById(id)
+			.addEventListener("closed.mdui.dialog", onClose);
+		open && dialogInst.open();
+	}, [open]);
 	return (
-		<div id="loginDialog" className="mdui-dialog">
+		<div id={id} className="mdui-dialog">
 			{config && config.title && (
 				<div className="mdui-dialog-title">{config.title}</div>
 			)}
-            {children}
+			{children}
 			{/* <div className="mdui-dialog-content">{children}</div>
 			<div className="mdui-dialog-actions">
 				<button className="mdui-btn mdui-ripple">{config?.cancelText}</button>
