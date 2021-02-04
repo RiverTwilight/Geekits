@@ -150,7 +150,6 @@ const calWhichDay = (
 	};
 };
 
-// FIXME 小时计算不精确
 const calDiffer = (
 	defaultDateEarly: string,
 	defaultDateLate: string,
@@ -186,7 +185,7 @@ const calDiffer = (
 	} else {
 		//这一年已过天数
 		var lateYearDay = dateLate.day;
-		for (let i = dateLate.month - 1; i >= 1; i--) {
+		for (let i = dateLate.month - 2; i >= 1; i--) {
 			lateYearDay += dateLate.isLeap
 				? leapYearMonth[i]
 				: ordinaryYearMonth[i];
@@ -205,7 +204,7 @@ const calDiffer = (
 
 		//相隔年份天数，如：年份为2010 - 2020，则计算2011 - 2019的天数
 		var diffYear: number[] = [];
-		for (let i = 0; i <= dateLate.year - dateEarly.year - 1; i++) {
+		for (let i = 0; i < dateLate.year - dateEarly.year - 1; i++) {
 			diffYear.push(dateEarly.year + i + 1);
 		}
 
@@ -219,7 +218,7 @@ const calDiffer = (
 	var timeEarly = parseTime(defaultTimeEarly || "00:00"),
 		timeLate = parseTime(defaultTimeLate || "00:00");
 	var overflowDiffMin =
-		60 * (25 - timeEarly.hour + timeLate.hour) +
+		60 * (23 - timeEarly.hour + timeLate.hour) +
 		60 -
 		timeEarly.min +
 		timeLate.min;
@@ -227,7 +226,7 @@ const calDiffer = (
 	console.log(timeEarly, timeLate, diffMin);
 	return {
 		day: diffDay,
-		overflowHour: Math.floor(diffMin / 60) - diffDay * 24,
+		overflowHour: Math.abs(Math.floor(diffMin / 60) - diffDay * 24),
 		overflowMin: diffMin % 60, //(overflowDiffMin - 1440 * diffDay) % 60,
 		hour: Math.floor(diffMin / 60),
 		min: diffMin % 60,

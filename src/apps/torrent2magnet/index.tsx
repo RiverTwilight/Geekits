@@ -20,7 +20,7 @@ class Torrent2Magnet extends React.Component<{}, State> {
 				<div className="center-with-flex">
 					<FileInput
 						readbydrag
-						fileType="image/*"
+						fileType="application/x-bittorrent"
 						onFileUpload={(data, file) => {
 							this.setState({
 								file: data,

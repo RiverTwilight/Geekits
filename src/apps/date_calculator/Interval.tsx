@@ -9,9 +9,9 @@ export default class DateInterval extends React.Component<{}, DateDifferState> {
 		super(props);
 		this.state = {
 			dateLate: "2020-04-17",
-			dateEarly: "2020-04-16",
+			dateEarly: "2004-04-12",
 			timeEarly: "12:00",
-			timeLate: "12:00",
+			timeLate: "14:00",
 			diffDay: null,
 			diffHour: 0,
 			diffMin: 0,
@@ -20,8 +20,7 @@ export default class DateInterval extends React.Component<{}, DateDifferState> {
 	componentDidMount() {
 		var today = getToday();
 		this.setState({
-			dateEarly: today,
-			dateLate: today,
+			dateLate: today
 		});
 	}
 	render() {

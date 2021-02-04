@@ -4,6 +4,7 @@
  */
 var table = {
     "application": {
+        "x-bittorrent": "torrent",
         "ecmascript": ["es", "ecma"],
         "javascript": "js",
         "ogg": "ogx",

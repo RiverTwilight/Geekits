@@ -1,50 +1,26 @@
-const text2md = (str: any, style: any, start: any, end: any) => {
+const text2md = (str: any, style: string, start: any, end: any) => {
 	// 截取选中字符串
 	var arr = str.split("");
-	var md;
+	var md: string;
 	var selectedLength = end - start;
 	var selectedStr = arr.splice(start, selectedLength).join("");
-	// HACK 使用对象选择法
-	switch (style) {
-		case "h1":
-			md = "# " + selectedStr;
-			break;
-		case "h2":
-			md = "## " + selectedStr;
-			break;
-		case "h3":
-			md = "### " + selectedStr;
-			break;
-		case "bold":
-			md = `**${selectedStr}**`;
-			break;
-		case "code":
-			md = `\`${selectedStr}\``;
-			break;
-		case "italic":
-			md = `_${selectedStr}_`;
-			break;
-		case "clear":
-			md = `~~${selectedStr}~~`;
-			break;
-		case "underline":
-			md = `<u>${selectedStr}</u>`;
-			break;
-		case "link":
-			md = `[链接文字](链接)`;
-			break;
-		case "enter":
-			md = `  <br>\n`;
-			break;
-		case "list":
-			md = `* ${selectedStr}`;
-			break;
-		case "image":
-			md = `![alt 属性文本](图片地址)`;
-			break;
-		default:
-			md = "88888";
-	}
+	var selector: {
+		[tag: string]: string;
+	} = {
+		h1: "# " + selectedStr,
+		h2: "## " + selectedStr,
+		h3: "### " + selectedStr,
+		bold: `**${selectedStr}**`,
+		code: `\`${selectedStr}\``,
+		italic: `_${selectedStr}_`,
+		clear: `~~${selectedStr}~~`,
+		underline: `<u>${selectedStr}</u>`,
+		link: `[链接文字](链接)`,
+		enter: `  <br>\n`,
+		list: `* ${selectedStr}`,
+		image: `![alt 属性文本](图片地址)`,
+	};
+	md = selector[style] || "8888";
 	arr.splice(start, 0, md);
 	return arr.join("");
 };
