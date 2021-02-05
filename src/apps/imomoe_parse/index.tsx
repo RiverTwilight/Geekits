@@ -59,9 +59,8 @@ export default class extends React.Component<{}, ComponentState> {
 		};
 	}
 	componentDidMount() {
+		console.log('loaded')
 		var VideoListJson;
-		// @ts-expect-error ts-migrate(2454) FIXME: Variable 'clipboard' is used before being assigned... Remove this comment to see the full error message
-		clipboard && clipboard.destroy();
 		var clipboard = new ClipboardJS(".becopy");
 		clipboard.on("success", (e) => {
 			snackbar({ message: "已复制链接" });

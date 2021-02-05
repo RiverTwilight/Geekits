@@ -182,7 +182,7 @@ class Search extends React.Component<{}, SearchState> {
 	handleSearchKeydown(e: any) {
 		if (e.ctrlKey && e.keyCode === 70) {
 			e.preventDefault();
-			this.searchInput.focus();
+			this.searchInput && this.searchInput.focus();
 		}
 	}
 	componentDidMount() {

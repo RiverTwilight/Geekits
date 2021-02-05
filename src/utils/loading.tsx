@@ -1,4 +1,3 @@
-import React from 'react';
 import Loadable from 'react-loadable';
 
 const Loading = (props: any) => {
@@ -16,6 +15,6 @@ export default (loader: any) => {
     return Loadable({
         loader,
         loading: Loading,
-        delay: 1000
+        delay: 500
     });
 };

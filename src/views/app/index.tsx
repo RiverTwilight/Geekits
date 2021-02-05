@@ -1,10 +1,21 @@
 import React from "react";
 // @ts-expect-error ts-migrate(2305) FIXME: Module '"mdui"' has no exported member 'alert'.
 import { alert as mduiAlert, mutation } from "mdui";
-import { BrowserRouter as Router, Route, withRouter } from "react-router-dom";
-import loadable from "../../utils/loading";
 import getInfo from "../../utils/appinfo";
 import AppMenu from "./AppMenu";
+import loadable from "../../utils/loading";
+
+/**
+ * 中间件，来更新Dom(MDUI无脑特性)
+ */
+class MiddleWare extends React.Component<{}, any> {
+	componentDidUpdate() {
+		mutation();
+	}
+	render() {
+		return <>{this.props.children}</>;
+	}
+}
 
 /**
  * 工具加载框架
@@ -18,6 +29,7 @@ class AppContainer extends React.Component<{}, any> {
 			appInfo: getInfo(props.match.params.name),
 			FeedbackComp: null,
 			showFeedbackComp: false,
+			AppComp: null,
 		};
 	}
 	componentDidCatch(error: any, info: any) {
@@ -32,7 +44,14 @@ class AppContainer extends React.Component<{}, any> {
 	}
 	componentDidMount() {
 		const { appInfo } = this.state;
-		setInterval(() => mutation(), 100);
+		this.setState(
+			{
+				AppComp: loadable(() => import("../../apps/" + appInfo?.link)),
+			},
+			() => {
+				appInfo && window.updateTitle(appInfo.name);
+			}
+		);
 		// 链接带有全屏参数，隐藏头部
 		if (window.location.search.indexOf("fullscreen=true") !== -1) {
 			document.getElementsByTagName("header")[0].style.display = "none";
@@ -56,9 +75,14 @@ class AppContainer extends React.Component<{}, any> {
 		});
 	};
 	render() {
-		const { appInfo, FeedbackComp, showFeedbackComp } = this.state;
+		const { FeedbackComp, showFeedbackComp, AppComp } = this.state;
 		return (
 			<>
+				{AppComp && (
+					<MiddleWare>
+						<AppComp />
+					</MiddleWare>
+				)}
 				{FeedbackComp && (
 					<FeedbackComp
 						open={showFeedbackComp}
@@ -69,19 +93,9 @@ class AppContainer extends React.Component<{}, any> {
 						}}
 					/>
 				)}
-				<Router>
-					<Route
-						path="/app/:name"
-						component={loadable(() => {
-							appInfo && window.updateTitle(appInfo.name);
-							return import("../../apps/" + appInfo?.link);
-						})}
-					></Route>
-				</Router>
 			</>
 		);
 	}
 }
 
-// @ts-expect-error ts-migrate(2345) FIXME: Type 'Readonly<{}> & Readonly<{ children?: ReactNo... Remove this comment to see the full error message
-export default withRouter(AppContainer);
+export default AppContainer;
