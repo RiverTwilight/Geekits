@@ -18,18 +18,19 @@ const ReactDialog = ({
 	open,
 	onClose,
 	children,
-	config,
+	config = {},
 }: {
 	open?: boolean;
 	onClose?: any;
 	children?: any;
-	config?: {
-		title: string;
+	config: {
+		title?: string;
 		confirmText?: string;
 		cancelText?: string;
+		id?: string;
 	};
 }) => {
-	var id = makeid(5)
+	var id = config.id || makeid(5);
 	useEffect(() => {
 		var dialogInst;
 		dialogInst = new Dialog(`#${id}`, {

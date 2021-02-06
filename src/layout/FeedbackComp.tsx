@@ -1,30 +1,58 @@
-import React from "react";
+import React, { useState } from "react";
 import Dialog from "../components/Dialog";
+import { Input, Button } from "mdui-in-react";
+import html2canvas from "html2canvas";
 
-class Feedback extends React.Component<{}, {}> {
-	constructor(props: any) {
-		super(props);
-		this.state = {};
-	}
+const Feedback = () => {
+	const [text, setText] = useState("");
+	const [img, setImg] = useState("");
+	const catchScreenshot = () => {
+		let target = document.body;
+		target &&
+			html2canvas(target, {
+				ignoreElements: (ele) => {
+					return (
+						ele.classList.contains("mdui-overlay") ||
+						ele.id === "feedback"
+					);
+				},
+				windowHeight: document.documentElement.offsetHeight,
+			}).then((canvas) => {
+				let base64 = canvas.toDataURL("image/png");
+				console.log(base64);
+			});
+	};
+	return (
+		<>
+			<div className="mdui-dialog-content">
+				<Input
+					value={text}
+					onValueChange={setText}
+					placeholder="请描述你遇到的问题"
+					rows={3}
+				/>
+				{img !== "" && <img src={img} alt="screenshot" />}
+				<Button
+					onClick={catchScreenshot}
+					primary
+					icon="add"
+					title="添加截图"
+				/>
+			</div>
+		</>
+	);
+};
 
-	render() {
-		return (
-			<>
-				<div className="mdui-dialog-content">反馈功能开发中</div>
-			</>
-		);
-	}
-}
+// TODO 快捷反馈：截图
 
-// TODO 快捷反馈
-
-const FeedbackComp = (props: any) => {
+const FeedbackComp = (props: unknown) => {
 	return (
 		<Dialog
 			config={{
 				title: "反馈",
-				confirmText: "登录/注册",
+				confirmText: "提交",
 				cancelText: "忘记密码 ",
+				id: "feedback",
 			}}
 			{...props}
 		>

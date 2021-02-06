@@ -6,6 +6,7 @@ import Cropper from "../../utils/Cropper";
 import ImgCompress from "../img_compress/engine";
 
 // TODO 快速保存到便签
+// FIXME 打开错误
 const Result = ({ result }: any) => {
 	if (!result) return null;
 	return (

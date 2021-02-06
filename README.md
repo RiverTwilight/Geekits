@@ -60,7 +60,7 @@ src
 
 ### 样式
 
-统一使用 MDUI 这个 css 框架，由于它是基于 html 的，所以我单独封装了一个 [React 版本](https://github.com/RiverTwilight/mdui-in-react)，你也可以在这里添加新组件。
+统一使用 MDUI 这个 css 框架，由于它是基于原生 JS 的，所以我单独封装了一个 [React 版本](https://github.com/RiverTwilight/mdui-in-react)，你也可以在这里添加新组件。
 
 布局需尽量遵循 [Material Design 设计规范](http://material.io/design).
 
@@ -71,7 +71,7 @@ src
 建议使用编写好的脚本快速添加。(不要在 vscode 内置终端中运行)
 
 ```bash
-npm run newApp
+bash scripts/newApp.sh
 ```
 
 | Name        | type    | default | description                                                               |
@@ -82,7 +82,7 @@ npm run newApp
 | description | string  | --      | 【可选】工具描述                                                          |
 | icon        | string  | --      | 工具对应的 MaterialDesign 图标名                                          |
 
-添加配置后，在`./apps/`下添加一个和配置中 Link 同名的文件夹，默认 index.\*为入口文件。
+如果不使用脚本，添加配置后，需要在`./apps/`下添加一个和配置中 Link 同名的文件夹，默认 index.\*为入口文件。
 
 接着，在工具目录添加一个 README.md 作为工具帮助，你可以自由地使用 Markdown 语法创作。
 
@@ -140,7 +140,7 @@ Licensed under the MIT license.
 
 ## 捐赠
 
-我是一个没有任何收入来源的高中生，如果你喜欢云极客，可以给我买一杯奶茶!
+我是一个没有任何收入来源的高中生，如果你喜欢云极客，可以给我买一杯奶茶（超喜欢喝奶茶!
 
 <img width="200" height="200" src="https://i.loli.net/2020/09/12/CoJjtlHBskeMdKI.png">
 <img width="200" height="200" src="https://i.loli.net/2020/09/12/Mq1TBZSwnDHVRxv.png">

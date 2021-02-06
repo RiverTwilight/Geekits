@@ -10,7 +10,13 @@ import loadable from "../../utils/loading";
  */
 class MiddleWare extends React.Component<{}, any> {
 	componentDidUpdate() {
+		console.log("Update dom");
 		mutation();
+	}
+	componentDidCatch(error: any, info: any) {
+		mduiAlert(error, "您的浏览器捕获到一个错误", null, {
+			history: false,
+		});
 	}
 	render() {
 		return <>{this.props.children}</>;
@@ -32,10 +38,9 @@ class AppContainer extends React.Component<{}, any> {
 			AppComp: null,
 		};
 	}
-	componentDidCatch(error: any, info: any) {
-		mduiAlert(error, "您的浏览器捕获到一个错误", null, {
-			history: false,
-		});
+	componentDidUpdate() {
+		console.log("Update dom");
+		mutation();
 	}
 	componentWillUnmount() {
 		window.loadHide(); // 清除滚动条
@@ -73,16 +78,13 @@ class AppContainer extends React.Component<{}, any> {
 		this.setState({
 			showFeedbackComp: true,
 		});
+		window.innerWidth <= 1024 && window.RightDrawer.close();
 	};
 	render() {
 		const { FeedbackComp, showFeedbackComp, AppComp } = this.state;
 		return (
 			<>
-				{AppComp && (
-					<MiddleWare>
-						<AppComp />
-					</MiddleWare>
-				)}
+				{AppComp && <AppComp />}
 				{FeedbackComp && (
 					<FeedbackComp
 						open={showFeedbackComp}

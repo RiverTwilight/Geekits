@@ -62,7 +62,7 @@ export default () => {
 						rel="noopener noreferrer"
 						target="_blank"
 						className="mdui-col mdui-list-item mdui-ripple"
-						href="https://blog.yungeeker.com/blog/1"
+						href="https://ygk-blog.yunser.com/blog/07cc5138"
 					>
 						<i className="mdui-list-item-icon mdui-icon material-icons">
 							grain
