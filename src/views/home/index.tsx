@@ -4,11 +4,23 @@ import { Link, useHistory } from "react-router-dom";
 import { alert as mduiAlert, mutation } from "mdui";
 // @ts-expect-error ts-migrate(7016) FIXME: Try `npm install @types/js-pinyin` if it exists or... Remove this comment to see the full error message
 import pinyin from "js-pinyin";
-import { ToTop } from "mdui-in-react";
 import applist from "../../data/appData";
 import fiv from "../../utils/Services/fiv";
 import useEventListener from "../../utils/Hooks/useEventListener";
 import marked from "marked";
+import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
+import ListSubheader from "@material-ui/core/ListSubheader";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
+import Collapse from "@material-ui/core/Collapse";
+import InboxIcon from "@material-ui/icons/MoveToInbox";
+import DraftsIcon from "@material-ui/icons/Drafts";
+import SendIcon from "@material-ui/icons/Send";
+import ExpandLess from "@material-ui/icons/ExpandLess";
+import ExpandMore from "@material-ui/icons/ExpandMore";
+import StarBorder from "@material-ui/icons/StarBorder";
 
 const AppListItem = ({
 	isActive,
@@ -281,41 +293,52 @@ const getChannelIcon = (index: any) => {
 	return icons[index - 1];
 };
 
-class AppList extends React.Component {
-	componentDidMount() {
-		mutation();
-	}
-	render() {
-		var channelType: any = [];
-		for (let i = applist.length - 1; i >= 0; i--) {
-			let app = applist[i];
-			if (!channelType.includes(app.channel)) {
-				channelType.unshift(app.channel);
-			}
-		}
+const useStyles = makeStyles((theme: Theme) =>
+	createStyles({
+		root: {
+			width: "100%",
+			backgroundColor: theme.palette.background.paper,
+		},
+	})
+);
 
-		// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'channel' implicitly has an 'any' type.
-		var data = channelType.map((channel) => ({
+const AppList = () => {
+	const classes = useStyles();
+
+	var channelType: any = [];
+
+	for (let i = applist.length - 1; i >= 0; i--) {
+		let app = applist[i];
+		if (!channelType.includes(app.channel)) {
+			channelType.unshift(app.channel);
+		}
+	}
+
+	var data: { name: string; icon: any; apps: any[] }[] = channelType.map(
+		(channel: number) => ({
 			name: getChannelName(channel),
 			icon: getChannelIcon(channel),
 			apps: applist.filter((app) => app.channel === channel),
-		}));
+		})
+	);
 
-		/**
-		 * accordion 是否启用手风琴效果。
-		 * 为 true 时，最多只能有一个内容块处于打开状态，打开一个内容块时会关闭其他内容块。
-		 * 为 false 时，可同时打开多个内容块。
-		 */
-		return (
-			<ul className="mdui-list" mdui-collapse="{accordion: true}">
-				<li className="mdui-subheader">所有工具</li>
-				{data.map((a: any, i: any) => (
-					<MakeChannels key={i} data={a} />
-				))}
-			</ul>
-		);
-	}
-}
+	return (
+		<List
+			component="nav"
+			aria-labelledby="nested-list-subheader"
+			subheader={
+				<ListSubheader component="div" id="nested-list-subheader">
+					所有工具
+				</ListSubheader>
+			}
+			className={classes.root}
+		>
+			{/* {data.map((a: any, i: any) => (
+				<MakeChannels key={i} data={a} />
+			))} */}
+		</List>
+	);
+};
 
 type IndexState = any;
 
@@ -350,7 +373,7 @@ export default class Index extends React.Component<{}, IndexState> {
 			}),
 		})
 			.then((response) => {
-				return response.text()
+				return response.text();
 			})
 			.then((text) => {
 				const notice = {
@@ -381,8 +404,8 @@ export default class Index extends React.Component<{}, IndexState> {
 	render() {
 		return (
 			<>
-				<Search />
-				<FivList />
+				{/* <Search />
+				<FivList /> */}
 				<AppList />
 				{/* <ToTop /> */}
 			</>
