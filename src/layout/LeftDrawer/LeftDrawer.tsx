@@ -20,14 +20,19 @@ import {
 import HomeIcon from "@material-ui/icons/Home";
 import SettingsIcon from "@material-ui/icons/Settings";
 import GitHubIcon from "@material-ui/icons/GitHub";
-import { green, red } from "@material-ui/core/colors";
+import { green, red, blue } from "@material-ui/core/colors";
+import AppsIcon from '@material-ui/icons/Apps';
 
 const list = [
 	{
 		Icon: <HomeIcon style={{ color: red[500] }} />,
-		IconColor: "red",
 		text: "首页",
 		link: "/",
+	},
+	{
+		Icon: <AppsIcon style={{ color: blue[300] }} />,
+		text: "发现",
+		link: "/discover",
 	},
 	{
 		Icon: <SettingsIcon style={{ color: green[500] }} />,

@@ -5,13 +5,6 @@
 	right: 10px;
 }
 */
-.mdui-fab i {
-	color: white;
-}
-
-.hidden {
-	display: none;
-}
 
 .header-width-saying {
 	padding-bottom: 9px;
@@ -22,14 +15,7 @@
 	top: 13px;
 	max-width: 70%;
 }
-@media screen and (min-width: 1024px) {
-	.mdui-drawer {
-		border-left: 1px solid rgba(0, 0, 0, 0.12);
-	}
-	.mdui-fab {
-		z-index: 5001; /*To ensure the fab is over the drawer*/
-	}
-}
+
 /*
 #grad {
     width: 100%;
@@ -51,32 +37,6 @@
     bottom: 18px;
 }
 */
-.mdui-card.appinfo .mdui-card-primary {
-	padding: 18px 16px 16px 16px;
-}
-
-.bottom-dashboard .mdui-card {
-	position: static;
-}
-
-@media screen and (max-width: 640px) {
-	.bottom-dashboard {
-		z-index: 1002;
-		position: fixed !important;
-		bottom: 0;
-		right: 0;
-		left: 0;
-		max-height: 90%;
-		transition: 0.5s bottom;
-	}
-	.bottom-dashboard-hidden {
-		bottom: -90%;
-	}
-	.mdui-drawer {
-		box-shadow: 3px 1px -2px rgba(0, 0, 0, 0.2),
-			0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
-	}
-}
 
 @media screen and (min-width: 1024px) {
 	.saying {
@@ -93,18 +53,6 @@
 	}
 }
 
-.loading {
-	position: fixed !important;
-	top: 0px;
-	z-index: 9999;
-	width: 100% !important;
-	left: 0px;
-}
-
-.bottom-alert .main {
-	overflow-y: auto;
-	height: 90%;
-}
 
 .center-with-flex {
 	display: flex;

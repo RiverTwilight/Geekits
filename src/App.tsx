@@ -17,7 +17,8 @@ const styles = (theme: Theme) => {
 		},
 		content: {
 			flexGrow: 1,
-			padding: theme.spacing(3),
+			padding: theme.spacing(2),
+			paddingTop: "75px"
 		},
 		contentShift: {
 			transition: theme.transitions.create("margin", {
