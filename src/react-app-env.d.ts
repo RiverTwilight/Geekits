@@ -1,5 +1,11 @@
 /// <reference types="react-scripts" />
 
+interface AppInfo {
+	name?: string;
+	link?: string;
+	description?: string;
+}
+
 interface Window {
 	/**
 	 * 修改文档标题和头部标题

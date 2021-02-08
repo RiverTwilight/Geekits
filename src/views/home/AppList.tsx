@@ -38,7 +38,6 @@ const AppListItem = ({
 			: {
 					component: Link,
 					to: "/app/" + link,
-					exact: true,
 			  };
 	return (
 		<ListItem button key={name} {...attr}>
@@ -75,7 +74,6 @@ const MakeChannels = ({ data: { name, apps, Icon } }: any) => {
 				<ListItemText primary={name} />
 				{open ? <ExpandLess /> : <ExpandMore />}
 			</ListItem>
-
 			<Collapse in={open} timeout="auto" unmountOnExit>
 				<List component="div" disablePadding>
 					<Grid container spacing={3}>

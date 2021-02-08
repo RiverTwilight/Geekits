@@ -4,7 +4,7 @@ import { snackbar, alert as mduiAlert } from "mdui";
 import { Button, Input } from "mdui-in-react";
 import fiv from "../../utils/Services/fiv";
 import marked from "marked";
-import { ReactComponent as GithubLogo } from "../../svg/logo-github.svg";
+// import { ReactComponent as GithubLogo } from "../../svg/logo-github.svg";
 
 const ShareBtn = () => {
 	if (navigator.share) {
@@ -122,7 +122,7 @@ class AppMenu extends React.Component<
 						className="mdui-btn mdui-btn-icon mdui-ripple"
 						mdui-tooltip="{content: '在Github上编辑此页面'}"
 					>
-						<GithubLogo />
+						{/* <GithubLogo /> */}
 					</a>
 					<Button
 						title="快速反馈"
