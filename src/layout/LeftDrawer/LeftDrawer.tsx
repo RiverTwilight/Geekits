@@ -2,8 +2,6 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { getUserInfo } from "../../utils/Services/UserInfo";
 import applist from "../../data/appData";
-import clsx from "clsx";
-import CssBaseline from "@material-ui/core/CssBaseline";
 import Divider from "@material-ui/core/Divider";
 import Drawer from "@material-ui/core/Drawer";
 import Hidden from "@material-ui/core/Hidden";
@@ -21,7 +19,7 @@ import HomeIcon from "@material-ui/icons/Home";
 import SettingsIcon from "@material-ui/icons/Settings";
 import GitHubIcon from "@material-ui/icons/GitHub";
 import { green, red, blue } from "@material-ui/core/colors";
-import AppsIcon from '@material-ui/icons/Apps';
+import AppsIcon from "@material-ui/icons/Apps";
 
 const list = [
 	{
@@ -150,27 +148,6 @@ const useStyles = makeStyles((theme: Theme) =>
 	})
 );
 
-const Warpper = (props: { a: { link: string; text: string; Icon: any } }) => {
-	let { link, text, Icon } = props.a;
-	const attr = link.match(/(http|https)/)
-		? {
-				href: link,
-				component: "a",
-		  }
-		: {
-				activeClassName: "Mui-selected",
-				component: NavLink,
-				to: link,
-				exact: true,
-		  };
-	return (
-		<ListItem button key={text} {...attr}>
-			<ListItemIcon>{Icon}</ListItemIcon>
-			<ListItemText primary={text} />
-		</ListItem>
-	);
-};
-
 export default (props: {
 	handleLoginOpen: () => void;
 	handleDrawerClose: () => void;
@@ -196,6 +173,7 @@ export default (props: {
 					activeClassName: "Mui-selected",
 					component: NavLink,
 					to: link,
+					onClick: handleClick,
 					exact: true,
 			  };
 		return (

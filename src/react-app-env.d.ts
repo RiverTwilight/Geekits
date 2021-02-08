@@ -1,8 +1,8 @@
 /// <reference types="react-scripts" />
 
 interface AppInfo {
-	name?: string;
-	link?: string;
+	name: string;
+	link: string;
 	description?: string;
 }
 
@@ -16,8 +16,7 @@ interface Window {
 	 */
 	loadShow(): void;
 	loadingDelay: Timeout;
-	leftDrawer: any;
-	RightDrawer: any;
+	setHeaderButton: (component: any) => void;
 	/**
 	 * 隐藏加载动画
 	 */

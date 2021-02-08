@@ -128,27 +128,6 @@ export default withStyles(styles)(
 					? `${pageName} - 云极客工具`
 					: "云极客工具";
 			};
-			window.setRightDrawer = (content, icon) => {
-				this.setState({
-					rightDrawerContent: content,
-				});
-				document.body.classList.add("mdui-drawer-body-right");
-				if (RightMenuBtnRef.current)
-					RightMenuBtnRef.current.style.display = "block";
-				window.menu = () => {
-					window.RightDrawer.toggle();
-				};
-			};
-			window.destoryRightDrawer = () => {
-				if (this.state.rightDrawerContent) {
-					this.setState({
-						rightDrawerContent: null,
-					});
-					document.body.classList.remove("mdui-drawer-body-right");
-					if (RightMenuBtnRef.current)
-						RightMenuBtnRef.current.style.display = "none";
-				}
-			};
 		}
 		openLoginDialog = () => {
 			let { LoginDialog } = this.state;

@@ -1,23 +1,46 @@
 import React from "react";
-import { Drawer } from "mdui";
+import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
+import Drawer from "@material-ui/core/Drawer";
 
-class DrawerMenu extends React.PureComponent<
-	{
-		content: React.ReactComponentElement<"div">;
-	},
-	{}
-> {
-	componentDidMount() {
-		window.RightDrawer = new Drawer("#right-drawer");
-	}
-	render() {
-		const { content } = this.props;
-		return (
-			<div id="right-drawer" className="mdui-drawer mdui-drawer-right">
-				{content}
-			</div>
-		);
-	}
-}
+const drawerWidth = 260;
 
-export default DrawerMenu;
+const useStyles = makeStyles((theme: Theme) =>
+	createStyles({
+		appBar: {
+			zIndex: theme.zIndex.drawer + 1,
+		},
+		drawer: {
+			width: drawerWidth,
+			flexShrink: 0,
+		},
+		drawerPaper: {
+			width: drawerWidth,
+		},
+		drawerContainer: {
+			overflow: "auto",
+		}
+	})
+);
+
+const RightDrawer = ({ children, open, onClose }: {
+	open?: boolean,
+	onClose?: ()=>void,
+	children?: React.ReactNode
+}) => {
+	const classes = useStyles();
+	return (
+		<Drawer
+			anchor="right"
+			className={classes.drawer}
+			open={open}
+			onClose={onClose}
+			classes={{
+				paper: classes.drawerPaper,
+			}}
+		>
+			<div className={classes.drawerContainer}>{children}</div>
+		</Drawer>
+	);
+};
+
+export default RightDrawer;

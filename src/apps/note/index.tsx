@@ -1,17 +1,13 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import marked from "marked";
+// import marked from "marked";
 import { Input, Button } from "mdui-in-react";
 import MdEditor from "../../components/MdEditor";
 
-/** Markdown预览*/
+// REBUILD Markdown预览
+/** */
 const MarkDown = ({ md }: { md: string }) => {
-	return (
-		<div
-			dangerouslySetInnerHTML={{ __html: marked(md) }}
-			className="mdui-typo"
-		></div>
-	);
+	return null
 };
 
 // // @ts-expect-error ts-migrate(7006) FIXME: Parameter 'props' implicitly has an 'any' type.

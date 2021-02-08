@@ -4,9 +4,9 @@ import Form from "../../components/Form";
 import useInput from "../../utils/Hooks/useInput";
 import PG from "./generator";
 import { saveFile } from "../../utils/fileSaver";
-import marked from "marked";
+// import marked from "marked";
 // TODO 完善隐私政策生成器
-
+// REBUILD markdown
 const PGI = new PG();
 
 const BasicInfo = ({ display }: { display: boolean }) => {
@@ -74,13 +74,13 @@ const Result = () => {
 		});
 	};
 	const exportAsHTML = () => {
-		saveFile({
-			filename: "隐私政策-云极客工具.html",
-			type: "html",
-			file: new Blob([marked(PGI.generator())], {
-				type: "text/markdown",
-			}),
-		});
+		// saveFile({
+		// 	filename: "隐私政策-云极客工具.html",
+		// 	type: "html",
+		// 	file: new Blob([marked(PGI.generator())], {
+		// 		type: "text/markdown",
+		// 	}),
+		// });
 	};
 	return (
 		<div style={{}}>
@@ -98,7 +98,7 @@ const Result = () => {
 				title="导出HTML"
 			/>
 			<div className="mdui-divider" />
-			<div
+			{/* <div
 				style={{
 					maxHeight: "250px",
 					overflow: "scroll",
@@ -106,7 +106,7 @@ const Result = () => {
 				dangerouslySetInnerHTML={{
 					__html: marked(PGI.generator()),
 				}}
-			></div>
+			></div> */}
 		</div>
 	);
 };

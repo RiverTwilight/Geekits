@@ -1,27 +1,10 @@
 import React from "react";
-// @ts-expect-error ts-migrate(2305) FIXME: Module '"mdui"' has no exported member 'alert'.
-import { alert as mduiAlert, mutation } from "mdui";
 import getInfo from "../../utils/appinfo";
 import AppMenu from "./AppMenu";
-import loadable from "../../utils/loading";
-
-/**
- * 中间件，来更新Dom(MDUI无脑特性)
- */
-class MiddleWare extends React.Component<{}, any> {
-	componentDidUpdate() {
-		console.log("Update dom");
-		mutation();
-	}
-	componentDidCatch(error: any, info: any) {
-		mduiAlert(error, "您的浏览器捕获到一个错误", null, {
-			history: false,
-		});
-	}
-	render() {
-		return <>{this.props.children}</>;
-	}
-}
+import Loadable from "react-loadable";
+import RightDrawer from "../../layout/RightDrawer";
+import HelpTwoToneIcon from "@material-ui/icons/HelpTwoTone";
+import IconButton from "@material-ui/core/IconButton";
 
 /**
  * 工具加载框架
@@ -35,36 +18,41 @@ class AppContainer extends React.Component<{}, any> {
 			appInfo: getInfo(props.match.params.name),
 			FeedbackComp: null,
 			showFeedbackComp: false,
-			AppComp: null,
+			RightDrawerOpen: false,
 		};
 	}
-	componentDidUpdate() {
-		console.log("Update dom");
-		mutation();
-	}
 	componentWillUnmount() {
-		window.loadHide(); // 清除滚动条
-		document.getElementsByClassName("mdui-overlay").length &&
-			document.getElementsByClassName("mdui-overlay")[0].remove();
+		// window.loadHide(); // 清除滚动条
+	}
+	componentDidCatch(error: any, info: any) {
+		// REBUILD Error Bounding
+		// mduiAlert(error, "您的浏览器捕获到一个错误", null, {
+		// 	history: false,
+		// });
 	}
 	componentDidMount() {
 		const { appInfo } = this.state;
-		this.setState(
-			{
-				AppComp: loadable(() => import("../../apps/" + appInfo?.link)),
-			},
-			() => {
-				appInfo && window.updateTitle(appInfo.name);
-			}
+
+		appInfo && window.updateTitle(appInfo.name);
+		window.setHeaderButton(
+			<IconButton
+				color="primary"
+				aria-label="open drawer"
+				onClick={() => {
+					this.setState({
+						RightDrawerOpen: true,
+					});
+				}}
+				edge="start"
+			>
+				<HelpTwoToneIcon />
+			</IconButton>
 		);
 		// 链接带有全屏参数，隐藏头部
 		if (window.location.search.indexOf("fullscreen=true") !== -1) {
-			document.getElementsByTagName("header")[0].style.display = "none";
-			document.body.classList.remove("mdui-appbar-with-toolbar");
+			// document.getElementsByTagName("header")[0].style.display = "none";
+			// document.body.classList.remove("mdui-appbar-with-toolbar");
 		}
-		window.setRightDrawer(
-			<AppMenu feedback={this.feedback} appinfo={appInfo} />
-		);
 	}
 	feedback = () => {
 		let { FeedbackComp } = this.state;
@@ -72,19 +60,40 @@ class AppContainer extends React.Component<{}, any> {
 			this.setState({
 				FeedbackComp:
 					!FeedbackComp &&
-					loadable(() => import("../../layout/FeedbackComp")),
+					//@ts-expect-error
+					Loadable({
+						loader: () => import("../../layout/FeedbackComp"),
+					}),
 			});
 		}
 		this.setState({
 			showFeedbackComp: true,
 		});
-		window.innerWidth <= 1024 && window.RightDrawer.close();
 	};
 	render() {
-		const { FeedbackComp, showFeedbackComp, AppComp } = this.state;
+		const {
+			FeedbackComp,
+			showFeedbackComp,
+			appInfo,
+			RightDrawerOpen,
+		} = this.state;
+		const AppComp = Loadable({
+			loader: () => import("../../apps/" + appInfo?.link),
+			loading: () => <>asdf</>,
+		});
 		return (
 			<>
-				{AppComp && <AppComp />}
+				<AppComp />
+				<RightDrawer
+					onClose={() => {
+						this.setState({
+							RightDrawerOpen: false,
+						});
+					}}
+					open={RightDrawerOpen}
+				>
+					<AppMenu feedback={this.feedback} appinfo={appInfo} />
+				</RightDrawer>
 				{FeedbackComp && (
 					<FeedbackComp
 						open={showFeedbackComp}

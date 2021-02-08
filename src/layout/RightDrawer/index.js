@@ -1,3 +1,3 @@
-import RightDrawer from "../RightDrawer";
+import RightDrawer from "./RightDrawer";
 
 export default RightDrawer;

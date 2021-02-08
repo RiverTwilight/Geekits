@@ -1,96 +1,131 @@
-import React from "react";
-import { snackbar } from "mdui";
-import { Input } from "mdui-in-react";
+import React, { useState, useEffect } from "react";
 import axios from "../utils/axios";
+import Input from "@material-ui/core/Input";
+import FormControl from "@material-ui/core/FormControl";
+import InputLabel from "@material-ui/core/InputLabel";
+import Button from "@material-ui/core/Button";
+import useInput from "../utils/Hooks/useInput";
+import Snackbar from "@material-ui/core/Snackbar";
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import IconButton from "@material-ui/core/IconButton";
+import CloseIcon from "@material-ui/icons/Close";
 
 /**
  * 查询工具模板
  */
 
-class EnquireTemplate extends React.Component<
-	{
-		Result: any;
-		api: string;
-		readonly inputOpt?: any;
-		readonly btnText?: string;
-	},
-	{
-		input: string;
-		data: null | object;
-	}
-> {
-	constructor(props: {
-		Result: any;
-		readonly api: string;
-		readonly inputOpt?: any;
-		readonly btnText?: string;
-	}) {
-		super(props);
-		this.state = {
-			input: "",
-			data: null,
-		};
-	}
-	handleEnterKeydown = (e: {
+const useStyles = makeStyles((theme: Theme) =>
+	createStyles({
+		input: {
+			marginBottom: theme.spacing(2),
+		},
+	})
+);
+
+const EnquireTemplate = (props: {
+	Result: any;
+	api: string;
+	readonly inputOpt?: any;
+	readonly btnText?: string;
+}) => {
+	const { api, Result, btnText } = props;
+	const [text, setText] = useInput("");
+	const [data, setData] = useState(null);
+	const [openSb, setOpenSb] = React.useState(false);
+	const classes = useStyles();
+
+	const handleEnterKeydown = (e: {
 		ctrlKey: any;
 		keyCode: number;
 		preventDefault: () => void;
 	}) => {
 		if (e.keyCode === 13) {
 			e.preventDefault();
-			this.loadCommentsFromServer();
+			connectWithServer();
 		}
 	};
-	componentDidMount() {
-		window.addEventListener("keydown", this.handleEnterKeydown);
-	}
-	componentWillUnmount() {
-		window.removeEventListener("keydown", this.handleEnterKeydown);
-	}
-	loadCommentsFromServer() {
-		const { api } = this.props;
-		const { input } = this.state;
+
+	const handleClick = () => {
+		connectWithServer();
+	};
+
+	const handleClose = () => {
+		setOpenSb(false);
+	};
+
+	useEffect(() => {
+		window.addEventListener("keydown", handleEnterKeydown);
+		return () => {
+			window.removeEventListener("keydown", handleEnterKeydown);
+		};
+	});
+
+	const connectWithServer = () => {
 		window.loadShow();
 		axios({
 			method: "get",
-			url: api + input,
+			url: api + text,
 			withCredentials: false,
 		})
 			.then((response) => {
 				var json = JSON.parse(response.request.response);
-				this.setState({ data: json });
+				setData(json);
 			})
 			.catch((error) => {
-				snackbar({ message: error });
+				setOpenSb(true);
 			})
 			.then(() => {
 				window.loadHide();
 			});
-	}
-	render() {
-		const { Result, inputOpt, btnText } = this.props;
-		const { input } = this.state;
-		return (
-			<>
+	};
+	return (
+		<>
+			<FormControl className={classes.input} fullWidth>
+				<InputLabel htmlFor="standard-adornment-amount">
+					搜索（Ctrl+F）
+				</InputLabel>
 				<Input
-					onValueChange={(newText: any) => {
-						this.setState({ input: newText });
-					}}
-					{...inputOpt}
-					value={input}
+					id="standard-adornment-amount"
+					value={text}
+					onChange={setText}
 				/>
-				<button
-					onClick={this.loadCommentsFromServer.bind(this)}
-					className="loadBtn mdui-ripple mdui-color-theme mdui-float-right mdui-btn-raised mdui-btn"
-				>
-					{btnText || "查询"}
-				</button>
-				<div className="mdui-clearfix"></div>
-				<br></br>
-				<Result data={this.state.data} input={input} />
-			</>
-		);
-	}
-}
+			</FormControl>
+			<Button variant="contained" color="primary" onClick={handleClick}>
+				{btnText || "查询"}
+			</Button>
+			<Snackbar
+				anchorOrigin={{
+					vertical: "bottom",
+					horizontal: "left",
+				}}
+				open={openSb}
+				autoHideDuration={6000}
+				onClose={handleClose}
+				message="Note archived"
+				action={
+					<React.Fragment>
+						<Button
+							color="secondary"
+							size="small"
+							onClick={handleClose}
+						>
+							UNDO
+						</Button>
+						<IconButton
+							size="small"
+							aria-label="close"
+							color="inherit"
+							onClick={handleClose}
+						>
+							<CloseIcon fontSize="small" />
+						</IconButton>
+					</React.Fragment>
+				}
+			/>
+			<br></br>
+			{/* <Result data={this.state.data} input={input} /> */}
+		</>
+	);
+};
 
 export default EnquireTemplate;
