@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import AppList from "./AppList";
 import Search from "./Search";
 import FivList from "./FivList";
@@ -84,8 +84,12 @@ type IndexState = any;
 // 	}
 // }
 
-export default function Index() {
+export default function Index(props: any) {
 	const classes = useStyles();
+	useEffect(() => {
+		window.setHeaderButton(null);
+		window.updateTitle();
+	}, [props]);
 	return (
 		<div className={classes.root}>
 			<Grid container spacing={1}>

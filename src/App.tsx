@@ -108,6 +108,7 @@ export default withStyles(styles)(
 			LeftDrawerOpen: boolean;
 			anchorEl: null | HTMLElement;
 			loading: boolean;
+			title: string;
 		}
 	> {
 		loading: any;
@@ -120,6 +121,7 @@ export default withStyles(styles)(
 				LoginDialog: null,
 				anchorEl: null,
 				loading: true,
+				title: "云极客工具",
 			};
 		}
 		componentDidMount() {
@@ -141,13 +143,6 @@ export default withStyles(styles)(
 					// toggleDisabled(false);?
 				}
 			};
-			window.updateTitle = (pageName) => {
-				if (AppBarRef.current)
-					AppBarRef.current.innerText = pageName || "云极客工具";
-				document.title = pageName
-					? `${pageName} - 云极客工具`
-					: "云极客工具";
-			};
 		}
 		openLoginDialog = () => {
 			let { LoginDialog } = this.state;
@@ -168,6 +163,7 @@ export default withStyles(styles)(
 			});
 		};
 		render() {
+			const { title } = this.state;
 			const { classes } = this.props;
 			const {
 				LeftDrawerOpen,
@@ -207,6 +203,7 @@ export default withStyles(styles)(
 									});
 								}}
 								open={LeftDrawerOpen}
+								title={title}
 								// openLoginDialog={this.openLoginDialog}
 								// globalRefs={{ RightMenuBtnRef, AppBarRef }}
 							/>

@@ -5,10 +5,9 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
-import MenuTwoToneIcon from '@material-ui/icons/MenuTwoTone';
+import MenuTwoToneIcon from "@material-ui/icons/MenuTwoTone";
 import useScrollTrigger from "@material-ui/core/useScrollTrigger";
 import clsx from "clsx";
-
 
 function ElevationScroll(props: Props) {
 	const { children, window } = props;
@@ -59,12 +58,21 @@ const useStyles = makeStyles((theme: Theme) =>
 	})
 );
 
-
 export default (props: any) => {
 	const { handleLeftDrawerOpen, open } = props;
 	const classes = useStyles();
 	const [extraButton, setExtraButton] = React.useState(null);
-	window.setHeaderButton = setExtraButton
+	const [title, setTitle] = React.useState("云极客工具");
+	React.useEffect(() => {
+		window.setHeaderButton = setExtraButton;
+		window.updateTitle = (pageName) => {
+			setTitle(pageName || "云极客工具");
+			document.title = pageName
+				? `${pageName} - 云极客工具`
+				: "云极客工具";
+		};
+	}, []);
+
 	return (
 		<ElevationScroll {...props}>
 			<AppBar
@@ -87,7 +95,7 @@ export default (props: any) => {
 						variant="h6"
 						className={classes.title}
 					>
-						云极客工具
+						{title}
 					</Typography>
 					{extraButton}
 				</Toolbar>
