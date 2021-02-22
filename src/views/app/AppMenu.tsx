@@ -79,7 +79,7 @@ const AppMenu = ({
 				return response.text();
 			})
 			.then((text) => {
-				setHelp(text);
+				setHelp(text === "" ? "暂无帮助文本": text);
 			});
 	});
 	return (

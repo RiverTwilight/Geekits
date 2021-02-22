@@ -1,7 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { getUserInfo } from "../../utils/Services/UserInfo";
-import applist from "../../data/appData";
 import Divider from "@material-ui/core/Divider";
 import Drawer from "@material-ui/core/Drawer";
 import Hidden from "@material-ui/core/Hidden";
@@ -183,6 +182,7 @@ export default (props: {
 			</ListItem>
 		);
 	};
+	// REBUILD 用户中心入口
 	const drawer = (
 		<div>
 			<div className={classes.toolbar} />

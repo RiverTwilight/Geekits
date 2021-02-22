@@ -14,6 +14,7 @@ interface Window {
 	/**
 	 * 显示加载动画
 	 */
+	snackbar(config: any): void;
 	loadShow(): void;
 	loadingDelay: Timeout;
 	setHeaderButton: (component: any) => void;

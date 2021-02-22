@@ -38,6 +38,10 @@
 }
 */
 
+.Textc\(green\) {
+	color: #4caf50;
+}
+
 @media screen and (min-width: 1024px) {
 	.saying {
 		top: 17px;
@@ -52,7 +56,6 @@
 		border-right: 1px solid rgba(255, 255, 255, 0.12);
 	}
 }
-
 
 .center-with-flex {
 	display: flex;

@@ -210,12 +210,12 @@ const cem = equation => {
 
     // @ts-expect-error ts-migrate(7006) FIXME: Parameter 'stance' implicitly has an 'any' type.
     reactant.map((stance,i)=>{
-    	result += `<span class="mdui-text-color-theme">${res[i]}</span>${stance.tance} ${(i === reactant.length - 1)?' == ':' + '}`
+    	result += `<span class="Textc(green)">${res[i]}</span>${stance.tance} ${(i === reactant.length - 1)?' == ':' + '}`
     })
 
     // @ts-expect-error ts-migrate(7006) FIXME: Parameter 'stance' implicitly has an 'any' type.
     resultant.map((stance,i)=>{
-    	result += `<span class="mdui-text-color-theme">${res[reactant.length + i]}</span>${stance.tance} ${i === resultant.length - 1?'': '+'}`
+    	result += `<span class="Textc(green)">${res[reactant.length + i]}</span>${stance.tance} ${i === resultant.length - 1?'': '+'}`
     })
     
     var result = result.replace(/([A-z\)])(\d)/g,(num)=>{   	

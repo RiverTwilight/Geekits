@@ -1,13 +1,46 @@
 import React from "react";
-import mdui from "mdui";
 import ClipboardJS from "clipboard";
 import table from "./table";
-import { Input, Button } from "mdui-in-react";
 import cem from "./dic";
+import Input from "@material-ui/core/Input";
+import Paper from "@material-ui/core/Paper";
+import Button from "@material-ui/core/Button";
+import BorderColorSharpIcon from "@material-ui/icons/BorderColorSharp";
+import {
+	createStyles,
+	Theme,
+	withStyles,
+	makeStyles,
+} from "@material-ui/core/styles";
+import FormControl from "@material-ui/core/FormControl";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import InputLabel from "@material-ui/core/InputLabel";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableContainer from "@material-ui/core/TableContainer";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import Typography from "@material-ui/core/Typography";
+
+const styles = (theme: Theme) => {
+	return createStyles({
+		padding: {
+			padding: theme.spacing(1),
+		},
+	});
+};
+
+const useStyles = makeStyles({
+	table: {
+		minWidth: 650,
+	},
+});
 
 // TODO 离子方程式配平
 
 const Result = ({ result, eleClass }: any) => {
+	const classes = useStyles();
 	if (result === "") return null;
 	const pt = JSON.parse(table);
 	var info: any = [];
@@ -18,82 +51,112 @@ const Result = ({ result, eleClass }: any) => {
 	});
 	return (
 		<>
-			<div className="mdui-typo mdui-text-center">
-				<h3 dangerouslySetInnerHTML={{ __html: result }}></h3>
-			</div>
-			<div className="mdui-table-fluid">
-				<table className="mdui-table">
-					<thead>
-						<tr>
-							<th>原子序数</th>
-							<th>元素名</th>
-							<th>相对原子质量</th>
-						</tr>
-					</thead>
-					<tbody>
+			<Typography
+				data-clipboard-text={"sdfasdf"}
+				align="center"
+				variant="h5"
+				dangerouslySetInnerHTML={{ __html: result }}
+			></Typography>
+			<TableContainer component={Paper}>
+				<Table aria-label="simple table">
+					<TableHead>
+						<TableRow>
+							<TableCell>原子序数</TableCell>
+							<TableCell>元素名</TableCell>
+							<TableCell>相对原子质量</TableCell>
+						</TableRow>
+					</TableHead>
+					<TableBody>
 						{
 							// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'stance' implicitly has an 'any' type.
 							info.map((stance, i) => (
-								<tr key={i}>
-									<td>{stance.atomicNumber}</td>
+								<TableRow key={i}>
+									<TableCell>{stance.atomicNumber}</TableCell>
 
-									<td>{stance.symbol}</td>
+									<TableCell>{stance.symbol}</TableCell>
 
-									<td>{stance.atomicMass}</td>
-								</tr>
+									<TableCell>{stance.atomicMass}</TableCell>
+								</TableRow>
 							))
 						}
-					</tbody>
-				</table>
-			</div>
+					</TableBody>
+				</Table>
+			</TableContainer>
 		</>
 	);
 };
 
 type UiState = any;
 
-export default class Cem extends React.Component<{}, UiState> {
-	constructor(props: {}) {
+class Cem extends React.Component<{ classes: any }, UiState> {
+	constructor(props: { classes: any } | Readonly<{ classes: any }>) {
 		super(props);
 		this.state = {
 			input: "Cu + HNO3 = Cu(NO3)2 + NO2 + H2O",
 			result: "",
 			eleClass: [],
+			snackbar: false,
 		};
 	}
+	handleClose = () => {
+		this.setState({
+			snackbar: false,
+		});
+	};
 	componentDidMount() {
-		var clipboard = new ClipboardJS("#input");
+		var clipboard = new ClipboardJS("h5");
 		clipboard.on("success", (e) => {
-			mdui.snackbar({ message: "已复制链接" });
+			window.snackbar({
+				message: "fdas",
+			});
 			e.clearSelection();
 		});
 	}
 	render() {
+		const { classes } = this.props;
 		return (
 			<>
-				<Input
-					onValueChange={(newText) => {
-						this.setState({ input: newText });
-					}}
-					pattern="\S+\=\S+"
-					header="输入方程式"
-					icon="link"
-					value={this.state.input}
-					rows={3}
-				/>
-				<Button
-					onClick={() => {
-						var library = cem(this.state.input);
-						this.setState({
-							result: library.result,
-							eleClass: library.eleClass,
-						});
-					}}
-					raised
-					primary
-					title="配平"
-				/>
-				<div className="mdui-clearfix"></div>
+				<Paper className={classes.padding}>
+					<FormControl fullWidth>
+						<InputLabel htmlFor="standard-adornment-amount">
+							输入化学方程式
+						</InputLabel>
+						<Input
+							onChange={(newText) => {
+								this.setState({ input: newText.target.value });
+							}}
+							startAdornment={
+								<InputAdornment position="start">
+									<BorderColorSharpIcon />
+								</InputAdornment>
+							}
+							value={this.state.input}
+							multiline
+							rows={2}
+						/>
+					</FormControl>
+					<br />
+					<br />
+					<Button
+						onClick={() => {
+							try {
+								var library = cem(this.state.input);
+								this.setState({
+									result: library.result,
+									eleClass: library.eleClass,
+								});
+							} catch (err) {
+								window.snackbar({
+									message: "方程式有误",
+								});
+							}
+						}}
+						variant="contained"
+						color="primary"
+					>
+						配平
+					</Button>
+				</Paper>
 				<Result
 					eleClass={this.state.eleClass}
 					result={this.state.result}
@@ -102,3 +165,5 @@ export default class Cem extends React.Component<{}, UiState> {
 		);
 	}
 }
+
+export default withStyles(styles)(Cem);

@@ -6,9 +6,7 @@ const drawerWidth = 260;
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
-		appBar: {
-			zIndex: theme.zIndex.drawer + 1,
-		},
+		toolbar: theme.mixins.toolbar,
 		drawer: {
 			width: drawerWidth,
 			flexShrink: 0,
@@ -18,14 +16,18 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		drawerContainer: {
 			overflow: "auto",
-		}
+		},
 	})
 );
 
-const RightDrawer = ({ children, open, onClose }: {
-	open?: boolean,
-	onClose?: ()=>void,
-	children?: React.ReactNode
+const RightDrawer = ({
+	children,
+	open,
+	onClose,
+}: {
+	open?: boolean;
+	onClose?: () => void;
+	children?: React.ReactNode;
 }) => {
 	const classes = useStyles();
 	return (

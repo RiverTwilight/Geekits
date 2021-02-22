@@ -11,7 +11,7 @@ import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import List from "@material-ui/core/List";
 import Typography from "@material-ui/core/Typography";
-import Link from '@material-ui/core/Link';
+import Link from "@material-ui/core/Link";
 import { AppListItem } from "./AppList";
 
 const styles = (theme: Theme) => {
@@ -49,9 +49,7 @@ const SearchResult = ({ result = [], kwd }: any) => {
 			))}
 			<Typography variant="subtitle1" gutterBottom>
 				没找到想要的工具?试试
-				<Link
-					href={"https://www.google.com/search?q=" + kwd}
-				>
+				<Link href={"https://www.google.com/search?q=" + kwd}>
 					谷歌搜索
 				</Link>
 			</Typography>
@@ -125,6 +123,7 @@ class Search extends React.Component<any, SearchState> {
 							搜索（Ctrl+F）
 						</InputLabel>
 						<Input
+							inputRef={ref => this.searchInput = ref}
 							id="standard-adornment-amount"
 							value={kwd}
 							onChange={this.handleInput}

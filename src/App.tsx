@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Header from "./layout/Header";
 import LeftDrawer from "./layout/LeftDrawer";
@@ -9,6 +9,7 @@ import loadable from "./utils/loading";
 import "./App.css";
 import { createStyles, Theme, withStyles } from "@material-ui/core/styles";
 import LinearProgress from "@material-ui/core/LinearProgress";
+import Snackbar from "@material-ui/core/Snackbar";
 
 const styles = (theme: Theme) => {
 	return createStyles({
@@ -18,7 +19,7 @@ const styles = (theme: Theme) => {
 		content: {
 			flexGrow: 1,
 			padding: theme.spacing(2),
-			paddingTop: "75px"
+			paddingTop: "75px",
 		},
 		contentShift: {
 			transition: theme.transitions.create("margin", {
@@ -71,6 +72,32 @@ const RouterList: {
 const RightMenuBtnRef = React.createRef<HTMLDivElement>();
 const AppBarRef = React.createRef<HTMLDivElement>();
 
+/**
+ * 全局snackbar
+ */
+const GlobalSnackbar = () => {
+	const [openSnackbar, setOpenSnackbar] = useState(false);
+	const [snackbarConfig, setSnackbarConfig] = useState({
+		message: "adsfsdf",
+	});
+	useEffect(() => {
+		window.snackbar = (config) => {
+			setSnackbarConfig(config);
+			setOpenSnackbar(true);
+		};
+	});
+	const handleSnackbarClose = () => {
+		setOpenSnackbar(false);
+	};
+	return (
+		<Snackbar
+			{...snackbarConfig}
+			open={openSnackbar}
+			onClose={handleSnackbarClose}
+		/>
+	);
+};
+
 export default withStyles(styles)(
 	class App extends React.Component<
 		any,
@@ -98,17 +125,10 @@ export default withStyles(styles)(
 		componentDidMount() {
 			const { loading } = this;
 
-			const toggleDisabled = (isDisabled: any) => {
-				var btns = document.getElementsByClassName("loadBtn");
-				for (let i = 0; i < btns.length; i++) {
-					//@ts-expect-error
-					btns[i].disabled = isDisabled;
-				}
-			};
 			window.loadShow = () => {
 				window.loadingDelay = setTimeout(() => {
 					loading.style.display = "inline-block";
-					toggleDisabled(true);
+					// toggleDisabled(true);
 					delete window.loadingDelay;
 				}, 700);
 			};
@@ -118,7 +138,7 @@ export default withStyles(styles)(
 					delete window.loadingDelay;
 				} else {
 					loading.style.display = "none";
-					toggleDisabled(false);
+					// toggleDisabled(false);?
 				}
 			};
 			window.updateTitle = (pageName) => {
@@ -212,6 +232,7 @@ export default withStyles(styles)(
 							</main>
 						</Router>
 					</div>
+					<GlobalSnackbar />
 				</>
 			);
 		}

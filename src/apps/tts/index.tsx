@@ -1,13 +1,28 @@
 import React from "react";
-import {
-	Button,
-	Input,
-	RangeInput,
-	ListControlMenu,
-	MusicPlayer,
-} from "mdui-in-react";
-import { snackbar } from "mdui";
+import { MusicPlayer } from "mdui-in-react";
 import Axios from "../../utils/axios";
+import { createStyles, Theme, withStyles } from "@material-ui/core/styles";
+import FormControl from "@material-ui/core/FormControl";
+import InputLabel from "@material-ui/core/InputLabel";
+import Input from "@material-ui/core/Input";
+import Paper from "@material-ui/core/Paper";
+import DoneIcon from "@material-ui/icons/Done";
+import Button from "@material-ui/core/Button";
+import Slider from "@material-ui/core/Slider";
+import VolumeDown from "@material-ui/icons/VolumeDown";
+import MicIcon from "@material-ui/icons/Mic";
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
+import MenuItem from "@material-ui/core/MenuItem";
+import Select from "@material-ui/core/Select";
+
+const styles = (theme: Theme) => {
+	return createStyles({
+		padding: {
+			padding: theme.spacing(1),
+		},
+	});
+};
 
 const VOICE_SOURCE = [
 	{
@@ -50,8 +65,30 @@ const VOICE_SOURCE = [
 
 type State = any;
 
-export default class extends React.Component<{}, State> {
-	constructor(props: {}) {
+const SliderWithIcon = ({
+	icon,
+	children,
+	title,
+}: {
+	icon: any;
+	title?: string;
+	children: React.ReactNode;
+}) => {
+	return (
+		<>
+			{title && <Typography gutterBottom>{title}</Typography>}
+			<Grid container spacing={2}>
+				<Grid item>{icon}</Grid>
+				<Grid item xs>
+					{children}
+				</Grid>
+			</Grid>
+		</>
+	);
+};
+
+class Tts extends React.Component<any, State> {
+	constructor(props: any) {
 		super(props);
 		this.state = {
 			options: {
@@ -82,7 +119,7 @@ export default class extends React.Component<{}, State> {
 						res: ourl,
 					},
 					() => {
-						snackbar({
+						window.snackbar({
 							message: "✔ 转换成功",
 						});
 					}
@@ -92,69 +129,108 @@ export default class extends React.Component<{}, State> {
 	};
 	render() {
 		const { options, res } = this.state;
+		const { classes } = this.props;
 		return (
 			<>
-				<Input
-					onValueChange={(newText) => {
-						options.text = newText;
-						this.setState({ options: options });
-					}}
-					header="输入文本"
-					value={options.text}
-					rows={3}
-					maxLength={500}
-				/>
-				<ListControlMenu
-					icon="record_voice_over"
-					title="声线"
-					checked={options.per}
-					onCheckedChange={(checked) => {
-						options.per = checked;
-						this.setState({ options: options });
-					}}
-					items={VOICE_SOURCE}
-				/>
-				<RangeInput
-					value={options.vol}
-					min="1"
-					max="10"
-					onValueChange={(newValue) => {
-						options.vol = newValue;
-						this.setState({ options: options });
-					}}
-					title={"音量：" + options.vol}
-				/>
-				<RangeInput
-					value={options.pit}
-					min="1"
-					max="10"
-					onValueChange={(newValue) => {
-						options.pit = newValue;
-						this.setState({ options: options });
-					}}
-					title={"音调：" + options.pit}
-				/>
-				<RangeInput
-					value={options.spd}
-					min="1"
-					max="10"
-					onValueChange={(newValue) => {
-						options.spd = newValue;
-						this.setState({ options: options });
-					}}
-					title={"语速：" + options.spd}
-				/>
-				<Button
-					ripple
-					primary
-					onClick={this.loadDataFromSever}
-					className="loadBtn"
-					icon="check"
-					title="确认"
-				/>
+				<FormControl
+					component={Paper}
+					className={classes.padding}
+					fullWidth
+				>
+					<InputLabel htmlFor="standard-adornment-amount">
+						输入文本
+					</InputLabel>
+					<Input
+						onChange={(newText) => {
+							options.text = newText.target.value;
+							this.setState({ options: options });
+						}}
+						value={this.state.input}
+						multiline
+						rows={3}
+					/>
+				</FormControl>
+				<br />
+				<br />
+				<Paper className={classes.padding}>
+					<FormControl>
+						<InputLabel id="demo-simple-select-label">
+							声线
+						</InputLabel>
+						<Select
+							labelId="demo-simple-select-label"
+							id="demo-simple-select"
+							value={options.per}
+							onChange={(_, value) => {
+								options.per = value;
+								this.setState({ options: options });
+							}}
+						>
+							{VOICE_SOURCE.map((voice) => (
+								<MenuItem key={voice.value} value={voice.value}>
+									{voice.name}
+								</MenuItem>
+							))}
+						</Select>
+					</FormControl>
+					<SliderWithIcon
+						title={"音量：" + options.vol}
+						icon={<VolumeDown />}
+					>
+						<Slider
+							value={options.vol}
+							onChange={(_, value) => {
+								options.vol = value;
+								this.setState({ options: options });
+							}}
+							aria-labelledby="continuous-slider"
+							min={1}
+							max={10}
+						/>
+					</SliderWithIcon>
+					<SliderWithIcon
+						title={"音调：" + options.pit}
+						icon={<MicIcon />}
+					>
+						<Slider
+							value={options.pit}
+							onChange={(_, value) => {
+								options.pit = value;
+								this.setState({ options: options });
+							}}
+							aria-labelledby="continuous-slider"
+							min={1}
+							max={10}
+						/>
+					</SliderWithIcon>
+					<SliderWithIcon
+						title={"语速：" + options.spd}
+						icon={<MicIcon />}
+					>
+						<Slider
+							value={options.spd}
+							onChange={(_, value) => {
+								options.spd = value;
+								this.setState({ options: options });
+							}}
+							aria-labelledby="continuous-slider"
+							min={1}
+							max={10}
+						/>
+					</SliderWithIcon>
+					<Button
+						color="primary"
+						onClick={this.loadDataFromSever}
+						startIcon={<DoneIcon />}
+					>
+						确认
+					</Button>
+				</Paper>
 				<br></br>
 				{res && <MusicPlayer title="合成结果" audio={res} />}
 			</>
 		);
 	}
 }
+
+export default withStyles(styles)(Tts);

@@ -89,7 +89,7 @@ export default function Index() {
 	return (
 		<div className={classes.root}>
 			<Grid container spacing={1}>
-				<Grid item sm={10} xs={12}>
+				<Grid item sm={9} xs={12}>
 					<Search />
 					<FivList />
 					<AppList />
