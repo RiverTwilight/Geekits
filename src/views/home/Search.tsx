@@ -119,12 +119,13 @@ class Search extends React.Component<any, SearchState> {
 			<>
 				<Paper className={classes.padding}>
 					<FormControl fullWidth>
-						<InputLabel htmlFor="standard-adornment-amount">
+						<InputLabel htmlFor="search">
 							搜索（Ctrl+F）
 						</InputLabel>
 						<Input
-							inputRef={ref => this.searchInput = ref}
-							id="standard-adornment-amount"
+							inputRef={(ref) => (this.searchInput = ref)}
+							autoComplete="off"
+							id="search"
 							value={kwd}
 							onChange={this.handleInput}
 						/>

@@ -1,12 +1,17 @@
 import React from "react";
-import { snackbar } from "mdui";
-import ClipboardJS from "clipboard";
 import mimeTypes from "./dictionary";
-import { Input } from "mdui-in-react";
+import Input from "@material-ui/core/Input";
+import FormControl from "@material-ui/core/FormControl";
+import InputLabel from "@material-ui/core/InputLabel";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableContainer from "@material-ui/core/TableContainer";
+import TableRow from "@material-ui/core/TableRow";
+import Paper from "@material-ui/core/Paper";
 
 //结果展示
-function Result(props: any) {
-	const { kwd } = props;
+function Result({ kwd }: { kwd: string }) {
 	if (kwd === "") return null;
 	const length = Object.getOwnPropertyNames(mimeTypes).length;
 	const type = Object.values(mimeTypes);
@@ -23,67 +28,72 @@ function Result(props: any) {
 		}
 	}
 	return (
-		<div className="mdui-table-fluid">
-			<table className="mdui-table">
-				<tbody>
-					<tr>
-						<th>扩展名</th>
-						<th>类型/子类型</th>
-					</tr>
+		<TableContainer component={Paper}>
+			<Table>
+				<TableBody>
+					<TableRow>
+						<TableCell>扩展名</TableCell>
+						<TableCell>类型/子类型</TableCell>
+					</TableRow>
 					{res.map((piece, i) => (
-						<tr key={i}>
-							<th>{piece.extension}</th>
-                            {/*@ts-expect-error */}
-							<th>{piece.type}</th>
-						</tr>
+						<TableRow key={i}>
+							<TableCell>{piece.extension}</TableCell>
+							{/*@ts-expect-error */}
+							<TableCell>{piece.type}</TableCell>
+						</TableRow>
 					))}
-				</tbody>
-			</table>
-		</div>
+				</TableBody>
+			</Table>
+		</TableContainer>
 	);
 }
 
 type ComponentState = any;
 
-export default class extends React.Component<{}, ComponentState> {
+export default class Mimetype extends React.Component<{}, ComponentState> {
 	constructor(props: {}) {
 		super(props);
 		this.state = {
 			kwd: "",
 		};
 	}
-	compomenetDidMount() {
-		var clipboard = new ClipboardJS("tr td:nth-child(2)", {
-			// @ts-expect-error ts-migrate(2322) FIXME: Type 'default' is missing the following properties... Remove this comment to see the full error message
-			target: () => {
-				return this;
-			},
+	// compomenetDidMount() {
+	// 	var clipboard = new ClipboardJS("tr td:nth-child(2)", {
+	// 		// @ts-expect-error ts-migrate(2322) FIXME: Type 'default' is missing the following properties... Remove this comment to see the full error message
+	// 		target: () => {
+	// 			return this;
+	// 		},
+	// 	});
+	// 	clipboard.on("success", (e) => {
+	// 		console.log(e);
+	// 		window.snackbar({
+	// 			message: "已复制",
+	// 		});
+	// 	});
+	// }
+	handleInput = (e: any) => {
+		this.setState({
+			kwd: e.target.value,
 		});
-		clipboard.on("success", (e) => {
-			console.log(e);
-			snackbar({
-				message: "已复制",
-			});
-		});
-	}
+	};
 	render() {
+		const { kwd } = this.state;
 		return (
 			<>
-				<Input
-					onValueChange={(newText) => {
-						this.setState({ kwd: newText });
-					}}
-					autoFocus
-					header="类型/扩展名"
-					placeholder={
-						"从" +
-						Object.getOwnPropertyNames(mimeTypes).length +
-						"条数据中查找"
-					}
-					icon="attachment"
-					value={this.state.kwd}
-				/>
-
+				<FormControl fullWidth>
+					<InputLabel htmlFor="search">类型/扩展名</InputLabel>
+					<Input
+						autoComplete="off"
+						id="search"
+						value={kwd}
+						onChange={this.handleInput}
+						placeholder={
+							"从" +
+							Object.getOwnPropertyNames(mimeTypes).length +
+							"条数据中查找"
+						}
+					/>
+				</FormControl>
 				<Result kwd={this.state.kwd} />
 			</>
 		);
