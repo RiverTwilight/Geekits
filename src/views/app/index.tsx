@@ -55,6 +55,7 @@ class AppContainer extends React.Component<{}, any> {
 		}
 	}
 	feedback = () => {
+		// TODO 反馈直接提交到github issue
 		let { FeedbackComp } = this.state;
 		if (!FeedbackComp) {
 			this.setState({
@@ -77,6 +78,7 @@ class AppContainer extends React.Component<{}, any> {
 			appInfo,
 			RightDrawerOpen,
 		} = this.state;
+		
 		const AppComp = Loadable({
 			loader: () => import("../../apps/" + appInfo?.link),
 			loading: () => <>asdf</>,

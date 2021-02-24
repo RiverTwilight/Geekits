@@ -1,5 +1,6 @@
 import Loadable from "react-loadable";
 
+// REBUILD 加载页样式
 const Loading = (props: any) => {
 	if (props.pastDelay) {
 		return (

@@ -3,8 +3,44 @@ import React from "react";
 import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
 import JSZip from "jszip";
-import { FileInput, Button } from "mdui-in-react";
+import FileInput from "../../components/FileInput";
 import { dataURLtoFile, saveFile } from "../../utils/fileSaver";
+import {
+	withStyles,
+	createStyles,
+	makeStyles,
+	Theme,
+} from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
+import Divider from "@material-ui/core/Divider";
+import Grid, { GridSpacing } from "@material-ui/core/Grid";
+
+const useStyles = makeStyles((theme: Theme) =>
+	createStyles({
+		gallary: {
+			maxHeight: "45vh",
+			overflow: "scroll",
+			position: "absolute",
+			top: "55%",
+		},
+	})
+);
+
+const styles = (theme: Theme) => {
+	return createStyles({
+		input: {
+			display: "none",
+		},
+		divider: {
+			position: "absolute",
+			left: "50%",
+			top: "50%",
+			transform: "translate(-50%,-50%)",
+			width: "100%",
+			zIndex: -1,
+		},
+	});
+};
 
 type ImgCropperState = any;
 
@@ -75,24 +111,25 @@ function Split(src, onCompleted) {
 }
 
 const Gallary = ({ res }: { res: any[] }) => {
+	const classes = useStyles();
 	if (!res.length) return null;
 	return (
-		<div className="mdui-row-xs-3 mdui-grid-list">
-			{res.map((a, i) => (
-				<div key={i} className="mdui-col">
-					<div className="mdui-grid-tile">
+		<div className={classes.gallary}>
+			<Grid container spacing={1} justify="center">
+				{res.map((a, i) => (
+					<Grid key={a} item xs={4} spacing={3}>
 						<img alt={`第${i}张照片`} src={a} />
-					</div>
-				</div>
-			))}
+					</Grid>
+				))}
+			</Grid>
 		</div>
 	);
 };
 
 type UiState = any;
 
-class ImgSplit extends React.Component<{}, UiState> {
-	constructor(props: {}) {
+class ImgSplit extends React.Component<any, UiState> {
+	constructor(props: any) {
 		super(props);
 		this.state = {
 			file: null,
@@ -102,14 +139,14 @@ class ImgSplit extends React.Component<{}, UiState> {
 		};
 	}
 	generate = () => {
-		// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'res' implicitly has an 'any' type.
-		Split(this.state.cropperCache, (res) => {
+		Split(this.state.cropperCache, (res: string[]) => {
+			console.log(res);
 			this.setState({
 				res: res,
 				ifHideCropper: true,
 			});
 			var zip = new JSZip();
-			res.foreach((img: string, i: number) => {
+			res.forEach((img: string, i: number) => {
 				zip.file(i + 1 + ".png", dataURLtoFile(img, i + 1 + ".png"));
 			});
 			zip.generateAsync({
@@ -125,6 +162,7 @@ class ImgSplit extends React.Component<{}, UiState> {
 	};
 	render() {
 		const { file, ifHideCropper } = this.state;
+		const { classes } = this.props;
 		return (
 			<>
 				<FileInput
@@ -138,12 +176,17 @@ class ImgSplit extends React.Component<{}, UiState> {
 						});
 					}}
 				/>
-				<Button
-					disabled={file === null}
-					onClick={this.generate}
-					title="确定"
-					icon="check"
-				/>
+				<Divider className={classes.divider}></Divider>
+
+				{file && (
+					<Button
+						variant="contained"
+						color="primary"
+						onClick={this.generate}
+					>
+						确定
+					</Button>
+				)}
 				<br></br>
 				<ImgCropper
 					// @ts-expect-error ts-migrate(2322) FIXME: Property 'ifHide' does not exist on type 'Intrinsi... Remove this comment to see the full error message
@@ -161,4 +204,4 @@ class ImgSplit extends React.Component<{}, UiState> {
 	}
 }
 
-export default ImgSplit;
+export default withStyles(styles)(ImgSplit);

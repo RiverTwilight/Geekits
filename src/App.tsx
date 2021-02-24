@@ -20,6 +20,8 @@ const styles = (theme: Theme) => {
 			flexGrow: 1,
 			padding: theme.spacing(2),
 			paddingTop: "75px",
+			minHeight: "100vh",
+			position: "relative",
 		},
 		contentShift: {
 			transition: theme.transitions.create("margin", {

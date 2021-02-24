@@ -6,6 +6,8 @@ import { ListControlMenu, List } from "mdui-in-react";
 import marked from "marked";
 const PrivacyPath = require("./privacy.md");
 
+// REBUILD 设置页面
+
 interface ISetting {
 	homeShowNewestTool: boolean;
 	hitokotoTopic: number;
