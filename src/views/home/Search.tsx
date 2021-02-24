@@ -29,13 +29,15 @@ const SearchResult = ({ result = [], kwd }: any) => {
 	const handleKeydown = (e: any) => {
 		if (e.keyCode === 38 || e.keyCode === 40) {
 			e.preventDefault();
-			setActiveItem(e.keyCode === 38 ? activeItem - 1 : activeItem + 1);
+			setSelectedItem(
+				e.keyCode === 38 ? selectedItem - 1 : selectedItem + 1
+			);
 		} else if (e.keyCode === 13) {
 			e.preventDefault();
-			handleClick(`/app/${result[activeItem].link}`);
+			handleClick(`/app/${result[selectedItem].link}`);
 		}
 	};
-	const [activeItem, setActiveItem] = useState(-1);
+	const [selectedItem, setSelectedItem] = useState(-1);
 	useEventListener("keydown", handleKeydown);
 	let history = useHistory();
 	if (!result.length && kwd === "") return null;
@@ -44,8 +46,12 @@ const SearchResult = ({ result = [], kwd }: any) => {
 	}
 	return (
 		<List aria-labelledby="nested-list-subheader">
-			{result.map((a: any) => (
-				<AppListItem key={a.link + a.icon} {...a} />
+			{result.map((a: any, i: number) => (
+				<AppListItem
+					selected={selectedItem === i}
+					key={a.link + a.icon}
+					{...a}
+				/>
 			))}
 			<Typography variant="subtitle1" gutterBottom>
 				没找到想要的工具?试试
@@ -119,9 +125,7 @@ class Search extends React.Component<any, SearchState> {
 			<>
 				<Paper className={classes.padding}>
 					<FormControl fullWidth>
-						<InputLabel htmlFor="search">
-							搜索（Ctrl+F）
-						</InputLabel>
+						<InputLabel htmlFor="search">搜索（Ctrl+F）</InputLabel>
 						<Input
 							inputRef={(ref) => (this.searchInput = ref)}
 							autoComplete="off"

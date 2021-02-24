@@ -18,8 +18,8 @@ const useStyles = makeStyles((theme: Theme) =>
 			padding: theme.spacing(1),
 		},
 		margin: {
-			marginBottom: theme.spacing(1)
-		}
+			marginBottom: theme.spacing(1),
+		},
 	})
 );
 
@@ -62,8 +62,7 @@ const AppMenu = ({
 				url: window.location.href,
 			})
 			.then(() => {
-				// REBUILD 分享反馈
-				// snackbar({ message: "感谢分享^_^" });
+				window.snackbar({ message: "感谢分享^_^" });
 			});
 	};
 	const handleClickCode = (e: any) => {
@@ -79,7 +78,7 @@ const AppMenu = ({
 				return response.text();
 			})
 			.then((text) => {
-				setHelp(text === "" ? "暂无帮助文本": text);
+				setHelp(text === "" ? "暂无帮助文本" : text);
 			});
 	});
 	return (
@@ -97,10 +96,16 @@ const AppMenu = ({
 			<IconButton onClick={handleCode} aria-label="框架引用">
 				<CodeIcon fontSize="inherit" />
 			</IconButton>
-			<IconButton onClick={handleShare} aria-label="分享">
-				<ShareIcon fontSize="inherit" />
-			</IconButton>
-			<Button className={classes.margin} onClick={feedback} variant="outlined">
+			{navigator.share && (
+				<IconButton onClick={handleShare} aria-label="分享">
+					<ShareIcon fontSize="inherit" />
+				</IconButton>
+			)}
+			<Button
+				className={classes.margin}
+				onClick={feedback}
+				variant="outlined"
+			>
 				反馈
 			</Button>
 			{showCode && (

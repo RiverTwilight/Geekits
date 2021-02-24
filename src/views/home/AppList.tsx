@@ -26,6 +26,7 @@ const AppListItem = ({
 	name,
 	link,
 	description,
+	selected,
 }: any) => {
 	const attr =
 		channel === 5
@@ -40,7 +41,7 @@ const AppListItem = ({
 					to: "/app/" + link,
 			  };
 	return (
-		<ListItem button key={name} {...attr}>
+		<ListItem selected={selected} button key={name} {...attr}>
 			{/* <ListItemIcon>{Icon}</ListItemIcon> */}
 			<ListItemText inset primary={name} secondary={description} />
 		</ListItem>

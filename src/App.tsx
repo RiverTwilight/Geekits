@@ -7,9 +7,25 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import NoMatch from "./views/404";
 import loadable from "./utils/loading";
 import "./App.css";
-import { createStyles, Theme, withStyles } from "@material-ui/core/styles";
+import {
+	createStyles,
+	Theme,
+	withStyles,
+	makeStyles,
+} from "@material-ui/core/styles";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Snackbar from "@material-ui/core/Snackbar";
+
+const useStyles = makeStyles((theme: Theme) =>
+	createStyles({
+		loading: {
+			position: "fixed",
+			top: 0,
+			width: "100%",
+			zIndex: 1101
+		},
+	})
+);
 
 const styles = (theme: Theme) => {
 	return createStyles({
@@ -29,11 +45,6 @@ const styles = (theme: Theme) => {
 				duration: theme.transitions.duration.enteringScreen,
 			}),
 			marginLeft: 0,
-		},
-		loading: {
-			position: "fixed",
-			top: 0,
-			width: "100%",
 		},
 	});
 };
@@ -100,6 +111,26 @@ const GlobalSnackbar = () => {
 	);
 };
 
+/**
+ * 全局Loading
+ */
+const GlobalLoading = () => {
+	const [loading, setLoading] = useState(false);
+	const classes = useStyles();
+	useEffect(() => {
+		window.loadShow = () => {
+			setLoading(true);
+		};
+		window.loadHide = () => {
+			setLoading(false);
+		};
+	});
+	if (loading) {
+		return <LinearProgress color="primary" className={classes.loading} />;
+	}
+	return null;
+};
+
 export default withStyles(styles)(
 	class App extends React.Component<
 		any,
@@ -131,7 +162,9 @@ export default withStyles(styles)(
 
 			window.loadShow = () => {
 				window.loadingDelay = setTimeout(() => {
-					loading.style.display = "inline-block";
+					this.setState({
+						loading: true,
+					});
 					// toggleDisabled(true);
 					delete window.loadingDelay;
 				}, 700);
@@ -141,7 +174,9 @@ export default withStyles(styles)(
 					clearTimeout(window.loadingDelay);
 					delete window.loadingDelay;
 				} else {
-					loading.style.display = "none";
+					this.setState({
+						loading: false,
+					});
 					// toggleDisabled(false);?
 				}
 			};
@@ -176,12 +211,6 @@ export default withStyles(styles)(
 			} = this.state;
 			return (
 				<>
-					{loading && (
-						<LinearProgress
-							color="primary"
-							className={classes.loading}
-						/>
-					)}
 					<div className={classes.root}>
 						<CssBaseline />
 						<Router>
@@ -232,6 +261,7 @@ export default withStyles(styles)(
 						</Router>
 					</div>
 					<GlobalSnackbar />
+					<GlobalLoading />
 				</>
 			);
 		}
