@@ -1,11 +1,24 @@
 import Loadable from "react-loadable";
+import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
-// REBUILD 加载页样式
+const useStyles = makeStyles((theme: Theme) =>
+	createStyles({
+		loading: {
+			position: "absolute",
+			left: "50%",
+			top: "50%",
+			transform: "translate(-50%,-50%)",
+		},
+	})
+);
+
 const Loading = (props: any) => {
+	const classes = useStyles();
 	if (props.pastDelay) {
 		return (
-			<div className="center-panel mdui-text-color-theme-text">
-				<div className="mdui-spinner mdui-spinner-colorful"></div>
+			<div className={classes.loading}>
+				<CircularProgress color="primary" />
 			</div>
 		);
 	}

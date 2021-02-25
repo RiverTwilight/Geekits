@@ -47,12 +47,14 @@ const AppMenu = ({
 				name,
 			});
 			setFiv(true);
+			window.snackbar({ message: "已收藏" });
 		} else {
 			fivkits.delete({
 				link,
 				name,
 			});
 			setFiv(false);
+			window.snackbar({ message: "已取消" });
 		}
 	};
 	const handleShare = () => {
@@ -118,7 +120,26 @@ const AppMenu = ({
 				/>
 			)}
 			<Typography variant="body1" gutterBottom>
-				<ReactMarkdown children={help} />
+				<ReactMarkdown
+					renderers={{
+						image: ({ src }) => <img alt="" src={src} />,
+						// link: ({href, children})=>(<Link>{children</Link>)
+						heading: ({ children }) => (
+							<Typography variant="h4" gutterBottom>
+								{children}
+							</Typography>
+						),
+						paragraph: ({ children }) => {
+							console.log(children);
+							return (
+								<Typography variant="body1" gutterBottom>
+									{children}
+								</Typography>
+							);
+						},
+					}}
+					children={help}
+				/>
 			</Typography>
 		</div>
 	);

@@ -165,7 +165,7 @@ class FileInput extends React.Component<FRProps, FRState> {
 					<IconButton
 						className={classes.button}
 						aria-label="upload picture"
-						component="button"
+						component="span"
 					>
 						<PhotoCamera className={classes.icon} />
 					</IconButton>

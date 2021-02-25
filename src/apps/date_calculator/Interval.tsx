@@ -1,6 +1,9 @@
 import React from "react";
 import { calDiffer, getToday } from "./engine";
-import { Button, Input } from "mdui-in-react";
+import Button from "@material-ui/core/Button";
+import Input from "@material-ui/core/Input";
+import InputLabel from "@material-ui/core/InputLabel";
+import Typography from "@material-ui/core/Typography";
 
 type DateDifferState = any;
 
@@ -20,9 +23,25 @@ export default class DateInterval extends React.Component<{}, DateDifferState> {
 	componentDidMount() {
 		var today = getToday();
 		this.setState({
-			dateLate: today
+			dateLate: today,
 		});
 	}
+	handleClick = () => {
+		const { timeEarly, timeLate, dateEarly, dateLate } = this.state;
+		var res = calDiffer(dateEarly, dateLate, timeEarly, timeLate);
+		this.setState({
+			diffDay: res.day,
+			diffDayHour: res.overflowHour,
+			diffDayMin: res.overflowMin,
+			diffHour: res.hour,
+			diffMin: res.min,
+		});
+	};
+	handleInput = (e: any, key: string) => {
+		this.setState({
+			[key]: e.target.detail,
+		});
+	};
 	render() {
 		const {
 			timeEarly,
@@ -37,88 +56,68 @@ export default class DateInterval extends React.Component<{}, DateDifferState> {
 		} = this.state;
 		return (
 			<>
-				<div className="">
-					<Input
-						onValueChange={(newText) => {
-							this.setState({ dateEarly: newText });
-						}}
-						header="从"
-						placeholder=" "
-						icon="date_range"
-						type="date"
-						value={dateEarly}
-					/>
+				<InputLabel>从</InputLabel>
+				<Input
+					onChange={(e) => {
+						this.handleInput(e, "dateEarly");
+					}}
+					placeholder=" "
+					type="date"
+					value={dateEarly}
+				/>
 
-					<Input
-						onValueChange={(newText) => {
-							this.setState({ timeEarly: newText });
-						}}
-						value={timeEarly}
-						icon="access_time"
-						// @ts-expect-error ts-migrate(2322) FIXME: Type '"time"' is not assignable to type '"number" ... Remove this comment to see the full error message
-						type="time"
-					/>
+				<Input
+					onChange={(e) => {
+						this.handleInput(e, "timeEarly");
+					}}
+					value={timeEarly}
+					type="time"
+				/>
 
-					<Input
-						onValueChange={(newText) => {
-							this.setState({ dateLate: newText });
-						}}
-						header="到"
-						placeholder=" "
-						icon="date_range"
-						type="date"
-						value={dateLate}
-					/>
+				<InputLabel>到</InputLabel>
+				<Input
+					onChange={(e: any) => {
+						this.handleInput(e, "dateLate");
+					}}
+					type="date"
+					value={dateLate}
+				/>
 
-					<Input
-						onValueChange={(newText) => {
-							this.setState({ timeLate: newText });
-						}}
-						value={timeLate}
-						icon="access_time"
-						// @ts-expect-error ts-migrate(2322) FIXME: Type '"time"' is not assignable to type '"number" ... Remove this comment to see the full error message
-						type="time"
-					/>
-					<Button
-						onClick={() => {
-							var res = calDiffer(
-								dateEarly,
-								dateLate,
-								timeEarly,
-								timeLate
-							);
-							this.setState({
-								diffDay: res.day,
-								diffDayHour: res.overflowHour,
-								diffDayMin: res.overflowMin,
-								diffHour: res.hour,
-								diffMin: res.min,
-							});
-						}}
-						title="计算"
-						raised
-						primary
-					/>
-					{typeof diffDay === "number" && (
-						<p className="mdui-typo-title mdui-text-center">
-							<small>相差</small>
-							{diffDay}
-							<small>天</small>
-							{diffDayHour}
-							<small>小时</small>
-							{diffDayMin}
-							<small>分钟</small>
+				<Input
+					onChange={(e: any) => {
+						this.handleInput(e, "timeLate");
+					}}
+					value={timeLate}
+					type="time"
+				/>
+				<br />
+				<br />
+				<Button
+					onClick={this.handleClick}
+					variant="contained"
+					color="primary"
+				>
+					计算
+				</Button>
+				{typeof diffDay === "number" && (
+					<Typography align="center" variant="h6">
+						<small>相差</small>
+						{diffDay}
+						<small>天</small>
+						{diffDayHour}
+						<small>小时</small>
+						{diffDayMin}
+						<small>分钟</small>
 
-							<br></br>
+						<br></br>
 
-							<small>折合</small>
-							{diffHour}
-							<small>小时</small>
-							{diffMin}
-							<small>分钟</small>
-						</p>
-					)}
-				</div>
+						<small>折合</small>
+						{diffHour}
+						<small>小时</small>
+						{diffMin}
+						<small>分钟</small>
+					</Typography>
+				)}
 			</>
 		);
 	}

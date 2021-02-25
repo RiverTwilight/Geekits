@@ -1,7 +1,7 @@
 import React from "react";
 import getInfo from "../../utils/appinfo";
 import AppMenu from "./AppMenu";
-import Loadable from "react-loadable";
+import Loadable from "../../utils/loading";
 import RightDrawer from "../../layout/RightDrawer";
 import HelpTwoToneIcon from "@material-ui/icons/HelpTwoTone";
 import IconButton from "@material-ui/core/IconButton";
@@ -11,7 +11,7 @@ import IconButton from "@material-ui/core/IconButton";
  * // TODO 文章板块
  */
 
-class AppContainer extends React.Component<{}, any> {
+class AppContainer extends React.Component<any, any> {
 	constructor(props: any) {
 		super(props);
 		this.state = {
@@ -22,7 +22,7 @@ class AppContainer extends React.Component<{}, any> {
 		};
 	}
 	componentWillUnmount() {
-		// window.loadHide(); // 清除滚动条
+		window.loadHide(); // 清除滚动条
 	}
 	componentDidCatch(error: any, info: any) {
 		// REBUILD Error Bounding
@@ -48,7 +48,7 @@ class AppContainer extends React.Component<{}, any> {
 				<HelpTwoToneIcon />
 			</IconButton>
 		);
-		// 链接带有全屏参数，隐藏头部
+		// REBUILD 链接带有全屏参数，隐藏头部
 		if (window.location.search.indexOf("fullscreen=true") !== -1) {
 			// document.getElementsByTagName("header")[0].style.display = "none";
 			// document.body.classList.remove("mdui-appbar-with-toolbar");
@@ -61,10 +61,7 @@ class AppContainer extends React.Component<{}, any> {
 			this.setState({
 				FeedbackComp:
 					!FeedbackComp &&
-					//@ts-expect-error
-					Loadable({
-						loader: () => import("../../layout/FeedbackComp"),
-					}),
+					Loadable(() => import("../../layout/FeedbackComp")),
 			});
 		}
 		this.setState({
@@ -78,11 +75,8 @@ class AppContainer extends React.Component<{}, any> {
 			appInfo,
 			RightDrawerOpen,
 		} = this.state;
-		
-		const AppComp = Loadable({
-			loader: () => import("../../apps/" + appInfo?.link),
-			loading: () => <>asdf</>,
-		});
+
+		const AppComp = Loadable(() => import("../../apps/" + appInfo?.link));
 		return (
 			<>
 				<AppComp />

@@ -15,7 +15,7 @@ import StarBorderIcon from "@material-ui/icons/StarBorder";
 const AppItem = ({
 	data,
 	removeFromFiv,
-	addToFiv
+	addToFiv,
 }: {
 	data: AppInfo;
 	removeFromFiv: () => void;
@@ -23,9 +23,10 @@ const AppItem = ({
 }) => {
 	const [fiv, setFiv] = useState(true);
 	const { name, link } = data;
-	const handleClick = () => {
+	const handleClick = (e: any) => {
+		e.preventDefault();
 		fiv && removeFromFiv && removeFromFiv();
-		!fiv && addToFiv && addToFiv()
+		!fiv && addToFiv && addToFiv();
 		setFiv(!fiv);
 	};
 	return (
@@ -60,23 +61,25 @@ const FivList = () => {
 					}
 				>
 					{!list.length && (
-						<Typography variant="h6">
+						<Typography align="center" variant="body1">
 							点击工具菜单中的星型按钮收藏
 						</Typography>
 					)}
-					<Grid container spacing={3}>
-						{list.map((app, i) => (
-							<AppItem
-								data={app}
-								addToFiv={()=>{
-									fiv.add(app)
-								}}
-								removeFromFiv={() => {
-									fiv.delete(i);
-								}}
-							/>
-						))}
-					</Grid>
+					{list.length > 0 && (
+						<Grid container spacing={3}>
+							{list.map((app, i) => (
+								<AppItem
+									data={app}
+									addToFiv={() => {
+										fiv.add(app);
+									}}
+									removeFromFiv={() => {
+										fiv.delete(i);
+									}}
+								/>
+							))}
+						</Grid>
+					)}
 				</List>
 			</Paper>
 			<br></br>

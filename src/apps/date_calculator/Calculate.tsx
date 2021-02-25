@@ -1,6 +1,12 @@
 import React from "react";
 import { calWhichDay, getToday } from "./engine";
-import { Button, Input } from "mdui-in-react";
+import Button from "@material-ui/core/Button";
+import Input from "@material-ui/core/Input";
+import InputLabel from "@material-ui/core/InputLabel";
+import Typography from "@material-ui/core/Typography";
+import FastForwardTwoToneIcon from "@material-ui/icons/FastForwardTwoTone";
+import FastRewindTwoToneIcon from "@material-ui/icons/FastRewindTwoTone";
+import InputAdornment from "@material-ui/core/InputAdornment";
 
 type CalcDateState = any;
 
@@ -19,55 +25,71 @@ export default class CalcDate extends React.Component<{}, CalcDateState> {
 			dateStart: today,
 		});
 	}
+	handleInput = (e: any, key: string) => {
+		this.setState({
+			[key]: e.target.detail,
+		});
+	};
+	handleClick = () => {
+		const { dateStart, day, whichDay } = this.state;
+		const res = calWhichDay(dateStart, day),
+			weeks = [
+				"星期天",
+				"星期一",
+				"星期二",
+				"星期三",
+				"星期四",
+				"星期五",
+				"星期六",
+			],
+			week = weeks[res.week];
+		this.setState({ whichDay: `${res.date} ${week}` });
+	};
 	render() {
 		const { dateStart, day, whichDay } = this.state;
 		return (
 			<div className="">
 				<Input
-					onValueChange={(newText) => {
-						this.setState({ dateStart: newText });
+					onChange={(e) => {
+						this.handleInput(e, "dateStart");
 					}}
-					header="从"
 					placeholder=" "
-					icon="date_range"
 					type="date"
 					value={dateStart}
 				/>
+				<InputLabel>{`${Math.abs(day)}天之${
+					day >= 0 ? "后" : "前"
+				}`}</InputLabel>
 				<Input
-					onValueChange={(newText) => {
-						this.setState({ day: newText });
+					onChange={(e) => {
+						this.handleInput(e, "day");
 					}}
-					header={`${Math.abs(day)}天之${day >= 0 ? "后" : "前"}`}
-					icon={day >= 0 ? "fast_forward" : "fast_rewind"}
+					startAdornment={
+						<InputAdornment position="start">
+							{day >= 0 ? (
+								<FastForwardTwoToneIcon />
+							) : (
+								<FastRewindTwoToneIcon />
+							)}
+						</InputAdornment>
+					}
 					type="number"
 					value={day}
 				/>
+				<br />
+				<br />
 				<Button
-					onClick={() => {
-						const res = calWhichDay(dateStart, day),
-							weeks = [
-								"星期天",
-								"星期一",
-								"星期二",
-								"星期三",
-								"星期四",
-								"星期五",
-								"星期六",
-							],
-							week = weeks[res.week];
-						this.setState({ whichDay: `${res.date} ${week}` });
-					}}
-					primary
-					raised
-					ripple
-					title="计算"
-				/>
-				<p
-					style={{ display: whichDay === "" ? "none" : "block" }}
-					className="mdui-typo-title mdui-text-center"
+					variant="contained"
+					color="primary"
+					onClick={this.handleClick}
 				>
-					{whichDay}
-				</p>
+					计算
+				</Button>
+				{whichDay && (
+					<Typography variant="body1" align="center">
+						{whichDay}
+					</Typography>
+				)}
 			</div>
 		);
 	}
