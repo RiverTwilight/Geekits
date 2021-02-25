@@ -1,9 +1,21 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
-//@ts-expect-error
-import { alert as mduiAlert } from "mdui";
-import { ListControlMenu, List } from "mdui-in-react";
-import marked from "marked";
+import { ListControlMenu } from "mdui-in-react";
+import StyledMarkdown from "../../components/StyledMarkdown";
+import Button from "@material-ui/core/Button";
+import Avatar from "@material-ui/core/Avatar";
+import List from "@material-ui/core/List";
+import ListSubheader from "@material-ui/core/ListSubheader";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemAvatar from "@material-ui/core/ListItemAvatar";
+import ListItemText from "@material-ui/core/ListItemText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import Dialog from "@material-ui/core/Dialog";
+import Typography from "@material-ui/core/Typography";
+import GroupIcon from "@material-ui/icons/Group";
+import EmojiFoodBeverageIcon from "@material-ui/icons/EmojiFoodBeverage";
+import { blue } from "@material-ui/core/colors";
 const PrivacyPath = require("./privacy.md");
 
 // REBUILD 设置页面
@@ -62,17 +74,24 @@ const hitokotoItems = [
 
 export default class Setting extends React.Component<
 	{ handleNewPage: any },
-	{ setting: ISetting; privacy: string }
+	{
+		setting: ISetting;
+		privacy: string;
+		showPrivacy: boolean;
+		donation: boolean;
+	}
 > {
 	constructor(props: Readonly<{ handleNewPage: any }>) {
 		super(props);
 		this.state = {
 			setting: setFunc(),
 			privacy: "",
+			showPrivacy: false,
+			donation: false,
 		};
 	}
 	componentDidMount() {
-		window.destoryRightDrawer();
+		// window.destoryRightDrawer();
 		window.updateTitle("设置");
 		fetch(PrivacyPath)
 			.then((response) => {
@@ -85,19 +104,56 @@ export default class Setting extends React.Component<
 			});
 	}
 	showPrivacy = () => {
-		const { privacy } = this.state;
-		mduiAlert(marked(privacy), "", () => {}, {
-			confirmText: "关闭",
+		this.setState({
+			showPrivacy: true,
+		});
+	};
+	showDonation = () => {
+		this.setState({
+			donation: true,
+		});
+	};
+	handleClose = () => {
+		this.setState({
+			showPrivacy: false,
+			donation: false,
 		});
 	};
 	render() {
 		const { hitokotoTopic, theme } = this.state.setting;
+		const { showPrivacy, privacy, donation } = this.state;
 		return (
-			<div className="mdui-col-md-10">
-				<ul className="mdui-list">
-					<li className="mdui-text-color-theme mdui-subheader">
-						个性化
-					</li>
+			<>
+				<Dialog
+					onClose={this.handleClose}
+					aria-labelledby="simple-dialog-title"
+					open={showPrivacy}
+				>
+					<DialogTitle id="simple-dialog-title">隐私政策</DialogTitle>
+					<StyledMarkdown content={privacy} />
+				</Dialog>
+				<Dialog
+					onClose={this.handleClose}
+					aria-labelledby="simple-dialog-title"
+					open={donation}
+				>
+					<DialogTitle id="simple-dialog-title">
+						支持我们走下去
+					</DialogTitle>
+					<img
+						alt="DonationByScanning"
+						width="200"
+						height="200"
+						src="/donation_vx.png"
+					></img>
+					<Typography variant="body1">
+						目前网站只由我一人维护，
+						需要付出昂贵的资金、精力和时间成本，
+						而我只是一名在读高中生，没有任何收入来源。
+						你的赞赏将会是我莫大的动力。
+					</Typography>
+				</Dialog>
+				<List subheader={<ListSubheader>个性化</ListSubheader>}>
 					<ListControlMenu
 						title="一言来源"
 						checked={hitokotoTopic || 0}
@@ -147,46 +203,56 @@ export default class Setting extends React.Component<
 							},
 						]}
 					/>
-					<li className="mdui-text-color-theme mdui-subheader">
-						联系
-					</li>
+				</List>
 
-					<List
-						items={[
-							{
-								text: "到Github提交反馈",
-								href:
-									"https://github.com/RiverTwilight/ygktool/issues",
+				<List subheader={<ListSubheader>联系</ListSubheader>}>
+					{[
+						{
+							text: "到Github提交反馈",
+							href:
+								"https://github.com/RiverTwilight/ygktool/issues",
+						},
+						{
+							text: "联系开发者",
+							href:
+								"//wpa.qq.com/msgrd?v=3&amp;uin=1985386335&amp;site=qq&amp;menu=yes",
+						},
+					].map((item) => (
+						<ListItem button component="a" href={item.href}>
+							<ListItemText primary={item.text} />
+						</ListItem>
+					))}
+				</List>
+
+				<List subheader={<ListSubheader>关于</ListSubheader>}>
+					{[
+						{
+							onClick: this.showPrivacy,
+							text: "用户协议",
+						},
+						{
+							onClick: this.showDonation,
+							text: "捐赠",
+							Icon: <EmojiFoodBeverageIcon />,
+						},
+						{
+							onClick: () => {
+								window.open("");
 							},
-							{
-								text: "联系开发者",
-								href:
-									"//wpa.qq.com/msgrd?v=3&amp;uin=1985386335&amp;site=qq&amp;menu=yes",
-							},
-						]}
-					/>
-					<li className="mdui-text-color-theme mdui-subheader">
-						关于
-					</li>
-					<List
-						items={[
-							{
-								onClick: this.showPrivacy,
-								text: "用户协议",
-							},
-						]}
-					/>
-					<Link to="/about">
-						<List
-							items={[
-								{
-									text: "关于",
-								},
-							]}
-						/>
-					</Link>
-				</ul>
-			</div>
+							text: "加入群组",
+							Icon: <GroupIcon />,
+						},
+					].map(({ Icon, onClick, text }) => (
+						<ListItem button onClick={onClick}>
+							{Icon && <ListItemIcon>{Icon}</ListItemIcon>}
+							<ListItemText primary={text} />
+						</ListItem>
+					))}
+				</List>
+				<Typography variant="body2" align="center">
+					Copyright © 2019 - 2021 RiverTwilight
+				</Typography>
+			</>
 		);
 	}
 }

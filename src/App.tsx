@@ -15,6 +15,7 @@ import {
 } from "@material-ui/core/styles";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Snackbar from "@material-ui/core/Snackbar";
+import "../node_modules/mdui/dist/css/mdui.min.css";
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -59,23 +60,19 @@ const RouterList: {
 		path: "/",
 		exact: true,
 	},
-	// {
-	// 	component: loadable(() => import("./views/user/index")),
-	// 	path: "/user",
-	// 	exact: true,
-	// },
-	// {
-	// 	component: loadable(() => import("./views/user/forget")),
-	// 	path: "/user/forget",
-	// },
-	// {
-	// 	component: loadable(() => import("./views/about")),
-	// 	path: "/about",
-	// },
-	// {
-	// 	component: loadable(() => import("./views/setting")),
-	// 	path: "/setting",
-	// },
+	{
+		component: loadable(() => import("./views/user/index")),
+		path: "/user",
+		exact: true,
+	},
+	{
+		component: loadable(() => import("./views/user/forget")),
+		path: "/user/forget",
+	},
+	{
+		component: loadable(() => import("./views/setting")),
+		path: "/setting",
+	},
 	{
 		component: loadable(() => import("./views/app/index")),
 		path: "/app/:name",

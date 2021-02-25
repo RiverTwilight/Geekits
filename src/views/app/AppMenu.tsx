@@ -7,8 +7,8 @@ import GitHubIcon from "@material-ui/icons/GitHub";
 import StarIcon from "@material-ui/icons/Star";
 import StarBorderIcon from "@material-ui/icons/StarBorder";
 import Typography from "@material-ui/core/Typography";
-import ReactMarkdown from "react-markdown";
 import ShareIcon from "@material-ui/icons/Share";
+import StyledMarkdown from "../../components/StyledMarkdown";
 import CodeIcon from "@material-ui/icons/Code";
 import TextField from "@material-ui/core/TextField";
 
@@ -120,26 +120,7 @@ const AppMenu = ({
 				/>
 			)}
 			<Typography variant="body1" gutterBottom>
-				<ReactMarkdown
-					renderers={{
-						image: ({ src }) => <img alt="" src={src} />,
-						// link: ({href, children})=>(<Link>{children</Link>)
-						heading: ({ children }) => (
-							<Typography variant="h4" gutterBottom>
-								{children}
-							</Typography>
-						),
-						paragraph: ({ children }) => {
-							console.log(children);
-							return (
-								<Typography variant="body1" gutterBottom>
-									{children}
-								</Typography>
-							);
-						},
-					}}
-					children={help}
-				/>
+				<StyledMarkdown content={help} />
 			</Typography>
 		</div>
 	);

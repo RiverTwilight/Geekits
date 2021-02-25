@@ -13,13 +13,11 @@ import ListItem, { ListItemProps } from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import Divider from "@material-ui/core/Divider";
-import red from "@material-ui/core/colors/red";
 import AudiotrackIcon from "@material-ui/icons/Audiotrack";
 
 const styles = (theme: Theme) =>
 	createStyles({
 		button: {
-			backgroundColor: red[600],
 			float: "right",
 		},
 		paper: {
@@ -236,7 +234,7 @@ class Songlist extends React.Component<any, UiState> {
 						variant="contained"
 						className={classes.button}
 					>
-						音樂的力量
+						确定
 					</Button>
 				</Paper>
 				<br />
