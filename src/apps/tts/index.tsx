@@ -1,5 +1,5 @@
 import React from "react";
-import { MusicPlayer } from "mdui-in-react";
+import MusicPlayer from "../../components/MusicPlayer";
 import Axios from "../../utils/axios";
 import { createStyles, Theme, withStyles } from "@material-ui/core/styles";
 import FormControl from "@material-ui/core/FormControl";
@@ -227,6 +227,7 @@ class Tts extends React.Component<any, State> {
 					</Button>
 				</Paper>
 				<br></br>
+				{/*//@ts-expect-error */}
 				{res && <MusicPlayer title="合成结果" audio={res} />}
 			</>
 		);

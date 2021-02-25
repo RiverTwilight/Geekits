@@ -1,11 +1,35 @@
 import React from "react";
-import mdui from "mdui";
 import axios from "../../utils/axios";
-import { Input } from "mdui-in-react";
-import Select from "../../components/Select";
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
+import FormControl from "@material-ui/core/FormControl";
+import Paper from "@material-ui/core/Paper";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
+import { createStyles, Theme, withStyles } from "@material-ui/core/styles";
+import List from "@material-ui/core/List";
+import ListSubheader from "@material-ui/core/ListSubheader";
+import ListItem, { ListItemProps } from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
+import Divider from "@material-ui/core/Divider";
+import red from "@material-ui/core/colors/red";
+import AudiotrackIcon from "@material-ui/icons/Audiotrack";
+
+const styles = (theme: Theme) =>
+	createStyles({
+		button: {
+			backgroundColor: red[600],
+			float: "right",
+		},
+		paper: {
+			padding: theme.spacing(2),
+		},
+	});
+
 // TODO 多歌单互相比较
 //提取url中的id
-const url2Id = (url: any) => {
+const url2Id = (url: string): string | boolean => {
 	const pattweb = /id=(\d+)/,
 		pattmob = /\/(playlist)\/(\d+)\//,
 		pattid = /^\d+$/;
@@ -35,7 +59,7 @@ const exportSame = (a: any, b: any) => {
 	var same: any = [];
 	a.forEach((songa: any) => {
 		b.forEach((songb: any) => {
-			if (songa.name === songb.name) {
+			if (songa.id === songb.id) {
 				same.push(songb);
 				num++;
 			}
@@ -48,47 +72,58 @@ const Result = (props: any) => {
 	if (!props.similar) return null;
 	window.loadHide();
 	return (
-		<ul className="mdui-list">
-			<li className="mdui-subheader">对比歌单</li>
-
-			<li className="mdui-list-item mdui-ripple">
-				<i className="mdui-list-item-icon mdui-text-color-red-600 mdui-icon material-icons">
-					queue_music
-				</i>
-
-				<div className="mdui-list-item-content">{props.songlistA}</div>
-			</li>
-
-			<li className="mdui-list-item mdui-ripple">
-				<i className="mdui-list-item-icon mdui-text-color-red-600 mdui-icon material-icons">
-					queue_music
-				</i>
-
-				<div className="mdui-list-item-content">{props.songlistB}</div>
-			</li>
-
-			<li className="mdui-subheader">有{props.similar.num}首相同歌曲</li>
-			{props.similar.same.map((song: any, i: any) => (
-				<a
-					target="_blank"
-					href={"https://music.163.com/#/song?id=" + song.id}
-					key={i}
-					className="mdui-list-item mdui-ripple"
-				>
-					<i className="mdui-list-item-icon mdui-icon material-icons">
-						audiotrack
-					</i>
-
-					<div className="mdui-list-item-content">{song.name}</div>
-				</a>
-			))}
-		</ul>
+		<>
+			<List
+				subheader={
+					<ListSubheader component="div" id="nested-list-subheader">
+						对比歌单
+					</ListSubheader>
+				}
+				component={Paper}
+				aria-label="main mailbox folders"
+			>
+				<ListItem>
+					<ListItemIcon>
+						<AudiotrackIcon />
+					</ListItemIcon>
+					<ListItemText primary={props.songlistA} />
+				</ListItem>
+				<ListItem>
+					<ListItemIcon>
+						<AudiotrackIcon />
+					</ListItemIcon>
+					<ListItemText primary={props.songlistB} />
+				</ListItem>
+			</List>
+			<br />
+			<List
+				component={Paper}
+				subheader={
+					<ListSubheader component="div" id="nested-list-subheader">
+						有{props.similar.num}首相同歌曲
+					</ListSubheader>
+				}
+			>
+				{props.similar.same.map((song: any, i: any) => (
+					<ListItem
+						key={i}
+						component="a"
+						href={"https://music.163.com/#/song?id=" + song.id}
+					>
+						<ListItemIcon>
+							<AudiotrackIcon />
+						</ListItemIcon>
+						<ListItemText primary={song.id} />
+					</ListItem>
+				))}
+			</List>
+		</>
 	);
 };
 
 type UiState = any;
 
-class Ui extends React.Component<{}, UiState> {
+class Songlist extends React.Component<any, UiState> {
 	constructor(props: {}) {
 		super(props);
 		this.state = {
@@ -108,9 +143,28 @@ class Ui extends React.Component<{}, UiState> {
 			engine: "netease",
 		};
 	}
-	loadCommentsFromServer(url: any, callback: any) {
+	handleClick = () => {
+		const { listidA, listidB } = this.state;
+		this.doRequest(listidA, (data: any) => {
+			this.setState({
+				dataA: {
+					list: data.trackIds || null,
+					name: data.name || "",
+				},
+			});
+		});
+		this.doRequest(listidB, (data: any) => {
+			this.setState({
+				dataB: {
+					list: data.trackIds || null,
+					name: data.name || "",
+				},
+			});
+		});
+	};
+	doRequest(url: any, callback: any) {
 		if (!url2Id(url)) {
-			mdui.snackbar({ message: "解析链接失败" });
+			window.snackbar({ message: "解析链接失败" });
 			return;
 		}
 		const listid = url2Id(url);
@@ -129,66 +183,63 @@ class Ui extends React.Component<{}, UiState> {
 			});
 	}
 	render() {
-		const { listidA, listidB, dataA, dataB, engine } = this.state;
-
+		const { dataA, dataB, engine } = this.state;
+		const { classes } = this.props;
 		return (
 			<>
-				<Input
-					onValueChange={(newText) => {
-						this.setState({ listidA: newText });
-					}}
-					header="歌单A链接/ID"
-					placeholder=""
-					icon="attachment"
-					value={this.state.listidA}
-				/>
-				<Input
-					onValueChange={(newText) => {
-						this.setState({ listidB: newText });
-					}}
-					header="歌单B链接/ID"
-					placeholder=""
-					icon="attachment"
-					value={this.state.listidB}
-				/>
-				<Select
-					value={engine}
-					onOptionChange={(e: { target: { value: any } }) => {
-						this.setState({ engine: e.target.value });
-                    }}
-                    options={[
-                        {
-                            name: '网易云音乐',
-                            value: 'qq'
-                        }
-                    ]}
-					config={{}}
-				/>
-				<button
-					onClick={() => {
-						this.loadCommentsFromServer(listidA, (data: any) => {
-							this.setState({
-								dataA: {
-									list: data.tracks || null,
-									name: data.name || "",
-								},
-							});
-						});
-						this.loadCommentsFromServer(listidB, (data: any) => {
-							this.setState({
-								dataB: {
-									list: data.tracks || null,
-									name: data.name || "",
-								},
-							});
-						});
-					}}
-					className="mdui-ripple mdui-color-red-600 mdui-float-right mdui-btn-raised mdui-btn"
-				>
-					音樂的力量
-				</button>
-
-				<div className="mdui-clearfix"></div>
+				<Paper className={classes.paper}>
+					<FormControl fullWidth>
+						<TextField
+							variant="outlined"
+							onChange={({ target: { value } }) => {
+								this.setState({ listidA: value });
+							}}
+							label="歌单A链接/ID"
+							value={this.state.listidA}
+						/>
+					</FormControl>
+					<br />
+					<br />
+					<FormControl fullWidth>
+						<TextField
+							variant="outlined"
+							onChange={({ target: { value } }) => {
+								this.setState({ listidB: value });
+							}}
+							label="歌单B链接/ID"
+							value={this.state.listidB}
+						/>
+					</FormControl>
+					<br />
+					<br />
+					<Select
+						labelId="engine-select"
+						id="engine-select"
+						value={engine}
+						onChange={(name, value) => {
+							this.setState({ engine: value });
+						}}
+					>
+						{[
+							{
+								name: "网易云音乐",
+								value: "netease",
+							},
+						].map((item) => (
+							<MenuItem value={item.value} key={item.value}>
+								{item.name}
+							</MenuItem>
+						))}
+					</Select>
+					<Button
+						onClick={this.handleClick}
+						variant="contained"
+						className={classes.button}
+					>
+						音樂的力量
+					</Button>
+				</Paper>
+				<br />
 
 				<Result
 					similar={exportSame(dataA.list, dataB.list)}
@@ -200,4 +251,4 @@ class Ui extends React.Component<{}, UiState> {
 	}
 }
 
-export default Ui;
+export default withStyles(styles)(Songlist);

@@ -189,13 +189,13 @@ export default (props: {
 			<Divider />
 			<List>
 				{list.map((item) => (
-					<Warpper a={item} />
+					<Warpper key={item.link} a={item} />
 				))}
 			</List>
 		</div>
 	);
 	return (
-		<nav className={classes.drawer} aria-label="mailbox folders">
+		<nav className={classes.drawer} aria-label="left drawer">
 			{/* The implementation can be swapped with js to avoid SEO duplication of links. */}
 			<Hidden smUp implementation="css">
 				<Drawer
