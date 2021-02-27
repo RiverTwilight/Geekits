@@ -5,12 +5,14 @@ import useEventListener from "../../utils/Hooks/useEventListener";
 import pinyin from "js-pinyin";
 import applist from "../../data/appData";
 import Input from "@material-ui/core/Input";
+import InputAdornment from "@material-ui/core/InputAdornment";
 import Paper from "@material-ui/core/Paper";
 import { createStyles, Theme, withStyles } from "@material-ui/core/styles";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import List from "@material-ui/core/List";
 import Typography from "@material-ui/core/Typography";
+import SearchSharpIcon from "@material-ui/icons/SearchSharp";
 import Link from "@material-ui/core/Link";
 import { AppListItem } from "./AppList";
 
@@ -127,6 +129,11 @@ class Search extends React.Component<any, SearchState> {
 					<FormControl fullWidth>
 						<InputLabel htmlFor="search">搜索（Ctrl+F）</InputLabel>
 						<Input
+							startAdornment={
+								<InputAdornment position="start">
+									<SearchSharpIcon />
+								</InputAdornment>
+							}
 							inputRef={(ref) => (this.searchInput = ref)}
 							autoComplete="off"
 							id="search"

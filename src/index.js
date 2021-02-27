@@ -7,49 +7,37 @@ import "./index.css";
 import { ThemeProvider } from "@material-ui/core/styles";
 import theme from "./utils/theme";
 
-// /**
-//  * 初始化设置
-//  */
-// !localStorage.setting &&
-// 	localStorage.setItem(
-// 		"setting",
-// 		JSON.stringify({
-// 			theme: 0,
-// 			hitokotoTopic: 0,
-// 		})
-// 	);
+/**
+ * 初始化设置
+ */
+!localStorage.setting &&
+	localStorage.setItem(
+		"setting",
+		JSON.stringify({
+			theme: 0,
+			hitokotoTopic: 0,
+		})
+	);
 
-// const setDark = () => {
-// 	document
-// 		.getElementsByTagName("body")[0]
-// 		.classList.add("mdui-theme-layout-dark");
-// };
+const preferTheme = localStorage.setting
+	? JSON.parse(localStorage.setting).theme
+	: 0;
 
-// const setLight = () => {
-// 	document
-// 		.getElementsByTagName("body")[0]
-// 		.classList.remove("mdui-theme-layout-dark");
-// };
+var darkTheme = false;
 
-// const theme = localStorage.setting ? JSON.parse(localStorage.setting).theme : 0;
-
-// /** 此逻辑兼容性最好 */
-// if (theme === 0 && window.matchMedia) {
-// 	if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-// 		setDark();
-// 	} else if (window.matchMedia("(prefers-color-scheme: light)").matches) {
-// 		setLight();
-// 	}
-// } else {
-// 	if (theme === 2) {
-// 		setDark();
-// 	} else {
-// 		setLight();
-// 	}
-// }
+/** 此逻辑兼容性最好 */
+if (preferTheme === 0 && window.matchMedia) {
+	darkTheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
+} else {
+	darkTheme = preferTheme === 2;
+}
 
 ReactDOM.render(
-	<ThemeProvider theme={theme}>
+	<ThemeProvider
+		theme={theme({
+			darkTheme,
+		})}
+	>
 		<App />
 	</ThemeProvider>,
 	document.getElementById("root")

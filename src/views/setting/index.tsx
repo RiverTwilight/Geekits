@@ -21,6 +21,7 @@ import GroupIcon from "@material-ui/icons/Group";
 import EmojiFoodBeverageIcon from "@material-ui/icons/EmojiFoodBeverage";
 import PersonIcon from "@material-ui/icons/Person";
 import AssistantIcon from "@material-ui/icons/Assistant";
+import BrushSharpIcon from "@material-ui/icons/BrushSharp";
 import { blue } from "@material-ui/core/colors";
 
 const PrivacyPath = require("./privacy.md");
@@ -78,6 +79,21 @@ const hitokotoItems = [
 	},
 ];
 
+const themeItems = [
+	{
+		name: "跟随系统",
+		value: "auto",
+	},
+	{
+		name: "浅色模式",
+		value: "light",
+	},
+	{
+		name: "深色模式",
+		value: "dark",
+	},
+];
+
 export default class Setting extends React.Component<
 	{ handleNewPage: any },
 	{
@@ -86,6 +102,7 @@ export default class Setting extends React.Component<
 		showPrivacy: boolean;
 		showSaying: boolean;
 		showDonation: boolean;
+		showTheme: boolean;
 	}
 > {
 	constructor(props: Readonly<{ handleNewPage: any }>) {
@@ -96,6 +113,7 @@ export default class Setting extends React.Component<
 			showPrivacy: false,
 			showSaying: false,
 			showDonation: false,
+			showTheme: false,
 		};
 	}
 	componentDidMount() {
@@ -110,7 +128,7 @@ export default class Setting extends React.Component<
 				});
 			});
 	}
-	showPrivacy = () => {
+	handleShowPrivacy = () => {
 		this.setState({
 			showPrivacy: true,
 		});
@@ -125,16 +143,28 @@ export default class Setting extends React.Component<
 			showSaying: true,
 		});
 	};
+	handleShowTheme = () => {
+		this.setState({
+			showTheme: true,
+		});
+	};
 	handleClose = () => {
 		this.setState({
 			showPrivacy: false,
 			showDonation: false,
 			showSaying: false,
+			showTheme: false,
 		});
 	};
 	render() {
 		const { hitokotoTopic, theme } = this.state.setting;
-		const { showPrivacy, showSaying, privacy, showDonation } = this.state;
+		const {
+			showPrivacy,
+			showSaying,
+			privacy,
+			showDonation,
+			showTheme,
+		} = this.state;
 		return (
 			<>
 				<Dialog
@@ -185,7 +215,7 @@ export default class Setting extends React.Component<
 				</Dialog>
 				<Dialog
 					open={showSaying}
-					aria-labelledby=""
+					aria-labelledby="saying preference"
 					onClose={this.handleClose}
 				>
 					<DialogTitle>一言来源</DialogTitle>
@@ -213,58 +243,67 @@ export default class Setting extends React.Component<
 						</FormGroup>
 					</DialogContent>
 				</Dialog>
+				<Dialog
+					open={showTheme}
+					aria-labelledby="theme preference"
+					onClose={this.handleClose}
+				>
+					<DialogTitle>主题</DialogTitle>
+					<DialogContent>
+						<FormGroup>
+							{themeItems.map((item, i) => (
+								<FormControlLabel
+									key={item.value}
+									control={
+										<Checkbox
+											checked={theme === i}
+											onChange={() => {
+												this.setState({
+													setting: setFunc(
+														"theme",
+														i
+													),
+												});
+												window.snackbar({
+													message:
+														"设置已保存，刷新页面即可生效",
+												});
+											}}
+											name="theme"
+										/>
+									}
+									label={themeItems[i].name}
+								/>
+							))}
+						</FormGroup>
+					</DialogContent>
+				</Dialog>
 				<List
 					component={Paper}
 					subheader={<ListSubheader>个性化</ListSubheader>}
 				>
-					<ListItem button onClick={this.handleShowSaying}>
-						<ListItemIcon>
-							<AssistantIcon />
-						</ListItemIcon>
-						<ListItemText
-							primary="一言来源"
-							secondary={hitokotoItems[hitokotoTopic].name}
-						/>
-					</ListItem>
-					{/* <ListControlMenu
-						title="主题"
-						checked={theme || 0}
-						onCheckedChange={(checked) => {
-							this.setState({
-								setting: setFunc("theme", checked),
-							});
-							const fn = [
-								() => {
-									window.location.reload();
-								},
-								() => {
-									document.body.classList.remove(
-										"mdui-theme-layout-dark"
-									);
-								},
-								() => {
-									document.body.classList.add(
-										"mdui-theme-layout-dark"
-									);
-								},
-							];
-							fn[checked]();
-						}}
-						items={[
-							{
-								name: "跟随系统",
-								value: "auto",
-							},
-							{
-								name: "浅色模式",
-								value: "light",
-							},
-							{
-								name: "深色模式",
-								value: "dark",
-							},
-						]}
-					/> */}
+					{[
+						{
+							onClick: this.handleShowSaying,
+							primary: "一言来源",
+							secondary: hitokotoItems[hitokotoTopic].name,
+							Icon: <AssistantIcon />,
+						},
+						{
+							onClick: this.handleShowTheme,
+							primary: "主题",
+							secondary: themeItems[theme].name,
+							Icon: <BrushSharpIcon />,
+						},
+					].map(({ onClick, primary, secondary, Icon }, i) => (
+						<ListItem button onClick={onClick}>
+							<ListItemIcon>{Icon}</ListItemIcon>
+							<ListItemText
+								primary={primary}
+								secondary={secondary}
+							/>
+						</ListItem>
+					))}
 				</List>
 				<br />
 
@@ -296,7 +335,7 @@ export default class Setting extends React.Component<
 				>
 					{[
 						{
-							onClick: this.showPrivacy,
+							onClick: this.handleShowPrivacy,
 							text: "用户协议",
 							Icon: <PersonIcon />,
 						},
