@@ -4,6 +4,8 @@ import Button from "@material-ui/core/Button";
 import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
 import Typography from "@material-ui/core/Typography";
+import FormControl from "@material-ui/core/FormControl";
+import Grid from "@material-ui/core/Grid";
 
 type DateDifferState = any;
 
@@ -57,39 +59,48 @@ export default class DateInterval extends React.Component<{}, DateDifferState> {
 		return (
 			<>
 				<InputLabel>从</InputLabel>
-				<Input
-					onChange={(e) => {
-						this.handleInput(e, "dateEarly");
-					}}
-					placeholder=" "
-					type="date"
-					value={dateEarly}
-				/>
-
-				<Input
-					onChange={(e) => {
-						this.handleInput(e, "timeEarly");
-					}}
-					value={timeEarly}
-					type="time"
-				/>
-
+				<Grid container>
+					<Grid item xs={6}>
+						<Input
+							onChange={(e) => {
+								this.handleInput(e, "dateEarly");
+							}}
+							type="date"
+							value={dateEarly}
+						/>
+					</Grid>
+					<Grid item xs={6}>
+						<Input
+							onChange={(e) => {
+								this.handleInput(e, "timeEarly");
+							}}
+							value={timeEarly}
+							type="time"
+						/>
+					</Grid>
+				</Grid>
+				<br />
 				<InputLabel>到</InputLabel>
-				<Input
-					onChange={(e: any) => {
-						this.handleInput(e, "dateLate");
-					}}
-					type="date"
-					value={dateLate}
-				/>
-
-				<Input
-					onChange={(e: any) => {
-						this.handleInput(e, "timeLate");
-					}}
-					value={timeLate}
-					type="time"
-				/>
+				<Grid container>
+					<Grid item xs={6}>
+						<Input
+							onChange={(e: any) => {
+								this.handleInput(e, "dateLate");
+							}}
+							type="date"
+							value={dateLate}
+						/>
+					</Grid>
+					<Grid>
+						<Input
+							onChange={(e: any) => {
+								this.handleInput(e, "timeLate");
+							}}
+							value={timeLate}
+							type="time"
+						/>
+					</Grid>
+				</Grid>
 				<br />
 				<br />
 				<Button

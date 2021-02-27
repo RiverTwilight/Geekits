@@ -6,6 +6,7 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
+import Paper from "@material-ui/core/Paper";
 
 interface TabPanelProps {
 	children?: React.ReactNode;
@@ -46,6 +47,9 @@ const useStyles = makeStyles((theme: Theme) => ({
 		backgroundColor: theme.palette.background.paper,
 		width: 500,
 	},
+	paper: {
+		padding: theme.spacing(1)
+	}
 }));
 
 const DateCalculator = () => {
@@ -58,7 +62,7 @@ const DateCalculator = () => {
 	};
 
 	return (
-		<>
+		<Paper className={classes.paper}>
 			<Tabs
 				value={value}
 				onChange={handleChange}
@@ -76,7 +80,7 @@ const DateCalculator = () => {
 			<TabPanel value={value} index={1}>
 				<CalcDate />
 			</TabPanel>
-		</>
+		</Paper>
 	);
 };
 

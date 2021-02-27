@@ -23,7 +23,6 @@ interface Window {
 	 */
 	loadHide(): void;
 	setRightDrawer(content, icon?): void;
-	destoryRightDrawer(): void;
 	menu: any;
 	loadingDelay: number;
 	dialogInst: any;

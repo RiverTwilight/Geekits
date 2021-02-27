@@ -114,8 +114,8 @@ const AppMenu = ({
 				<TextField
 					onClick={handleClickCode}
 					value={`<iframe src="${window.location.origin}/app/${appinfo.link}?fullscreen=true" width="100%" height="400px" scrolling="no" style="border:0;"></iframe>`}
-					id="outlined-basic"
-					label="Outlined"
+					id="frame-code"
+					label="嵌入代码"
 					variant="outlined"
 				/>
 			)}

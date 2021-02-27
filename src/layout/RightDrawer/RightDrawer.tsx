@@ -1,5 +1,11 @@
 import React from "react";
-import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
+import {
+	createStyles,
+	useTheme,
+	Theme,
+	makeStyles,
+} from "@material-ui/core/styles";
+import Hidden from "@material-ui/core/Hidden";
 import Drawer from "@material-ui/core/Drawer";
 
 const drawerWidth = 260;
@@ -12,6 +18,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			flexShrink: 0,
 		},
 		drawerPaper: {
+			zIndex: 100,
 			width: drawerWidth,
 		},
 		drawerContainer: {
@@ -30,18 +37,40 @@ const RightDrawer = ({
 	children?: React.ReactNode;
 }) => {
 	const classes = useStyles();
+	const theme = useTheme();
+
 	return (
-		<Drawer
-			anchor="right"
-			className={classes.drawer}
-			open={open}
-			onClose={onClose}
-			classes={{
-				paper: classes.drawerPaper,
-			}}
-		>
-			<div className={classes.drawerContainer}>{children}</div>
-		</Drawer>
+		<>
+			{window.innerWidth <= 640 && (
+				<Drawer
+					variant="temporary"
+					anchor="right"
+					open={!open}
+					onClose={onClose}
+					classes={{
+						paper: classes.drawerPaper,
+					}}
+				>
+					<div className={classes.toolbar} />
+
+					<div className={classes.drawerContainer}>{children}</div>
+				</Drawer>
+			)}
+
+			<Hidden xsDown implementation="css">
+				<Drawer
+					classes={{
+						paper: classes.drawerPaper,
+					}}
+					anchor="right"
+					variant="persistent"
+					open={open}
+				>
+					<div className={classes.toolbar} />
+					<div className={classes.drawerContainer}>{children}</div>
+				</Drawer>
+			</Hidden>
+		</>
 	);
 };
 

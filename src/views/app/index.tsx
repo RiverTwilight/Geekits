@@ -5,7 +5,40 @@ import Loadable from "../../utils/loading";
 import RightDrawer from "../../layout/RightDrawer";
 import HelpTwoToneIcon from "@material-ui/icons/HelpTwoTone";
 import IconButton from "@material-ui/core/IconButton";
+import {
+	makeStyles,
+	useTheme,
+	withStyles,
+	Theme,
+	createStyles,
+} from "@material-ui/core/styles";
+import clsx from "clsx";
 
+const drawerWidth = 260;
+
+const styles = (theme: Theme) =>
+	createStyles({
+		content: {
+			position: "relative",
+			minHeight: "100%",
+			flexGrow: 1,
+			padding: theme.spacing(1),
+			transition: theme.transitions.create("margin", {
+				easing: theme.transitions.easing.sharp,
+				duration: theme.transitions.duration.leavingScreen,
+			}),
+			marginRight: 0,
+		},
+		contentShift: {
+			[theme.breakpoints.up("sm")]: {
+				transition: theme.transitions.create("margin", {
+					easing: theme.transitions.easing.easeOut,
+					duration: theme.transitions.duration.enteringScreen,
+				}),
+				marginRight: drawerWidth,
+			},
+		},
+	});
 /**
  * 工具加载框架
  * // TODO 文章板块
@@ -18,7 +51,7 @@ class AppContainer extends React.Component<any, any> {
 			appInfo: getInfo(props.match.params.name),
 			FeedbackComp: null,
 			showFeedbackComp: false,
-			RightDrawerOpen: false,
+			RightDrawerOpen: true,
 		};
 	}
 	componentWillUnmount() {
@@ -31,8 +64,7 @@ class AppContainer extends React.Component<any, any> {
 		// });
 	}
 	componentDidMount() {
-		const { appInfo } = this.state;
-
+		const { appInfo, RightDrawerOpen } = this.state;
 		appInfo && window.updateTitle(appInfo.name);
 		window.setHeaderButton(
 			<IconButton
@@ -40,7 +72,7 @@ class AppContainer extends React.Component<any, any> {
 				aria-label="open drawer"
 				onClick={() => {
 					this.setState({
-						RightDrawerOpen: true,
+						RightDrawerOpen: !this.state.RightDrawerOpen,
 					});
 				}}
 				edge="start"
@@ -75,15 +107,23 @@ class AppContainer extends React.Component<any, any> {
 			appInfo,
 			RightDrawerOpen,
 		} = this.state;
+		const { classes } = this.props;
 
 		const AppComp = Loadable(() => import("../../apps/" + appInfo?.link));
 		return (
 			<>
-				<AppComp />
+				<div
+					className={clsx(classes.content, {
+						[classes.contentShift]: RightDrawerOpen,
+					})}
+				>
+					<AppComp />
+				</div>
+
 				<RightDrawer
 					onClose={() => {
 						this.setState({
-							RightDrawerOpen: false,
+							RightDrawerOpen: !RightDrawerOpen,
 						});
 					}}
 					open={RightDrawerOpen}
@@ -105,4 +145,4 @@ class AppContainer extends React.Component<any, any> {
 	}
 }
 
-export default AppContainer;
+export default withStyles(styles)(AppContainer);

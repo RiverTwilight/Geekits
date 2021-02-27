@@ -15,7 +15,6 @@ import {
 } from "@material-ui/core/styles";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Snackbar from "@material-ui/core/Snackbar";
-import "../node_modules/mdui/dist/css/mdui.min.css";
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -23,7 +22,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			position: "fixed",
 			top: 0,
 			width: "100%",
-			zIndex: 1101
+			zIndex: 1101,
 		},
 	})
 );
@@ -66,10 +65,6 @@ const RouterList: {
 		exact: true,
 	},
 	{
-		component: loadable(() => import("./views/user/forget")),
-		path: "/user/forget",
-	},
-	{
 		component: loadable(() => import("./views/setting")),
 		path: "/setting",
 	},
@@ -79,7 +74,6 @@ const RouterList: {
 	},
 ];
 
-const RightMenuBtnRef = React.createRef<HTMLDivElement>();
 const AppBarRef = React.createRef<HTMLDivElement>();
 
 /**

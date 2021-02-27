@@ -7,6 +7,7 @@ import Typography from "@material-ui/core/Typography";
 import FastForwardTwoToneIcon from "@material-ui/icons/FastForwardTwoTone";
 import FastRewindTwoToneIcon from "@material-ui/icons/FastRewindTwoTone";
 import InputAdornment from "@material-ui/core/InputAdornment";
+import Grid from "@material-ui/core/Grid";
 
 type CalcDateState = any;
 
@@ -26,8 +27,9 @@ export default class CalcDate extends React.Component<{}, CalcDateState> {
 		});
 	}
 	handleInput = (e: any, key: string) => {
+		// debugger
 		this.setState({
-			[key]: e.target.detail,
+			[key]: e.target.value,
 		});
 	};
 	handleClick = () => {
@@ -49,33 +51,41 @@ export default class CalcDate extends React.Component<{}, CalcDateState> {
 		const { dateStart, day, whichDay } = this.state;
 		return (
 			<div className="">
-				<Input
-					onChange={(e) => {
-						this.handleInput(e, "dateStart");
-					}}
-					placeholder=" "
-					type="date"
-					value={dateStart}
-				/>
-				<InputLabel>{`${Math.abs(day)}天之${
-					day >= 0 ? "后" : "前"
-				}`}</InputLabel>
-				<Input
-					onChange={(e) => {
-						this.handleInput(e, "day");
-					}}
-					startAdornment={
-						<InputAdornment position="start">
-							{day >= 0 ? (
-								<FastForwardTwoToneIcon />
-							) : (
-								<FastRewindTwoToneIcon />
-							)}
-						</InputAdornment>
-					}
-					type="number"
-					value={day}
-				/>
+				<Grid container>
+					<Grid item xs={6}>
+						<InputLabel>从</InputLabel>
+						<Input
+							onChange={(e) => {
+								this.handleInput(e, "dateStart");
+							}}
+							placeholder=" "
+							type="date"
+							value={dateStart}
+						/>
+					</Grid>
+					<Grid item xs={6}>
+						<InputLabel>{`往${day >= 0 ? "后" : "前"}推${Math.abs(
+							day
+						)}天`}</InputLabel>
+						<Input
+							onChange={(e) => {
+								this.handleInput(e, "day");
+							}}
+							startAdornment={
+								<InputAdornment position="start">
+									{day >= 0 ? (
+										<FastForwardTwoToneIcon />
+									) : (
+										<FastRewindTwoToneIcon />
+									)}
+								</InputAdornment>
+							}
+							type="number"
+							value={day}
+						/>
+					</Grid>
+				</Grid>
+
 				<br />
 				<br />
 				<Button
