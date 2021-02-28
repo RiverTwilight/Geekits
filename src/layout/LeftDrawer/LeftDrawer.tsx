@@ -1,5 +1,5 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, NavLink } from "react-router-dom";
 import { getUserInfo } from "../../utils/Services/UserInfo";
 import Divider from "@material-ui/core/Divider";
 import Drawer from "@material-ui/core/Drawer";
@@ -8,6 +8,9 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
+import ListItemAvatar from "@material-ui/core/ListItemAvatar";
+import Avatar from "@material-ui/core/Avatar";
+import Typography from "@material-ui/core/Typography";
 import {
 	makeStyles,
 	useTheme,
@@ -117,10 +120,13 @@ const list = [
 // 	}
 // }
 
-const drawerWidth = 240;
+const drawerWidth = 200;
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
+		inline: {
+			display: "inline",
+		},
 		drawer: {
 			[theme.breakpoints.up("sm")]: {
 				width: drawerWidth,
@@ -147,12 +153,67 @@ const useStyles = makeStyles((theme: Theme) =>
 	})
 );
 
-export default (props: {
+const User = ({ handleLogin }: any) => {
+	const classes = useStyles();
+	const [user, setUser]: [
+		user: userInfoFromLocal | null,
+		setUser: any
+	] = useState(null);
+	useEffect(() => {
+		setUser(getUserInfo());
+	});
+	const attr = user
+		? {
+				to: "/user",
+				component: Link,
+		  }
+		: {
+				onClick: handleLogin,
+		  };
+	return (
+		<>
+			{/** //@ts-expect-error */}
+			<ListItem button {...attr}>
+				<ListItemAvatar>
+					<Avatar alt="Cindy Baker" src="/logo_design.svg" />
+				</ListItemAvatar>
+				<ListItemText
+					primary={
+						<Typography
+							component="span"
+							variant="h6"
+							color="textPrimary"
+						>
+							云极客工具
+						</Typography>
+					}
+					secondary={
+						<>
+							<Typography
+								component="span"
+								variant="body2"
+								className={classes.inline}
+								color="textSecondary"
+							>
+								{
+									/*//@ts-expect-error */
+									user ? user.name : "未登录"
+								}
+							</Typography>
+						</>
+					}
+				/>
+			</ListItem>
+		</>
+	);
+};
+
+const LeftDrawer = (props: {
 	handleLoginOpen: () => void;
 	handleDrawerClose: () => void;
 	open: boolean;
 }) => {
-	const { handleDrawerClose, open } = props;
+	const { handleDrawerClose, open, handleLoginOpen } = props;
 	const classes = useStyles();
 	const theme = useTheme();
 	const handleClick = () => {
@@ -182,17 +243,23 @@ export default (props: {
 			</ListItem>
 		);
 	};
-	// REBUILD 用户中心入口
 	const drawer = (
-		<div>
-			<div className={classes.toolbar} />
+		<>
+			<div className={classes.toolbar}>
+				<User
+					handleLogin={() => {
+						handleClick();
+						handleLoginOpen();
+					}}
+				/>
+			</div>
 			<Divider />
 			<List>
 				{list.map((item) => (
 					<Warpper key={item.link} a={item} />
 				))}
 			</List>
-		</div>
+		</>
 	);
 	return (
 		<nav className={classes.drawer} aria-label="left drawer">
@@ -227,3 +294,5 @@ export default (props: {
 		</nav>
 	);
 };
+
+export default LeftDrawer;

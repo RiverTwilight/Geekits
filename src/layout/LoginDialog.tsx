@@ -1,11 +1,14 @@
 import React from "react";
-import { snackbar } from "mdui";
 import Axios from "../utils/axios";
 import { MD5 } from "crypto-js";
 import { Input } from "mdui-in-react";
 import { setUserInfo } from "../utils/Services/UserInfo";
 import SendCode from "../components/SendCode";
-import Dialog from "../components/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import DialogContent from "@material-ui/core/DialogContent";
+import Dialog from "@material-ui/core/Dialog";
+import Button from "@material-ui/core/Button";
 
 class Login extends React.Component<
 	{},
@@ -20,7 +23,7 @@ class Login extends React.Component<
 	constructor(props: any) {
 		super(props);
 		this.state = {
-			username: 'yungeeker@gmail.com',
+			username: "yungeeker@gmail.com",
 			password: /*'123456',*/ "",
 			remember: false,
 			xcode: "",
@@ -46,10 +49,10 @@ class Login extends React.Component<
 				var json = JSON.parse(response.request.response);
 				switch (json.code) {
 					case 1:
-						snackbar({ message: "用户已存在" });
+						window.snackbar({ message: "用户已存在" });
 						break;
 					case 3:
-						snackbar({ message: "验证码错误" });
+						window.snackbar({ message: "验证码错误" });
 						break;
 					case 666:
 						var data = JSON.stringify(json.data);
@@ -78,7 +81,7 @@ class Login extends React.Component<
 				var json = JSON.parse(response.request.response);
 				switch (json.code) {
 					case 413:
-						snackbar({ message: "邮箱或密码错误" });
+						window.snackbar({ message: "邮箱或密码错误" });
 						break;
 					case 412:
 						// 切换成注册模式
@@ -99,7 +102,7 @@ class Login extends React.Component<
 				}
 			})
 			.catch((e) => {
-				snackbar({ message: e });
+				window.snackbar({ message: e });
 			})
 			.then(() => {
 				window.loadHide();
@@ -190,7 +193,10 @@ const LoginDialog = (props: any) => {
 			}}
 			{...props}
 		>
-			<Login />
+			<DialogTitle id="simple-dialog-title">加入云极客</DialogTitle>
+			<DialogContent>
+				<Login />
+			</DialogContent>
 		</Dialog>
 	);
 };

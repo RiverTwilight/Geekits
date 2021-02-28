@@ -107,7 +107,7 @@ class Cem extends React.Component<{ classes: any }, UiState> {
 		var clipboard = new ClipboardJS("h5");
 		clipboard.on("success", (e) => {
 			window.snackbar({
-				message: "fdas",
+				message: "复制成功",
 			});
 			e.clearSelection();
 		});

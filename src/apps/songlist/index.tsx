@@ -174,7 +174,7 @@ class Songlist extends React.Component<any, UiState> {
 				callback && callback(json.playlist);
 			})
 			.catch((error) => {
-				mdui.snackbar({
+				window.snackbar({
 					message: error,
 				});
 				window.loadHide();

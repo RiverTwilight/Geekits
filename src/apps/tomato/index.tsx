@@ -230,7 +230,7 @@ export default class TomatoClock extends React.Component<{}, TomatoClockState> {
 			if (!min && !sec) {
 				this.playRingtone();
 				if (statu === "working") {
-					mdui.snackbar({
+					window.snackbar({
 						message: "你完成了一个番茄，现在休息五分钟吧！",
 					});
 					const originData = JSON.parse(localStorage.tomato),

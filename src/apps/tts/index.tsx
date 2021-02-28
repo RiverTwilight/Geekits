@@ -19,7 +19,7 @@ import Select from "@material-ui/core/Select";
 const styles = (theme: Theme) => {
 	return createStyles({
 		padding: {
-			padding: theme.spacing(1),
+			padding: theme.spacing(3),
 		},
 	});
 };
@@ -137,10 +137,9 @@ class Tts extends React.Component<any, State> {
 					className={classes.padding}
 					fullWidth
 				>
-					<InputLabel htmlFor="standard-adornment-amount">
-						输入文本
-					</InputLabel>
+					<InputLabel htmlFor="text to convert">输入文本</InputLabel>
 					<Input
+						id="text to convert"
 						onChange={(newText) => {
 							options.text = newText.target.value;
 							this.setState({ options: options });

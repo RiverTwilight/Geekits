@@ -145,7 +145,7 @@ export default withStyles(styles)(
 				LoginDialog: null,
 				anchorEl: null,
 				loading: true,
-				title: "云极客工具",
+				title: "首页",
 			};
 		}
 		componentDidMount() {
@@ -230,7 +230,7 @@ export default withStyles(styles)(
 								// globalRefs={{ RightMenuBtnRef, AppBarRef }}
 							/>
 							<LeftDrawer
-								handleLoginOpen={() => {}}
+								handleLoginOpen={this.openLoginDialog}
 								handleDrawerClose={() => {
 									this.setState({
 										LeftDrawerOpen: false,

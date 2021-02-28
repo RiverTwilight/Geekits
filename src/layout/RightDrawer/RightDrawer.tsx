@@ -51,7 +51,9 @@ const RightDrawer = ({
 						paper: classes.drawerPaper,
 					}}
 				>
-					<div className={classes.toolbar} />
+					<Hidden xsDown>
+						<div className={classes.toolbar} />
+					</Hidden>
 
 					<div className={classes.drawerContainer}>{children}</div>
 				</Drawer>
