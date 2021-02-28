@@ -359,7 +359,7 @@ export default class Setting extends React.Component<
 					))}
 				</List>
 				<br />
-				<Typography variant="body2" align="center">
+				<Typography variant="body2" color="textSecondary" align="center">
 					© 2019 - 2021 RiverTwilight
 				</Typography>
 			</>

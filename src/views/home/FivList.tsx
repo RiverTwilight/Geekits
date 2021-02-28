@@ -47,43 +47,38 @@ const AppItem = ({
 const FivList = () => {
 	const [list, ,] = useState(fiv.getAll());
 	return (
-		<>
-			<Paper>
-				<List
-					aria-labelledby="nested-list-subheader"
-					subheader={
-						<ListSubheader
-							component="div"
-							id="nested-list-subheader"
-						>
-							收藏
-						</ListSubheader>
-					}
-				>
-					{!list.length && (
-						<Typography align="center" variant="body1">
-							点击工具菜单中的星型按钮收藏
-						</Typography>
-					)}
-					{list.length > 0 && (
-						<Grid container spacing={3}>
-							{list.map((app, i) => (
-								<AppItem
-									data={app}
-									addToFiv={() => {
-										fiv.add(app);
-									}}
-									removeFromFiv={() => {
-										fiv.delete(i);
-									}}
-								/>
-							))}
-						</Grid>
-					)}
-				</List>
-			</Paper>
-			<br></br>
-		</>
+		<Paper>
+			<List
+				aria-labelledby="nested-list-subheader"
+				subheader={
+					<ListSubheader component="div" id="nested-list-subheader">
+						收藏
+					</ListSubheader>
+				}
+			>
+				{!list.length && (
+					<Typography align="center" variant="body1">
+						点击工具菜单中的星型按钮收藏
+					</Typography>
+				)}
+				{list.length > 0 && (
+					<Grid container spacing={3}>
+						{list.map((app, i) => (
+							<AppItem
+								key={app.link}
+								data={app}
+								addToFiv={() => {
+									fiv.add(app);
+								}}
+								removeFromFiv={() => {
+									fiv.delete(i);
+								}}
+							/>
+						))}
+					</Grid>
+				)}
+			</List>
+		</Paper>
 	);
 };
 

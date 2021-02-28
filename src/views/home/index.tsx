@@ -95,7 +95,9 @@ export default function Index(props: any) {
 			<Grid container spacing={1}>
 				<Grid item sm={9} xs={12}>
 					<Search />
+					<br />
 					<FivList />
+					<br />
 					<AppList />
 				</Grid>
 				{/* <Grid item sm={3}>

@@ -79,8 +79,8 @@ const MakeChannels = ({ data: { name, apps, Icon } }: any) => {
 				<List component="div" disablePadding>
 					<Grid container spacing={3}>
 						{apps.map((app: any) => (
-							<Grid item sm={6} xs={12}>
-								<AppListItem key={app.name} {...app} />
+							<Grid key={app.name} item sm={6} xs={12}>
+								<AppListItem {...app} />
 							</Grid>
 						))}
 					</Grid>

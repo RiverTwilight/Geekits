@@ -143,7 +143,6 @@ class Search extends React.Component<any, SearchState> {
 					</FormControl>
 					<SearchResult kwd={kwd} result={searchResult} />
 				</Paper>
-				<br></br>
 			</>
 		);
 	}

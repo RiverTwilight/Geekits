@@ -25,7 +25,6 @@ const useStyles = makeStyles((theme: Theme) =>
 
 /**
  * 工具菜单
- * // REBUILD markdown样式
  */
 const AppMenu = ({
 	appinfo,
@@ -107,6 +106,7 @@ const AppMenu = ({
 				className={classes.margin}
 				onClick={feedback}
 				variant="outlined"
+				aria-label="Send us feedback"
 			>
 				反馈
 			</Button>
@@ -119,9 +119,7 @@ const AppMenu = ({
 					variant="outlined"
 				/>
 			)}
-			<Typography variant="body1" gutterBottom>
-				<StyledMarkdown content={help} />
-			</Typography>
+			<StyledMarkdown content={help} />
 		</div>
 	);
 };
