@@ -45,7 +45,7 @@
 		"wordcloud": "^1.1.1"
 	},
 	"scripts": {
-		"start": "react-scripts start",
+		"start": "craco start",
 		"build": "bash scripts/build.sh",
 		"test": "react-scripts test --env=jsdom",
 		"newApp": "bash scripts/newApp.sh",
@@ -81,7 +81,9 @@
 		]
 	},
 	"devDependencies": {
+		"@craco/craco": "^6.1.1",
 		"@types/clipboard": "^2.0.1",
-		"@types/react-router-dom": "^5.1.7"
+		"@types/react-router-dom": "^5.1.7",
+		"craco-esbuild": "^0.3.0"
 	}
 }

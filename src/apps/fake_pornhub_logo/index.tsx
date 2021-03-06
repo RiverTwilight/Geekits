@@ -2,6 +2,8 @@ import React from "react";
 import html2canvas from "html2canvas";
 import saveFile from "../../utils/fileSaver";
 import { RangeInput, ListControlCheck, Button } from "mdui-in-react";
+import Slider from "@material-ui/core/Slider";
+import SliderWithIcon from "../../components/SliderWithIcon";
 
 const IfBr = ({ statu }: any) => {
 	return statu === "vertical" ? <br></br> : null;
@@ -99,21 +101,22 @@ export default class FakePornhubLogo extends React.Component<{}, UiState> {
 						lastStyle={last}
 					/>
 				</div>
-				<RangeInput
-					onValueChange={(value) => {
-						this.setState({
-							hStyle: {
-								size: value,
-								array: hStyle.array,
-							},
-						});
-					}}
-					value={hStyle.size}
-					step="1"
-					title="字体大小"
-					min="1"
-					max="10"
-				/>
+				<SliderWithIcon title={"音量：" + hStyle.size}>
+					<Slider
+						value={hStyle.size}
+						onChange={(_, value) => {
+							this.setState({
+								hStyle: {
+									size: value,
+									array: hStyle.array,
+								},
+							});
+						}}
+						aria-labelledby="continuous-slider"
+						min={1}
+						max={10}
+					/>
+				</SliderWithIcon>
 				<ListControlCheck
 					title="竖直排列"
 					icon="border_vertical"

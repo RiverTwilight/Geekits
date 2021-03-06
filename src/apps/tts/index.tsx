@@ -1,5 +1,4 @@
 import React from "react";
-import MusicPlayer from "../../components/MusicPlayer";
 import Axios from "../../utils/axios";
 import { createStyles, Theme, withStyles } from "@material-ui/core/styles";
 import FormControl from "@material-ui/core/FormControl";
@@ -15,6 +14,8 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
+import MusicPlayer from "../../components/MusicPlayer";
+import SliderWithIcon from "../../components/SliderWithIcon";
 
 const styles = (theme: Theme) => {
 	return createStyles({
@@ -64,28 +65,6 @@ const VOICE_SOURCE = [
 ];
 
 type State = any;
-
-const SliderWithIcon = ({
-	icon,
-	children,
-	title,
-}: {
-	icon: any;
-	title?: string;
-	children: React.ReactNode;
-}) => {
-	return (
-		<>
-			{title && <Typography gutterBottom>{title}</Typography>}
-			<Grid container spacing={2}>
-				<Grid item>{icon}</Grid>
-				<Grid item xs>
-					{children}
-				</Grid>
-			</Grid>
-		</>
-	);
-};
 
 class Tts extends React.Component<any, State> {
 	constructor(props: any) {

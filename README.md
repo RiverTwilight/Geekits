@@ -12,11 +12,13 @@
 
 </div>
 
-一个渐进式在线工具网站，是由 MaterialDesign , Typescript , React 等许多爱意构建成的.
+一个渐进式在线工具网站，是由 MUI , Typescript , React 等许多爱意构建成的.
 
 我们希望把她打造成一个精美但简约、实用又简单的在线工具箱。
 
 ## 贡献
+
+由于开发者学业繁忙，本项目十分需要贡献者！
 
 **本项目采用开发+部署的分支策略(master + dev)，master 分支将自动部署到网站正式地址。**
 
@@ -59,8 +61,6 @@ src
 ```
 
 ### 样式
-
-统一使用 MDUI 这个 css 框架，由于它是基于原生 JS 的，所以我单独封装了一个 [React 版本](https://github.com/RiverTwilight/mdui-in-react)，你也可以在这里添加新组件。
 
 布局需尽量遵循 [Material Design 设计规范](http://material.io/design).
 
@@ -108,7 +108,19 @@ bash scripts/newApp.sh
 
 ### 常见问题
 
-#### 1.如何使用 npm link 调试本地库？
+<details>
+  <summary>可以安装新的npm包吗？</summary>
+  如果需求不是很大建议一个 js 文件搞定。
+</details>
+
+<details>
+  <summary>可不可以增加某某工具？</summary>
+  只要不违反法律法规我们欢迎你添加任何工具，但请不要使用`\<iframe\>`引用其他网站或者添加简单无太大意义的工具。
+</details>
+
+<details>
+
+<summary>如何使用 npm link 调试本地库？</summary>
 
 如果项目通过`npm link`链接到本地的 mdui-in-react 来调试，就出现了两种 React 版本（尽管版本是一样的）。会出现类似这样的警告：
 
@@ -125,6 +137,22 @@ config.resolve.alias = {
 	react: path.resolve("./node_modules/react"),
 };
 ```
+
+默认启动命令集备份
+
+```json
+"scripts": {
+		"start": "react-scripts start",
+		"build": "bash scripts/build.sh",
+		"test": "react-scripts test --env=jsdom",
+		"newApp": "bash scripts/newApp.sh",
+		"eject": "react-scripts eject",
+		"dev": "npm-link-shared ./node_modules/mdui-in-react/node_modules . react && npm start"
+	},
+```
+
+</details>
+
 
 ### 备注
 
