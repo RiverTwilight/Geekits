@@ -87,7 +87,7 @@ const User = ({ handleLogin }: any) => {
 	] = useState(null);
 	useEffect(() => {
 		setUser(getUserInfo());
-	});
+	}, [handleLogin]);
 	const attr = user
 		? {
 				to: "/user",
