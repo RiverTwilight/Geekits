@@ -1,7 +1,6 @@
 import React from "react";
 import Axios from "../utils/axios";
 import { MD5 } from "crypto-js";
-import { Input } from "mdui-in-react";
 import { setUserInfo } from "../utils/Services/UserInfo";
 import SendCode from "../components/SendCode";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -9,6 +8,19 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import Dialog from "@material-ui/core/Dialog";
 import Button from "@material-ui/core/Button";
+import IconButton from "@material-ui/core/IconButton";
+import Input from "@material-ui/core/Input";
+import InputLabel from "@material-ui/core/InputLabel";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import FormControl from "@material-ui/core/FormControl";
+import TextField from "@material-ui/core/TextField";
+import Grid from "@material-ui/core/Grid";
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox, { CheckboxProps } from '@material-ui/core/Checkbox';
+import AccountCircle from "@material-ui/icons/AccountCircle";
+import Visibility from "@material-ui/icons/Visibility";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import VpnKeyIcon from "@material-ui/icons/VpnKey";
 
 class Login extends React.Component<
 	{},
@@ -18,16 +30,18 @@ class Login extends React.Component<
 		password: string;
 		remember: boolean;
 		xcode: string;
+		showPassword: boolean;
 	}
 > {
 	constructor(props: any) {
 		super(props);
 		this.state = {
-			username: "yungeeker@gmail.com",
+			username: "",
 			password: /*'123456',*/ "",
 			remember: false,
 			xcode: "",
 			statu: "login",
+			showPassword: false,
 		};
 	}
 	componentDidMount() {}
@@ -108,32 +122,79 @@ class Login extends React.Component<
 				window.loadHide();
 			});
 	}
+	handleClickShowPassword = () => {
+		this.setState({
+			showPassword: !this.state.showPassword,
+		});
+	};
 	render() {
-		const { password, username, remember, xcode, statu } = this.state;
+		const {
+			password,
+			username,
+			remember,
+			xcode,
+			statu,
+			showPassword,
+		} = this.state;
 		return (
 			<>
-				<div className="mdui-dialog-content">
-					<Input
-						onValueChange={(newText) => {
-							this.setState({
-								username: newText,
-							});
-						}}
-						header="邮箱"
-						placeholder="账户不存在将自动创建"
-						icon="email"
-						type="email"
-						value={username}
-					/>
-					<Input
-						onValueChange={(newText) => {
-							this.setState({ password: newText });
-						}}
-						header="密码"
-						icon="lock"
-						type="password"
-						value={password}
-					/>
+				<DialogContent>
+					<FormControl fullWidth>
+						<InputLabel htmlFor="username">
+							邮箱
+						</InputLabel>
+						<Input
+							onChange={(e) => {
+								this.setState({
+									username: e.target.value,
+								});
+							}}
+							value={username}
+							id="username"
+							placeholder="账户不存在将自动创建"
+							startAdornment={
+								<InputAdornment position="start">
+									<AccountCircle />
+								</InputAdornment>
+							}
+						/>
+					</FormControl>
+					<br></br>
+					<br></br>
+					<FormControl fullWidth>
+						<InputLabel htmlFor="password">
+							密码
+						</InputLabel>
+						<Input
+							onChange={(e) => {
+								this.setState({
+									password: e.target.value,
+								});
+							}}
+							value={password}
+							id="password"
+							type={showPassword ? "text" : "password"}
+							startAdornment={
+								<InputAdornment position="start">
+									<VpnKeyIcon />
+								</InputAdornment>
+							}
+							endAdornment={
+								<InputAdornment position="end">
+									<IconButton
+										aria-label="toggle password visibility"
+										onClick={this.handleClickShowPassword}
+									>
+										{showPassword ? (
+											<Visibility />
+										) : (
+											<VisibilityOff />
+										)}
+									</IconButton>
+								</InputAdornment>
+							}
+						/>
+					</FormControl>
 					{statu === "signin" && (
 						<SendCode
 							onInput={(code: any) => {
@@ -143,41 +204,40 @@ class Login extends React.Component<
 							email={username}
 						/>
 					)}
-					<div className="mdui-clearfix"></div>
-					<label className="mdui-float-right mdui-checkbox">
-						<input
-							onChange={(e) => {
-								this.setState({
-									remember: e.target.checked,
-								});
-							}}
-							type="checkbox"
-							checked={remember}
-						/>
-						<i className="mdui-checkbox-icon"></i>
-						记住我
-					</label>
-				</div>
-				<div className="mdui-dialog-actions">
-					<button
+					<FormControlLabel
+						control={
+							<Checkbox
+								checked={remember}
+								onChange={(e) => {
+									this.setState({
+										remember: e.target.checked,
+									});
+								}}
+								name="remember"
+								color="primary"
+							/>
+						}
+						label="下次自动登录"
+					/>
+				</DialogContent>
+				<DialogActions>
+					<Button
 						onClick={() => {
 							window.open("/user/forget");
 						}}
-						className="mdui-btn mdui-ripple"
 					>
 						忘记密码
-					</button>
-					<button
+					</Button>
+					<Button
 						onClick={
 							statu === "login"
 								? this.login.bind(this)
 								: this.signin.bind(this)
 						}
-						className="mdui-btn mdui-ripple"
 					>
 						注册/登录
-					</button>
-				</div>
+					</Button>
+				</DialogActions>
 			</>
 		);
 	}
@@ -194,9 +254,7 @@ const LoginDialog = (props: any) => {
 			{...props}
 		>
 			<DialogTitle id="simple-dialog-title">加入云极客</DialogTitle>
-			<DialogContent>
-				<Login />
-			</DialogContent>
+			<Login />
 		</Dialog>
 	);
 };

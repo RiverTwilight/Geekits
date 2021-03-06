@@ -1,9 +1,19 @@
 import React from "react";
 import html2canvas from "html2canvas";
 import saveFile from "../../utils/fileSaver";
-import { RangeInput, ListControlCheck, Button } from "mdui-in-react";
+import Button from "@material-ui/core/Button";
 import Slider from "@material-ui/core/Slider";
 import SliderWithIcon from "../../components/SliderWithIcon";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
+import ListItemText from "@material-ui/core/ListItemText";
+import ListSubheader from "@material-ui/core/ListSubheader";
+import Switch from "@material-ui/core/Switch";
+import Paper from "@material-ui/core/Paper";
+import BorderVerticalIcon from "@material-ui/icons/BorderVertical";
+import ColorLensIcon from "@material-ui/icons/ColorLens";
 
 const IfBr = ({ statu }: any) => {
 	return statu === "vertical" ? <br></br> : null;
@@ -90,6 +100,17 @@ export default class FakePornhubLogo extends React.Component<{}, UiState> {
 			},
 		};
 	}
+	handleDownload = () => {
+		// @ts-expect-error ts-migrate(2345) FIXME: Type 'null' is not assignable to type 'HTMLElement... Remove this comment to see the full error message
+		html2canvas(document.querySelector("#blackborad")).then((canvas) => {
+			let base64 = canvas.toDataURL("image/png");
+			saveFile({
+				file: base64,
+				type: "png",
+				filename: "ygktool-fake_pornhub_logo.png",
+			});
+		});
+	};
 	render() {
 		const { hStyle, front, last } = this.state;
 		return (
@@ -101,94 +122,105 @@ export default class FakePornhubLogo extends React.Component<{}, UiState> {
 						lastStyle={last}
 					/>
 				</div>
-				<SliderWithIcon title={"音量：" + hStyle.size}>
-					<Slider
-						value={hStyle.size}
-						onChange={(_, value) => {
-							this.setState({
-								hStyle: {
-									size: value,
-									array: hStyle.array,
-								},
-							});
-						}}
-						aria-labelledby="continuous-slider"
-						min={1}
-						max={10}
-					/>
-				</SliderWithIcon>
-				<ListControlCheck
-					title="竖直排列"
-					icon="border_vertical"
-					checked={hStyle.array === "vertical"}
-					onCheckedChange={(statu) => {
-						if (statu) {
-							this.setState({
-								hStyle: {
-									size: hStyle.size,
-									array: "vertical",
-								},
-							});
-						} else {
-							this.setState({
-								hStyle: {
-									size: hStyle.size,
-									array: "transverse",
-								},
-							});
-						}
-					}}
-				/>
-				<br></br>
-				<ListControlCheck
-					icon="color_lens"
-					title="颜色反转"
-					checked={front.color === "#000000"}
-					onCheckedChange={(checked) => {
-						if (checked) {
-							this.setState({
-								front: {
-									color: "#000000",
-									backgroundColor: last.backgroundColor,
-								},
-								last: {
-									color: "#ffffff",
-									backgroundColor: "transparent",
-								},
-							});
-						} else {
-							this.setState({
-								front: {
-									color: "#ffffff",
-									backgroundColor: "transparent",
-								},
-								last: {
-									color: "#000000",
-									backgroundColor: front.backgroundColor,
-								},
-							});
-						}
-					}}
-				/>
-				<Button
-					icon="file_download"
-					title="下载"
-					onClick={() => {
-						// @ts-expect-error ts-migrate(2345) FIXME: Type 'null' is not assignable to type 'HTMLElement... Remove this comment to see the full error message
-						html2canvas(document.querySelector("#blackborad")).then(
-							(canvas) => {
-								let base64 = canvas.toDataURL("image/png");
-								saveFile({
-									file: base64,
-									type: "png",
-									filename: "ygktool-fake_pornhub_logo.png",
+				<List component={Paper}>
+					<SliderWithIcon title={"音量：" + hStyle.size}>
+						<Slider
+							value={hStyle.size}
+							onChange={(_, value) => {
+								this.setState({
+									hStyle: {
+										size: value,
+										array: hStyle.array,
+									},
 								});
-							}
-						);
-					}}
-					primary
-					raised
-				/>
+							}}
+							aria-labelledby="continuous-slider"
+							min={1}
+							max={10}
+						/>
+					</SliderWithIcon>
+					<ListItem>
+						<ListItemIcon>
+							<BorderVerticalIcon />
+						</ListItemIcon>
+						<ListItemText primary="竖直排列" />
+						<ListItemSecondaryAction>
+							<Switch
+								edge="end"
+								onChange={(e, statu) => {
+									if (statu) {
+										this.setState({
+											hStyle: {
+												size: hStyle.size,
+												array: "vertical",
+											},
+										});
+									} else {
+										this.setState({
+											hStyle: {
+												size: hStyle.size,
+												array: "transverse",
+											},
+										});
+									}
+								}}
+								checked={front.color === "#000000"}
+								inputProps={{
+									"aria-labelledby": "竖直排列",
+								}}
+							/>
+						</ListItemSecondaryAction>
+					</ListItem>
+					<ListItem>
+						<ListItemIcon>
+							<ColorLensIcon />
+						</ListItemIcon>
+						<ListItemText primary="颜色反转" />
+						<ListItemSecondaryAction>
+							<Switch
+								edge="end"
+								onChange={(e, checked) => {
+									if (checked) {
+										this.setState({
+											front: {
+												color: "#000000",
+												backgroundColor:
+													last.backgroundColor,
+											},
+											last: {
+												color: "#ffffff",
+												backgroundColor: "transparent",
+											},
+										});
+									} else {
+										this.setState({
+											front: {
+												color: "#ffffff",
+												backgroundColor: "transparent",
+											},
+											last: {
+												color: "#000000",
+												backgroundColor:
+													front.backgroundColor,
+											},
+										});
+									}
+								}}
+								checked={front.color === "#000000"}
+								inputProps={{
+									"aria-labelledby": "颜色反转",
+								}}
+							/>
+						</ListItemSecondaryAction>
+					</ListItem>
+					<Button
+						onClick={this.handleDownload}
+						color="primary"
+						variant="contained"
+					>
+						下载
+					</Button>
+				</List>
 			</>
 		);
 	}

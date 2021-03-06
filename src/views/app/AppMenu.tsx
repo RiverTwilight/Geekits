@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import fivkits from "../../utils/Services/fiv";
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
+import ButtonGroup from "@material-ui/core/ButtonGroup";
 import IconButton from "@material-ui/core/IconButton";
 import GitHubIcon from "@material-ui/icons/GitHub";
 import StarIcon from "@material-ui/icons/Star";
@@ -84,32 +85,35 @@ const AppMenu = ({
 	});
 	return (
 		<div className={classes.content}>
-			<IconButton
-				component="a"
-				href={`https://github.com/RiverTwilight/ygktool/tree/master/src/apps/${link}`}
-				aria-label="在Github上编辑此页面"
-			>
-				<GitHubIcon fontSize="inherit" />
-			</IconButton>
-			<IconButton onClick={handleFiv} aria-label="收藏">
-				{fiv ? <StarIcon /> : <StarBorderIcon />}
-			</IconButton>
-			<IconButton onClick={handleCode} aria-label="框架引用">
-				<CodeIcon fontSize="inherit" />
-			</IconButton>
-			{navigator.share && (
-				<IconButton onClick={handleShare} aria-label="分享">
-					<ShareIcon fontSize="inherit" />
+			<ButtonGroup aria-label="more options">
+				<IconButton
+					component="a"
+					href={`https://github.com/RiverTwilight/ygktool/tree/master/src/apps/${link}`}
+					aria-label="在Github上编辑此页面"
+				>
+					<GitHubIcon fontSize="inherit" />
 				</IconButton>
-			)}
-			<Button
-				className={classes.margin}
-				onClick={feedback}
-				variant="outlined"
-				aria-label="Send us feedback"
-			>
-				反馈
-			</Button>
+				<IconButton onClick={handleFiv} aria-label="收藏">
+					{fiv ? <StarIcon /> : <StarBorderIcon />}
+				</IconButton>
+				<IconButton onClick={handleCode} aria-label="框架引用">
+					<CodeIcon fontSize="inherit" />
+				</IconButton>
+				{navigator.share && (
+					<IconButton onClick={handleShare} aria-label="分享">
+						<ShareIcon fontSize="inherit" />
+					</IconButton>
+				)}
+				<Button
+					className={classes.margin}
+					onClick={feedback}
+					variant="outlined"
+					aria-label="Send us feedback"
+				>
+					反馈
+				</Button>
+			</ButtonGroup>
+
 			{showCode && (
 				<TextField
 					onClick={handleClickCode}
