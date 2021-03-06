@@ -1,36 +1,8 @@
 import * as React from "react";
-import { withStyles, createStyles, Theme } from "@material-ui/core/styles";
-import IconButton from "@material-ui/core/IconButton";
-import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import { dataURLtoFile, saveFile } from "../../utils/fileSaver";
 import { signListener, removeListener } from "./useDragListener";
-
-const styles = (theme: Theme) => {
-	return createStyles({
-		input: {
-			display: "none",
-		},
-		container: {
-			position: "absolute",
-			left: "50%",
-			top: "50%",
-			transform: "translate(-50%,-50%)",
-		},
-		button: {
-			background: theme.palette.primary.main,
-			"&:hover, &.Mui-focusVisible": {
-				backgroundColor: theme.palette.secondary.main,
-			},
-			width: "70px",
-			height: "70px",
-		},
-		icon: {
-			width: "40px",
-			height: "40px",
-			color: "white",
-		},
-	});
-};
+import CenteredStyle from "./CenteredStyle";
+import NormalStyle from "./NormalStyle";
 
 interface FRProps
 	extends Omit<
@@ -47,13 +19,13 @@ interface FRProps
 	): void;
 	fileType?: string;
 	webkitdirectory?: boolean;
+	template?: "normal" | "center";
 	/** 按钮标题
 	 * @default 'Auto detect'
 	 */
 	title?: string;
 	/** 是否监听拖拽文件事件 */
 	readbydrag?: boolean;
-	classes: any;
 	children?: React.ReactNode;
 }
 
@@ -90,7 +62,6 @@ class FileInput extends React.Component<FRProps, FRState> {
 		this.props.readbydrag && removeListener();
 	}
 	readFile(inputEvent?: any, dragEvent?: any) {
-		// console.log(arguments)
 		if (!inputEvent && !dragEvent) return null;
 		const { maxSize = 99999999, onFileUpload } = this.props;
 		const currentFileList = inputEvent
@@ -133,8 +104,8 @@ class FileInput extends React.Component<FRProps, FRState> {
 			fileType,
 			onFileUpload,
 			maxWidth = "120px",
-			classes,
 			children,
+			template,
 			...props
 		} = this.props;
 		var icon = "file_upload";
@@ -151,47 +122,21 @@ class FileInput extends React.Component<FRProps, FRState> {
 					icon = "folder";
 			}
 		}
+		const attrs = {
+			handleReadFile: this.readFile.bind(this),
+			fileType: fileType,
+		};
 		return (
-			<div className={classes.container}>
-				<input
-					accept={fileType}
-					id="contained-button-file"
-					multiple
-					onInput={this.readFile.bind(this)}
-					type="file"
-					className={classes.input}
-				/>
-				<label htmlFor="contained-button-file">
-					<IconButton
-						className={classes.button}
-						aria-label="upload picture"
-						component="span"
-					>
-						<PhotoCamera className={classes.icon} />
-					</IconButton>
-				</label>
-				{children}
-			</div>
-			// <button
-			// 	style={{ maxWidth: maxWidth }}
-			// 	className="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme"
-			// 	onClick={this.handleClick.bind(this)}
-			// >
-			// 	<i className="mdui-icon-left mdui-icon material-icons">
-			// 		{icon}
-			// 	</i>
-			// 	{this.state.btnText}
-			// </button>
-			// <input
-			// 	accept={fileType}
-			// 	type="file"
-			// 	style={{ display: "none" }}
-			// 	onInput={this.readFile.bind(this)}
-			// 	ref={(r) => (this.realInput = r)}
-			// 	{...props}
-			// />
+			<>
+				{
+					{
+						normal: <NormalStyle {...attrs} />,
+						center: <CenteredStyle {...attrs} />,
+					}[template || "normal"]
+				}
+			</>
 		);
 	}
 }
 
-export default withStyles(styles)(FileInput);
+export default FileInput;

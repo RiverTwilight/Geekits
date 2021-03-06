@@ -1,6 +1,9 @@
 import React from "react";
 import ProcessImg from "./engine";
-import { FileInput, RangeInput } from "mdui-in-react";
+import Slider from "@material-ui/core/Slider";
+import FileInput from "../../components/FileInput";
+import SliderWithIcon from "../../components/SliderWithIcon";
+import Button from "@material-ui/core/Button";
 
 type State = any;
 
@@ -33,18 +36,19 @@ class ImgCompress extends React.Component<{}, State> {
 					/>
 				</div>
 
-				<RangeInput
-					value={quality}
-					min="0.1"
-					max="1"
-					step="0.1"
-					onValueChange={(newValue) => {
-						this.setState({ quality: Number(newValue) });
-					}}
-					title={`压缩比率${quality * 100}%`}
-				/>
-
-				<button
+				<SliderWithIcon title={`压缩比率${quality * 100}%`}>
+					<Slider
+						value={quality}
+						onChange={(_, value) => {
+							this.setState({ quality: Number(value) });
+						}}
+						aria-labelledby="continuous-slider"
+						min={0.1}
+						max={1}
+						step={0.1}
+					/>
+				</SliderWithIcon>
+				<Button
 					onClick={() => {
 						ProcessImg(
 							file,
@@ -55,13 +59,16 @@ class ImgCompress extends React.Component<{}, State> {
 							type
 						);
 					}}
-					disabled={file === null}
-					className="mdui-fab mdui-color-theme mdui-fab-fixed"
+					disabled={!file}
+					variant="contained"
+					color="primary"
+					component="span"
 				>
-					<i className="mdui-icon material-icons">check</i>
-				</button>
-
-				<img alt="处理结果" src={res} className="mdui-img-fluid" />
+					压缩
+				</Button>
+				<br />
+				<br />
+				{res && <img alt="处理结果" src={res} />}
 			</>
 		);
 	}

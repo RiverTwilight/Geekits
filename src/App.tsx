@@ -127,7 +127,6 @@ export default withStyles(styles)(
 		any,
 		{
 			showLoginDialog: boolean;
-			rightDrawerContent: any;
 			LoginDialog: any;
 			LeftDrawerOpen: boolean;
 			anchorEl: null | HTMLElement;
@@ -141,7 +140,6 @@ export default withStyles(styles)(
 			this.state = {
 				LeftDrawerOpen: false,
 				showLoginDialog: false,
-				rightDrawerContent: null,
 				LoginDialog: null,
 				anchorEl: null,
 				loading: true,
@@ -196,7 +194,6 @@ export default withStyles(styles)(
 			const {
 				LeftDrawerOpen,
 				showLoginDialog,
-				rightDrawerContent,
 				LoginDialog,
 				loading,
 			} = this.state;
@@ -215,9 +212,6 @@ export default withStyles(styles)(
 									}}
 								/>
 							)}
-							{/* {rightDrawerContent && (
-						<RightDrawer content={rightDrawerContent} />
-					)} */}
 							<Header
 								handleLeftDrawerOpen={() => {
 									this.setState({

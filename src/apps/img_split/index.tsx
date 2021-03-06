@@ -169,6 +169,7 @@ class ImgSplit extends React.Component<any, UiState> {
 					fileType="image/*"
 					multiple={false}
 					readbydrag
+					template="center"
 					onFileUpload={(file) => {
 						this.setState({
 							file: file,
