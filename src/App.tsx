@@ -6,7 +6,6 @@ import RightDrawer from "./layout/RightDrawer";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import NoMatch from "./views/404";
 import loadable from "./utils/loading";
-import "./App.css";
 import {
 	createStyles,
 	Theme,
@@ -15,6 +14,7 @@ import {
 } from "@material-ui/core/styles";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Snackbar from "@material-ui/core/Snackbar";
+import "./App.css";
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -65,6 +65,10 @@ const RouterList: {
 		exact: true,
 	},
 	{
+		component: loadable(() => import("./views/discover")),
+		path: "/discover",
+	},
+	{
 		component: loadable(() => import("./views/setting")),
 		path: "/setting",
 	},
@@ -82,7 +86,7 @@ const AppBarRef = React.createRef<HTMLDivElement>();
 const GlobalSnackbar = () => {
 	const [openSnackbar, setOpenSnackbar] = useState(false);
 	const [snackbarConfig, setSnackbarConfig] = useState({
-		message: "adsfsdf",
+		message: "无消息",
 	});
 	useEffect(() => {
 		window.snackbar = (config) => {
@@ -220,8 +224,6 @@ export default withStyles(styles)(
 								}}
 								open={LeftDrawerOpen}
 								title={title}
-								// openLoginDialog={this.openLoginDialog}
-								// globalRefs={{ RightMenuBtnRef, AppBarRef }}
 							/>
 							<LeftDrawer
 								handleLoginOpen={this.openLoginDialog}

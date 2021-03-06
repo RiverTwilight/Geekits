@@ -1,5 +1,5 @@
-import loadable from "../../../utils/loading";
 import React from "react";
+import loadable from "../../../utils/loading";
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
 
 const UserRouterList = [

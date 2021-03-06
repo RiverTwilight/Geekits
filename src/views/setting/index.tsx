@@ -1,5 +1,6 @@
 import * as React from "react";
 import StyledMarkdown from "../../components/StyledMarkdown";
+import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import List from "@material-ui/core/List";
 import ListSubheader from "@material-ui/core/ListSubheader";
@@ -21,6 +22,7 @@ import EmojiFoodBeverageIcon from "@material-ui/icons/EmojiFoodBeverage";
 import PersonIcon from "@material-ui/icons/Person";
 import AssistantIcon from "@material-ui/icons/Assistant";
 import BrushSharpIcon from "@material-ui/icons/BrushSharp";
+import TwitterIcon from '@material-ui/icons/Twitter';
 import { blue } from "@material-ui/core/colors";
 
 const PrivacyPath = require("./privacy.md");
@@ -165,7 +167,7 @@ export default class Setting extends React.Component<
 			showTheme,
 		} = this.state;
 		return (
-			<>
+			<Grid sm={9}>
 				<Dialog
 					onClose={this.handleClose}
 					aria-labelledby="simple-dialog-title"
@@ -335,33 +337,52 @@ export default class Setting extends React.Component<
 					{[
 						{
 							onClick: this.handleShowPrivacy,
-							text: "用户协议",
+							primary: "用户协议",
 							Icon: <PersonIcon />,
 						},
 						{
 							onClick: this.handleShowDonation,
-							text: "捐赠",
+							primary: "捐赠",
 							Icon: <EmojiFoodBeverageIcon />,
 						},
 						{
 							onClick: () => {
-								window.open("");
+								window.open(
+									"https://jq.qq.com/?_wv=1027&amp;k=59hWPFs"
+								);
 							},
-							text: "加入群组",
+							primary: "加入群组",
 							Icon: <GroupIcon />,
 						},
-					].map(({ Icon, onClick, text }) => (
+						{
+							onClick: () => {
+								window.open(
+									"https://weibo.com/u/7561197296/home"
+								);
+							},
+							primary: "官方微博",
+							secondary: "关注获取开发动态和粉丝福利~",
+							Icon: <TwitterIcon />,
+						},
+					].map(({ Icon, onClick, primary, secondary }) => (
 						<ListItem button onClick={onClick}>
 							{Icon && <ListItemIcon>{Icon}</ListItemIcon>}
-							<ListItemText primary={text} />
+							<ListItemText
+								secondary={secondary}
+								primary={primary}
+							/>
 						</ListItem>
 					))}
 				</List>
 				<br />
-				<Typography variant="body2" color="textSecondary" align="center">
+				<Typography
+					variant="body2"
+					color="textSecondary"
+					align="center"
+				>
 					© 2019 - 2021 RiverTwilight
 				</Typography>
-			</>
+			</Grid>
 		);
 	}
 }
