@@ -81,6 +81,7 @@ const FakeLogo = ({ hStyle, frontStyle, lastStyle }: any) => {
 
 type UiState = any;
 
+// TODO 无法保存 via\QQ
 export default class FakePornhubLogo extends React.Component<{}, UiState> {
 	inputRef: any;
 	constructor(props: {}) {

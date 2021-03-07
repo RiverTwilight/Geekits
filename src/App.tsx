@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Header from "./layout/Header";
 import LeftDrawer from "./layout/LeftDrawer";
-import RightDrawer from "./layout/RightDrawer";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import NoMatch from "./views/404";
 import loadable from "./utils/loading";
@@ -78,7 +77,7 @@ const RouterList: {
 	},
 ];
 
-const AppBarRef = React.createRef<HTMLDivElement>();
+// const AppBarRef = React.createRef<HTMLDivElement>();
 
 /**
  * 全局snackbar
@@ -151,8 +150,6 @@ export default withStyles(styles)(
 			};
 		}
 		componentDidMount() {
-			const { loading } = this;
-
 			window.loadShow = () => {
 				window.loadingDelay = setTimeout(() => {
 					this.setState({
@@ -199,7 +196,6 @@ export default withStyles(styles)(
 				LeftDrawerOpen,
 				showLoginDialog,
 				LoginDialog,
-				loading,
 			} = this.state;
 			return (
 				<>
@@ -227,12 +223,6 @@ export default withStyles(styles)(
 							/>
 							<LeftDrawer
 								handleLoginOpen={this.openLoginDialog}
-								handleDrawerClose={() => {
-									this.setState({
-										LeftDrawerOpen: false,
-									});
-								}}
-								open={LeftDrawerOpen}
 							/>
 							<main className={classes.content}>
 								<Switch>

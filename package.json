@@ -50,6 +50,7 @@
 		"test": "react-scripts test --env=jsdom",
 		"newApp": "bash scripts/newApp.sh",
 		"eject": "react-scripts eject",
+		"originStart": "react-scripts start",
 		"dev": "npm-link-shared ./node_modules/mdui-in-react/node_modules . react && npm start"
 	},
 	"eslintConfig": {

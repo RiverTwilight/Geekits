@@ -23,7 +23,13 @@ const useStyles = makeStyles((theme: Theme) => {
 	});
 });
 
-const NormalStyle = ({ fileType, handleReadFile }: any) => {
+const NormalStyle = ({
+	fileType,
+	text,
+	icon,
+	handleReadFile,
+	...others
+}: any) => {
 	const classes = useStyles();
 	return (
 		<div className={classes.container}>
@@ -34,6 +40,7 @@ const NormalStyle = ({ fileType, handleReadFile }: any) => {
 				onInput={handleReadFile}
 				type="file"
 				className={classes.input}
+				{...others}
 			/>
 			<label htmlFor="contained-button-file">
 				<Button
@@ -42,8 +49,9 @@ const NormalStyle = ({ fileType, handleReadFile }: any) => {
 					variant="contained"
 					color="primary"
 					component="span"
+					startIcon={icon}
 				>
-					上传文件
+					{text}
 				</Button>
 			</label>
 		</div>

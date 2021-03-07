@@ -134,16 +134,13 @@ const User = ({ handleLogin }: any) => {
 	);
 };
 
-const LeftDrawer = (props: {
-	handleLoginOpen: () => void;
-	handleDrawerClose: () => void;
-	open: boolean;
-}) => {
-	const { handleDrawerClose, open, handleLoginOpen } = props;
+const LeftDrawer = (props: { handleLoginOpen: () => void }) => {
+	const { handleLoginOpen } = props;
+	const [open, setOpen] = React.useState(false);
 	const classes = useStyles();
 	const theme = useTheme();
 	const handleClick = () => {
-		window.innerWidth <= 1024 && handleDrawerClose();
+		window.innerWidth <= 1024 && setOpen(false);
 	};
 
 	const Warpper = (props: {
@@ -195,7 +192,7 @@ const LeftDrawer = (props: {
 					variant="temporary"
 					anchor={theme.direction === "rtl" ? "right" : "left"}
 					open={open}
-					onClose={handleDrawerClose}
+					onClose={() => setOpen(false)}
 					classes={{
 						paper: classes.drawerPaper,
 					}}

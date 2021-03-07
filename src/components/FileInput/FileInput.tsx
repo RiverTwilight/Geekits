@@ -3,7 +3,11 @@ import { dataURLtoFile, saveFile } from "../../utils/fileSaver";
 import { signListener, removeListener } from "./useDragListener";
 import CenteredStyle from "./CenteredStyle";
 import NormalStyle from "./NormalStyle";
+import FolderIcon from "@material-ui/icons/Folder";
+import VideocamIcon from "@material-ui/icons/Videocam";
+import ImageIcon from "@material-ui/icons/Image";
 
+import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 interface FRProps
 	extends Omit<
 		React.InputHTMLAttributes<HTMLInputElement>,
@@ -55,13 +59,13 @@ class FileInput extends React.Component<FRProps, FRState> {
 		this.props.readbydrag &&
 			signListener(
 				() => {},
-				(e: any) => this.readFile(null, e)
+				(e: any) => this.handleReadFile(null, e)
 			);
 	}
 	componentWillUnmount() {
 		this.props.readbydrag && removeListener();
 	}
-	readFile(inputEvent?: any, dragEvent?: any) {
+	handleReadFile(inputEvent?: any, dragEvent?: any) {
 		if (!inputEvent && !dragEvent) return null;
 		const { maxSize = 99999999, onFileUpload } = this.props;
 		const currentFileList = inputEvent
@@ -108,30 +112,39 @@ class FileInput extends React.Component<FRProps, FRState> {
 			template,
 			...props
 		} = this.props;
-		var icon = "file_upload";
+		const { btnText } = this.state;
+		var icon = <CloudUploadIcon />;
 		if (fileType) {
 			let execArr = fileType.match(/^(\S+)\/\S+$/);
 			switch (execArr && execArr[1]) {
 				case "image":
-					icon = "image";
+					icon = <ImageIcon />;
 					break;
 				case "video":
-					icon = "videocam";
+					icon = <VideocamIcon />;
 					break;
 				default:
-					icon = "folder";
+					icon = <FolderIcon />;
 			}
 		}
-		const attrs = {
-			handleReadFile: this.readFile.bind(this),
-			fileType: fileType,
-		};
 		return (
 			<>
 				{
 					{
-						normal: <NormalStyle {...attrs} />,
-						center: <CenteredStyle {...attrs} />,
+						normal: (
+							<NormalStyle
+								text={btnText}
+								icon={icon}
+								{...this.props}
+							/>
+						),
+						center: (
+							<CenteredStyle
+								text={btnText}
+								icon={icon}
+								{...this.props}
+							/>
+						),
 					}[template || "normal"]
 				}
 			</>
