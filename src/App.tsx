@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Header from "./layout/Header";
-import LeftDrawer from "./layout/LeftDrawer";
+import Header from "./components/Header";
+import LeftDrawer from "./components/LeftDrawer";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import NoMatch from "./views/404";
 import loadable from "./utils/loading";
@@ -177,7 +177,7 @@ export default withStyles(styles)(
 				this.setState({
 					LoginDialog:
 						!LoginDialog &&
-						loadable(() => import("./layout/LoginDialog")),
+						loadable(() => import("./components/LoginDialog")),
 				});
 			}
 			this.setState({

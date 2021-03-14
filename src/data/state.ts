@@ -1,7 +1,6 @@
 import { createStore } from "redux";
 
 function drawerReducer(state = { value: false }, action: { type: any }) {
-    console.log(action.type)
 	switch (action.type) {
 		case "drawer/opened":
 			return { value: true };
@@ -19,8 +18,6 @@ let store = createStore(drawerReducer);
 // 		type: state ? "drawer/opened" : "drawer/closed",
 // 	};
 // };
-
-store.subscribe(() => console.log(store.getState()))
 
 // const openDrawer = () => store.dispatch(switchDrawer(true));
 // const closeDrawer = () => store.dispatch(switchDrawer(false));

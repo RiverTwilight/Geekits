@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 // @ts-expect-error ts-migrate(2691) FIXME: An import path cannot end with a '.tsx' extension.... Remove this comment to see the full error message
-import Template from "../../layout/EnquireTemplate.tsx";
+import Template from "../../components/EnquireTemplate.tsx";
 
 import { ToTop } from "mdui-in-react";
 

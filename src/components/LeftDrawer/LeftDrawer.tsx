@@ -22,7 +22,7 @@ import SettingsIcon from "@material-ui/icons/Settings";
 import GitHubIcon from "@material-ui/icons/GitHub";
 import { green, red, blue } from "@material-ui/core/colors";
 import AppsIcon from "@material-ui/icons/Apps";
-import { store } from "../../data/state/drawer";
+import { store } from "../../data/state";
 
 const list = [
 	{

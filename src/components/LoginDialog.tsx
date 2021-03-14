@@ -2,7 +2,7 @@ import React from "react";
 import Axios from "../utils/axios";
 import { MD5 } from "crypto-js";
 import { setUserInfo } from "../utils/Services/UserInfo";
-import SendCode from "../components/SendCode";
+import SendCode from "./SendCode";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";

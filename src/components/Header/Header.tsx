@@ -8,7 +8,7 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuTwoToneIcon from "@material-ui/icons/MenuTwoTone";
 import useScrollTrigger from "@material-ui/core/useScrollTrigger";
 import clsx from "clsx";
-import { store } from "../../data/state/drawer";
+import { store } from "../../data/state";
 
 function ElevationScroll(props: Props) {
 	const { children } = props;

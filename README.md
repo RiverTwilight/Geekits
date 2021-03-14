@@ -20,7 +20,7 @@
 
 由于开发者学业繁忙，本项目十分需要贡献者！
 
-**本项目采用开发+部署的分支策略(master + dev)，master 分支将自动部署到网站正式地址。**
+**本项目采用开发+部署的分支策略(master + v2)，master 分支将自动部署到网站正式地址。**
 
 你可以使用 Gitpod 进行在线开发：
 
@@ -31,6 +31,7 @@
 ```bash
 $ git clone git@github.com:rivertwilight/ygktool.git
 $ cd ygktool
+$ git checkout v2
 $ npm install
 $ npm start
 ```
@@ -50,8 +51,6 @@ src
   └── utils工具函数
 
   └── svg
-
-  └── layout布局组件
 
   └── data数据
 
@@ -109,11 +108,6 @@ bash scripts/newApp.sh
 ### 常见问题
 
 <details>
-  <summary>可以安装新的npm包吗？</summary>
-  如果需求不是很大建议一个 js 文件搞定。
-</details>
-
-<details>
   <summary>可不可以增加某某工具？</summary>
   只要不违反法律法规我们欢迎你添加任何工具，但请不要使用`\<iframe\>`引用其他网站或者添加简单无太大意义的工具。
 </details>
@@ -157,7 +151,6 @@ config.resolve.alias = {
 ### 备注
 
 -   请勿改动网站的统计代码
--   请勿随意修改[关于页面](src\views\about.tsx)信息。
 -   我们曾使用`ts-migrate`来将网站转换为 100% TypeScript
 
 ## License

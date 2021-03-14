@@ -99,7 +99,7 @@ const AppMenu = ({
 				<IconButton onClick={handleCode} aria-label="框架引用">
 					<CodeIcon fontSize="inherit" />
 				</IconButton>
-				{navigator.share() && (
+				{typeof(navigator.share) != "undefined" && (
 					<IconButton onClick={handleShare} aria-label="分享">
 						<ShareIcon fontSize="inherit" />
 					</IconButton>

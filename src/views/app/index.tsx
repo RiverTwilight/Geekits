@@ -2,7 +2,7 @@ import React from "react";
 import getInfo from "../../utils/appinfo";
 import AppMenu from "./AppMenu";
 import Loadable from "../../utils/loading";
-import RightDrawer from "../../layout/RightDrawer";
+import RightDrawer from "../../components/RightDrawer";
 import HelpTwoToneIcon from "@material-ui/icons/HelpTwoTone";
 import IconButton from "@material-ui/core/IconButton";
 import {
@@ -93,7 +93,7 @@ class AppContainer extends React.Component<any, any> {
 			this.setState({
 				FeedbackComp:
 					!FeedbackComp &&
-					Loadable(() => import("../../layout/FeedbackComp")),
+					Loadable(() => import("../../components/FeedbackComp")),
 			});
 		}
 		this.setState({

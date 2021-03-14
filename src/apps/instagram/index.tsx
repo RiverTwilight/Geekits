@@ -1,7 +1,7 @@
 import React from "react";
 import ClipboardJS from "clipboard";
 import { snackbar } from "mdui";
-import Template from "../../layout/EnquireTemplate";
+import Template from "../../components/EnquireTemplate";
 
 class Result extends React.Component {
 	componentDidMount() {

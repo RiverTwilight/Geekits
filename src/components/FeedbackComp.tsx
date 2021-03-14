@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Dialog from "../components/Dialog";
+import Dialog from "./Dialog";
 import { Input, Button } from "mdui-in-react";
 import html2canvas from "html2canvas";
 
