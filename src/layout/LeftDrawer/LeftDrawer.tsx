@@ -22,6 +22,7 @@ import SettingsIcon from "@material-ui/icons/Settings";
 import GitHubIcon from "@material-ui/icons/GitHub";
 import { green, red, blue } from "@material-ui/core/colors";
 import AppsIcon from "@material-ui/icons/Apps";
+import { store } from "../../data/state/drawer";
 
 const list = [
 	{
@@ -134,6 +135,8 @@ const User = ({ handleLogin }: any) => {
 	);
 };
 
+// REBUILD Use redux manage state
+
 const LeftDrawer = (props: { handleLoginOpen: () => void }) => {
 	const { handleLoginOpen } = props;
 	const [open, setOpen] = React.useState(false);
@@ -142,6 +145,8 @@ const LeftDrawer = (props: { handleLoginOpen: () => void }) => {
 	const handleClick = () => {
 		window.innerWidth <= 1024 && setOpen(false);
 	};
+
+	store.subscribe(() => setOpen(store.getState().value));
 
 	const Warpper = (props: {
 		a: { link: string; text: string; Icon: any };
@@ -192,7 +197,7 @@ const LeftDrawer = (props: { handleLoginOpen: () => void }) => {
 					variant="temporary"
 					anchor={theme.direction === "rtl" ? "right" : "left"}
 					open={open}
-					onClose={() => setOpen(false)}
+					onClose={() => store.dispatch({ type: "drawer/closed" })}
 					classes={{
 						paper: classes.drawerPaper,
 					}}
