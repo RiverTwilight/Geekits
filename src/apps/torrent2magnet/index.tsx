@@ -1,5 +1,6 @@
 import React from "react";
-import { FileInput } from "mdui-in-react";
+import FileInput from "../../components/FileInput";
+
 
 // TODO 种子转磁链
 

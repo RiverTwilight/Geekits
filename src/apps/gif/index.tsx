@@ -1,6 +1,7 @@
 import React from "react";
 import GIF from "gif.js";
-import { FileInput, BottomAlert } from "mdui-in-react";
+import { BottomAlert } from "mdui-in-react";
+import FileInput from "../../components/FileInput";
 
 type FormComp = {
 	name: string;

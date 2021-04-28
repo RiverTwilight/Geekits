@@ -3,7 +3,7 @@ import React from "react";
 import SuperGif from "libgif";
 import JSZip from "jszip";
 import saveFile from "../../utils/fileSaver";
-import { FileInput } from "mdui-in-react";
+import FileInput from "../../components/FileInput";
 import "./style.css";
 
 function dataURLtoFile(dataurl: any, filename: any) {

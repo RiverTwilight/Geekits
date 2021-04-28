@@ -1,6 +1,7 @@
 import React from "react";
 import { snackbar } from "mdui";
-import { FileInput, Button } from "mdui-in-react";
+import FileInput from "../../components/FileInput";
+import { Button } from "mdui-in-react";
 import "./caption.css";
 
 class captionMosaic {

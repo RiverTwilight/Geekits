@@ -3,11 +3,12 @@ import { dataURLtoFile, saveFile } from "../../utils/fileSaver";
 import { signListener, removeListener } from "./useDragListener";
 import CenteredStyle from "./CenteredStyle";
 import NormalStyle from "./NormalStyle";
+
 import FolderIcon from "@material-ui/icons/Folder";
 import VideocamIcon from "@material-ui/icons/Videocam";
 import ImageIcon from "@material-ui/icons/Image";
-
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
+
 interface FRProps
 	extends Omit<
 		React.InputHTMLAttributes<HTMLInputElement>,

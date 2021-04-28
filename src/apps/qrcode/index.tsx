@@ -8,8 +8,8 @@ import {
 	ListControlMenu,
 	ColorPicker,
 	RangeInput,
-	FileInput,
 } from "mdui-in-react";
+import FileInput from "../../components/FileInput";
 
 const create = (opts: any, text: any, callback: any, iconData: any) => {
 	// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'url' implicitly has an 'any' type.

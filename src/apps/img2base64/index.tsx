@@ -1,7 +1,8 @@
 import React from "react";
 import ClipboardJS from "clipboard";
 import { snackbar } from "mdui";
-import { FileInput } from "mdui-in-react";
+import FileInput from "../../components/FileInput";
+
 
 type State = any;
 

@@ -7,8 +7,8 @@ import io from "socket.io-client";
 // @ts-expect-error ts-migrate(7016) FIXME: Try `npm install @types/qrcode` if it exists or ad... Remove this comment to see the full error message
 import QRCode from "qrcode";
 import saveFile from "../../utils/fileSaver";
-import { FileInput } from "mdui-in-react";
 import { Input, Button } from "mdui-in-react";
+import FileInput from "../../components/FileInput";
 
 const Share = ({ qrcode, token }: any) => (
 	<>

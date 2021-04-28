@@ -1,8 +1,9 @@
 import React from "react";
 import ClipboardJS from "clipboard";
-import { RangeInput, FileInput, Button } from "mdui-in-react";
+import { RangeInput, Button } from "mdui-in-react";
 import { snackbar } from "mdui";
 import Cursor from "../../svg/position.svg";
+import FileInput from "../../components/FileInput";
 
 //调色盘
 const ColorLens = ({ onChange, rgb, isHide }: any) => {
