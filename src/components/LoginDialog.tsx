@@ -21,7 +21,7 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
-import { setCookie } from "@rivertwilight/cookies";
+import { setCookie } from "../utils/cookies";
 
 class Login extends React.Component<
 	{},
