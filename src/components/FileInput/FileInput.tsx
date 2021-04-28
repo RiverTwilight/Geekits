@@ -16,7 +16,7 @@ interface FRProps
 	/** 按钮宽度 */
 	maxWidth?: string;
 	maxSize?: number;
-	onFileUpload?(
+	handleFileUpload?(
 		base64: any,
 		file: File | null,
 		fileList: FileList | null
@@ -67,11 +67,11 @@ class FileInput extends React.Component<FRProps, FRState> {
 	}
 	handleReadFile(inputEvent?: any, dragEvent?: any) {
 		if (!inputEvent && !dragEvent) return null;
-		const { maxSize = 99999999, onFileUpload } = this.props;
+		const { maxSize = 99999999, handleFileUpload } = this.props;
 		const currentFileList = inputEvent
 			? inputEvent.target.files
 			: dragEvent.dataTransfer.files;
-
+debugger
 		this.setState({
 			btnText:
 				currentFileList.length < 2
@@ -80,7 +80,7 @@ class FileInput extends React.Component<FRProps, FRState> {
 		});
 
 		if (this.props.webkitdirectory) {
-			onFileUpload && onFileUpload(null, null, currentFileList);
+			handleFileUpload && handleFileUpload(null, null, currentFileList);
 			return;
 		}
 
@@ -94,9 +94,9 @@ class FileInput extends React.Component<FRProps, FRState> {
 				var freader = new FileReader();
 				freader.readAsDataURL(file);
 				freader.onload = (fe) => {
-					onFileUpload &&
+					handleFileUpload &&
 						fe.target &&
-						onFileUpload(fe.target.result, file, currentFileList);
+						handleFileUpload(fe.target.result, file, currentFileList);
 					// this.realInput.value = null;
 				};
 			}
@@ -106,7 +106,7 @@ class FileInput extends React.Component<FRProps, FRState> {
 		const {
 			webkitdirectory,
 			fileType,
-			onFileUpload,
+			handleFileUpload,
 			maxWidth = "120px",
 			children,
 			template,

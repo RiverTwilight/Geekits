@@ -338,7 +338,7 @@ class Clipboard extends React.Component<{}, ComponentState> {
 							maxSize={3 * 1024 * 1024}
 							readbydrag
 							fileType="*/*"
-							onFileUpload={(dataUrl, file) => {
+							handleFileUpload={(dataUrl, file) => {
 								this.setState({
 									fileData: {
 										// @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.

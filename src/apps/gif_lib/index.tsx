@@ -68,7 +68,7 @@ class Giflib extends React.Component<{}, UiState> {
 					<FileInput
 						fileType="image/gif"
 						readbydrag
-						onFileUpload={(file) => {
+						handleFileUpload={(file) => {
 							this.setState(
 								{
 									rub: null,

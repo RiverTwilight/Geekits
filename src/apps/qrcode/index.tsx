@@ -220,7 +220,7 @@ class Qrcode extends React.Component<{}, QrcodeState> {
 						fileType="image/*"
 						// @ts-expect-error ts-migrate(2769) FIXME: Property 'file' does not exist on type 'IntrinsicA... Remove this comment to see the full error message
 						file={icon}
-						onFileUpload={(file) => {
+						handleFileUpload={(file) => {
 							this.setState({
 								icon: file,
 							});

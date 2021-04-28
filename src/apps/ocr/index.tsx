@@ -232,9 +232,8 @@ export default class extends React.Component<{}, ComponentState> {
 							<FileInput
 								readbydrag
 								fileType="image/*"
-								onFileUpload={(file, fileObj) => {
+								handleFileUpload={(file, fileObj) => {
 									const cb = this.handleFileUpdate.bind(this);
-									// @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
 									if (fileObj.size >= 1.4 * 1024 * 1024) {
 										ImgCompress(file, 0.1, cb);
 										//cb(file)

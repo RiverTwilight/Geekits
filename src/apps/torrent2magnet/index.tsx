@@ -21,7 +21,7 @@ class Torrent2Magnet extends React.Component<{}, State> {
 					<FileInput
 						readbydrag
 						fileType="application/x-bittorrent"
-						onFileUpload={(data, file) => {
+						handleFileUpload={(data, file) => {
 							this.setState({
 								file: data,
 								// @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.

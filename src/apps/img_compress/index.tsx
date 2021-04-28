@@ -25,7 +25,7 @@ class ImgCompress extends React.Component<{}, State> {
 					<FileInput
 						readbydrag
 						fileType="image/*"
-						onFileUpload={(data, file) => {
+						handleFileUpload={(data, file) => {
 							this.setState({
 								file: data,
 								// @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.

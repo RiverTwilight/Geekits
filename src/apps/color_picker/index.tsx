@@ -225,7 +225,7 @@ export default class ColorPicker extends React.Component<{}, ComponentState> {
 					<FileInput
 						readbydrag
 						fileType="image/*"
-						onFileUpload={(file) => {
+						handleFileUpload={(file) => {
 							this.setState(
 								{
 									imgFile: file,

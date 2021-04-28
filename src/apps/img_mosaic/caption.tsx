@@ -386,7 +386,7 @@ export default class extends React.Component<{}, ComponentState> {
 					<FileInput
 						fileType="image/*"
 						multiple={true}
-						onFileUpload={(file) => {
+						handleFileUpload={(file) => {
 							assets.push({
 								img: file,
 								top:
@@ -404,7 +404,7 @@ export default class extends React.Component<{}, ComponentState> {
 
 					<FileInput
 						fileType="video/*"
-						onFileUpload={(file) => {
+						handleFileUpload={(file) => {
 							this.setState({ video: file });
 						}}
 						title="截取视频"

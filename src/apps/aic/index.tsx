@@ -10,6 +10,8 @@ import Typography from '@material-ui/core/Typography';
 import axios from "../../utils/axios";
 import Cropper from "../../utils/Cropper";
 import ImgCompress from "../img_compress/engine";
+import FileInput from "../../components/FileInput";
+import Drawer from '@material-ui/core/Drawer';
 
 // TODO 快速保存到便签
 // FIXME 打开错误
@@ -127,21 +129,55 @@ class AIC extends React.Component<{}, AICState> {
 						<CardMedia
 
 							image={image}
-							title="Contemplative Reptile"
+							title="预览"
 						/>
 						<CardContent>
 
 						</CardContent>
 					</CardActionArea>
 					<CardActions>
-						<Button color="primary">
+						{image && <Button onClick={() => {
+							this.setState({
+								ifShowCropper: true,
+								image: defaultImage,
+							});
+						}} color="primary">
 							重新裁剪
-        </Button>
-						<Button color="primary">
+        </Button>}
+						<FileInput
+							fileType="image/*"
+							readbydrag
+							handleFileUpload={(file, fileObj) => {
+								console.log(fileObj, 1);
+								const cb = this.handleFileUpdate.bind(this);
+								// @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
+								if (fileObj.size >= 1.4 * 1024 * 1024) {
+									ImgCompress(file, 0.1, cb);
+									//cb(file)
+								} else {
+									cb(file);
+								}
+							}}
+						/>
+						<Button onClick={() => {
+							image && this.loadDataFromServer();
+						}} color="primary">
 							识别
         </Button>
 					</CardActions>
 				</Card>
+				<Drawer anchor="bottom" open={ifShowCropper}>
+					<Cropper
+						ifShow={ifShowCropper}
+						img={image}
+						onClose={() => {
+							this.setState({ ifShowCropper: false });
+						}}
+						onConfirm={(img: any) => {
+							this.setState({ ifShowCropper: false, image: img });
+						}}
+					/>
+				</Drawer>
 				{/* <div style={{ display: ifShowCropper ? "none" : "block" }}>
 					<div className="mdui-shadow-0 mdui-card">
 						<div className="mdui-card-content">
@@ -184,21 +220,7 @@ class AIC extends React.Component<{}, AICState> {
 								重新裁剪
 							</button>
 
-							<FileInput
-								fileType="image/*"
-								readbydrag
-								onFileUpload={(file, fileObj) => {
-									console.log(fileObj);
-									const cb = this.handleFileUpdate.bind(this);
-									// @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
-									if (fileObj.size >= 1.4 * 1024 * 1024) {
-										ImgCompress(file, 0.1, cb);
-										//cb(file)
-									} else {
-										cb(file);
-									}
-								}}
-							/>
+						
 
 							<button
 								onClick={() => {
@@ -226,16 +248,7 @@ class AIC extends React.Component<{}, AICState> {
 					<Result result={data} />
 				</BottomAlert>
 
-				<Cropper
-					ifShow={ifShowCropper}
-					img={image}
-					onClose={() => {
-						this.setState({ ifShowCropper: false });
-					}}
-					onConfirm={(img: any) => {
-						this.setState({ ifShowCropper: false, image: img });
-					}}
-				/> */}
+			*/}
 			</>
 		);
 	}
