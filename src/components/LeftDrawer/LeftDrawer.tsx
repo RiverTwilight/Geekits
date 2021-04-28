@@ -77,6 +77,15 @@ const useStyles = makeStyles((theme: Theme) =>
 		drawerPaper: {
 			width: drawerWidth,
 		},
+		hoverBlur: {
+			[theme.breakpoints.up('sm')]: {
+				transition: "filter .3s",
+				filter: "blur(5px)",
+				'&:hover': {
+					filter: "blur(0)"
+				}
+			}
+		}
 	})
 );
 
@@ -91,12 +100,12 @@ const User = ({ handleLogin }: any) => {
 	}, [handleLogin]);
 	const attr = user
 		? {
-				to: "/user",
-				component: Link,
-		  }
+			to: "/user",
+			component: Link,
+		}
 		: {
-				onClick: handleLogin,
-		  };
+			onClick: handleLogin,
+		};
 	return (
 		<>
 			{/** //@ts-expect-error */}
@@ -154,16 +163,16 @@ const LeftDrawer = (props: { handleLoginOpen: () => void }) => {
 		let { link, text, Icon } = props.a;
 		const attr = link.match(/(http|https)/)
 			? {
-					href: link,
-					component: "a",
-			  }
+				href: link,
+				component: "a",
+			}
 			: {
-					activeClassName: "Mui-selected",
-					component: NavLink,
-					to: link,
-					onClick: handleClick,
-					exact: true,
-			  };
+				activeClassName: "Mui-selected",
+				component: NavLink,
+				to: link,
+				onClick: handleClick,
+				exact: true,
+			};
 		return (
 			<ListItem button key={text} {...attr}>
 				<ListItemIcon>{Icon}</ListItemIcon>
@@ -182,7 +191,7 @@ const LeftDrawer = (props: { handleLoginOpen: () => void }) => {
 				/>
 			</div>
 			<Divider />
-			<List>
+			<List className={classes.hoverBlur}>
 				{list.map((item) => (
 					<Warpper key={item.link} a={item} />
 				))}
