@@ -28,6 +28,7 @@ const AppListItem = ({
 	description,
 	selected,
 }: any) => {
+	const classes = useStyles();
 	const attr =
 		channel === 5
 			? {
@@ -41,7 +42,7 @@ const AppListItem = ({
 					to: "/app/" + link,
 			  };
 	return (
-		<ListItem selected={selected} button key={name} {...attr}>
+		<ListItem className={classes.appItem} selected={selected} button key={name} {...attr}>
 			{/* <ListItemIcon>{Icon}</ListItemIcon> */}
 			<ListItemText inset primary={name} secondary={description} />
 		</ListItem>
@@ -57,6 +58,9 @@ const useStyles = makeStyles((theme: Theme) =>
 		nested: {
 			paddingLeft: theme.spacing(4),
 		},
+		appItem: {
+			height: "100px"
+		}
 	})
 );
 
