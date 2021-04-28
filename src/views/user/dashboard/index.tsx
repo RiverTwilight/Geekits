@@ -1,6 +1,7 @@
 import React from "react";
 import loadable from "../../../utils/loading";
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
+import Grid from "@material-ui/core/Grid";
 
 const UserRouterList = [
 	{
@@ -25,6 +26,7 @@ const UserRouterList = [
 	},
 ];
 // TODO 优化排版
+// REBUILD 用户中心
 export default class UserDashboard extends React.PureComponent {
 	render() {
 		return (
