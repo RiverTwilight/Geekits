@@ -32,15 +32,15 @@ const AppListItem = ({
 	const attr =
 		channel === 5
 			? {
-					href: link,
-					target: "_blank",
-					component: "a",
-					rel: "noopener noreferrer",
-			  }
+				href: link,
+				target: "_blank",
+				component: "a",
+				rel: "noopener noreferrer",
+			}
 			: {
-					component: Link,
-					to: "/app/" + link,
-			  };
+				component: Link,
+				to: "/app/" + link,
+			};
 	return (
 		<ListItem className={classes.appItem} selected={selected} button key={name} {...attr}>
 			{/* <ListItemIcon>{Icon}</ListItemIcon> */}
@@ -58,8 +58,10 @@ const useStyles = makeStyles((theme: Theme) =>
 		nested: {
 			paddingLeft: theme.spacing(4),
 		},
-		appItem: {
-			height: "100px"
+		[theme.breakpoints.up('sm')]: {
+			appItem: {
+				height: "100px"
+			}
 		}
 	})
 );
