@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, withRouter } from "react-router-dom";
 import { getUserInfo } from "../../utils/Services/UserInfo";
 import Divider from "@material-ui/core/Divider";
 import Drawer from "@material-ui/core/Drawer";
@@ -23,6 +23,7 @@ import GitHubIcon from "@material-ui/icons/GitHub";
 import { green, red, blue } from "@material-ui/core/colors";
 import AppsIcon from "@material-ui/icons/Apps";
 import { store } from "../../data/state";
+import clsx from "clsx";
 
 const list = [
 	{
@@ -146,11 +147,18 @@ const User = ({ handleLogin }: any) => {
 
 // REBUILD Use redux manage state
 
-const LeftDrawer = (props: { handleLoginOpen: () => void }) => {
-	const { handleLoginOpen } = props;
+interface IProps { history: any, handleLoginOpen: () => void };
+
+const LeftDrawer = (props: IProps) => {
+	const { handleLoginOpen, history } = props;
+
+	const testBlur = () => /(\S+)\/app\/\S+/.test(window.location.href)
+
 	const [open, setOpen] = React.useState(false);
+	const [isBlur, setIsBlur] = React.useState(testBlur());
 	const classes = useStyles();
 	const theme = useTheme();
+
 	const handleClick = () => {
 		window.innerWidth <= 1024 && setOpen(false);
 	};
@@ -191,13 +199,18 @@ const LeftDrawer = (props: { handleLoginOpen: () => void }) => {
 				/>
 			</div>
 			<Divider />
-			<List className={classes.hoverBlur}>
+			<List className={clsx({ [classes.hoverBlur]: isBlur })}>
 				{list.map((item) => (
 					<Warpper key={item.link} a={item} />
 				))}
 			</List>
 		</>
 	);
+
+	history.listen(() => {
+		setIsBlur(testBlur());
+	});
+
 	return (
 		<nav className={classes.drawer} aria-label="left drawer">
 			{/* The implementation can be swapped with js to avoid SEO duplication of links. */}
@@ -232,4 +245,5 @@ const LeftDrawer = (props: { handleLoginOpen: () => void }) => {
 	);
 };
 
-export default LeftDrawer;
+//@ts-expect-error
+export default withRouter<IProps>(LeftDrawer);
