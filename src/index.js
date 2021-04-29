@@ -6,42 +6,45 @@ import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import reportWebVitals from "./reportWebVitals";
 import "./index.css";
 import { ThemeProvider } from "@material-ui/core/styles";
+import UserContextProvider from "./components/UserContextProvider";
 import theme from "./utils/theme";
 
 /**
  * 初始化设置
  */
 !localStorage.setting &&
-	localStorage.setItem(
-		"setting",
-		JSON.stringify({
-			theme: 0,
-			hitokotoTopic: 0,
-		})
-	);
+    localStorage.setItem(
+        "setting",
+        JSON.stringify({
+            theme: 0,
+            hitokotoTopic: 0,
+        })
+    );
 
 const preferTheme = localStorage.setting
-	? JSON.parse(localStorage.setting).theme
-	: 0;
+    ? JSON.parse(localStorage.setting).theme
+    : 0;
 
 var darkTheme = false;
 
 /** 此逻辑兼容性最好 */
 if (preferTheme === 0 && window.matchMedia) {
-	darkTheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    darkTheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
 } else {
-	darkTheme = preferTheme === 2;
+    darkTheme = preferTheme === 2;
 }
 
 ReactDOM.render(
-	<ThemeProvider
-		theme={theme({
-			darkTheme,
-		})}
-	>
-		<App />
-	</ThemeProvider>,
-	document.getElementById("root")
+    <ThemeProvider
+        theme={theme({
+            darkTheme,
+        })}
+    >
+        <UserContextProvider>
+            <App />
+        </UserContextProvider>
+    </ThemeProvider>,
+    document.getElementById("root")
 );
 
 // If you want your app to work offline and load faster, you can change

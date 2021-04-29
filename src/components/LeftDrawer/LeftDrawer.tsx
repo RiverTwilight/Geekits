@@ -24,6 +24,7 @@ import { green, red, blue } from "@material-ui/core/colors";
 import AppsIcon from "@material-ui/icons/Apps";
 import { store } from "../../data/state";
 import clsx from "clsx";
+import { UserContext } from "../UserContextProvider"
 
 const list = [
 	{
@@ -151,6 +152,10 @@ interface IProps { history: any, handleLoginOpen: () => void };
 
 const LeftDrawer = (props: IProps) => {
 	const { handleLoginOpen, history } = props;
+
+	const userData = React.useContext(UserContext);
+	
+	console.log(userData)
 
 	const testBlur = () => /(\S+)\/app\/\S+/.test(window.location.href)
 
