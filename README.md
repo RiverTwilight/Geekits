@@ -87,6 +87,15 @@ bash scripts/newApp.sh
 
 访问/app/\<link\>即可调试.
 
+### 页面路由
+
+views 文件夹下存放全部路由。每个页面都应在 componentDidMount 生命周期中使用以下方法：
+
+```js
+window.updateTitle("设置"); //更新标题
+window.setHeaderButton(null); //清除菜单按钮
+```
+
 ### 开发规范
 
 我们使用[Angular-commit](https://gist.github.com/brianclements/841ea7bffdb01346392c) 作为提交规范。
@@ -127,8 +136,8 @@ Uncaught Error: Invalid hook call. Hooks can only be called inside of the body o
 
 ```js
 config.resolve.alias = {
-	// 解决npm link的包中hook报错
-	react: path.resolve("./node_modules/react"),
+    // 解决npm link的包中hook报错
+    react: path.resolve("./node_modules/react"),
 };
 ```
 
@@ -146,7 +155,6 @@ config.resolve.alias = {
 ```
 
 </details>
-
 
 ### 备注
 
