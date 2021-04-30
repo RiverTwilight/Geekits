@@ -125,7 +125,6 @@ const GlobalLoading = () => {
 	return null;
 };
 
-// TODO 使用React Context共享全局用户信息变量
 export default withStyles(styles)(
 	class App extends React.Component<
 		any,
