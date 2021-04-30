@@ -1,7 +1,8 @@
 import React from "react";
 import ClipboardJS from "clipboard";
 import { snackbar } from "mdui";
-import { FileInput } from "mdui-in-react";
+import FileInput from "../../components/FileInput";
+
 
 type State = any;
 
@@ -35,7 +36,7 @@ class Ui extends React.Component<{}, State> {
 						// @ts-expect-error ts-migrate(2769) FIXME: Property 'readByDrag' does not exist on type 'Intr... Remove this comment to see the full error message
 						readByDrag
 						fileType="image/*"
-						onFileUpload={(file) => {
+						handleFileUpload={(file) => {
 							this.setState({ file: file });
 						}}
 					/>

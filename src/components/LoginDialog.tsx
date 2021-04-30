@@ -21,6 +21,7 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
+import { setCookie } from "../utils/cookies";
 
 class Login extends React.Component<
 	{},
@@ -92,8 +93,7 @@ class Login extends React.Component<
 			},
 		})
 			.then((response) => {
-				var json = JSON.parse(response.request.response);
-				switch (json.code) {
+				switch (response.status) {
 					case 413:
 						window.snackbar({ message: "邮箱或密码错误" });
 						break;
@@ -108,9 +108,8 @@ class Login extends React.Component<
 							}
 						);
 						break;
-					case 666:
-						var data = JSON.stringify(json.data);
-						setUserInfo(data, remember);
+					case 200:
+						setCookie("YGKUID", response.data.YGKUID, 15)
 						window.location.href = "/user";
 						break;
 				}

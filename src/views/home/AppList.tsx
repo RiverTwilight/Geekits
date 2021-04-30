@@ -17,32 +17,36 @@ import CodeTwoToneIcon from "@material-ui/icons/CodeTwoTone";
 import LinkTwoToneIcon from "@material-ui/icons/LinkTwoTone";
 import WbSunnyTwoToneIcon from "@material-ui/icons/WbSunnyTwoTone";
 import Paper from "@material-ui/core/Paper";
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import Avatar from '@material-ui/core/Avatar';
 
 const AppListItem = ({
 	isActive,
 	channel,
 	icon,
-	icon_color,
 	name,
 	link,
 	description,
 	selected,
 }: any) => {
+	const classes = useStyles();
 	const attr =
 		channel === 5
 			? {
-					href: link,
-					target: "_blank",
-					component: "a",
-					rel: "noopener noreferrer",
-			  }
+				href: link,
+				target: "_blank",
+				component: "a",
+				rel: "noopener noreferrer",
+			}
 			: {
-					component: Link,
-					to: "/app/" + link,
-			  };
+				component: Link,
+				to: "/app/" + link,
+			};
 	return (
-		<ListItem selected={selected} button key={name} {...attr}>
-			{/* <ListItemIcon>{Icon}</ListItemIcon> */}
+		<ListItem className={classes.appItem} selected={selected} button key={name} {...attr}>
+			<ListItemAvatar className={classes.appItemIcon}>
+				<Avatar alt={name} src={icon} />
+			</ListItemAvatar>
 			<ListItemText inset primary={name} secondary={description} />
 		</ListItem>
 	);
@@ -57,6 +61,14 @@ const useStyles = makeStyles((theme: Theme) =>
 		nested: {
 			paddingLeft: theme.spacing(4),
 		},
+		[theme.breakpoints.up('sm')]: {
+			appItem: {
+				height: "100px"
+			}
+		},
+		appItemIcon: {
+			height: "50px"
+		}
 	})
 );
 
@@ -79,7 +91,7 @@ const MakeChannels = ({ data: { name, apps, Icon } }: any) => {
 				<List component="div" disablePadding>
 					<Grid container spacing={3}>
 						{apps.map((app: any) => (
-							<Grid key={app.name} item sm={6} xs={12}>
+							<Grid key={app.name} item sm={6} md={4} xs={12}>
 								<AppListItem {...app} />
 							</Grid>
 						))}

@@ -1,5 +1,6 @@
 import React from "react";
-import { FileInput } from "mdui-in-react";
+import FileInput from "../../components/FileInput";
+
 
 // TODO 种子转磁链
 
@@ -21,7 +22,7 @@ class Torrent2Magnet extends React.Component<{}, State> {
 					<FileInput
 						readbydrag
 						fileType="application/x-bittorrent"
-						onFileUpload={(data, file) => {
+						handleFileUpload={(data, file) => {
 							this.setState({
 								file: data,
 								// @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.

@@ -2,14 +2,19 @@
 import React from "react";
 // @ts-expect-error ts-migrate(7016) FIXME: Try `npm install @types/qrcode` if it exists or ad... Remove this comment to see the full error message
 import QRCode from "qrcode";
-import mdui from "mdui";
 import {
 	Input,
 	ListControlMenu,
 	ColorPicker,
-	RangeInput,
-	FileInput,
 } from "mdui-in-react";
+import FileInput from "../../components/FileInput";
+import { makeStyles, Theme, useTheme } from "@material-ui/core/styles";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
+import Paper from "@material-ui/core/Paper";
+import Button from "@material-ui/core/Button";
+import Grid from "@material-ui/core/Grid";
+import { TabPanel, a11yProps } from "../../components/TabToolkits"
 
 const create = (opts: any, text: any, callback: any, iconData: any) => {
 	// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'url' implicitly has an 'any' type.
@@ -88,7 +93,46 @@ class Qrcode extends React.Component<{}, QrcodeState> {
 			colorDark: "#000000",
 			width: "100",
 			qrcode: null,
+			currentTab: 0
 		};
+	}
+	handleTabChange = (event: React.ChangeEvent<{}>, newValue: number) => {
+		this.setState({
+			currentTab: newValue
+		})
+	};
+	handleClick = () => {
+		const {
+			text,
+			colorDark,
+			colorLight,
+			mode,
+			wifi,
+			width,
+			icon,
+		} = this.state;
+		var opts = {
+			errorCorrectionLevel: "H",
+			type: "image/jpeg",
+			quality: 0.3,
+			margin: 1,
+			width: width,
+			color: {
+				dark: colorDark,
+				light: colorLight,
+			},
+		};
+		const string =
+			mode === 1
+				? `WIFI:S:${wifi.account};P:${wifi.pwd};T:;H:;`
+				: text === ""
+					? "ygktool.cn"
+					: text;
+		// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'qrcode' implicitly has an 'any' type.
+		const callback = (qrcode) => {
+			this.setState({ qrcode: qrcode });
+		};
+		create(opts, string, callback, icon);
 	}
 	render() {
 		const {
@@ -100,6 +144,7 @@ class Qrcode extends React.Component<{}, QrcodeState> {
 			wifi,
 			width,
 			icon,
+			currentTab
 		} = this.state;
 		const Form =
 			mode === 0 ? (
@@ -143,124 +188,98 @@ class Qrcode extends React.Component<{}, QrcodeState> {
 			);
 		return (
 			<>
-				<div className="mdui-tab" mdui-tab="true">
-					<a href="#normal" className="mdui-ripple">
-						基本设置
-					</a>
-					<a href="#advance" className="mdui-ripple">
-						高级
-					</a>
-				</div>
+				<Paper>
+					<Tabs
+						value={currentTab}
+						onChange={this.handleTabChange}
+						indicatorColor="primary"
+						textColor="primary"
+						variant="fullWidth"
+						aria-label="full width tabs example"
+					>
+						<Tab label="日期&时间间隔" {...a11yProps(0)} />
+						<Tab label="日期推算" {...a11yProps(1)} />
+					</Tabs>
+					<TabPanel value={currentTab} index={0}>
+						{/* {Form}
 
-				<div id="normal">
-					{Form}
+						<RangeInput
+							value={width}
+							min="50"
+							max="200"
+							onValueChange={(newValue) => {
+								this.setState({ width: newValue });
+							}}
+							title={"大小" + width + "px"}
+						/> */}
+					</TabPanel>
+					<TabPanel value={currentTab} index={1}>
+						<ListControlMenu
+							icon="language"
+							title="二维码类型"
+							checked={mode}
+							onCheckedChange={(checked) => {
+								this.setState({ mode: checked });
+							}}
+							items={[
+								{
+									name: "文本",
+									value: "text",
+								},
+								{
+									name: "wifi",
+									value: "wifi",
+								},
+							]}
+						/>
+						<Grid container spacing={3}>
+						</Grid>
 
-					<RangeInput
-						value={width}
-						min="50"
-						max="200"
-						onValueChange={(newValue) => {
-							this.setState({ width: newValue });
-						}}
-						title={"大小" + width + "px"}
-					/>
-				</div>
+						<div className="mdui-row-xs-2">
+							<div className="mdui-col">
+								<ColorPicker
+									text="亮色"
+									color={colorLight}
+									onColorChange={(newColor) => {
+										this.setState({ colorLight: newColor });
+									}}
+								/>
+							</div>
 
-				<div id="advance">
-					<ListControlMenu
-						icon="language"
-						title="二维码类型"
-						checked={mode}
-						onCheckedChange={(checked) => {
-							this.setState({ mode: checked });
-						}}
-						items={[
-							{
-								name: "文本",
-								value: "text",
-							},
-							{
-								name: "wifi",
-								value: "wifi",
-							},
-						]}
-					/>
-
-					<div className="mdui-row-xs-2">
-						<div className="mdui-col">
-							<ColorPicker
-								text="亮色"
-								color={colorLight}
-								onColorChange={(newColor) => {
-									this.setState({ colorLight: newColor });
-								}}
-							/>
+							<div className="mdui-col">
+								<ColorPicker
+									text="暗色"
+									color={colorDark}
+									onColorChange={(newColor) => {
+										this.setState({ colorDark: newColor });
+									}}
+								/>
+							</div>
 						</div>
 
-						<div className="mdui-col">
-							<ColorPicker
-								text="暗色"
-								color={colorDark}
-								onColorChange={(newColor) => {
-									this.setState({ colorDark: newColor });
-								}}
-							/>
-						</div>
-					</div>
-
-					<div className="mdui-divider"></div>
-
-					<br></br>
-
-					<div className="mdui-typo-headline">图标</div>
-
-					<br></br>
-
-					<FileInput
-						fileType="image/*"
-						// @ts-expect-error ts-migrate(2769) FIXME: Property 'file' does not exist on type 'IntrinsicA... Remove this comment to see the full error message
-						file={icon}
-						onFileUpload={(file) => {
-							this.setState({
-								icon: file,
-							});
-						}}
-					/>
-				</div>
+						<FileInput
+							fileType="image/*"
+							// @ts-expect-error ts-migrate(2769) FIXME: Property 'file' does not exist on type 'IntrinsicA... Remove this comment to see the full error message
+							file={icon}
+							handleFileUpload={(file) => {
+								this.setState({
+									icon: file,
+								});
+							}}
+						/>
+					</TabPanel>
+				</Paper>
 
 				<br></br>
 
 				<Result qrcode={qrcode} />
 
-				<button
-					onClick={() => {
-						var opts = {
-							errorCorrectionLevel: "H",
-							type: "image/jpeg",
-							quality: 0.3,
-							margin: 1,
-							width: width,
-							color: {
-								dark: colorDark,
-								light: colorLight,
-							},
-						};
-						const string =
-							mode === 1
-								? `WIFI:S:${wifi.account};P:${wifi.pwd};T:;H:;`
-								: text === ""
-								? "ygktool.cn"
-								: text;
-						// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'qrcode' implicitly has an 'any' type.
-						const callback = (qrcode) => {
-							this.setState({ qrcode: qrcode });
-						};
-						create(opts, string, callback, icon);
-					}}
-					className="mdui-color-theme mdui-text-color-white mdui-fab mdui-fab-fixed"
+				<Button
+					onClick={this.handleClick}
+					variant="outlined"
 				>
-					<i className="mdui-icon material-icons">&#xe5ca;</i>
-				</button>
+					生成
+				</Button>
 			</>
 		);
 	}

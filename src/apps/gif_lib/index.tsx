@@ -3,7 +3,7 @@ import React from "react";
 import SuperGif from "libgif";
 import JSZip from "jszip";
 import saveFile from "../../utils/fileSaver";
-import { FileInput } from "mdui-in-react";
+import FileInput from "../../components/FileInput";
 import "./style.css";
 
 function dataURLtoFile(dataurl: any, filename: any) {
@@ -68,7 +68,7 @@ class Giflib extends React.Component<{}, UiState> {
 					<FileInput
 						fileType="image/gif"
 						readbydrag
-						onFileUpload={(file) => {
+						handleFileUpload={(file) => {
 							this.setState(
 								{
 									rub: null,

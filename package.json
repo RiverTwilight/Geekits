@@ -1,6 +1,6 @@
 {
 	"name": "ygktool",
-	"version": "0.1.0",
+	"version": "2.0.0",
 	"description": "A feature-rich progressive online tool website.",
 	"author": {
 		"name": "RiverTwilight",
@@ -46,7 +46,7 @@
 		"wordcloud": "^1.1.1"
 	},
 	"scripts": {
-		"start": "craco start",
+		"start": "react-scripts start",
 		"build": "bash scripts/build.sh",
 		"test": "react-scripts test --env=jsdom",
 		"newApp": "bash scripts/newApp.sh",

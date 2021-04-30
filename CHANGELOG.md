@@ -12,7 +12,7 @@
 -   <lint>code split
 -   <lint>html to component
 -   <fix>video does not change after re-upload
--   <fix>onFileChange => onFileUpload
+-   <fix>onFileChange => handleFileUpload
 -   <fix>tts result cover fab
 -   <build>automaticlly-adding app script <factor>ts bug
 -   <feat>Global Drawer

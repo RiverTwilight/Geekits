@@ -1,6 +1,7 @@
 import React from "react";
 import { snackbar } from "mdui";
-import { FileInput, Button } from "mdui-in-react";
+import FileInput from "../../components/FileInput";
+import { Button } from "mdui-in-react";
 import "./caption.css";
 
 class captionMosaic {
@@ -386,7 +387,7 @@ export default class extends React.Component<{}, ComponentState> {
 					<FileInput
 						fileType="image/*"
 						multiple={true}
-						onFileUpload={(file) => {
+						handleFileUpload={(file) => {
 							assets.push({
 								img: file,
 								top:
@@ -404,7 +405,7 @@ export default class extends React.Component<{}, ComponentState> {
 
 					<FileInput
 						fileType="video/*"
-						onFileUpload={(file) => {
+						handleFileUpload={(file) => {
 							this.setState({ video: file });
 						}}
 						title="截取视频"

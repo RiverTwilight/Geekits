@@ -1,6 +1,7 @@
 import React from "react";
 import GIF from "gif.js";
-import { FileInput, BottomAlert } from "mdui-in-react";
+import { BottomAlert } from "mdui-in-react";
+import FileInput from "../../components/FileInput";
 
 type FormComp = {
 	name: string;
@@ -325,7 +326,7 @@ export default class extends React.Component<
 					title="选择照片"
 					fileType="image/*"
 					multiple={true}
-					onFileUpload={(file) => {
+					handleFileUpload={(file) => {
 						file && assets.push(file);
 						this.setState({
 							assets: assets,
@@ -340,7 +341,7 @@ export default class extends React.Component<
 					title="选择视频"
 					fileType="video/*"
 					multiple={true}
-					onFileUpload={(file) => {
+					handleFileUpload={(file) => {
 						file &&
 							this.setState({ videoFile: file, type: "video" });
 					}}

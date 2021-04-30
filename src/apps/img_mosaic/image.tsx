@@ -1,5 +1,6 @@
 import React from "react";
-import { FileInput, ListControlMenu } from "mdui-in-react";
+import { ListControlMenu } from "mdui-in-react";
+import FileInput from "../../components/FileInput";
 
 async function loadImg(src: any) {
 	var img = await new Image();
@@ -147,7 +148,7 @@ export default class extends React.Component<{}, ComponentState> {
 				<FileInput
 					fileType="image/*"
 					multiple={true}
-					onFileUpload={(file) => {
+					handleFileUpload={(file) => {
 						assests.push(file);
 						this.setState({ assests: assests });
 					}}

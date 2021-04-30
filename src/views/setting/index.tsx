@@ -119,6 +119,7 @@ export default class Setting extends React.Component<
 	}
 	componentDidMount() {
 		window.updateTitle("设置");
+		window.setHeaderButton(null);
 		fetch(PrivacyPath.default)
 			.then((response) => {
 				return response.text();

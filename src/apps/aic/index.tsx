@@ -1,9 +1,17 @@
 import React from "react";
-import { snackbar } from "mdui";
-import { FileInput, ListControlMenu, BottomAlert } from "mdui-in-react";
+import { makeStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 import axios from "../../utils/axios";
 import Cropper from "../../utils/Cropper";
 import ImgCompress from "../img_compress/engine";
+import FileInput from "../../components/FileInput";
+import Drawer from '@material-ui/core/Drawer';
 
 // TODO 快速保存到便签
 // FIXME 打开错误
@@ -91,7 +99,7 @@ class AIC extends React.Component<{}, AICState> {
 				});
 			})
 			.catch((error) => {
-				snackbar({ message: error });
+				window.snackbar({ message: error });
 			})
 			.then(() => {
 				window.loadHide();
@@ -116,7 +124,61 @@ class AIC extends React.Component<{}, AICState> {
 
 		return (
 			<>
-				<div style={{ display: ifShowCropper ? "none" : "block" }}>
+				<Card>
+					<CardActionArea>
+						<CardMedia
+
+							image={image}
+							title="预览"
+						/>
+						<CardContent>
+
+						</CardContent>
+					</CardActionArea>
+					<CardActions>
+						{image && <Button onClick={() => {
+							this.setState({
+								ifShowCropper: true,
+								image: defaultImage,
+							});
+						}} color="primary">
+							重新裁剪
+        </Button>}
+						<FileInput
+							fileType="image/*"
+							readbydrag
+							handleFileUpload={(file, fileObj) => {
+								console.log(fileObj, 1);
+								const cb = this.handleFileUpdate.bind(this);
+								// @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
+								if (fileObj.size >= 1.4 * 1024 * 1024) {
+									ImgCompress(file, 0.1, cb);
+									//cb(file)
+								} else {
+									cb(file);
+								}
+							}}
+						/>
+						<Button onClick={() => {
+							image && this.loadDataFromServer();
+						}} color="primary">
+							识别
+        </Button>
+					</CardActions>
+				</Card>
+				<Drawer anchor="bottom" open={ifShowCropper}>
+					<Cropper
+						ifShow={ifShowCropper}
+						img={image}
+						onClose={() => {
+							this.setState({ ifShowCropper: false });
+						}}
+						onConfirm={(img: any) => {
+							this.setState({ ifShowCropper: false, image: img });
+						}}
+					/>
+				</Drawer>
+				{/* <div style={{ display: ifShowCropper ? "none" : "block" }}>
 					<div className="mdui-shadow-0 mdui-card">
 						<div className="mdui-card-content">
 							{image && (
@@ -158,21 +220,7 @@ class AIC extends React.Component<{}, AICState> {
 								重新裁剪
 							</button>
 
-							<FileInput
-								fileType="image/*"
-								readbydrag
-								onFileUpload={(file, fileObj) => {
-									console.log(fileObj);
-									const cb = this.handleFileUpdate.bind(this);
-									// @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
-									if (fileObj.size >= 1.4 * 1024 * 1024) {
-										ImgCompress(file, 0.1, cb);
-										//cb(file)
-									} else {
-										cb(file);
-									}
-								}}
-							/>
+						
 
 							<button
 								onClick={() => {
@@ -200,16 +248,7 @@ class AIC extends React.Component<{}, AICState> {
 					<Result result={data} />
 				</BottomAlert>
 
-				<Cropper
-					ifShow={ifShowCropper}
-					img={image}
-					onClose={() => {
-						this.setState({ ifShowCropper: false });
-					}}
-					onConfirm={(img: any) => {
-						this.setState({ ifShowCropper: false, image: img });
-					}}
-				/>
+			*/}
 			</>
 		);
 	}

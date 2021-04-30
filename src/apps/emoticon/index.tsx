@@ -2,13 +2,13 @@ import React from "react";
 import saveFile from "../../utils/fileSaver";
 import html2canvas from "html2canvas";
 import {
-	FileInput,
 	Input,
 	ColorPicker,
 	RangeInput,
 	BottomAlert as NewPage,
 	Button,
 } from "mdui-in-react";
+import FileInput from "../../components/FileInput";
 
 const Result = ({ src }: any) => {
 	if (!src) return null;
@@ -229,7 +229,7 @@ export default class extends React.Component<{}, ComponentState> {
 							<FileInput
 								fileType="image/*"
 								multiple={false}
-								onFileUpload={(file) => {
+								handleFileUpload={(file) => {
 									this.setState({ src: file });
 								}}
 							/>

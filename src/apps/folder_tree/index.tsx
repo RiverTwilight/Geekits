@@ -23,7 +23,7 @@ export default function FolderTree() {
 		<>
 			<FileInput
 				multiple
-				onFileUpload={(_, _file, fileList) => {
+				handleFileUpload={(_, _file, fileList) => {
 					var result = [];
 					// @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
 					for (var i = 0; i < fileList.length; i++) {

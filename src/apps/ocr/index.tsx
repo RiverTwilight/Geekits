@@ -3,13 +3,13 @@ import { snackbar } from "mdui";
 import axios from "../../utils/axios";
 import ClipboardJS from "clipboard";
 import {
-	FileInput,
 	ListControlCheck,
 	ListControlMenu,
 	Button,
 } from "mdui-in-react";
 import Cropper from "../../utils/Cropper";
 import ImgCompress from "../img_compress/engine";
+import FileInput from "../../components/FileInput";
 
 const numMark = (text: any) => {
 	var reg = /^1[3|4|5|7|8]\d{9}$/g;
@@ -232,9 +232,9 @@ export default class extends React.Component<{}, ComponentState> {
 							<FileInput
 								readbydrag
 								fileType="image/*"
-								onFileUpload={(file, fileObj) => {
+								handleFileUpload={(file, fileObj) => {
 									const cb = this.handleFileUpdate.bind(this);
-									// @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
+									//@ts-expect-error
 									if (fileObj.size >= 1.4 * 1024 * 1024) {
 										ImgCompress(file, 0.1, cb);
 										//cb(file)

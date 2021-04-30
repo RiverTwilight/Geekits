@@ -39,6 +39,16 @@ const useStyles = makeStyles((theme: Theme) =>
 				width: `calc(100% - ${drawerWidth}px)`,
 				marginLeft: drawerWidth,
 			},
+			// TODO 头部高斯模糊
+			// filter: "blur(2px)"
+		},
+		cover: {
+			position: "absolute",
+			height: "100%",
+			width: "100%",
+			filter: "blur(20px)",
+			zIndex: -1,
+			background: "rgba(255, 255, 255, 0.9)"
 		},
 		menuButton: {
 			marginRight: theme.spacing(2),
@@ -73,11 +83,12 @@ export default (props: any) => {
 				color="inherit"
 				className={clsx(classes.appBar)}
 			>
+				<div className={classes.cover}></div>
 				<Toolbar>
 					<IconButton
 						color="primary"
 						aria-label="open drawer"
-						onClick={() => store.dispatch({ type: "drawer/opened"})}
+						onClick={() => store.dispatch({ type: "drawer/opened" })}
 						edge="start"
 						className={classes.menuButton}
 					>
