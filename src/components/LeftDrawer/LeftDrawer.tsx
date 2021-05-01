@@ -113,7 +113,7 @@ const User = ({ handleLogin }: any) => {
 			{/** //@ts-expect-error */}
 			<ListItem button {...attr}>
 				<ListItemAvatar>
-					<Avatar alt="Cindy Baker" src="/logo_design.svg" />
+					<Avatar alt="Cindy Baker" src="/logo/v2/512.png" />
 				</ListItemAvatar>
 				<ListItemText
 					primary={
