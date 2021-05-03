@@ -87,6 +87,9 @@ const useStyles = makeStyles((theme: Theme) =>
 					filter: "blur(0)"
 				}
 			}
+		}, 
+		icon: {
+			borderRadius: "0"
 		}
 	})
 );
@@ -113,7 +116,7 @@ const User = ({ handleLogin }: any) => {
 			{/** //@ts-expect-error */}
 			<ListItem button {...attr}>
 				<ListItemAvatar>
-					<Avatar alt="Cindy Baker" src="/logo/v2/512.png" />
+					<Avatar className={classes.icon} alt="Cindy Baker" src="/logo/v2/512.png" />
 				</ListItemAvatar>
 				<ListItemText
 					primary={
