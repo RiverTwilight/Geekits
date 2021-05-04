@@ -190,9 +190,8 @@ export default withStyles(styles)(
 			});
 		};
 		render() {
-			const { title } = this.state;
 			const { classes } = this.props;
-			const { LeftDrawerOpen, showLoginDialog, LoginDialog } = this.state;
+			const { title, LeftDrawerOpen, showLoginDialog, LoginDialog } = this.state;
 			return (
 				<>
 					<div className={classes.root}>
