@@ -2,11 +2,6 @@
 import React from "react";
 // @ts-expect-error ts-migrate(7016) FIXME: Try `npm install @types/qrcode` if it exists or ad... Remove this comment to see the full error message
 import QRCode from "qrcode";
-import {
-	Input,
-	ListControlMenu,
-	ColorPicker,
-} from "mdui-in-react";
 import FileInput from "../../components/FileInput";
 import { makeStyles, Theme, useTheme } from "@material-ui/core/styles";
 import Tabs from "@material-ui/core/Tabs";
@@ -14,7 +9,16 @@ import Tab from "@material-ui/core/Tab";
 import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
-import { TabPanel, a11yProps } from "../../components/TabToolkits"
+import TextField from "@material-ui/core/TextField";
+import Radio from "@material-ui/core/Radio";
+import RadioGroup from "@material-ui/core/RadioGroup";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import FormLabel from "@material-ui/core/FormLabel";
+import Typography from "@material-ui/core/Typography";
+import FormControl from "@material-ui/core/FormControl";
+import Card from "@material-ui/core/Card";
+import { TabPanel, a11yProps } from "../../components/TabToolkits";
+import { moveMessagePortToContext } from "worker_threads";
 
 const create = (opts: any, text: any, callback: any, iconData: any) => {
 	// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'url' implicitly has an 'any' type.
@@ -68,11 +72,9 @@ const create = (opts: any, text: any, callback: any, iconData: any) => {
 const Result = ({ qrcode }) => {
 	if (!qrcode) return null;
 	return (
-		<div className="mdui-card mdui-shadow-2 mdui-p-a-1">
-			<div className="center-with-flex">
-				<img alt="qrcode" src={qrcode}></img>
-			</div>
-		</div>
+		<Card>
+			<img alt="qrcode" src={qrcode}></img>
+		</Card>
 	);
 };
 
@@ -87,19 +89,19 @@ class Qrcode extends React.Component<{}, QrcodeState> {
 				account: "",
 				pwd: "",
 			},
-			mode: 0,
+			mode: "normal",
 			icon: null,
 			colorLight: "#ffffff",
 			colorDark: "#000000",
 			width: "100",
 			qrcode: null,
-			currentTab: 0
+			currentTab: 0,
 		};
 	}
-	handleTabChange = (event: React.ChangeEvent<{}>, newValue: number) => {
+	handleTabChange = (_event: React.ChangeEvent<{}>, newValue: number) => {
 		this.setState({
-			currentTab: newValue
-		})
+			currentTab: newValue,
+		});
 	};
 	handleClick = () => {
 		const {
@@ -126,14 +128,19 @@ class Qrcode extends React.Component<{}, QrcodeState> {
 			mode === 1
 				? `WIFI:S:${wifi.account};P:${wifi.pwd};T:;H:;`
 				: text === ""
-					? "ygktool.cn"
-					: text;
+				? "ygktool.cn"
+				: text;
 		// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'qrcode' implicitly has an 'any' type.
 		const callback = (qrcode) => {
 			this.setState({ qrcode: qrcode });
 		};
 		create(opts, string, callback, icon);
-	}
+	};
+	handleModeChange = (_e: any, value: string | number) => {
+		this.setState({
+			mode: value
+		})
+	};
 	render() {
 		const {
 			text,
@@ -144,44 +151,44 @@ class Qrcode extends React.Component<{}, QrcodeState> {
 			wifi,
 			width,
 			icon,
-			currentTab
+			currentTab,
 		} = this.state;
 		const Form =
-			mode === 0 ? (
-				<Input
-					onValueChange={(newText) => {
-						this.setState({ text: newText });
-					}}
-					header="输入文本"
-					value={text}
-				/>
+			mode === "normal" ? (
+				<FormControl fullWidth>
+					<TextField
+						onChange={(e) => {
+							this.setState({ text: e.target.value });
+						}}
+						value={text}
+						label="链接或文本"
+						variant="outlined"
+					/>
+				</FormControl>
 			) : (
 				<>
-					<Input
-						onValueChange={(newText) => {
+					<TextField
+						onChange={(e) => {
 							this.setState({
 								wifi: {
-									account: newText,
+									account: e.target.value,
 									pwd: wifi.pwd,
 								},
 							});
 						}}
-						header="账号(SSID)"
-						icon="account_circle"
+						label="账号(SSID)"
 						value={wifi.account}
 					/>
-
-					<Input
-						onValueChange={(newText) => {
+					<TextField
+						onChange={(e) => {
 							this.setState({
 								wifi: {
-									account: wifi.account,
-									pwd: newText,
+									account: e.target.value,
+									pwd: wifi.pwd,
 								},
 							});
 						}}
-						header="密码"
-						icon="vpn_key"
+						label="密码"
 						value={wifi.pwd}
 					/>
 				</>
@@ -201,8 +208,28 @@ class Qrcode extends React.Component<{}, QrcodeState> {
 						<Tab label="日期推算" {...a11yProps(1)} />
 					</Tabs>
 					<TabPanel value={currentTab} index={0}>
-						{/* {Form}
-
+						<FormControl component="fieldset">
+							<FormLabel component="legend">类型</FormLabel>
+							<RadioGroup
+								aria-label="type"
+								name="类型"
+								value={mode}
+								onChange={this.handleModeChange}
+							>
+								<FormControlLabel
+									value="normal"
+									control={<Radio />}
+									label="文本"
+								/>
+								<FormControlLabel
+									value="wifi"
+									control={<Radio />}
+									label="WIFI"
+								/>
+							</RadioGroup>
+						</FormControl>
+						{Form}
+						{/* 
 						<RangeInput
 							value={width}
 							min="50"
@@ -214,7 +241,7 @@ class Qrcode extends React.Component<{}, QrcodeState> {
 						/> */}
 					</TabPanel>
 					<TabPanel value={currentTab} index={1}>
-						<ListControlMenu
+						{/* <ListControlMenu
 							icon="language"
 							title="二维码类型"
 							checked={mode}
@@ -231,31 +258,41 @@ class Qrcode extends React.Component<{}, QrcodeState> {
 									value: "wifi",
 								},
 							]}
-						/>
+						/> */}
 						<Grid container spacing={3}>
+							<Grid item xs={6}>
+								<FormControl fullWidth>
+									<TextField
+										onChange={(e) => {
+											this.setState({
+												colorLight: e.target.value,
+											});
+										}}
+										value={colorLight}
+										type="color"
+										label="亮色"
+									></TextField>
+								</FormControl>
+							</Grid>
+							<Grid item xs={6}>
+								<FormControl fullWidth>
+									<TextField
+										onChange={(e) => {
+											this.setState({
+												colorDark: e.target.value,
+											});
+										}}
+										value={colorDark}
+										type="color"
+										label="暗色"
+									></TextField>
+								</FormControl>
+							</Grid>
 						</Grid>
 
-						<div className="mdui-row-xs-2">
-							<div className="mdui-col">
-								<ColorPicker
-									text="亮色"
-									color={colorLight}
-									onColorChange={(newColor) => {
-										this.setState({ colorLight: newColor });
-									}}
-								/>
-							</div>
+						<br />
 
-							<div className="mdui-col">
-								<ColorPicker
-									text="暗色"
-									color={colorDark}
-									onColorChange={(newColor) => {
-										this.setState({ colorDark: newColor });
-									}}
-								/>
-							</div>
-						</div>
+						<Typography variant="h6">图标</Typography>
 
 						<FileInput
 							fileType="image/*"
@@ -274,10 +311,7 @@ class Qrcode extends React.Component<{}, QrcodeState> {
 
 				<Result qrcode={qrcode} />
 
-				<Button
-					onClick={this.handleClick}
-					variant="outlined"
-				>
+				<Button onClick={this.handleClick} variant="outlined">
 					生成
 				</Button>
 			</>
