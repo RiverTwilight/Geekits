@@ -9,7 +9,6 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import ListItemText from "@material-ui/core/ListItemText";
-import ListSubheader from "@material-ui/core/ListSubheader";
 import Switch from "@material-ui/core/Switch";
 import Paper from "@material-ui/core/Paper";
 import BorderVerticalIcon from "@material-ui/icons/BorderVertical";
@@ -81,7 +80,6 @@ const FakeLogo = ({ hStyle, frontStyle, lastStyle }: any) => {
 
 type UiState = any;
 
-// TODO 无法保存 via\QQ
 export default class FakePornhubLogo extends React.Component<{}, UiState> {
 	inputRef: any;
 	constructor(props: {}) {

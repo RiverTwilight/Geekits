@@ -20,6 +20,8 @@ import Paper from "@material-ui/core/Paper";
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 
+// TODO schema info check https://schema.org
+// FIXME 图标与文字间距
 const AppListItem = ({
 	isActive,
 	channel,

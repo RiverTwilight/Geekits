@@ -7,7 +7,8 @@ export const UserContext = createContext(null);
 
 const UserContextProvider = (props: any) => {
     const [user, setUser] = useState({
-        'name': 'harry potter'
+        username: "游客",
+        email: "yungeeker@gmail.com"
     });
     useEffect(()=>{
         axios.get('/userInfo').then((res)=>{
@@ -18,7 +19,7 @@ const UserContextProvider = (props: any) => {
     return (
         //@ts-expect-error
         <UserContext.Provider value={{
-            user: user,
+            userData: user,
         }}>
             {props.children}
         </UserContext.Provider>

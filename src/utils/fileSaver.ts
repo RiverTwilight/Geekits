@@ -1,3 +1,5 @@
+// TODO 无法保存 via\QQ
+
 const save = (fileObj: File, type: string, filename?: string): void => {
 	const url = URL.createObjectURL(fileObj);
 	//没有文件名使用日期
