@@ -41,7 +41,7 @@
 		"react-scripts": "^3.4.3",
 		"socket.io": "^2.4.0",
 		"typescript": "^3.9.7",
-		"ua-parser-js": "^0.7.21",
+		"ua-parser-js": "^0.7.24",
 		"wordcloud": "^1.1.1"
 	},
 	"scripts": {
