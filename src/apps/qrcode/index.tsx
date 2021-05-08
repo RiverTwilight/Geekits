@@ -138,8 +138,8 @@ class Qrcode extends React.Component<{}, QrcodeState> {
 	};
 	handleModeChange = (_e: any, value: string | number) => {
 		this.setState({
-			mode: value
-		})
+			mode: value,
+		});
 	};
 	render() {
 		const {
@@ -167,30 +167,37 @@ class Qrcode extends React.Component<{}, QrcodeState> {
 				</FormControl>
 			) : (
 				<>
-					<TextField
-						onChange={(e) => {
-							this.setState({
-								wifi: {
-									account: e.target.value,
-									pwd: wifi.pwd,
-								},
-							});
-						}}
-						label="账号(SSID)"
-						value={wifi.account}
-					/>
-					<TextField
-						onChange={(e) => {
-							this.setState({
-								wifi: {
-									account: e.target.value,
-									pwd: wifi.pwd,
-								},
-							});
-						}}
-						label="密码"
-						value={wifi.pwd}
-					/>
+					<FormControl fullWidth>
+						<TextField
+							onChange={(e) => {
+								this.setState({
+									wifi: {
+										account: e.target.value,
+										pwd: wifi.pwd,
+									},
+								});
+							}}
+							label="账号(SSID)"
+							variant="outlined"
+							value={wifi.account}
+						/>
+					</FormControl>
+					<br /><br />
+					<FormControl fullWidth>
+						<TextField
+							onChange={(e) => {
+								this.setState({
+									wifi: {
+										account: e.target.value,
+										pwd: wifi.pwd,
+									},
+								});
+							}}
+							label="密码"
+							variant="outlined"
+							value={wifi.pwd}
+						/>
+					</FormControl>
 				</>
 			);
 		return (
@@ -202,13 +209,13 @@ class Qrcode extends React.Component<{}, QrcodeState> {
 						indicatorColor="primary"
 						textColor="primary"
 						variant="fullWidth"
-						aria-label="full width tabs example"
+						aria-label="options"
 					>
-						<Tab label="日期&时间间隔" {...a11yProps(0)} />
-						<Tab label="日期推算" {...a11yProps(1)} />
+						<Tab label="基本" {...a11yProps(0)} />
+						<Tab label="高级" {...a11yProps(1)} />
 					</Tabs>
 					<TabPanel value={currentTab} index={0}>
-						<FormControl component="fieldset">
+						<FormControl fullWidth component="fieldset">
 							<FormLabel component="legend">类型</FormLabel>
 							<RadioGroup
 								aria-label="type"
@@ -241,24 +248,6 @@ class Qrcode extends React.Component<{}, QrcodeState> {
 						/> */}
 					</TabPanel>
 					<TabPanel value={currentTab} index={1}>
-						{/* <ListControlMenu
-							icon="language"
-							title="二维码类型"
-							checked={mode}
-							onCheckedChange={(checked) => {
-								this.setState({ mode: checked });
-							}}
-							items={[
-								{
-									name: "文本",
-									value: "text",
-								},
-								{
-									name: "wifi",
-									value: "wifi",
-								},
-							]}
-						/> */}
 						<Grid container spacing={3}>
 							<Grid item xs={6}>
 								<FormControl fullWidth>
