@@ -1,6 +1,6 @@
 /// <reference types="react-scripts" />
 
-interface AppInfo {
+interface IApp {
 	name: string;
 	link: string;
 	description?: string;

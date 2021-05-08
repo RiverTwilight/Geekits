@@ -31,7 +31,7 @@ const AppMenu = ({
 	appinfo,
 	feedback,
 }: {
-	appinfo: AppInfo;
+	appinfo: IApp;
 	feedback: () => void;
 }) => {
 	const classes = useStyles();

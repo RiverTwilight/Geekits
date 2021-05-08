@@ -17,39 +17,57 @@ import CodeTwoToneIcon from "@material-ui/icons/CodeTwoTone";
 import LinkTwoToneIcon from "@material-ui/icons/LinkTwoTone";
 import WbSunnyTwoToneIcon from "@material-ui/icons/WbSunnyTwoTone";
 import Paper from "@material-ui/core/Paper";
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import Avatar from '@material-ui/core/Avatar';
+import ListItemAvatar from "@material-ui/core/ListItemAvatar";
+import Avatar from "@material-ui/core/Avatar";
 
 // TODO schema info check https://schema.org
-// FIXME 图标与文字间距
 const AppListItem = ({
 	isActive,
 	channel,
-	icon,
 	name,
 	link,
 	description,
 	selected,
-}: any) => {
+	icon,
+}: {
+	description?: string;
+	name: string;
+	isActive?: boolean;
+	link?: string;
+	selected?: boolean;
+	channel?: number;
+	icon?: string;
+}) => {
 	const classes = useStyles();
 	const attr =
 		channel === 5
 			? {
-				href: link,
-				target: "_blank",
-				component: "a",
-				rel: "noopener noreferrer",
-			}
+					href: link,
+					target: "_blank",
+					component: "a",
+					rel: "noopener noreferrer",
+			  }
 			: {
-				component: Link,
-				to: "/app/" + link,
-			};
+					component: Link,
+					to: "/app/" + link,
+			  };
 	return (
-		<ListItem className={classes.appItem} selected={selected} button key={name} {...attr}>
+		<ListItem
+			className={classes.appItem}
+			selected={selected}
+			button
+			key={name}
+			{...attr}
+		>
 			<ListItemAvatar className={classes.appItemIcon}>
 				<Avatar alt={name} src={icon} />
 			</ListItemAvatar>
-			<ListItemText inset primary={name} secondary={description} />
+			<ListItemText
+				className={classes.appItemText}
+				inset
+				primary={name}
+				secondary={description}
+			/>
 		</ListItem>
 	);
 };
@@ -63,25 +81,33 @@ const useStyles = makeStyles((theme: Theme) =>
 		nested: {
 			paddingLeft: theme.spacing(4),
 		},
-		[theme.breakpoints.up('sm')]: {
+		[theme.breakpoints.up("sm")]: {
 			appItem: {
-				height: "100px"
-			}
+				height: "100px",
+			},
 		},
 		appItemIcon: {
-			height: "50px"
-		}
+			height: "50px",
+		},
+		appItemText: {
+			paddingLeft: "20px",
+		},
 	})
 );
 
 //分类栏目
-const MakeChannels = ({ data: { name, apps, Icon } }: any) => {
+const MakeChannels = ({
+	data: { name, apps, Icon },
+}: {
+	data: { name: string; apps: IApp[]; Icon: JSX.Element | JSX.Element[] };
+}) => {
 	const classes = useStyles();
 	const [open, setOpen] = React.useState(true);
 
 	const handleClick = () => {
 		setOpen(!open);
 	};
+
 	return (
 		<>
 			<ListItem button onClick={handleClick}>
@@ -104,16 +130,10 @@ const MakeChannels = ({ data: { name, apps, Icon } }: any) => {
 	);
 };
 
-const getChannelName = (index: any) => {
-	const channels = [
-		"AI人工智能",
-		"图片视频",
-		"编程开发",
-		"生活常用",
-		"第三方工具&友情链接",
+const getChannelName = (index: any) =>
+	["AI人工智能", "图片视频", "编程开发", "生活常用", "第三方工具&友情链接"][
+		index - 1
 	];
-	return channels[index - 1];
-};
 
 const getChannelIcon = (index: any) => {
 	const Icons = [

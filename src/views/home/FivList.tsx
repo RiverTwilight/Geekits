@@ -17,7 +17,7 @@ const AppItem = ({
 	removeFromFiv,
 	addToFiv,
 }: {
-	data: AppInfo;
+	data: IApp;
 	removeFromFiv: () => void;
 	addToFiv: () => void;
 }) => {
