@@ -8,7 +8,7 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuTwoToneIcon from "@material-ui/icons/MenuTwoTone";
 import useScrollTrigger from "@material-ui/core/useScrollTrigger";
 import clsx from "clsx";
-import { store } from "../../data/state";
+import { store } from "../../data/drawerState";
 
 function ElevationScroll(props: Props) {
 	const { children } = props;
@@ -62,7 +62,6 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export default (props: any) => {
-	const { handleLeftDrawerOpen, open } = props;
 	const classes = useStyles();
 	const [extraButton, setExtraButton] = React.useState(null);
 	const [title, setTitle] = React.useState("云极客工具");

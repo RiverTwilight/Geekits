@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Header from "./components/Header";
 import LeftDrawer from "./components/LeftDrawer";
+import LoginDialog from "./components/LoginDialog/index";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import NoMatch from "./views/404";
 import loadable from "./utils/loading";
@@ -129,8 +130,6 @@ export default withStyles(styles)(
 	class App extends React.Component<
 		any,
 		{
-			showLoginDialog: boolean;
-			LoginDialog: any;
 			LeftDrawerOpen: boolean;
 			anchorEl: null | HTMLElement;
 			loading: boolean;
@@ -142,8 +141,6 @@ export default withStyles(styles)(
 			super(props);
 			this.state = {
 				LeftDrawerOpen: false,
-				showLoginDialog: false,
-				LoginDialog: null,
 				anchorEl: null,
 				loading: true,
 				title: "首页",
@@ -171,47 +168,15 @@ export default withStyles(styles)(
 				}
 			};
 		}
-		openLoginDialog = () => {
-			let { LoginDialog } = this.state;
-			if (!LoginDialog) {
-				this.setState({
-					LoginDialog:
-						!LoginDialog &&
-						loadable(() => import("./components/LoginDialog")),
-				});
-			}
-			this.setState({
-				showLoginDialog: true,
-			});
-		};
-		closeLoginDialog = () => {
-			this.setState({
-				showLoginDialog: false,
-			});
-		};
 		render() {
 			const { classes } = this.props;
-			const {
-				title,
-				LeftDrawerOpen,
-				showLoginDialog,
-				LoginDialog,
-			} = this.state;
+			const { title, LeftDrawerOpen } = this.state;
 			return (
 				<>
 					<div className={classes.root}>
 						<CssBaseline />
 						<Router>
-							{LoginDialog && (
-								<LoginDialog
-									open={showLoginDialog}
-									onClose={() => {
-										this.setState({
-											showLoginDialog: false,
-										});
-									}}
-								/>
-							)}
+							<LoginDialog />
 							<Header
 								handleLeftDrawerOpen={() => {
 									this.setState({
@@ -221,9 +186,7 @@ export default withStyles(styles)(
 								open={LeftDrawerOpen}
 								title={title}
 							/>
-							<LeftDrawer
-								handleLoginOpen={this.openLoginDialog}
-							/>
+							<LeftDrawer handleLoginOpen={() => {}} />
 							<main className={classes.content}>
 								<Switch>
 									{RouterList.map((route) => (

@@ -1,8 +1,8 @@
-import React from "react";
-import Axios from "../utils/axios";
+import React, { useState } from "react";
+import Axios from "../../utils/axios";
 import { MD5 } from "crypto-js";
-import { setUserInfo } from "../utils/Services/UserInfo";
-import SendCode from "./SendCode";
+import { setUserInfo } from "../../utils/Services/UserInfo";
+import SendCode from "../SendCode";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -21,7 +21,8 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
-import { setCookie } from "../utils/cookies";
+import { setCookie } from "../../utils/cookies";
+import { store as loginDialogStore } from "../../data/loginDialogState";
 
 class Login extends React.Component<
 	{},
@@ -242,15 +243,18 @@ class Login extends React.Component<
 	}
 }
 
-const LoginDialog = (props: any) => {
+const LoginDialog = () => {
+	const [ open, setOpen ] = useState(true);
+	const handleClose = () => {
+		loginDialogStore.dispatch({type: "loginDialog/closed"})
+	}
+
+	loginDialogStore.subscribe(() => setOpen(loginDialogStore.getState().value));
+
 	return (
 		<Dialog
-			config={{
-				title: "加入云极客",
-				confirmText: "登录/注册",
-				cancelText: "忘记密码 ",
-			}}
-			{...props}
+			open={open}
+			onClose={handleClose}
 		>
 			<DialogTitle id="simple-dialog-title">加入云极客</DialogTitle>
 			<Login />

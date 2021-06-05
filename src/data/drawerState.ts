@@ -1,6 +1,5 @@
 import { createStore } from "redux";
 
-// TODO 管理登录对话框打开状态
 function drawerReducer(state = { value: false }, action: { type: any }) {
 	switch (action.type) {
 		case "drawer/opened":

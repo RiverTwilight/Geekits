@@ -22,9 +22,10 @@ import SettingsIcon from "@material-ui/icons/Settings";
 import GitHubIcon from "@material-ui/icons/GitHub";
 import { green, red, blue } from "@material-ui/core/colors";
 import AppsIcon from "@material-ui/icons/Apps";
-import { store } from "../../data/state";
+import { UserContext } from "../UserContextProvider";
 import clsx from "clsx";
-import { UserContext } from "../UserContextProvider"
+import { store as loginDialogStore } from "../../data/loginDialogState";
+import { store as drawerStore } from "../../data/drawerState";
 
 const list = [
 	{
@@ -80,17 +81,17 @@ const useStyles = makeStyles((theme: Theme) =>
 			width: drawerWidth,
 		},
 		hoverBlur: {
-			[theme.breakpoints.up('sm')]: {
+			[theme.breakpoints.up("sm")]: {
 				transition: "filter .3s",
 				filter: "blur(5px)",
-				'&:hover': {
-					filter: "blur(0)"
-				}
-			}
-		}, 
+				"&:hover": {
+					filter: "blur(0)",
+				},
+			},
+		},
 		icon: {
-			borderRadius: "0"
-		}
+			borderRadius: "0",
+		},
 	})
 );
 
@@ -105,18 +106,24 @@ const User = ({ handleLogin }: any) => {
 	}, [handleLogin]);
 	const attr = user
 		? {
-			to: "/user",
-			component: Link,
-		}
+				to: "/user",
+				component: Link,
+		  }
 		: {
-			onClick: handleLogin,
-		};
+				onClick: () => {
+					loginDialogStore.dispatch({ type: "loginDialog/opened" });
+				},
+		  };
 	return (
 		<>
 			{/** //@ts-expect-error */}
 			<ListItem button {...attr}>
 				<ListItemAvatar>
-					<Avatar className={classes.icon} alt="Cindy Baker" src="/logo/v2/512.png" />
+					<Avatar
+						className={classes.icon}
+						alt="Cindy Baker"
+						src="/logo/v2/512.png"
+					/>
 				</ListItemAvatar>
 				<ListItemText
 					primary={
@@ -149,18 +156,19 @@ const User = ({ handleLogin }: any) => {
 	);
 };
 
-// REBUILD Use redux manage state
-
-interface IProps { history: any, handleLoginOpen: () => void };
+interface IProps {
+	history: any;
+	handleLoginOpen: () => void;
+}
 
 const LeftDrawer = (props: IProps) => {
 	const { handleLoginOpen, history } = props;
 
 	const userData = React.useContext(UserContext);
-	
-	console.log(userData)
 
-	const testBlur = () => /(\S+)\/app\/\S+/.test(window.location.href)
+	console.log(userData);
+
+	const testBlur = () => /(\S+)\/app\/\S+/.test(window.location.href);
 
 	const [open, setOpen] = React.useState(false);
 	const [isBlur, setIsBlur] = React.useState(testBlur());
@@ -171,7 +179,7 @@ const LeftDrawer = (props: IProps) => {
 		window.innerWidth <= 1024 && setOpen(false);
 	};
 
-	store.subscribe(() => setOpen(store.getState().value));
+	drawerStore.subscribe(() => setOpen(drawerStore.getState().value));
 
 	const Warpper = (props: {
 		a: { link: string; text: string; Icon: any };
@@ -179,16 +187,16 @@ const LeftDrawer = (props: IProps) => {
 		let { link, text, Icon } = props.a;
 		const attr = link.match(/(http|https)/)
 			? {
-				href: link,
-				component: "a",
-			}
+					href: link,
+					component: "a",
+			  }
 			: {
-				activeClassName: "Mui-selected",
-				component: NavLink,
-				to: link,
-				onClick: handleClick,
-				exact: true,
-			};
+					activeClassName: "Mui-selected",
+					component: NavLink,
+					to: link,
+					onClick: handleClick,
+					exact: true,
+			  };
 		return (
 			<ListItem button key={text} {...attr}>
 				<ListItemIcon>{Icon}</ListItemIcon>
@@ -227,7 +235,9 @@ const LeftDrawer = (props: IProps) => {
 					variant="temporary"
 					anchor={theme.direction === "rtl" ? "right" : "left"}
 					open={open}
-					onClose={() => store.dispatch({ type: "drawer/closed" })}
+					onClose={() =>
+						drawerStore.dispatch({ type: "drawer/closed" })
+					}
 					classes={{
 						paper: classes.drawerPaper,
 					}}
