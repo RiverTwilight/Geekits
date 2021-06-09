@@ -66,6 +66,7 @@ class AppContainer extends React.Component<any, any> {
 	componentDidMount() {
 		const { appInfo, RightDrawerOpen } = this.state;
 		appInfo && window.updateTitle(appInfo.name);
+		// TODO 独立管理工具菜单打开状态
 		window.setHeaderButton(
 			<IconButton
 				color="primary"
