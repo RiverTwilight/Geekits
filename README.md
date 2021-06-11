@@ -1,6 +1,6 @@
 <p align="center">
-  <a href="https://www.ygktool.cn">
-    <img width="180" src="https://www.ygktool.cn/logo_design.svg">
+  <a href="https://v2.ygktool.cn">
+    <img width="180" src="https://v2.ygktool.cn/logo/v2/512.png">
   </a>
 </p>
 
@@ -20,7 +20,7 @@
 
 由于开发者学业繁忙，本项目十分需要贡献者！
 
-**本项目采用开发+部署的分支策略(master + v2)，master 分支将自动部署到网站正式地址。**
+**本项目采用开发+部署的分支策略(master + v2)，master 分支将自动部署到网站正式地址。（目前网站正式版为v1)**
 
 你可以使用 Gitpod 进行在线开发：
 
