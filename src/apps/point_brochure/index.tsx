@@ -22,7 +22,7 @@ import KeyboardArrowLeftIcon from "@material-ui/icons/KeyboardArrowLeft";
 import CardGiftcardIcon from "@material-ui/icons/CardGiftcard";
 import { db } from "./db";
 import { ITaskItem } from "./ITaskItem";
-import { IRewardItem } from "./IRewardItem";
+import { IBrochure } from "./IBrochures";
 
 const DEFAULT_TITLE = "无标题";
 
@@ -61,18 +61,52 @@ const useStyles = makeStyles((theme: Theme) =>
 	})
 );
 
-const RewardBoard = ({ rewards }: { rewards: IRewardItem[] }) => {
+const RewardBoard = ({
+	brochures,
+	totalPoints = 120,
+}: {
+	totalPoints: number;
+	brochures: IBrochure[];
+}) => {
 	const classes = useStyles();
-    // 后续增加手册切换功能
-    const curerntBrochure = rewards[0];
+	const [nextReward, setNextReward] = useState<string>("");
+	const [nextRewardPoint, setNextRewardPoint] = useState<number | string>(0)
+	// 后续增加手册切换功能
+	const currentBrochure: IBrochure = {
+		50: {
+			reward: "asfd",
+		},
+		100: {
+			reward: "asdff",
+		},
+		200: {
+			reward: "dgs",
+		},
+	};
+	const pointSets = Object.keys(currentBrochure);
+
+	useEffect(() => {
+		for (let i in pointSets) {
+		let index: number = parseInt(i);
+		if (
+			totalPoints >= parseInt(pointSets[index]) &&
+			totalPoints < parseInt(pointSets[index + 1])
+		) {
+			setNextReward(currentBrochure[pointSets[index + 1]].reward);
+			setNextRewardPoint(pointSets[index + 1]);
+			return
+		}
+	}	
+	}, [totalPoints])
+
 	return (
 		<>
 			<Card className={classes.padding} component={Paper}>
 				<Typography variant="h5">
 					<CardGiftcardIcon />
-					一杯奶茶
+					{nextReward}
 				</Typography>
-				<Typography variant="caption">120/200</Typography>
+				<Typography variant="caption">{`${totalPoints}/${nextRewardPoint}`}</Typography>
 				<br />
 				<BorderLinearProgress variant="determinate" value={50} />
 				<br />
@@ -89,7 +123,7 @@ const RewardBoard = ({ rewards }: { rewards: IRewardItem[] }) => {
 const App = () => {
 	const classes = useStyles();
 	const [tasks, setTasks] = useState<ITaskItem[]>([]);
-	const [rewards, setRewards] = useState<IRewardItem[]>([]);
+	const [rewards, setRewards] = useState<IBrochure[]>([]);
 
 	useEffect(() => {
 		db.table("tasks")
@@ -97,12 +131,13 @@ const App = () => {
 			.then((tasks) => {
 				setTasks(tasks);
 			});
-	});
+	}, []);
 
-	const addTask = (title = DEFAULT_TITLE) => {
+	const addTask = (title = DEFAULT_TITLE, point = 10) => {
 		const todo: ITaskItem = {
 			title,
-			done: false,
+			done: true,
+			point,
 		};
 		db.table("tasks")
 			.add(todo)
@@ -112,9 +147,17 @@ const App = () => {
 			});
 	};
 
+	const sum =
+		tasks
+			.filter((task) => task.done)
+			.map((task) => task.point)
+			.reduce((a = 0, b = 0) => a + b, 0) || 0;
+
+	console.log(sum);
+
 	return (
 		<>
-			<RewardBoard rewards={rewards} />
+			<RewardBoard totalPoints={sum} brochures={rewards} />
 			<br />
 			<TaskLists tasks={tasks} />
 			<Fab

@@ -10,8 +10,8 @@ export default ({ tasks }: { tasks: ITaskItem[] }) => {
 	return (
 		<Card component={Paper}>
 			<List>
-				{tasks.map(({ title, id }: ITaskItem) => (
-					<TaskItem key={id} title={title} />
+				{tasks.map(({ title, id, point }: ITaskItem) => (
+					<TaskItem key={id} title={title} point={point} />
 				))}
 			</List>
 		</Card>
