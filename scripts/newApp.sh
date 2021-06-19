@@ -1,5 +1,7 @@
 #! /usr/bin/env bash
 
+# // FIXME 修复新增工具脚本
+
 echo -n '应用名称:'
 read appName
 echo -n '应用代码(推荐使用下划线代替空格):'

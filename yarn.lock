@@ -5529,6 +5529,16 @@ detect-port-alt@1.1.6:
     address "^1.0.1"
     debug "^2.6.0"
 
+dexie-react-hooks@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.nlark.com/dexie-react-hooks/download/dexie-react-hooks-1.0.6.tgz#a21d116addb2bb785507bf924cc6e963d858d5d5"
+  integrity sha1-oh0Rat2yu3hVB7+STMbpY9hY1dU=
+
+dexie@^3.0.3:
+  version "3.0.3"
+  resolved "https://registry.nlark.com/dexie/download/dexie-3.0.3.tgz?cache=0&sync_timestamp=1623063047012&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fdexie%2Fdownload%2Fdexie-3.0.3.tgz#ede63849dfe5f07e13e99bb72a040e8ac1d29dab"
+  integrity sha1-7eY4Sd/l8H4T6Zu3KgQOisHSnas=
+
 diff-sequences@^24.9.0:
   version "24.9.0"
   resolved "https://registry.npm.taobao.org/diff-sequences/download/diff-sequences-24.9.0.tgz?cache=0&sync_timestamp=1597057408594&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fdiff-sequences%2Fdownload%2Fdiff-sequences-24.9.0.tgz#5715d6244e2aa65f48bba0bc972db0b0b11e95b5"
