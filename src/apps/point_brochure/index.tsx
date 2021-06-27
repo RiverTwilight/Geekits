@@ -119,7 +119,7 @@ const RewardBoard = ({
 	);
 };
 
-// TODO 积分手册工具
+// TODO 积分手册工具https://github.com/dfahlander/Dexie.js/tree/master/samples/react/src
 const App = () => {
 	const classes = useStyles();
 	const [tasks, setTasks] = useState<ITaskItem[]>([]);
