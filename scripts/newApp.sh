@@ -1,15 +1,11 @@
 #! /usr/bin/env bash
 
-# // FIXME 修复新增工具脚本
-
 echo -n '应用名称:'
 read appName
 echo -n '应用代码(推荐使用下划线代替空格):'
 read appLink
 echo -n '应用图标:'
 read appIcon
-echo -n '应用图标颜色:'
-read appIconColor
 echo -n '应用介绍:'
 read appDescrip
 echo -n "应用分类1：人工智能；2：图片视频；3：编程开发；4：生活常用"
@@ -24,7 +20,7 @@ DATA=$(<$DATA_PATH)
 APP_PATH="$PWD/src/apps/$appLink"
 
 # Write app meta info
-JSON_FMT="{\"name\":\"$appName\",\"channel\": $appChannel, \"icon\":\"$appIcon\",\"link\":\"$appLink\",\"icon_color\":\"$appIconColor\",\"description\":\"$appDescrip\"}"
+JSON_FMT="{\"name\":\"$appName\",\"channel\": $appChannel, \"icon\":\"$appIcon\",\"link\":\"$appLink\",\"description\":\"$appDescrip\"}"
 printf "export default [$JSON_FMT,${DATA:16}" >$DATA_PATH
 
 if [ ! -d $APP_PATH ]; then
