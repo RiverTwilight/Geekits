@@ -58,10 +58,9 @@ class AppContainer extends React.Component<any, any> {
 		window.loadHide(); // 清除滚动条
 	}
 	componentDidCatch(error: any, info: any) {
-		// REBUILD Error Bounding
-		// mduiAlert(error, "您的浏览器捕获到一个错误", null, {
-		// 	history: false,
-		// });
+		window.snackbar({
+			message: "您的浏览器捕捉到一个错误：" + error
+		});
 	}
 	componentDidMount() {
 		const { appInfo, RightDrawerOpen } = this.state;

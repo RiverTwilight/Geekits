@@ -5,7 +5,7 @@ import { snackbar } from "mdui";
 import Cursor from "../../svg/position.svg";
 import FileInput from "../../components/FileInput";
 
-//调色盘
+// REBUILD 取色器
 const ColorLens = ({ onChange, rgb, isHide }: any) => {
 	if (isHide) return null;
 	const [r, g, b, a] = rgb.replace(/\s/g, "").split(",");
