@@ -12,6 +12,7 @@ import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import List from "@material-ui/core/List";
 import Typography from "@material-ui/core/Typography";
+import TextField from "@material-ui/core/TextField";
 import SearchSharpIcon from "@material-ui/icons/SearchSharp";
 import Link from "@material-ui/core/Link";
 import { AppListItem } from "./AppList";
@@ -127,18 +128,18 @@ class Search extends React.Component<any, SearchState> {
 			<>
 				<Paper className={classes.padding}>
 					<FormControl fullWidth>
-						<InputLabel htmlFor="search">搜索（Ctrl+F）</InputLabel>
-						<Input
-							startAdornment={
-								<InputAdornment position="start">
+						<TextField InputProps={{
+							startAdornment:
+								(<InputAdornment position="start">
 									<SearchSharpIcon />
-								</InputAdornment>
-							}
+								</InputAdornment>)
+						}}
 							inputRef={(ref) => (this.searchInput = ref)}
-							autoComplete="off"
+							autoComplete="on"
 							id="search"
 							value={kwd}
-							onChange={this.handleInput}
+							variant="outlined"
+							onChange={this.handleInput} label="搜索（Ctrl+F）"
 						/>
 					</FormControl>
 					<SearchResult kwd={kwd} result={searchResult} />

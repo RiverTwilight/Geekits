@@ -42,15 +42,15 @@ const AppListItem = ({
 	const attr =
 		channel === 5
 			? {
-					href: link,
-					target: "_blank",
-					component: "a",
-					rel: "noopener noreferrer",
-			  }
+				href: link,
+				target: "_blank",
+				component: "a",
+				rel: "noopener noreferrer",
+			}
 			: {
-					component: Link,
-					to: "/app/" + link,
-			  };
+				component: Link,
+				to: "/app/" + link,
+			};
 	return (
 		<ListItem
 			className={classes.appItem}
@@ -76,7 +76,7 @@ const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		root: {
 			width: "100%",
-			backgroundColor: theme.palette.background.paper,
+			// backgroundColor: theme.palette.background.paper,
 		},
 		nested: {
 			paddingLeft: theme.spacing(4),
@@ -92,6 +92,9 @@ const useStyles = makeStyles((theme: Theme) =>
 		appItemText: {
 			paddingLeft: "20px",
 		},
+		appItem: {
+			boxShadow: ""
+		}
 	})
 );
 
@@ -113,26 +116,26 @@ const MakeChannels = ({
 			<ListItem button onClick={handleClick}>
 				<ListItemIcon>{Icon}</ListItemIcon>
 				<ListItemText primary={name} />
-				{open ? <ExpandLess /> : <ExpandMore />}
+				{/* {open ? <ExpandLess /> : <ExpandMore />} */}
 			</ListItem>
-			<Collapse in={open} timeout="auto" unmountOnExit>
-				<List component="div" disablePadding>
-					<Grid container spacing={3}>
-						{apps.map((app: any) => (
-							<Grid key={app.name} item sm={6} xl={4} xs={12}>
-								<AppListItem {...app} />
-							</Grid>
-						))}
-					</Grid>
-				</List>
-			</Collapse>
+			{/* <Collapse in={open} timeout="auto" unmountOnExit> */}
+			<List component="div" disablePadding>
+				<Grid container spacing={3}>
+					{apps.map((app: any) => (
+						<Grid key={app.name} item sm={6} xl={4} xs={12}>
+							<AppListItem {...app} />
+						</Grid>
+					))}
+				</Grid>
+			</List>
+			{/* </Collapse> */}
 		</>
 	);
 };
 
 const getChannelName = (index: any) =>
 	["AI人工智能", "图片视频", "编程开发", "生活常用", "第三方工具&友情链接"][
-		index - 1
+	index - 1
 	];
 
 const getChannelIcon = (index: any) => {
@@ -167,21 +170,19 @@ const AppList = () => {
 	);
 
 	return (
-		<Paper>
-			<List
-				aria-labelledby="nested-list-subheader"
-				subheader={
-					<ListSubheader component="div" id="nested-list-subheader">
-						所有工具
+		<List
+			aria-labelledby="nested-list-subheader"
+			subheader={
+				<ListSubheader component="div" id="nested-list-subheader">
+					所有工具
 					</ListSubheader>
-				}
-				className={classes.root}
-			>
-				{data.map((a: any, i: any) => {
-					return <MakeChannels key={i} data={a} />;
-				})}
-			</List>
-		</Paper>
+			}
+			className={classes.root}
+		>
+			{data.map((a: any, i: any) => {
+				return <MakeChannels key={i} data={a} />;
+			})}
+		</List>
 	);
 };
 
