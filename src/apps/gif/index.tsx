@@ -10,7 +10,7 @@ type FormComp = {
 
 /**
  * 配置表单
- * @todo 独立表单组件
+ *  // REBUILD GIF制作
  */
 
 class Setting extends React.Component<
