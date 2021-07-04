@@ -5,12 +5,14 @@ import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import DataUsageIcon from "@material-ui/icons/DataUsage";
 import { ITaskItem } from "./ITaskItem";
 
-export const TaskItem = ({ title, id, done }: ITaskItem) => {
+export const TaskItem = ({ title, id, done, point }: ITaskItem) => {
 	return (
 		<ListItem>
 			<ListItemText primary={title} secondary="Jan 7, 2014" />
 			<ListItemSecondaryAction>
-				<Button variant="outlined" startIcon={<DataUsageIcon />}>+5</Button>
+				<Button variant="outlined" startIcon={<DataUsageIcon />}>
+					+{point}
+				</Button>
 			</ListItemSecondaryAction>
 		</ListItem>
 	);
