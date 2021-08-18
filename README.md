@@ -1,3 +1,7 @@
+<div align="center">
+  <h1>!! This branch is no longer maintained, please work on v2 branch !!</h1>
+</div>
+
 <p align="center">
   <a href="https://www.ygktool.cn">
     <img width="180" src="https://www.ygktool.cn/logo_design.svg">
