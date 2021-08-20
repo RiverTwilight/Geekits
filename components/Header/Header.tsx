@@ -87,7 +87,7 @@ export default (props: any) => {
 					<IconButton
 						color="primary"
 						aria-label="open drawer"
-						onClick={() => store.dispatch({ type: "drawer/opened" })}
+						// onClick={() => store.dispatch({ type: "drawer/opened" })}
 						edge="start"
 						className={classes.menuButton}
 					>

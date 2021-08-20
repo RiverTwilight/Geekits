@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from "next/link";
 import Button from "@material-ui/core/Button"
 
 const NoMatch = () => {
@@ -10,7 +10,7 @@ const NoMatch = () => {
 				是不是地址拼错了？是/app不是/apps哦<br></br>
 				想要的工具不见了？返回首页找找吧！<br></br>
 			</p>
-			<Button variant="outlined" component={Link} to="/">
+			<Button variant="outlined" component={Link} href="/">
 				返回首页
 			</Button>
 		</div>

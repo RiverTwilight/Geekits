@@ -22,11 +22,22 @@ import EmojiFoodBeverageIcon from "@material-ui/icons/EmojiFoodBeverage";
 import PersonIcon from "@material-ui/icons/Person";
 import AssistantIcon from "@material-ui/icons/Assistant";
 import BrushSharpIcon from "@material-ui/icons/BrushSharp";
-import TwitterIcon from '@material-ui/icons/Twitter';
+import TwitterIcon from "@material-ui/icons/Twitter";
 import { blue } from "@material-ui/core/colors";
 
-const PrivacyPath = require("./privacy.md");
-// REBUILD 设置页面
+// const PrivacyPath = require("./privacy.md");
+
+export async function getStaticProps({ locale, locales }) {
+	return {
+		props: {
+			currentPage: {
+				title: "设置",
+				path: "/setting",
+			},
+			locale,
+		},
+	};
+}
 
 interface ISetting {
 	homeShowNewestTool: boolean;
@@ -34,13 +45,16 @@ interface ISetting {
 	theme: number;
 }
 
-function setFunc<T extends keyof ISetting>(name?: T, value?: any): ISetting {
+function updateSetting<T extends keyof ISetting>(
+	name?: T,
+	value?: any
+): ISetting {
 	var originSetting: ISetting = JSON.parse(
-		localStorage.getItem("setting") || "{}"
+		(window && window.localStorage.getItem("setting")) || "{}"
 	);
 	if (!name) return originSetting;
 	originSetting[name] = value;
-	localStorage.setItem("setting", JSON.stringify(originSetting));
+	window.localStorage.setItem("setting", JSON.stringify(originSetting));
 	console.log(originSetting);
 	return originSetting;
 }
@@ -109,7 +123,10 @@ export default class Setting extends React.Component<
 	constructor(props: Readonly<{ handleNewPage: any }>) {
 		super(props);
 		this.state = {
-			setting: setFunc(),
+			setting: {
+				hitokotoTopic: 1,
+				theme: 1,
+			},
 			privacy: "",
 			showPrivacy: false,
 			showSaying: false,
@@ -118,17 +135,19 @@ export default class Setting extends React.Component<
 		};
 	}
 	componentDidMount() {
-		window.updateTitle("设置");
-		window.setHeaderButton(null);
-		fetch(PrivacyPath.default)
-			.then((response) => {
-				return response.text();
-			})
-			.then((text) => {
-				this.setState({
-					privacy: text,
-				});
-			});
+		// window.setHeaderButton(null);
+		this.setState({
+			setting: updateSetting(),
+		});
+		// fetch(PrivacyPath.default)
+		// 	.then((response) => {
+		// 		return response.text();
+		// 	})
+		// 	.then((text) => {
+		// 		this.setState({
+		// 			privacy: text,
+		// 		});
+		// 	});
 	}
 	handleShowPrivacy = () => {
 		this.setState({
@@ -160,13 +179,8 @@ export default class Setting extends React.Component<
 	};
 	render() {
 		const { hitokotoTopic, theme } = this.state.setting;
-		const {
-			showPrivacy,
-			showSaying,
-			privacy,
-			showDonation,
-			showTheme,
-		} = this.state;
+		const { showPrivacy, showSaying, privacy, showDonation, showTheme } =
+			this.state;
 		return (
 			<Grid sm={9}>
 				<Dialog
@@ -230,7 +244,7 @@ export default class Setting extends React.Component<
 											checked={hitokotoTopic === i}
 											onChange={() => {
 												this.setState({
-													setting: setFunc(
+													setting: updateSetting(
 														"hitokotoTopic",
 														i
 													),
@@ -261,7 +275,7 @@ export default class Setting extends React.Component<
 											checked={theme === i}
 											onChange={() => {
 												this.setState({
-													setting: setFunc(
+													setting: updateSetting(
 														"theme",
 														i
 													),
@@ -316,13 +330,11 @@ export default class Setting extends React.Component<
 					{[
 						{
 							text: "提交反馈",
-							href:
-								"https://github.com/RiverTwilight/ygktool/issues",
+							href: "https://github.com/RiverTwilight/ygktool/issues",
 						},
 						{
 							text: "联系开发者",
-							href:
-								"//wpa.qq.com/msgrd?v=3&amp;uin=1985386335&amp;site=qq&amp;menu=yes",
+							href: "//wpa.qq.com/msgrd?v=3&amp;uin=1985386335&amp;site=qq&amp;menu=yes",
 						},
 					].map((item) => (
 						<ListItem button component="a" href={item.href}>

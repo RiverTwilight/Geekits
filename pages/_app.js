@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Layout from "../components/Layout";
 import siteConfig from "../site.config.js";
+import { ThemeProvider } from "@material-ui/core/styles";
+// import UserContextProvider from "../components/UserContextProvider";
+import theme from "../utils/theme";
 
 import "./App.css";
 
@@ -26,14 +29,20 @@ function MyApp({ Component, pageProps }) {
 	} = pageProps;
 
 	return (
-		<Layout
-			siteConfig={siteConfig}
-			locale={locale}
-			currentPage={currentPage}
-			menuItems={menuItems}
+		<ThemeProvider
+			theme={theme({
+				darkTheme: dark,
+			})}
 		>
-			<Component {...pageProps} siteConfig={siteConfig} />
-		</Layout>
+			<Layout
+				siteConfig={siteConfig}
+				locale={locale}
+				currentPage={currentPage}
+				menuItems={menuItems}
+			>
+				<Component {...pageProps} siteConfig={siteConfig} />
+			</Layout>
+		</ThemeProvider>
 	);
 }
 

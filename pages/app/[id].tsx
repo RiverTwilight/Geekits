@@ -5,7 +5,7 @@ import Loadable from "../../utils/loading";
 import RightDrawer from "../../components/RightDrawer";
 import HelpTwoToneIcon from "@material-ui/icons/HelpTwoTone";
 import IconButton from "@material-ui/core/IconButton";
-import getAllPosts from "../../utils/getAllPosts";
+import getAllPosts from "../../utils/getAllApps";
 import getPaths from "../../utils/getPaths";
 import getPostId from "../../utils/getPostId";
 import {

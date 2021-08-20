@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
-import useEventListener from "../../utils/Hooks/useEventListener";
+import { useHistory } from "next/link";
+import useEventListener from "../utils/Hooks/useEventListener";
 //@ts-expect-error
-import pinyin from "js-pinyin";
-import applist from "../../data/appData";
+// import pinyin from "js-pinyin";
 import Input from "@material-ui/core/Input";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Paper from "@material-ui/core/Paper";

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Link, NavLink, withRouter } from "react-router-dom";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import { getUserInfo } from "../../utils/Services/UserInfo";
 import Divider from "@material-ui/core/Divider";
 import Drawer from "@material-ui/core/Drawer";
@@ -24,29 +25,29 @@ import { green, red, blue } from "@material-ui/core/colors";
 import AppsIcon from "@material-ui/icons/Apps";
 import { UserContext } from "../UserContextProvider";
 import clsx from "clsx";
-import { store as loginDialogStore } from "../../data/loginDialogState";
-import { store as drawerStore } from "../../data/drawerState";
+// import { store as loginDialogStore } from "../../data/loginDialogState";
+// import { store as drawerStore } from "../../data/drawerState";
 
 const list = [
 	{
 		Icon: <HomeIcon style={{ color: red[500] }} />,
 		text: "首页",
-		link: "/",
+		href: "/",
 	},
 	{
 		Icon: <AppsIcon style={{ color: blue[300] }} />,
 		text: "发现",
-		link: "/discover",
+		href: "/discover",
 	},
 	{
 		Icon: <SettingsIcon style={{ color: green[500] }} />,
 		text: "设置",
-		link: "/setting",
+		href: "/setting",
 	},
 	{
 		Icon: <GitHubIcon />,
 		text: "Github",
-		link: "https://github.com/rivertwilight/ygktool",
+		href: "https://github.com/rivertwilight/ygktool",
 	},
 ];
 
@@ -97,10 +98,8 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const User = ({ handleLogin }: any) => {
 	const classes = useStyles();
-	const [user, setUser]: [
-		user: userInfoFromLocal | null,
-		setUser: any
-	] = useState(null);
+	const [user, setUser]: [user: userInfoFromLocal | null, setUser: any] =
+		useState(null);
 	useEffect(() => {
 		setUser(getUserInfo());
 	}, [handleLogin]);
@@ -143,10 +142,7 @@ const User = ({ handleLogin }: any) => {
 								className={classes.inline}
 								color="textSecondary"
 							>
-								{
-									/*//@ts-expect-error */
-									user ? user.name : "未登录"
-								}
+								{user ? user.name : "未登录"}
 							</Typography>
 						</>
 					}
@@ -162,7 +158,9 @@ interface IProps {
 }
 
 const LeftDrawer = (props: IProps) => {
-	const { handleLoginOpen, history } = props;
+	const { handleLoginOpen } = props;
+
+	// const history = useHistory()
 
 	const userData = React.useContext(UserContext);
 
@@ -171,7 +169,7 @@ const LeftDrawer = (props: IProps) => {
 	const testBlur = () => /(\S+)\/app\/\S+/.test(window.location.href);
 
 	const [open, setOpen] = React.useState(false);
-	const [isBlur, setIsBlur] = React.useState(testBlur());
+	const [isBlur, setIsBlur] = React.useState(false);
 	const classes = useStyles();
 	const theme = useTheme();
 
@@ -179,29 +177,29 @@ const LeftDrawer = (props: IProps) => {
 		window.innerWidth <= 1024 && setOpen(false);
 	};
 
-	drawerStore.subscribe(() => setOpen(drawerStore.getState().value));
+	useEffect(() => {
+		setIsBlur(testBlur());
+	});
+
+	// drawerStore.subscribe(() => setOpen(drawerStore.getState().value));
 
 	const Warpper = (props: {
-		a: { link: string; text: string; Icon: any };
+		a: { href: string; text: string; Icon: any };
 	}) => {
-		let { link, text, Icon } = props.a;
-		const attr = link.match(/(http|https)/)
-			? {
-					href: link,
-					component: "a",
-			  }
-			: {
-					activeClassName: "Mui-selected",
-					component: NavLink,
-					to: link,
-					onClick: handleClick,
-					exact: true,
-			  };
+		const router = useRouter();
+		let { href = "/", text, Icon } = props.a;
 		return (
-			<ListItem button key={text} {...attr}>
-				<ListItemIcon>{Icon}</ListItemIcon>
-				<ListItemText primary={text} />
-			</ListItem>
+			<Link href={href} passHref>
+				<ListItem
+				component="a"
+					className={router.pathname == href ? "Mui-selected" : ""}
+					button
+					key={text}
+				>
+					<ListItemIcon>{Icon}</ListItemIcon>
+					<ListItemText primary={text} />
+				</ListItem>
+			</Link>
 		);
 	};
 	const drawer = (
@@ -223,9 +221,9 @@ const LeftDrawer = (props: IProps) => {
 		</>
 	);
 
-	history.listen(() => {
-		setIsBlur(testBlur());
-	});
+	// history.listen(() => {
+	// 	setIsBlur(testBlur());
+	// });
 
 	return (
 		<nav className={classes.drawer} aria-label="left drawer">
@@ -263,5 +261,4 @@ const LeftDrawer = (props: IProps) => {
 	);
 };
 
-//@ts-expect-error
-export default withRouter<IProps>(LeftDrawer);
+export default LeftDrawer;

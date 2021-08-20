@@ -1,6 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import applist from "../../data/appData";
+import { Link } from "next/link";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -42,15 +41,15 @@ const AppListItem = ({
 	const attr =
 		channel === 5
 			? {
-				href: link,
-				target: "_blank",
-				component: "a",
-				rel: "noopener noreferrer",
-			}
+					href: link,
+					target: "_blank",
+					component: "a",
+					rel: "noopener noreferrer",
+			  }
 			: {
-				component: Link,
-				to: "/app/" + link,
-			};
+					component: Link,
+					to: "/app/" + link,
+			  };
 	return (
 		<ListItem
 			className={classes.appItem}
@@ -93,8 +92,8 @@ const useStyles = makeStyles((theme: Theme) =>
 			paddingLeft: "20px",
 		},
 		appItem: {
-			boxShadow: ""
-		}
+			boxShadow: "",
+		},
 	})
 );
 
@@ -135,7 +134,7 @@ const MakeChannels = ({
 
 const getChannelName = (index: any) =>
 	["AI人工智能", "图片视频", "编程开发", "生活常用", "第三方工具&友情链接"][
-	index - 1
+		index - 1
 	];
 
 const getChannelIcon = (index: any) => {
@@ -149,10 +148,12 @@ const getChannelIcon = (index: any) => {
 	return Icons[index - 1];
 };
 
-const AppList = () => {
+const AppList = ({ appData }) => {
 	const classes = useStyles();
 
 	var channelType: any = [];
+
+	const applist = appData;
 
 	for (let i = applist.length - 1; i >= 0; i--) {
 		let app = applist[i];
@@ -175,7 +176,7 @@ const AppList = () => {
 			subheader={
 				<ListSubheader component="div" id="nested-list-subheader">
 					所有工具
-					</ListSubheader>
+				</ListSubheader>
 			}
 			className={classes.root}
 		>
