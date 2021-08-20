@@ -19,7 +19,7 @@ import clsx from "clsx";
 
 export async function getStaticPaths({ locale }) {
 	return {
-		paths: getPaths(locale, getPostId, "posts/**/*.md"),
+		paths: getPaths(locale, getPostId, "apps/**/index.tsx"),
 		fallback: false,
 	};
 }
