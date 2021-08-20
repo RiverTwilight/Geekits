@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Layout from "../components/Layout";
 import siteConfig from "../site.config.js";
-import { Container } from "kindle-ui";
 
 import "./App.css";
 
@@ -27,16 +26,14 @@ function MyApp({ Component, pageProps }) {
 	} = pageProps;
 
 	return (
-		<Container dark={dark}>
-			<Layout
-				siteConfig={siteConfig}
-				locale={locale}
-				currentPage={currentPage}
-				menuItems={menuItems}
-			>
-				<Component {...pageProps} siteConfig={siteConfig} />
-			</Layout>
-		</Container>
+		<Layout
+			siteConfig={siteConfig}
+			locale={locale}
+			currentPage={currentPage}
+			menuItems={menuItems}
+		>
+			<Component {...pageProps} siteConfig={siteConfig} />
+		</Layout>
 	);
 }
 

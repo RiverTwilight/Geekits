@@ -17,7 +17,6 @@ export async function getStaticProps({ locale, locales }) {
 	};
 }
 
-
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		root: {

@@ -1,0 +1,35 @@
+@font-face {
+    font-family: font;
+    src: url(./electronic.ttf);
+}
+
+.score {
+    font-family: font;
+    font-size: 3.2em;
+    color: #E80000;
+    position: absolute;
+    z-index: 2;
+    right: 0;
+}
+
+.btn-group {
+    margin-top: 50px;
+}
+
+.btn-add {
+    margin-top: 10px;
+}
+
+.score-bg {
+    position: absolute;
+    font-family: font;
+    font-size: 3.2em;
+    color: #888888;
+    z-index: 1;
+    right: 0;
+}
+
+.score{
+     position:absolute;
+     left:0
+}
