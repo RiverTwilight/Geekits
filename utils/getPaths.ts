@@ -13,7 +13,7 @@ export default (locale, processId: (id: string) => string, path: string) => {
 	// );
 	// create paths with `slug` param
 	// const paths = blogSlugs.map(slug => `/blog/${encodeURI(slug)}`)
-	const paths = appData.map((slug) => {
+	const paths = appData.filter(app => app.comp).map((slug) => {
 		return {
 			params: {
 				id: slug.link,

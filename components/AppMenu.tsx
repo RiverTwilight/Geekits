@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import fivkits from "../../utils/Services/fiv";
+import fivkits from "../utils/Services/fiv";
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
@@ -9,7 +9,7 @@ import StarIcon from "@material-ui/icons/Star";
 import StarBorderIcon from "@material-ui/icons/StarBorder";
 import Typography from "@material-ui/core/Typography";
 import ShareIcon from "@material-ui/icons/Share";
-import StyledMarkdown from "../../components/StyledMarkdown";
+import StyledMarkdown from "./StyledMarkdown";
 import CodeIcon from "@material-ui/icons/Code";
 import TextField from "@material-ui/core/TextField";
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import Logined from "./dashboard/";
+import Logined from "./dashboard";
 import { getUserInfo } from "../../utils/Services/UserInfo";
 
 /**
