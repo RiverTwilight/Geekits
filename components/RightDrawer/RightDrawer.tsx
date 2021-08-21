@@ -41,23 +41,21 @@ const RightDrawer = ({
 
 	return (
 		<>
-			{window.innerWidth <= 640 && (
-				<Drawer
-					variant="temporary"
-					anchor="right"
-					open={!open}
-					onClose={onClose}
-					classes={{
-						paper: classes.drawerPaper,
-					}}
-				>
-					<Hidden xsDown>
-						<div className={classes.toolbar} />
-					</Hidden>
+			<Drawer
+				variant="temporary"
+				anchor="right"
+				open={!open}
+				onClose={onClose}
+				classes={{
+					paper: classes.drawerPaper,
+				}}
+			>
+				<Hidden xsDown>
+					<div className={classes.toolbar} />
+				</Hidden>
 
-					<div className={classes.drawerContainer}>{children}</div>
-				</Drawer>
-			)}
+				<div className={classes.drawerContainer}>{children}</div>
+			</Drawer>
 
 			<Hidden xsDown implementation="css">
 				<Drawer

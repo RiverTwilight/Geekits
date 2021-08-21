@@ -3,15 +3,14 @@ import fivkits from "../utils/Services/fiv";
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
+import TextField from "@material-ui/core/TextField";
 import IconButton from "@material-ui/core/IconButton";
 import GitHubIcon from "@material-ui/icons/GitHub";
 import StarIcon from "@material-ui/icons/Star";
 import StarBorderIcon from "@material-ui/icons/StarBorder";
-import Typography from "@material-ui/core/Typography";
 import ShareIcon from "@material-ui/icons/Share";
 import StyledMarkdown from "./StyledMarkdown";
 import CodeIcon from "@material-ui/icons/Code";
-import TextField from "@material-ui/core/TextField";
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -74,14 +73,14 @@ const AppMenu = ({
 		setShowCode(!showCode);
 	};
 	useEffect(() => {
-		const helpMdPath = require(`../../apps/${appinfo.link}/README.md`);
-		fetch(helpMdPath.default)
-			.then((response) => {
-				return response.text();
-			})
-			.then((text) => {
-				setHelp(text === "" ? "暂无帮助文本" : text);
-			});
+		// const helpMdPath = require(`../../apps/${appinfo.link}/README.md`);
+		// fetch(helpMdPath.default)
+		// 	.then((response) => {
+		// 		return response.text();
+		// 	})
+		// 	.then((text) => {
+		// 		setHelp(text === "" ? "暂无帮助文本" : text);
+		// 	});
 	});
 	return (
 		<div className={classes.content}>

@@ -1,4 +1,6 @@
 import React from "react";
+import RightDrawer from "../../components/RightDrawer";
+import AppMenu from "../../components/AppMenu";
 import { createStyles, Theme, withStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 import getAppInfo from "../../utils/appinfo";
@@ -75,6 +77,7 @@ class AppContainer extends React.Component<any, any> {
 	constructor(props: any) {
 		super(props);
 		this.state = {
+			AppComp: null,
 			FeedbackComp: null,
 			showFeedbackComp: false,
 			RightDrawerOpen: true,
@@ -91,6 +94,12 @@ class AppContainer extends React.Component<any, any> {
 	componentDidMount() {
 		const { RightDrawerOpen } = this.state;
 		const { appInfo } = this.props;
+
+		this.setState({
+			AppComp: getAppInfo(appInfo.link).comp
+		}) 
+
+
 		// TODO 独立管理工具菜单打开状态
 		// window.setHeaderButton(
 		// 	<IconButton
@@ -127,10 +136,8 @@ class AppContainer extends React.Component<any, any> {
 		});
 	};
 	render() {
-		const { FeedbackComp, showFeedbackComp, RightDrawerOpen } = this.state;
+		const { AppComp, FeedbackComp, showFeedbackComp, RightDrawerOpen } = this.state;
 		const { appInfo, classes } = this.props;
-
-		const CurrentApp = getAppInfo(appInfo.link).comp;
 
 		return (
 			<>
@@ -139,10 +146,10 @@ class AppContainer extends React.Component<any, any> {
 						[classes.contentShift]: RightDrawerOpen,
 					})}
 				>
-					<CurrentApp />
+					{AppComp && <AppComp />}
 				</div>
 
-				{/* <RightDrawer
+				<RightDrawer
 					onClose={() => {
 						this.setState({
 							RightDrawerOpen: !RightDrawerOpen,
@@ -153,7 +160,7 @@ class AppContainer extends React.Component<any, any> {
 					<AppMenu feedback={this.feedback} appinfo={appInfo} />
 				</RightDrawer>
 
-				{FeedbackComp && (
+				{/* {FeedbackComp && (
 					<FeedbackComp
 						open={showFeedbackComp}
 						onClose={() => {
