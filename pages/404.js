@@ -3,7 +3,7 @@ import Button from "@material-ui/core/Button";
 
 export default function Custom404() {
 	return (
-		<div className="center-panel">
+		<div className="center-with-flex">
 			<img alt="404" height="200" width="200" src="/icons/404.svg"></img>
 			<h2>电波无法到达哦</h2>
 			<p>

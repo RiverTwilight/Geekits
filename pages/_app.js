@@ -4,7 +4,6 @@ import siteConfig from "../site.config.js";
 import { ThemeProvider } from "@material-ui/core/styles";
 // import UserContextProvider from "../components/UserContextProvider";
 import theme from "../utils/theme";
-
 import "./App.css";
 
 function MyApp({ Component, pageProps }) {
