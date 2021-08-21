@@ -3,7 +3,7 @@
 if [[ "$ENABLE_BUILD_V2" == "true" ]]; then
     # Proceed with the build
     echo "✅ - Build can proceed";
-    exit 1;
+    next build
 
 else
     # Don't build
