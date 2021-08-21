@@ -4,7 +4,7 @@
 	"description": "A Responsive, Fast, i18n and Markdown Blog base on Next.js.",
 	"scripts": {
 		"dev": "next",
-		"build": "next build",
+		"build": "bash ./scripts/build.sh",
 		"start": "next start -p 3528",
 		"test": "jest ./__tests__ --testPathIgnorePatterns support/*",
 		"test:unit": "jest --verbose"
