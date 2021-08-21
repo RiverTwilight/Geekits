@@ -1,3 +1,9 @@
+import dynamic from "next/dynamic";
+
+const importConfig = {
+	ssr: false,
+};
+
 export default [
 	{
 		name: "自律神器：积分奖手册",
@@ -122,6 +128,8 @@ export default [
 		help: "",
 		description: "支持自定义颜色和大小；支持生成WIFI码",
 		channel: 2,
+		comp: dynamic(() => import("../apps/qrcode"), importConfig),
+		doc: dynamic(() => import("../apps/qrcode/README.md")),
 	},
 	{
 		name: "B站封面获取",
@@ -290,6 +298,9 @@ export default [
 		icon: "linear_scale",
 		icon_color: "blue-600",
 		channel: 4,
+		comp: dynamic(() => import("../apps/cem"), {
+			ssr: false,
+		}),
 	},
 	{
 		name: "云音乐歌单对比",

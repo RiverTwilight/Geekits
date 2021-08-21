@@ -6,7 +6,6 @@ import Board from "../components/Board";
 import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import getAllApps from "../utils/getAllApps";
-import appList from "../data/appData";
 
 export async function getStaticProps({ locale, locales }) {
 	
@@ -23,7 +22,6 @@ export async function getStaticProps({ locale, locales }) {
 				path: "/",
 			},
 			locale,
-			appData: appList,
 		},
 	};
 }
@@ -60,7 +58,7 @@ export default function Index({ appData }: any) {
 					<br />
 					<FivList />
 					<br />
-					<AppList appData={appList} />
+					<AppList />
 				</Grid>
 			</Grid>
 		</div>

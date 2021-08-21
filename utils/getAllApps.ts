@@ -15,6 +15,9 @@ export default function getAllPosts(
 	const posts = ((context) => {
 		const keys = context.keys();
 		const values = keys.map(context);
+
+		console.log(keys, values);
+
 		const data = keys.map((key, index) => {
 			// Create slug from filename
 			const slug = key
@@ -38,25 +41,6 @@ export default function getAllPosts(
 		});
 		return data;
 	})(requireFunc);
-
-	const sortedPosts = sort
-		? posts
-				.sort((a, b) => {
-					let dayA = a.frontmatter.date.split("/")[2],
-						dayB = b.frontmatter.date.split("/")[2];
-					return dayB - dayA;
-				})
-				.sort((a, b) => {
-					let monthA = a.frontmatter.date.split("/")[1],
-						monthB = b.frontmatter.date.split("/")[1];
-					return monthB - monthA;
-				})
-				.sort((a, b) => {
-					let yearA = a.frontmatter.date.split("/")[0],
-						yearB = b.frontmatter.date.split("/")[0];
-					return yearB - yearA;
-				})
-		: posts;
 
 	return sortedPosts;
 }

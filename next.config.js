@@ -9,6 +9,10 @@ module.exports = {
 			use: "raw-loader",
 		});
 		config.module.rules.push({
+			test: /\.ttf$/,
+			use: "ttf-loader",
+		});
+		config.module.rules.push({
 			test: /\.svg$/,
 			// issuer: {
 			//     test: /\.(js|ts)x?$/,

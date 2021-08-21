@@ -1,3 +1,0 @@
-### 你是不是在找...
-
-[服务协议生成](/app/policy_generator)
