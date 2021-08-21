@@ -1,4 +1,11 @@
 module.exports = {
+	typescript: {
+		// !! WARN !!
+		// Dangerously allow production builds to successfully complete even if
+		// your project has type errors.
+		// !! WARN !!
+		ignoreBuildErrors: true,
+	},
 	images: {
 		sizes: [320, 480, 820, 1200, 1600],
 		domains: ["i.loli.net", "bgr.com"],
