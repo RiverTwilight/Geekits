@@ -1,0 +1,26 @@
+{
+	"short_name": "云极客工具",
+	"name": "云极客工具",
+	"icons": [
+		{
+			"src": "/logo/v2/favicon-32x32.ico",
+			"sizes": "32x32",
+			"type": "image/x-icon"
+		},
+		{
+			"src": "/logo/v2/android-icon-192x192.png",
+			"type": "image/png",
+			"sizes": "192x192",
+			"purpose": "any maskable"
+		},
+		{
+			"src": "/logo/v2/512.png",
+			"type": "image/png",
+			"sizes": "512x512"
+		}
+	],
+	"start_url": "/",
+	"display": "standalone",
+	"theme_color": "#fff",
+	"background_color": "#fff"
+}
