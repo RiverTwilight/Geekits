@@ -199,6 +199,7 @@ export default [
 		description: "生成文件夹结构",
 		help: "不支持移动端使用；文件数量过多可能会有卡顿",
 		channel: 3,
+		comp: dynamic(() => import("../apps/folder_tree"), importConfig),
 	},
 	{
 		name: "GIF制作",
@@ -298,9 +299,7 @@ export default [
 		icon: "linear_scale",
 		icon_color: "blue-600",
 		channel: 4,
-		comp: dynamic(() => import("../apps/cem"), {
-			ssr: false,
-		}),
+		comp: dynamic(() => import("../apps/cem"), importConfig),
 	},
 	{
 		name: "云音乐歌单对比",
@@ -396,6 +395,7 @@ export default [
 		icon: "settings_applications",
 		icon_color: "yellow",
 		channel: 3,
+		comp: dynamic(() => import("../apps/js_keycode"), importConfig),
 	},
 	{ name: "Hello Tool", link: "http://hellotool.htm.kim", channel: 5 },
 	{
