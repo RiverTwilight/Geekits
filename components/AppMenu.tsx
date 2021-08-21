@@ -98,11 +98,11 @@ const AppMenu = ({
 				<IconButton onClick={handleCode} aria-label="框架引用">
 					<CodeIcon fontSize="inherit" />
 				</IconButton>
-				{typeof(navigator.share) != "undefined" && (
+				{/* {typeof(navigator.share) != "undefined" && (
 					<IconButton onClick={handleShare} aria-label="分享">
 						<ShareIcon fontSize="inherit" />
 					</IconButton>
-				)}
+				)} */}
 				<Button
 					className={classes.margin}
 					onClick={feedback}

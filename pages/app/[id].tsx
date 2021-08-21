@@ -1,8 +1,10 @@
 import React from "react";
+import IconButton from "@material-ui/core/IconButton"
 import RightDrawer from "../../components/RightDrawer";
 import AppMenu from "../../components/AppMenu";
 import { createStyles, Theme, withStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
+import HelpTwoToneIcon from "@material-ui/icons/HelpTwoTone";
 import getAppInfo from "../../utils/appinfo";
 import getPaths from "../../utils/getPaths";
 import getPostId from "../../utils/getPostId";
@@ -115,6 +117,7 @@ class AppContainer extends React.Component<any, any> {
 		// 		<HelpTwoToneIcon />
 		// 	</IconButton>
 		// );
+
 		// REBUILD 链接带有全屏参数，隐藏头部
 		if (window.location.search.indexOf("fullscreen=true") !== -1) {
 			// document.getElementsByTagName("header")[0].style.display = "none";

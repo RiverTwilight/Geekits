@@ -94,6 +94,7 @@ export default [
 		description:
 			"计算两个日期间隔的天数和时间，或推算几天前后是哪一天，可以算算你活了多久:)",
 		channel: 4,
+		comp: dynamic(() => import("../apps/date_calculator"), importConfig),
 	},
 	{
 		name: "番茄钟",
