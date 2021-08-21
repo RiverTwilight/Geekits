@@ -206,16 +206,8 @@ class Layout extends React.Component<
 				<div className={classes.root}>
 					<CssBaseline />
 					<LoginDialog />
-					<Header
-						handleLeftDrawerOpen={() => {
-							// this.setState({
-							// 	LeftDrawerOpen: true,
-							// });
-						}}
-						// open={LeftDrawerOpen}
-						title={currentPage.title}
-					/>
-					<LeftDrawer handleLoginOpen={() => {}} />
+					<Header title={currentPage.title} />
+					<LeftDrawer />
 					<main className={classes.content}>{children}</main>
 				</div>
 				<GlobalSnackbar />

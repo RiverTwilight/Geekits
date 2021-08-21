@@ -152,8 +152,7 @@ const User = ({ handleLogin }: any) => {
 };
 
 interface IProps {
-	history: any;
-	handleLoginOpen: () => void;
+
 }
 
 const LeftDrawer = (props: IProps) => {

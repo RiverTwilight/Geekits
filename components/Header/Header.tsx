@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			width: "100%",
 			filter: "blur(20px)",
 			zIndex: -1,
-			background: "rgba(255, 255, 255, 0.9)"
+			background: "rgba(255, 255, 255, 0.9)",
 		},
 		menuButton: {
 			marginRight: theme.spacing(2),
@@ -60,11 +60,9 @@ const useStyles = makeStyles((theme: Theme) =>
 	})
 );
 
-
-export default (props: any) => {
+export default (props: { title: string }) => {
 	const classes = useStyles();
 	const [extraButton, setExtraButton] = React.useState(null);
-	const [title, setTitle] = React.useState("云极客工具");
 
 	React.useEffect(() => {
 		window.setHeaderButton = setExtraButton;
@@ -82,7 +80,9 @@ export default (props: any) => {
 					<IconButton
 						color="primary"
 						aria-label="open drawer"
-						onClick={() => store.dispatch({ type: "drawer/opened" })}
+						onClick={() =>
+							store.dispatch({ type: "drawer/opened" })
+						}
 						edge="start"
 						className={classes.menuButton}
 					>
@@ -93,7 +93,7 @@ export default (props: any) => {
 						variant="h6"
 						className={classes.title}
 					>
-						{title}
+						{props.title}
 					</Typography>
 					{extraButton}
 				</Toolbar>

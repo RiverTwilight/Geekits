@@ -173,7 +173,9 @@ const AppList = () => {
 		(channel: number) => ({
 			name: getChannelName(channel),
 			Icon: getChannelIcon(channel),
-			apps: applist.filter((app) => app.channel === channel),
+			apps: applist.filter(
+				(app) => app.channel === channel && !!app.comp
+			),
 		})
 	);
 
