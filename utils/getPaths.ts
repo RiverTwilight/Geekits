@@ -1,21 +1,22 @@
 import glob from "glob";
+import appData from "../data/appData";
 
 export default (locale, processId: (id: string) => string, path: string) => {
 	//get all .md files in the posts dir
-	const blogs = glob.sync(path, {
-		stat: true,
-	});
+	// const blogs = glob.sync(path, {
+	// 	stat: true,
+	// });
 
 	//remove path and extension to leave filename only
-	const blogSlugs = blogs.map((file) =>
-		file.split("/")[2].replace(/ /g, "-").slice(0, -3).trim()
-	);
+	// const blogSlugs = blogs.map((file) =>
+	// 	file.split("/")[2].replace(/ /g, "-").slice(0, -3).trim()
+	// );
 	// create paths with `slug` param
 	// const paths = blogSlugs.map(slug => `/blog/${encodeURI(slug)}`)
-	const paths = blogSlugs.map((slug: string) => {
+	const paths = appData.map((slug) => {
 		return {
 			params: {
-				id: processId(slug),
+				id: slug.link,
 			},
 			locale,
 		};

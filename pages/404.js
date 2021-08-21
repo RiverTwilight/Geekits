@@ -1,4 +1,4 @@
-import { Link } from "next/link";
+import Link from "next/link";
 import Button from "@material-ui/core/Button"
 
 const NoMatch = () => {

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "next/link";
+import Link from "next/link";
 import fiv from "../utils/Services/fiv";
 import Paper from "@material-ui/core/Paper";
 import ListSubheader from "@material-ui/core/ListSubheader";
@@ -11,6 +11,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Grid from "@material-ui/core/Grid";
 import StarIcon from "@material-ui/icons/Star";
 import StarBorderIcon from "@material-ui/icons/StarBorder";
+import { useEffect } from "react";
 
 const AppItem = ({
 	data,
@@ -22,7 +23,7 @@ const AppItem = ({
 	addToFiv: () => void;
 }) => {
 	const [fiv, setFiv] = useState(true);
-	const { name, link } = data;
+	const { name, link = "/" } = data;
 	const handleClick = (e: any) => {
 		e.preventDefault();
 		fiv && removeFromFiv && removeFromFiv();
@@ -31,12 +32,14 @@ const AppItem = ({
 	};
 	return (
 		<Grid item sm={6} xs={12}>
-			<ListItem component={Link} to={`/app/${link}`} button key={name}>
-				<ListItemIcon onClick={handleClick}>
-					{fiv ? <StarIcon /> : <StarBorderIcon />}
-				</ListItemIcon>
-				<ListItemText primary={name} />
-			</ListItem>
+			<Link href={`/app/${link}`} passHref>
+				<ListItem button key={name}>
+					<ListItemIcon onClick={handleClick}>
+						{fiv ? <StarIcon /> : <StarBorderIcon />}
+					</ListItemIcon>
+					<ListItemText primary={name} />
+				</ListItem>
+			</Link>
 		</Grid>
 	);
 };
@@ -45,7 +48,12 @@ const AppItem = ({
  * 收藏列表
  * */
 const FivList = () => {
-	const [list, ,] = useState(fiv.getAll());
+	const [list, setList] = useState([]);
+
+	useEffect(() => {
+		setList(fiv.getAll());
+	}, []);
+
 	return (
 		<Paper>
 			<List

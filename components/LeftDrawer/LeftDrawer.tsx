@@ -25,8 +25,8 @@ import { green, red, blue } from "@material-ui/core/colors";
 import AppsIcon from "@material-ui/icons/Apps";
 import { UserContext } from "../UserContextProvider";
 import clsx from "clsx";
-// import { store as loginDialogStore } from "../../data/loginDialogState";
-// import { store as drawerStore } from "../../data/drawerState";
+import { store as loginDialogStore } from "../../data/loginDialogState";
+import { store as drawerStore } from "../../data/drawerState";
 
 const list = [
 	{
@@ -105,7 +105,7 @@ const User = ({ handleLogin }: any) => {
 	}, [handleLogin]);
 	const attr = user
 		? {
-				to: "/user",
+				href: "/user",
 				component: Link,
 		  }
 		: {
@@ -115,7 +115,6 @@ const User = ({ handleLogin }: any) => {
 		  };
 	return (
 		<>
-			{/** //@ts-expect-error */}
 			<ListItem button {...attr}>
 				<ListItemAvatar>
 					<Avatar
@@ -179,9 +178,8 @@ const LeftDrawer = (props: IProps) => {
 
 	useEffect(() => {
 		setIsBlur(testBlur());
+		drawerStore.subscribe(() => setOpen(drawerStore.getState().value));
 	});
-
-	// drawerStore.subscribe(() => setOpen(drawerStore.getState().value));
 
 	const Warpper = (props: {
 		a: { href: string; text: string; Icon: any };
@@ -191,7 +189,7 @@ const LeftDrawer = (props: IProps) => {
 		return (
 			<Link href={href} passHref>
 				<ListItem
-				component="a"
+					component="a"
 					className={router.pathname == href ? "Mui-selected" : ""}
 					button
 					key={text}

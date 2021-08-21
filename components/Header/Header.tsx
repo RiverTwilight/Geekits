@@ -39,7 +39,6 @@ const useStyles = makeStyles((theme: Theme) =>
 				width: `calc(100% - ${drawerWidth}px)`,
 				marginLeft: drawerWidth,
 			},
-			// TODO 头部高斯模糊
 			// filter: "blur(2px)"
 		},
 		cover: {
@@ -61,18 +60,14 @@ const useStyles = makeStyles((theme: Theme) =>
 	})
 );
 
+
 export default (props: any) => {
 	const classes = useStyles();
 	const [extraButton, setExtraButton] = React.useState(null);
 	const [title, setTitle] = React.useState("云极客工具");
+
 	React.useEffect(() => {
 		window.setHeaderButton = setExtraButton;
-		window.updateTitle = (pageName) => {
-			setTitle(pageName || "首页");
-			document.title = pageName
-				? `${pageName} - 云极客工具`
-				: "云极客工具";
-		};
 	}, []);
 
 	return (
@@ -82,12 +77,12 @@ export default (props: any) => {
 				color="inherit"
 				className={clsx(classes.appBar)}
 			>
-				<div className={classes.cover}></div>
+				{/* <div className={classes.cover}></div> */}
 				<Toolbar>
 					<IconButton
 						color="primary"
 						aria-label="open drawer"
-						// onClick={() => store.dispatch({ type: "drawer/opened" })}
+						onClick={() => store.dispatch({ type: "drawer/opened" })}
 						edge="start"
 						className={classes.menuButton}
 					>

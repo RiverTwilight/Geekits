@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import Header from "../Header";
 import LeftDrawer from "../LeftDrawer";
+import LoginDialog from "../LoginDialog";
 import { ICurrentPage, ISiteConfig } from "../../types";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import {
@@ -204,6 +205,7 @@ class Layout extends React.Component<
 				</Head>
 				<div className={classes.root}>
 					<CssBaseline />
+					<LoginDialog />
 					<Header
 						handleLeftDrawerOpen={() => {
 							// this.setState({

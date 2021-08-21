@@ -2,18 +2,19 @@ import React, { useEffect } from "react";
 import AppList from "../components/AppList";
 import Search from "../components/Search";
 import FivList from "../components/FivList";
+import Board from "../components/Board";
 import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import getAllApps from "../utils/getAllApps";
+import appList from "../data/appData";
 
 export async function getStaticProps({ locale, locales }) {
-
-	const appData = getAllApps(
-		{},
-		require.context("../posts", true, /\.md$/),
-		true
-	);
-
+	
+	// const appData = getAllApps(
+	// 	{},
+	// 	require.context("../apps", true, /\.tsx$/),
+	// 	true
+	// );
 
 	return {
 		props: {
@@ -22,7 +23,7 @@ export async function getStaticProps({ locale, locales }) {
 				path: "/",
 			},
 			locale,
-			appData
+			appData: appList,
 		},
 	};
 }
@@ -43,24 +44,24 @@ type IndexState = any;
 // TODO 移动端头部添加搜索按钮以聚焦搜索框
 export default function Index({ appData }: any) {
 	const classes = useStyles();
+
 	useEffect(() => {
 		window.setHeaderButton(null);
-		window.updateTitle();
-	}, [props]);
+	}, []);
 
 	return (
 		<div className={classes.root}>
-			<Grid container spacing={1}>
+			<Grid container direction="row-reverse" spacing={1}>
+				<Grid item xs={12} sm={3}>
+					<Board />
+				</Grid>
 				<Grid item sm={9} xs={12}>
 					<Search />
 					<br />
 					<FivList />
 					<br />
-					<AppList appData={appData} />
+					<AppList appData={appList} />
 				</Grid>
-				{/* <Grid item sm={3}>
-					fdsf
-				</Grid> */}
 			</Grid>
 		</div>
 	);

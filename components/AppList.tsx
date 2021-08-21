@@ -1,23 +1,48 @@
-import React from "react";
-import { Link } from "next/link";
-import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
+import Avatar from "@material-ui/core/Avatar";
+import Card from "@material-ui/core/Card";
+import Grid from "@material-ui/core/Grid";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
+import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import Collapse from "@material-ui/core/Collapse";
-import ExpandLess from "@material-ui/icons/ExpandLess";
-import ExpandMore from "@material-ui/icons/ExpandMore";
-import Grid from "@material-ui/core/Grid";
 import ListSubheader from "@material-ui/core/ListSubheader";
-import BurstModeIcon from "@material-ui/icons/BurstMode";
+import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import BrightnessAutoTwoToneIcon from "@material-ui/icons/BrightnessAutoTwoTone";
+import BurstModeIcon from "@material-ui/icons/BurstMode";
 import CodeTwoToneIcon from "@material-ui/icons/CodeTwoTone";
 import LinkTwoToneIcon from "@material-ui/icons/LinkTwoTone";
 import WbSunnyTwoToneIcon from "@material-ui/icons/WbSunnyTwoTone";
-import Paper from "@material-ui/core/Paper";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import Avatar from "@material-ui/core/Avatar";
+import React from "react";
+import Link from "next/link";
+import applist from "../data/appData";
+
+const useStyles = makeStyles((theme: Theme) =>
+	createStyles({
+		root: {
+			width: "100%",
+			// backgroundColor: theme.palette.background.paper,
+		},
+		nested: {
+			paddingLeft: theme.spacing(4),
+		},
+		appItem: {
+			height: "90px",
+		},
+		[theme.breakpoints.up("sm")]: {
+			appItem: {
+				height: "100px",
+			},
+		},
+		appItemIcon: {
+			// height: "50px",
+		},
+		appItemText: {
+			paddingLeft: "20px",
+			fontWeight: 700,
+		},
+	})
+);
 
 // TODO schema info check https://schema.org
 const AppListItem = ({
@@ -43,59 +68,43 @@ const AppListItem = ({
 			? {
 					href: link,
 					target: "_blank",
-					component: "a",
 					rel: "noopener noreferrer",
 			  }
 			: {
 					component: Link,
-					to: "/app/" + link,
+					href: "/app/" + link,
 			  };
 	return (
-		<ListItem
-			className={classes.appItem}
-			selected={selected}
-			button
-			key={name}
-			{...attr}
-		>
-			<ListItemAvatar className={classes.appItemIcon}>
-				<Avatar alt={name} src={icon} />
-			</ListItemAvatar>
-			<ListItemText
-				className={classes.appItemText}
-				inset
-				primary={name}
-				secondary={description}
-			/>
-		</ListItem>
+		<Card>
+			<Link {...attr} passHref>
+				<ListItem
+					className={classes.appItem}
+					selected={selected}
+					button
+					component="a"
+					key={name}
+				>
+					<ListItemAvatar className={classes.appItemIcon}>
+						<Avatar
+							imgProps={{
+								loading: "lazy",
+							}}
+							variant="rounded"
+							alt={name}
+							src={icon}
+						/>
+					</ListItemAvatar>
+					<ListItemText
+						className={classes.appItemText}
+						inset
+						primary={name}
+						secondary={description}
+					/>
+				</ListItem>
+			</Link>
+		</Card>
 	);
 };
-
-const useStyles = makeStyles((theme: Theme) =>
-	createStyles({
-		root: {
-			width: "100%",
-			// backgroundColor: theme.palette.background.paper,
-		},
-		nested: {
-			paddingLeft: theme.spacing(4),
-		},
-		[theme.breakpoints.up("sm")]: {
-			appItem: {
-				height: "100px",
-			},
-		},
-		appItemIcon: {
-			height: "50px",
-		},
-		appItemText: {
-			paddingLeft: "20px",
-		},
-		appItem: {
-			boxShadow: "",
-		},
-	})
-);
 
 //分类栏目
 const MakeChannels = ({
@@ -119,7 +128,7 @@ const MakeChannels = ({
 			</ListItem>
 			{/* <Collapse in={open} timeout="auto" unmountOnExit> */}
 			<List component="div" disablePadding>
-				<Grid container spacing={3}>
+				<Grid container spacing={1}>
 					{apps.map((app: any) => (
 						<Grid key={app.name} item sm={6} xl={4} xs={12}>
 							<AppListItem {...app} />
@@ -148,12 +157,10 @@ const getChannelIcon = (index: any) => {
 	return Icons[index - 1];
 };
 
-const AppList = ({ appData }) => {
+const AppList = () => {
 	const classes = useStyles();
 
 	var channelType: any = [];
-
-	const applist = appData;
 
 	for (let i = applist.length - 1; i >= 0; i--) {
 		let app = applist[i];

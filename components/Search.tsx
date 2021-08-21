@@ -1,14 +1,11 @@
-import React, { useState } from "react";
-import { useHistory } from "next/link";
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import useEventListener from "../utils/Hooks/useEventListener";
-//@ts-expect-error
-// import pinyin from "js-pinyin";
-import Input from "@material-ui/core/Input";
+import pinyin from "js-pinyin";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Paper from "@material-ui/core/Paper";
 import { createStyles, Theme, withStyles } from "@material-ui/core/styles";
 import FormControl from "@material-ui/core/FormControl";
-import InputLabel from "@material-ui/core/InputLabel";
 import List from "@material-ui/core/List";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
@@ -40,12 +37,17 @@ const SearchResult = ({ result = [], kwd }: any) => {
 		}
 	};
 	const [selectedItem, setSelectedItem] = useState(-1);
-	useEventListener("keydown", handleKeydown);
-	let history = useHistory();
+	let history = useRouter();
 	if (!result.length && kwd === "") return null;
 	function handleClick(url: any) {
 		history.push(url);
 	}
+	useEffect(() => {
+		useEventListener("keydown", handleKeydown);
+		return () => {
+			window.removeEventListener("keydown", handleKeydown);
+		};
+	}, []);
 	return (
 		<List aria-labelledby="nested-list-subheader">
 			{result.map((a: any, i: number) => (
@@ -127,18 +129,21 @@ class Search extends React.Component<any, SearchState> {
 			<>
 				<Paper className={classes.padding}>
 					<FormControl fullWidth>
-						<TextField InputProps={{
-							startAdornment:
-								(<InputAdornment position="start">
-									<SearchSharpIcon />
-								</InputAdornment>)
-						}}
+						<TextField
+							InputProps={{
+								startAdornment: (
+									<InputAdornment position="start">
+										<SearchSharpIcon />
+									</InputAdornment>
+								),
+							}}
 							inputRef={(ref) => (this.searchInput = ref)}
 							autoComplete="on"
 							id="search"
 							value={kwd}
 							variant="outlined"
-							onChange={this.handleInput} label="搜索（Ctrl+F）"
+							onChange={this.handleInput}
+							label="搜索（Ctrl+F）"
 						/>
 					</FormControl>
 					<SearchResult kwd={kwd} result={searchResult} />
