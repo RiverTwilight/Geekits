@@ -157,7 +157,7 @@ class Layout extends React.Component<
 		const { author, title } = siteConfig;
 		const showTitle = `${
 			currentPage ? `${currentPage.title} - ` : ""
-		}${title}`;
+		}${title[locale]}`;
 		const showDescription =
 			currentPage.description || siteConfig.description;
 		// const childrenWithProps = React.Children.map(props.children, (child) => {

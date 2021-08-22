@@ -1,9 +1,9 @@
 module.exports = {
 	"/": {
-		title: "首页",
+		title: "Home",
 		description: "",
 	},
 	"/setting": {
-		title: "设置"
+		title: "Setting",
 	},
 };

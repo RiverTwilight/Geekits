@@ -381,7 +381,7 @@ export default [
 	{
 		name: "js键盘码查询",
 		link: "js_keycode",
-		icon: "settings_applications",
+		icon: "/icons/js.png",
 		channel: 3,
 	},
 	{ name: "Hello Tool", link: "http://hellotool.htm.kim", channel: 5 },

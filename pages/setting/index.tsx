@@ -22,13 +22,19 @@ import Link from "next/link";
 import * as React from "react";
 
 export async function getStaticProps({ locale, locales }) {
+
+	const pageDic = require("../../data/i18n/" + locale + "/page.js")['/setting']
+
+	const { title } = pageDic;
+
 	return {
 		props: {
 			currentPage: {
-				title: "设置",
+				title,
 				path: "/setting",
 			},
 			locale,
+			pageDic,
 		},
 	};
 }
@@ -312,7 +318,7 @@ export default class Setting extends React.Component<
 					{[
 						{
 							primary: "联系开发者",
-							link: "//wpa.qq.com/msgrd?v=3&amp;uin=1985386335&amp;site=qq&amp;menu=yes",
+							link: "https://wpa.qq.com/msgrd?v=3&amp;uin=1985386335&amp;site=qq&amp;menu=yes",
 						},
 					].map(LinkList)}
 				</List>

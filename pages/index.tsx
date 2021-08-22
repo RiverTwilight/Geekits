@@ -8,18 +8,20 @@ import Grid from "@material-ui/core/Grid";
 
 export async function getStaticProps({ locale }) {
 
+	locale = "en-US"
 	const appData = require("../data/i18n/" + locale + "/appData.ts").default;
 
-	const pageData = require("../data/i18n/" + locale + "/page.js").default;
+	const pageDic = require("../data/i18n/" + locale + "/page.js")["/"];
 
 	return {
 		props: {
 			currentPage: {
-				title: "首页",
+				title: pageDic.title,
 				path: "/",
 			},
 			locale,
 			appData,
+			pageDic,
 		},
 	};
 }
@@ -39,7 +41,6 @@ type IndexState = any;
 
 // TODO 移动端头部添加搜索按钮以聚焦搜索框
 export default function Index({ appData }: any) {
-
 	const classes = useStyles();
 
 	useEffect(() => {
