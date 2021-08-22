@@ -94,7 +94,6 @@ export default [
 		description:
 			"计算两个日期间隔的天数和时间，或推算几天前后是哪一天，可以算算你活了多久:)",
 		channel: 4,
-		comp: dynamic(() => import("../apps/date_calculator"), importConfig),
 	},
 	{
 		name: "番茄钟",
@@ -129,8 +128,6 @@ export default [
 		help: "",
 		description: "支持自定义颜色和大小；支持生成WIFI码",
 		channel: 2,
-		comp: dynamic(() => import("../apps/qrcode"), importConfig),
-		doc: dynamic(() => import("../apps/qrcode/README.md")),
 	},
 	{
 		name: "B站封面获取",
@@ -199,7 +196,6 @@ export default [
 		description: "生成文件夹结构",
 		help: "不支持移动端使用；文件数量过多可能会有卡顿",
 		channel: 3,
-		comp: dynamic(() => import("../apps/folder_tree"), importConfig),
 	},
 	{
 		name: "GIF制作",
@@ -298,7 +294,6 @@ export default [
 		icon: "linear_scale",
 		icon_color: "blue-600",
 		channel: 4,
-		comp: dynamic(() => import("../apps/cem"), importConfig),
 	},
 	{
 		name: "云音乐歌单对比",
@@ -357,7 +352,6 @@ export default [
 		icon: "/icons/book.png",
 		description: "便捷查询常用词",
 		channel: 4,
-		comp: dynamic(() => import("../apps/dic_ci"), importConfig),
 		network: true,
 	},
 	{
@@ -375,7 +369,6 @@ export default [
 		help: "支持缩写哦",
 		channel: 4,
 		network: true,
-		comp: dynamic(() => import("../apps/dic_idiom"), importConfig),
 	},
 	{
 		name: "字典",
@@ -384,14 +377,12 @@ export default [
 		description: "我们中国的汉字，落笔成画留下五千年的历史",
 		channel: 4,
 		network: true,
-		comp: dynamic(() => import("../apps/dic_word"), importConfig),
 	},
 	{
 		name: "js键盘码查询",
 		link: "js_keycode",
 		icon: "settings_applications",
 		channel: 3,
-		comp: dynamic(() => import("../apps/js_keycode"), importConfig),
 	},
 	{ name: "Hello Tool", link: "http://hellotool.htm.kim", channel: 5 },
 	{

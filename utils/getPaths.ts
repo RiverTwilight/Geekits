@@ -1,5 +1,4 @@
-import glob from "glob";
-import appData from "../data/appData";
+// import glob from "glob";
 
 export default (locale, processId: (id: string) => string, path: string) => {
 	//get all .md files in the posts dir
@@ -13,14 +12,19 @@ export default (locale, processId: (id: string) => string, path: string) => {
 	// );
 	// create paths with `slug` param
 	// const paths = blogSlugs.map(slug => `/blog/${encodeURI(slug)}`)
-	const paths = appData.filter(app => app.comp).map((slug) => {
-		return {
-			params: {
-				id: slug.link,
-			},
-			locale,
-		};
-	});
+
+	const appData = require("../data/i18n/" + locale + "/appData.ts");
+
+	const paths = appData
+		.filter((app) => app.comp)
+		.map((slug) => {
+			return {
+				params: {
+					id: slug.link,
+				},
+				locale,
+			};
+		});
 
 	// console.log(paths)
 

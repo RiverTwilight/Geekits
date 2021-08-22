@@ -7,13 +7,9 @@ import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import getAllApps from "../utils/getAllApps";
 
-export async function getStaticProps({ locale, locales }) {
-	
-	// const appData = getAllApps(
-	// 	{},
-	// 	require.context("../apps", true, /\.tsx$/),
-	// 	true
-	// );
+export async function getStaticProps({ locale }) {
+
+	const appData = require("../data/i18n/" + locale + "/appData.ts").default;
 
 	return {
 		props: {
@@ -22,6 +18,7 @@ export async function getStaticProps({ locale, locales }) {
 				path: "/",
 			},
 			locale,
+			appData,
 		},
 	};
 }
@@ -41,6 +38,7 @@ type IndexState = any;
 
 // TODO 移动端头部添加搜索按钮以聚焦搜索框
 export default function Index({ appData }: any) {
+
 	const classes = useStyles();
 
 	useEffect(() => {
@@ -58,7 +56,7 @@ export default function Index({ appData }: any) {
 					<br />
 					<FivList />
 					<br />
-					<AppList />
+					<AppList appData={appData} />
 				</Grid>
 			</Grid>
 		</div>

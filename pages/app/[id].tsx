@@ -8,6 +8,7 @@ import HelpTwoToneIcon from "@material-ui/icons/HelpTwoTone";
 import getAppInfo from "../../utils/appinfo";
 import getPaths from "../../utils/getPaths";
 import getPostId from "../../utils/getPostId";
+import appImportList from "../../data/appImportList";
 
 export async function getStaticPaths({ locale }) {
 	return {
@@ -19,9 +20,15 @@ export async function getStaticPaths({ locale }) {
 export async function getStaticProps({ locale, locales, ...ctx }) {
 	const { id: currentId } = ctx.params;
 
-	const appInfo = getAppInfo(currentId);
+	const appData = require("../../data/i18n/" + locale + "/appData.ts");
 
-	const appDoc = require("../../apps/" + appInfo.link + "/README.md").default;
+	const appInfo = getAppInfo(appData, currentId);
+
+	const appDoc = require("../../apps/" +
+		appInfo.link +
+		"/docs/" +
+		locale +
+		"/README.md").default;
 
 	return {
 		props: {
@@ -93,7 +100,7 @@ class AppContainer extends React.Component<any, any> {
 		const { appInfo } = this.props;
 
 		this.setState({
-			AppComp: getAppInfo(appInfo.link).comp,
+			AppComp: appImportList[appInfo.link],
 		});
 
 		// TODO 独立管理工具菜单打开状态

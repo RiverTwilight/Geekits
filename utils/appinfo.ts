@@ -1,7 +1,8 @@
-import list from "../data/appData";
-
-export default (link: any) => {
-	for (let i in list) {
-		if (list[i].link == link) return list[i];
+/**
+ * @author rivertwilight
+ */
+export default (appData, link: any) => {
+	for (let i in appData) {
+		if (appData[i].link == link) return appData[i];
 	}
 };

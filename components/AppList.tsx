@@ -15,7 +15,6 @@ import LinkTwoToneIcon from "@material-ui/icons/LinkTwoTone";
 import WbSunnyTwoToneIcon from "@material-ui/icons/WbSunnyTwoTone";
 import React from "react";
 import Link from "next/link";
-import applist from "../data/appData";
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -157,13 +156,13 @@ const getChannelIcon = (index: any) => {
 	return Icons[index - 1];
 };
 
-const AppList = () => {
+const AppList = ({ appData }) => {
 	const classes = useStyles();
 
 	var channelType: any = [];
 
-	for (let i = applist.length - 1; i >= 0; i--) {
-		let app = applist[i];
+	for (let i = appData.length - 1; i >= 0; i--) {
+		let app = appData[i];
 		if (!channelType.includes(app.channel)) {
 			channelType.unshift(app.channel);
 		}
@@ -173,7 +172,7 @@ const AppList = () => {
 		(channel: number) => ({
 			name: getChannelName(channel),
 			Icon: getChannelIcon(channel),
-			apps: applist.filter((app) => app.channel === channel),
+			apps: appData.filter((app) => app.channel === channel),
 		})
 	);
 
