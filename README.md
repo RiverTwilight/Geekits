@@ -42,6 +42,8 @@ $ npm start
 
 完整开发文档见[语雀](https://www.yuque.com/yungeeker/devdoc)
 
+## 协助翻译 Help Trandlation
+
 ### 备注
 
 -   请勿改动网站的统计代码
