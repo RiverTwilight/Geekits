@@ -1,31 +1,25 @@
-import * as React from "react";
-import StyledMarkdown from "../../components/StyledMarkdown";
+import Checkbox from "@material-ui/core/Checkbox";
+import Dialog from "@material-ui/core/Dialog";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import FormGroup from "@material-ui/core/FormGroup";
 import Grid from "@material-ui/core/Grid";
-import Button from "@material-ui/core/Button";
 import List from "@material-ui/core/List";
-import ListSubheader from "@material-ui/core/ListSubheader";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import ListItemText from "@material-ui/core/ListItemText";
+import ListSubheader from "@material-ui/core/ListSubheader";
 import Paper from "@material-ui/core/Paper";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import DialogContent from "@material-ui/core/DialogContent";
-import Dialog from "@material-ui/core/Dialog";
 import Typography from "@material-ui/core/Typography";
-import FormGroup from "@material-ui/core/FormGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import GroupIcon from "@material-ui/icons/Group";
-import EmojiFoodBeverageIcon from "@material-ui/icons/EmojiFoodBeverage";
-import PersonIcon from "@material-ui/icons/Person";
 import AssistantIcon from "@material-ui/icons/Assistant";
 import BrushSharpIcon from "@material-ui/icons/BrushSharp";
+import EmojiFoodBeverageIcon from "@material-ui/icons/EmojiFoodBeverage";
+import GroupIcon from "@material-ui/icons/Group";
+import PersonIcon from "@material-ui/icons/Person";
 import TwitterIcon from "@material-ui/icons/Twitter";
-import { blue } from "@material-ui/core/colors";
-
-// const PrivacyPath = require("./privacy.md");
+import Link from "next/link";
+import * as React from "react";
 
 export async function getStaticProps({ locale, locales }) {
 	return {
@@ -38,6 +32,17 @@ export async function getStaticProps({ locale, locales }) {
 		},
 	};
 }
+
+const LinkList = function ({ link, Icon, primary, secondary }) {
+	return (
+		<Link key={link} href={link} passHref>
+			<ListItem component={"a"} button>
+				{Icon && <ListItemIcon>{Icon}</ListItemIcon>}
+				<ListItemText secondary={secondary} primary={primary} />
+			</ListItem>
+		</Link>
+	);
+};
 
 interface ISetting {
 	homeShowNewestTool: boolean;
@@ -179,32 +184,9 @@ export default class Setting extends React.Component<
 	};
 	render() {
 		const { hitokotoTopic, theme } = this.state.setting;
-		const { showPrivacy, showSaying, privacy, showDonation, showTheme } =
-			this.state;
+		const { showSaying, showDonation, showTheme } = this.state;
 		return (
 			<Grid sm={9}>
-				<Dialog
-					onClose={this.handleClose}
-					aria-labelledby="simple-dialog-title"
-					open={showPrivacy}
-				>
-					<DialogTitle id="simple-dialog-title">隐私政策</DialogTitle>
-					<DialogContent>
-						<StyledMarkdown content={privacy} />
-					</DialogContent>
-					<DialogActions>
-						<Button onClick={this.handleClose} color="primary">
-							不同意
-						</Button>
-						<Button
-							onClick={this.handleClose}
-							color="primary"
-							autoFocus
-						>
-							同意
-						</Button>
-					</DialogActions>
-				</Dialog>
 				<Dialog
 					onClose={this.handleClose}
 					aria-labelledby="simple-dialog-title"
@@ -329,63 +311,40 @@ export default class Setting extends React.Component<
 				>
 					{[
 						{
-							text: "提交反馈",
-							href: "https://github.com/RiverTwilight/ygktool/issues",
+							primary: "联系开发者",
+							link: "//wpa.qq.com/msgrd?v=3&amp;uin=1985386335&amp;site=qq&amp;menu=yes",
 						},
-						{
-							text: "联系开发者",
-							href: "//wpa.qq.com/msgrd?v=3&amp;uin=1985386335&amp;site=qq&amp;menu=yes",
-						},
-					].map((item) => (
-						<ListItem button component="a" href={item.href}>
-							<ListItemText primary={item.text} />
-						</ListItem>
-					))}
+					].map(LinkList)}
 				</List>
 				<br />
 				<List
 					component={Paper}
 					subheader={<ListSubheader>关于</ListSubheader>}
 				>
+					<ListItem button onClick={this.handleShowDonation}>
+						<ListItemIcon>
+							<EmojiFoodBeverageIcon />
+						</ListItemIcon>
+						<ListItemText primary="捐赠" />
+					</ListItem>
 					{[
 						{
-							onClick: this.handleShowPrivacy,
-							primary: "用户协议",
+							link: "/privacy",
+							primary: "隐私政策",
 							Icon: <PersonIcon />,
 						},
 						{
-							onClick: this.handleShowDonation,
-							primary: "捐赠",
-							Icon: <EmojiFoodBeverageIcon />,
-						},
-						{
-							onClick: () => {
-								window.open(
-									"https://jq.qq.com/?_wv=1027&amp;k=59hWPFs"
-								);
-							},
+							link: "https://jq.qq.com/?_wv=1027&amp;k=59hWPFs",
 							primary: "加入群组",
 							Icon: <GroupIcon />,
 						},
 						{
-							onClick: () => {
-								window.open(
-									"https://weibo.com/u/7561197296/home"
-								);
-							},
+							link: "https://weibo.com/u/7561197296/home",
 							primary: "官方微博",
 							secondary: "关注获取开发动态和粉丝福利~",
 							Icon: <TwitterIcon />,
 						},
-					].map(({ Icon, onClick, primary, secondary }) => (
-						<ListItem button onClick={onClick}>
-							{Icon && <ListItemIcon>{Icon}</ListItemIcon>}
-							<ListItemText
-								secondary={secondary}
-								primary={primary}
-							/>
-						</ListItem>
-					))}
+					].map(LinkList)}
 				</List>
 				<br />
 				<Typography

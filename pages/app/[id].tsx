@@ -1,5 +1,5 @@
 import React from "react";
-import IconButton from "@material-ui/core/IconButton"
+import IconButton from "@material-ui/core/IconButton";
 import RightDrawer from "../../components/RightDrawer";
 import AppMenu from "../../components/AppMenu";
 import { createStyles, Theme, withStyles } from "@material-ui/core/styles";
@@ -21,13 +21,7 @@ export async function getStaticProps({ locale, locales, ...ctx }) {
 
 	const appInfo = getAppInfo(currentId);
 
-	// const apps = getAllApps(
-	// 	{
-	// 		id: getPostId,
-	// 	},
-	// 	require.context("../../apps", true, /index\.tsx$/),
-	// 	true
-	// );
+	const appDoc = require("../../apps/" + appInfo.link + "/README.md").default;
 
 	return {
 		props: {
@@ -41,6 +35,7 @@ export async function getStaticProps({ locale, locales, ...ctx }) {
 				link: appInfo.link,
 				name: appInfo.name,
 			},
+			appDoc,
 		},
 	};
 }
@@ -98,9 +93,8 @@ class AppContainer extends React.Component<any, any> {
 		const { appInfo } = this.props;
 
 		this.setState({
-			AppComp: getAppInfo(appInfo.link).comp
-		}) 
-
+			AppComp: getAppInfo(appInfo.link).comp,
+		});
 
 		// TODO 独立管理工具菜单打开状态
 		// window.setHeaderButton(
@@ -139,8 +133,9 @@ class AppContainer extends React.Component<any, any> {
 		});
 	};
 	render() {
-		const { AppComp, FeedbackComp, showFeedbackComp, RightDrawerOpen } = this.state;
-		const { appInfo, classes } = this.props;
+		const { AppComp, FeedbackComp, showFeedbackComp, RightDrawerOpen } =
+			this.state;
+		const { appInfo, appDoc, classes } = this.props;
 
 		return (
 			<>
@@ -160,7 +155,11 @@ class AppContainer extends React.Component<any, any> {
 					}}
 					open={RightDrawerOpen}
 				>
-					<AppMenu feedback={this.feedback} appinfo={appInfo} />
+					<AppMenu
+						appDoc={appDoc}
+						feedback={this.feedback}
+						appinfo={appInfo}
+					/>
 				</RightDrawer>
 
 				{/* {FeedbackComp && (

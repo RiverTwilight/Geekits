@@ -29,9 +29,11 @@ const useStyles = makeStyles((theme: Theme) =>
 const AppMenu = ({
 	appinfo,
 	feedback,
+	appDoc,
 }: {
 	appinfo: IApp;
 	feedback: () => void;
+	appDoc: string;
 }) => {
 	const classes = useStyles();
 	const { link, name } = appinfo;
@@ -122,7 +124,8 @@ const AppMenu = ({
 					variant="outlined"
 				/>
 			)}
-			<StyledMarkdown content={help} />
+			
+			<StyledMarkdown content={appDoc} />
 		</div>
 	);
 };

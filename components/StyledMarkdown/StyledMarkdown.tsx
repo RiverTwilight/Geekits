@@ -17,7 +17,7 @@ const StyledMarkdown = ({ content }: { content: string }) => {
 					);
 				},
 				paragraph: ({ children }) => {
-					console.log(children);
+					// console.log(children);
 					return (
 						<Typography variant="body1" gutterBottom>
 							{children}
