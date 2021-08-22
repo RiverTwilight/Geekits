@@ -20,9 +20,11 @@ export async function getStaticPaths({ locale }) {
 export async function getStaticProps({ locale, locales, ...ctx }) {
 	const { id: currentId } = ctx.params;
 
-	const appData = require("../../data/i18n/" + locale + "/appData.ts");
+	const appData = require("../../data/i18n/" + locale + "/appData.ts").default;
 
 	const appInfo = getAppInfo(appData, currentId);
+
+	console.log(appInfo)
 
 	const appDoc = require("../../apps/" +
 		appInfo.link +

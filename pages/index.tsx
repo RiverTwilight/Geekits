@@ -5,11 +5,12 @@ import FivList from "../components/FivList";
 import Board from "../components/Board";
 import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-import getAllApps from "../utils/getAllApps";
 
 export async function getStaticProps({ locale }) {
 
 	const appData = require("../data/i18n/" + locale + "/appData.ts").default;
+
+	const pageData = require("../data/i18n/" + locale + "/page.js").default;
 
 	return {
 		props: {
