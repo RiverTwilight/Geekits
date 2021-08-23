@@ -1,3 +1,5 @@
+import * as React from "react";
+import Link from "next/link";
 import Checkbox from "@material-ui/core/Checkbox";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -18,10 +20,11 @@ import EmojiFoodBeverageIcon from "@material-ui/icons/EmojiFoodBeverage";
 import GroupIcon from "@material-ui/icons/Group";
 import PersonIcon from "@material-ui/icons/Person";
 import TwitterIcon from "@material-ui/icons/Twitter";
-import Link from "next/link";
-import * as React from "react";
 
-export async function getStaticProps({ locale, locales }) {
+
+// FIXME crash on mobile devices
+
+export async function getStaticProps({ locale }) {
 
 	const pageDic = require("../../data/i18n/" + locale + "/page.js")['/setting']
 
