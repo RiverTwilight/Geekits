@@ -9,6 +9,7 @@ import Grid from "@material-ui/core/Grid";
 export async function getStaticProps({ locale }) {
 
 	locale = "en-US"
+	
 	const appData = require("../data/i18n/" + locale + "/appData.ts").default;
 
 	const pageDic = require("../data/i18n/" + locale + "/page.js")["/"];
