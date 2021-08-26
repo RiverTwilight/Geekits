@@ -69,8 +69,24 @@ const SearchResult = ({ result = [], kwd }: any) => {
 
 type SearchState = any;
 
+function throttle(callback, limit) {
+	var waiting = false; // Initially, we're not waiting
+	return function () {
+		if (!waiting) {
+			// If we're not waiting
+			callback.apply(this, arguments); // Execute users function
+			waiting = true; // Prevent future invocations
+			setTimeout(function () {
+				// After a period of time
+				waiting = false; // And allow future invocations
+			}, limit);
+		}
+	};
+}
+
 class Search extends React.Component<any, SearchState> {
 	searchInput: any;
+	timer: NodeJS.Timeout;
 	constructor(props: {}) {
 		super(props);
 		this.state = {
@@ -78,7 +94,7 @@ class Search extends React.Component<any, SearchState> {
 			searchResult: [],
 		};
 	}
-	handleSearchKeydown(e: any) {
+	handleSearchKeydown(e: KeyboardEvent) {
 		if (e.ctrlKey && e.keyCode === 70) {
 			e.preventDefault();
 			this.searchInput && this.searchInput.focus();
@@ -101,13 +117,22 @@ class Search extends React.Component<any, SearchState> {
 		const {
 			target: { value },
 		} = e;
-		this.setState({ kwd: value }, () => {
+
+		console.log("input");
+
+		throttle(() => {
+			console.log(123);
 			this.search();
-		});
+		}, 1000);
+
+		// FIXME 搜索节流
+
+		this.setState({ kwd: value });
 	};
 	search() {
 		const { kwd } = this.state;
-		const res = applist.filter((app) => {
+		const { appData } = this.props;
+		const res = appData.filter((app) => {
 			let keyword = kwd.toLowerCase().trim();
 			return (
 				(pinyin
@@ -121,34 +146,33 @@ class Search extends React.Component<any, SearchState> {
 		this.setState({
 			searchResult: res,
 		});
+		console.log(res);
 	}
 	render() {
 		const { kwd, searchResult } = this.state;
 		const { classes } = this.props;
 		return (
-			<>
-				<Paper className={classes.padding}>
-					<FormControl fullWidth>
-						<TextField
-							InputProps={{
-								startAdornment: (
-									<InputAdornment position="start">
-										<SearchSharpIcon />
-									</InputAdornment>
-								),
-							}}
-							inputRef={(ref) => (this.searchInput = ref)}
-							autoComplete="on"
-							id="search"
-							value={kwd}
-							variant="outlined"
-							onChange={this.handleInput}
-							label="搜索（Ctrl+F）"
-						/>
-					</FormControl>
-					<SearchResult kwd={kwd} result={searchResult} />
-				</Paper>
-			</>
+			<Paper className={classes.padding}>
+				<FormControl fullWidth>
+					<TextField
+						InputProps={{
+							startAdornment: (
+								<InputAdornment position="start">
+									<SearchSharpIcon />
+								</InputAdornment>
+							),
+						}}
+						inputRef={(ref) => (this.searchInput = ref)}
+						autoComplete="on"
+						id="search"
+						value={kwd}
+						variant="outlined"
+						onChange={this.handleInput}
+						label="搜索（Ctrl+F）"
+					/>
+				</FormControl>
+				{/* <SearchResult kwd={kwd} result={searchResult} /> */}
+			</Paper>
 		);
 	}
 }

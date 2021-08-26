@@ -22,7 +22,7 @@ export async function getStaticProps({ locale, locales, ...ctx }) {
 
 	const appData = require("../../data/i18n/" +
 		locale +
-		"/appData.ts").default;
+		"/appData.js").default;
 
 	const appInfo = getAppInfo(appData, currentId);
 
@@ -101,36 +101,38 @@ class AppContainer extends React.Component<any, any> {
 	}
 	componentDidMount() {
 		const { RightDrawerOpen } = this.state;
-		const { appInfo } = this.props;
+		const { setAction, appInfo } = this.props;
 
 		this.setState({
 			AppComp: appImportList[appInfo.link],
 		});
 
 		// TODO 独立管理工具菜单打开状态
-		// window.setHeaderButton(
-		// 	<IconButton
-		// 		color="primary"
-		// 		aria-label="open drawer"
-		// 		onClick={() => {
-		// 			this.setState({
-		// 				RightDrawerOpen: !this.state.RightDrawerOpen,
-		// 			});
-		// 		}}
-		// 		edge="start"
-		// 	>
-		// 		<HelpTwoToneIcon />
-		// 	</IconButton>
-		// );
 
-		// REBUILD 链接带有全屏参数，隐藏头部
+		setAction(() => {
+			return (
+				<IconButton
+					color="primary"
+					aria-label="open drawer"
+					onClick={() => {
+						this.setState({
+							RightDrawerOpen: !RightDrawerOpen,
+						});
+					}}
+					edge="start"
+				>
+					<HelpTwoToneIcon />
+				</IconButton>
+			);
+		});
+
+		// TODO 链接带有全屏参数，隐藏头部
 		if (window.location.search.indexOf("fullscreen=true") !== -1) {
 			// document.getElementsByTagName("header")[0].style.display = "none";
 			// document.body.classList.remove("mdui-appbar-with-toolbar");
 		}
 	}
 	feedback = () => {
-		// TODO 反馈直接提交到github issue
 		let { FeedbackComp } = this.state;
 		if (!FeedbackComp) {
 			// this.setState({

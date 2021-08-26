@@ -1,6 +1,14 @@
-export default [
+/*
+     Ygktool AppList - American English Translation
+CurrentVersion=[1.1 by Hsdbql]
+PreviousEditions=[1.0 by Hsdbql] , [Original Simplified Chinese by RiverTwilight]
+FinishTime=[2021-8-24 13.47 GTM+8] , [2021-8-23 20.16 GTM+8]
+ApostilleNote=[Listening to exciting music really helps to improve tedious work efficiency.So,when I translate this document, I'm listening to a album called "Tsuyoshi Sekito --BRAVE FENCER MUSASHIDEN Original Soundtrack" at the same time.]
+*/
+
+module.exports = [
 	{
-		name: "To-Do Credits",
+		name: "Credit To-Do",
 		channel: 4,
 		icon: "/icons/tasks.png",
 		link: "point_brochure",
@@ -8,7 +16,7 @@ export default [
 		description: "Enjoy the sense of accomplishment",
 	},
 	{
-		name: "Ionic Equations Balancing",
+		name: "Ionic-Equations Balancing",
 		channel: 4,
 		icon: "/icons/lens.png",
 		link: "coming",
@@ -46,7 +54,7 @@ export default [
 		icon_color: "blue-500",
 		help: "",
 		description:
-			"Identify objects in the picture, such as plants/animals/cars/dishes, etc.",
+			"Identify objects in the picture, such as plants/animals/cars/dishes...",
 		channel: 1,
 	},
 	{
@@ -75,7 +83,7 @@ export default [
 		channel: 3,
 	},
 	// {
-	// 	name: "Text Translation",
+	// 	name: "Text Translator",
 	// 	link: "translate",
 	// 	icon: "translate",
 	// 	icon_color: "blue-400",
@@ -94,7 +102,7 @@ export default [
 	},
 	{
 		name: "Pomodoro",
-		link: "pomodoro",
+		link: "tomato",
 		icon: "access_alarm",
 		icon_color: "red",
 		description:
@@ -102,7 +110,7 @@ export default [
 		channel: 4,
 	},
 	{
-		name: "Cross-device Text Transfer",
+		name: "Cross-Device Text Transfer",
 		link: "clipboard",
 		icon: "call_split",
 		icon_color: "green",
@@ -119,7 +127,7 @@ export default [
 		channel: 2,
 	},
 	{
-		name: "QR Code Generator",
+		name: "QR-Code Generator",
 		link: "qrcode",
 		icon: "/icons/qrcode.png",
 		help: "",
@@ -127,7 +135,7 @@ export default [
 			"Customizable color and size; support to generate WIFI code",
 		channel: 2,
 	},
-	{
+	/*{
 		name: "Get Bilibili Video Cover",
 		link: "bilibili_cover",
 		icon: "photo_size_select_actual",
@@ -135,7 +143,7 @@ export default [
 		description: "Download videos and anime covers on Bilibili",
 		help: "Please start with md for the animation number; start with av for the video number. Click the image link to copy it.",
 		channel: 4,
-	},
+	},*/
 	{
 		name: "PornHub-like Logo Maker",
 		link: "fake_pornhub_logo",
@@ -160,16 +168,15 @@ export default [
 		help: "Please google by yourself for language type. For example, American English is en-us.",
 		channel: 3,
 	},
-	{
+	/*{
 		name: "Chinese Local Scripts Transformer",
 		link: "sctc",
 		icon: "font_download",
 		icon_color: "red",
 		help: "This function was made by MelancholyTortoise(憂郁的烏龜).",
-		description:
-			"Translate Traditional Chinese to Simplified Chinese, or reverse",
+		description: "Translate Traditional Chinese to Simplified Chinese, or reverse",
 		channel: 4,
-	},
+	},*/
 	{
 		name: "Make a Decision",
 		link: "decision",
@@ -181,7 +188,7 @@ export default [
 		channel: 4,
 	},
 	{
-		name: "Templated Text Generation",
+		name: "Templated Text Generator",
 		link: "text_create",
 		icon: "font_download",
 		icon_color: "brown-200",
@@ -206,15 +213,15 @@ export default [
 		help: "Oversized videos may be lagging. All operations are performed locally, no data traffic will consumed",
 		channel: 2,
 	},
-	{
-		name: "Sakura-Animations Downloader",
+	/*{
+		name: "SakuraAnimations Downloader",
 		link: "imomoe_parse",
 		icon: "ondemand_video",
 		icon_color: "pink",
 		help: "Some streaming videos cannot be downloaded",
 		channel: 2,
 		network: true,
-	},
+	},*/
 	{
 		name: "Nine-Grids Image Cutter",
 		link: "img_split",
@@ -299,14 +306,14 @@ export default [
 		icon_color: "blue-600",
 		channel: 4,
 	},
-	{
-		name: "NeteaseMusic Playlist Comparison",
+	/*{
+		name: "NeteaseMusic Playlist Comparer",
 		link: "songlist",
 		icon: "queue_music",
 		icon_color: "red-600",
 		channel: 4,
 		network: true,
-	},
+	},*/
 	{
 		name: "Image Compression",
 		link: "img_compress",
@@ -334,14 +341,14 @@ export default [
 		channel: 1,
 		network: true,
 	},
-	{
+	/*{
 		name: "Amount in Chinese",
 		link: "num2chinese",
 		icon: "attach_money",
 		icon_color: "yellow-600",
 		help: "The generated results are for reference only",
 		channel: 4,
-	},
+	},*/
 	{
 		name: "Color Pipet&Palette",
 		link: "color_picker",
@@ -350,7 +357,7 @@ export default [
 		help: "You can use the keyboard arrow keys to accurately adjust",
 		channel: 2,
 	},
-	{
+	/*{
 		name: "Chinese Words Dictionary",
 		link: "dic_ci",
 		icon: "/icons/book.png",
@@ -381,18 +388,18 @@ export default [
 		description: "Explore characters with a history of five thousand years",
 		channel: 4,
 		network: true,
-	},
+	},*/
 	{
 		name: "JS Keycode Query",
 		link: "js_keycode",
 		icon: "settings_applications",
 		channel: 3,
 	},
-	{ name: "HelloTool App", link: "http://hellotool.htm.kim", channel: 5 },
+	/*{ name: "HelloTool App", link: "http://hellotool.htm.kim", channel: 5 },
 	{
 		name: "Featured Site Index",
 		link: "https://imyshare.com/?from=ygktool",
 		channel: 5,
 	},
-	{ name: "Milim Music", link: "https://yinyue.qugeek.com/", channel: 5 },
+	{ name: "Milim Music", link: "https://yinyue.qugeek.com/", channel: 5 },*/
 ];

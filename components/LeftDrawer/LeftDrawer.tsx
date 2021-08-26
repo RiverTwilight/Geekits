@@ -162,7 +162,7 @@ const LeftDrawer = (props: IProps) => {
 
 	const userData = React.useContext(UserContext);
 
-	console.log(userData);
+	// console.log(userData);
 
 	const testBlur = () => /(\S+)\/app\/\S+/.test(window.location.href);
 

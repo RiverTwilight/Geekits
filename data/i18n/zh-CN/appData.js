@@ -1,10 +1,4 @@
-import dynamic from "next/dynamic";
-
-const importConfig = {
-	ssr: false,
-};
-
-export default [
+module.exports = [
 	{
 		name: "自律神器：积分奖手册",
 		channel: 4,
@@ -42,10 +36,10 @@ export default [
 		icon: "lock",
 		link: "policy_generator",
 		icon_color: "grey-500",
-		description: "生成定制化的服务协议和隐私政策",
+		description: "定制化生成服务协议和隐私政策",
 	},
 	{
-		name: "图像识别",
+		name: "AI图像识别",
 		link: "aic",
 		icon: "photo_album",
 		icon_color: "blue-500",
@@ -58,7 +52,7 @@ export default [
 		link: "screenrecord",
 		icon: "videocam",
 		icon_color: "orange-400",
-		help: "仅限PC端最新版本的Chrome/Firefox/Opera使用",
+		help: "仅支持新版本的Chromium/Firefox内核的PC浏览器使用",
 		channel: 2,
 	},
 	{
@@ -70,7 +64,7 @@ export default [
 		channel: 3,
 	},
 	{
-		name: "网络日志抓取",
+		name: "网页资源抓取",
 		link: "console",
 		icon: "language",
 		icon_color: "indigo-300",
@@ -92,7 +86,7 @@ export default [
 		icon_color: "purple-200",
 		help: "输入负数可以向前推算",
 		description:
-			"计算两个日期间隔的天数和时间，或推算几天前后是哪一天，可以算算你活了多久:)",
+			"计算两个日期间隔的天数和时间，或推算几天前后是哪一天，可以算算你活了多久 :)",
 		channel: 4,
 	},
 	{
@@ -126,7 +120,7 @@ export default [
 		link: "qrcode",
 		icon: "/icons/qrcode.png",
 		help: "",
-		description: "支持自定义颜色和大小；支持生成WIFI码",
+		description: "支持自定义颜色和大小；支持生成WiFi码",
 		channel: 2,
 	},
 	{
@@ -135,11 +129,11 @@ export default [
 		icon: "photo_size_select_actual",
 		icon_color: "pink-300",
 		description: "下载Bilibili上的视频和番剧封面",
-		help: "番号请使用md开头，例：md425（《某科学的超电磁炮》）；视频请使用av开头，例：av32211954。点击图片地址可以复制",
+		help: "番号请使用md开头，例：md425（《某科学的超电磁炮》）；视频请使用av开头，例：av32211954。点击图片链接地址可以快速复制。",
 		channel: 4,
 	},
 	{
-		name: "pornhub风格图片生成",
+		name: "PornHub风格Logo生成",
 		link: "fake_pornhub_logo",
 		icon: "insert_emoticon",
 		icon_color: "orange",
@@ -168,7 +162,7 @@ export default [
 		icon: "font_download",
 		icon_color: "red",
 		help: "",
-		description: "憂郁的烏龜",
+		description: "作者：憂郁的烏龜",
 		channel: 4,
 	},
 	{
@@ -186,7 +180,7 @@ export default [
 		icon: "font_download",
 		icon_color: "brown-200",
 		description: "批量生成有规律的文本，或模板文本，例如营销号文案",
-		help: "使用“${}”代表关键字，如“${5}表示首项为5的关键字。暂时只支持统一的公差/公比（其实是因为懒）",
+		help: "使用“${}”代表关键字，如“${5}表示首项为5的关键字。暂时只支持统一的公差/公比（其实是因为作者懒）",
 		channel: 4,
 	},
 	{
@@ -233,14 +227,14 @@ export default [
 		channel: 3,
 	},
 	{
-		name: "html转JSX",
+		name: "HTML转JSX",
 		link: "html2jsx",
 		icon: "/icons/code.png",
 		help: "不支持部分Html属性，请手动改为小驼峰命名法，所有操作均在本地执行，不消耗数据流量",
 		channel: 3,
 	},
 	{
-		name: "mimetype查询",
+		name: "MIME-type查询",
 		link: "mimetype",
 		icon: "attachment",
 		icon_color: "purple",
@@ -248,7 +242,7 @@ export default [
 		channel: 3,
 	},
 	{
-		name: "运动记分板",
+		name: "运动计分板",
 		link: "scoreboard",
 		icon: "today",
 		icon_color: "lime",
@@ -273,7 +267,7 @@ export default [
 		channel: 3,
 	},
 	{
-		name: "图片转base64",
+		name: "图片转Base64",
 		link: "img2base64",
 		icon: "photo",
 		icon_color: "green-300",
@@ -316,7 +310,7 @@ export default [
 		link: "word_cloud",
 		icon: "cloud_circle",
 		icon_color: "green-300",
-		help: "点击图片可保存图；不写文字大小则为随机大小",
+		help: "点击图片可保存；不填写文字尺寸则会采用随机大小",
 		channel: 2,
 	},
 	{
@@ -324,9 +318,9 @@ export default [
 		link: "tts",
 		icon: "mic",
 		icon_color: "teal-300",
-		help: "一次性最多合成500字符",
+		help: "每次最多合成500字符",
 		description:
-			"将文字转成mp3朗读音频，支持多种声线和速度/音调/音量/自定义",
+			"将文字转成mp3朗读音频，支持多种声线/速度/音调/音量自定义",
 		channel: 1,
 		network: true,
 	},
@@ -379,9 +373,9 @@ export default [
 		network: true,
 	},
 	{
-		name: "js键盘码查询",
+		name: "JS键盘码查询",
 		link: "js_keycode",
-		icon: "/icons/js.png",
+		icon: "settings_applications",
 		channel: 3,
 	},
 	{ name: "Hello Tool", link: "http://hellotool.htm.kim", channel: 5 },

@@ -21,12 +21,11 @@ import GroupIcon from "@material-ui/icons/Group";
 import PersonIcon from "@material-ui/icons/Person";
 import TwitterIcon from "@material-ui/icons/Twitter";
 
-
 // FIXME crash on mobile devices
 
 export async function getStaticProps({ locale }) {
 
-	const pageDic = require("../../data/i18n/" + locale + "/page.js")['/setting']
+	const pageDic = require("../data/i18n/" + locale + "/page.js")["/setting"];
 
 	const { title } = pageDic;
 
@@ -69,7 +68,7 @@ function updateSetting<T extends keyof ISetting>(
 	if (!name) return originSetting;
 	originSetting[name] = value;
 	window.localStorage.setItem("setting", JSON.stringify(originSetting));
-	console.log(originSetting);
+	// console.log(originSetting);
 	return originSetting;
 }
 
@@ -194,6 +193,7 @@ export default class Setting extends React.Component<
 	render() {
 		const { hitokotoTopic, theme } = this.state.setting;
 		const { showSaying, showDonation, showTheme } = this.state;
+		const { pageDic: d } = this.props;
 		return (
 			<Grid sm={9}>
 				<Dialog
@@ -225,7 +225,7 @@ export default class Setting extends React.Component<
 					aria-labelledby="saying preference"
 					onClose={this.handleClose}
 				>
-					<DialogTitle>一言来源</DialogTitle>
+					<DialogTitle>{d.hitokoto_source}</DialogTitle>
 					<DialogContent>
 						<FormGroup>
 							{hitokotoItems.map((item, i) => (
@@ -287,18 +287,22 @@ export default class Setting extends React.Component<
 				</Dialog>
 				<List
 					component={Paper}
-					subheader={<ListSubheader>个性化</ListSubheader>}
+					subheader={
+						<ListSubheader>
+							{d.menu_customize_title}
+						</ListSubheader>
+					}
 				>
 					{[
 						{
 							onClick: this.handleShowSaying,
-							primary: "一言来源",
+							primary: d.menu_hitokoto_source,
 							secondary: hitokotoItems[hitokotoTopic].name,
 							Icon: <AssistantIcon />,
 						},
 						{
 							onClick: this.handleShowTheme,
-							primary: "主题",
+							primary: d.menu_theme,
 							secondary: themeItems[theme].name,
 							Icon: <BrushSharpIcon />,
 						},
@@ -316,7 +320,11 @@ export default class Setting extends React.Component<
 
 				<List
 					component={Paper}
-					subheader={<ListSubheader>联系</ListSubheader>}
+					subheader={
+						<ListSubheader>
+							{d.menu_contact_title}
+						</ListSubheader>
+					}
 				>
 					{[
 						{
@@ -328,7 +336,9 @@ export default class Setting extends React.Component<
 				<br />
 				<List
 					component={Paper}
-					subheader={<ListSubheader>关于</ListSubheader>}
+					subheader={
+						<ListSubheader>{d.menu_donation}</ListSubheader>
+					}
 				>
 					<ListItem button onClick={this.handleShowDonation}>
 						<ListItemIcon>
@@ -339,7 +349,7 @@ export default class Setting extends React.Component<
 					{[
 						{
 							link: "/privacy",
-							primary: "隐私政策",
+							primary: d.menu_privacy,
 							Icon: <PersonIcon />,
 						},
 						{

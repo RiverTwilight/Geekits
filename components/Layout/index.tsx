@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Head from "next/head";
+import dynamic from "next/dynamic";
 import Header from "../Header";
 import LeftDrawer from "../LeftDrawer";
 import LoginDialog from "../LoginDialog";
@@ -95,13 +96,8 @@ const GlobalLoading = () => {
 
 class Layout extends React.Component<
 	{
-		/**网站配置 */ siteConfig: ISiteConfig;
-		/**全部文章 */
-		allPosts: ISiteConfig[];
-		/** 当前页面 */
+		siteConfig: ISiteConfig;
 		currentPage: ICurrentPage;
-		/**目录 */
-		catalog?: any[];
 		locale?: string;
 		children: JSX.Element | JSX.Element[];
 		menuItems: any[];
@@ -111,6 +107,7 @@ class Layout extends React.Component<
 		anchorEl: null | HTMLElement;
 		loading: boolean;
 		title: string;
+		PageAction: () => JSX.Element;
 	}
 > {
 	loading: any;
@@ -121,8 +118,14 @@ class Layout extends React.Component<
 			anchorEl: null,
 			loading: true,
 			title: "首页",
+			PageAction: null,
 		};
 	}
+	setAction = (Comp) => {
+		this.setState({
+			PageAction: Comp,
+		});
+	};
 	componentDidMount() {
 		window.loadShow = () => {
 			window.loadingDelay = setTimeout(() => {
@@ -146,6 +149,7 @@ class Layout extends React.Component<
 		};
 	}
 	render() {
+		const { PageAction } = this.state;
 		const {
 			currentPage,
 			siteConfig,
@@ -155,19 +159,21 @@ class Layout extends React.Component<
 			menuItems,
 		} = this.props;
 		const { author, title } = siteConfig;
-		const showTitle = `${
-			currentPage ? `${currentPage.title} - ` : ""
-		}${title[locale]}`;
+		const showTitle = `${currentPage ? `${currentPage.title} - ` : ""}${
+			title[locale]
+		}`;
 		const showDescription =
 			currentPage.description || siteConfig.description;
-		// const childrenWithProps = React.Children.map(props.children, (child) => {
-		// 	// checking isValidElement is the safe way and avoids a typescript error too
-		// 	const props = { locale };
-		// 	if (React.isValidElement(child)) {
-		// 		return React.cloneElement(child, props);
-		// 	}
-		// 	return child;
-		// });
+
+		const childrenWithProps = React.Children.map(children, (child) => {
+			// checking isValidElement is the safe way and avoids a typescript error too
+			const props = { setAction: this.setAction };
+			if (React.isValidElement(child)) {
+				return React.cloneElement(child, props);
+			}
+			return child;
+		});
+
 		return (
 			<>
 				<Head>
@@ -206,9 +212,9 @@ class Layout extends React.Component<
 				<div className={classes.root}>
 					<CssBaseline />
 					<LoginDialog />
-					<Header title={currentPage.title} />
+					<Header PageAction={PageAction} title={currentPage.title} />
 					<LeftDrawer />
-					<main className={classes.content}>{children}</main>
+					<main className={classes.content}>{childrenWithProps}</main>
 				</div>
 				<GlobalSnackbar />
 				<GlobalLoading />

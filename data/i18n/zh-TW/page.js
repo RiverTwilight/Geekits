@@ -5,7 +5,6 @@ module.exports = {
 	},
 	"/setting": {
 		title: "设置",
-		hitokoto_topic: "一言主题",
-		theme: "主题"
+		hitokoto_topic: "一言主题"
 	},
 };

@@ -60,13 +60,10 @@ const useStyles = makeStyles((theme: Theme) =>
 	})
 );
 
-export default (props: { title: string }) => {
+export default (props: { title: string; PageAction }) => {
 	const classes = useStyles();
-	const [extraButton, setExtraButton] = React.useState(null);
 
-	React.useEffect(() => {
-		window.setHeaderButton = setExtraButton;
-	}, []);
+	const { title, PageAction } = props
 
 	return (
 		<ElevationScroll {...props}>
@@ -93,9 +90,9 @@ export default (props: { title: string }) => {
 						variant="h6"
 						className={classes.title}
 					>
-						{props.title}
+						{title}
 					</Typography>
-					{extraButton}
+					{PageAction && <PageAction />}
 				</Toolbar>
 				<Divider />
 			</AppBar>

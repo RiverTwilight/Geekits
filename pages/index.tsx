@@ -7,9 +7,8 @@ import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 
 export async function getStaticProps({ locale }) {
+	// locale = "en-US"
 
-	locale = "en-US"
-	
 	const appData = require("../data/i18n/" + locale + "/appData.ts").default;
 
 	const pageDic = require("../data/i18n/" + locale + "/page.js")["/"];
@@ -27,6 +26,10 @@ export async function getStaticProps({ locale }) {
 	};
 }
 
+export function MenuButton() {
+	return <button>test</button>;
+}
+
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		root: {
@@ -41,11 +44,13 @@ const useStyles = makeStyles((theme: Theme) =>
 type IndexState = any;
 
 // TODO 移动端头部添加搜索按钮以聚焦搜索框
-export default function Index({ appData }: any) {
+export default function Index({ appData, setAction }: any) {
 	const classes = useStyles();
 
 	useEffect(() => {
-		window.setHeaderButton(null);
+		setAction(() => {
+			return null;
+		});
 	}, []);
 
 	return (
@@ -55,7 +60,7 @@ export default function Index({ appData }: any) {
 					<Board />
 				</Grid>
 				<Grid item sm={9} xs={12}>
-					<Search />
+					<Search appData={appData} />
 					<br />
 					<FivList />
 					<br />
