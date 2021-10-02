@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/router";
 import useEventListener from "../utils/Hooks/useEventListener";
 import pinyin from "js-pinyin";
@@ -6,7 +6,6 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import Paper from "@material-ui/core/Paper";
 import { createStyles, Theme, withStyles } from "@material-ui/core/styles";
 import FormControl from "@material-ui/core/FormControl";
-import List from "@material-ui/core/List";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import SearchSharpIcon from "@material-ui/icons/SearchSharp";
@@ -25,6 +24,8 @@ const styles = (theme: Theme) => {
  * 搜索结果
  */
 const SearchResult = ({ result = [], kwd }: any) => {
+	if (kwd === "") return null;
+
 	const handleKeydown = (e: any) => {
 		if (e.keyCode === 38 || e.keyCode === 40) {
 			e.preventDefault();
@@ -36,56 +37,57 @@ const SearchResult = ({ result = [], kwd }: any) => {
 			handleClick(`/app/${result[selectedItem].link}`);
 		}
 	};
+
 	const [selectedItem, setSelectedItem] = useState(-1);
+
 	let history = useRouter();
-	if (!result.length && kwd === "") return null;
 	function handleClick(url: any) {
 		history.push(url);
 	}
-	useEffect(() => {
-		useEventListener("keydown", handleKeydown);
-		return () => {
-			window.removeEventListener("keydown", handleKeydown);
-		};
-	}, []);
+
+	useEventListener("keydown", handleKeydown);
+
 	return (
-		<List aria-labelledby="nested-list-subheader">
-			{result.map((a: any, i: number) => (
-				<AppListItem
-					selected={selectedItem === i}
-					key={a.link + a.icon}
-					{...a}
-				/>
-			))}
-			<Typography variant="subtitle1" gutterBottom>
+		<>
+			{!!result.length ? (
+				result.map((a: any, i: number) => (
+					<AppListItem
+						selected={selectedItem === i}
+						key={a.link + a.icon}
+						{...a}
+					/>
+				))
+			) : (
+				<Typography align="center" variant="subtitle1">
+					搜索无结果
+				</Typography>
+			)}
+
+			<Typography align="center" variant="subtitle1" gutterBottom>
 				没找到想要的工具?试试
 				<Link href={"https://www.google.com/search?q=" + kwd}>
 					谷歌搜索
 				</Link>
 			</Typography>
-		</List>
+		</>
 	);
 };
 
 type SearchState = any;
 
-function throttle(callback, limit) {
-	var waiting = false; // Initially, we're not waiting
-	return function () {
-		if (!waiting) {
-			// If we're not waiting
-			callback.apply(this, arguments); // Execute users function
-			waiting = true; // Prevent future invocations
-			setTimeout(function () {
-				// After a period of time
-				waiting = false; // And allow future invocations
-			}, limit);
-		}
+const debounce = (func, timeout = 300) => {
+	let timer;
+	return (...args) => {
+		clearTimeout(timer);
+		timer = setTimeout(() => {
+			func.apply(this, args);
+		}, timeout);
 	};
-}
+};
 
 class Search extends React.Component<any, SearchState> {
 	searchInput: any;
+	searchRes: any;
 	timer: NodeJS.Timeout;
 	constructor(props: {}) {
 		super(props);
@@ -93,7 +95,12 @@ class Search extends React.Component<any, SearchState> {
 			kwd: "",
 			searchResult: [],
 		};
+		this.searchRes = debounce(() => {
+			console.log(123);
+			this.search();
+		}, 500);
 	}
+
 	handleSearchKeydown(e: KeyboardEvent) {
 		if (e.ctrlKey && e.keyCode === 70) {
 			e.preventDefault();
@@ -107,28 +114,24 @@ class Search extends React.Component<any, SearchState> {
 			this.handleSearchKeydown.bind(this)
 		);
 	}
+
 	componentWillUnmount() {
 		document.removeEventListener(
 			"keydown",
 			this.handleSearchKeydown.bind(this)
 		);
 	}
-	handleInput = (e: { target: { value: any } }) => {
+
+	handleChange = (e: { target: { value: any } }) => {
 		const {
 			target: { value },
 		} = e;
 
-		console.log("input");
-
-		throttle(() => {
-			console.log(123);
-			this.search();
-		}, 1000);
-
-		// FIXME 搜索节流
-
 		this.setState({ kwd: value });
+
+		this.searchRes();
 	};
+
 	search() {
 		const { kwd } = this.state;
 		const { appData } = this.props;
@@ -144,10 +147,11 @@ class Search extends React.Component<any, SearchState> {
 			);
 		});
 		this.setState({
-			searchResult: res,
+			searchResult: res || [],
 		});
-		console.log(res);
+		// console.log(res);
 	}
+
 	render() {
 		const { kwd, searchResult } = this.state;
 		const { classes } = this.props;
@@ -163,15 +167,15 @@ class Search extends React.Component<any, SearchState> {
 							),
 						}}
 						inputRef={(ref) => (this.searchInput = ref)}
-						autoComplete="on"
+						autoComplete="off"
 						id="search"
 						value={kwd}
 						variant="outlined"
-						onChange={this.handleInput}
+						onChange={this.handleChange}
 						label="搜索（Ctrl+F）"
 					/>
 				</FormControl>
-				{/* <SearchResult kwd={kwd} result={searchResult} /> */}
+				<SearchResult kwd={kwd} result={searchResult} />
 			</Paper>
 		);
 	}
