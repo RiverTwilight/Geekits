@@ -22,7 +22,7 @@ export async function getStaticProps({ locale, locales, ...ctx }) {
 
 	const appData = require("../../data/i18n/" +
 		locale +
-		"/appData.js").default;
+		"/appData.js");
 
 	const appInfo = getAppInfo(appData, currentId);
 
