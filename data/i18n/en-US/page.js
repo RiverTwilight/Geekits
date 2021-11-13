@@ -2,6 +2,8 @@ module.exports = {
 	"/": {
 		title: "Home",
 		description: "",
+
+		list_header_all_apps: "All apps"
 	},
 	"/setting": {
 		title: "Setting",
