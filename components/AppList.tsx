@@ -38,7 +38,9 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		appItemText: {
 			paddingLeft: "20px",
-			fontWeight: 700,
+			"& .MuiListItemText-primary": {
+				fontWeight: 700,
+			},
 		},
 	})
 );

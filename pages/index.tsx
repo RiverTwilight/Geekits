@@ -7,7 +7,7 @@ import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 
 export async function getStaticProps({ locale }) {
-	locale = "en-US"
+	// locale = "en-US"
 
 	const appData = require("../data/i18n/" + locale + "/appData.js");
 
