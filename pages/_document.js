@@ -1,6 +1,7 @@
 import React from "react";
 import Document, { Html, Head, Main, NextScript } from "next/document";
 import { ServerStyleSheets } from "@material-ui/core/styles";
+import { apiConfig } from "../site.config";
 
 class MyDocument extends Document {
 	static async getInitialProps(ctx) {
@@ -28,7 +29,6 @@ class MyDocument extends Document {
 			<Html>
 				<Head>
 					<meta charSet="utf-8" />
-
 					<link
 						rel="apple-touch-icon"
 						sizes="57x57"
@@ -108,12 +108,8 @@ class MyDocument extends Document {
 						httpEquiv="X-UA-Compatible"
 						content="IE=edge,chrome=1"
 					/>
-					<link rel="dns-prefetch" href="//ygk-api.yunser.com" />
-					<link
-						rel="preconnect"
-						href="//ygk-api.yunser.com"
-						crossorigin
-					/>
+					<link rel="dns-prefetch" href={apiConfig.url} />
+					<link rel="preconnect" href={apiConfig.url} crossorigin />
 					<script
 						defer
 						src="//hm.baidu.com/hm.js?29ab8ced8f951b925920356991531a45"
