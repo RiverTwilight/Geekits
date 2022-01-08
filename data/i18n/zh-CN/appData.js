@@ -91,7 +91,7 @@ module.exports = [
 	},
 	{
 		name: "番茄钟",
-		link: "tomato",
+		link: "pomodoro",
 		icon: "access_alarm",
 		icon_color: "red",
 		description:

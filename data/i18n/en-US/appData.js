@@ -1,10 +1,9 @@
-/*
-     Ygktool AppList - American English Translation
-CurrentVersion=[1.1 by Hsdbql]
-PreviousEditions=[1.0 by Hsdbql] , [Original Simplified Chinese by RiverTwilight]
-FinishTime=[2021-8-24 13.47 GTM+8] , [2021-8-23 20.16 GTM+8]
-ApostilleNote=[Listening to exciting music really helps to improve tedious work efficiency.So,when I translate this document, I'm listening to a album called "Tsuyoshi Sekito --BRAVE FENCER MUSASHIDEN Original Soundtrack" at the same time.]
-*/
+/**
+ * App data - American English Translation
+ * @author RiverTwilight Hsdbql
+ * @version 1.1 by Hsdbql
+ * @ApostilleNote "Listening to exciting music really helps to improve tedious work efficiency.So,when I translate this document, I'm listening to a album called "Tsuyoshi Sekito --BRAVE FENCER MUSASHIDEN Original Soundtrack" at the same time."
+ */
 
 module.exports = [
 	{
@@ -102,7 +101,7 @@ module.exports = [
 	},
 	{
 		name: "Pomodoro",
-		link: "tomato",
+		link: "pomodoro",
 		icon: "access_alarm",
 		icon_color: "red",
 		description:
