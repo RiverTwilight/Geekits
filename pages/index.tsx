@@ -4,8 +4,8 @@ import Search from "../components/Search";
 import FivList from "../components/FivList";
 import Board from "../components/Board";
 import { Theme } from "@mui/material/styles";
-import createStyles from '@mui/styles/createStyles';
-import makeStyles from '@mui/styles/makeStyles';
+import createStyles from "@mui/styles/createStyles";
+import makeStyles from "@mui/styles/makeStyles";
 import Grid from "@mui/material/Grid";
 
 export async function getStaticProps({ locale }) {
@@ -58,10 +58,10 @@ export default function Index({ appData, setAction }: any) {
 	return (
 		<div className={classes.root}>
 			<Grid container direction="row-reverse" spacing={1}>
-				<Grid item xs={12} sm={3}>
+				<Grid item xs={12} md={3}>
 					<Board />
 				</Grid>
-				<Grid item sm={9} xs={12}>
+				<Grid item xs={12} md={9}>
 					<Search appData={appData} />
 					<br />
 					<FivList />

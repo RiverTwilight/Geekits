@@ -7,20 +7,15 @@ import {
 	DialogContent,
 	DialogActions,
 } from "@mui/material";
+import { Button } from "@mui/material";
 import axios from "../utils/axios";
 import { Theme } from "@mui/material/styles";
-
-import createStyles from '@mui/styles/createStyles';
-import makeStyles from '@mui/styles/makeStyles';
+import createStyles from "@mui/styles/createStyles";
+import makeStyles from "@mui/styles/makeStyles";
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
-		padding: {
-			padding: theme.spacing(1),
-		},
-		closeButton: {
-			float: "right",
-		},
+
 	})
 );
 
@@ -40,34 +35,31 @@ export default function Board() {
 	useEffect(() => {
 		axios.get(API).then((res) => {
 			let latestIssue = res.data[res.data.length - 1];
-			if (latestIssue.id == localStorage.getItem("LATEST_READED_NOTICE"))
-				return;
+			// if (latestIssue.id == localStorage.getItem("LATEST_READED_NOTICE"))
+			// 	return;
 			setNotice({ content: latestIssue.body, id: latestIssue.id });
 		});
 	}, []);
+
 	if (!!!notice) return null;
 
-	const handleClick = () => {
+	const handleConfirm = () => {
 		localStorage.setItem("LATEST_READED_NOTICE", String(notice.id));
 		setNotice(null);
 	};
 
+	const handleExpand = () => {};
+
 	return (
-		<>
-			<Card className={classes.padding}>
-				<DialogTitle>公告</DialogTitle>
-				<DialogContent>
-					<StyledMarkdown content={notice.content} />
-				</DialogContent>
-				<DialogActions>
-					<Button onClick={handleClick}>
-
-					</Button>
-				</DialogActions>
-
-				<br />
-				<br />
-			</Card>
-		</>
+		<Card>
+			<DialogTitle>公告</DialogTitle>
+			<DialogContent>
+				<StyledMarkdown content={notice.content} />
+			</DialogContent>
+			<DialogActions>
+				<Button onClick={handleConfirm}>OK</Button>
+				<Button onClick={handleExpand}>展开</Button>
+			</DialogActions>
+		</Card>
 	);
 }
