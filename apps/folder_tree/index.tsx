@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import ClipboardJS from "clipboard";
-import Input from "@material-ui/core/Input";
-import FormControl from "@material-ui/core/FormControl";
-import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
+import Input from "@mui/material/Input";
+import FormControl from "@mui/material/FormControl";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 import FileInput from "../../components/FileInput";
 import pathToTree from "./engine";
 

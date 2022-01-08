@@ -2,26 +2,24 @@ import React from "react";
 import ClipboardJS from "clipboard";
 import table from "./table";
 import cem from "./dic";
-import Input from "@material-ui/core/Input";
-import Paper from "@material-ui/core/Paper";
-import Button from "@material-ui/core/Button";
-import BorderColorSharpIcon from "@material-ui/icons/BorderColorSharp";
-import {
-	createStyles,
-	Theme,
-	withStyles,
-	makeStyles,
-} from "@material-ui/core/styles";
-import FormControl from "@material-ui/core/FormControl";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import InputLabel from "@material-ui/core/InputLabel";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import Typography from "@material-ui/core/Typography";
+import Input from "@mui/material/Input";
+import Paper from "@mui/material/Paper";
+import Button from "@mui/material/Button";
+import BorderColorSharpIcon from "@mui/icons-material/BorderColorSharp";
+import { Theme } from "@mui/material/styles";
+import createStyles from '@mui/styles/createStyles';
+import withStyles from '@mui/styles/withStyles';
+import makeStyles from '@mui/styles/makeStyles';
+import FormControl from "@mui/material/FormControl";
+import InputAdornment from "@mui/material/InputAdornment";
+import InputLabel from "@mui/material/InputLabel";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Typography from "@mui/material/Typography";
 
 const styles = (theme: Theme) => {
 	return createStyles({

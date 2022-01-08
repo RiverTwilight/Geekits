@@ -1,11 +1,10 @@
 import React from "react";
 import { calDiffer, getToday } from "./engine";
-import Button from "@material-ui/core/Button";
-import Input from "@material-ui/core/Input";
-import InputLabel from "@material-ui/core/InputLabel";
-import Typography from "@material-ui/core/Typography";
-import FormControl from "@material-ui/core/FormControl";
-import Grid from "@material-ui/core/Grid";
+import Button from "@mui/material/Button";
+import InputLabel from "@mui/material/InputLabel";
+import Typography from "@mui/material/Typography";
+import Grid from "@mui/material/Grid";
+import TextField from "@mui/material/TextField";
 
 type DateDifferState = any;
 
@@ -49,35 +48,30 @@ export default class DateInterval extends React.Component<{}, DateDifferState> {
 			dateEarly,
 			dateLate,
 			diffDay,
-			diffDayMin,
-			diffDayHour,
 			diffHour,
 			diffMin,
 		} = this.state;
 		return (
 			<>
-				<InputLabel>从</InputLabel>
-				<Grid container>
-					<Grid item xs={12}>
-						<Input
-							onChange={(e) => {
-								this.handleInput(e, "dateEarly");
-							}}
-							type="date"
-							value={dateEarly}
-						/>
-					</Grid>
-				</Grid>
-				<br />
-				<InputLabel>到</InputLabel>
-				<Grid container>
-					<Grid item xs={12}>
-						<Input
+				<Grid container spacing={{ sm: 2 }}>
+					<Grid item sm={6}>
+						<InputLabel>从</InputLabel>
+						<TextField
 							onChange={(e: any) => {
 								this.handleInput(e, "dateLate");
 							}}
 							type="date"
 							value={dateLate}
+						/>
+					</Grid>
+					<Grid item sm={6}>
+						<InputLabel>到</InputLabel>
+						<TextField
+							onChange={(e) => {
+								this.handleInput(e, "dateEarly");
+							}}
+							type="date"
+							value={dateEarly}
 						/>
 					</Grid>
 				</Grid>
@@ -95,10 +89,6 @@ export default class DateInterval extends React.Component<{}, DateDifferState> {
 						<small>相差</small>
 						{diffDay}
 						<small>天</small>
-						{diffDayHour}
-						<small>小时</small>
-						{diffDayMin}
-						<small>分钟</small>
 
 						<br></br>
 

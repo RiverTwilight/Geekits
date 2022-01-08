@@ -1,13 +1,15 @@
 import React from "react";
 import { calWhichDay, getToday } from "./engine";
-import Button from "@material-ui/core/Button";
-import Input from "@material-ui/core/Input";
-import InputLabel from "@material-ui/core/InputLabel";
-import Typography from "@material-ui/core/Typography";
-import FastForwardTwoToneIcon from "@material-ui/icons/FastForwardTwoTone";
-import FastRewindTwoToneIcon from "@material-ui/icons/FastRewindTwoTone";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import Grid from "@material-ui/core/Grid";
+import InputLabel from "@mui/material/InputLabel";
+import Typography from "@mui/material/Typography";
+import FastForwardTwoToneIcon from "@mui/icons-material/FastForwardTwoTone";
+import FastRewindTwoToneIcon from "@mui/icons-material/FastRewindTwoTone";
+import InputAdornment from "@mui/material/InputAdornment";
+import Grid from "@mui/material/Grid";
+import TextField from "@mui/material/TextField";
+import Fab from "@mui/material/Fab";
+import CheckIcon from "@mui/icons-material/Check";
+import Box from "@mui/material/Box";
 
 type CalcDateState = any;
 
@@ -52,9 +54,9 @@ export default class CalcDate extends React.Component<{}, CalcDateState> {
 		return (
 			<div className="">
 				<Grid container>
-					<Grid item xs={6}>
+					<Grid item sm={6}>
 						<InputLabel>从</InputLabel>
-						<Input
+						<TextField
 							onChange={(e) => {
 								this.handleInput(e, "dateStart");
 							}}
@@ -63,11 +65,11 @@ export default class CalcDate extends React.Component<{}, CalcDateState> {
 							value={dateStart}
 						/>
 					</Grid>
-					<Grid item xs={6}>
+					<Grid item sm={6}>
 						<InputLabel>{`往${day >= 0 ? "后" : "前"}推${Math.abs(
 							day
 						)}天`}</InputLabel>
-						<Input
+						<TextField
 							onChange={(e) => {
 								this.handleInput(e, "day");
 							}}
@@ -88,13 +90,23 @@ export default class CalcDate extends React.Component<{}, CalcDateState> {
 
 				<br />
 				<br />
-				<Button
-					variant="contained"
-					color="primary"
-					onClick={this.handleClick}
+				<Box
+					sx={{
+						display: "flex",
+						justifyContent: "space-around",
+						alignItems: "center",
+						p: 1,
+						m: 1,
+					}}
 				>
-					计算
-				</Button>
+					<Fab
+						onClick={this.handleClick}
+						color="primary"
+						aria-label="add"
+					>
+						<CheckIcon />
+					</Fab>
+				</Box>
 				{whichDay && (
 					<Typography variant="body1" align="center">
 						{whichDay}

@@ -6,7 +6,7 @@ import {
 	ListControlCheck,
 } from "mdui-in-react";
 import saveFile from "../../utils/fileSaver";
-import Button from "@material-ui/core/Button";
+import Button from "@mui/material/Button";
 
 /***https://developer.mozilla.org/zh-CN/docs/Web/Manifest***/
 

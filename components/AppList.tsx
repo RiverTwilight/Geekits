@@ -41,6 +41,7 @@ const useStyles = makeStyles((theme: Theme) =>
 		appItemText: {
 			paddingLeft: "20px",
 			"& .MuiListItemText-primary": {
+				"font-family": "SimHei",
 				fontWeight: 700,
 			},
 		},
@@ -99,7 +100,6 @@ const AppListItem = ({
 					</ListItemAvatar>
 					<ListItemText
 						className={classes.appItemText}
-						inset
 						primary={name}
 						secondary={description}
 					/>
