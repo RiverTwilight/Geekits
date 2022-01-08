@@ -1,7 +1,10 @@
 import * as React from "react";
-import { withStyles, createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import IconButton from "@material-ui/core/IconButton";
-import PhotoCamera from "@material-ui/icons/PhotoCamera";
+import { Theme } from "@mui/material/styles";
+import withStyles from '@mui/styles/withStyles';
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
+import IconButton from "@mui/material/IconButton";
+import PhotoCamera from "@mui/icons-material/PhotoCamera";
 
 const useStyles = makeStyles((theme: Theme) => {
 	return createStyles({
@@ -36,7 +39,7 @@ const CenteredStyle = ({
 }: any) => {
     const classes = useStyles();
 	return (
-		<div className={classes.container}>
+        <div className={classes.container}>
 			<input
 				accept={fileType}
 				id="contained-button-file"
@@ -47,15 +50,15 @@ const CenteredStyle = ({
 			/>
 			<label htmlFor="contained-button-file">
 				<IconButton
-					className={classes.button}
-					aria-label="upload picture"
-					component="span"
-				>
+                    className={classes.button}
+                    aria-label="upload picture"
+                    component="span"
+                    size="large">
 					<PhotoCamera className={classes.icon} />
 				</IconButton>
 			</label>
 		</div>
-	);
+    );
 };
 
 export default CenteredStyle;

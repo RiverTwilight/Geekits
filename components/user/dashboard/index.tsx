@@ -1,7 +1,7 @@
 import React from "react";
 import loadable from "../../../utils/loading";
 import { HashRouter as Router, Route, Switch } from "next/link";
-import Grid from "@material-ui/core/Grid";
+import Grid from "@mui/material/Grid";
 
 const UserRouterList = [
 	{

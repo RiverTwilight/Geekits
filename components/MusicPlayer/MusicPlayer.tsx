@@ -1,14 +1,16 @@
 import React from "react";
-import { Theme, createStyles, withStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
-import SkipPreviousIcon from "@material-ui/icons/SkipPrevious";
-import PlayArrowIcon from "@material-ui/icons/PlayArrow";
-import SkipNextIcon from "@material-ui/icons/SkipNext";
-import PauseIcon from "@material-ui/icons/Pause";
+import { Theme } from "@mui/material/styles";
+import createStyles from '@mui/styles/createStyles';
+import withStyles from '@mui/styles/withStyles';
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import SkipPreviousIcon from "@mui/icons-material/SkipPrevious";
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+import SkipNextIcon from "@mui/icons-material/SkipNext";
+import PauseIcon from "@mui/icons-material/Pause";
 
 const styles = (theme: Theme) => {
 	createStyles({
@@ -129,7 +131,7 @@ class MusicPlayer extends React.Component<MusicProps, MusicState> {
 		const { onPlay, playProgress, audioLength } = this.state;
 		const { audioDom } = this;
 		return (
-			<Card className={classes.root}>
+            <Card className={classes.root}>
 				<div className={classes.details}>
 					<CardContent className={classes.content}>
 						<Typography component="h5" variant="h5">
@@ -140,10 +142,10 @@ class MusicPlayer extends React.Component<MusicProps, MusicState> {
 						</Typography>
 					</CardContent>
 					<div className={classes.controls}>
-						<IconButton aria-label="previous">
+						<IconButton aria-label="previous" size="large">
 							<SkipPreviousIcon />
 						</IconButton>
-						<IconButton onClick={this.play} aria-label="play/pause">
+						<IconButton onClick={this.play} aria-label="play/pause" size="large">
 							{onPlay ? (
 								<PauseIcon className={classes.playIcon} />
 							) : (
@@ -151,7 +153,7 @@ class MusicPlayer extends React.Component<MusicProps, MusicState> {
 							)}
 						</IconButton>
 
-						<IconButton aria-label="next">
+						<IconButton aria-label="next" size="large">
 							<SkipNextIcon />
 						</IconButton>
 					</div>
@@ -170,7 +172,7 @@ class MusicPlayer extends React.Component<MusicProps, MusicState> {
 					Your browser does not support the audio tag.
 				</audio>
 			</Card>
-		);
+        );
 	}
 }
 

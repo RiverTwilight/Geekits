@@ -3,8 +3,10 @@ import AppList from "../components/AppList";
 import Search from "../components/Search";
 import FivList from "../components/FivList";
 import Board from "../components/Board";
-import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
+import { Theme } from "@mui/material/styles";
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
+import Grid from "@mui/material/Grid";
 
 export async function getStaticProps({ locale }) {
 	// locale = "en-US"

@@ -1,12 +1,9 @@
 import React from "react";
-import {
-	createStyles,
-	useTheme,
-	Theme,
-	makeStyles,
-} from "@material-ui/core/styles";
-import Hidden from "@material-ui/core/Hidden";
-import Drawer from "@material-ui/core/Drawer";
+import { useTheme, Theme } from "@mui/material/styles";
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
+import Hidden from "@mui/material/Hidden";
+import Drawer from "@mui/material/Drawer";
 
 const drawerWidth = 260;
 
@@ -39,39 +36,37 @@ const RightDrawer = ({
 	const classes = useStyles();
 	const theme = useTheme();
 
-	return (
-		<>
-			<Drawer
-				variant="temporary"
-				anchor="right"
-				open={!open}
-				onClose={onClose}
-				classes={{
-					paper: classes.drawerPaper,
-				}}
-			>
-				<Hidden xsDown>
-					<div className={classes.toolbar} />
-				</Hidden>
+	return <>
+        <Drawer
+            variant="temporary"
+            anchor="right"
+            open={!open}
+            onClose={onClose}
+            classes={{
+                paper: classes.drawerPaper,
+            }}
+        >
+            <Hidden smDown>
+                <div className={classes.toolbar} />
+            </Hidden>
 
-				<div className={classes.drawerContainer}>{children}</div>
-			</Drawer>
+            <div className={classes.drawerContainer}>{children}</div>
+        </Drawer>
 
-			<Hidden xsDown implementation="css">
-				<Drawer
-					classes={{
-						paper: classes.drawerPaper,
-					}}
-					anchor="right"
-					variant="persistent"
-					open={open}
-				>
-					<div className={classes.toolbar} />
-					<div className={classes.drawerContainer}>{children}</div>
-				</Drawer>
-			</Hidden>
-		</>
-	);
+        <Hidden smDown implementation="css">
+            <Drawer
+                classes={{
+                    paper: classes.drawerPaper,
+                }}
+                anchor="right"
+                variant="persistent"
+                open={open}
+            >
+                <div className={classes.toolbar} />
+                <div className={classes.drawerContainer}>{children}</div>
+            </Drawer>
+        </Hidden>
+    </>;
 };
 
 export default RightDrawer;

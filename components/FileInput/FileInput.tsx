@@ -4,10 +4,10 @@ import { signListener, removeListener } from "./useDragListener";
 import CenteredStyle from "./CenteredStyle";
 import NormalStyle from "./NormalStyle";
 
-import FolderIcon from "@material-ui/icons/Folder";
-import VideocamIcon from "@material-ui/icons/Videocam";
-import ImageIcon from "@material-ui/icons/Image";
-import CloudUploadIcon from "@material-ui/icons/CloudUpload";
+import FolderIcon from "@mui/icons-material/Folder";
+import VideocamIcon from "@mui/icons-material/Videocam";
+import ImageIcon from "@mui/icons-material/Image";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 
 interface FRProps
 	extends Omit<

@@ -1,10 +1,17 @@
 import { useState, useEffect } from "react";
-import Card from "@material-ui/core/Card";
+import Card from "@mui/material/Card";
 import StyledMarkdown from ".//StyledMarkdown";
-import IconButton from "@material-ui/core/IconButton";
-import CloseIcon from "@material-ui/icons/Close";
+import {
+	Dialog,
+	DialogTitle,
+	DialogContent,
+	DialogActions,
+} from "@mui/material";
 import axios from "../utils/axios";
-import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
+import { Theme } from "@mui/material/styles";
+
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -22,10 +29,11 @@ const API =
 	"https://api.github.com/repos/RiverTwilight/ygktool/issues/21/comments?sort=updated";
 
 export default function Board() {
-	const [notice, setNotice] = useState<{
-		content: string;
-		id: number;
-	} | null>(null);
+	const [notice, setNotice] =
+		useState<{
+			content: string;
+			id: number;
+		} | null>(null);
 
 	const classes = useStyles();
 
@@ -47,15 +55,18 @@ export default function Board() {
 	return (
 		<>
 			<Card className={classes.padding}>
-				<IconButton
-					onClick={handleClick}
-					className={classes.closeButton}
-				>
-					<CloseIcon />
-				</IconButton>
+				<DialogTitle>公告</DialogTitle>
+				<DialogContent>
+					<StyledMarkdown content={notice.content} />
+				</DialogContent>
+				<DialogActions>
+					<Button onClick={handleClick}>
+
+					</Button>
+				</DialogActions>
+
 				<br />
 				<br />
-				<StyledMarkdown content={notice.content} />
 			</Card>
 		</>
 	);

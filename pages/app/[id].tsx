@@ -1,10 +1,12 @@
 import React from "react";
-import IconButton from "@material-ui/core/IconButton";
+import IconButton from "@mui/material/IconButton";
 import RightDrawer from "../../components/RightDrawer";
 import AppMenu from "../../components/AppMenu";
-import { createStyles, Theme, withStyles } from "@material-ui/core/styles";
+import { Theme } from "@mui/material/styles";
+import createStyles from '@mui/styles/createStyles';
+import withStyles from '@mui/styles/withStyles';
 import clsx from "clsx";
-import HelpTwoToneIcon from "@material-ui/icons/HelpTwoTone";
+import HelpTwoToneIcon from "@mui/icons-material/HelpTwoTone";
 import getAppInfo from "../../utils/appinfo";
 import getPaths from "../../utils/getPaths";
 import getPostId from "../../utils/getPostId";
@@ -111,19 +113,19 @@ class AppContainer extends React.Component<any, any> {
 
 		setAction(() => {
 			return (
-				<IconButton
-					color="primary"
-					aria-label="open drawer"
-					onClick={() => {
+                <IconButton
+                    color="primary"
+                    aria-label="open drawer"
+                    onClick={() => {
 						this.setState({
 							RightDrawerOpen: !RightDrawerOpen,
 						});
 					}}
-					edge="start"
-				>
+                    edge="start"
+                    size="large">
 					<HelpTwoToneIcon />
 				</IconButton>
-			);
+            );
 		});
 
 		// TODO 链接带有全屏参数，隐藏头部

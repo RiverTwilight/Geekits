@@ -13,8 +13,13 @@
 	"author": "",
 	"license": "MIT",
 	"dependencies": {
+		"@emotion/react": "^11.7.1",
+		"@emotion/styled": "^11.6.0",
 		"@material-ui/core": "^4.11.3",
 		"@material-ui/icons": "^4.11.2",
+		"@mui/icons-material": "^5.2.5",
+		"@mui/material": "^5.2.7",
+		"@mui/styles": "^5.2.3",
 		"@svgr/webpack": "^5.5.0",
 		"axios": "^0.21.1",
 		"clipboard": "^2.0.6",

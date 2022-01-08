@@ -2,27 +2,24 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { getUserInfo } from "../../utils/Services/UserInfo";
-import Divider from "@material-ui/core/Divider";
-import Drawer from "@material-ui/core/Drawer";
-import Hidden from "@material-ui/core/Hidden";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import Avatar from "@material-ui/core/Avatar";
-import Typography from "@material-ui/core/Typography";
-import {
-	makeStyles,
-	useTheme,
-	Theme,
-	createStyles,
-} from "@material-ui/core/styles";
-import HomeIcon from "@material-ui/icons/Home";
-import SettingsIcon from "@material-ui/icons/Settings";
-import GitHubIcon from "@material-ui/icons/GitHub";
-import { green, red, blue } from "@material-ui/core/colors";
-import AppsIcon from "@material-ui/icons/Apps";
+import Divider from "@mui/material/Divider";
+import Drawer from "@mui/material/Drawer";
+import Hidden from "@mui/material/Hidden";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import Avatar from "@mui/material/Avatar";
+import Typography from "@mui/material/Typography";
+import { useTheme, Theme } from "@mui/material/styles";
+import makeStyles from '@mui/styles/makeStyles';
+import createStyles from '@mui/styles/createStyles';
+import HomeIcon from "@mui/icons-material/Home";
+import SettingsIcon from "@mui/icons-material/Settings";
+import GitHubIcon from "@mui/icons-material/GitHub";
+import { green, red, blue } from "@mui/material/colors";
+import AppsIcon from "@mui/icons-material/Apps";
 import { UserContext } from "../UserContextProvider";
 import clsx from "clsx";
 import { store as loginDialogStore } from "../../data/loginDialogState";
@@ -223,7 +220,7 @@ const LeftDrawer = (props: IProps) => {
 	// });
 
 	return (
-		<nav className={classes.drawer} aria-label="left drawer">
+        <nav className={classes.drawer} aria-label="left drawer">
 			{/* The implementation can be swapped with js to avoid SEO duplication of links. */}
 			<Hidden smUp implementation="css">
 				<Drawer
@@ -243,7 +240,7 @@ const LeftDrawer = (props: IProps) => {
 					{drawer}
 				</Drawer>
 			</Hidden>
-			<Hidden xsDown implementation="css">
+			<Hidden smDown implementation="css">
 				<Drawer
 					classes={{
 						paper: classes.drawerPaper,
@@ -255,7 +252,7 @@ const LeftDrawer = (props: IProps) => {
 				</Drawer>
 			</Hidden>
 		</nav>
-	);
+    );
 };
 
 export default LeftDrawer;

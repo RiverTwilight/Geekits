@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
 import axios from "../utils/axios";
-import Input from "@material-ui/core/Input";
-import FormControl from "@material-ui/core/FormControl";
-import InputLabel from "@material-ui/core/InputLabel";
-import Button from "@material-ui/core/Button";
+import Input from "@mui/material/Input";
+import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
+import Button from "@mui/material/Button";
 import useInput from "../utils/Hooks/useInput";
-import Snackbar from "@material-ui/core/Snackbar";
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import IconButton from "@material-ui/core/IconButton";
-import CloseIcon from "@material-ui/icons/Close";
+import Snackbar from "@mui/material/Snackbar";
+import { Theme } from '@mui/material/styles';
+import makeStyles from '@mui/styles/makeStyles';
+import createStyles from '@mui/styles/createStyles';
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
 
 /**
  * 查询工具模板

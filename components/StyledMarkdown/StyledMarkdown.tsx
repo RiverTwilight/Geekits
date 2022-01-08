@@ -1,6 +1,6 @@
 import React from "react";
 import ReactMarkdown from "react-markdown";
-import Typography from "@material-ui/core/Typography";
+import Typography from "@mui/material/Typography";
 
 const StyledMarkdown = ({ content }: { content: string }) => {
 	return (

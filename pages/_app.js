@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Layout from "../components/Layout";
 import siteConfig from "../site.config.js";
-import { ThemeProvider } from "@material-ui/core/styles";
+import { ThemeProvider, StyledEngineProvider } from "@mui/material/styles";
 // import UserContextProvider from "../components/UserContextProvider";
 import theme from "../utils/theme";
 import "./App.css";
@@ -28,21 +28,23 @@ function MyApp({ Component, pageProps }) {
 	} = pageProps;
 
 	return (
-		<ThemeProvider
-			theme={theme({
-				darkTheme: dark,
-			})}
-		>
-			<Layout
-				siteConfig={siteConfig}
-				locale={locale}
-				currentPage={currentPage}
-				menuItems={menuItems}
-			>
-				<Component {...pageProps} siteConfig={siteConfig} />
-			</Layout>
-		</ThemeProvider>
-	);
+        <StyledEngineProvider injectFirst>
+            <ThemeProvider
+                theme={theme({
+                    darkTheme: dark,
+                })}
+            >
+                <Layout
+                    siteConfig={siteConfig}
+                    locale={locale}
+                    currentPage={currentPage}
+                    menuItems={menuItems}
+                >
+                    <Component {...pageProps} siteConfig={siteConfig} />
+                </Layout>
+            </ThemeProvider>
+        </StyledEngineProvider>
+    );
 }
 
 // Only uncomment this method if you have blocking data requirements for

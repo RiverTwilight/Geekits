@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from "react";
 import fivkits from "../utils/Services/fiv";
-import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
-import ButtonGroup from "@material-ui/core/ButtonGroup";
-import TextField from "@material-ui/core/TextField";
-import IconButton from "@material-ui/core/IconButton";
-import GitHubIcon from "@material-ui/icons/GitHub";
-import StarIcon from "@material-ui/icons/Star";
-import StarBorderIcon from "@material-ui/icons/StarBorder";
-import ShareIcon from "@material-ui/icons/Share";
+import { Theme } from "@mui/material/styles";
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
+import Button from "@mui/material/Button";
+import ButtonGroup from "@mui/material/ButtonGroup";
+import TextField from "@mui/material/TextField";
+import IconButton from "@mui/material/IconButton";
+import GitHubIcon from "@mui/icons-material/GitHub";
+import StarIcon from "@mui/icons-material/Star";
+import StarBorderIcon from "@mui/icons-material/StarBorder";
+import ShareIcon from "@mui/icons-material/Share";
 import StyledMarkdown from "./StyledMarkdown";
-import CodeIcon from "@material-ui/icons/Code";
+import CodeIcon from "@mui/icons-material/Code";
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -85,19 +87,19 @@ const AppMenu = ({
 		// 	});
 	});
 	return (
-		<div className={classes.content}>
+        <div className={classes.content}>
 			<ButtonGroup aria-label="more options">
 				<IconButton
-					component="a"
-					href={`https://github.com/RiverTwilight/ygktool/tree/master/src/apps/${link}`}
-					aria-label="在Github上编辑此页面"
-				>
+                    component="a"
+                    href={`https://github.com/RiverTwilight/ygktool/tree/master/src/apps/${link}`}
+                    aria-label="在Github上编辑此页面"
+                    size="large">
 					<GitHubIcon fontSize="inherit" />
 				</IconButton>
-				<IconButton onClick={handleFiv} aria-label="收藏">
+				<IconButton onClick={handleFiv} aria-label="收藏" size="large">
 					{fiv ? <StarIcon /> : <StarBorderIcon />}
 				</IconButton>
-				<IconButton onClick={handleCode} aria-label="框架引用">
+				<IconButton onClick={handleCode} aria-label="框架引用" size="large">
 					<CodeIcon fontSize="inherit" />
 				</IconButton>
 				{/* {typeof(navigator.share) != "undefined" && (
@@ -127,7 +129,7 @@ const AppMenu = ({
 			
 			<StyledMarkdown content={appDoc} />
 		</div>
-	);
+    );
 };
 
 export default AppMenu;

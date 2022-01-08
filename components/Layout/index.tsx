@@ -5,15 +5,13 @@ import Header from "../Header";
 import LeftDrawer from "../LeftDrawer";
 import LoginDialog from "../LoginDialog";
 import { ICurrentPage, ISiteConfig } from "../../types";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import {
-	createStyles,
-	Theme,
-	withStyles,
-	makeStyles,
-} from "@material-ui/core/styles";
-import Snackbar from "@material-ui/core/Snackbar";
-import LinearProgress from "@material-ui/core/LinearProgress";
+import CssBaseline from "@mui/material/CssBaseline";
+import { Theme } from "@mui/material/styles";
+import createStyles from '@mui/styles/createStyles';
+import withStyles from '@mui/styles/withStyles';
+import makeStyles from '@mui/styles/makeStyles';
+import Snackbar from "@mui/material/Snackbar";
+import LinearProgress from "@mui/material/LinearProgress";
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({

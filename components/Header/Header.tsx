@@ -1,12 +1,14 @@
 import React from "react";
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import Divider from "@material-ui/core/Divider";
-import IconButton from "@material-ui/core/IconButton";
-import MenuTwoToneIcon from "@material-ui/icons/MenuTwoTone";
-import useScrollTrigger from "@material-ui/core/useScrollTrigger";
+import { Theme } from "@mui/material/styles";
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import Divider from "@mui/material/Divider";
+import IconButton from "@mui/material/IconButton";
+import MenuTwoToneIcon from "@mui/icons-material/MenuTwoTone";
+import useScrollTrigger from "@mui/material/useScrollTrigger";
 import clsx from "clsx";
 import { store } from "../../data/drawerState";
 
@@ -66,7 +68,7 @@ export default (props: { title: string; PageAction }) => {
 	const { title, PageAction } = props
 
 	return (
-		<ElevationScroll {...props}>
+        <ElevationScroll {...props}>
 			<AppBar
 				position="fixed"
 				color="inherit"
@@ -75,14 +77,14 @@ export default (props: { title: string; PageAction }) => {
 				{/* <div className={classes.cover}></div> */}
 				<Toolbar>
 					<IconButton
-						color="primary"
-						aria-label="open drawer"
-						onClick={() =>
+                        color="primary"
+                        aria-label="open drawer"
+                        onClick={() =>
 							store.dispatch({ type: "drawer/opened" })
 						}
-						edge="start"
-						className={classes.menuButton}
-					>
+                        edge="start"
+                        className={classes.menuButton}
+                        size="large">
 						<MenuTwoToneIcon />
 					</IconButton>
 					<Typography
@@ -97,5 +99,5 @@ export default (props: { title: string; PageAction }) => {
 				<Divider />
 			</AppBar>
 		</ElevationScroll>
-	);
+    );
 };

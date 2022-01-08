@@ -1,7 +1,9 @@
 import React from "react";
 import Loadable from "react-loadable";
-import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import { Theme } from "@mui/material/styles";
+import makeStyles from '@mui/styles/makeStyles';
+import createStyles from '@mui/styles/createStyles';
+import CircularProgress from "@mui/material/CircularProgress";
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({

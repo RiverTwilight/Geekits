@@ -1,25 +1,25 @@
 import * as React from "react";
 import Link from "next/link";
-import Checkbox from "@material-ui/core/Checkbox";
-import Dialog from "@material-ui/core/Dialog";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormGroup from "@material-ui/core/FormGroup";
-import Grid from "@material-ui/core/Grid";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import ListSubheader from "@material-ui/core/ListSubheader";
-import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
-import AssistantIcon from "@material-ui/icons/Assistant";
-import BrushSharpIcon from "@material-ui/icons/BrushSharp";
-import EmojiFoodBeverageIcon from "@material-ui/icons/EmojiFoodBeverage";
-import GroupIcon from "@material-ui/icons/Group";
-import PersonIcon from "@material-ui/icons/Person";
-import TwitterIcon from "@material-ui/icons/Twitter";
+import Checkbox from "@mui/material/Checkbox";
+import Dialog from "@mui/material/Dialog";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormGroup from "@mui/material/FormGroup";
+import Grid from "@mui/material/Grid";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import ListSubheader from "@mui/material/ListSubheader";
+import Paper from "@mui/material/Paper";
+import Typography from "@mui/material/Typography";
+import AssistantIcon from "@mui/icons-material/Assistant";
+import BrushSharpIcon from "@mui/icons-material/BrushSharp";
+import EmojiFoodBeverageIcon from "@mui/icons-material/EmojiFoodBeverage";
+import GroupIcon from "@mui/icons-material/Group";
+import PersonIcon from "@mui/icons-material/Person";
+import TwitterIcon from "@mui/icons-material/Twitter";
 
 // FIXME crash on mobile devices
 

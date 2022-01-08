@@ -1,10 +1,10 @@
-import { createTheme } from "@material-ui/core/styles";
-import green from "@material-ui/core/colors/green";
+import { createTheme, adaptV4Theme } from "@mui/material/styles";
+import { green } from '@mui/material/colors';
 
 const theme = ({ darkTheme }: { darkTheme?: boolean }) =>
-	createTheme({
+	createTheme(adaptV4Theme({
 		palette: {
-			type: darkTheme ? "dark" : "light",
+			mode: darkTheme ? "dark" : "light",
 			primary: {
 				main: green[500],
 			},
@@ -12,6 +12,6 @@ const theme = ({ darkTheme }: { darkTheme?: boolean }) =>
 				main: green[300],
 			},
 		},
-	});
+	}));
 
 export default theme;

@@ -9,6 +9,10 @@ export default {
 		() => import("../apps/date_calculator"),
 		importConfig
 	),
+	pomodoro: dynamic(
+		() => import("../apps/pomodoro"),
+		importConfig
+	),
 	js_keycode: dynamic(() => import("../apps/js_keycode"), importConfig),
 	dic_ci: dynamic(() => import("../apps/dic_ci"), importConfig),
 	dic_idiom: dynamic(() => import("../apps/dic_idiom"), importConfig),

@@ -1,9 +1,6 @@
 import React from "react";
-import mdui from "mdui";
-import { Input, BottomAlert } from "mdui-in-react";
-import "./style.css";
+import Typography from "@material-ui/core/Typography";
 
-/*
 const sayings = [
 	{
 		content: "自律是一种秩序，一种对快乐和欲望的控制。",
@@ -22,15 +19,14 @@ const sayings = [
 const Saying = ({ index }) => {
 	const saying = sayings[index];
 	return (
-		<div className="mdui-typo">
+		<Typography>
 			<blockquote>
 				{saying.content}
 				<footer>{saying.author}</footer>
 			</blockquote>
-		</div>
+		</Typography>
 	);
 };
-*/
 
 function d2a(n: number) {
 	return (n * Math.PI) / 180;

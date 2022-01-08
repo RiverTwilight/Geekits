@@ -46,8 +46,6 @@ export default class DateInterval extends React.Component<{}, DateDifferState> {
 	};
 	render() {
 		const {
-			timeEarly,
-			timeLate,
 			dateEarly,
 			dateLate,
 			diffDay,
@@ -60,7 +58,7 @@ export default class DateInterval extends React.Component<{}, DateDifferState> {
 			<>
 				<InputLabel>从</InputLabel>
 				<Grid container>
-					<Grid item xs={6}>
+					<Grid item xs={12}>
 						<Input
 							onChange={(e) => {
 								this.handleInput(e, "dateEarly");
@@ -69,35 +67,17 @@ export default class DateInterval extends React.Component<{}, DateDifferState> {
 							value={dateEarly}
 						/>
 					</Grid>
-					<Grid item xs={6}>
-						<Input
-							onChange={(e) => {
-								this.handleInput(e, "timeEarly");
-							}}
-							value={timeEarly}
-							type="time"
-						/>
-					</Grid>
 				</Grid>
 				<br />
 				<InputLabel>到</InputLabel>
 				<Grid container>
-					<Grid item xs={6}>
+					<Grid item xs={12}>
 						<Input
 							onChange={(e: any) => {
 								this.handleInput(e, "dateLate");
 							}}
 							type="date"
 							value={dateLate}
-						/>
-					</Grid>
-					<Grid>
-						<Input
-							onChange={(e: any) => {
-								this.handleInput(e, "timeLate");
-							}}
-							value={timeLate}
-							type="time"
 						/>
 					</Grid>
 				</Grid>
