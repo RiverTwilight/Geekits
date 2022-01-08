@@ -1,4 +1,11 @@
-module.exports = {
+const withPWA = require("next-pwa");
+
+module.exports = withPWA({
+	pwa: {
+		dest: "public",
+		register: true,
+		skipWaiting: true,
+	},
 	typescript: {
 		// !! WARN !!
 		// Dangerously allow production builds to successfully complete even if
@@ -32,4 +39,4 @@ module.exports = {
 		locales: ["zh-CN", "en-US"],
 		defaultLocale: "zh-CN",
 	},
-};
+});
