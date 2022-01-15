@@ -71,19 +71,18 @@ module.exports = [
 		help: "动态生成的内容可能无法抓取到",
 		channel: 3,
 	},
-	// {
-	// 	name: "翻译",
-	// 	link: "translate",
-	// 	icon: "translate",
-	// 	icon_color: "blue-400",
-	// 	help: "使用百度翻译引擎",
-	// 	channel: 4,
-	// },
+	{
+		name: "翻译",
+		link: "translate",
+		icon: "translate",
+		icon_color: "blue-400",
+		help: "使用百度翻译引擎",
+		channel: 4,
+	},
 	{
 		name: "日期&时间计算",
 		link: "date_calculator",
 		icon: "/icons/Google_Calendar_icon_(2020).svg",
-		icon_color: "purple-200",
 		help: "输入负数可以向前推算",
 		description:
 			"计算两个日期间隔的天数和时间，或推算几天前后是哪一天，可以算算你活了多久 :)",
@@ -92,8 +91,7 @@ module.exports = [
 	{
 		name: "番茄钟",
 		link: "pomodoro",
-		icon: "access_alarm",
-		icon_color: "red",
+		icon: "/icons/pomodoro.png",
 		description:
 			"番茄工作法极大地提高了工作的效率，还会有意想不到的成就感。",
 		channel: 4,
@@ -140,14 +138,14 @@ module.exports = [
 		help: "仅供娱乐，产生任何后果自负",
 		channel: 2,
 	},
-	{
-		name: "便签",
-		link: "note",
-		icon: "/icons/scratchpad.png",
-		icon_color: "amber",
-		help: "所有内容保存在本地浏览器缓存中，不会上传到服务器。",
-		channel: 4,
-	},
+	// {
+	// 	name: "便签",
+	// 	link: "note",
+	// 	icon: "/icons/scratchpad.png",
+	// 	icon_color: "amber",
+	// 	help: "所有内容保存在本地浏览器缓存中，不会上传到服务器。",
+	// 	channel: 4,
+	// },
 	{
 		name: "manifest生成",
 		link: "manifest",
@@ -194,7 +192,7 @@ module.exports = [
 	{
 		name: "GIF制作",
 		link: "gif",
-		icon: "gif",
+		icon: "/icons/file.jpg",
 		icon_color: "light-green",
 		help: "过大的视频可能会有卡顿，所有操作均在本地执行，不消耗数据流量",
 		channel: 2,
@@ -202,8 +200,7 @@ module.exports = [
 	{
 		name: "樱花动漫视频解析",
 		link: "imomoe_parse",
-		icon: "ondemand_video",
-		icon_color: "pink",
+		icon: "/icons/video.svg",
 		help: "部分番剧无法解析（因为是流视频）",
 		channel: 2,
 		network: true,
@@ -316,8 +313,7 @@ module.exports = [
 	{
 		name: "文字转语音",
 		link: "tts",
-		icon: "mic",
-		icon_color: "teal-300",
+		icon: "/icons/audio.svg",
 		help: "每次最多合成500字符",
 		description:
 			"将文字转成mp3朗读音频，支持多种声线/速度/音调/音量自定义",
@@ -367,6 +363,7 @@ module.exports = [
 	{
 		name: "字典",
 		link: "dic_word",
+		icon: "/icons/book.png",
 		help: "暂不支持太简单的字查询",
 		description: "我们中国的汉字，落笔成画留下五千年的历史",
 		channel: 4,
@@ -375,7 +372,7 @@ module.exports = [
 	{
 		name: "JS键盘码查询",
 		link: "js_keycode",
-		icon: "settings_applications",
+		icon: "/icons/code.png",
 		channel: 3,
 	},
 	{ name: "Hello Tool", link: "http://hellotool.htm.kim", channel: 5 },
@@ -383,6 +380,5 @@ module.exports = [
 		name: "精品网站导航",
 		link: "https://imyshare.com/?from=ygktool",
 		channel: 5,
-	},
-	{ name: "墨灵音乐", link: "https://yinyue.qugeek.com/", channel: 5 },
+	}
 ];
