@@ -74,7 +74,7 @@ module.exports = [
 	{
 		name: "翻译",
 		link: "translate",
-		icon: "translate",
+		icon: "/icons/translation.png",
 		icon_color: "blue-400",
 		help: "使用百度翻译引擎",
 		channel: 4,
@@ -282,8 +282,7 @@ module.exports = [
 	{
 		name: "化学方程式配平",
 		link: "cem",
-		icon: "linear_scale",
-		icon_color: "blue-600",
+		icon: "/icons/chemistry.svg",
 		channel: 4,
 	},
 	{

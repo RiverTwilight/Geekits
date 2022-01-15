@@ -66,7 +66,6 @@ const Result = ({ result, eleClass }: any) => {
 					</TableHead>
 					<TableBody>
 						{
-							// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'stance' implicitly has an 'any' type.
 							info.map((stance, i) => (
 								<TableRow key={i}>
 									<TableCell>{stance.atomicNumber}</TableCell>

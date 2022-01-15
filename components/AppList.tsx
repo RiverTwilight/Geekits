@@ -1,5 +1,6 @@
 import Avatar from "@mui/material/Avatar";
 import Card from "@mui/material/Card";
+import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -29,6 +30,10 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		appItem: {
 			height: "90px",
+		},
+		appItemWarpper:{
+			border: "1px solid #e0e0e0",
+			borderRadius: "5px",
 		},
 		[theme.breakpoints.up("sm")]: {
 			appItem: {
@@ -79,7 +84,7 @@ const AppListItem = ({
 					href: "/app/" + link,
 			  };
 	return (
-		<Card>
+		<div className={classes.appItemWarpper}>
 			<Link {...attr} passHref>
 				<ListItem
 					className={classes.appItem}
@@ -105,7 +110,7 @@ const AppListItem = ({
 					/>
 				</ListItem>
 			</Link>
-		</Card>
+		</div>
 	);
 };
 
