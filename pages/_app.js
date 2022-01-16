@@ -17,6 +17,10 @@ function MyApp({ Component, pageProps }) {
 			setDark(state);
 		};
 		console.log("Some global functions to nerds: Window.setDark()");
+
+		const jssStyles = document.querySelector("#jss-server-side");
+		if (jssStyles && jssStyles.parentNode)
+			jssStyles.parentNode.removeChild(jssStyles);
 	}, []);
 
 	const {
@@ -28,23 +32,23 @@ function MyApp({ Component, pageProps }) {
 	} = pageProps;
 
 	return (
-        <StyledEngineProvider injectFirst>
-            <ThemeProvider
-                theme={theme({
-                    darkTheme: dark,
-                })}
-            >
-                <Layout
-                    siteConfig={siteConfig}
-                    locale={locale}
-                    currentPage={currentPage}
-                    menuItems={menuItems}
-                >
-                    <Component {...pageProps} siteConfig={siteConfig} />
-                </Layout>
-            </ThemeProvider>
-        </StyledEngineProvider>
-    );
+		<StyledEngineProvider injectFirst>
+			<ThemeProvider
+				theme={theme({
+					darkTheme: dark,
+				})}
+			>
+				<Layout
+					siteConfig={siteConfig}
+					locale={locale}
+					currentPage={currentPage}
+					menuItems={menuItems}
+				>
+					<Component {...pageProps} siteConfig={siteConfig} />
+				</Layout>
+			</ThemeProvider>
+		</StyledEngineProvider>
+	);
 }
 
 // Only uncomment this method if you have blocking data requirements for

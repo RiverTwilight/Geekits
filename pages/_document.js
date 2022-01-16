@@ -1,6 +1,6 @@
 import React from "react";
 import Document, { Html, Head, Main, NextScript } from "next/document";
-import ServerStyleSheets from '@mui/styles/ServerStyleSheets';
+import ServerStyleSheets from "@mui/styles/ServerStyleSheets";
 import { apiConfig } from "../site.config";
 
 class MyDocument extends Document {
@@ -101,7 +101,7 @@ class MyDocument extends Document {
 
 					<link rel="icon" href="/logo/v2/favicon.ico" />
 					<link rel="manifest" href="/manifest.json" />
-					
+
 					<meta name="theme-color" content="#000000" />
 					<meta name="renderer" content="webkit" />
 					<meta name="force-rendering" content="webkit" />
@@ -165,8 +165,10 @@ MyDocument.getInitialProps = async (ctx) => {
 		...initialProps,
 		// Styles fragment is rendered after the app and page rendering finish.
 		styles: [
-			...React.Children.toArray(initialProps.styles),
-			sheets.getStyleElement(),
+			<React.Fragment key="styles">
+				{initialProps.styles}
+				{sheets.getStyleElement()}
+			</React.Fragment>,
 		],
 	};
 };
