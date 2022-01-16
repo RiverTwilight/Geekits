@@ -15,12 +15,14 @@ class AppContainer extends React.Component<
 	{},
 	{
 		appInfo: any;
+		newDomainAlert: boolean;
 	}
 > {
 	constructor(props: any) {
 		super(props);
 		this.state = {
 			appInfo: getInfo(props.match.params.name),
+			newDomainAlert: true
 		};
 	}
 	componentDidCatch(error: any, info: any) {
@@ -42,11 +44,24 @@ class AppContainer extends React.Component<
 			document.body.classList.remove("mdui-appbar-with-toolbar");
 		}
 		window.setRightDrawer(<AppMenu appinfo={appInfo} />);
+		let read = localStorage.getItem("READ_NEW_DOMAIN_ALERT");
+		if (read == "1") {
+			this.setState({
+				newDomainAlert: false
+			})
+		}
+	}
+	doNotShowAgain() {
+		this.setState({
+			newDomainAlert: false
+		})
+		localStorage.setItem("READ_NEW_DOMAIN_ALERT", "1");
 	}
 	render() {
-		const { appInfo } = this.state;
+		const { appInfo, newDomainAlert } = this.state;
 		return (
 			<>
+				{newDomainAlert && <div className="mdui-p-a-2 mdui-card">网站域名已迁移至ygktool.COM，请您知悉！&nbsp<span onClick={this.doNotShowAgain.bind(this)} className="mdui-text-color-theme">不再提示</span></div>}
 				<Router>
 					<Route
 						path="/app/:name"
