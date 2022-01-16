@@ -248,9 +248,8 @@ module.exports = [
 	},
 	{
 		name: "表情制作",
-		link: "emoticon",
-		icon: "tag_faces",
-		icon_color: "yellow",
+		link: "meme_maker",
+		icon: "/icons/fun.png",
 		help: "",
 		channel: 2,
 	},
