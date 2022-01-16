@@ -28,7 +28,7 @@
 		"js-pinyin": "^0.1.9",
 		"jszip": "^3.5.0",
 		"libgif": "0.0.3",
-		"marked": "^4.0.10",
+		"marked": "^0.8.2",
 		"mdui": "0.4.3",
 		"mdui-in-react": "^1.2.17",
 		"qrcode": "^1.4.4",
