@@ -61,7 +61,7 @@ class AppContainer extends React.Component<
 		const { appInfo, newDomainAlert } = this.state;
 		return (
 			<>
-				{newDomainAlert && <div className="mdui-p-a-2 mdui-card">网站域名已迁移至ygktool.COM，请您知悉！&nbsp<span onClick={this.doNotShowAgain.bind(this)} className="mdui-text-color-theme">不再提示</span></div>}
+				{newDomainAlert && <div className="mdui-p-a-2 mdui-card">网站域名已迁移至YgkTool.COM，请您知悉!   <span onClick={this.doNotShowAgain.bind(this)} className="mdui-text-color-theme">不再提示</span></div>}
 				<Router>
 					<Route
 						path="/app/:name"
