@@ -10,14 +10,14 @@ module.exports = [
 	{
 		name: "積分To-Do",
 		channel: 4,
-		icon: "/icons/tasks.png",
+		icon: "/icon/tasks.png",
 		link: "point_brochure",
 		description: "操縱你的多巴胺，幫助你自律",
 	},
 	{
 		name: "離子方程式配平",
 		channel: 4,
-		icon: "/icons/lens.png",
+		icon: "/icon/lens.png",
 		link: "coming",
 		icon_color: "teal",
 	},
@@ -87,7 +87,7 @@ module.exports = [
 	{
 		name: "日期與時間計算",
 		link: "date_calculator",
-		icon: "/icons/Google_Calendar_icon_(2020).svg",
+		icon: "/icon/Google_Calendar_icon_(2020).svg",
 		icon_color: "purple-200",
 		help: "輸入負數可以向前推算",
 		description:
@@ -123,7 +123,7 @@ module.exports = [
 	{
 		name: "QR碼生成",
 		link: "qrcode",
-		icon: "/icons/qrcode.png",
+		icon: "/icon/qrcode.png",
 		help: "",
 		description: "支持自定義顏色和大小；支持生成WiFi碼",
 		channel: 2,
@@ -148,7 +148,7 @@ module.exports = [
 	{
 		name: "便簽",
 		link: "note",
-		icon: "/icons/scratchpad.png",
+		icon: "/icon/scratchpad.png",
 		icon_color: "amber",
 		help: "全部內容皆保存在本地瀏覽器快取中，不會上傳到伺候器。刪除網站數據可能會導致內容丟失。",
 		channel: 4,
@@ -191,7 +191,7 @@ module.exports = [
 	{
 		name: "資料夾樹狀圖生成",
 		link: "folder_tree",
-		icon: "/icons/file.jpg",
+		icon: "/icon/file.jpg",
 		description: "產生樹狀目錄結構圖",
 		help: "移動端可能無法使用；檔案數量過多可能會有卡頓",
 		channel: 3,
@@ -234,7 +234,7 @@ module.exports = [
 	{
 		name: "HTML轉換JSX",
 		link: "html2jsx",
-		icon: "/icons/code.png",
+		icon: "/icon/code.png",
 		help: "不支持部分Html屬性，請手動改為smallCamel命名法，所有操作均在本地處理，不消耗行動數據",
 		channel: 3,
 	},
@@ -306,7 +306,7 @@ module.exports = [
 	{
 		name: "影像文檔壓縮",
 		link: "img_compress",
-		icon: "/icons/finance.png",
+		icon: "/icon/finance.png",
 		icon_color: "brown-300",
 		help: "太小的圖片可能沒有效果",
 		channel: 2,
@@ -349,7 +349,7 @@ module.exports = [
 	{
 		name: "漢語詞典",
 		link: "dic_ci",
-		icon: "/icons/book.png",
+		icon: "/icon/book.png",
 		description: "便捷查詢常用詞",
 		channel: 4,
 		network: true,
@@ -357,7 +357,7 @@ module.exports = [
 	{
 		name: "歇後語查詢",
 		link: "xiehouyu",
-		icon: "/icons/book.png",
+		icon: "/icon/book.png",
 		description: "支持謎面謎底互查",
 		channel: 4,
 		network: true,
@@ -365,7 +365,7 @@ module.exports = [
 	{
 		name: "成語詞典",
 		link: "dic_idiom",
-		icon: "/icons/book.png",
+		icon: "/icon/book.png",
 		help: "支持縮寫哦",
 		channel: 4,
 		network: true,
@@ -381,7 +381,7 @@ module.exports = [
 	{
 		name: "JS鍵碼查詢",
 		link: "js_keycode",
-		icon: "/icons/js.png",
+		icon: "/icon/js.png",
 		channel: 3,
 	},
 	{ name: "Hello Tool", link: "http://hellotool.htm.kim", channel: 5 },

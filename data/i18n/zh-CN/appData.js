@@ -2,7 +2,7 @@ module.exports = [
 	{
 		name: "自律神器：积分奖手册",
 		channel: 4,
-		icon: "/icons/tasks.png",
+		icon: "/icon/tasks.png",
 		link: "point_brochure",
 		icon_color: "",
 		description: "利用多巴胺机制帮助你自律",
@@ -10,7 +10,7 @@ module.exports = [
 	{
 		name: "离子方程式配平",
 		channel: 4,
-		icon: "/icons/lens.png",
+		icon: "/icon/lens.png",
 		link: "coming",
 		icon_color: "teal",
 	},
@@ -74,7 +74,7 @@ module.exports = [
 	{
 		name: "翻译",
 		link: "translate",
-		icon: "/icons/translation.png",
+		icon: "/icon/translation.png",
 		icon_color: "blue-400",
 		help: "使用百度翻译引擎",
 		channel: 4,
@@ -82,7 +82,7 @@ module.exports = [
 	{
 		name: "日期&时间计算",
 		link: "date_calculator",
-		icon: "/icons/Google_Calendar_icon_(2020).svg",
+		icon: "/icon/Google_Calendar_icon_(2020).svg",
 		help: "输入负数可以向前推算",
 		description:
 			"计算两个日期间隔的天数和时间，或推算几天前后是哪一天，可以算算你活了多久 :)",
@@ -91,7 +91,7 @@ module.exports = [
 	{
 		name: "番茄钟",
 		link: "pomodoro",
-		icon: "/icons/pomodoro.png",
+		icon: "/icon/pomodoro.png",
 		description:
 			"番茄工作法极大地提高了工作的效率，还会有意想不到的成就感。",
 		channel: 4,
@@ -116,7 +116,7 @@ module.exports = [
 	{
 		name: "二维码生成",
 		link: "qrcode",
-		icon: "/icons/qrcode.png",
+		icon: "/icon/qrcode.png",
 		help: "",
 		description: "支持自定义颜色和大小；支持生成WiFi码",
 		channel: 2,
@@ -141,7 +141,7 @@ module.exports = [
 	// {
 	// 	name: "便签",
 	// 	link: "note",
-	// 	icon: "/icons/scratchpad.png",
+	// 	icon: "/icon/scratchpad.png",
 	// 	icon_color: "amber",
 	// 	help: "所有内容保存在本地浏览器缓存中，不会上传到服务器。",
 	// 	channel: 4,
@@ -184,7 +184,7 @@ module.exports = [
 	{
 		name: "文件树生成",
 		link: "folder_tree",
-		icon: "/icons/file.jpg",
+		icon: "/icon/file.jpg",
 		description: "生成文件夹结构",
 		help: "不支持移动端使用；文件数量过多可能会有卡顿",
 		channel: 3,
@@ -192,7 +192,7 @@ module.exports = [
 	{
 		name: "GIF制作",
 		link: "gif",
-		icon: "/icons/file.jpg",
+		icon: "/icon/file.jpg",
 		icon_color: "light-green",
 		help: "过大的视频可能会有卡顿，所有操作均在本地执行，不消耗数据流量",
 		channel: 2,
@@ -200,7 +200,7 @@ module.exports = [
 	{
 		name: "樱花动漫视频解析",
 		link: "imomoe_parse",
-		icon: "/icons/video.svg",
+		icon: "/icon/video.svg",
 		help: "部分番剧无法解析（因为是流视频）",
 		channel: 2,
 		network: true,
@@ -226,7 +226,7 @@ module.exports = [
 	{
 		name: "HTML转JSX",
 		link: "html2jsx",
-		icon: "/icons/code.png",
+		icon: "/icon/code.png",
 		help: "不支持部分Html属性，请手动改为小驼峰命名法，所有操作均在本地执行，不消耗数据流量",
 		channel: 3,
 	},
@@ -249,7 +249,7 @@ module.exports = [
 	{
 		name: "表情制作",
 		link: "meme_maker",
-		icon: "/icons/fun.png",
+		icon: "/icon/fun.png",
 		help: "",
 		channel: 2,
 	},
@@ -281,7 +281,7 @@ module.exports = [
 	{
 		name: "化学方程式配平",
 		link: "cem",
-		icon: "/icons/chemistry.svg",
+		icon: "/icon/magic-line-blue/icon-192-maskable.png",
 		channel: 4,
 	},
 	{
@@ -295,7 +295,7 @@ module.exports = [
 	{
 		name: "图片压缩",
 		link: "img_compress",
-		icon: "/icons/finance.png",
+		icon: "/icon/finance.png",
 		icon_color: "brown-300",
 		help: "太小的图片可能没有效果",
 		channel: 2,
@@ -311,7 +311,7 @@ module.exports = [
 	{
 		name: "文字转语音",
 		link: "tts",
-		icon: "/icons/audio.svg",
+		icon: "/icon/audio.svg",
 		help: "每次最多合成500字符",
 		description:
 			"将文字转成mp3朗读音频，支持多种声线/速度/音调/音量自定义",
@@ -337,7 +337,7 @@ module.exports = [
 	{
 		name: "词典",
 		link: "dic_ci",
-		icon: "/icons/book.png",
+		icon: "/icon/book.png",
 		description: "便捷查询常用词",
 		channel: 4,
 		network: true,
@@ -345,7 +345,7 @@ module.exports = [
 	{
 		name: "歇后语查询",
 		link: "xiehouyu",
-		icon: "/icons/book.png",
+		icon: "/icon/book.png",
 		description: "支持谜面谜底互查",
 		channel: 4,
 		network: true,
@@ -353,7 +353,7 @@ module.exports = [
 	{
 		name: "成语词典",
 		link: "dic_idiom",
-		icon: "/icons/book.png",
+		icon: "/icon/book.png",
 		help: "支持缩写哦",
 		channel: 4,
 		network: true,
@@ -361,7 +361,7 @@ module.exports = [
 	{
 		name: "字典",
 		link: "dic_word",
-		icon: "/icons/book.png",
+		icon: "/icon/book.png",
 		help: "暂不支持太简单的字查询",
 		description: "我们中国的汉字，落笔成画留下五千年的历史",
 		channel: 4,
@@ -370,7 +370,7 @@ module.exports = [
 	{
 		name: "JS键盘码查询",
 		link: "js_keycode",
-		icon: "/icons/code.png",
+		icon: "/icon/code.png",
 		channel: 3,
 	},
 	{ name: "Hello Tool", link: "http://hellotool.htm.kim", channel: 5 },

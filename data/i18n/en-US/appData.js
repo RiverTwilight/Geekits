@@ -9,7 +9,7 @@ module.exports = [
 	{
 		name: "Credit To-Do",
 		channel: 4,
-		icon: "/icons/tasks.png",
+		icon: "/icon/tasks.png",
 		link: "point_brochure",
 		icon_color: "",
 		description: "Enjoy the sense of accomplishment",
@@ -17,7 +17,7 @@ module.exports = [
 	{
 		name: "Ionic-Equations Balancing",
 		channel: 4,
-		icon: "/icons/lens.png",
+		icon: "/icon/lens.png",
 		link: "coming",
 		icon_color: "teal",
 	},
@@ -92,7 +92,7 @@ module.exports = [
 	{
 		name: "Time Counter",
 		link: "date_calculator",
-		icon: "/icons/Google_Calendar_icon_(2020).svg",
+		icon: "/icon/Google_Calendar_icon_(2020).svg",
 		icon_color: "purple-200",
 		help: "Enter a negative number to calculate the past days",
 		description:
@@ -128,7 +128,7 @@ module.exports = [
 	{
 		name: "QR-Code Generator",
 		link: "qrcode",
-		icon: "/icons/qrcode.png",
+		icon: "/icon/qrcode.png",
 		help: "",
 		description:
 			"Customizable color and size; support to generate WIFI code",
@@ -154,7 +154,7 @@ module.exports = [
 	{
 		name: "Notes",
 		link: "note",
-		icon: "/icons/scratchpad.png",
+		icon: "/icon/scratchpad.png",
 		icon_color: "amber",
 		help: "All content is stored in the browser cache and will not be uploaded to the cloud. Clearing website data may result in data loss.",
 		channel: 4,
@@ -198,7 +198,7 @@ module.exports = [
 	{
 		name: "Directory Tree",
 		link: "folder_tree",
-		icon: "/icons/file.jpg",
+		icon: "/icon/file.jpg",
 		description: "List files and folder hierarchy",
 		help: "Mobile browsers are not supported; too many files may cause lag",
 		channel: 3,
@@ -243,7 +243,7 @@ module.exports = [
 	{
 		name: "HTML 2 JSX",
 		link: "html2jsx",
-		icon: "/icons/code.png",
+		icon: "/icon/code.png",
 		help: "Some Html attributes are not supported, please manually change them to the smallCamel. All operations are performed locally and won't consume data traffic",
 		channel: 3,
 	},
@@ -316,7 +316,7 @@ module.exports = [
 	{
 		name: "Image Compression",
 		link: "img_compress",
-		icon: "/icons/finance.png",
+		icon: "/icon/finance.png",
 		icon_color: "brown-300",
 		help: "Pictures that are too small may not have obvious effects",
 		channel: 2,
@@ -359,7 +359,7 @@ module.exports = [
 	/*{
 		name: "Chinese Words Dictionary",
 		link: "dic_ci",
-		icon: "/icons/book.png",
+		icon: "/icon/book.png",
 		description: "Convenient query of Chinese common words",
 		channel: 4,
 		network: true,
@@ -367,7 +367,7 @@ module.exports = [
 	{
 		name: "Chinese Allegorical Query",
 		link: "xiehouyu",
-		icon: "/icons/book.png",
+		icon: "/icon/book.png",
 		description: "Support riddle two-way query",
 		channel: 4,
 		network: true,
@@ -375,7 +375,7 @@ module.exports = [
 	{
 		name: "Chinese Idioms Dictionary",
 		link: "dic_idiom",
-		icon: "/icons/book.png",
+		icon: "/icon/book.png",
 		help: "Support abbreviations",
 		channel: 4,
 		network: true,

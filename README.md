@@ -36,6 +36,10 @@ See full developer document on [Yuque](https://www.yuque.com/yungeeker/devdoc)
 
 See our [translation-repository](https://github/rivertwilight/ygktool-translation)
 
+## Thanks
+
+* unDraw
+
 ## License
 
 MIT
