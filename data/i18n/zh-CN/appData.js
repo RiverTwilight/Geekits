@@ -175,8 +175,7 @@ module.exports = [
 	{
 		name: "文本生成",
 		link: "text_create",
-		icon: "font_download",
-		icon_color: "brown-200",
+		icon: "/icon/text_snippet-grey/icon-192-maskable.png",
 		description: "批量生成有规律的文本，或模板文本，例如营销号文案",
 		help: "使用“${}”代表关键字，如“${5}表示首项为5的关键字。暂时只支持统一的公差/公比（其实是因为作者懒）",
 		channel: 4,
@@ -370,7 +369,7 @@ module.exports = [
 	{
 		name: "JS键盘码查询",
 		link: "js_keycode",
-		icon: "/icon/code.png",
+		icon: "/icon/code-js-yellow/icon-192-maskable.png",
 		channel: 3,
 	},
 	{ name: "Hello Tool", link: "http://hellotool.htm.kim", channel: 5 },

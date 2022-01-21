@@ -1,32 +1,40 @@
 import React from "react";
-import { snackbar } from "mdui";
 import axios from "../../utils/axios";
 import ClipboardJS from "clipboard";
-import { Input } from "mdui-in-react";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import ListSubheader from "@mui/material/ListSubheader";
+import TextField from "@mui/material/TextField";
+import InputAdornment from "@mui/material/InputAdornment";
+import FormControl from "@mui/material/FormControl";
+import InsertLinkIcon from "@mui/icons-material/InsertLink";
+import OndemandVideoIcon from "@mui/icons-material/OndemandVideo";
+import Button from "@mui/material/Button";
 
-const VideoList = ({ list }: any) => {
+/**
+ * 樱花动漫解析
+ * @author rivertwilight
+ */
+
+const VideoListItem = ({ list }: any) => {
 	return list.map((video = "", i: any) => (
-		<li
+		<ListItem
 			key={i}
 			onClick={() => {
-				// @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
 				window.open(/\$(\S+)\$/.exec(video)[1]);
 			}}
 			className="mdui-col mdui-list-item mdui-ripple"
 		>
-			<i className="mdui-color-theme mdui-list-item-avatar mdui-icon material-icons">
-				ondemand_video
-			</i>
-			<div className="mdui-list-item-content">
-				<div className="mdui-list-item-title mdui-list-item-one-line">{`第${
-					i + 1
-				}集`}</div>
-				<div className="mdui-list-item-text mdui-list-item-one-line">
-					{/*@ts-expect-error*/}
-					{/\$(\S+)\$/.exec(video)[1]}
-				</div>
-			</div>
-		</li>
+			<ListItemIcon>
+				<OndemandVideoIcon />
+			</ListItemIcon>
+			<ListItemText
+				primary={`第${i + 1}集`}
+				secondary={/\$(\S+)\$/.exec(video)[1]}
+			/>
+		</ListItem>
 	));
 };
 
@@ -34,17 +42,14 @@ const Result = (props: any) => {
 	const { src } = props;
 	if (!src.length) return null;
 	return (
-		<ul className="mdui-row-md-2 mdui-list">
+		<List>
 			{src.map((source: any, i: any) => (
 				<React.Fragment key={i}>
-					<li className="mdui-subheader">{`播放源${i + 1}`}</li>
-
-					<VideoList list={source[1]} />
-
-					<div className="mdui-clearfix"></div>
+					<ListSubheader>{`播放源${i + 1}`}</ListSubheader>
+					<VideoListItem list={source[1]} />
 				</React.Fragment>
 			))}
-		</ul>
+		</List>
 	);
 };
 
@@ -59,11 +64,11 @@ export default class extends React.Component<{}, ComponentState> {
 		};
 	}
 	componentDidMount() {
-		console.log('loaded')
+		console.log("loaded");
 		var VideoListJson;
 		var clipboard = new ClipboardJS(".becopy");
 		clipboard.on("success", (e) => {
-			snackbar({ message: "已复制链接" });
+			window.snackbar({ message: "已复制链接" });
 			e.clearSelection();
 		});
 	}
@@ -85,7 +90,7 @@ export default class extends React.Component<{}, ComponentState> {
 						resolve();
 					})
 					.catch((error) => {
-						snackbar({
+						window.snackbar({
 							message: error,
 						});
 					});
@@ -97,28 +102,42 @@ export default class extends React.Component<{}, ComponentState> {
 			this.setState({ data: VideoListJson });
 		});
 	}
+
+	handleChange = (e: { target: { value: any } }) => {
+		const {
+			target: { value },
+		} = e;
+
+		this.setState({ url: value });
+	};
+
 	render() {
 		return (
 			<>
-				<Input
-					autoFocus
-					onValueChange={(newText) => {
-						this.setState({ url: newText });
-					}}
-					header="输入视频播放地址(一定是播放地址！)"
-					icon="link"
-					// @ts-expect-error ts-migrate(2322) FIXME: Type '"link"' is not assignable to type '"number" ... Remove this comment to see the full error message
-					type="link"
-					value={this.state.url}
-				/>
-
-				<button
+				<FormControl fullWidth>
+					<TextField
+						InputProps={{
+							startAdornment: (
+								<InputAdornment position="start">
+									<InsertLinkIcon />
+								</InputAdornment>
+							),
+						}}
+						autoFocus
+						value={this.state.url}
+						variant="outlined"
+						onChange={this.handleChange}
+						label="输入视频播放地址(一定是播放地址！)"
+					/>
+				</FormControl>
+				<br />
+				<br />
+				<Button
+					variant="outlined"
 					onClick={this.loadCommentsFromServer.bind(this)}
-					className="mdui-color-theme mdui-ripple mdui-float-right mdui-btn-raised mdui-btn"
 				>
 					获取
-				</button>
-				<div className="mdui-clearfix"></div>
+				</Button>
 				<Result src={this.state.data} />
 			</>
 		);
