@@ -226,7 +226,7 @@ module.exports = [
 	{
 		name: "HTML转JSX",
 		link: "html2jsx",
-		icon: "/icon/code.png",
+		icon: "/icon/code-html-green/icon-192-maskable.png",
 		help: "不支持部分Html属性，请手动改为小驼峰命名法，所有操作均在本地执行，不消耗数据流量",
 		channel: 3,
 	},

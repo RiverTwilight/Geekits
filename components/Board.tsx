@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import Card from "@mui/material/Card";
 import StyledMarkdown from ".//StyledMarkdown";
 import {
 	Dialog,
@@ -8,6 +7,7 @@ import {
 	DialogActions,
 } from "@mui/material";
 import { Button } from "@mui/material";
+import OutlinedCard from "./OutlinedCard";
 import axios from "../utils/axios";
 import { Theme } from "@mui/material/styles";
 import createStyles from "@mui/styles/createStyles";
@@ -51,7 +51,7 @@ export default function Board() {
 	const handleExpand = () => {};
 
 	return (
-		<Card>
+		<OutlinedCard>
 			<DialogTitle>公告</DialogTitle>
 			<DialogContent>
 				<StyledMarkdown content={notice.content} />
@@ -60,6 +60,6 @@ export default function Board() {
 				<Button onClick={handleConfirm}>OK</Button>
 				<Button onClick={handleExpand}>展开</Button>
 			</DialogActions>
-		</Card>
+		</OutlinedCard>
 	);
 }

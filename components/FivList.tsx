@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import fiv from "../utils/Services/fiv";
-import Paper from "@mui/material/Paper";
+import OutlinedCard from "./OutlinedCard";
 import ListSubheader from "@mui/material/ListSubheader";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -55,7 +55,7 @@ const FivList = () => {
 	}, []);
 
 	return (
-		<Paper>
+		<OutlinedCard>
 			<List
 				aria-labelledby="nested-list-subheader"
 				subheader={
@@ -65,9 +65,14 @@ const FivList = () => {
 				}
 			>
 				{!list.length && (
-					<Typography align="center" variant="body1">
-						点击工具菜单中的星型按钮收藏
-					</Typography>
+					<div className="center-with-flex">
+							<img
+								height="120"
+								width="120"
+								src="/illustration/undraw_not_found_-60-pq.svg"
+							/>
+							<Typography variant="subtitle1">&nbsp;空空如也...</Typography>
+					</div>
 				)}
 				{list.length > 0 && (
 					<Grid container spacing={3}>
@@ -86,7 +91,7 @@ const FivList = () => {
 					</Grid>
 				)}
 			</List>
-		</Paper>
+		</OutlinedCard>
 	);
 };
 
