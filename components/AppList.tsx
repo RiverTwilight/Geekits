@@ -16,6 +16,7 @@ import BurstModeIcon from "@mui/icons-material/BurstMode";
 import CodeTwoToneIcon from "@mui/icons-material/CodeTwoTone";
 import LinkTwoToneIcon from "@mui/icons-material/LinkTwoTone";
 import WbSunnyTwoToneIcon from "@mui/icons-material/WbSunnyTwoTone";
+import OutlinedCard from "./OutlinedCard";
 import React from "react";
 import Link from "next/link";
 
@@ -84,7 +85,7 @@ const AppListItem = ({
 					href: "/app/" + link,
 			  };
 	return (
-		<div className={classes.appItemWarpper}>
+		<OutlinedCard>
 			<Link {...attr} passHref>
 				<ListItem
 					className={classes.appItem}
@@ -110,7 +111,7 @@ const AppListItem = ({
 					/>
 				</ListItem>
 			</Link>
-		</div>
+		</OutlinedCard>
 	);
 };
 
