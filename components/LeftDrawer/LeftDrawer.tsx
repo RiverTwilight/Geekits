@@ -31,16 +31,16 @@ const list = [
 		text: "首页",
 		href: "/",
 	},
-	{
-		Icon: <AppsIcon style={{ color: blue[300] }} />,
-		text: "发现",
-		href: "/discover",
-	},
-	{
-		Icon: <SettingsIcon style={{ color: green[500] }} />,
-		text: "设置",
-		href: "/setting",
-	},
+	// {
+	// 	Icon: <AppsIcon style={{ color: blue[300] }} />,
+	// 	text: "发现",
+	// 	href: "/discover",
+	// },
+	// {
+	// 	Icon: <SettingsIcon style={{ color: green[500] }} />,
+	// 	text: "设置",
+	// 	href: "/setting",
+	// },
 	{
 		Icon: <GitHubIcon />,
 		text: "Github",
