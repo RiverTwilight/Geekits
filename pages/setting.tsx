@@ -24,7 +24,6 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 // FIXME crash on mobile devices
 
 export async function getStaticProps({ locale }) {
-
 	const pageDic = require("../data/i18n/" + locale + "/page.js")["/setting"];
 
 	const { title } = pageDic;
@@ -53,9 +52,9 @@ const LinkList = function ({ link, Icon, primary, secondary }) {
 };
 
 interface ISetting {
-	homeShowNewestTool: boolean;
-	hitokotoTopic: number;
-	theme: number;
+	homeShowNewestTool?: boolean;
+	hitokotoTopic?: number;
+	theme?: number;
 }
 
 function updateSetting<T extends keyof ISetting>(
@@ -63,8 +62,12 @@ function updateSetting<T extends keyof ISetting>(
 	value?: any
 ): ISetting {
 	var originSetting: ISetting = JSON.parse(
-		(window && window.localStorage.getItem("setting")) || "{}"
+		(window && window.localStorage.getItem("setting")) ||
+			`{hitokotoTopic: 1,
+			theme: 1,
+			homeShowNewestTool: true,}`
 	);
+	console.log(originSetting);
 	if (!name) return originSetting;
 	originSetting[name] = value;
 	window.localStorage.setItem("setting", JSON.stringify(originSetting));
@@ -136,10 +139,7 @@ export default class Setting extends React.Component<
 	constructor(props: Readonly<{ handleNewPage: any }>) {
 		super(props);
 		this.state = {
-			setting: {
-				hitokotoTopic: 1,
-				theme: 1,
-			},
+			setting: {},
 			privacy: "",
 			showPrivacy: false,
 			showSaying: false,
@@ -288,9 +288,7 @@ export default class Setting extends React.Component<
 				<List
 					component={Paper}
 					subheader={
-						<ListSubheader>
-							{d.menu_customize_title}
-						</ListSubheader>
+						<ListSubheader>{d.menu_customize_title}</ListSubheader>
 					}
 				>
 					{[
@@ -321,9 +319,7 @@ export default class Setting extends React.Component<
 				<List
 					component={Paper}
 					subheader={
-						<ListSubheader>
-							{d.menu_contact_title}
-						</ListSubheader>
+						<ListSubheader>{d.menu_contact_title}</ListSubheader>
 					}
 				>
 					{[
@@ -336,9 +332,7 @@ export default class Setting extends React.Component<
 				<br />
 				<List
 					component={Paper}
-					subheader={
-						<ListSubheader>{d.menu_donation}</ListSubheader>
-					}
+					subheader={<ListSubheader>{d.menu_donation}</ListSubheader>}
 				>
 					<ListItem button onClick={this.handleShowDonation}>
 						<ListItemIcon>

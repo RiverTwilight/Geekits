@@ -12,8 +12,6 @@
 
 ## 贡献 | Contribution
 
-由于开发者学业繁忙，本项目十分需要贡献者！
-
 **本项目采用开发+部署的分支策略(master + v2)，master 分支将自动部署到网站正式地址。（目前网站正式版为 v1)**
 
 You can use Github's offical web IDE, simply click `.` on your keyboard.
@@ -36,9 +34,10 @@ See full developer document on [Yuque](https://www.yuque.com/yungeeker/devdoc)
 
 See our [translation-repository](https://github/rivertwilight/ygktool-translation)
 
-## Thanks
+## 致谢 | Thanks
 
-* unDraw
+-   [unDraw](https://undraw.co/search): Provided some illustrations.
+-   [IconKitchen](https://icon.kitchen/): Icon maker
 
 ## License
 
