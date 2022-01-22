@@ -17,4 +17,8 @@ export default {
 	folder_tree: dynamic(() => import("../apps/folder_tree"), importConfig),
 	qrcode: dynamic(() => import("../apps/qrcode"), importConfig),
 	cem: dynamic(() => import("../apps/cem"), importConfig),
+	fake_pornhub_logo: dynamic(
+		() => import("../apps/fake_pornhub_logo"),
+		importConfig
+	),
 };

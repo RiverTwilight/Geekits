@@ -5,11 +5,15 @@ import Typography from "@mui/material/Typography";
 export default function Custom404() {
 	return (
 		<div className="center-with-flex">
-			<img alt="404" height="200" width="200" src="/icon/404.svg"></img>
+			<img
+				alt="404"
+				height="200"
+				width="200"
+				src="/illustration/undraw_taken_re_yn20.svg"
+			></img>
 			<Typography variant="h4">电波无法到达哦</Typography>
 			<Typography variant="body1">
-				是不是地址拼错了？是/app不是/apps哦<br></br>
-				想要的工具不见了？返回首页找找吧！<br></br>
+				想要的工具不见了？返回首页找找吧！
 			</Typography>
 			<br />
 			<Link href="/">

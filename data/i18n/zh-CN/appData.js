@@ -133,8 +133,7 @@ module.exports = [
 	{
 		name: "PornHub风格Logo生成",
 		link: "fake_pornhub_logo",
-		icon: "insert_emoticon",
-		icon_color: "orange",
+		icon: "/icon/imagesearch_roller-orange/icon-192-maskable.png",
 		help: "仅供娱乐，产生任何后果自负",
 		channel: 2,
 	},

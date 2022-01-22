@@ -7,9 +7,9 @@ import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import BorderColorSharpIcon from "@mui/icons-material/BorderColorSharp";
 import { Theme } from "@mui/material/styles";
-import createStyles from '@mui/styles/createStyles';
-import withStyles from '@mui/styles/withStyles';
-import makeStyles from '@mui/styles/makeStyles';
+import createStyles from "@mui/styles/createStyles";
+import withStyles from "@mui/styles/withStyles";
+import makeStyles from "@mui/styles/makeStyles";
 import FormControl from "@mui/material/FormControl";
 import InputAdornment from "@mui/material/InputAdornment";
 import InputLabel from "@mui/material/InputLabel";
@@ -20,6 +20,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
+import { Box } from "@mui/material";
 
 const styles = (theme: Theme) => {
 	return createStyles({
@@ -65,17 +66,15 @@ const Result = ({ result, eleClass }: any) => {
 						</TableRow>
 					</TableHead>
 					<TableBody>
-						{
-							info.map((stance, i) => (
-								<TableRow key={i}>
-									<TableCell>{stance.atomicNumber}</TableCell>
+						{info.map((stance, i) => (
+							<TableRow key={i}>
+								<TableCell>{stance.atomicNumber}</TableCell>
 
-									<TableCell>{stance.symbol}</TableCell>
+								<TableCell>{stance.symbol}</TableCell>
 
-									<TableCell>{stance.atomicMass}</TableCell>
-								</TableRow>
-							))
-						}
+								<TableCell>{stance.atomicMass}</TableCell>
+							</TableRow>
+						))}
 					</TableBody>
 				</Table>
 			</TableContainer>
@@ -134,25 +133,27 @@ class Cem extends React.Component<{ classes: any }, UiState> {
 					</FormControl>
 					<br />
 					<br />
-					<Button
-						onClick={() => {
-							try {
-								var library = cem(this.state.input);
-								this.setState({
-									result: library.result,
-									eleClass: library.eleClass,
-								});
-							} catch (err) {
-								window.snackbar({
-									message: "方程式有误",
-								});
-							}
-						}}
-						variant="contained"
-						color="primary"
-					>
-						配平
-					</Button>
+					<Box display="flex" justifyContent="flex-end">
+						<Button
+							onClick={() => {
+								try {
+									var library = cem(this.state.input);
+									this.setState({
+										result: library.result,
+										eleClass: library.eleClass,
+									});
+								} catch (err) {
+									window.snackbar({
+										message: "方程式有误",
+									});
+								}
+							}}
+							variant="outlined"
+							color="primary"
+						>
+							配平
+						</Button>
+					</Box>
 				</Paper>
 				<Result
 					eleClass={this.state.eleClass}
