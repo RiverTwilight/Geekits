@@ -12,6 +12,8 @@ import getPaths from "../../utils/getPaths";
 import getPostId from "../../utils/getPostId";
 import appImportList from "../../data/appImportList";
 
+// TODO change favicon
+
 export async function getStaticPaths({ locale }) {
 	return {
 		paths: getPaths(locale, getPostId, "apps/**/index.tsx"),
