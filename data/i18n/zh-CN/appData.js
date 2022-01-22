@@ -231,9 +231,8 @@ module.exports = [
 	{
 		name: "MIME-type查询",
 		link: "mimetype",
-		icon: "attachment",
-		icon_color: "purple",
-		help: "",
+		icon: "/icon/file_present-green/icon-192-maskable.png",
+		description: "查询文件的MIME-type，支持正反查询",
 		channel: 3,
 	},
 	{
