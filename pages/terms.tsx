@@ -24,7 +24,7 @@ export async function getStaticProps({ locale }) {
 
 export default function Terms({ termsContent }) {
 	return (
-		<Card style={{ maxWidth: "900px" }}>
+		<Card style={{ maxWidth: "800px" }}>
 			<CardContent>
 				<StyledMarkdown content={termsContent} />
 			</CardContent>

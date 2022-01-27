@@ -13,12 +13,14 @@ import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import { useTheme, Theme } from "@mui/material/styles";
-import makeStyles from '@mui/styles/makeStyles';
-import createStyles from '@mui/styles/createStyles';
+import makeStyles from "@mui/styles/makeStyles";
+import createStyles from "@mui/styles/createStyles";
 import HomeIcon from "@mui/icons-material/Home";
 import SettingsIcon from "@mui/icons-material/Settings";
+import MessageIcon from "@mui/icons-material/Message";
 import GitHubIcon from "@mui/icons-material/GitHub";
-import { green, red, blue } from "@mui/material/colors";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import VolunteerActivismOutlinedIcon from "@mui/icons-material/VolunteerActivismOutlined";
 import AppsIcon from "@mui/icons-material/Apps";
 import { UserContext } from "../UserContextProvider";
 import clsx from "clsx";
@@ -27,10 +29,25 @@ import { store as drawerStore } from "../../data/drawerState";
 
 const list = [
 	{
-		Icon: <HomeIcon style={{ color: red[500] }} />,
+		Icon: <HomeIcon />,
 		text: "首页",
 		href: "/",
 	},
+	{
+		text: "divider",
+	},
+	{
+		Icon: <MessageIcon />,
+		text: "反馈",
+		href: "/feedback",
+	},
+
+	{
+		Icon: <VolunteerActivismOutlinedIcon />,
+		text: "捐赠",
+		href: "/donate",
+	},
+
 	// {
 	// 	Icon: <AppsIcon style={{ color: blue[300] }} />,
 	// 	text: "发现",
@@ -46,6 +63,11 @@ const list = [
 		text: "Github",
 		href: "https://github.com/rivertwilight/ygktool",
 	},
+	{
+		Icon: <InfoOutlinedIcon />,
+		text: "关于",
+		href: "/about",
+	},
 ];
 
 const drawerWidth = 200;
@@ -59,6 +81,11 @@ const useStyles = makeStyles((theme: Theme) =>
 			[theme.breakpoints.up("sm")]: {
 				width: drawerWidth,
 				flexShrink: 0,
+			},
+		},
+		selectedItem: {
+			"&.Mui-selected .MuiListItemText-primary": {
+				fontWeight: 700,
 			},
 		},
 		appBar: {
@@ -148,9 +175,7 @@ const User = ({ handleLogin }: any) => {
 	);
 };
 
-interface IProps {
-
-}
+interface IProps {}
 
 const LeftDrawer = (props: IProps) => {
 	const { handleLoginOpen } = props;
@@ -182,11 +207,18 @@ const LeftDrawer = (props: IProps) => {
 	}) => {
 		const router = useRouter();
 		let { href = "/", text, Icon } = props.a;
+
+		if (text === "divider") {
+			return <Divider />;
+		}
 		return (
 			<Link href={href} passHref>
 				<ListItem
 					component="a"
-					className={router.pathname == href ? "Mui-selected" : ""}
+					className={clsx(
+						classes.selectedItem,
+						router.pathname == href ? "Mui-selected" : ""
+					)}
 					button
 					key={text}
 				>
@@ -220,7 +252,7 @@ const LeftDrawer = (props: IProps) => {
 	// });
 
 	return (
-        <nav className={classes.drawer} aria-label="left drawer">
+		<nav className={classes.drawer} aria-label="left drawer">
 			{/* The implementation can be swapped with js to avoid SEO duplication of links. */}
 			<Hidden smUp implementation="css">
 				<Drawer
@@ -252,7 +284,7 @@ const LeftDrawer = (props: IProps) => {
 				</Drawer>
 			</Hidden>
 		</nav>
-    );
+	);
 };
 
 export default LeftDrawer;
