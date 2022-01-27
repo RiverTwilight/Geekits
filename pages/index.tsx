@@ -9,7 +9,6 @@ import makeStyles from "@mui/styles/makeStyles";
 import Grid from "@mui/material/Grid";
 
 export async function getStaticProps({ locale }) {
-	// locale = "en-US"
 
 	const appData = require("../data/i18n/" + locale + "/appData.js");
 

@@ -8,6 +8,12 @@
 	max-width: 70%;
 }
 
+.clearfix:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
 .Textc\(green\) {
 	color: #4caf50;
 }

@@ -18,6 +18,7 @@ export default {
 	qrcode: dynamic(() => import("../apps/qrcode"), importConfig),
 	cem: dynamic(() => import("../apps/cem"), importConfig),
 	mimetype: dynamic(() => import("../apps/mimetype"), importConfig),
+	html2jsx: dynamic(() => import("../apps/html2jsx"), importConfig),
 	fake_pornhub_logo: dynamic(
 		() => import("../apps/fake_pornhub_logo"),
 		importConfig
