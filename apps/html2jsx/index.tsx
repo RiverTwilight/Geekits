@@ -48,43 +48,51 @@ export default class Html2Jsx extends React.Component<{}, ComponentState> {
 	}
 	html2jsx() {
 		const { text } = this.state;
-		var inlineStyle = /\bstyle="(.+)"/.exec(String(text))[1];
-		var dom = document.createElement("div");
-		dom.innerHTML = `<div style="${inlineStyle}"></div>`;
-		var styleObj = dom.getElementsByTagName("div")[0].style;
-		var jsxStyle = {};
-		var usefulStyle = Object.keys(styleObj)
-			.map((style) => {
-				let content = styleObj[style];
-				if (content !== "" && content !== undefined) return style;
-			})
-			.filter((style) => style);
-		usefulStyle
-			.slice(usefulStyle.length / 2, usefulStyle.length)
-			.map((style) => (jsxStyle[style] = styleObj[style]));
-		var res = text
-			.replace(
-				/\b([a-z]+)-([a-z]+)\b/g,
-				(word: any, sub1: any, sub2: any) =>
-					sub1 +
-					sub2.substring(0, 1).toUpperCase() +
-					sub2.substring(1)
-			)
-			.replace(/\bclass[\=]/g, "className=")
-			.replace(/\bstyle="(.+)"/g, `style={${JSON.stringify(jsxStyle)}}`)
-			.replace(/\bautofocus\b/g, "autoFocus")
-			.replace(/\bcontenteditable\b/g, "contentEditAble")
-			.replace(/\bcontextmenu\b/g, "contextMenu")
-			.replace(
-				/\bon(.+)="/g,
-				(word: any, sub1: any) =>
-					`on${
-						sub1.substring(0, 1).toUpperCase() + sub1.substring(1)
-					}="`
-			);
-		this.setState({
-			res: res,
-		});
+		try {
+			var inlineStyle = /\bstyle="(.+)"/.exec(String(text))[1];
+			var dom = document.createElement("div");
+			dom.innerHTML = `<div style="${inlineStyle}"></div>`;
+			var styleObj = dom.getElementsByTagName("div")[0].style;
+			var jsxStyle = {};
+			var usefulStyle = Object.keys(styleObj)
+				.map((style) => {
+					let content = styleObj[style];
+					if (content !== "" && content !== undefined) return style;
+				})
+				.filter((style) => style);
+			usefulStyle
+				.slice(usefulStyle.length / 2, usefulStyle.length)
+				.map((style) => (jsxStyle[style] = styleObj[style]));
+			var res = text
+				.replace(
+					/\b([a-z]+)-([a-z]+)\b/g,
+					(word: any, sub1: any, sub2: any) =>
+						sub1 +
+						sub2.substring(0, 1).toUpperCase() +
+						sub2.substring(1)
+				)
+				.replace(/\bclass[\=]/g, "className=")
+				.replace(
+					/\bstyle="(.+)"/g,
+					`style={${JSON.stringify(jsxStyle)}}`
+				)
+				.replace(/\bautofocus\b/g, "autoFocus")
+				.replace(/\bcontenteditable\b/g, "contentEditAble")
+				.replace(/\bcontextmenu\b/g, "contextMenu")
+				.replace(
+					/\bon(.+)="/g,
+					(word: any, sub1: any) =>
+						`on${
+							sub1.substring(0, 1).toUpperCase() +
+							sub1.substring(1)
+						}="`
+				);
+			this.setState({
+				res: res,
+			});
+		} catch (err) {
+			window.snackbar({ message: "转换出错" });
+		}
 	}
 	handleChange = (e: { target: { value: any } }) => {
 		const {

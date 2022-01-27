@@ -17,18 +17,15 @@ const signListener = (cb: any, getEventCb?: any) => {
 	};
 	document.ondrop = (e) => {
 		e.preventDefault();
-		// @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
 		var dataFile = e.dataTransfer.files[0];
 		var fr = new FileReader();
-		// @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
 		if (e.dataTransfer.files[0].type.match(/text\/.+/)) {
-			fr.readAsText(dataFile, "gb2312");
+			fr.readAsText(dataFile, "GB2312");
 		} else {
 			fr.readAsDataURL(dataFile);
 		}
 		getEventCb && getEventCb(e);
 		fr.onload = () => {
-			// @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
 			cb && cb(fr.result, dataFile, e.dataTransfer.files);
 		};
 	};
