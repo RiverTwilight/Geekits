@@ -10,6 +10,11 @@ import {
 	removeListener,
 } from "../../components/FileInput/useDragListener";
 
+/**
+ * @author RiverTwilight
+ * TODO 中文乱码
+ */
+
 const Result = ({ res }: any) => {
 	if (res === "") return null;
 	return (

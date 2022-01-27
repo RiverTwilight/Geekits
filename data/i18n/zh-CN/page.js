@@ -12,4 +12,8 @@ module.exports = {
 		title: "服务条款",
 		description: "",
 	},
+	"/feedback": {
+		title: "反馈",
+		description: "",
+	},
 };
