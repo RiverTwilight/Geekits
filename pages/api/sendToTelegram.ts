@@ -13,6 +13,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 		return;
 	}
 	const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+	console.log(message);
 	const data = {
 		chat_id: TELEGRAM_CHAT_ID,
 		text: message,

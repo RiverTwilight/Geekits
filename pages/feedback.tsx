@@ -1,9 +1,7 @@
 import Button from "@mui/material/Button";
 import React from "react";
-import ClipboardJS from "clipboard";
 import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
-import Grid from "@mui/material/Grid";
 import axios from "axios";
 
 export async function getStaticProps({ locale }) {
@@ -28,6 +26,7 @@ export async function getStaticProps({ locale }) {
 export default function Feedback({ currentPage }) {
 	const [feedback, setFeedback] = React.useState("");
 	const [contact, setContact] = React.useState("");
+	const [isLoading, setIsLoading] = React.useState(false);
 
 	const handleSubmit = () => {
 		const fbTemplate = `
@@ -51,22 +50,23 @@ Device: *${window.navigator.platform}*
 
 `;
 
-		axios.post("/api/sendToTelegram", {
-			data: {
-				message: fbTemplate,
-			},
-		});
+		window.loadShow();
+		setIsLoading(true);
 
-		// // const { TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID } = process.env;
-		// const url = `https://api.telegram.org/bot2107169731:AAEaVSk361VzRDdOJjLTLDQxIeZ0gXLsWZ0/sendMessage`;
-		// const data = {
-		// 	chat_id: 2126810553,
-		// 	text: fbTemplate,
-		// };
-		// axios(url, {
-		// 	method: "POST",
-		// 	data,
-		// })
+		axios
+			.post("/api/sendToTelegram", {
+				message: fbTemplate,
+			})
+			.then(() => {
+				window.snackbar({ message: "已提交反馈，感谢您的反馈！" });
+			})
+			.catch(() => {
+				window.snackbar({ message: "反馈提交失败，请稍后再试！" });
+			})
+			.finally(() => {
+				window.loadHide();
+				setIsLoading(false);
+			});
 	};
 
 	const handleChange = (event) => {
@@ -104,7 +104,9 @@ Device: *${window.navigator.platform}*
 					label="联系方式"
 				/>
 			</FormControl>
-			<Button onClick={handleSubmit}>提交</Button>
+			<Button disabled={isLoading} onClick={handleSubmit}>
+				提交
+			</Button>
 		</div>
 	);
 }

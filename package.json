@@ -1,7 +1,7 @@
 {
 	"name": "ygktool",
 	"version": "2.0.0",
-	"description": "A Responsive, Fast, i18n and Markdown Blog base on Next.js.",
+	"description": "🛠A simple, feature-rich, and efficient online toolbox | 极简，强大，高效的在线工具箱，遵循MD设计规范",
 	"scripts": {
 		"dev": "next",
 		"build": "next build",
@@ -37,7 +37,7 @@
 		"md5": "^2.3.0",
 		"mdui": "^1.0.2",
 		"mdui-in-react": "^1.2.21",
-		"next": "^12.0.3",
+		"next": "^12.0.9",
 		"next-pwa": "^5.4.4",
 		"postcss": "^8.3.6",
 		"qrcode": "^1.4.4",
@@ -47,7 +47,7 @@
 		"react-cropper": "^1.3.0",
 		"react-dom": "^17.0.2",
 		"react-loadable": "^5.5.0",
-		"react-markdown": "^4.3.1",
+		"react-markdown": "^8.0.0",
 		"redux": "^4.1.1",
 		"socket.io": "^2.4.0",
 		"test-listen": "^1.1.0",
