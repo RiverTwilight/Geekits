@@ -1,6 +1,6 @@
 import React from "react";
-import createStyles from '@mui/styles/createStyles';
-import makeStyles from '@mui/styles/makeStyles';
+import createStyles from "@mui/styles/createStyles";
+import makeStyles from "@mui/styles/makeStyles";
 import { Theme } from "@mui/material/styles";
 
 /**
@@ -17,10 +17,19 @@ const useStyles = makeStyles((theme: Theme) =>
 	})
 );
 
-const OutlinedCard = ({ children }) => {
+const OutlinedCard = ({
+	children,
+	padding,
+}: {
+	children?: JSX.Element | JSX.Element[];
+	padding?: number;
+}) => {
 	const classes = useStyles();
 	return (
-		<div className={classes.root}>
+		<div
+			className={classes.root}
+			style={{ padding: padding ? `${padding * 10}px` : 0 }}
+		>
 			<div>{children}</div>
 		</div>
 	);

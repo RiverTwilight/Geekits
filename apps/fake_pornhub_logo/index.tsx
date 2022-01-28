@@ -10,9 +10,9 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemSecondaryAction from "@mui/material/ListItemSecondaryAction";
 import ListItemText from "@mui/material/ListItemText";
 import Switch from "@mui/material/Switch";
-import Paper from "@mui/material/Paper";
 import BorderVerticalIcon from "@mui/icons-material/BorderVertical";
 import ColorLensIcon from "@mui/icons-material/ColorLens";
+import OutlinedCard from "../../components/OutlinedCard";
 
 const IfBr = ({ statu }: any) => {
 	return statu === "vertical" ? <br></br> : null;
@@ -26,8 +26,11 @@ const FakeLogo = ({ hStyle, frontStyle, lastStyle }: any) => {
 				borderRadius: "4px",
 				backgroundColor: "#000000",
 				width: "90%",
-				height: "200px",
-				textAlign: "center",
+				maxWidth: "600px",
+				height: "250px",
+				display: "flex",
+				justifyContent: "center",
+				alignItems: "center",
 			}}
 			id="blackborad"
 		>
@@ -120,105 +123,110 @@ export default class FakePornhubLogo extends React.Component<{}, UiState> {
 						lastStyle={last}
 					/>
 				</div>
-				<List component={Paper}>
-					<SliderWithIcon title={"音量：" + hStyle.size}>
-						<Slider
-							value={hStyle.size}
-							onChange={(_, value) => {
-								this.setState({
-									hStyle: {
-										size: value,
-										array: hStyle.array,
-									},
-								});
-							}}
-							aria-labelledby="continuous-slider"
-							min={1}
-							max={10}
-						/>
-					</SliderWithIcon>
-					<ListItem>
-						<ListItemIcon>
-							<BorderVerticalIcon />
-						</ListItemIcon>
-						<ListItemText primary="竖直排列" />
-						<ListItemSecondaryAction>
-							<Switch
-								edge="end"
-								onChange={(e, statu) => {
-									if (statu) {
-										this.setState({
-											hStyle: {
-												size: hStyle.size,
-												array: "vertical",
-											},
-										});
-									} else {
-										this.setState({
-											hStyle: {
-												size: hStyle.size,
-												array: "transverse",
-											},
-										});
-									}
+				<br />
+				<OutlinedCard padding={1}>
+					<List>
+						<SliderWithIcon title={"字号：" + hStyle.size}>
+							<Slider
+								value={hStyle.size}
+								onChange={(_, value) => {
+									this.setState({
+										hStyle: {
+											size: value,
+											array: hStyle.array,
+										},
+									});
 								}}
-								checked={front.color === "#000000"}
-								inputProps={{
-									"aria-labelledby": "竖直排列",
-								}}
+								aria-labelledby="continuous-slider"
+								min={1}
+								max={10}
 							/>
-						</ListItemSecondaryAction>
-					</ListItem>
-					<ListItem>
-						<ListItemIcon>
-							<ColorLensIcon />
-						</ListItemIcon>
-						<ListItemText primary="颜色反转" />
-						<ListItemSecondaryAction>
-							<Switch
-								edge="end"
-								onChange={(e, checked) => {
-									if (checked) {
-										this.setState({
-											front: {
-												color: "#000000",
-												backgroundColor:
-													last.backgroundColor,
-											},
-											last: {
-												color: "#ffffff",
-												backgroundColor: "transparent",
-											},
-										});
-									} else {
-										this.setState({
-											front: {
-												color: "#ffffff",
-												backgroundColor: "transparent",
-											},
-											last: {
-												color: "#000000",
-												backgroundColor:
-													front.backgroundColor,
-											},
-										});
-									}
-								}}
-								checked={front.color === "#000000"}
-								inputProps={{
-									"aria-labelledby": "颜色反转",
-								}}
-							/>
-						</ListItemSecondaryAction>
-					</ListItem>
-					<Button
-						onClick={this.handleDownload}
-						color="primary"
-						variant="contained"
-					>
-						下载
-					</Button>
-				</List>
+						</SliderWithIcon>
+						<ListItem>
+							<ListItemIcon>
+								<BorderVerticalIcon />
+							</ListItemIcon>
+							<ListItemText primary="竖直排列" />
+							<ListItemSecondaryAction>
+								<Switch
+									edge="end"
+									onChange={(e, statu) => {
+										if (statu) {
+											this.setState({
+												hStyle: {
+													size: hStyle.size,
+													array: "vertical",
+												},
+											});
+										} else {
+											this.setState({
+												hStyle: {
+													size: hStyle.size,
+													array: "transverse",
+												},
+											});
+										}
+									}}
+									checked={hStyle.array === "vertical"}
+									inputProps={{
+										"aria-labelledby": "竖直排列",
+									}}
+								/>
+							</ListItemSecondaryAction>
+						</ListItem>
+						<ListItem>
+							<ListItemIcon>
+								<ColorLensIcon />
+							</ListItemIcon>
+							<ListItemText primary="颜色反转" />
+							<ListItemSecondaryAction>
+								<Switch
+									edge="end"
+									onChange={(e, checked) => {
+										if (checked) {
+											this.setState({
+												front: {
+													color: "#000000",
+													backgroundColor:
+														last.backgroundColor,
+												},
+												last: {
+													color: "#ffffff",
+													backgroundColor:
+														"transparent",
+												},
+											});
+										} else {
+											this.setState({
+												front: {
+													color: "#ffffff",
+													backgroundColor:
+														"transparent",
+												},
+												last: {
+													color: "#000000",
+													backgroundColor:
+														front.backgroundColor,
+												},
+											});
+										}
+									}}
+									checked={front.color === "#000000"}
+									inputProps={{
+										"aria-labelledby": "颜色反转",
+									}}
+								/>
+							</ListItemSecondaryAction>
+						</ListItem>
+						<Button
+							onClick={this.handleDownload}
+							color="primary"
+							variant="contained"
+						>
+							下载
+						</Button>
+					</List>
+				</OutlinedCard>
 			</>
 		);
 	}

@@ -1,10 +1,9 @@
-/* eslint-disable react/prop-types */
 import React from "react";
 // @ts-expect-error ts-migrate(7016) FIXME: Try `npm install @types/qrcode` if it exists or ad... Remove this comment to see the full error message
 import QRCode from "qrcode";
 import FileInput from "../../components/FileInput";
 import { Theme, useTheme } from "@mui/material/styles";
-import makeStyles from '@mui/styles/makeStyles';
+import makeStyles from "@mui/styles/makeStyles";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Paper from "@mui/material/Paper";
@@ -22,7 +21,6 @@ import { TabPanel, a11yProps } from "../../components/TabToolkits";
 import { moveMessagePortToContext } from "worker_threads";
 
 const create = (opts: any, text: any, callback: any, iconData: any) => {
-	// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'url' implicitly has an 'any' type.
 	const loadImgae = (url) => {
 		return new Promise((resolve) => {
 			const image = new Image();
@@ -33,7 +31,6 @@ const create = (opts: any, text: any, callback: any, iconData: any) => {
 		});
 	};
 
-	// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'qrData' implicitly has an 'any' type.
 	const addIcon = (qrData, iconData) => {
 		const qr = loadImgae(qrData);
 		const icon = loadImgae(iconData);
@@ -58,7 +55,6 @@ const create = (opts: any, text: any, callback: any, iconData: any) => {
 			callback(canvas.toDataURL());
 		});
 	};
-	// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'err' implicitly has an 'any' type.
 	QRCode.toDataURL(text, opts, (err, url) => {
 		if (err) throw err;
 		if (iconData) {
@@ -69,7 +65,6 @@ const create = (opts: any, text: any, callback: any, iconData: any) => {
 	});
 };
 
-// @ts-expect-error ts-migrate(7031) FIXME: Binding element 'qrcode' implicitly has an 'any' t... Remove this comment to see the full error message
 const Result = ({ qrcode }) => {
 	if (!qrcode) return null;
 	return (
@@ -105,15 +100,8 @@ class Qrcode extends React.Component<{}, QrcodeState> {
 		});
 	};
 	handleClick = () => {
-		const {
-			text,
-			colorDark,
-			colorLight,
-			mode,
-			wifi,
-			width,
-			icon,
-		} = this.state;
+		const { text, colorDark, colorLight, mode, wifi, width, icon } =
+			this.state;
 		var opts = {
 			errorCorrectionLevel: "H",
 			type: "image/jpeg",
@@ -183,7 +171,8 @@ class Qrcode extends React.Component<{}, QrcodeState> {
 							value={wifi.account}
 						/>
 					</FormControl>
-					<br /><br />
+					<br />
+					<br />
 					<FormControl fullWidth>
 						<TextField
 							onChange={(e) => {
