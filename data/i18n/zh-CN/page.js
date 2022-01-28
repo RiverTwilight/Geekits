@@ -16,4 +16,8 @@ module.exports = {
 		title: "反馈",
 		description: "",
 	},
+	"/about": {
+		title: "关于",
+		description: "",
+	},
 };

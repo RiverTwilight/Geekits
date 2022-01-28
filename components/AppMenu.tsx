@@ -77,6 +77,9 @@ const AppMenu = ({
 		setShowCode(!showCode);
 	};
 	useEffect(() => {
+		if (fivkits.get(link)){
+			setFiv(true);
+		}
 		// const helpMdPath = require(`../../apps/${appinfo.link}/README.md`);
 		// fetch(helpMdPath.default)
 		// 	.then((response) => {

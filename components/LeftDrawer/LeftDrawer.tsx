@@ -21,11 +21,12 @@ import MessageIcon from "@mui/icons-material/Message";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import VolunteerActivismOutlinedIcon from "@mui/icons-material/VolunteerActivismOutlined";
-import AppsIcon from "@mui/icons-material/Apps";
 import { UserContext } from "../UserContextProvider";
 import clsx from "clsx";
 import { store as loginDialogStore } from "../../data/loginDialogState";
 import { store as drawerStore } from "../../data/drawerState";
+
+// TODO Shortcuts
 
 const list = [
 	{
@@ -70,7 +71,7 @@ const list = [
 	},
 ];
 
-const drawerWidth = 200;
+const drawerWidth = 240;
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({

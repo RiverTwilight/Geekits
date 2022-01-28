@@ -29,7 +29,7 @@ interface Props {
 	children: React.ReactElement;
 }
 
-const drawerWidth = 200;
+const drawerWidth = 240;
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
