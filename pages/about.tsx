@@ -29,6 +29,9 @@ export async function getStaticProps({ locale }) {
 // css centers the avatar
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
+		authorName:{
+			transform:"translateY(-10px)",
+		},
 		avatar: {
 			transform: "translateY(-50%)",
 			marginLeft: "calc(50% - 50px)",
@@ -58,12 +61,15 @@ export default function Terms({ aboutContent }) {
 					src="https://avatars.githubusercontent.com/u/52880665?v=4"
 					sx={{ width: 100, height: 100 }}
 				/>
-				<Typography align="center" variant="subtitle2">
-					Developed and designed by{" "}
-				</Typography>
-				<Typography align="center" variant="h6">
-					RiverTwilight
-				</Typography>
+				<div className={classes.authorName}>
+					<Typography align="center" variant="subtitle2">
+						Developed and designed by{" "}
+					</Typography>
+					<Typography align="center" variant="h6">
+						RiverTwilight
+					</Typography>
+				</div>
+
 				<div className={classes.contactGroup}>
 					<IconButton aria-label="github">
 						<GitHubIcon />

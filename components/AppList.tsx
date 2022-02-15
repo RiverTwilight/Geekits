@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			paddingLeft: theme.spacing(4),
 		},
 		appItem: {
-			height: "90px",
+			minHeight: "90px",
 		},
 		appItemWarpper:{
 			border: "1px solid #e0e0e0",

@@ -245,6 +245,7 @@ export default class TomatoClock extends React.Component<{}, TomatoClockState> {
 							this.startATomato(5);
 						}
 					);
+
 				} else {
 					this.setState(
 						{
