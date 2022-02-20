@@ -1,5 +1,6 @@
 import React from "react";
 import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
 
 const sayings = [
 	{
@@ -19,7 +20,7 @@ const sayings = [
 const Saying = ({ index }) => {
 	const saying = sayings[index];
 	return (
-		<Typography>
+		<Typography variant="body2">
 			<blockquote>
 				{saying.content}
 				<footer>{saying.author}</footer>
