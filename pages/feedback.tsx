@@ -30,23 +30,23 @@ export default function Feedback({ currentPage }) {
 
 	const handleSubmit = () => {
 		const fbTemplate = `
-📤 New feedback
+New feedback
 ---------
-Content:
+*Content*:
 
-*${feedback}*
+${feedback}
 ---------
-Contact:
+*Contact*:
 
-*${contact}*
+${contact}
 ---------
-Create Date: *${new Date().toLocaleString()}* 
+*Create Date*: ${new Date().toLocaleString()}
 
-Source Page: [${window.location.href}](${window.location.href})
+*Source Page*: [${window.location.href}](${window.location.href})
 
-Browser: *${window.navigator.userAgent}*
+*Browser*: ${window.navigator.userAgent}
 
-Device: *${window.navigator.platform}*
+*Device*: ${window.navigator.platform}
 
 `;
 
