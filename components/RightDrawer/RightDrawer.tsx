@@ -25,20 +25,16 @@ const useStyles = makeStyles((theme: Theme) =>
 	})
 );
 
-const RightDrawer: React.FC = ({
-	children,
-	open,
-	onClose,
-}: {
+const RightDrawer: React.FC<{
 	open?: boolean;
 	onClose?: () => void;
 	children?: React.ReactNode;
-}) => {
+}> = ({ children, open, onClose }) => {
 	const classes = useStyles();
 	const theme = useTheme();
 	const hidden = useMediaQuery(theme.breakpoints.up("sm"));
 
-	console.log(`Is Hidden: %s, Drawer State: %s`, hidden, open);
+	// console.log(`Is Hidden: %s, Drawer State: %s`, hidden, open);
 
 	return (
 		<>
