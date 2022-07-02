@@ -1,9 +1,10 @@
 import React from "react";
 import { useTheme, Theme } from "@mui/material/styles";
-import createStyles from '@mui/styles/createStyles';
-import makeStyles from '@mui/styles/makeStyles';
-import Hidden from "@mui/material/Hidden";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import createStyles from "@mui/styles/createStyles";
+import makeStyles from "@mui/styles/makeStyles";
 import Drawer from "@mui/material/Drawer";
+import Box from "@mui/material/Box";
 
 const drawerWidth = 260;
 
@@ -24,7 +25,7 @@ const useStyles = makeStyles((theme: Theme) =>
 	})
 );
 
-const RightDrawer = ({
+const RightDrawer: React.FC = ({
 	children,
 	open,
 	onClose,
@@ -35,38 +36,64 @@ const RightDrawer = ({
 }) => {
 	const classes = useStyles();
 	const theme = useTheme();
+	const hidden = useMediaQuery(theme.breakpoints.up("sm"));
 
-	return <>
-        <Drawer
-            variant="temporary"
-            anchor="right"
-            open={!open}
-            onClose={onClose}
-            classes={{
-                paper: classes.drawerPaper,
-            }}
-        >
-            <Hidden smDown>
-                <div className={classes.toolbar} />
-            </Hidden>
+	console.log(`Is Hidden: %s, Drawer State: %s`, hidden, open);
 
-            <div className={classes.drawerContainer}>{children}</div>
-        </Drawer>
+	return (
+		<>
+			<Box
+				component="nav"
+				sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+				aria-label="mailbox folders"
+			>
+				<Drawer
+					variant="temporary"
+					anchor="right"
+					open={!open}
+					onClose={onClose}
+					classes={{
+						paper: classes.drawerPaper,
+					}}
+					sx={{
+						display: { xs: "block", sm: "none" },
+						"& .MuiDrawer-paper": {
+							boxSizing: "border-box",
+							width: drawerWidth,
+						},
+					}}
+				>
+					<Box
+						sx={{
+							display: { xl: "block", sm: "none", xs: "none" },
+						}}
+					>
+						<div className={classes.toolbar} />
+					</Box>
 
-        <Hidden smDown implementation="css">
-            <Drawer
-                classes={{
-                    paper: classes.drawerPaper,
-                }}
-                anchor="right"
-                variant="persistent"
-                open={open}
-            >
-                <div className={classes.toolbar} />
-                <div className={classes.drawerContainer}>{children}</div>
-            </Drawer>
-        </Hidden>
-    </>;
+					<div className={classes.drawerContainer}>{children}</div>
+				</Drawer>
+				<Drawer
+					classes={{
+						paper: classes.drawerPaper,
+					}}
+					anchor="right"
+					variant="persistent"
+					open={open}
+					sx={{
+						display: { xs: "none", sm: "block" },
+						"& .MuiDrawer-paper": {
+							boxSizing: "border-box",
+							width: drawerWidth,
+						},
+					}}
+				>
+					<div className={classes.toolbar} />
+					<div className={classes.drawerContainer}>{children}</div>
+				</Drawer>
+			</Box>
+		</>
+	);
 };
 
 export default RightDrawer;

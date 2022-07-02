@@ -3,8 +3,8 @@ import IconButton from "@mui/material/IconButton";
 import RightDrawer from "../../components/RightDrawer";
 import AppMenu from "../../components/AppMenu";
 import { Theme } from "@mui/material/styles";
-import createStyles from '@mui/styles/createStyles';
-import withStyles from '@mui/styles/withStyles';
+import createStyles from "@mui/styles/createStyles";
+import withStyles from "@mui/styles/withStyles";
 import clsx from "clsx";
 import HelpTwoToneIcon from "@mui/icons-material/HelpTwoTone";
 import getAppInfo from "../../utils/appinfo";
@@ -12,7 +12,7 @@ import getPaths from "../../utils/getPaths";
 import getPostId from "../../utils/getPostId";
 import appImportList from "../../data/appImportList";
 
-// TODO change favicon
+// TODO change favicon dynamically
 
 export async function getStaticPaths({ locale }) {
 	return {
@@ -24,9 +24,7 @@ export async function getStaticPaths({ locale }) {
 export async function getStaticProps({ locale, locales, ...ctx }) {
 	const { id: currentId } = ctx.params;
 
-	const appData = require("../../data/i18n/" +
-		locale +
-		"/appData.js");
+	const appData = require("../../data/i18n/" + locale + "/appData.js");
 
 	const appInfo = getAppInfo(appData, currentId);
 
@@ -104,30 +102,30 @@ class AppContainer extends React.Component<any, any> {
 		});
 	}
 	componentDidMount() {
-		const { RightDrawerOpen } = this.state;
 		const { setAction, appInfo } = this.props;
 
 		this.setState({
 			AppComp: appImportList[appInfo.link],
 		});
 
-		// TODO 独立管理工具菜单打开状态
-
 		setAction(() => {
+			const onClick = () => {
+				const { RightDrawerOpen } = this.state;
+				this.setState({
+					RightDrawerOpen: !RightDrawerOpen,
+				});
+			};
 			return (
-                <IconButton
-                    color="primary"
-                    aria-label="open drawer"
-                    onClick={() => {
-						this.setState({
-							RightDrawerOpen: !RightDrawerOpen,
-						});
-					}}
-                    edge="start"
-                    size="large">
+				<IconButton
+					color="primary"
+					aria-label="Switch drawer"
+					onClick={onClick}
+					edge="start"
+					size="large"
+				>
 					<HelpTwoToneIcon />
 				</IconButton>
-            );
+			);
 		});
 
 		// TODO 链接带有全屏参数，隐藏头部
@@ -167,7 +165,7 @@ class AppContainer extends React.Component<any, any> {
 				<RightDrawer
 					onClose={() => {
 						this.setState({
-							RightDrawerOpen: !RightDrawerOpen,
+							RightDrawerOpen: false,
 						});
 					}}
 					open={RightDrawerOpen}
