@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Layout from "../components/Layout";
-import siteConfig from "../site.config.js";
+import siteConfig from "../../site.config.js";
 import { ThemeProvider, StyledEngineProvider } from "@mui/material/styles";
 // import UserContextProvider from "../components/UserContextProvider";
 import theme from "../utils/theme";
