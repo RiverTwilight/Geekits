@@ -1,6 +1,6 @@
 import React from "react";
 import html2canvas from "html2canvas";
-import saveFile from "../../src/utils/fileSaver";
+import saveFile from "../../utils/fileSaver";
 import Button from "@mui/material/Button";
 import Slider from "@mui/material/Slider";
 import SliderWithIcon from "../../components/SliderWithIcon";

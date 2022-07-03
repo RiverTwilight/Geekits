@@ -1,5 +1,7 @@
 import dynamic from "next/dynamic";
 
+// next/dynamic options must be an object literal
+
 export default {
 	date_calculator: dynamic(() => import("../apps/date_calculator"), {
 		ssr: false,

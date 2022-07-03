@@ -1,9 +1,9 @@
 import * as React from "react";
 import { Input, Button } from "mdui-in-react";
 import Form from "../../components/Form";
-import useInput from "../../src/utils/Hooks/useInput";
+import useInput from "../../utils/Hooks/useInput";
 import PG from "./generator";
-import { saveFile } from "../../src/utils/fileSaver";
+import { saveFile } from "../../utils/fileSaver";
 // import marked from "marked";
 // REBUILD 隐私政策生成器
 const PGI = new PG();

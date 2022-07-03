@@ -1,5 +1,5 @@
 import React from "react";
-import axios from "../../src/utils/axios";
+import axios from "../../utils/axios";
 import ClipboardJS from "clipboard";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
