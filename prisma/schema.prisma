@@ -3,8 +3,8 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = "file:./db.sqlite"
+  provider = "mysql"
+  url      = env("DATABASE_URL")
 }
 
 model Post {
@@ -14,6 +14,13 @@ model Post {
   published Boolean @default(false)
   author    User?   @relation(fields: [authorId], references: [id])
   authorId  Int?
+}
+
+model Feedback {
+  id        Int     @id @default(autoincrement())
+  title     String
+  content   String?
+  submited  Boolean @default(false)
 }
 
 model Account {
@@ -50,6 +57,7 @@ model User {
   name          String?
   email         String?   @unique
   emailVerified DateTime? @map("email_verified")
+  isAdmin       Boolean   @default(false)
   image         String?
   createdAt     DateTime  @default(now()) @map(name: "created_at")
   updatedAt     DateTime  @updatedAt @map(name: "updated_at")
