@@ -55,8 +55,8 @@ export default function () {
 				variant="fullWidth"
 				aria-label="full width tabs example"
 			>
-				<Tab label="日期&时间间隔" />
-				<Tab label="日期推算" />
+				<Tab label="注册" />
+				<Tab label="登录" />
 			</Tabs>
 			<TabPanel value={value} index={0}>
 				<LoginForm />
