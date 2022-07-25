@@ -1,5 +1,4 @@
 import React from "react";
-// @ts-expect-error ts-migrate(7016) FIXME: Try `npm install @types/qrcode` if it exists or ad... Remove this comment to see the full error message
 import QRCode from "qrcode";
 import FileInput from "../../components/FileInput";
 import { Theme, useTheme } from "@mui/material/styles";
@@ -18,7 +17,6 @@ import Typography from "@mui/material/Typography";
 import FormControl from "@mui/material/FormControl";
 import Card from "@mui/material/Card";
 import { TabPanel, a11yProps } from "../../components/TabToolkits";
-import { moveMessagePortToContext } from "worker_threads";
 
 const create = (opts: any, text: any, callback: any, iconData: any) => {
 	const loadImgae = (url) => {
@@ -119,7 +117,6 @@ class Qrcode extends React.Component<{}, QrcodeState> {
 				: text === ""
 				? "ygktool.cn"
 				: text;
-		// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'qrcode' implicitly has an 'any' type.
 		const callback = (qrcode) => {
 			this.setState({ qrcode: qrcode });
 		};

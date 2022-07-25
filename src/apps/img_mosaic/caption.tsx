@@ -2,7 +2,6 @@ import React from "react";
 import { snackbar } from "mdui";
 import FileInput from "../../components/FileInput";
 import { Button } from "mdui-in-react";
-import "./caption.css";
 
 class captionMosaic {
 	img: any[];
@@ -134,13 +133,8 @@ class Album extends React.Component<AlbumProps, AlbumState> {
 		};
 	}
 	render() {
-		const {
-			assets,
-			onTopDrag,
-			onBottomDrag,
-			deleteImg,
-			getConHeight,
-		} = this.props;
+		const { assets, onTopDrag, onBottomDrag, deleteImg, getConHeight } =
+			this.props;
 		const { startPosition } = this.state;
 		return (
 			<div className="mdui-row-xs-2 mdui-row-sm-3">
@@ -308,8 +302,8 @@ class VideoShotter extends React.Component<
 		var res = canvas.toDataURL();
 		addImg(res);
 	}
-	componentDidUpdate(){
-		this.videoDom.load()
+	componentDidUpdate() {
+		this.videoDom.load();
 	}
 	render() {
 		const { video } = this.props;

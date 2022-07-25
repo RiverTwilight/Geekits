@@ -4,6 +4,7 @@ import Form from "../../components/Form";
 import useInput from "../../utils/Hooks/useInput";
 import PG from "./generator";
 import { saveFile } from "../../utils/fileSaver";
+import { Divider } from "@mui/material";
 // import marked from "marked";
 // REBUILD 隐私政策生成器
 const PGI = new PG();
@@ -96,7 +97,7 @@ const Result = () => {
 				icon="file_download"
 				title="导出HTML"
 			/>
-			<div className="mdui-divider" />
+			<Divider />
 			{/* <div
 				style={{
 					maxHeight: "250px",

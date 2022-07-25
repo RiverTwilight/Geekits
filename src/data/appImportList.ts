@@ -18,6 +18,9 @@ export default {
 	dic_ci: dynamic(() => import("../apps/dic_ci"), {
 		ssr: false,
 	}),
+	img_mosaic: dynamic(() => import("../apps/img_mosaic"), {
+		ssr: false,
+	}),
 	dic_idiom: dynamic(() => import("../apps/dic_idiom"), {
 		ssr: false,
 	}),

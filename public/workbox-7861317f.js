@@ -1,7 +1,7 @@
 define(['exports'], (function (exports) { 'use strict';
 
     try {
-      self['workbox:core:6.4.1'] && _();
+      self['workbox:core:6.5.2'] && _();
     } catch (e) {}
 
     /*
@@ -349,6 +349,17 @@ define(['exports'], (function (exports) { 'use strict';
         origin
       }) => {
         return `workbox-core.copyResponse() can only be used with same-origin ` + `responses. It was passed a response with origin ${origin}.`;
+      },
+      'opaque-streams-source': ({
+        type
+      }) => {
+        const message = `One of the workbox-streams sources resulted in an ` + `'${type}' response.`;
+
+        if (type === 'opaqueredirect') {
+          return `${message} Please do not use a navigation request that results ` + `in a redirect as a source.`;
+        }
+
+        return `${message} Please ensure your sources are CORS-enabled.`;
       }
     };
 
@@ -485,7 +496,7 @@ define(['exports'], (function (exports) { 'use strict';
     };
 
     try {
-      self['workbox:routing:6.4.1'] && _();
+      self['workbox:routing:6.5.2'] && _();
     } catch (e) {}
 
     /*
@@ -572,17 +583,17 @@ define(['exports'], (function (exports) { 'use strict';
      * is called when there is a match and should return a Promise that resolves
      * to a `Response`.
      *
-     * @memberof module:workbox-routing
+     * @memberof workbox-routing
      */
 
     class Route {
       /**
        * Constructor for Route class.
        *
-       * @param {module:workbox-routing~matchCallback} match
+       * @param {workbox-routing~matchCallback} match
        * A callback function that determines whether the route matches a given
        * `fetch` event by returning a non-falsy value.
-       * @param {module:workbox-routing~handlerCallback} handler A callback
+       * @param {workbox-routing~handlerCallback} handler A callback
        * function that returns a Promise resolving to a Response.
        * @param {string} [method='GET'] The HTTP method to match the Route
        * against.
@@ -611,7 +622,7 @@ define(['exports'], (function (exports) { 'use strict';
       }
       /**
        *
-       * @param {module:workbox-routing-handlerCallback} handler A callback
+       * @param {workbox-routing-handlerCallback} handler A callback
        * function that returns a Promise resolving to a Response
        */
 
@@ -631,16 +642,14 @@ define(['exports'], (function (exports) { 'use strict';
     */
     /**
      * RegExpRoute makes it easy to create a regular expression based
-     * [Route]{@link module:workbox-routing.Route}.
+     * {@link workbox-routing.Route}.
      *
      * For same-origin requests the RegExp only needs to match part of the URL. For
      * requests against third-party servers, you must define a RegExp that matches
      * the start of the URL.
      *
-     * [See the module docs for info.]{@link https://developers.google.com/web/tools/workbox/modules/workbox-routing}
-     *
-     * @memberof module:workbox-routing
-     * @extends module:workbox-routing.Route
+     * @memberof workbox-routing
+     * @extends workbox-routing.Route
      */
 
     class RegExpRoute extends Route {
@@ -648,11 +657,11 @@ define(['exports'], (function (exports) { 'use strict';
        * If the regular expression contains
        * [capture groups]{@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp#grouping-back-references},
        * the captured values will be passed to the
-       * [handler's]{@link module:workbox-routing~handlerCallback} `params`
+       * {@link workbox-routing~handlerCallback} `params`
        * argument.
        *
        * @param {RegExp} regExp The regular expression to match against URLs.
-       * @param {module:workbox-routing~handlerCallback} handler A callback
+       * @param {workbox-routing~handlerCallback} handler A callback
        * function that returns a Promise resulting in a Response.
        * @param {string} [method='GET'] The HTTP method to match the Route
        * against.
@@ -723,8 +732,8 @@ define(['exports'], (function (exports) { 'use strict';
       https://opensource.org/licenses/MIT.
     */
     /**
-     * The Router can be used to process a FetchEvent through one or more
-     * [Routes]{@link module:workbox-routing.Route} responding  with a Request if
+     * The Router can be used to process a `FetchEvent` using one or more
+     * {@link workbox-routing.Route}, responding with a `Response` if
      * a matching route exists.
      *
      * If no route matches a given a request, the Router will use a "default"
@@ -737,7 +746,7 @@ define(['exports'], (function (exports) { 'use strict';
      * If a request matches multiple routes, the **earliest** registered route will
      * be used to respond to the request.
      *
-     * @memberof module:workbox-routing
+     * @memberof workbox-routing
      */
 
     class Router {
@@ -749,7 +758,7 @@ define(['exports'], (function (exports) { 'use strict';
         this._defaultHandlerMap = new Map();
       }
       /**
-       * @return {Map<string, Array<module:workbox-routing.Route>>} routes A `Map` of HTTP
+       * @return {Map<string, Array<workbox-routing.Route>>} routes A `Map` of HTTP
        * method name ('GET', etc.) to an array of all the corresponding `Route`
        * instances that are registered.
        */
@@ -1088,7 +1097,7 @@ define(['exports'], (function (exports) { 'use strict';
        * Without a default handler, unmatched requests will go against the
        * network as if there were no service worker present.
        *
-       * @param {module:workbox-routing~handlerCallback} handler A callback
+       * @param {workbox-routing~handlerCallback} handler A callback
        * function that returns a Promise resulting in a Response.
        * @param {string} [method='GET'] The HTTP method to associate with this
        * default handler. Each method has its own default.
@@ -1102,7 +1111,7 @@ define(['exports'], (function (exports) { 'use strict';
        * If a Route throws an error while handling a request, this `handler`
        * will be called and given a chance to provide a response.
        *
-       * @param {module:workbox-routing~handlerCallback} handler A callback
+       * @param {workbox-routing~handlerCallback} handler A callback
        * function that returns a Promise resulting in a Response.
        */
 
@@ -1113,7 +1122,7 @@ define(['exports'], (function (exports) { 'use strict';
       /**
        * Registers a route with the router.
        *
-       * @param {module:workbox-routing.Route} route The route to register.
+       * @param {workbox-routing.Route} route The route to register.
        */
 
 
@@ -1162,7 +1171,7 @@ define(['exports'], (function (exports) { 'use strict';
       /**
        * Unregisters a route with the router.
        *
-       * @param {module:workbox-routing.Route} route The route to unregister.
+       * @param {workbox-routing.Route} route The route to unregister.
        */
 
 
@@ -1223,19 +1232,18 @@ define(['exports'], (function (exports) { 'use strict';
      * strategy to a singleton Router instance.
      *
      * This method will generate a Route for you if needed and
-     * call [registerRoute()]{@link module:workbox-routing.Router#registerRoute}.
+     * call {@link workbox-routing.Router#registerRoute}.
      *
-     * @param {RegExp|string|module:workbox-routing.Route~matchCallback|module:workbox-routing.Route} capture
+     * @param {RegExp|string|workbox-routing.Route~matchCallback|workbox-routing.Route} capture
      * If the capture param is a `Route`, all other arguments will be ignored.
-     * @param {module:workbox-routing~handlerCallback} [handler] A callback
+     * @param {workbox-routing~handlerCallback} [handler] A callback
      * function that returns a Promise resulting in a Response. This parameter
      * is required if `capture` is not a `Route` object.
      * @param {string} [method='GET'] The HTTP method to match the Route
      * against.
-     * @return {module:workbox-routing.Route} The generated `Route`(Useful for
-     * unregistering).
+     * @return {workbox-routing.Route} The generated `Route`.
      *
-     * @memberof module:workbox-routing
+     * @memberof workbox-routing
      */
 
     function registerRoute(capture, handler, method) {
@@ -1300,7 +1308,7 @@ define(['exports'], (function (exports) { 'use strict';
     }
 
     try {
-      self['workbox:strategies:6.4.1'] && _();
+      self['workbox:strategies:6.5.2'] && _();
     } catch (e) {}
 
     /*
@@ -1488,7 +1496,7 @@ define(['exports'], (function (exports) { 'use strict';
      * Runs all of the callback functions, one at a time sequentially, in the order
      * in which they were registered.
      *
-     * @memberof module:workbox-core
+     * @memberof workbox-core
      * @private
      */
 
@@ -1542,12 +1550,12 @@ define(['exports'], (function (exports) { 'use strict';
     }
     /**
      * A class created every time a Strategy instance instance calls
-     * [handle()]{@link module:workbox-strategies.Strategy~handle} or
-     * [handleAll()]{@link module:workbox-strategies.Strategy~handleAll} that wraps all fetch and
+     * {@link workbox-strategies.Strategy~handle} or
+     * {@link workbox-strategies.Strategy~handleAll} that wraps all fetch and
      * cache actions around plugin callbacks and keeps track of when the strategy
      * is "done" (i.e. all added `event.waitUntil()` promises have resolved).
      *
-     * @memberof module:workbox-strategies
+     * @memberof workbox-strategies
      */
 
 
@@ -1559,15 +1567,14 @@ define(['exports'], (function (exports) { 'use strict';
        * The constructor also initializes the state that will be passed to each of
        * the plugins handling this request.
        *
-       * @param {module:workbox-strategies.Strategy} strategy
+       * @param {workbox-strategies.Strategy} strategy
        * @param {Object} options
        * @param {Request|string} options.request A request to run this strategy for.
        * @param {ExtendableEvent} options.event The event associated with the
        *     request.
        * @param {URL} [options.url]
-       * @param {*} [options.params]
-       *     [match callback]{@link module:workbox-routing~matchCallback},
-       *     (if applicable).
+       * @param {*} [options.params] The return value from the
+       *     {@link workbox-routing~matchCallback} (if applicable).
        */
       constructor(strategy, options) {
         this._cacheKeys = {};
@@ -1577,7 +1584,7 @@ define(['exports'], (function (exports) { 'use strict';
          * @name request
          * @instance
          * @type {Request}
-         * @memberof module:workbox-strategies.StrategyHandler
+         * @memberof workbox-strategies.StrategyHandler
          */
 
         /**
@@ -1585,7 +1592,7 @@ define(['exports'], (function (exports) { 'use strict';
          * @name event
          * @instance
          * @type {ExtendableEvent}
-         * @memberof module:workbox-strategies.StrategyHandler
+         * @memberof workbox-strategies.StrategyHandler
          */
 
         /**
@@ -1596,7 +1603,7 @@ define(['exports'], (function (exports) { 'use strict';
          * @name url
          * @instance
          * @type {URL|undefined}
-         * @memberof module:workbox-strategies.StrategyHandler
+         * @memberof workbox-strategies.StrategyHandler
          */
 
         /**
@@ -1604,12 +1611,12 @@ define(['exports'], (function (exports) { 'use strict';
          * `handle()` or `handleAll()` method).
          * Note: the `param` param will be present if the strategy was invoked
          * from a workbox `Route` object and the
-         * [match callback]{@link module:workbox-routing~matchCallback} returned
+         * {@link workbox-routing~matchCallback} returned
          * a truthy value (it will be that value).
          * @name params
          * @instance
          * @type {*|undefined}
-         * @memberof module:workbox-strategies.StrategyHandler
+         * @memberof workbox-strategies.StrategyHandler
          */
 
         {
@@ -1958,7 +1965,7 @@ define(['exports'], (function (exports) { 'use strict';
        * Note: since this method runs all plugins, it's not suitable for cases
        * where the return value of a callback needs to be applied prior to calling
        * the next callback. See
-       * [`iterateCallbacks()`]{@link module:workbox-strategies.StrategyHandler#iterateCallbacks}
+       * {@link workbox-strategies.StrategyHandler#iterateCallbacks}
        * below for how to handle that case.
        *
        * @param {string} name The name of the callback to run within each plugin.
@@ -2011,7 +2018,7 @@ define(['exports'], (function (exports) { 'use strict';
        * `FetchEvent`).
        *
        * Note: you can await
-       * [`doneWaiting()`]{@link module:workbox-strategies.StrategyHandler~doneWaiting}
+       * {@link workbox-strategies.StrategyHandler~doneWaiting}
        * to know when all added promises have settled.
        *
        * @param {Promise} promise A promise to add to the extend lifetime promises
@@ -2026,7 +2033,7 @@ define(['exports'], (function (exports) { 'use strict';
       }
       /**
        * Returns a promise that resolves once all promises passed to
-       * [`waitUntil()`]{@link module:workbox-strategies.StrategyHandler~waitUntil}
+       * {@link workbox-strategies.StrategyHandler~waitUntil}
        * have settled.
        *
        * Note: any work done after `doneWaiting()` settles should be manually
@@ -2114,7 +2121,7 @@ define(['exports'], (function (exports) { 'use strict';
     /**
      * An abstract base class that all other strategy classes must extend from:
      *
-     * @memberof module:workbox-strategies
+     * @memberof workbox-strategies
      */
 
     class Strategy {
@@ -2129,7 +2136,7 @@ define(['exports'], (function (exports) { 'use strict';
        * @param {Object} [options]
        * @param {string} [options.cacheName] Cache name to store and retrieve
        * requests. Defaults to the cache names provided by
-       * [workbox-core]{@link module:workbox-core.cacheNames}.
+       * {@link workbox-core.cacheNames}.
        * @param {Array<Object>} [options.plugins] [Plugins]{@link https://developers.google.com/web/tools/workbox/guides/using-plugins}
        * to use in conjunction with this caching strategy.
        * @param {Object} [options.fetchOptions] Values passed along to the
@@ -2144,7 +2151,7 @@ define(['exports'], (function (exports) { 'use strict';
         /**
          * Cache name to store and retrieve
          * requests. Defaults to the cache names provided by
-         * [workbox-core]{@link module:workbox-core.cacheNames}.
+         * {@link workbox-core.cacheNames}.
          *
          * @type {string}
          */
@@ -2182,7 +2189,7 @@ define(['exports'], (function (exports) { 'use strict';
        * a `Response`, invoking all relevant plugin callbacks.
        *
        * When a strategy instance is registered with a Workbox
-       * [route]{@link module:workbox-routing.Route}, this method is automatically
+       * {@link workbox-routing.Route}, this method is automatically
        * called when the route matches.
        *
        * Alternatively, this method can be used in a standalone `FetchEvent`
@@ -2203,9 +2210,9 @@ define(['exports'], (function (exports) { 'use strict';
         return responseDone;
       }
       /**
-       * Similar to [`handle()`]{@link module:workbox-strategies.Strategy~handle}, but
+       * Similar to {@link workbox-strategies.Strategy~handle}, but
        * instead of just returning a `Promise` that resolves to a `Response` it
-       * it will return an tuple of [response, done] promises, where the former
+       * it will return an tuple of `[response, done]` promises, where the former
        * (`response`) is equivalent to what `handle()` returns, and the latter is a
        * Promise that will resolve once any promises that were added to
        * `event.waitUntil()` as part of performing the strategy have completed.
@@ -2342,7 +2349,7 @@ define(['exports'], (function (exports) { 'use strict';
     }
     /**
      * Classes extending the `Strategy` based class should implement this method,
-     * and leverage the [`handler`]{@link module:workbox-strategies.StrategyHandler}
+     * and leverage the {@link workbox-strategies.StrategyHandler}
      * arg to perform all fetching and cache logic, which will ensure all relevant
      * cache, cache options, fetch options and plugins are used (per the current
      * strategy instance).
@@ -2352,10 +2359,10 @@ define(['exports'], (function (exports) { 'use strict';
      * @abstract
      * @function
      * @param {Request} request
-     * @param {module:workbox-strategies.StrategyHandler} handler
+     * @param {workbox-strategies.StrategyHandler} handler
      * @return {Promise<Response>}
      *
-     * @memberof module:workbox-strategies.Strategy
+     * @memberof workbox-strategies.Strategy
      */
 
     /*
@@ -2385,19 +2392,19 @@ define(['exports'], (function (exports) { 'use strict';
     */
     /**
      * An implementation of a
-     * [network first]{@link https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/#network-falling-back-to-cache}
+     * [network first](https://developer.chrome.com/docs/workbox/caching-strategies-overview/#network-first-falling-back-to-cache)
      * request strategy.
      *
      * By default, this strategy will cache responses with a 200 status code as
-     * well as [opaque responses]{@link https://developers.google.com/web/tools/workbox/guides/handle-third-party-requests}.
+     * well as [opaque responses](https://developer.chrome.com/docs/workbox/caching-resources-during-runtime/#opaque-responses).
      * Opaque responses are are cross-origin requests where the response doesn't
-     * support [CORS]{@link https://enable-cors.org/}.
+     * support [CORS](https://enable-cors.org/).
      *
      * If the network request fails, and there is no cache match, this will throw
      * a `WorkboxError` exception.
      *
-     * @extends module:workbox-strategies.Strategy
-     * @memberof module:workbox-strategies
+     * @extends workbox-strategies.Strategy
+     * @memberof workbox-strategies
      */
 
     class NetworkFirst extends Strategy {
@@ -2405,7 +2412,7 @@ define(['exports'], (function (exports) { 'use strict';
        * @param {Object} [options]
        * @param {string} [options.cacheName] Cache name to store and retrieve
        * requests. Defaults to cache names provided by
-       * [workbox-core]{@link module:workbox-core.cacheNames}.
+       * {@link workbox-core.cacheNames}.
        * @param {Array<Object>} [options.plugins] [Plugins]{@link https://developers.google.com/web/tools/workbox/guides/using-plugins}
        * to use in conjunction with this caching strategy.
        * @param {Object} [options.fetchOptions] Values passed along to the
@@ -2444,7 +2451,7 @@ define(['exports'], (function (exports) { 'use strict';
       /**
        * @private
        * @param {Request|string} request A request to run this strategy for.
-       * @param {module:workbox-strategies.StrategyHandler} handler The event that
+       * @param {workbox-strategies.StrategyHandler} handler The event that
        *     triggered the request.
        * @return {Promise<Response>}
        */
@@ -2489,7 +2496,12 @@ define(['exports'], (function (exports) { 'use strict';
         promises.push(networkPromise);
         const response = await handler.waitUntil((async () => {
           // Promise.race() will resolve as soon as the first promise resolves.
-          return (await handler.waitUntil(Promise.race(promises))) || (await networkPromise);
+          return (await handler.waitUntil(Promise.race(promises))) || ( // If Promise.race() resolved with null, it might be due to a network
+          // timeout + a cache miss. If that were to happen, we'd rather wait until
+          // the networkPromise resolves instead of returning null.
+          // Note that it's fine to await an already-resolved promise, so we don't
+          // have to check to see if it's still "in flight".
+          await networkPromise);
         })());
 
         {
@@ -2611,16 +2623,16 @@ define(['exports'], (function (exports) { 'use strict';
     */
     /**
      * An implementation of a
-     * [network-only]{@link https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/#network-only}
+     * [network-only](https://developer.chrome.com/docs/workbox/caching-strategies-overview/#network-only)
      * request strategy.
      *
      * This class is useful if you want to take advantage of any
-     * [Workbox plugins]{@link https://developers.google.com/web/tools/workbox/guides/using-plugins}.
+     * [Workbox plugins](https://developer.chrome.com/docs/workbox/using-plugins/).
      *
      * If the network request fails, this will throw a `WorkboxError` exception.
      *
-     * @extends module:workbox-strategies.Strategy
-     * @memberof module:workbox-strategies
+     * @extends workbox-strategies.Strategy
+     * @memberof workbox-strategies
      */
 
     class NetworkOnly extends Strategy {
@@ -2642,7 +2654,7 @@ define(['exports'], (function (exports) { 'use strict';
       /**
        * @private
        * @param {Request|string} request A request to run this strategy for.
-       * @param {module:workbox-strategies.StrategyHandler} handler The event that
+       * @param {workbox-strategies.StrategyHandler} handler The event that
        *     triggered the request.
        * @return {Promise<Response>}
        */
@@ -2716,7 +2728,7 @@ define(['exports'], (function (exports) { 'use strict';
      * Claim any currently available clients once the service worker
      * becomes active. This is normally used in conjunction with `skipWaiting()`.
      *
-     * @memberof module:workbox-core
+     * @memberof workbox-core
      */
 
     function clientsClaim() {
@@ -2729,4 +2741,4 @@ define(['exports'], (function (exports) { 'use strict';
     exports.registerRoute = registerRoute;
 
 }));
-//# sourceMappingURL=workbox-ab03a9e4.js.map
+//# sourceMappingURL=workbox-7861317f.js.map

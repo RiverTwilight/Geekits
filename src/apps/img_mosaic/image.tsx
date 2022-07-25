@@ -1,6 +1,8 @@
 import React from "react";
 import { ListControlMenu } from "mdui-in-react";
 import FileInput from "../../components/FileInput";
+import Button from "@mui/material/Button";
+import Grid from "@mui/material/Grid";
 
 async function loadImg(src: any) {
 	var img = await new Image();
@@ -8,7 +10,6 @@ async function loadImg(src: any) {
 	return img;
 }
 
-// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'assests' implicitly has an 'any' type.
 async function imgMosaic_X(assests, callback) {
 	var c = document.createElement("canvas");
 	var ctx = c.getContext("2d");
@@ -33,7 +34,6 @@ async function imgMosaic_X(assests, callback) {
 
 	for (var j = 0; j <= imgs.length - 1; j++) {
 		//console.log(imgs[j])
-		// @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
 		ctx.drawImage(imgs[j], startX, 0, imgs[j].width, imgs[j].height);
 		startX += imgs[j].width;
 	}
@@ -43,7 +43,6 @@ async function imgMosaic_X(assests, callback) {
 	callback(res);
 }
 
-// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'assests' implicitly has an 'any' type.
 async function imgMosaic_Y(assests, callback) {
 	var c = document.createElement("canvas");
 	var ctx = c.getContext("2d");
@@ -70,7 +69,6 @@ async function imgMosaic_Y(assests, callback) {
 
 	for (var j = 0; j <= imgs.length - 1; j++) {
 		//console.log(imgs[j])
-		// @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
 		ctx.drawImage(imgs[j], 0, startY, imgs[j].width, imgs[j].height);
 		startY += imgs[j].height;
 	}
@@ -80,50 +78,47 @@ async function imgMosaic_Y(assests, callback) {
 	callback(res);
 }
 
-//预览相册组件
-// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'props' implicitly has an 'any' type.
-const Alubm = (props) => {
+const Alubm: React.FC<{
+	handleDelete: (index: number) => void;
+}> = ({ handleDelete, i }) => {
 	return (
-		<div className="mdui-row-xs-3">
-			{
-				// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'a' implicitly has an 'any' type.
-				props.assests.map((a, i) => (
-					<div className="mdui-card mdui-col">
-						<div key={i} className="mdui-card-media mdui-center">
-							<img width="100" height="120" src={a} />
+		<div key={i} className="mdui-card-media mdui-center">
+			<img width="100" height="120" src={a} />
 
-							<div className="mdui-card-menu">
-								<button
-									style={{
-										background: "rgba(0, 0, 0, 0.27)",
-									}}
-									onClick={() => {
-										props.delete(i);
-									}}
-									className="mdui-btn mdui-btn-icon mdui-text-color-white"
-								>
-									<i className="mdui-icon material-icons">
-										close
-									</i>
-								</button>
-							</div>
-						</div>
-					</div>
-				))
-			}
+			<div className="mdui-card-menu">
+				<button
+					style={{
+						background: "rgba(0, 0, 0, 0.27)",
+					}}
+					onClick={() => {
+						handleDelete(i);
+					}}
+					className="mdui-btn mdui-btn-icon mdui-text-color-white"
+				>
+					<i className="mdui-icon material-icons">close</i>
+				</button>
+			</div>
 		</div>
 	);
 };
 
-// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'props' implicitly has an 'any' type.
-function Preview(props) {
+const Preview: React.FC<{ res: string }> = (props) => {
 	if (!props.res) return null;
-	return <img className="mdui-img-fluid" alt="结果" src={props.res} />;
-}
+	const handleDownload = () => {
+		var a = document.createElement("a");
+		a.href = props.res;
+		a.download = "";
+		a.click();
+	};
+	return (
+		<>
+			<img alt="结果" src={props.res} />
+			<Button onClick={handleDownload} />
+		</>
+	);
+};
 
-type ComponentState = any;
-
-export default class extends React.Component<{}, ComponentState> {
+export default class extends React.Component<{}, {}> {
 	constructor(props: {}) {
 		super(props);
 		this.state = {
@@ -136,14 +131,20 @@ export default class extends React.Component<{}, ComponentState> {
 		const { assests, res, direction } = this.state;
 		return (
 			<>
-				<Alubm
-					assests={assests}
-					// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'i' implicitly has an 'any' type.
-					delete={(i) => {
-						assests.splice(i, 1);
-						this.setState({ assests: assests });
-					}}
-				/>
+				<Grid container spacing={3}>
+					{assests &&
+						assests.map(
+							<Grid item xs={4}>
+								<Alubm
+									delete={(i) => {
+										assests.splice(i, 1);
+										this.setState({ assests: assests });
+									}}
+								/>
+							</Grid>
+						)}
+				</Grid>
+
 				<br></br>
 				<FileInput
 					fileType="image/*"
@@ -180,7 +181,6 @@ export default class extends React.Component<{}, ComponentState> {
 					onClick={() => {
 						switch (direction) {
 							case 0:
-								// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'res' implicitly has an 'any' type.
 								imgMosaic_X(assests, (res) => {
 									this.setState({
 										res: res,
@@ -188,7 +188,6 @@ export default class extends React.Component<{}, ComponentState> {
 								});
 								break;
 							case 1:
-								// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'res' implicitly has an 'any' type.
 								imgMosaic_Y(assests, (res) => {
 									this.setState({
 										res: res,
