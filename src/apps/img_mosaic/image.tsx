@@ -1,8 +1,14 @@
 import React from "react";
-import { ListControlMenu } from "mdui-in-react";
 import FileInput from "../../components/FileInput";
 import Button from "@mui/material/Button";
-import Grid from "@mui/material/Grid";
+import FormGroup from "@mui/material/FormGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import ImageList from "@mui/material/ImageList";
+import ImageListItem from "@mui/material/ImageListItem";
+import ImageListItemBar from "@mui/material/ImageListItemBar";
+import IconButton from "@mui/material/IconButton";
+import InfoIcon from "@mui/icons-material/Info";
 
 async function loadImg(src: any) {
 	var img = await new Image();
@@ -78,30 +84,6 @@ async function imgMosaic_Y(assests, callback) {
 	callback(res);
 }
 
-const Alubm: React.FC<{
-	handleDelete: (index: number) => void;
-}> = ({ handleDelete, i }) => {
-	return (
-		<div key={i} className="mdui-card-media mdui-center">
-			<img width="100" height="120" src={a} />
-
-			<div className="mdui-card-menu">
-				<button
-					style={{
-						background: "rgba(0, 0, 0, 0.27)",
-					}}
-					onClick={() => {
-						handleDelete(i);
-					}}
-					className="mdui-btn mdui-btn-icon mdui-text-color-white"
-				>
-					<i className="mdui-icon material-icons">close</i>
-				</button>
-			</div>
-		</div>
-	);
-};
-
 const Preview: React.FC<{ res: string }> = (props) => {
 	if (!props.res) return null;
 	const handleDownload = () => {
@@ -120,7 +102,7 @@ const Preview: React.FC<{ res: string }> = (props) => {
 
 export default class extends React.Component<
 	{},
-	{ assests: string[]; direction: 0 | 1; res: string }
+	{ assests: { img: string }[]; direction: 0 | 1; res: string }
 > {
 	constructor(props: {}) {
 		super(props);
@@ -130,78 +112,86 @@ export default class extends React.Component<
 			res: null,
 		};
 	}
+
+	handleChange(value) {
+		this.setState({
+			direction: value,
+		});
+	}
+
 	render() {
 		const { assests, res, direction } = this.state;
 		return (
 			<>
-				<Grid container spacing={3}>
+				<ImageList sx={{ width: 500, height: 450 }}>
 					{assests &&
-						assests.map(() => (
-							<Grid item xs={4}>
-								<Alubm
-									handleDelete={(i) => {
-										assests.splice(i, 1);
-										this.setState({ assests: assests });
-									}}
-								/>
-							</Grid>
-						))}
-				</Grid>
+						assests.map((item) => {
+							const title = ``;
+							return (
+								<ImageListItem key={item.img}>
+									<img
+										src={`${item.img}?w=248&fit=crop&auto=format`}
+										srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+										alt={title}
+										loading="lazy"
+									/>
+									<ImageListItemBar
+										title={title}
+										actionIcon={
+											<IconButton
+												sx={{
+													color: "rgba(255, 255, 255, 0.54)",
+												}}
+												onClick={() => {
+													assests.splice(i, 1);
+													this.setState({
+														assests: assests,
+													});
+												}}
+												aria-label={`info about ${title}`}
+											>
+												<InfoIcon />
+											</IconButton>
+										}
+									/>
+								</ImageListItem>
+							);
+						})}
+					<ImageListItem key={"AddNew"}>
+						<img
+							src={`w=248&fit=crop&auto=format`}
+							srcSet={`?w=248&fit=crop&auto=format&dpr=2 2x`}
+							alt={"添加新照片"}
+							loading="lazy"
+						/>
+					</ImageListItem>
+				</ImageList>
 
-				<br></br>
 				<FileInput
 					fileType="image/*"
 					multiple={true}
 					handleFileUpload={(file) => {
-						assests.push(file);
+						assests.push({
+							img: file,
+						});
 						this.setState({ assests: assests });
 					}}
 				/>
-				<br></br>
-				<br></br>
-				<Preview src={res} />
-				<ListControlMenu
-					icon="screen_rotation"
-					title="拼接方向"
-					checked={this.state.direction}
-					onCheckedChange={(checked) => {
-						this.setState({ direction: checked });
-					}}
-					items={[
-						{
-							name: "横向",
-							value: "x",
-						},
-						{
-							name: "纵向",
-							value: "y",
-						},
-					]}
-				/>
 
-				<button
-					className="mdui-fab mdui-fab-fixed mdui-color-theme"
-					onClick={() => {
-						switch (direction) {
-							case 0:
-								imgMosaic_X(assests, (res) => {
-									this.setState({
-										res: res,
-									});
-								});
-								break;
-							case 1:
-								imgMosaic_Y(assests, (res) => {
-									this.setState({
-										res: res,
-									});
-								});
-								break;
-						}
-					}}
-				>
-					<i className="mdui-icon material-icons">&#xe5ca;</i>
-				</button>
+				<br></br>
+				<FormGroup row>
+					<FormControlLabel
+						onChange={() => this.handleChange(0)}
+						control={<Checkbox checked={direction === 0} />}
+						label="横向"
+					/>
+					<FormControlLabel
+						onChange={() => this.handleChange(1)}
+						control={<Checkbox checked={direction === 1} />}
+						label="纵向"
+					/>
+				</FormGroup>
+
 				<Preview res={res} />
 			</>
 		);

@@ -165,7 +165,7 @@ class AppContainer extends React.Component<any, any> {
 				<RightDrawer
 					onClose={() => {
 						this.setState({
-							RightDrawerOpen: false,
+							RightDrawerOpen: !RightDrawerOpen,
 						});
 					}}
 					open={RightDrawerOpen}
