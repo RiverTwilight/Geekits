@@ -118,7 +118,10 @@ const Preview: React.FC<{ res: string }> = (props) => {
 	);
 };
 
-export default class extends React.Component<{}, {}> {
+export default class extends React.Component<
+	{},
+	{ assests: string[]; direction: 0 | 1; res: string }
+> {
 	constructor(props: {}) {
 		super(props);
 		this.state = {
@@ -133,16 +136,16 @@ export default class extends React.Component<{}, {}> {
 			<>
 				<Grid container spacing={3}>
 					{assests &&
-						assests.map(
+						assests.map(() => (
 							<Grid item xs={4}>
 								<Alubm
-									delete={(i) => {
+									handleDelete={(i) => {
 										assests.splice(i, 1);
 										this.setState({ assests: assests });
 									}}
 								/>
 							</Grid>
-						)}
+						))}
 				</Grid>
 
 				<br></br>
