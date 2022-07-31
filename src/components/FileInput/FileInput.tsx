@@ -66,13 +66,13 @@ class FileInput extends React.Component<FRProps, FRState> {
 	componentWillUnmount() {
 		this.props.readbydrag && removeListener();
 	}
-	handleReadFile(inputEvent?: any, dragEvent?: any) {
+	handleReadFile = (inputEvent?: any, dragEvent?: any) => {
 		if (!inputEvent && !dragEvent) return null;
+
 		const { maxSize = 99999999, handleFileUpload } = this.props;
 		const currentFileList = inputEvent
 			? inputEvent.target.files
 			: dragEvent.dataTransfer.files;
-debugger
 		this.setState({
 			btnText:
 				currentFileList.length < 2
@@ -97,12 +97,16 @@ debugger
 				freader.onload = (fe) => {
 					handleFileUpload &&
 						fe.target &&
-						handleFileUpload(fe.target.result, file, currentFileList);
+						handleFileUpload(
+							fe.target.result,
+							file,
+							currentFileList
+						);
 					// this.realInput.value = null;
 				};
 			}
 		}
-	}
+	};
 	render() {
 		const {
 			webkitdirectory,
@@ -128,6 +132,29 @@ debugger
 					icon = <FolderIcon />;
 			}
 		}
+
+		if (children) {
+			const EmbeddedChildren = React.cloneElement(children, {
+				text: btnText,
+			});
+
+			return (
+				<div>
+					<input
+						accept={fileType}
+						multiple
+						onInput={this.handleReadFile.bind(this)}
+						type="file"
+						id="contained-button-file"
+						style={{ display: "none" }}
+					/>
+					<label htmlFor="contained-button-file">
+						{EmbeddedChildren}
+					</label>
+				</div>
+			);
+		}
+
 		return (
 			<>
 				{

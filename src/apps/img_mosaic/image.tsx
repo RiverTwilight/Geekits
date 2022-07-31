@@ -9,6 +9,7 @@ import ImageListItem from "@mui/material/ImageListItem";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
 import IconButton from "@mui/material/IconButton";
 import InfoIcon from "@mui/icons-material/Info";
+import AddIcon from "@mui/icons-material/Add";
 
 async function loadImg(src: any) {
 	var img = await new Image();
@@ -130,10 +131,9 @@ export default class extends React.Component<
 							return (
 								<ImageListItem key={item.img}>
 									<img
-										src={`${item.img}?w=248&fit=crop&auto=format`}
-										srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+										src={`${item.img}`}
+										srcSet={`${item.img} 2x`}
 										alt={title}
-										loading="lazy"
 									/>
 									<ImageListItemBar
 										title={title}
@@ -157,26 +157,21 @@ export default class extends React.Component<
 								</ImageListItem>
 							);
 						})}
-					<ImageListItem key={"AddNew"}>
-						<img
-							src={`w=248&fit=crop&auto=format`}
-							srcSet={`?w=248&fit=crop&auto=format&dpr=2 2x`}
-							alt={"添加新照片"}
-							loading="lazy"
-						/>
-					</ImageListItem>
+					<FileInput
+						fileType="image/*"
+						multiple={true}
+						handleFileUpload={(file) => {
+							assests.push({
+								img: file,
+							});
+							this.setState({ assests: assests });
+						}}
+					>
+						<ImageListItem key={"AddNew"}>
+							<AddIcon />
+						</ImageListItem>
+					</FileInput>
 				</ImageList>
-
-				<FileInput
-					fileType="image/*"
-					multiple={true}
-					handleFileUpload={(file) => {
-						assests.push({
-							img: file,
-						});
-						this.setState({ assests: assests });
-					}}
-				/>
 
 				<br></br>
 				<FormGroup row>
