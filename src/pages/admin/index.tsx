@@ -4,9 +4,9 @@ import prisma from "../../utils/prisma";
 
 export async function getStaticProps({ locale }) {
 	// get data with prisma
-	const data = await prisma.query.users({
-		where: {},
-	});
+	// const data = await prisma.query.users({
+	// 	where: {},
+	// });
 
 	const pageDic = require("../../data/i18n/" + locale + "/page.js")["/admin"];
 
@@ -14,7 +14,7 @@ export async function getStaticProps({ locale }) {
 		props: {
 			currentPage: {
 				title: pageDic.title,
-				path: "/terms",
+				path: "/admin",
 			},
 			locale,
 		},
