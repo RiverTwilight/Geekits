@@ -8,12 +8,12 @@ export async function getStaticProps({ locale }) {
 	// 	where: {},
 	// });
 
-	const pageDic = require("../../data/i18n/" + locale + "/page.js")["/admin"];
+	// const pageDic = require("../../data/i18n/" + locale + "/page.js")["/admin"];
 
 	return {
 		props: {
 			currentPage: {
-				title: pageDic.title,
+				// title: pageDic.title,
 				path: "/admin",
 			},
 			locale,
