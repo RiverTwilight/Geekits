@@ -1,18 +1,14 @@
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import prisma from "../../prisma";
+import prisma from "../../utils/prisma";
 
 export async function getStaticProps({ locale }) {
 	// get data with prisma
 	const data = await prisma.query.users({
 		where: {},
 	});
- 
-	const pageDic = require("../data/i18n/" + locale + "/page.js")["/admin"];
 
-	const termsContent = require("../data/article/" +
-		locale +
-		"/terms.md").default;
+	const pageDic = require("../../data/i18n/" + locale + "/page.js")["/admin"];
 
 	return {
 		props: {
@@ -20,7 +16,6 @@ export async function getStaticProps({ locale }) {
 				title: pageDic.title,
 				path: "/terms",
 			},
-			termsContent,
 			locale,
 		},
 	};
