@@ -25,6 +25,8 @@ import { UserContext } from "../UserContextProvider";
 import clsx from "clsx";
 import { store as loginDialogStore } from "../../data/loginDialogState";
 import { store as drawerStore } from "../../data/drawerState";
+import Alert from "@mui/material/Alert";
+import MuiLink from "@mui/material/Link";
 
 // TODO Shortcuts
 
@@ -40,7 +42,7 @@ const list = [
 	{
 		Icon: <MessageIcon />,
 		text: "反馈",
-		href: "/feedback",
+		href: "https://support.qq.com/product/1221",
 	},
 
 	{
@@ -240,6 +242,10 @@ const LeftDrawer = (props: IProps) => {
 				/>
 			</div>
 			<Divider />
+			<Alert severity="info">
+				您正在使用新版本，如有任何问题欢迎随时反馈。
+				<MuiLink href="https://v1.ygktool.com">返回旧版</MuiLink>
+			</Alert>
 			{/* <List className={clsx({ [classes.hoverBlur]: isBlur })}> */}
 			<List>
 				{list.map((item) => (
