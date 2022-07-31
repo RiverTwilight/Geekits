@@ -8,8 +8,8 @@ import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
 import IconButton from "@mui/material/IconButton";
-import InfoIcon from "@mui/icons-material/Info";
-import AddIcon from "@mui/icons-material/Add";
+import ClearIcon from "@mui/icons-material/Clear";
+import CheckIcon from "@mui/icons-material/Check";
 
 async function loadImg(src: any) {
 	var img = await new Image();
@@ -17,7 +17,9 @@ async function loadImg(src: any) {
 	return img;
 }
 
-async function imgMosaic_X(assests, callback) {
+async function imgMosaic_X(assests: string[], callback) {
+	debugger;
+
 	var c = document.createElement("canvas");
 	var ctx = c.getContext("2d");
 
@@ -50,7 +52,7 @@ async function imgMosaic_X(assests, callback) {
 	callback(res);
 }
 
-async function imgMosaic_Y(assests, callback) {
+async function imgMosaic_Y(assests: string[], callback) {
 	var c = document.createElement("canvas");
 	var ctx = c.getContext("2d");
 
@@ -95,7 +97,7 @@ const Preview: React.FC<{ res: string }> = (props) => {
 	};
 	return (
 		<>
-			<img alt="结果" src={props.res} />
+			<img width="100%" alt="结果" src={props.res} />
 			<Button onClick={handleDownload} />
 		</>
 	);
@@ -120,14 +122,34 @@ export default class extends React.Component<
 		});
 	}
 
+	handleGenerate = () => {
+		const { assests, direction } = this.state;
+
+		const params = [
+			assests.map((item) => item.img),
+			(res) => {
+				this.setState({
+					res,
+				});
+			},
+		];
+
+		switch (direction) {
+			case 0:
+				imgMosaic_X.apply(this, [...params]);
+			case 1:
+				imgMosaic_Y.apply(this, [...params]);
+		}
+	};
+
 	render() {
 		const { assests, res, direction } = this.state;
 		return (
 			<>
-				<ImageList sx={{ width: 500, height: 450 }}>
+				<ImageList cols={3} sx={{ width: "100%", height: "100%" }}>
 					{assests &&
-						assests.map((item) => {
-							const title = ``;
+						assests.map((item, i) => {
+							const title = `第${i + 1}张`;
 							return (
 								<ImageListItem key={item.img}>
 									<img
@@ -150,7 +172,7 @@ export default class extends React.Component<
 												}}
 												aria-label={`info about ${title}`}
 											>
-												<InfoIcon />
+												<ClearIcon />
 											</IconButton>
 										}
 									/>
@@ -164,17 +186,28 @@ export default class extends React.Component<
 							assests.push({
 								img: file,
 							});
-							this.setState({ assests: assests });
+
+							this.setState({
+								assests: assests,
+							});
 						}}
 					>
 						<ImageListItem key={"AddNew"}>
-							<AddIcon />
+							<img alt="Add a new photo" src="/icon/add.jpg" />
 						</ImageListItem>
 					</FileInput>
 				</ImageList>
 
 				<br></br>
 				<FormGroup row>
+					<Button
+						onClick={this.handleGenerate}
+						startIcon={<CheckIcon />}
+						variant="contained"
+					>
+						OK
+					</Button>
+					&nbsp;&nbsp;
 					<FormControlLabel
 						onChange={() => this.handleChange(0)}
 						control={<Checkbox checked={direction === 0} />}
@@ -186,6 +219,8 @@ export default class extends React.Component<
 						label="纵向"
 					/>
 				</FormGroup>
+
+				<br />
 
 				<Preview res={res} />
 			</>
