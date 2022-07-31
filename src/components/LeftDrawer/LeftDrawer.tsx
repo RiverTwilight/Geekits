@@ -240,7 +240,8 @@ const LeftDrawer = (props: IProps) => {
 				/>
 			</div>
 			<Divider />
-			<List className={clsx({ [classes.hoverBlur]: isBlur })}>
+			{/* <List className={clsx({ [classes.hoverBlur]: isBlur })}> */}
+			<List>
 				{list.map((item) => (
 					<Warpper key={item.link} a={item} />
 				))}
