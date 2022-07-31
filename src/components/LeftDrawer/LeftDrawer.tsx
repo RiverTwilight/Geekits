@@ -42,7 +42,7 @@ const list = [
 	{
 		Icon: <MessageIcon />,
 		text: "反馈",
-		href: "https://support.qq.com/product/1221",
+		href: "https://support.qq.com/product/421719",
 	},
 
 	{
