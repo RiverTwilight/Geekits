@@ -9,8 +9,8 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import ListSubheader from "@mui/material/ListSubheader";
 import { Theme } from "@mui/material/styles";
-import createStyles from '@mui/styles/createStyles';
-import makeStyles from '@mui/styles/makeStyles';
+import createStyles from "@mui/styles/createStyles";
+import makeStyles from "@mui/styles/makeStyles";
 import BrightnessAutoTwoToneIcon from "@mui/icons-material/BrightnessAutoTwoTone";
 import BurstModeIcon from "@mui/icons-material/BurstMode";
 import CodeTwoToneIcon from "@mui/icons-material/CodeTwoTone";
@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme: Theme) =>
 		appItem: {
 			minHeight: "90px",
 		},
-		appItemWarpper:{
+		appItemWarpper: {
 			border: "1px solid #e0e0e0",
 			borderRadius: "5px",
 		},
@@ -61,10 +61,12 @@ const AppListItem = ({
 	name,
 	link,
 	description,
+	statu,
 	selected,
 	icon,
 }: {
 	description?: string;
+	statu?: "hidden" | "development";
 	name: string;
 	isActive?: boolean;
 	link?: string;
@@ -73,6 +75,7 @@ const AppListItem = ({
 	icon?: string;
 }) => {
 	const classes = useStyles();
+
 	const attr =
 		channel === 5
 			? {

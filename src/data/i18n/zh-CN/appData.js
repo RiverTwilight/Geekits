@@ -3,6 +3,7 @@ module.exports = [
 		name: "自律神器：积分奖手册",
 		channel: 4,
 		icon: "/icon/tasks.png",
+		statu: "hidden",
 		link: "point_brochure",
 		icon_color: "",
 		description: "利用多巴胺机制帮助你自律",
@@ -12,12 +13,14 @@ module.exports = [
 		channel: 4,
 		icon: "/icon/lens.png",
 		link: "coming",
+		statu: "hidden",
 		icon_color: "teal",
 	},
 	{
 		name: "种子转磁链",
 		channel: 4,
 		icon: "cloud_download",
+		statu: "hidden",
 		link: "coming",
 		icon_color: "deblue-300",
 		description: "将种子文件转换为磁力链接",
@@ -27,6 +30,7 @@ module.exports = [
 		channel: 1,
 		icon: "font_download",
 		link: "ocr",
+		statu: "hidden",
 		icon_color: "blue-400",
 		description: "识别图片中的文字，支持多语言",
 	},
@@ -41,6 +45,7 @@ module.exports = [
 	{
 		name: "AI图像识别",
 		link: "aic",
+		statu: "hidden",
 		icon: "photo_album",
 		icon_color: "blue-500",
 		help: "",
@@ -80,6 +85,7 @@ module.exports = [
 		channel: 4,
 	},
 	{
+		statu: "ready",
 		name: "日期&时间计算",
 		link: "date_calculator",
 		icon: "/icon/Google_Calendar_icon_(2020).svg",
@@ -103,6 +109,7 @@ module.exports = [
 		icon_color: "green",
 		help: "大文件可能会有很大延迟",
 		network: true,
+		statu: "hidden",
 		channel: 4,
 	},
 	{
@@ -123,6 +130,7 @@ module.exports = [
 	},
 	{
 		name: "B站封面获取",
+		statu: "ready",
 		link: "bilibili_cover",
 		icon: "photo_size_select_actual",
 		icon_color: "pink-300",
@@ -132,6 +140,7 @@ module.exports = [
 	},
 	{
 		name: "PornHub风格Logo生成",
+		statu: "ready",
 		link: "fake_pornhub_logo",
 		icon: "/icon/imagesearch_roller-orange/icon-192-maskable.png",
 		help: "仅供娱乐，产生任何后果自负",
@@ -146,6 +155,7 @@ module.exports = [
 	// 	channel: 4,
 	// },
 	{
+		statu: "ready",
 		name: "manifest生成",
 		link: "manifest",
 		icon: "settings_applications",
@@ -158,6 +168,7 @@ module.exports = [
 		link: "sctc",
 		icon: "font_download",
 		icon_color: "red",
+		statu: "ready",
 		help: "",
 		description: "作者：憂郁的烏龜",
 		channel: 4,
@@ -165,6 +176,7 @@ module.exports = [
 	{
 		name: "做决定",
 		link: "decision",
+		statu: "ready",
 		icon: "widgets",
 		icon_color: "indigo",
 		description: "随机选取，选择困难症患者福音",
@@ -181,6 +193,7 @@ module.exports = [
 	},
 	{
 		name: "文件树生成",
+		statu: "ready",
 		link: "folder_tree",
 		icon: "/icon/file.jpg",
 		description: "生成文件夹结构",
@@ -189,6 +202,7 @@ module.exports = [
 	},
 	{
 		name: "GIF制作",
+		statu: "hidden",
 		link: "gif",
 		icon: "/icon/file.jpg",
 		icon_color: "light-green",
@@ -196,6 +210,7 @@ module.exports = [
 		channel: 2,
 	},
 	{
+		statu: "ready",
 		name: "樱花动漫视频解析",
 		link: "imomoe_parse",
 		icon: "/icon/video.svg",
@@ -218,10 +233,12 @@ module.exports = [
 		icon: "sort_by_alpha",
 		icon_color: "green-200",
 		description: "测试正则表达式与文本是否匹配",
+		statu: "ready",
 		help: "",
 		channel: 3,
 	},
 	{
+		statu: "ready",
 		name: "HTML转JSX",
 		link: "html2jsx",
 		icon: "/icon/code-html-green/icon-192-maskable.png",
@@ -230,6 +247,7 @@ module.exports = [
 	},
 	{
 		name: "MIME-type查询",
+		statu: "ready",
 		link: "mimetype",
 		icon: "/icon/file_present-green/icon-192-maskable.png",
 		description: "查询文件的MIME-type，支持正反查询",
@@ -241,17 +259,20 @@ module.exports = [
 		icon: "today",
 		icon_color: "lime",
 		help: "",
+		statu: "hidden",
 		channel: 4,
 	},
 	{
 		name: "表情制作",
 		link: "meme_maker",
 		icon: "/icon/fun.png",
+		statu: "ready",
 		help: "",
 		channel: 2,
 	},
 	{
 		name: "全能文本转换",
+		statu: "ready",
 		link: "endecode",
 		icon: "wb_auto",
 		icon_color: "cyan-200",
@@ -261,6 +282,7 @@ module.exports = [
 	},
 	{
 		name: "图片转Base64",
+		statu: "ready",
 		link: "img2base64",
 		icon: "photo",
 		icon_color: "green-300",
@@ -268,6 +290,7 @@ module.exports = [
 		channel: 2,
 	},
 	{
+		statu: "ready",
 		name: "图片&字幕拼接",
 		link: "img_mosaic",
 		icon: "view_column",
@@ -277,6 +300,7 @@ module.exports = [
 	},
 	{
 		name: "化学方程式配平",
+		statu: "ready",
 		link: "cem",
 		icon: "/icon/magic-line-blue/icon-192-maskable.png",
 		channel: 4,
@@ -290,6 +314,7 @@ module.exports = [
 		network: true,
 	},
 	{
+		statu: "ready",
 		name: "图片压缩",
 		link: "img_compress",
 		icon: "/icon/finance.png",
@@ -303,6 +328,7 @@ module.exports = [
 		icon: "cloud_circle",
 		icon_color: "green-300",
 		help: "点击图片可保存；不填写文字尺寸则会采用随机大小",
+		statu: "hidden",
 		channel: 2,
 	},
 	{
@@ -310,8 +336,8 @@ module.exports = [
 		link: "tts",
 		icon: "/icon/audio.svg",
 		help: "每次最多合成500字符",
-		description:
-			"将文字转成mp3朗读音频，支持多种声线/速度/音调/音量自定义",
+		description: "将文字转成mp3朗读音频，支持多种声线/速度/音调/音量自定义",
+		statu: "hidden",
 		channel: 1,
 		network: true,
 	},
@@ -321,6 +347,7 @@ module.exports = [
 		icon: "attach_money",
 		icon_color: "yellow-600",
 		help: "生成结果仅供参考",
+		statu: "ready",
 		channel: 4,
 	},
 	{
@@ -333,6 +360,7 @@ module.exports = [
 	},
 	{
 		name: "词典",
+		statu: "ready",
 		link: "dic_ci",
 		icon: "/icon/book.png",
 		description: "便捷查询常用词",
@@ -341,6 +369,7 @@ module.exports = [
 	},
 	{
 		name: "歇后语查询",
+		statu: "ready",
 		link: "xiehouyu",
 		icon: "/icon/book.png",
 		description: "支持谜面谜底互查",
@@ -351,11 +380,13 @@ module.exports = [
 		name: "成语词典",
 		link: "dic_idiom",
 		icon: "/icon/book.png",
+		statu: "ready",
 		help: "支持缩写哦",
 		channel: 4,
 		network: true,
 	},
 	{
+		statu: "ready",
 		name: "字典",
 		link: "dic_word",
 		icon: "/icon/book.png",
@@ -366,6 +397,7 @@ module.exports = [
 	},
 	{
 		name: "JS键盘码查询",
+		statu: "ready",
 		link: "js_keycode",
 		icon: "/icon/code-js-yellow/icon-192-maskable.png",
 		channel: 3,
@@ -375,5 +407,5 @@ module.exports = [
 		name: "精品网站导航",
 		link: "https://imyshare.com/?from=ygktool",
 		channel: 5,
-	}
+	},
 ];

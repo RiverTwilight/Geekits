@@ -9,7 +9,6 @@ import makeStyles from "@mui/styles/makeStyles";
 import Grid from "@mui/material/Grid";
 
 export async function getStaticProps({ locale }) {
-
 	const appData = require("../data/i18n/" + locale + "/appData.js");
 
 	const pageDic = require("../data/i18n/" + locale + "/page.js")["/"];
@@ -21,7 +20,7 @@ export async function getStaticProps({ locale }) {
 				path: "/",
 			},
 			locale,
-			appData,
+			appData: appData.filter((app) => app.statu === "ready"),
 			pageDic,
 		},
 	};
