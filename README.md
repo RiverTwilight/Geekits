@@ -1,7 +1,7 @@
 <div align="center">
 
-<a href="https://v2.ygktool.com">
-  <img width="180" src="https://v2.ygktool.com/logo/v2/512.png">
+<a href="https://www.ygktool.com">
+  <img width="180" src="https://www.ygktool.com/logo/v2/512.png">
 </a>
 
 <h1 align="center">云极客工具</h1>
