@@ -54,7 +54,7 @@ class LoginForm extends React.Component<
 		super(props);
 		this.state = {
 			username: "198586335@qq.com",
-			password: "Wrj123456",
+			password: "12345678",
 			remember: false,
 			xcode: "",
 			statu: "login",
