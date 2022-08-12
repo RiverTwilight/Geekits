@@ -37,6 +37,7 @@ const useStyles = makeStyles({
 });
 
 // TODO 离子方程式配平
+// TODO 具体错误信息
 
 const Result = ({ result, eleClass }: any) => {
 	const classes = useStyles();
@@ -50,12 +51,19 @@ const Result = ({ result, eleClass }: any) => {
 	});
 	return (
 		<>
-			<Typography
-				data-clipboard-text={"sdfasdf"}
-				align="center"
-				variant="h5"
-				dangerouslySetInnerHTML={{ __html: result }}
-			></Typography>
+			<br />
+
+			<Paper>
+				<Typography
+					data-clipboard-text={"sdfasdf"}
+					align="center"
+					variant="h5"
+					dangerouslySetInnerHTML={{ __html: result }}
+				></Typography>
+			</Paper>
+
+			<br />
+
 			<TableContainer component={Paper}>
 				<Table aria-label="simple table">
 					<TableHead>
@@ -143,6 +151,7 @@ class Cem extends React.Component<{ classes: any }, UiState> {
 										eleClass: library.eleClass,
 									});
 								} catch (err) {
+									console.log(err);
 									window.snackbar({
 										message: "方程式有误",
 									});
