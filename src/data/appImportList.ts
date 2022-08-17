@@ -6,6 +6,9 @@ export default {
 	date_calculator: dynamic(() => import("../apps/date_calculator"), {
 		ssr: false,
 	}),
+	decision: dynamic(() => import("../apps/decision"), {
+		ssr: false,
+	}),
 	pomodoro: dynamic(() => import("../apps/pomodoro"), {
 		ssr: false,
 	}),

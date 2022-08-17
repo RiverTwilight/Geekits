@@ -149,13 +149,50 @@ class Start extends React.Component<StartProps, StartState> {
 	}
 }
 
+const calcLocation = (r: number, percent: number): { x: number; y: number } => {
+	const x = r * Math.sin(percent * 2 * Math.PI);
+	const y = r * Math.cos(percent * 2 * Math.PI);
+	return {
+		x,
+		y,
+	};
+};
+
 const Lens: React.FC<{
 	onStart: (statu: "start" | "stop") => void;
-	items: string[];
-}> = ({ onStart, items }) => {
+	items?: string[];
+}> = ({ onStart, items = ["脉动", "Cola", "茶"] }) => {
+	var r: number = 300;
+
+	const percent = 1 / items.length + 1;
+
 	return (
 		<>
-			<object></object>
+			<svg
+				height={`${r * 2}px`}
+				width={`${r * 2}px`}
+				xmlns=""
+				version="1.1"
+			>
+				{items.map((item, i) => {
+					return (
+						<path
+							fill="#66ccff"
+							stroke="#000"
+							d={`M${r} ${r} L${
+								r + calcLocation(r, percent * i).x
+							} ${r + calcLocation(r, percent * i).y}`}
+						></path>
+					);
+				})}
+				<circle
+					stroke="#888"
+					fill="transparent"
+					cx={r}
+					cy={r}
+					r={r}
+				></circle>
+			</svg>
 		</>
 	);
 };
@@ -208,8 +245,8 @@ export default class Decision extends React.Component<{}, ComponentState> {
 		return (
 			<>
 				<Lens
-					onStart={this.handleStart}
 					items={itemString.split(" ")}
+					onStart={this.handleStart}
 				/>
 			</>
 		);
