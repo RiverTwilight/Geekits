@@ -158,13 +158,23 @@ const calcLocation = (r: number, percent: number): { x: number; y: number } => {
 	};
 };
 
+const Pointer: React.FC<{}> = ({}) => {
+	return (
+		<>
+			<svg></svg>
+		</>
+	);
+};
+
 const Lens: React.FC<{
 	onStart: (statu: "start" | "stop") => void;
 	items?: string[];
 }> = ({ onStart, items = ["脉动", "Cola", "茶"] }) => {
 	var r: number = 300;
 
-	const percent = 1 / items.length + 1;
+	const percent = 1 / items.length;
+
+	console.log(percent);
 
 	return (
 		<>
@@ -173,18 +183,43 @@ const Lens: React.FC<{
 				width={`${r * 2}px`}
 				xmlns=""
 				version="1.1"
+				className={`${"rotationAnim"}`}
 			>
+				{Array(items.length)
+					.fill(0)
+					.map((item, i) => {
+						return (
+							<path
+								fill="#66ccff"
+								stroke="#000"
+								d={`M${r} ${r} L${
+									r + calcLocation(r, percent * i).x
+								} ${r + calcLocation(r, percent * i).y}`}
+							></path>
+						);
+					})}
+
 				{items.map((item, i) => {
 					return (
-						<path
-							fill="#66ccff"
-							stroke="#000"
-							d={`M${r} ${r} L${
-								r + calcLocation(r, percent * i).x
-							} ${r + calcLocation(r, percent * i).y}`}
-						></path>
+						<g
+							font-size="30"
+							line-height="30"
+							font-family="sans-serif"
+							fill="black"
+							stroke="none"
+							text-anchor="middle"
+							transform={`rotate(${
+								360 * (percent * i + percent / 2)
+							})`}
+							transform-origin="initial"
+						>
+							<text key={i + item} x={1.5 * r} y={r} dy={10}>
+								{item}
+							</text>
+						</g>
 					);
 				})}
+
 				<circle
 					stroke="#888"
 					fill="transparent"
@@ -205,8 +240,7 @@ export default class Decision extends React.Component<{}, ComponentState> {
 		this.state = {
 			local: JSON.parse(localStorage.getItem("decision") || "[]"),
 			statu: "stop",
-			itemString:
-				"糖醋排骨 红烧肉 酸菜鱼 坤徐菜 酸豇豆 炸鸡 烧仙草 汉堡 薯条 可乐 牛肉面 作者",
+			itemString: "糖醋排骨 fgdg asdf 作者",
 		};
 	}
 	componentDidMount() {
