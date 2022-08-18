@@ -1,30 +1,31 @@
-import React from "react";
-import { Input, Button } from "mdui-in-react";
+import React, { useEffect, useState } from "react";
+import { Input } from "mdui-in-react";
 // @ts-expect-error ts-migrate(2305) FIXME: Module '"mdui"' has no exported member 'prompt'.
 import { prompt as Prompt } from "mdui";
+import Button from "@mui/material/Button";
 
 //输入框&清空按钮
-const InputFiled = ({ onItemChange, items }: any) => {
-	return (
-		<>
-			<Button
-				className="mdui-float-right"
-				onClick={() => {
-					onItemChange("");
-				}}
-				mdui-tooltip="{content: '清空'}"
-				icon="close"
-			/>
-			<div className="mdui-clearfix"></div>
-			<Input
-				onValueChange={onItemChange}
-				rows={4}
-				value={items}
-				helper="输入待选物品，空格间隔"
-			/>
-		</>
-	);
-};
+// const InputFiled = ({ onItemChange, items }: any) => {
+// 	return (
+// 		<>
+// 			<Button
+// 				className="mdui-float-right"
+// 				onClick={() => {
+// 					onItemChange("");
+// 				}}
+// 				mdui-tooltip="{content: '清空'}"
+// 				icon="close"
+// 			/>
+// 			<div className="mdui-clearfix"></div>
+// 			<Input
+// 				onValueChange={onItemChange}
+// 				rows={4}
+// 				value={items}
+// 				helper="输入待选物品，空格间隔"
+// 			/>
+// 		</>
+// 	);
+// };
 
 /**
  * 渲染本地列表
@@ -150,8 +151,8 @@ class Start extends React.Component<StartProps, StartState> {
 }
 
 const calcLocation = (r: number, percent: number): { x: number; y: number } => {
-	const x = r * Math.sin(percent * 2 * Math.PI);
-	const y = r * Math.cos(percent * 2 * Math.PI);
+	const x = r * Math.cos(percent * 2 * Math.PI);
+	const y = r * Math.sin(percent * 2 * Math.PI);
 	return {
 		x,
 		y,
@@ -166,15 +167,40 @@ const Pointer: React.FC<{}> = ({}) => {
 	);
 };
 
+function isOdd(num) {
+	return num % 2;
+}
+
 const Lens: React.FC<{
 	onStart: (statu: "start" | "stop") => void;
 	items?: string[];
-}> = ({ onStart, items = ["脉动", "Cola", "茶"] }) => {
-	var r: number = 300;
+	resultIndex?: number;
+	statu: "start" | "stop";
+}> = ({ resultIndex, onStart, statu, items = ["脉动", "Cola", "茶"] }) => {
+	const DEGREE_PER_ITEM = 360 / items.length;
+
+	const [degree, setDegree] = useState(-DEGREE_PER_ITEM / 2);
+	const [index, setIndex] = useState(0);
+
+	const r: number = 300;
 
 	const percent = 1 / items.length;
 
-	console.log(percent);
+	useEffect(() => {
+		if (resultIndex === null) return;
+
+		const steps =
+			resultIndex > index
+				? resultIndex - index
+				: items.length - index + resultIndex;
+		const targetDegree =
+			degree - steps * DEGREE_PER_ITEM + getRandom(0, 3) * 360;
+
+		console.log(steps, items[resultIndex]);
+
+		setDegree(targetDegree);
+		setIndex(resultIndex);
+	}, [resultIndex, statu]);
 
 	return (
 		<>
@@ -183,7 +209,10 @@ const Lens: React.FC<{
 				width={`${r * 2}px`}
 				xmlns=""
 				version="1.1"
-				className={`${"rotationAnim"}`}
+				transform={`rotate(${
+					degree + (getRandom(0, 3) / 10) * DEGREE_PER_ITEM - 90
+				})`}
+				style={{ transition: "transform 5s" }}
 			>
 				{Array(items.length)
 					.fill(0)
@@ -232,7 +261,17 @@ const Lens: React.FC<{
 	);
 };
 
-type ComponentState = any;
+// get random number from range
+const getRandom = (min: number, max: number) => {
+	return Math.floor(Math.random() * (max - min + 1) + min);
+};
+
+type ComponentState = {
+	statu?: "stop" | "start";
+	itemString?: string;
+	resultString?: string;
+	resultIndex?: number;
+};
 
 export default class Decision extends React.Component<{}, ComponentState> {
 	constructor(props: {}) {
@@ -240,7 +279,8 @@ export default class Decision extends React.Component<{}, ComponentState> {
 		this.state = {
 			local: JSON.parse(localStorage.getItem("decision") || "[]"),
 			statu: "stop",
-			itemString: "糖醋排骨 fgdg asdf 作者",
+			itemString: "First Second Third Forth Fifth",
+			resultIndex: null,
 		};
 	}
 	componentDidMount() {
@@ -274,14 +314,27 @@ export default class Decision extends React.Component<{}, ComponentState> {
 		);
 	};
 
+	handleStart = () => {
+		this.setState({
+			statu: "start",
+			resultIndex: getRandom(
+				0,
+				this.state.itemString.split(" ").length - 1
+			),
+		});
+	};
+
 	render() {
-		const { statu, local, itemString } = this.state;
+		const { statu, local, itemString, resultIndex } = this.state;
 		return (
 			<>
 				<Lens
+					resultIndex={resultIndex}
 					items={itemString.split(" ")}
 					onStart={this.handleStart}
+					statu={statu}
 				/>
+				<Button onClick={this.handleStart}>GO</Button>
 			</>
 		);
 	}
