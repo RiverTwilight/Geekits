@@ -97,6 +97,7 @@ module.exports = [
 	{
 		name: "番茄钟",
 		link: "pomodoro",
+		statu: "development",
 		icon: "/icon/pomodoro.png",
 		description:
 			"番茄工作法极大地提高了工作的效率，还会有意想不到的成就感。",
@@ -155,7 +156,7 @@ module.exports = [
 	// 	channel: 4,
 	// },
 	{
-		statu: "ready",
+		statu: "development",
 		name: "manifest生成",
 		link: "manifest",
 		icon: "settings_applications",
@@ -166,6 +167,7 @@ module.exports = [
 	{
 		name: "简繁转换",
 		link: "sctc",
+		statu: "development",
 		icon: "font_download",
 		icon_color: "red",
 		statu: "ready",
@@ -176,7 +178,7 @@ module.exports = [
 	{
 		name: "做决定",
 		link: "decision",
-		statu: "ready",
+		statu: "development",
 		icon: "widgets",
 		icon_color: "indigo",
 		description: "随机选取，选择困难症患者福音",

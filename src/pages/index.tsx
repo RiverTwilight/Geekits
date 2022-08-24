@@ -20,7 +20,7 @@ export async function getStaticProps({ locale }) {
 				path: "/",
 			},
 			locale,
-			appData: appData.filter((app) => app.statu === "ready"),
+			appData: appData.filter((app) => app.statu !== "hidden"),
 			pageDic,
 		},
 	};

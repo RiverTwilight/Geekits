@@ -1,6 +1,5 @@
 import Avatar from "@mui/material/Avatar";
-import Card from "@mui/material/Card";
-import Paper from "@mui/material/Paper";
+import Chip from "@mui/material/Chip";
 import Grid from "@mui/material/Grid";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -66,7 +65,8 @@ const AppListItem = ({
 	icon,
 }: {
 	description?: string;
-	statu?: "hidden" | "development";
+	/**APP状态 */
+	statu?: "hidden" | "development" | "production";
 	name: string;
 	isActive?: boolean;
 	link?: string;
@@ -85,7 +85,7 @@ const AppListItem = ({
 			  }
 			: {
 					component: Link,
-					href: "/app/" + link,
+					href: statu !== "development" ? "/app/" + link : "#/",
 			  };
 	return (
 		<OutlinedCard>
@@ -109,7 +109,18 @@ const AppListItem = ({
 					</ListItemAvatar>
 					<ListItemText
 						className={classes.appItemText}
-						primary={name}
+						primary={
+							<>
+								{name}&nbsp;
+								{statu === "development" && (
+									<Chip
+										label="即将上线"
+										size="small"
+										variant="outlined"
+									/>
+								)}
+							</>
+						}
 						secondary={description}
 					/>
 				</ListItem>

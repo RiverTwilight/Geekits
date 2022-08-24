@@ -1,7 +1,18 @@
 import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import FormControl from "@mui/material/FormControl";
-import Input from "@mui/material/Input";
+import TextField from "@mui/material/TextField";
+import Paper from "@mui/material/Paper";
+
+const COLOR_LIST = [
+	"#FF0000",
+	"#FF7F00",
+	"#FFFF00",
+	"#00FF00",
+	"#00FFFF",
+	"#0000FF",
+	"#8B00FF",
+];
 
 /**
  * 渲染本地列表
@@ -90,7 +101,7 @@ const calcLocation = (r: number, percent: number): { x: number; y: number } => {
 	};
 };
 
-const R: number = 300;
+const R: number = 150;
 
 const Pointer: React.FC<{}> = ({}) => {
 	return (
@@ -113,7 +124,7 @@ const Lens: React.FC<{
 	const [degree, setDegree] = useState(-DEGREE_PER_ITEM / 2);
 	const [index, setIndex] = useState(0);
 
-	const r: number = 300;
+	const r: number = 150;
 
 	const percent = 1 / items.length;
 
@@ -135,10 +146,10 @@ const Lens: React.FC<{
 
 	return (
 		<div onClick={onStart}>
-			<Pointer />
+			{/* <Pointer /> */}
 			<svg
-				height={`${r * 2}px`}
-				width={`${r * 2}px`}
+				height={`${R * 2}px`}
+				width={`${R * 2}px`}
 				xmlns=""
 				version="1.1"
 				transform={`rotate(${
@@ -153,9 +164,9 @@ const Lens: React.FC<{
 							<path
 								fill="#66ccff"
 								stroke="#000"
-								d={`M${r} ${r} L${
-									r + calcLocation(r, percent * i).x
-								} ${r + calcLocation(r, percent * i).y}`}
+								d={`M${R} ${R} L${
+									R + calcLocation(r, percent * i).x
+								} ${R + calcLocation(r, percent * i).y}`}
 							></path>
 						);
 					})}
@@ -174,7 +185,7 @@ const Lens: React.FC<{
 							})`}
 							transform-origin="initial"
 						>
-							<text key={i + item} x={1.5 * r} y={r} dy={10}>
+							<text key={i + item} x={1.5 * r} y={R} dy={10}>
 								{item}
 							</text>
 						</g>
@@ -184,9 +195,9 @@ const Lens: React.FC<{
 				<circle
 					stroke="#888"
 					fill="transparent"
-					cx={r}
-					cy={r}
-					r={r}
+					cx={R}
+					cy={R}
+					r={R}
 				></circle>
 			</svg>
 		</div>
@@ -256,25 +267,39 @@ export default class Decision extends React.Component<{}, ComponentState> {
 		});
 	};
 
+	handleChange = (event) => {
+		this.setState({
+			itemString: event.target.value,
+		});
+	};
+
 	render() {
-		const { statu, local, itemString, resultIndex } = this.state;
+		const { statu, itemString, resultIndex } = this.state;
 		return (
 			<>
-				<Lens
-					resultIndex={resultIndex}
-					items={itemString.split(" ")}
-					onStart={this.handleStart}
-					statu={statu}
-				/>
-				<FormControl fullWidth>
-					<Input
-						value={except}
-						onChange={(e) => setExcept(e.target.value)}
-						multiline
-						rows={5}
-						placeholder="排除的文件夹/文件，一行一个"
+				<div className="center-with-flex">
+					<Lens
+						resultIndex={resultIndex}
+						items={itemString.split(" ")}
+						onStart={this.handleStart}
+						statu={statu}
 					/>
-				</FormControl>
+				</div>
+
+				<Paper style={{ padding: "5px" }}>
+					<FormControl fullWidth>
+						<TextField
+							variant="outlined"
+							value={itemString}
+							onChange={this.handleChange}
+							multiline
+							rows={3}
+							placeholder="填入选项，用空格分隔"
+						/>
+						<Button>保存</Button>
+					</FormControl>
+				</Paper>
+				<Paper></Paper>
 			</>
 		);
 	}
