@@ -1,98 +1,74 @@
 import React, { useEffect, useState } from "react";
-import { Input } from "mdui-in-react";
-// @ts-expect-error ts-migrate(2305) FIXME: Module '"mdui"' has no exported member 'prompt'.
-import { prompt as Prompt } from "mdui";
 import Button from "@mui/material/Button";
-
-//输入框&清空按钮
-// const InputFiled = ({ onItemChange, items }: any) => {
-// 	return (
-// 		<>
-// 			<Button
-// 				className="mdui-float-right"
-// 				onClick={() => {
-// 					onItemChange("");
-// 				}}
-// 				mdui-tooltip="{content: '清空'}"
-// 				icon="close"
-// 			/>
-// 			<div className="mdui-clearfix"></div>
-// 			<Input
-// 				onValueChange={onItemChange}
-// 				rows={4}
-// 				value={items}
-// 				helper="输入待选物品，空格间隔"
-// 			/>
-// 		</>
-// 	);
-// };
+import FormControl from "@mui/material/FormControl";
+import Input from "@mui/material/Input";
 
 /**
  * 渲染本地列表
  * @param param0
  */
-const ReadLocal = ({ local, edit, onClickLi }: any) => {
-	return local.map((cache: any, i: any) => (
-		<li
-			onClick={() => {
-				onClickLi(i);
-			}}
-			key={i}
-			className="mdui-col mdui-list-item mdui-ripple"
-		>
-			<div className="mdui-list-item-content">
-				<span className="mdui-text-color-theme">{cache}</span>
-			</div>
+// const ReadLocal = ({ local, edit, onClickLi }: any) => {
+// 	return local.map((cache: any, i: any) => (
+// 		<li
+// 			onClick={() => {
+// 				onClickLi(i);
+// 			}}
+// 			key={i}
+// 			className="mdui-col mdui-list-item mdui-ripple"
+// 		>
+// 			<div className="mdui-list-item-content">
+// 				<span className="mdui-text-color-theme">{cache}</span>
+// 			</div>
 
-			<i
-				onClick={() => {
-					edit(i);
-				}}
-				className="mdui-list-item-icon mdui-icon material-icons"
-			>
-				edit
-			</i>
-		</li>
-	));
-};
+// 			<i
+// 				onClick={() => {
+// 					edit(i);
+// 				}}
+// 				className="mdui-list-item-icon mdui-icon material-icons"
+// 			>
+// 				edit
+// 			</i>
+// 		</li>
+// 	));
+// };
 
-//添加组合组件
-const AddLocal = ({ onLocalChange }: any) => {
-	return (
-		<li
-			onClick={() => {
-				if (!localStorage.getItem("decision")) {
-					localStorage.setItem("decision", JSON.stringify([]));
-				}
-				const cache = JSON.parse(localStorage.decision);
-				Prompt(
-					"使用空格分隔",
-					(value: any) => {
-						cache.push(value);
-						localStorage.setItem("decision", JSON.stringify(cache));
-						onLocalChange();
-					},
-					() => {
-						/*取消事件*/
-					},
-					{
-						type: "textarea",
-						confirmText: "保存",
-						cancelText: "取消",
-						history: false,
-					}
-				);
-			}}
-			className="mdui-col mdui-list-item mdui-ripple"
-		>
-			<div className="mdui-list-item-content">
-				<span className="mdui-text-color-theme">新增一个组合</span>
-			</div>
+// //添加组合组件
+// const AddLocal = ({ onLocalChange }: any) => {
+// 	return (
+// 		<li
+// 			onClick={() => {
+// 				if (!localStorage.getItem("decision")) {
+// 					localStorage.setItem("decision", JSON.stringify([]));
+// 				}
+// 				const cache = JSON.parse(localStorage.decision);
+// 				Prompt(
+// 					"使用空格分隔",
+// 					(value: any) => {
+// 						cache.push(value);
+// 						localStorage.setItem("decision", JSON.stringify(cache));
+// 						onLocalChange();
+// 					},
+// 					() => {
+// 						/*取消事件*/
+// 					},
+// 					{
+// 						type: "textarea",
+// 						confirmText: "保存",
+// 						cancelText: "取消",
+// 						history: false,
+// 					}
+// 				);
+// 			}}
+// 			className="mdui-col mdui-list-item mdui-ripple"
+// 		>
+// 			<div className="mdui-list-item-content">
+// 				<span className="mdui-text-color-theme">新增一个组合</span>
+// 			</div>
 
-			<i className="mdui-list-item-icon mdui-icon material-icons">add</i>
-		</li>
-	);
-};
+// 			<i className="mdui-list-item-icon mdui-icon material-icons">add</i>
+// 		</li>
+// 	);
+// };
 
 type StartState = {
 	statu?: "stop" | "start";
@@ -105,51 +81,6 @@ type StartProps = {
 	items: string;
 };
 
-//开始随机组件
-class Start extends React.Component<StartProps, StartState> {
-	constructor(props: StartProps) {
-		super(props);
-		this.state = {
-			statu: props.statu,
-			currentItem: "点我开始！",
-			timer: null,
-		};
-	}
-	componentWillReceiveProps(nextProps: {}) {
-		this.setState({
-			// @ts-expect-error ts-migrate(2339) FIXME: Property 'statu' does not exist on type '{}'.
-			statu: nextProps.statu,
-			// @ts-expect-error ts-migrate(2339) FIXME: Property 'items' does not exist on type '{}'.
-			items: nextProps.items,
-		});
-	}
-	componentDidMount() {
-		var timer = setInterval(() => {
-			const { items } = this.props;
-			let arr = items.split(" ");
-			var maxNum = arr.length - 1;
-			// @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'number' is not assignable to par... Remove this comment to see the full error message
-			var index = parseInt(Math.random() * (maxNum - 0 + 1) + 0, 10); //随机选取0到最大值之间的整数
-			var currentItem = arr[index];
-			if (this.state.statu == "start") {
-				this.setState({
-					currentItem: currentItem,
-				});
-			}
-		}, 100);
-		this.setState({
-			timer,
-		});
-	}
-	render() {
-		return (
-			<div className="mdui-text-center">
-				<h1>{this.state.currentItem}</h1>
-			</div>
-		);
-	}
-}
-
 const calcLocation = (r: number, percent: number): { x: number; y: number } => {
 	const x = r * Math.cos(percent * 2 * Math.PI);
 	const y = r * Math.sin(percent * 2 * Math.PI);
@@ -159,20 +90,20 @@ const calcLocation = (r: number, percent: number): { x: number; y: number } => {
 	};
 };
 
+const R: number = 300;
+
 const Pointer: React.FC<{}> = ({}) => {
 	return (
 		<>
-			<svg></svg>
+			<svg width={R * 2}>
+				<circle cx={R} cy={R} r={R} fill="#66ccff"></circle>
+			</svg>
 		</>
 	);
 };
 
-function isOdd(num) {
-	return num % 2;
-}
-
 const Lens: React.FC<{
-	onStart: (statu: "start" | "stop") => void;
+	onStart: () => void;
 	items?: string[];
 	resultIndex?: number;
 	statu: "start" | "stop";
@@ -203,7 +134,8 @@ const Lens: React.FC<{
 	}, [resultIndex, statu]);
 
 	return (
-		<>
+		<div onClick={onStart}>
+			<Pointer />
 			<svg
 				height={`${r * 2}px`}
 				width={`${r * 2}px`}
@@ -257,7 +189,7 @@ const Lens: React.FC<{
 					r={r}
 				></circle>
 			</svg>
-		</>
+		</div>
 	);
 };
 
@@ -279,7 +211,7 @@ export default class Decision extends React.Component<{}, ComponentState> {
 		this.state = {
 			local: JSON.parse(localStorage.getItem("decision") || "[]"),
 			statu: "stop",
-			itemString: "First Second Third Forth Fifth",
+			itemString: "First Second",
 			resultIndex: null,
 		};
 	}
@@ -334,7 +266,15 @@ export default class Decision extends React.Component<{}, ComponentState> {
 					onStart={this.handleStart}
 					statu={statu}
 				/>
-				<Button onClick={this.handleStart}>GO</Button>
+				<FormControl fullWidth>
+					<Input
+						value={except}
+						onChange={(e) => setExcept(e.target.value)}
+						multiline
+						rows={5}
+						placeholder="排除的文件夹/文件，一行一个"
+					/>
+				</FormControl>
 			</>
 		);
 	}

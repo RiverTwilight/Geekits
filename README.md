@@ -19,14 +19,8 @@
 
 ## 贡献 | Contribution
 
-本项目采用开发+部署的分支策略(master + v2)，master 分支将自动部署到网站正式地址。（目前网站正式版为 v1)
-
 ```bash
-$ git clone git@github.com:rivertwilight/ygktool.git
-$ cd ygktool
-$ git checkout v2
-$ npm install
-$ npm start
+$ npm run dev
 ```
 
 If your project run successfully, it will opens http://127.0.0.1:3000 in your browser automatically.
