@@ -1,10 +1,9 @@
 import React from "react";
 import QRCode from "qrcode";
 import FileInput from "../../components/FileInput";
-import { Theme, useTheme } from "@mui/material/styles";
-import makeStyles from "@mui/styles/makeStyles";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
+import Alert from "@mui/material/Alert";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
@@ -67,7 +66,10 @@ const Result = ({ qrcode }) => {
 	if (!qrcode) return null;
 	return (
 		<Card>
-			<img alt="qrcode" src={qrcode}></img>
+			<div className="center-with-flex">
+				<img alt="qrcode" src={qrcode}></img>
+			</div>
+			<Alert severity="info">长按或右键图片即可保存</Alert>
 		</Card>
 	);
 };
@@ -223,6 +225,7 @@ class Qrcode extends React.Component<{}, QrcodeState> {
 							</RadioGroup>
 						</FormControl>
 						{Form}
+
 						{/* 
 						<RangeInput
 							value={width}
@@ -285,11 +288,10 @@ class Qrcode extends React.Component<{}, QrcodeState> {
 
 				<br></br>
 
-				<Result qrcode={qrcode} />
-
 				<Button onClick={this.handleClick} variant="outlined">
 					生成
 				</Button>
+				<Result qrcode={qrcode} />
 			</>
 		);
 	}

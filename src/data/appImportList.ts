@@ -6,6 +6,9 @@ export default {
 	date_calculator: dynamic(() => import("../apps/date_calculator"), {
 		ssr: false,
 	}),
+	screen_recorder: dynamic(() => import("../apps/screen_recorder"), {
+		ssr: false,
+	}),
 	decision: dynamic(() => import("../apps/decision"), {
 		ssr: false,
 	}),
