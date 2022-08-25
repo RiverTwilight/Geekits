@@ -8,7 +8,10 @@ module.exports = {
 	keywords: ["云极客工具", "ygktool", "云极客", "云极客工具箱"],
 	author: {
 		name: "江村暮",
+		email: "contact@rene.wang",
+		twitter: "https://twitter.com/rea1DonandTrump",
 	},
+	repo: "https://github.com/rivertwilight/ygktool",
 	root: "https://www.ygktool.com",
 	apiConfig: {
 		url: "https://ygk-api.yunser.com",

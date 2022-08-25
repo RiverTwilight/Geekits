@@ -54,10 +54,10 @@ module.exports = [
 	},
 	{
 		name: "屏幕录制",
-		link: "screenrecord",
-		icon: "videocam",
+		description: "使用浏览器便捷录制屏幕",
+		link: "screen_recorder",
+		icon: "/icon/monitor_red_outline.png",
 		icon_color: "orange-400",
-		help: "仅支持新版本的Chromium/Firefox内核的PC浏览器使用",
 		channel: 2,
 	},
 	{
@@ -226,7 +226,7 @@ module.exports = [
 		icon: "apps",
 		icon_color: "blue",
 		description: "将图片切成九宫格，在社交媒体发布逼格更高",
-		help: "",
+		statu: "devlopment",
 		channel: 2,
 	},
 	{

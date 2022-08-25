@@ -13,10 +13,20 @@ function MyApp({ Component, pageProps }) {
 		if (localStorage.getItem("dark")) {
 			setDark(!!localStorage.getItem("dark"));
 		}
+
 		window.setDark = (state) => {
 			setDark(state);
 		};
+
 		console.log("Some global functions to nerds: Window.setDark()");
+
+		//detect dart mode
+		if (
+			window.matchMedia &&
+			window.matchMedia("(prefers-color-scheme: dark)").matches
+		) {
+			setDark(true);
+		}
 
 		const jssStyles = document.querySelector("#jss-server-side");
 		if (jssStyles && jssStyles.parentNode)

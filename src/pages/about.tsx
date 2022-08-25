@@ -6,6 +6,8 @@ import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import TwitterIcon from "@mui/icons-material/Twitter";
+import MailIcon from "@mui/icons-material/Mail";
+import { author, repo } from "../site.config";
 
 export async function getStaticProps({ locale }) {
 	const pageDic = require("../data/i18n/" + locale + "/page.js")["/about"];
@@ -29,8 +31,8 @@ export async function getStaticProps({ locale }) {
 // css centers the avatar
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
-		authorName:{
-			transform:"translateY(-10px)",
+		authorName: {
+			transform: "translateY(-10px)",
 		},
 		avatar: {
 			transform: "translateY(-50%)",
@@ -71,12 +73,25 @@ export default function Terms({ aboutContent }) {
 				</div>
 
 				<div className={classes.contactGroup}>
-					<IconButton aria-label="github">
+					<IconButton href={repo} aria-label="github">
 						<GitHubIcon />
 					</IconButton>
-					<IconButton aria-label="delete">
-						<TwitterIcon />
-					</IconButton>
+					{author.twitter && (
+						<IconButton
+							href={author.twitter}
+							aria-label="Go to author's twitter profile"
+						>
+							<TwitterIcon />
+						</IconButton>
+					)}
+					{author.email && (
+						<IconButton
+							href={`maileto://${author.email}`}
+							aria-label="mail to me"
+						>
+							<MailIcon />
+						</IconButton>
+					)}
 				</div>
 			</OutlinedCard>
 			<br />
