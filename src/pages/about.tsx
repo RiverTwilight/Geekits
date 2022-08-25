@@ -28,7 +28,6 @@ export async function getStaticProps({ locale }) {
 	};
 }
 
-// css centers the avatar
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		authorName: {
@@ -52,7 +51,7 @@ const useStyles = makeStyles((theme: Theme) =>
 	})
 );
 
-export default function Terms({ aboutContent }) {
+export default function About({ aboutContent }) {
 	const classes = useStyles();
 	return (
 		<div style={{ maxWidth: "600px" }}>
@@ -87,7 +86,7 @@ export default function Terms({ aboutContent }) {
 					{author.email && (
 						<IconButton
 							href={`maileto://${author.email}`}
-							aria-label="mail to me"
+							aria-label="Send an email to me"
 						>
 							<MailIcon />
 						</IconButton>
@@ -95,7 +94,7 @@ export default function Terms({ aboutContent }) {
 				</div>
 			</OutlinedCard>
 			<br />
-			<OutlinedCard padding={1}>
+			<OutlinedCard padding={2}>
 				<StyledMarkdown content={aboutContent} />
 			</OutlinedCard>
 		</div>
