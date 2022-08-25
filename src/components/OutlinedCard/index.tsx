@@ -12,8 +12,11 @@ import clsx from "clsx";
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		root: {
-			border: "1px solid #e0e0e0",
-			borderRadius: "5px",
+			border: {
+				light: "1px solid #e0e0e0",
+				dark: "1px solid rgba(255, 255, 255, 0.23)",
+			}[theme.palette.mode],
+			borderRadius: "8px",
 		},
 	})
 );
@@ -21,9 +24,10 @@ const useStyles = makeStyles((theme: Theme) =>
 const OutlinedCard = ({
 	children,
 	padding,
-	className
+	className,
 }: {
 	children?: JSX.Element | JSX.Element[];
+	/**将获得10的倍数 Padding */
 	padding?: number;
 }) => {
 	const classes = useStyles();

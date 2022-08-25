@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Layout from "../components/Layout";
 import siteConfig from "../site.config.js";
-import { ThemeProvider, StyledEngineProvider } from "@mui/material/styles";
+import {
+	ThemeProvider,
+	createTheme,
+	StyledEngineProvider,
+} from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 // import UserContextProvider from "../components/UserContextProvider";
 import theme from "../utils/theme";
 import "./App.css";
@@ -20,18 +25,21 @@ function MyApp({ Component, pageProps }) {
 
 		console.log("Some global functions to nerds: Window.setDark()");
 
-		//detect dart mode
-		if (
-			window.matchMedia &&
-			window.matchMedia("(prefers-color-scheme: dark)").matches
-		) {
-			setDark(true);
-		}
-
 		const jssStyles = document.querySelector("#jss-server-side");
 		if (jssStyles && jssStyles.parentNode)
 			jssStyles.parentNode.removeChild(jssStyles);
 	}, []);
+
+	const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
+	const theme = React.useMemo(
+		() =>
+			createTheme({
+				palette: {
+					mode: prefersDarkMode ? "dark" : "light",
+				},
+			}),
+		[prefersDarkMode]
+	);
 
 	const {
 		currentPage = {
@@ -43,11 +51,7 @@ function MyApp({ Component, pageProps }) {
 
 	return (
 		<StyledEngineProvider injectFirst>
-			<ThemeProvider
-				theme={theme({
-					darkTheme: dark,
-				})}
-			>
+			<ThemeProvider theme={theme}>
 				<Layout
 					siteConfig={siteConfig}
 					locale={locale}
