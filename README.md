@@ -39,3 +39,5 @@ See our [translation-repository](https://github/rivertwilight/ygktool-translatio
 MIT
 
 Copyright © 2020-Present YgkTool Dev team
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FRiverTwilight%2Fygktool.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FRiverTwilight%2Fygktool?ref=badge_large)

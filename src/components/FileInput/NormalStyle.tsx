@@ -1,8 +1,7 @@
 import * as React from "react";
 import { Theme } from "@mui/material/styles";
-import withStyles from '@mui/styles/withStyles';
-import createStyles from '@mui/styles/createStyles';
-import makeStyles from '@mui/styles/makeStyles';
+import createStyles from "@mui/styles/createStyles";
+import makeStyles from "@mui/styles/makeStyles";
 import IconButton from "@mui/material/IconButton";
 import Button from "@mui/material/Button";
 
@@ -26,7 +25,7 @@ const NormalStyle = ({
 	text,
 	icon,
 	handleReadFile,
-	...others
+	...props
 }: any) => {
 	const classes = useStyles();
 	return (
@@ -34,11 +33,10 @@ const NormalStyle = ({
 			<input
 				accept={fileType}
 				id="contained-button-file"
-				multiple
 				onInput={handleReadFile}
 				type="file"
 				className={classes.input}
-				{...others}
+				{...props}
 			/>
 			<label htmlFor="contained-button-file">
 				<Button

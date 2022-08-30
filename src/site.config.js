@@ -14,6 +14,6 @@ module.exports = {
 	repo: "https://github.com/rivertwilight/ygktool",
 	root: "https://www.ygktool.com",
 	apiConfig: {
-		url: "https://ygk-api.yunser.com",
+		url: "https://openapi.ygktool.com",
 	},
 };

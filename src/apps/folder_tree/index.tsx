@@ -3,14 +3,17 @@ import ClipboardJS from "clipboard";
 import Input from "@mui/material/Input";
 import FormControl from "@mui/material/FormControl";
 import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import FileInput from "../../components/FileInput";
 import pathToTree from "./engine";
+import OutlinedCard from "../../components/OutlinedCard";
 
 export default function FolderTree() {
 	const [fileList, setFileList] = useState([]);
 	const [except, setExcept] = useState("");
 	const [tree, setTree] = useState("");
+
 	useEffect(() => {
 		var clipboard = new ClipboardJS(".copy");
 		clipboard.on("success", (e) => {
@@ -19,57 +22,67 @@ export default function FolderTree() {
 		});
 		return () => clipboard && clipboard.destroy();
 	}, []);
+
 	return (
 		<>
-			<FileInput
-				multiple
-				handleFileUpload={(_, _file, fileList) => {
-					var result = [];
-					// @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
-					for (var i = 0; i < fileList.length; i++) {
-						// @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
-						result.push(fileList[i].webkitRelativePath);
-					}
-					// @ts-expect-error ts-migrate(2345) FIXME: Type 'any' is not assignable to type 'never'.
-					setFileList(result);
-				}}
-				webkitdirectory
-			/>
-			<FormControl fullWidth>
-				<Input
-					value={except}
-					onChange={(e) => setExcept(e.target.value)}
-					multiline
-					rows={5}
-					placeholder="排除的文件夹/文件，一行一个"
+			<OutlinedCard padding={2}>
+				<h4>1. 选择一个文件夹</h4>
+				<FileInput
+					multiple
+					webkitdirectory
+					handleFileUpload={(_, _file, fileList) => {
+						var result = [];
+						for (var i = 0; i < fileList.length; i++) {
+							result.push(fileList[i].webkitRelativePath);
+						}
+						setFileList(result);
+					}}
 				/>
-			</FormControl>
-			<Button
-				onClick={() => {
-					setTree(pathToTree(fileList, except.split("\n")));
-				}}
-				variant="contained"
-				color="primary"
-			>
-				生成
-			</Button>
+			</OutlinedCard>
+			<br />
+			<OutlinedCard padding={2}>
+				<h4>2. 设置要排除的路径（可选）</h4>
+				<FormControl fullWidth>
+					<Input
+						value={except}
+						onChange={(e) => setExcept(e.target.value)}
+						multiline
+						rows={5}
+						placeholder="排除的文件夹/文件，一行一个"
+					/>
+				</FormControl>
+			</OutlinedCard>
+			<br />
+			<OutlinedCard padding={2}>
+				<h4>3. 生成文件树</h4>
 
-			<button
-				data-clipboard-text={tree}
-				className={`${
-					tree === "" ? "hidden" : ""
-				} copy mdui-btn mdui-btn-icon`}
-			>
-				<i className="mdui-icon material-icons">&#xe14d;</i>
-			</button>
+				<Button
+					onClick={() => {
+						setTree(pathToTree(fileList, except.split("\n")));
+					}}
+					variant="contained"
+					color="primary"
+				>
+					生成
+				</Button>
 
-			<br></br>
+				<IconButton
+					data-clipboard-text={tree}
+					className={`${
+						tree === "" ? "hidden" : ""
+					} copy mdui-btn mdui-btn-icon`}
+				>
+					<i className="mdui-icon material-icons">&#xe14d;</i>
+				</IconButton>
 
-			{tree !== "" && (
-				<Typography>
-					<pre>{tree}</pre>
-				</Typography>
-			)}
+				<br></br>
+
+				{tree !== "" && (
+					<Typography>
+						<pre>{tree}</pre>
+					</Typography>
+				)}
+			</OutlinedCard>
 		</>
 	);
 }

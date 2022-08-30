@@ -17,6 +17,7 @@ module.exports = [
 		icon_color: "teal",
 	},
 	{
+		statu: "development",
 		name: "种子转磁链",
 		channel: 4,
 		icon: "cloud_download",
@@ -44,6 +45,7 @@ module.exports = [
 	},
 	{
 		name: "AI图像识别",
+		statu: "development",
 		link: "aic",
 		statu: "hidden",
 		icon: "photo_album",
@@ -62,6 +64,7 @@ module.exports = [
 	},
 	{
 		name: "UA解析",
+		statu: "development",
 		link: "ua",
 		icon: "devices",
 		icon_color: "teal-300",
@@ -71,6 +74,7 @@ module.exports = [
 	{
 		name: "网页资源抓取",
 		link: "console",
+		statu: "development",
 		icon: "language",
 		icon_color: "indigo-300",
 		help: "动态生成的内容可能无法抓取到",
@@ -204,7 +208,7 @@ module.exports = [
 	},
 	{
 		name: "GIF制作",
-		statu: "hidden",
+		statu: "development",
 		link: "gif",
 		icon: "/icon/file.jpg",
 		icon_color: "light-green",

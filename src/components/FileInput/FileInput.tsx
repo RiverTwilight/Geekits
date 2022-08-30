@@ -3,7 +3,6 @@ import { dataURLtoFile, saveFile } from "../../utils/fileSaver";
 import { signListener, removeListener } from "./useDragListener";
 import CenteredStyle from "./CenteredStyle";
 import NormalStyle from "./NormalStyle";
-
 import FolderIcon from "@mui/icons-material/Folder";
 import VideocamIcon from "@mui/icons-material/Videocam";
 import ImageIcon from "@mui/icons-material/Image";
@@ -109,7 +108,6 @@ class FileInput extends React.Component<FRProps, FRState> {
 	};
 	render() {
 		const {
-			webkitdirectory,
 			fileType,
 			handleFileUpload,
 			maxWidth = "120px",
@@ -117,6 +115,9 @@ class FileInput extends React.Component<FRProps, FRState> {
 			template,
 			...props
 		} = this.props;
+
+		console.log(props);
+
 		const { btnText } = this.state;
 		var icon = <CloudUploadIcon />;
 		if (fileType) {
@@ -142,11 +143,11 @@ class FileInput extends React.Component<FRProps, FRState> {
 				<div>
 					<input
 						accept={fileType}
-						multiple
 						onInput={this.handleReadFile.bind(this)}
 						type="file"
 						id="contained-button-file"
 						style={{ display: "none" }}
+						{...props}
 					/>
 					<label htmlFor="contained-button-file">
 						{EmbeddedChildren}
@@ -163,14 +164,15 @@ class FileInput extends React.Component<FRProps, FRState> {
 							<NormalStyle
 								text={btnText}
 								icon={icon}
-								{...this.props}
+								handleReadFile={this.handleReadFile}
+								{...props}
 							/>
 						),
 						center: (
 							<CenteredStyle
 								text={btnText}
 								icon={icon}
-								{...this.props}
+								{...props}
 							/>
 						),
 					}[template || "normal"]
