@@ -10,6 +10,7 @@
 [![License](https://img.shields.io/github/license/rivertwilight/ygktool.svg)](https://github.com/rivertwilight/ygktool/blob/master/LICENSE)
 [![Stars](https://img.shields.io/github/stars/rivertwilight/ygktool)](https://github.com/rivertwilight/ygktool)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-Angular-red.svg)](https://github.com/lin-123/javascript)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FRiverTwilight%2FYgkTool.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FRiverTwilight%2FYgkTool?ref=badge_shield)
 
 </div>
 
@@ -40,4 +41,4 @@ MIT
 
 Copyright © 2020-Present YgkTool Dev team
 
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FRiverTwilight%2Fygktool.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FRiverTwilight%2Fygktool?ref=badge_large)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FRiverTwilight%2FYgkTool.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FRiverTwilight%2FYgkTool?ref=badge_large)
