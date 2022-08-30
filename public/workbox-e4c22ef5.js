@@ -1,7 +1,7 @@
 define(['exports'], (function (exports) { 'use strict';
 
     try {
-      self['workbox:core:6.5.2'] && _();
+      self['workbox:core:6.5.3'] && _();
     } catch (e) {}
 
     /*
@@ -496,7 +496,7 @@ define(['exports'], (function (exports) { 'use strict';
     };
 
     try {
-      self['workbox:routing:6.5.2'] && _();
+      self['workbox:routing:6.5.3'] && _();
     } catch (e) {}
 
     /*
@@ -1308,7 +1308,7 @@ define(['exports'], (function (exports) { 'use strict';
     }
 
     try {
-      self['workbox:strategies:6.5.2'] && _();
+      self['workbox:strategies:6.5.3'] && _();
     } catch (e) {}
 
     /*
@@ -2496,12 +2496,7 @@ define(['exports'], (function (exports) { 'use strict';
         promises.push(networkPromise);
         const response = await handler.waitUntil((async () => {
           // Promise.race() will resolve as soon as the first promise resolves.
-          return (await handler.waitUntil(Promise.race(promises))) || ( // If Promise.race() resolved with null, it might be due to a network
-          // timeout + a cache miss. If that were to happen, we'd rather wait until
-          // the networkPromise resolves instead of returning null.
-          // Note that it's fine to await an already-resolved promise, so we don't
-          // have to check to see if it's still "in flight".
-          await networkPromise);
+          return (await handler.waitUntil(Promise.race(promises))) || (await networkPromise);
         })());
 
         {
@@ -2741,4 +2736,4 @@ define(['exports'], (function (exports) { 'use strict';
     exports.registerRoute = registerRoute;
 
 }));
-//# sourceMappingURL=workbox-7861317f.js.map
+//# sourceMappingURL=workbox-e4c22ef5.js.map

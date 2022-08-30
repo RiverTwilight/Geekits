@@ -10,6 +10,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
+import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import { useTheme, Theme } from "@mui/material/styles";
@@ -17,6 +18,7 @@ import makeStyles from "@mui/styles/makeStyles";
 import createStyles from "@mui/styles/createStyles";
 import HomeIcon from "@mui/icons-material/Home";
 import SettingsIcon from "@mui/icons-material/Settings";
+import { repo } from "../../site.config";
 import MessageIcon from "@mui/icons-material/Message";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
@@ -27,6 +29,7 @@ import { store as loginDialogStore } from "../../data/loginDialogState";
 import { store as drawerStore } from "../../data/drawerState";
 import Alert from "@mui/material/Alert";
 import MuiLink from "@mui/material/Link";
+import Shortcuts from "../Shortcuts";
 
 // TODO Shortcuts
 
@@ -64,7 +67,7 @@ const list = [
 	{
 		Icon: <GitHubIcon />,
 		text: "Github",
-		href: "https://github.com/rivertwilight/ygktool",
+		href: repo,
 	},
 	{
 		Icon: <InfoOutlinedIcon />,
@@ -178,10 +181,12 @@ const User = ({ handleLogin }: any) => {
 	);
 };
 
-interface IProps {}
+interface IProps {
+	repo?: string;
+}
 
 const LeftDrawer = (props: IProps) => {
-	const { handleLoginOpen } = props;
+	const { handleLoginOpen, repo } = props;
 
 	// const history = useHistory()
 
@@ -252,6 +257,9 @@ const LeftDrawer = (props: IProps) => {
 					<Warpper key={item.link} a={item} />
 				))}
 			</List>
+			<Box padding={1}>
+				<Shortcuts />
+			</Box>
 		</>
 	);
 

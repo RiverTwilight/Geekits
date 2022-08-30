@@ -1,7 +1,7 @@
 import React from "react";
 import { Theme } from "@mui/material/styles";
-import createStyles from '@mui/styles/createStyles';
-import makeStyles from '@mui/styles/makeStyles';
+import createStyles from "@mui/styles/createStyles";
+import makeStyles from "@mui/styles/makeStyles";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -65,10 +65,10 @@ const useStyles = makeStyles((theme: Theme) =>
 export default (props: { title: string; PageAction }) => {
 	const classes = useStyles();
 
-	const { title, PageAction } = props
+	const { title, PageAction } = props;
 
 	return (
-        <ElevationScroll {...props}>
+		<ElevationScroll {...props}>
 			<AppBar
 				position="fixed"
 				color="inherit"
@@ -77,14 +77,15 @@ export default (props: { title: string; PageAction }) => {
 				{/* <div className={classes.cover}></div> */}
 				<Toolbar>
 					<IconButton
-                        color="primary"
-                        aria-label="open drawer"
-                        onClick={() =>
+						color="primary"
+						aria-label="open drawer"
+						onClick={() =>
 							store.dispatch({ type: "drawer/opened" })
 						}
-                        edge="start"
-                        className={classes.menuButton}
-                        size="large">
+						edge="start"
+						className={classes.menuButton}
+						size="large"
+					>
 						<MenuTwoToneIcon />
 					</IconButton>
 					<Typography
@@ -99,5 +100,5 @@ export default (props: { title: string; PageAction }) => {
 				<Divider />
 			</AppBar>
 		</ElevationScroll>
-    );
+	);
 };

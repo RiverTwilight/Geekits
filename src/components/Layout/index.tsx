@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Head from "next/head";
-import dynamic from "next/dynamic";
 import Header from "../Header";
 import LeftDrawer from "../LeftDrawer";
 import LoginDialog from "../LoginDialog";
 import { ICurrentPage, ISiteConfig } from "../../types";
 import CssBaseline from "@mui/material/CssBaseline";
 import { Theme } from "@mui/material/styles";
-import createStyles from '@mui/styles/createStyles';
-import withStyles from '@mui/styles/withStyles';
-import makeStyles from '@mui/styles/makeStyles';
+import createStyles from "@mui/styles/createStyles";
+import withStyles from "@mui/styles/withStyles";
+import makeStyles from "@mui/styles/makeStyles";
 import Snackbar from "@mui/material/Snackbar";
 import LinearProgress from "@mui/material/LinearProgress";
 
@@ -211,7 +210,7 @@ class Layout extends React.Component<
 					<CssBaseline />
 					<LoginDialog />
 					<Header PageAction={PageAction} title={currentPage.title} />
-					<LeftDrawer />
+					<LeftDrawer repo={siteConfig.repo} />
 					<main className={classes.content}>{childrenWithProps}</main>
 				</div>
 				<GlobalSnackbar />
