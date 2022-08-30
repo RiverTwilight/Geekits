@@ -159,7 +159,8 @@ class Layout extends React.Component<
 		const showTitle = `${currentPage ? `${currentPage.title} - ` : ""}${
 			title[locale]
 		}`;
-		const showDescription =
+
+		const currentDescription =
 			currentPage.description || siteConfig.description;
 
 		const childrenWithProps = React.Children.map(children, (child) => {
@@ -174,7 +175,7 @@ class Layout extends React.Component<
 		return (
 			<>
 				<Head>
-					<meta name="description" content={showDescription} />
+					<meta name="description" content={currentDescription} />
 					<meta
 						name="keywords"
 						content={siteConfig.keywords.join(",")}
@@ -182,19 +183,22 @@ class Layout extends React.Component<
 					<meta
 						itemProp="description"
 						name="description"
-						content={showDescription}
+						content={currentDescription}
 					/>
 					<meta itemProp="name" content="云极客工具" />
 					<meta property="og:type" content="website" />
 					<meta property="og:title" content={showTitle} />
 					<meta property="og:url" content={siteConfig.root} />
 					<meta property="og:site_name" content={showTitle} />
-					<meta property="og:description" content={showDescription} />
+					<meta
+						property="og:description"
+						content={currentDescription}
+					/>
 					<meta property="og:locale" content="zh_CN" />
 					<meta property="article:author" content={author.name} />
 					<meta property="article:tag" content={author.name} />
 					<meta property="article:tag" content="云极客" />
-					<meta name="twitter:card" content={showDescription} />
+					<meta name="twitter:card" content={currentDescription} />
 					<meta
 						name="google-site-verification"
 						content="3yqvRLDwkcm7nwNQ5bSG06I4wQ5ASf23HUtcyZIaz3I"

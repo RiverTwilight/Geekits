@@ -5,15 +5,47 @@ import pinyin from "js-pinyin";
 import InputAdornment from "@mui/material/InputAdornment";
 import Paper from "@mui/material/Paper";
 import { Theme } from "@mui/material/styles";
-import createStyles from '@mui/styles/createStyles';
-import withStyles from '@mui/styles/withStyles';
+import createStyles from "@mui/styles/createStyles";
+import withStyles from "@mui/styles/withStyles";
 import FormControl from "@mui/material/FormControl";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import SearchSharpIcon from "@mui/icons-material/SearchSharp";
-import Link from "@mui/material/Link";
+import GoogleIcon from "@mui/icons-material/Google";
+import Link from "next/link";
 import { AppListItem } from "./AppList";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
 
+const QuickSearch = ({ kwd }) => {
+	return (
+		<List>
+			<Link href={"https://www.google.com/search?q=" + kwd} passHref>
+				<ListItem>
+					<ListItemButton>
+						<ListItemIcon>
+							<GoogleIcon />
+						</ListItemIcon>
+						<ListItemText primary={`使用谷歌搜索"${kwd}"`} />
+					</ListItemButton>
+				</ListItem>
+			</Link>
+			<Link href={"https://cn.bing.com/search?q=" + kwd} passHref>
+				<ListItem>
+					<ListItemButton>
+						<ListItemIcon>
+							<SearchSharpIcon />
+						</ListItemIcon>
+						<ListItemText primary={`使用必应搜索"${kwd}"`} />
+					</ListItemButton>
+				</ListItem>
+			</Link>
+		</List>
+	);
+};
 const styles = (theme: Theme) => {
 	return createStyles({
 		padding: {
@@ -51,26 +83,15 @@ const SearchResult = ({ result = [], kwd }: any) => {
 
 	return (
 		<>
-			{!!result.length ? (
+			{!!result.length &&
 				result.map((a: any, i: number) => (
 					<AppListItem
 						selected={selectedItem === i}
 						key={a.link + a.icon}
 						{...a}
 					/>
-				))
-			) : (
-				<Typography align="center" variant="subtitle1">
-					搜索无结果
-				</Typography>
-			)}
-
-			<Typography align="center" variant="subtitle1" gutterBottom>
-				没找到想要的工具?试试
-				<Link href={"https://www.google.com/search?q=" + kwd}>
-					谷歌搜索
-				</Link>
-			</Typography>
+				))}
+			<QuickSearch kwd={kwd} />
 		</>
 	);
 };
@@ -98,7 +119,6 @@ class Search extends React.Component<any, SearchState> {
 			searchResult: [],
 		};
 		this.searchRes = debounce(() => {
-			console.log(123);
 			this.search();
 		}, 500);
 	}

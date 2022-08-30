@@ -1,6 +1,5 @@
 import React from "react";
 import { useTheme, Theme } from "@mui/material/styles";
-import useMediaQuery from "@mui/material/useMediaQuery";
 import createStyles from "@mui/styles/createStyles";
 import makeStyles from "@mui/styles/makeStyles";
 import Drawer from "@mui/material/Drawer";
@@ -32,7 +31,6 @@ const RightDrawer: React.FC<{
 }> = ({ children, open, onClose }) => {
 	const classes = useStyles();
 	const theme = useTheme();
-	const hidden = useMediaQuery(theme.breakpoints.up("sm"));
 
 	// console.log(`Is Hidden: %s, Drawer State: %s`, hidden, open);
 
