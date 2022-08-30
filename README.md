@@ -41,5 +41,4 @@ MIT
 
 Copyright © 2020-Present YgkTool Dev team
 
-
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FRiverTwilight%2FYgkTool.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FRiverTwilight%2FYgkTool?ref=badge_large)

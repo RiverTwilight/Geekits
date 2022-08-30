@@ -36,7 +36,6 @@ const useStyles = makeStyles({
 	},
 });
 
-// TODO 离子方程式配平
 // TODO 具体错误信息
 
 const Result = ({ result, eleClass }: any) => {

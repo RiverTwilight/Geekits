@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import Layout from "../components/Layout";
 import siteConfig from "../site.config.js";
 import {
@@ -6,9 +6,9 @@ import {
 	createTheme,
 	StyledEngineProvider,
 } from "@mui/material/styles";
+import { green } from "@mui/material/colors";
 import useMediaQuery from "@mui/material/useMediaQuery";
 // import UserContextProvider from "../components/UserContextProvider";
-import theme from "../utils/theme";
 import "./App.css";
 
 function MyApp({ Component, pageProps }) {
@@ -31,11 +31,17 @@ function MyApp({ Component, pageProps }) {
 	}, []);
 
 	const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
-	const theme = React.useMemo(
+	const theme = useMemo(
 		() =>
 			createTheme({
 				palette: {
 					mode: prefersDarkMode ? "dark" : "light",
+					primary: {
+						main: green[500],
+					},
+					secondary: {
+						main: green[300],
+					},
 				},
 			}),
 		[prefersDarkMode]
