@@ -1,4 +1,4 @@
-/// <reference types="react-scripts" />
+/// <reference types="next" />
 
 interface IApp {
 	name: string;
@@ -6,30 +6,32 @@ interface IApp {
 	description?: string;
 }
 
-interface Window {
-	/**
-	 * 修改文档标题和头部标题
-	 */
-	updateTitle(pageName?: string): void;
-	/**
-	 * 显示加载动画
-	 */
-	snackbar(config: any): void;
-	loadShow(): void;
-	loadingDelay: Timeout;
-	setHeaderButton: (component: any) => void;
-	/**
-	 * 隐藏加载动画
-	 */
-	loadHide(): void;
-	setRightDrawer(content, icon?): void;
-	menu: any;
-	loadingDelay: number;
-	dialogInst: any;
-	/**
-	 * 番茄钟计时器
-	 */
-	tomato: any;
+declare global {
+	interface Window {
+		/**
+		 * 修改文档标题和头部标题
+		 */
+		updateTitle(pageName?: string): void;
+		/**
+		 * 显示加载动画
+		 */
+		snackbar(config: any): void;
+		loadShow(): void;
+		loadingDelay: Timeout;
+		setHeaderButton: (component: any) => void;
+		/**
+		 * 隐藏加载动画
+		 */
+		loadHide(): void;
+		setRightDrawer(content, icon?): void;
+		menu: any;
+		loadingDelay: number;
+		dialogInst: any;
+		/**
+		 * 番茄钟计时器
+		 */
+		tomato: any;
+	}
 }
 
 // 本地用户信息

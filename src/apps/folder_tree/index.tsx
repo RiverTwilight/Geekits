@@ -37,7 +37,9 @@ export default function FolderTree() {
 						}
 						setFileList(result);
 					}}
-				/>
+				>
+					<Button>选择文件夹</Button>
+				</FileInput>
 			</OutlinedCard>
 			<br />
 			<OutlinedCard padding={2}>
