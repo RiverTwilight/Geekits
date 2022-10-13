@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
-import AppList from "../components/AppList";
-import Search from "../components/Search";
-import FivList from "../components/FivList";
-import Board from "../components/Board";
+import AppList from "@/components/AppList";
+import Search from "@/components/Search";
+import FivList from "@/components/FivList";
+import Board from "@/components/Board";
 import { Theme } from "@mui/material/styles";
 import createStyles from "@mui/styles/createStyles";
 import makeStyles from "@mui/styles/makeStyles";

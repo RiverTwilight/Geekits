@@ -10,8 +10,10 @@ import { green } from "@mui/material/colors";
 import useMediaQuery from "@mui/material/useMediaQuery";
 // import UserContextProvider from "../components/UserContextProvider";
 import "./App.css";
+import { PageProps } from "../../types";
+import type { AppProps } from "next/app";
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps }: AppProps) {
 	const [dark, setDark] = useState(false);
 
 	useEffect(() => {

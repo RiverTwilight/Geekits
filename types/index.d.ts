@@ -101,6 +101,14 @@ export interface ISiteConfig {
 	};
 }
 
+export type PageProps = {
+	locale: string;
+	currentPage: {
+		title: string;
+		path: string;
+	};
+};
+
 declare module "*.svg" {
 	const content: React.FunctionComponent<React.SVGAttributes<SVGElement>>;
 }

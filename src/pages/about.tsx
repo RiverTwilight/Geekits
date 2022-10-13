@@ -12,7 +12,7 @@ import { author, repo } from "../site.config";
 export async function getStaticProps({ locale }) {
 	const pageDic = require("../data/i18n/" + locale + "/page.js")["/about"];
 
-	const aboutContent = require("../data/article/" +
+	const aboutContent = require("../../data/article/" +
 		locale +
 		"/about.md").default;
 
@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function About({ aboutContent }) {
 	const classes = useStyles();
 	return (
-		<div style={{ maxWidth: "600px" }}>
+		<div style={{ maxWidth: "600px", margin: "0 auto" }}>
 			<OutlinedCard className={classes.authorCard}>
 				<Avatar
 					className={classes.avatar}
