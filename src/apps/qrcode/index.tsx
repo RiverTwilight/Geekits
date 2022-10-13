@@ -1,6 +1,6 @@
 import React from "react";
 import QRCode from "qrcode";
-import FileInput from "../../components/FileInput";
+import FileInput from "../../components/FilePicker";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Alert from "@mui/material/Alert";

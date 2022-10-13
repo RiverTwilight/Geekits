@@ -13,7 +13,7 @@ export default (locale, processId: (id: string) => string, path: string) => {
 	// create paths with `slug` param
 	// const paths = blogSlugs.map(slug => `/blog/${encodeURI(slug)}`)
 
-	const appData = require("../data/appImportList.ts").default;
+	const appData = require("@/data/appImportList.ts").default;
 
 	const paths = Object.keys(appData).map((slug) => {
 		return {

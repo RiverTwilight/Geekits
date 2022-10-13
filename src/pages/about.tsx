@@ -7,9 +7,14 @@ import IconButton from "@mui/material/IconButton";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import MailIcon from "@mui/icons-material/Mail";
+import { GetStaticProps } from "next";
 import { author, repo } from "../site.config";
 
-export async function getStaticProps({ locale }) {
+interface AboutProps extends GetStaticProps {
+	aboutContent: string;
+}
+
+export const getStaticProps: GetStaticProps = ({ locale }) => {
 	const pageDic = require("../data/i18n/" + locale + "/page.js")["/about"];
 
 	const aboutContent = require("../../data/article/" +
@@ -26,7 +31,7 @@ export async function getStaticProps({ locale }) {
 			locale,
 		},
 	};
-}
+};
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -41,6 +46,7 @@ const useStyles = makeStyles((theme: Theme) =>
 		contactGroup: {
 			display: "flex",
 			justifyContent: "center",
+			paddingBottom: "10px",
 		},
 		authorCard: {
 			marginTop: 80,
@@ -51,7 +57,7 @@ const useStyles = makeStyles((theme: Theme) =>
 	})
 );
 
-export default function About({ aboutContent }) {
+export default function About({ aboutContent }: AboutProps) {
 	const classes = useStyles();
 	return (
 		<div style={{ maxWidth: "600px", margin: "0 auto" }}>

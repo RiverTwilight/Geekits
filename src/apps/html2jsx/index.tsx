@@ -8,7 +8,7 @@ import Grid from "@mui/material/Grid";
 import {
 	signListener,
 	removeListener,
-} from "../../components/FileInput/useDragListener";
+} from "../../components/FilePicker/useDragListener";
 
 /**
  * @author RiverTwilight

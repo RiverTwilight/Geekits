@@ -1,7 +1,7 @@
 import React from "react";
 import IconButton from "@mui/material/IconButton";
-import RightDrawer from "../../components/RightDrawer";
-import AppMenu from "../../components/AppMenu";
+import RightDrawer from "@/components/RightDrawer";
+import AppMenu from "@/components/AppMenu";
 import { Theme } from "@mui/material/styles";
 import createStyles from "@mui/styles/createStyles";
 import withStyles from "@mui/styles/withStyles";
@@ -10,7 +10,7 @@ import HelpTwoToneIcon from "@mui/icons-material/HelpTwoTone";
 import getAppInfo from "../../utils/appinfo";
 import getPaths from "../../utils/getPaths";
 import getPostId from "../../utils/getPostId";
-import appImportList from "../../data/appImportList";
+import appImportList from "@/data/appImportList";
 
 // TODO change favicon dynamically
 
@@ -140,7 +140,7 @@ class AppContainer extends React.Component<any, any> {
 			// this.setState({
 			// 	FeedbackComp:
 			// 		!FeedbackComp &&
-			// 		Loadable(() => import("../../components/FeedbackComp")),
+			// 		Loadable(() => import("@/components/FeedbackComp")),
 			// });
 		}
 		this.setState({

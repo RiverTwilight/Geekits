@@ -5,7 +5,7 @@ import FormControl from "@mui/material/FormControl";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import FileInput from "../../components/FileInput";
+import FilePicker from "../../components/FilePicker";
 import pathToTree from "./engine";
 import OutlinedCard from "../../components/OutlinedCard";
 
@@ -26,8 +26,8 @@ export default function FolderTree() {
 	return (
 		<>
 			<OutlinedCard padding={2}>
-				<h4>1. 选择一个文件夹</h4>
-				<FileInput
+				<Typography variant="h5">1. 选择一个文件夹</Typography>
+				<FilePicker
 					multiple
 					webkitdirectory
 					handleFileUpload={(_, _file, fileList) => {
@@ -38,12 +38,14 @@ export default function FolderTree() {
 						setFileList(result);
 					}}
 				>
-					<Button>选择文件夹</Button>
-				</FileInput>
+					<Button component="label">选择文件夹</Button>
+				</FilePicker>
 			</OutlinedCard>
 			<br />
 			<OutlinedCard padding={2}>
-				<h4>2. 设置要排除的路径（可选）</h4>
+				<Typography variant="h5">
+					2. 设置要排除的路径（可选）
+				</Typography>
 				<FormControl fullWidth>
 					<Input
 						value={except}
@@ -56,8 +58,7 @@ export default function FolderTree() {
 			</OutlinedCard>
 			<br />
 			<OutlinedCard padding={2}>
-				<h4>3. 生成文件树</h4>
-
+				<Typography variant="h5">3. 生成文件树</Typography>
 				<Button
 					onClick={() => {
 						setTree(pathToTree(fileList, except.split("\n")));

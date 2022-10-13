@@ -1,4 +1,5 @@
 import * as React from "react";
+import ReactDOM from "react-dom";
 import { dataURLtoFile, saveFile } from "../../utils/fileSaver";
 import { signListener, removeListener } from "./useDragListener";
 import CenteredStyle from "./CenteredStyle";
@@ -38,7 +39,7 @@ interface FRState {
 	webkitdirectory: boolean;
 }
 
-class FileInput extends React.Component<FRProps, FRState> {
+class FilePicker extends React.Component<FRProps, FRState> {
 	constructor(props: FRProps | Readonly<FRProps>) {
 		super(props);
 		this.state = {
@@ -51,6 +52,14 @@ class FileInput extends React.Component<FRProps, FRState> {
 		};
 	}
 	componentDidMount() {
+		if (this.props.webkitdirectory) {
+			var inputEle = ReactDOM.findDOMNode(
+				this.refs.input
+			) as HTMLInputElement;
+
+			inputEle.setAttribute("webkitdirectory", "");
+		}
+
 		if (this.props.webkitdirectory) {
 			this.setState({
 				webkitdirectory: true,
@@ -116,8 +125,6 @@ class FileInput extends React.Component<FRProps, FRState> {
 			...props
 		} = this.props;
 
-		console.log(props);
-
 		const { btnText } = this.state;
 		var icon = <CloudUploadIcon />;
 		if (fileType) {
@@ -137,22 +144,24 @@ class FileInput extends React.Component<FRProps, FRState> {
 		if (children) {
 			const EmbeddedChildren = React.cloneElement(children, {
 				text: btnText,
+				htmlFor: "gk-contained-button-file",
 			});
 
+			console.log(props);
+
 			return (
-				<div>
+				<>
 					<input
 						accept={fileType}
 						onInput={this.handleReadFile.bind(this)}
 						type="file"
-						id="contained-button-file"
-						style={{ display: "none" }}
+						ref="input"
+						id="gk-contained-button-file"
+						hidden
 						{...props}
 					/>
-					<label htmlFor="contained-button-file">
-						{EmbeddedChildren}
-					</label>
-				</div>
+					{EmbeddedChildren}
+				</>
 			);
 		}
 
@@ -182,4 +191,4 @@ class FileInput extends React.Component<FRProps, FRState> {
 	}
 }
 
-export default FileInput;
+export default FilePicker;

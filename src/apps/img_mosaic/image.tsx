@@ -1,5 +1,5 @@
 import React from "react";
-import FileInput from "../../components/FileInput";
+import FileInput from "../../components/FilePicker";
 import Button from "@mui/material/Button";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
