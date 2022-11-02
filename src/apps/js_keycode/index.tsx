@@ -1,5 +1,4 @@
 import * as React from "react";
-import { TABLE, TABLE_REVERSE } from "./dic";
 import TextField from "@mui/material/TextField";
 import Paper from "@mui/material/Paper";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -11,6 +10,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Checkbox from "@mui/material/Checkbox";
+import { TABLE, TABLE_REVERSE } from "./dic";
 
 const JsKeycode = () => {
 	const [value, setValue] = React.useState("");

@@ -1,5 +1,4 @@
 import React from "react";
-import FileInput from "../../components/FilePicker";
 import Button from "@mui/material/Button";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -10,6 +9,7 @@ import ImageListItemBar from "@mui/material/ImageListItemBar";
 import IconButton from "@mui/material/IconButton";
 import ClearIcon from "@mui/icons-material/Clear";
 import CheckIcon from "@mui/icons-material/Check";
+import FilePicker from "@/components/FilePicker";
 
 async function loadImg(src: any) {
 	var img = await new Image();
@@ -179,7 +179,7 @@ export default class extends React.Component<
 								</ImageListItem>
 							);
 						})}
-					<FileInput
+					<FilePicker
 						fileType="image/*"
 						multiple={true}
 						handleFileUpload={(file) => {
@@ -192,10 +192,13 @@ export default class extends React.Component<
 							});
 						}}
 					>
-						<ImageListItem key={"AddNew"}>
-							<img alt="Add a new photo" src="/icon/add.jpg" />
+						<ImageListItem component="label" key={"AddNew"}>
+							<img
+								alt="An icon with a plus symbol"
+								src="/icon/add.jpg"
+							/>
 						</ImageListItem>
-					</FileInput>
+					</FilePicker>
 				</ImageList>
 
 				<br></br>

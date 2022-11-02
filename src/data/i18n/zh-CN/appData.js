@@ -37,6 +37,7 @@ module.exports = [
 	},
 	{
 		name: "服务协议生成",
+		statu: "development",
 		channel: 3,
 		icon: "lock",
 		link: "policy_generator",

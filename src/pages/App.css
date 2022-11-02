@@ -1,17 +1,11 @@
-.header-width-saying {
-	padding-bottom: 9px;
-}
-.saying {
-	position: absolute;
-	line-height: 5;
-	top: 13px;
-	max-width: 70%;
+* {
+	letter-spacing: 0.1em;
 }
 
 .clearfix:after {
-    content: "";
-    display: table;
-    clear: both;
+	content: "";
+	display: table;
+	clear: both;
 }
 
 .Textc\(green\) {
@@ -21,8 +15,8 @@
 .center-with-flex {
 	display: flex;
 	justify-content: center;
-    flex-direction: column;
-    align-items: center;
+	flex-direction: column;
+	align-items: center;
 }
 
 /* 撑开底部 

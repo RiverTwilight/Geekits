@@ -21,6 +21,9 @@ export default {
 	js_keycode: dynamic(() => import("../src/apps/js_keycode"), {
 		ssr: false,
 	}),
+	policy_generator: dynamic(() => import("../src/apps/policy_generator"), {
+		ssr: false,
+	}),
 	dic_ci: dynamic(() => import("../src/apps/dic_ci"), {
 		ssr: false,
 	}),

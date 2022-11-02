@@ -23,7 +23,11 @@ import ListItemText from "@mui/material/ListItemText";
 const QuickSearch = ({ kwd }) => {
 	return (
 		<List>
-			<Link href={"https://www.google.com/search?q=" + kwd} passHref>
+			<Link
+				legacyBehavior
+				href={"https://www.google.com/search?q=" + kwd}
+				passHref
+			>
 				<ListItem>
 					<ListItemButton>
 						<ListItemIcon>
@@ -33,7 +37,11 @@ const QuickSearch = ({ kwd }) => {
 					</ListItemButton>
 				</ListItem>
 			</Link>
-			<Link href={"https://cn.bing.com/search?q=" + kwd} passHref>
+			<Link
+				legacyBehavior
+				href={"https://cn.bing.com/search?q=" + kwd}
+				passHref
+			>
 				<ListItem>
 					<ListItemButton>
 						<ListItemIcon>
@@ -48,15 +56,15 @@ const QuickSearch = ({ kwd }) => {
 };
 const styles = (theme: Theme) => {
 	return createStyles({
-		padding: {
+		searchBox: {
 			padding: theme.spacing(1),
+		},
+		input: {
+			marginBottom: theme.spacing(1),
 		},
 	});
 };
 
-/**
- * 搜索结果
- */
 const SearchResult = ({ result = [], kwd }: any) => {
 	if (kwd === "") return null;
 
@@ -178,8 +186,8 @@ class Search extends React.Component<any, SearchState> {
 		const { kwd, searchResult } = this.state;
 		const { classes } = this.props;
 		return (
-			<Paper className={classes.padding}>
-				<FormControl fullWidth>
+			<Paper className={classes.searchBox}>
+				<FormControl fullWidth className={classes.input}>
 					<TextField
 						InputProps={{
 							startAdornment: (

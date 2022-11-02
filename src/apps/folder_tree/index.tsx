@@ -5,7 +5,7 @@ import FormControl from "@mui/material/FormControl";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import FilePicker from "../../components/FilePicker";
+import FilePicker from "@/components/FilePicker";
 import pathToTree from "./engine";
 import OutlinedCard from "../../components/OutlinedCard";
 
