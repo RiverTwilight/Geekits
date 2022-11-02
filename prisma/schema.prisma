@@ -3,12 +3,12 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "mongodb"
   url      = "../database/db.sqlite"
 }
 
 model Post {
-  id        Int     @id @default(autoincrement())
+  id        String  @id @default(uuid()) @map("_id")
   title     String
   content   String?
   published Boolean @default(false)
@@ -17,7 +17,7 @@ model Post {
 }
 
 model Feedback {
-  id       Int     @id @default(autoincrement())
+  id       String  @id @default(uuid())
   title    String
   content  String?
   contact  String?
@@ -26,7 +26,7 @@ model Feedback {
 }
 
 model Account {
-  id                 Int     @id @default(autoincrement())
+  id                 String  @id @default(uuid()) @map("_id")
   userId             Int     @map("user_id")
   type               String
   provider           String
@@ -47,7 +47,7 @@ model Account {
 }
 
 model Session {
-  id           Int      @id @default(autoincrement())
+  id           Int      @id @default(uuid())
   sessionToken String   @unique @map("session_token")
   userId       Int      @map("user_id")
   expires      DateTime
@@ -57,7 +57,7 @@ model Session {
 }
 
 model User {
-  id            Int       @id @default(autoincrement())
+  id            Int       @id @default(uuid())
   name          String?
   email         String?   @unique
   emailVerified DateTime? @map("email_verified")

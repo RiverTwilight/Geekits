@@ -1,6 +1,10 @@
 // import glob from "glob";
 
-export default (locale, processId: (id: string) => string, path: string) => {
+export default (
+	locale: string,
+	processId: (id: string) => string,
+	path: string
+) => {
 	//get all .md files in the posts dir
 	// const blogs = glob.sync(path, {
 	// 	stat: true,

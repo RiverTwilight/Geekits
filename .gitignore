@@ -33,3 +33,5 @@ yarn-error.log*
 # files generated in compilation
 /public/sw.js
 /public/sw.js.map
+
+.env.local
