@@ -220,9 +220,8 @@ const LeftDrawer = (props: IProps) => {
 			return <Divider />;
 		}
 		return (
-			<Link href={href} passHref>
+			<Link href={href} passHref legacyBehavior>
 				<ListItem
-					component="a"
 					className={clsx(
 						classes.selectedItem,
 						router.pathname == href ? "Mui-selected" : ""

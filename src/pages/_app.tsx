@@ -58,18 +58,16 @@ function MyApp({ Component, pageProps }: AppProps) {
 	} = pageProps;
 
 	return (
-		<StyledEngineProvider injectFirst>
-			<ThemeProvider theme={theme}>
-				<Layout
-					siteConfig={siteConfig}
-					locale={locale}
-					currentPage={currentPage}
-					menuItems={menuItems}
-				>
-					<Component {...pageProps} siteConfig={siteConfig} />
-				</Layout>
-			</ThemeProvider>
-		</StyledEngineProvider>
+		<ThemeProvider theme={theme}>
+			<Layout
+				siteConfig={siteConfig}
+				locale={locale}
+				currentPage={currentPage}
+				menuItems={menuItems}
+			>
+				<Component {...pageProps} siteConfig={siteConfig} />
+			</Layout>
+		</ThemeProvider>
 	);
 }
 

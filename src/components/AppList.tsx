@@ -8,8 +8,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import ListSubheader from "@mui/material/ListSubheader";
 import { Theme } from "@mui/material/styles";
-import createStyles from "@mui/styles/createStyles";
-import makeStyles from "@mui/styles/makeStyles";
+import { makeStyles } from "@material-ui/core/styles";
 import BrightnessAutoTwoToneIcon from "@mui/icons-material/BrightnessAutoTwoTone";
 import BurstModeIcon from "@mui/icons-material/BurstMode";
 import CodeTwoToneIcon from "@mui/icons-material/CodeTwoTone";
@@ -19,39 +18,37 @@ import OutlinedCard from "./OutlinedCard";
 import React from "react";
 import Link from "next/link";
 
-const useStyles = makeStyles((theme: Theme) =>
-	createStyles({
-		root: {
-			width: "100%",
-			// backgroundColor: theme.palette.background.paper,
-		},
-		nested: {
-			paddingLeft: theme.spacing(4),
-		},
+const useStyles = makeStyles((theme: Theme) => ({
+	root: {
+		width: "100%",
+		// backgroundColor: theme.palette.background.paper,
+	},
+	nested: {
+		paddingLeft: theme.spacing(4),
+	},
+	appItem: {
+		minHeight: "90px",
+	},
+	appItemWarpper: {
+		border: "1px solid #e0e0e0",
+		borderRadius: "5px",
+	},
+	[theme.breakpoints.up("sm")]: {
 		appItem: {
-			minHeight: "90px",
+			height: "100px",
 		},
-		appItemWarpper: {
-			border: "1px solid #e0e0e0",
-			borderRadius: "5px",
+	},
+	appItemIcon: {
+		// height: "50px",
+	},
+	appItemText: {
+		paddingLeft: "20px",
+		"& .MuiListItemText-primary": {
+			"font-family": "SimHei",
+			fontWeight: 700,
 		},
-		[theme.breakpoints.up("sm")]: {
-			appItem: {
-				height: "100px",
-			},
-		},
-		appItemIcon: {
-			// height: "50px",
-		},
-		appItemText: {
-			paddingLeft: "20px",
-			"& .MuiListItemText-primary": {
-				"font-family": "SimHei",
-				fontWeight: 700,
-			},
-		},
-	})
-);
+	},
+}));
 
 // TODO schema info check https://schema.org
 const AppListItem = ({
@@ -89,12 +86,11 @@ const AppListItem = ({
 			  };
 	return (
 		<OutlinedCard>
-			<Link {...attr} passHref>
+			<Link {...attr} passHref legacyBehavior>
 				<ListItem
 					className={classes.appItem}
 					selected={selected}
 					button
-					component="a"
 					key={name}
 				>
 					<ListItemAvatar className={classes.appItemIcon}>

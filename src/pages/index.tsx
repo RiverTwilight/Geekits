@@ -1,11 +1,14 @@
 import React, { useEffect } from "react";
+import {
+	ThemeProvider,
+	createTheme,
+	makeStyles,
+} from "@material-ui/core/styles";
 import AppList from "@/components/AppList";
 import Search from "@/components/Search";
 import FivList from "@/components/FivList";
 import Board from "@/components/Board";
 import { Theme } from "@mui/material/styles";
-import createStyles from "@mui/styles/createStyles";
-import makeStyles from "@mui/styles/makeStyles";
 import Grid from "@mui/material/Grid";
 
 export async function getStaticProps({ locale }) {
@@ -30,16 +33,14 @@ export function MenuButton() {
 	return <button>test</button>;
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-	createStyles({
-		root: {
-			flexGrow: 1,
-		},
-		icon: {
-			color: "rgba(255, 255, 255, 0.54)",
-		},
-	})
-);
+const useStyles = makeStyles((theme: Theme) => ({
+	root: {
+		flexGrow: 1,
+	},
+	icon: {
+		color: "rgba(255, 255, 255, 0.54)",
+	},
+}));
 
 type IndexState = any;
 

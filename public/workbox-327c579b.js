@@ -1,5 +1,6 @@
 define(['exports'], (function (exports) { 'use strict';
 
+    // @ts-ignore
     try {
       self['workbox:core:6.5.3'] && _();
     } catch (e) {}
@@ -16,7 +17,6 @@ define(['exports'], (function (exports) { 'use strict';
       if (!('__WB_DISABLE_DEV_LOGS' in self)) {
         self.__WB_DISABLE_DEV_LOGS = false;
       }
-
       let inGroup = false;
       const methodToColorMap = {
         debug: `#7f8c8d`,
@@ -25,14 +25,12 @@ define(['exports'], (function (exports) { 'use strict';
         error: `#c0392b`,
         groupCollapsed: `#3498db`,
         groupEnd: null // No colored prefix on groupEnd
-
       };
 
       const print = function (method, args) {
         if (self.__WB_DISABLE_DEV_LOGS) {
           return;
         }
-
         if (method === 'groupCollapsed') {
           // Safari doesn't print all console.groupCollapsed() arguments:
           // https://bugs.webkit.org/show_bug.cgi?id=182754
@@ -41,33 +39,26 @@ define(['exports'], (function (exports) { 'use strict';
             return;
           }
         }
-
-        const styles = [`background: ${methodToColorMap[method]}`, `border-radius: 0.5em`, `color: white`, `font-weight: bold`, `padding: 2px 0.5em`]; // When in a group, the workbox prefix is not displayed.
-
+        const styles = [`background: ${methodToColorMap[method]}`, `border-radius: 0.5em`, `color: white`, `font-weight: bold`, `padding: 2px 0.5em`];
+        // When in a group, the workbox prefix is not displayed.
         const logPrefix = inGroup ? [] : ['%cworkbox', styles.join(';')];
         console[method](...logPrefix, ...args);
-
         if (method === 'groupCollapsed') {
           inGroup = true;
         }
-
         if (method === 'groupEnd') {
           inGroup = false;
         }
-      }; // eslint-disable-next-line @typescript-eslint/ban-types
-
-
+      };
+      // eslint-disable-next-line @typescript-eslint/ban-types
       const api = {};
       const loggerMethods = Object.keys(methodToColorMap);
-
       for (const key of loggerMethods) {
         const method = key;
-
         api[method] = (...args) => {
           print(method, args);
         };
       }
-
       return api;
     })();
 
@@ -87,7 +78,6 @@ define(['exports'], (function (exports) { 'use strict';
         if (!paramName || !validValueDescription) {
           throw new Error(`Unexpected input to 'invalid-value' error.`);
         }
-
         return `The '${paramName}' parameter was given a value with an ` + `unexpected value. ${validValueDescription} Received a value of ` + `${JSON.stringify(value)}.`;
       },
       'not-an-array': ({
@@ -99,7 +89,6 @@ define(['exports'], (function (exports) { 'use strict';
         if (!moduleName || !className || !funcName || !paramName) {
           throw new Error(`Unexpected input to 'not-an-array' error.`);
         }
-
         return `The parameter '${paramName}' passed into ` + `'${moduleName}.${className}.${funcName}()' must be an array.`;
       },
       'incorrect-type': ({
@@ -112,7 +101,6 @@ define(['exports'], (function (exports) { 'use strict';
         if (!expectedType || !paramName || !moduleName || !funcName) {
           throw new Error(`Unexpected input to 'incorrect-type' error.`);
         }
-
         const classNameStr = className ? `${className}.` : '';
         return `The parameter '${paramName}' passed into ` + `'${moduleName}.${classNameStr}` + `${funcName}()' must be of type ${expectedType}.`;
       },
@@ -127,13 +115,10 @@ define(['exports'], (function (exports) { 'use strict';
         if (!expectedClassName || !moduleName || !funcName) {
           throw new Error(`Unexpected input to 'incorrect-class' error.`);
         }
-
         const classNameStr = className ? `${className}.` : '';
-
         if (isReturnValueProblem) {
           return `The return value from ` + `'${moduleName}.${classNameStr}${funcName}()' ` + `must be an instance of class ${expectedClassName}.`;
         }
-
         return `The parameter '${paramName}' passed into ` + `'${moduleName}.${classNameStr}${funcName}()' ` + `must be an instance of class ${expectedClassName}.`;
       },
       'missing-a-method': ({
@@ -146,7 +131,6 @@ define(['exports'], (function (exports) { 'use strict';
         if (!expectedMethod || !paramName || !moduleName || !className || !funcName) {
           throw new Error(`Unexpected input to 'missing-a-method' error.`);
         }
-
         return `${moduleName}.${className}.${funcName}() expected the ` + `'${paramName}' parameter to expose a '${expectedMethod}' method.`;
       },
       'add-to-cache-list-unexpected-type': ({
@@ -161,7 +145,6 @@ define(['exports'], (function (exports) { 'use strict';
         if (!firstEntry || !secondEntry) {
           throw new Error(`Unexpected input to ` + `'add-to-cache-list-duplicate-entries' error.`);
         }
-
         return `Two of the entries passed to ` + `'workbox-precaching.PrecacheController.addToCacheList()' had the URL ` + `${firstEntry} but different revision details. Workbox is ` + `unable to cache and version the asset correctly. Please remove one ` + `of the entries.`;
       },
       'plugin-error-request-will-fetch': ({
@@ -170,7 +153,6 @@ define(['exports'], (function (exports) { 'use strict';
         if (!thrownErrorMessage) {
           throw new Error(`Unexpected input to ` + `'plugin-error-request-will-fetch', error.`);
         }
-
         return `An error was thrown by a plugins 'requestWillFetch()' method. ` + `The thrown error message was: '${thrownErrorMessage}'.`;
       },
       'invalid-cache-name': ({
@@ -180,7 +162,6 @@ define(['exports'], (function (exports) { 'use strict';
         if (!cacheNameId) {
           throw new Error(`Expected a 'cacheNameId' for error 'invalid-cache-name'`);
         }
-
         return `You must provide a name containing at least one character for ` + `setCacheDetails({${cacheNameId}: '...'}). Received a value of ` + `'${JSON.stringify(value)}'`;
       },
       'unregister-route-but-not-found-with-method': ({
@@ -189,7 +170,6 @@ define(['exports'], (function (exports) { 'use strict';
         if (!method) {
           throw new Error(`Unexpected input to ` + `'unregister-route-but-not-found-with-method' error.`);
         }
-
         return `The route you're trying to unregister was not  previously ` + `registered for the method type '${method}'.`;
       },
       'unregister-route-route-not-registered': () => {
@@ -251,7 +231,6 @@ define(['exports'], (function (exports) { 'use strict';
         if (!paramName || !moduleName || !funcName) {
           throw new Error(`Unexpected input to 'invalid-string' error.`);
         }
-
         return `When using strings, the '${paramName}' parameter must start with ` + `'http' (for cross-origin matches) or '/' (for same-origin matches). ` + `Please see the docs for ${moduleName}.${funcName}() for ` + `more info.`;
       },
       'channel-name-required': () => {
@@ -269,7 +248,6 @@ define(['exports'], (function (exports) { 'use strict';
         if (!normalizedRangeHeader) {
           throw new Error(`Unexpected input to 'unit-must-be-bytes' error.`);
         }
-
         return `The 'unit' portion of the Range header must be set to 'bytes'. ` + `The Range header provided was "${normalizedRangeHeader}"`;
       },
       'single-range-only': ({
@@ -278,7 +256,6 @@ define(['exports'], (function (exports) { 'use strict';
         if (!normalizedRangeHeader) {
           throw new Error(`Unexpected input to 'single-range-only' error.`);
         }
-
         return `Multiple ranges are not supported. Please use a  single start ` + `value, and optional end value. The Range header provided was ` + `"${normalizedRangeHeader}"`;
       },
       'invalid-range-values': ({
@@ -287,7 +264,6 @@ define(['exports'], (function (exports) { 'use strict';
         if (!normalizedRangeHeader) {
           throw new Error(`Unexpected input to 'invalid-range-values' error.`);
         }
-
         return `The Range header is missing both start and end values. At least ` + `one of those values is needed. The Range header provided was ` + `"${normalizedRangeHeader}"`;
       },
       'no-range-header': () => {
@@ -316,11 +292,9 @@ define(['exports'], (function (exports) { 'use strict';
         error
       }) => {
         let message = `The strategy could not generate a response for '${url}'.`;
-
         if (error) {
           message += ` The underlying error is ${error}.`;
         }
-
         return message;
       },
       'bad-precaching-response': ({
@@ -354,11 +328,9 @@ define(['exports'], (function (exports) { 'use strict';
         type
       }) => {
         const message = `One of the workbox-streams sources resulted in an ` + `'${type}' response.`;
-
         if (type === 'opaqueredirect') {
           return `${message} Please do not use a navigation request that results ` + `in a redirect as a source.`;
         }
-
         return `${message} Please ensure your sources are CORS-enabled.`;
       }
     };
@@ -370,17 +342,13 @@ define(['exports'], (function (exports) { 'use strict';
       license that can be found in the LICENSE file or at
       https://opensource.org/licenses/MIT.
     */
-
     const generatorFunction = (code, details = {}) => {
       const message = messages$1[code];
-
       if (!message) {
         throw new Error(`Unable to find message for code '${code}'.`);
       }
-
       return message(details);
     };
-
     const messageGenerator = generatorFunction;
 
     /*
@@ -399,7 +367,6 @@ define(['exports'], (function (exports) { 'use strict';
      *
      * @private
      */
-
     class WorkboxError extends Error {
       /**
        *
@@ -415,7 +382,6 @@ define(['exports'], (function (exports) { 'use strict';
         this.name = errorCode;
         this.details = details;
       }
-
     }
 
     /*
@@ -431,30 +397,26 @@ define(['exports'], (function (exports) { 'use strict';
      * The destructed and restructured object is so it's clear what is
      * needed.
      */
-
     const isArray = (value, details) => {
       if (!Array.isArray(value)) {
         throw new WorkboxError('not-an-array', details);
       }
     };
-
     const hasMethod = (object, expectedMethod, details) => {
       const type = typeof object[expectedMethod];
-
       if (type !== 'function') {
         details['expectedMethod'] = expectedMethod;
         throw new WorkboxError('missing-a-method', details);
       }
     };
-
     const isType = (object, expectedType, details) => {
       if (typeof object !== expectedType) {
         details['expectedType'] = expectedType;
         throw new WorkboxError('incorrect-type', details);
       }
     };
-
-    const isInstance = (object, // Need the general type to do the check later.
+    const isInstance = (object,
+    // Need the general type to do the check later.
     // eslint-disable-next-line @typescript-eslint/ban-types
     expectedClass, details) => {
       if (!(object instanceof expectedClass)) {
@@ -462,30 +424,27 @@ define(['exports'], (function (exports) { 'use strict';
         throw new WorkboxError('incorrect-class', details);
       }
     };
-
     const isOneOf = (value, validValues, details) => {
       if (!validValues.includes(value)) {
         details['validValueDescription'] = `Valid values are ${JSON.stringify(validValues)}.`;
         throw new WorkboxError('invalid-value', details);
       }
     };
-
-    const isArrayOfClass = (value, // Need general type to do check later.
-    expectedClass, // eslint-disable-line
+    const isArrayOfClass = (value,
+    // Need general type to do check later.
+    expectedClass,
+    // eslint-disable-line
     details) => {
       const error = new WorkboxError('not-array-of-class', details);
-
       if (!Array.isArray(value)) {
         throw error;
       }
-
       for (const item of value) {
         if (!(item instanceof expectedClass)) {
           throw error;
         }
       }
     };
-
     const finalAssertExports = {
       hasMethod,
       isArray,
@@ -495,6 +454,7 @@ define(['exports'], (function (exports) { 'use strict';
       isArrayOfClass
     };
 
+    // @ts-ignore
     try {
       self['workbox:routing:6.5.3'] && _();
     } catch (e) {}
@@ -514,7 +474,6 @@ define(['exports'], (function (exports) { 'use strict';
      *
      * @private
      */
-
     const defaultMethod = 'GET';
     /**
      * The list of valid HTTP methods associated with requests that could be routed.
@@ -523,7 +482,6 @@ define(['exports'], (function (exports) { 'use strict';
      *
      * @private
      */
-
     const validMethods = ['DELETE', 'GET', 'HEAD', 'PATCH', 'POST', 'PUT'];
 
     /*
@@ -540,7 +498,6 @@ define(['exports'], (function (exports) { 'use strict';
      *
      * @private
      */
-
     const normalizeHandler = handler => {
       if (handler && typeof handler === 'object') {
         {
@@ -551,7 +508,6 @@ define(['exports'], (function (exports) { 'use strict';
             paramName: 'handler'
           });
         }
-
         return handler;
       } else {
         {
@@ -562,7 +518,6 @@ define(['exports'], (function (exports) { 'use strict';
             paramName: 'handler'
           });
         }
-
         return {
           handle: handler
         };
@@ -585,7 +540,6 @@ define(['exports'], (function (exports) { 'use strict';
      *
      * @memberof workbox-routing
      */
-
     class Route {
       /**
        * Constructor for Route class.
@@ -606,16 +560,14 @@ define(['exports'], (function (exports) { 'use strict';
             funcName: 'constructor',
             paramName: 'match'
           });
-
           if (method) {
             finalAssertExports.isOneOf(method, validMethods, {
               paramName: 'method'
             });
           }
-        } // These values are referenced directly by Router so cannot be
+        }
+        // These values are referenced directly by Router so cannot be
         // altered by minificaton.
-
-
         this.handler = normalizeHandler(handler);
         this.match = match;
         this.method = method;
@@ -625,12 +577,9 @@ define(['exports'], (function (exports) { 'use strict';
        * @param {workbox-routing-handlerCallback} handler A callback
        * function that returns a Promise resolving to a Response
        */
-
-
       setCatchHandler(handler) {
         this.catchHandler = normalizeHandler(handler);
       }
-
     }
 
     /*
@@ -651,7 +600,6 @@ define(['exports'], (function (exports) { 'use strict';
      * @memberof workbox-routing
      * @extends workbox-routing.Route
      */
-
     class RegExpRoute extends Route {
       /**
        * If the regular expression contains
@@ -675,38 +623,32 @@ define(['exports'], (function (exports) { 'use strict';
             paramName: 'pattern'
           });
         }
-
         const match = ({
           url
         }) => {
-          const result = regExp.exec(url.href); // Return immediately if there's no match.
-
+          const result = regExp.exec(url.href);
+          // Return immediately if there's no match.
           if (!result) {
             return;
-          } // Require that the match start at the first character in the URL string
+          }
+          // Require that the match start at the first character in the URL string
           // if it's a cross-origin request.
           // See https://github.com/GoogleChrome/workbox/issues/281 for the context
           // behind this behavior.
-
-
           if (url.origin !== location.origin && result.index !== 0) {
             {
               logger.debug(`The regular expression '${regExp.toString()}' only partially matched ` + `against the cross-origin URL '${url.toString()}'. RegExpRoute's will only ` + `handle cross-origin requests if they match the entire URL.`);
             }
-
             return;
-          } // If the route matches, but there aren't any capture groups defined, then
+          }
+          // If the route matches, but there aren't any capture groups defined, then
           // this will return [], which is truthy and therefore sufficient to
           // indicate a match.
           // If there are capture groups, then it will return their values.
-
-
           return result.slice(1);
         };
-
         super(match, handler, method);
       }
-
     }
 
     /*
@@ -716,11 +658,10 @@ define(['exports'], (function (exports) { 'use strict';
       license that can be found in the LICENSE file or at
       https://opensource.org/licenses/MIT.
     */
-
     const getFriendlyURL = url => {
-      const urlObj = new URL(String(url), location.href); // See https://github.com/GoogleChrome/workbox/issues/2323
+      const urlObj = new URL(String(url), location.href);
+      // See https://github.com/GoogleChrome/workbox/issues/2323
       // We want to include everything, except for the origin if it's same-origin.
-
       return urlObj.href.replace(new RegExp(`^${location.origin}`), '');
     };
 
@@ -748,7 +689,6 @@ define(['exports'], (function (exports) { 'use strict';
      *
      * @memberof workbox-routing
      */
-
     class Router {
       /**
        * Initializes a new Router.
@@ -762,8 +702,6 @@ define(['exports'], (function (exports) { 'use strict';
        * method name ('GET', etc.) to an array of all the corresponding `Route`
        * instances that are registered.
        */
-
-
       get routes() {
         return this._routes;
       }
@@ -771,8 +709,6 @@ define(['exports'], (function (exports) { 'use strict';
        * Adds a fetch event listener to respond to events when a route matches
        * the event's request.
        */
-
-
       addFetchListener() {
         // See https://github.com/Microsoft/TypeScript/issues/28357#issuecomment-436484705
         self.addEventListener('fetch', event => {
@@ -783,7 +719,6 @@ define(['exports'], (function (exports) { 'use strict';
             request,
             event
           });
-
           if (responsePromise) {
             event.respondWith(responsePromise);
           }
@@ -811,8 +746,6 @@ define(['exports'], (function (exports) { 'use strict';
        * }
        * ```
        */
-
-
       addCacheListener() {
         // See https://github.com/Microsoft/TypeScript/issues/28357#issuecomment-436484705
         self.addEventListener('message', event => {
@@ -823,27 +756,24 @@ define(['exports'], (function (exports) { 'use strict';
             const {
               payload
             } = event.data;
-
             {
               logger.debug(`Caching URLs from the window`, payload.urlsToCache);
             }
-
             const requestPromises = Promise.all(payload.urlsToCache.map(entry => {
               if (typeof entry === 'string') {
                 entry = [entry];
               }
-
               const request = new Request(...entry);
               return this.handleRequest({
                 request,
                 event
-              }); // TODO(philipwalton): TypeScript errors without this typecast for
+              });
+              // TODO(philipwalton): TypeScript errors without this typecast for
               // some reason (probably a bug). The real type here should work but
               // doesn't: `Array<Promise<Response> | undefined>`.
             })); // TypeScript
-
-            event.waitUntil(requestPromises); // If a MessageChannel was used, reply to the message on success.
-
+            event.waitUntil(requestPromises);
+            // If a MessageChannel was used, reply to the message on success.
             if (event.ports && event.ports[0]) {
               void requestPromises.then(() => event.ports[0].postMessage(true));
             }
@@ -862,8 +792,6 @@ define(['exports'], (function (exports) { 'use strict';
        *     registered route can handle the request. If there is no matching
        *     route and there's no `defaultHandler`, `undefined` is returned.
        */
-
-
       handleRequest({
         request,
         event
@@ -876,17 +804,13 @@ define(['exports'], (function (exports) { 'use strict';
             paramName: 'options.request'
           });
         }
-
         const url = new URL(request.url, location.href);
-
         if (!url.protocol.startsWith('http')) {
           {
             logger.debug(`Workbox Router only supports URLs that start with 'http'.`);
           }
-
           return;
         }
-
         const sameOrigin = url.origin === location.origin;
         const {
           params,
@@ -899,39 +823,31 @@ define(['exports'], (function (exports) { 'use strict';
         });
         let handler = route && route.handler;
         const debugMessages = [];
-
         {
           if (handler) {
             debugMessages.push([`Found a route to handle this request:`, route]);
-
             if (params) {
               debugMessages.push([`Passing the following params to the route's handler:`, params]);
             }
           }
-        } // If we don't have a handler because there was no matching route, then
+        }
+        // If we don't have a handler because there was no matching route, then
         // fall back to defaultHandler if that's defined.
-
-
         const method = request.method;
-
         if (!handler && this._defaultHandlerMap.has(method)) {
           {
             debugMessages.push(`Failed to find a matching route. Falling ` + `back to the default handler for ${method}.`);
           }
-
           handler = this._defaultHandlerMap.get(method);
         }
-
         if (!handler) {
           {
             // No handler so Workbox will do nothing. If logs is set of debug
             // i.e. verbose, we should print out this information.
             logger.debug(`No route found for: ${getFriendlyURL(url)}`);
           }
-
           return;
         }
-
         {
           // We have a handler, meaning Workbox is going to handle the route.
           // print the routing details to the console.
@@ -944,12 +860,10 @@ define(['exports'], (function (exports) { 'use strict';
             }
           });
           logger.groupEnd();
-        } // Wrap in try and catch in case the handle method throws a synchronous
+        }
+        // Wrap in try and catch in case the handle method throws a synchronous
         // error. It should still callback to the catch handler.
-
-
         let responsePromise;
-
         try {
           responsePromise = handler.handle({
             url,
@@ -959,11 +873,9 @@ define(['exports'], (function (exports) { 'use strict';
           });
         } catch (err) {
           responsePromise = Promise.reject(err);
-        } // Get route's catch handler, if it exists
-
-
+        }
+        // Get route's catch handler, if it exists
         const catchHandler = route && route.catchHandler;
-
         if (responsePromise instanceof Promise && (this._catchHandler || catchHandler)) {
           responsePromise = responsePromise.catch(async err => {
             // If there's a route catch handler, process that first
@@ -976,7 +888,6 @@ define(['exports'], (function (exports) { 'use strict';
                 logger.error(err);
                 logger.groupEnd();
               }
-
               try {
                 return await catchHandler.handle({
                   url,
@@ -990,7 +901,6 @@ define(['exports'], (function (exports) { 'use strict';
                 }
               }
             }
-
             if (this._catchHandler) {
               {
                 // Still include URL here as it will be async from the console group
@@ -1000,18 +910,15 @@ define(['exports'], (function (exports) { 'use strict';
                 logger.error(err);
                 logger.groupEnd();
               }
-
               return this._catchHandler.handle({
                 url,
                 request,
                 event
               });
             }
-
             throw err;
           });
         }
-
         return responsePromise;
       }
       /**
@@ -1029,8 +936,6 @@ define(['exports'], (function (exports) { 'use strict';
        *     They are populated if a matching route was found or `undefined`
        *     otherwise.
        */
-
-
       findMatchingRoute({
         url,
         sameOrigin,
@@ -1038,18 +943,16 @@ define(['exports'], (function (exports) { 'use strict';
         event
       }) {
         const routes = this._routes.get(request.method) || [];
-
         for (const route of routes) {
-          let params; // route.match returns type any, not possible to change right now.
+          let params;
+          // route.match returns type any, not possible to change right now.
           // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-
           const matchResult = route.match({
             url,
             sameOrigin,
             request,
             event
           });
-
           if (matchResult) {
             {
               // Warn developers that using an async matchCallback is almost always
@@ -1057,16 +960,15 @@ define(['exports'], (function (exports) { 'use strict';
               if (matchResult instanceof Promise) {
                 logger.warn(`While routing ${getFriendlyURL(url)}, an async ` + `matchCallback function was used. Please convert the ` + `following route to use a synchronous matchCallback function:`, route);
               }
-            } // See https://github.com/GoogleChrome/workbox/issues/2079
+            }
+            // See https://github.com/GoogleChrome/workbox/issues/2079
             // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-
-
             params = matchResult;
-
             if (Array.isArray(params) && params.length === 0) {
               // Instead of passing an empty array in as params, use undefined.
               params = undefined;
-            } else if (matchResult.constructor === Object && // eslint-disable-line
+            } else if (matchResult.constructor === Object &&
+            // eslint-disable-line
             Object.keys(matchResult).length === 0) {
               // Instead of passing an empty object in as params, use undefined.
               params = undefined;
@@ -1075,17 +977,15 @@ define(['exports'], (function (exports) { 'use strict';
               // don't set params.
               // See https://github.com/GoogleChrome/workbox/pull/2134#issuecomment-513924353
               params = undefined;
-            } // Return early if have a match.
-
-
+            }
+            // Return early if have a match.
             return {
               route,
               params
             };
           }
-        } // If no match was found above, return and empty object.
-
-
+        }
+        // If no match was found above, return and empty object.
         return {};
       }
       /**
@@ -1102,8 +1002,6 @@ define(['exports'], (function (exports) { 'use strict';
        * @param {string} [method='GET'] The HTTP method to associate with this
        * default handler. Each method has its own default.
        */
-
-
       setDefaultHandler(handler, method = defaultMethod) {
         this._defaultHandlerMap.set(method, normalizeHandler(handler));
       }
@@ -1114,8 +1012,6 @@ define(['exports'], (function (exports) { 'use strict';
        * @param {workbox-routing~handlerCallback} handler A callback
        * function that returns a Promise resulting in a Response.
        */
-
-
       setCatchHandler(handler) {
         this._catchHandler = normalizeHandler(handler);
       }
@@ -1124,8 +1020,6 @@ define(['exports'], (function (exports) { 'use strict';
        *
        * @param {workbox-routing.Route} route The route to register.
        */
-
-
       registerRoute(route) {
         {
           finalAssertExports.isType(route, 'object', {
@@ -1159,13 +1053,11 @@ define(['exports'], (function (exports) { 'use strict';
             paramName: 'route.method'
           });
         }
-
         if (!this._routes.has(route.method)) {
           this._routes.set(route.method, []);
-        } // Give precedence to all of the earlier routes by adding this additional
+        }
+        // Give precedence to all of the earlier routes by adding this additional
         // route to the end of the array.
-
-
         this._routes.get(route.method).push(route);
       }
       /**
@@ -1173,24 +1065,19 @@ define(['exports'], (function (exports) { 'use strict';
        *
        * @param {workbox-routing.Route} route The route to unregister.
        */
-
-
       unregisterRoute(route) {
         if (!this._routes.has(route.method)) {
           throw new WorkboxError('unregister-route-but-not-found-with-method', {
             method: route.method
           });
         }
-
         const routeIndex = this._routes.get(route.method).indexOf(route);
-
         if (routeIndex > -1) {
           this._routes.get(route.method).splice(routeIndex, 1);
         } else {
           throw new WorkboxError('unregister-route-route-not-registered');
         }
       }
-
     }
 
     /*
@@ -1208,15 +1095,13 @@ define(['exports'], (function (exports) { 'use strict';
      * @private
      * @return {Router}
      */
-
     const getOrCreateDefaultRouter = () => {
       if (!defaultRouter) {
-        defaultRouter = new Router(); // The helpers that use the default Router assume these listeners exist.
-
+        defaultRouter = new Router();
+        // The helpers that use the default Router assume these listeners exist.
         defaultRouter.addFetchListener();
         defaultRouter.addCacheListener();
       }
-
       return defaultRouter;
     };
 
@@ -1245,13 +1130,10 @@ define(['exports'], (function (exports) { 'use strict';
      *
      * @memberof workbox-routing
      */
-
     function registerRoute(capture, handler, method) {
       let route;
-
       if (typeof capture === 'string') {
         const captureUrl = new URL(capture, location.href);
-
         {
           if (!(capture.startsWith('/') || capture.startsWith('http'))) {
             throw new WorkboxError('invalid-string', {
@@ -1259,19 +1141,16 @@ define(['exports'], (function (exports) { 'use strict';
               funcName: 'registerRoute',
               paramName: 'capture'
             });
-          } // We want to check if Express-style wildcards are in the pathname only.
+          }
+          // We want to check if Express-style wildcards are in the pathname only.
           // TODO: Remove this log message in v4.
-
-
-          const valueToCheck = capture.startsWith('http') ? captureUrl.pathname : capture; // See https://github.com/pillarjs/path-to-regexp#parameters
-
+          const valueToCheck = capture.startsWith('http') ? captureUrl.pathname : capture;
+          // See https://github.com/pillarjs/path-to-regexp#parameters
           const wildcards = '[*:?+]';
-
           if (new RegExp(`${wildcards}`).exec(valueToCheck)) {
             logger.debug(`The '$capture' parameter contains an Express-style wildcard ` + `character (${wildcards}). Strings are now always interpreted as ` + `exact matches; use a RegExp for partial or wildcard matches.`);
           }
         }
-
         const matchCallback = ({
           url
         }) => {
@@ -1280,11 +1159,9 @@ define(['exports'], (function (exports) { 'use strict';
               logger.debug(`${capture} only partially matches the cross-origin URL ` + `${url.toString()}. This route will only handle cross-origin requests ` + `if they match the entire URL.`);
             }
           }
-
           return url.href === captureUrl.href;
-        }; // If `capture` is a string then `handler` and `method` must be present.
-
-
+        };
+        // If `capture` is a string then `handler` and `method` must be present.
         route = new Route(matchCallback, handler, method);
       } else if (capture instanceof RegExp) {
         // If `capture` is a `RegExp` then `handler` and `method` must be present.
@@ -1301,12 +1178,12 @@ define(['exports'], (function (exports) { 'use strict';
           paramName: 'capture'
         });
       }
-
       const defaultRouter = getOrCreateDefaultRouter();
       defaultRouter.registerRoute(route);
       return route;
     }
 
+    // @ts-ignore
     try {
       self['workbox:strategies:6.5.3'] && _();
     } catch (e) {}
@@ -1335,7 +1212,6 @@ define(['exports'], (function (exports) { 'use strict';
         if (response.status === 200 || response.status === 0) {
           return response;
         }
-
         return null;
       }
     };
@@ -1354,17 +1230,14 @@ define(['exports'], (function (exports) { 'use strict';
       runtime: 'runtime',
       suffix: typeof registration !== 'undefined' ? registration.scope : ''
     };
-
     const _createCacheName = cacheName => {
       return [_cacheNameDetails.prefix, cacheName, _cacheNameDetails.suffix].filter(value => value && value.length > 0).join('-');
     };
-
     const eachCacheNameDetail = fn => {
       for (const key of Object.keys(_cacheNameDetails)) {
         fn(key);
       }
     };
-
     const cacheNames = {
       updateDetails: details => {
         eachCacheNameDetail(key => {
@@ -1396,14 +1269,11 @@ define(['exports'], (function (exports) { 'use strict';
       license that can be found in the LICENSE file or at
       https://opensource.org/licenses/MIT.
     */
-
     function stripParams(fullURL, ignoreParams) {
       const strippedURL = new URL(fullURL);
-
       for (const param of ignoreParams) {
         strippedURL.searchParams.delete(param);
       }
-
       return strippedURL.href;
     }
     /**
@@ -1418,29 +1288,23 @@ define(['exports'], (function (exports) { 'use strict';
      * @param {Array<string>} ignoreParams
      * @return {Promise<Response|undefined>}
      */
-
-
     async function cacheMatchIgnoreParams(cache, request, ignoreParams, matchOptions) {
-      const strippedRequestURL = stripParams(request.url, ignoreParams); // If the request doesn't include any ignored params, match as normal.
-
+      const strippedRequestURL = stripParams(request.url, ignoreParams);
+      // If the request doesn't include any ignored params, match as normal.
       if (request.url === strippedRequestURL) {
         return cache.match(request, matchOptions);
-      } // Otherwise, match by comparing keys
-
-
+      }
+      // Otherwise, match by comparing keys
       const keysOptions = Object.assign(Object.assign({}, matchOptions), {
         ignoreSearch: true
       });
       const cacheKeys = await cache.keys(request, keysOptions);
-
       for (const cacheKey of cacheKeys) {
         const strippedCacheKeyURL = stripParams(cacheKey.url, ignoreParams);
-
         if (strippedRequestURL === strippedCacheKeyURL) {
           return cache.match(cacheKey, matchOptions);
         }
       }
-
       return;
     }
 
@@ -1459,7 +1323,6 @@ define(['exports'], (function (exports) { 'use strict';
      *
      * @private
      */
-
     class Deferred {
       /**
        * Creates a promise and exposes its resolve and reject functions as methods.
@@ -1470,7 +1333,6 @@ define(['exports'], (function (exports) { 'use strict';
           this.reject = reject;
         });
       }
-
     }
 
     /*
@@ -1480,9 +1342,9 @@ define(['exports'], (function (exports) { 'use strict';
       license that can be found in the LICENSE file or at
       https://opensource.org/licenses/MIT.
     */
+    // Callbacks to be executed whenever there's a quota error.
     // Can't change Function type right now.
     // eslint-disable-next-line @typescript-eslint/ban-types
-
     const quotaErrorCallbacks = new Set();
 
     /*
@@ -1499,20 +1361,16 @@ define(['exports'], (function (exports) { 'use strict';
      * @memberof workbox-core
      * @private
      */
-
     async function executeQuotaErrorCallbacks() {
       {
         logger.log(`About to run ${quotaErrorCallbacks.size} ` + `callbacks to clean up caches.`);
       }
-
       for (const callback of quotaErrorCallbacks) {
         await callback();
-
         {
           logger.log(callback, 'is complete.');
         }
       }
-
       {
         logger.log('Finished running callbacks.');
       }
@@ -1532,7 +1390,6 @@ define(['exports'], (function (exports) { 'use strict';
      * @return {Promise}
      * @private
      */
-
     function timeout(ms) {
       return new Promise(resolve => setTimeout(resolve, ms));
     }
@@ -1544,7 +1401,6 @@ define(['exports'], (function (exports) { 'use strict';
       license that can be found in the LICENSE file or at
       https://opensource.org/licenses/MIT.
     */
-
     function toRequest(input) {
       return typeof input === 'string' ? new Request(input) : input;
     }
@@ -1557,8 +1413,6 @@ define(['exports'], (function (exports) { 'use strict';
      *
      * @memberof workbox-strategies
      */
-
-
     class StrategyHandler {
       /**
        * Creates a new instance associated with the passed strategy and event
@@ -1586,7 +1440,6 @@ define(['exports'], (function (exports) { 'use strict';
          * @type {Request}
          * @memberof workbox-strategies.StrategyHandler
          */
-
         /**
          * The event associated with this request.
          * @name event
@@ -1594,7 +1447,6 @@ define(['exports'], (function (exports) { 'use strict';
          * @type {ExtendableEvent}
          * @memberof workbox-strategies.StrategyHandler
          */
-
         /**
          * A `URL` instance of `request.url` (if passed to the strategy's
          * `handle()` or `handleAll()` method).
@@ -1605,7 +1457,6 @@ define(['exports'], (function (exports) { 'use strict';
          * @type {URL|undefined}
          * @memberof workbox-strategies.StrategyHandler
          */
-
         /**
          * A `param` value (if passed to the strategy's
          * `handle()` or `handleAll()` method).
@@ -1618,7 +1469,6 @@ define(['exports'], (function (exports) { 'use strict';
          * @type {*|undefined}
          * @memberof workbox-strategies.StrategyHandler
          */
-
         {
           finalAssertExports.isInstance(options.event, ExtendableEvent, {
             moduleName: 'workbox-strategies',
@@ -1627,21 +1477,18 @@ define(['exports'], (function (exports) { 'use strict';
             paramName: 'options.event'
           });
         }
-
         Object.assign(this, options);
         this.event = options.event;
         this._strategy = strategy;
         this._handlerDeferred = new Deferred();
-        this._extendLifetimePromises = []; // Copy the plugins list (since it's mutable on the strategy),
+        this._extendLifetimePromises = [];
+        // Copy the plugins list (since it's mutable on the strategy),
         // so any mutations don't affect this handler instance.
-
         this._plugins = [...strategy.plugins];
         this._pluginStateMap = new Map();
-
         for (const plugin of this._plugins) {
           this._pluginStateMap.set(plugin, {});
         }
-
         this.event.waitUntil(this._handlerDeferred.promise);
       }
       /**
@@ -1657,31 +1504,24 @@ define(['exports'], (function (exports) { 'use strict';
        * @param {Request|string} input The URL or request to fetch.
        * @return {Promise<Response>}
        */
-
-
       async fetch(input) {
         const {
           event
         } = this;
         let request = toRequest(input);
-
         if (request.mode === 'navigate' && event instanceof FetchEvent && event.preloadResponse) {
           const possiblePreloadResponse = await event.preloadResponse;
-
           if (possiblePreloadResponse) {
             {
               logger.log(`Using a preloaded navigation response for ` + `'${getFriendlyURL(request.url)}'`);
             }
-
             return possiblePreloadResponse;
           }
-        } // If there is a fetchDidFail plugin, we need to save a clone of the
+        }
+        // If there is a fetchDidFail plugin, we need to save a clone of the
         // original request before it's either modified by a requestWillFetch
         // plugin or before the original request's body is consumed via fetch().
-
-
         const originalRequest = this.hasCallback('fetchDidFail') ? request.clone() : null;
-
         try {
           for (const cb of this.iterateCallbacks('requestWillFetch')) {
             request = await cb({
@@ -1695,22 +1535,18 @@ define(['exports'], (function (exports) { 'use strict';
               thrownErrorMessage: err.message
             });
           }
-        } // The request can be altered by plugins with `requestWillFetch` making
+        }
+        // The request can be altered by plugins with `requestWillFetch` making
         // the original request (most likely from a `fetch` event) different
         // from the Request we make. Pass both to `fetchDidFail` to aid debugging.
-
-
         const pluginFilteredRequest = request.clone();
-
         try {
-          let fetchResponse; // See https://github.com/GoogleChrome/workbox/issues/1796
-
+          let fetchResponse;
+          // See https://github.com/GoogleChrome/workbox/issues/1796
           fetchResponse = await fetch(request, request.mode === 'navigate' ? undefined : this._strategy.fetchOptions);
-
           if ("development" !== 'production') {
             logger.debug(`Network request for ` + `'${getFriendlyURL(request.url)}' returned a response with ` + `status '${fetchResponse.status}'.`);
           }
-
           for (const callback of this.iterateCallbacks('fetchDidSucceed')) {
             fetchResponse = await callback({
               event,
@@ -1718,15 +1554,13 @@ define(['exports'], (function (exports) { 'use strict';
               response: fetchResponse
             });
           }
-
           return fetchResponse;
         } catch (error) {
           {
             logger.log(`Network request for ` + `'${getFriendlyURL(request.url)}' threw an error.`, error);
-          } // `originalRequest` will only exist if a `fetchDidFail` callback
+          }
+          // `originalRequest` will only exist if a `fetchDidFail` callback
           // is being used (see above).
-
-
           if (originalRequest) {
             await this.runCallbacks('fetchDidFail', {
               error: error,
@@ -1735,7 +1569,6 @@ define(['exports'], (function (exports) { 'use strict';
               request: pluginFilteredRequest.clone()
             });
           }
-
           throw error;
         }
       }
@@ -1749,8 +1582,6 @@ define(['exports'], (function (exports) { 'use strict';
        * @param {Request|string} input The request or URL to fetch and cache.
        * @return {Promise<Response>}
        */
-
-
       async fetchAndCachePut(input) {
         const response = await this.fetch(input);
         const responseClone = response.clone();
@@ -1769,8 +1600,6 @@ define(['exports'], (function (exports) { 'use strict';
        * @param {Request|string} key The Request or URL to use as the cache key.
        * @return {Promise<Response|undefined>} A matching response, if found.
        */
-
-
       async cacheMatch(key) {
         const request = toRequest(key);
         let cachedResponse;
@@ -1783,7 +1612,6 @@ define(['exports'], (function (exports) { 'use strict';
           cacheName
         });
         cachedResponse = await caches.match(effectiveRequest, multiMatchOptions);
-
         {
           if (cachedResponse) {
             logger.debug(`Found a cached response in '${cacheName}'.`);
@@ -1791,7 +1619,6 @@ define(['exports'], (function (exports) { 'use strict';
             logger.debug(`No cached response found in '${cacheName}'.`);
           }
         }
-
         for (const callback of this.iterateCallbacks('cachedResponseWillBeUsed')) {
           cachedResponse = (await callback({
             cacheName,
@@ -1801,7 +1628,6 @@ define(['exports'], (function (exports) { 'use strict';
             event: this.event
           })) || undefined;
         }
-
         return cachedResponse;
       }
       /**
@@ -1819,66 +1645,54 @@ define(['exports'], (function (exports) { 'use strict';
        * @return {Promise<boolean>} `false` if a cacheWillUpdate caused the response
        * not be cached, and `true` otherwise.
        */
-
-
       async cachePut(key, response) {
-        const request = toRequest(key); // Run in the next task to avoid blocking other cache reads.
+        const request = toRequest(key);
+        // Run in the next task to avoid blocking other cache reads.
         // https://github.com/w3c/ServiceWorker/issues/1397
-
         await timeout(0);
         const effectiveRequest = await this.getCacheKey(request, 'write');
-
         {
           if (effectiveRequest.method && effectiveRequest.method !== 'GET') {
             throw new WorkboxError('attempt-to-cache-non-get-request', {
               url: getFriendlyURL(effectiveRequest.url),
               method: effectiveRequest.method
             });
-          } // See https://github.com/GoogleChrome/workbox/issues/2818
-
-
+          }
+          // See https://github.com/GoogleChrome/workbox/issues/2818
           const vary = response.headers.get('Vary');
-
           if (vary) {
             logger.debug(`The response for ${getFriendlyURL(effectiveRequest.url)} ` + `has a 'Vary: ${vary}' header. ` + `Consider setting the {ignoreVary: true} option on your strategy ` + `to ensure cache matching and deletion works as expected.`);
           }
         }
-
         if (!response) {
           {
             logger.error(`Cannot cache non-existent response for ` + `'${getFriendlyURL(effectiveRequest.url)}'.`);
           }
-
           throw new WorkboxError('cache-put-with-no-response', {
             url: getFriendlyURL(effectiveRequest.url)
           });
         }
-
         const responseToCache = await this._ensureResponseSafeToCache(response);
-
         if (!responseToCache) {
           {
             logger.debug(`Response '${getFriendlyURL(effectiveRequest.url)}' ` + `will not be cached.`, responseToCache);
           }
-
           return false;
         }
-
         const {
           cacheName,
           matchOptions
         } = this._strategy;
         const cache = await self.caches.open(cacheName);
         const hasCacheUpdateCallback = this.hasCallback('cacheDidUpdate');
-        const oldResponse = hasCacheUpdateCallback ? await cacheMatchIgnoreParams( // TODO(philipwalton): the `__WB_REVISION__` param is a precaching
+        const oldResponse = hasCacheUpdateCallback ? await cacheMatchIgnoreParams(
+        // TODO(philipwalton): the `__WB_REVISION__` param is a precaching
         // feature. Consider into ways to only add this behavior if using
         // precaching.
         cache, effectiveRequest.clone(), ['__WB_REVISION__'], matchOptions) : null;
-
         {
           logger.debug(`Updating the '${cacheName}' cache with a new Response ` + `for ${getFriendlyURL(effectiveRequest.url)}.`);
         }
-
         try {
           await cache.put(effectiveRequest, hasCacheUpdateCallback ? responseToCache.clone() : responseToCache);
         } catch (error) {
@@ -1887,11 +1701,9 @@ define(['exports'], (function (exports) { 'use strict';
             if (error.name === 'QuotaExceededError') {
               await executeQuotaErrorCallbacks();
             }
-
             throw error;
           }
         }
-
         for (const callback of this.iterateCallbacks('cacheDidUpdate')) {
           await callback({
             cacheName,
@@ -1901,7 +1713,6 @@ define(['exports'], (function (exports) { 'use strict';
             event: this.event
           });
         }
-
         return true;
       }
       /**
@@ -1915,14 +1726,10 @@ define(['exports'], (function (exports) { 'use strict';
        * @param {string} mode
        * @return {Promise<Request>}
        */
-
-
       async getCacheKey(request, mode) {
         const key = `${request.url} | ${mode}`;
-
         if (!this._cacheKeys[key]) {
           let effectiveRequest = request;
-
           for (const callback of this.iterateCallbacks('cacheKeyWillBeUsed')) {
             effectiveRequest = toRequest(await callback({
               mode,
@@ -1930,13 +1737,11 @@ define(['exports'], (function (exports) { 'use strict';
               event: this.event,
               // params has a type any can't change right now.
               params: this.params // eslint-disable-line
-
             }));
           }
 
           this._cacheKeys[key] = effectiveRequest;
         }
-
         return this._cacheKeys[key];
       }
       /**
@@ -1946,15 +1751,12 @@ define(['exports'], (function (exports) { 'use strict';
        * @param {string} name The name of the callback to check for.
        * @return {boolean}
        */
-
-
       hasCallback(name) {
         for (const plugin of this._strategy.plugins) {
           if (name in plugin) {
             return true;
           }
         }
-
         return false;
       }
       /**
@@ -1973,8 +1775,6 @@ define(['exports'], (function (exports) { 'use strict';
        *     when executing each callback. This object will be merged with the
        *     current plugin state prior to callback execution.
        */
-
-
       async runCallbacks(name, param) {
         for (const callback of this.iterateCallbacks(name)) {
           // TODO(philipwalton): not sure why `any` is needed. It seems like
@@ -1991,22 +1791,18 @@ define(['exports'], (function (exports) { 'use strict';
        * @param {string} name The name fo the callback to run
        * @return {Array<Function>}
        */
-
-
       *iterateCallbacks(name) {
         for (const plugin of this._strategy.plugins) {
           if (typeof plugin[name] === 'function') {
             const state = this._pluginStateMap.get(plugin);
-
             const statefulCallback = param => {
               const statefulParam = Object.assign(Object.assign({}, param), {
                 state
-              }); // TODO(philipwalton): not sure why `any` is needed. It seems like
+              });
+              // TODO(philipwalton): not sure why `any` is needed. It seems like
               // this should work with `as WorkboxPluginCallbackParam[C]`.
-
               return plugin[name](statefulParam);
             };
-
             yield statefulCallback;
           }
         }
@@ -2024,11 +1820,8 @@ define(['exports'], (function (exports) { 'use strict';
        * @param {Promise} promise A promise to add to the extend lifetime promises
        *     of the event that triggered the request.
        */
-
-
       waitUntil(promise) {
         this._extendLifetimePromises.push(promise);
-
         return promise;
       }
       /**
@@ -2041,11 +1834,8 @@ define(['exports'], (function (exports) { 'use strict';
        * `waitUntil()` method), otherwise the service worker thread my be killed
        * prior to your work completing.
        */
-
-
       async doneWaiting() {
         let promise;
-
         while (promise = this._extendLifetimePromises.shift()) {
           await promise;
         }
@@ -2054,8 +1844,6 @@ define(['exports'], (function (exports) { 'use strict';
        * Stops running the strategy and immediately resolves any pending
        * `waitUntil()` promises.
        */
-
-
       destroy() {
         this._handlerDeferred.resolve(null);
       }
@@ -2069,12 +1857,9 @@ define(['exports'], (function (exports) { 'use strict';
        *
        * @private
        */
-
-
       async _ensureResponseSafeToCache(response) {
         let responseToCache = response;
         let pluginsUsed = false;
-
         for (const callback of this.iterateCallbacks('cacheWillUpdate')) {
           responseToCache = (await callback({
             request: this.request,
@@ -2082,17 +1867,14 @@ define(['exports'], (function (exports) { 'use strict';
             event: this.event
           })) || undefined;
           pluginsUsed = true;
-
           if (!responseToCache) {
             break;
           }
         }
-
         if (!pluginsUsed) {
           if (responseToCache && responseToCache.status !== 200) {
             responseToCache = undefined;
           }
-
           {
             if (responseToCache) {
               if (responseToCache.status !== 200) {
@@ -2105,10 +1887,8 @@ define(['exports'], (function (exports) { 'use strict';
             }
           }
         }
-
         return responseToCache;
       }
-
     }
 
     /*
@@ -2123,7 +1903,6 @@ define(['exports'], (function (exports) { 'use strict';
      *
      * @memberof workbox-strategies
      */
-
     class Strategy {
       /**
        * Creates a new instance of the strategy and sets all documented option
@@ -2163,7 +1942,6 @@ define(['exports'], (function (exports) { 'use strict';
          *
          * @type {Array<Object>}
          */
-
         this.plugins = options.plugins || [];
         /**
          * Values passed along to the
@@ -2172,7 +1950,6 @@ define(['exports'], (function (exports) { 'use strict';
          *
          * @type {Object}
          */
-
         this.fetchOptions = options.fetchOptions;
         /**
          * The
@@ -2181,7 +1958,6 @@ define(['exports'], (function (exports) { 'use strict';
          *
          * @type {Object}
          */
-
         this.matchOptions = options.matchOptions;
       }
       /**
@@ -2203,8 +1979,6 @@ define(['exports'], (function (exports) { 'use strict';
        * @param {URL} [options.url]
        * @param {*} [options.params]
        */
-
-
       handle(options) {
         const [responseDone] = this.handleAll(options);
         return responseDone;
@@ -2231,8 +2005,6 @@ define(['exports'], (function (exports) { 'use strict';
        *     promises that can be used to determine when the response resolves as
        *     well as when the handler has completed all its work.
        */
-
-
       handleAll(options) {
         // Allow for flexible options to be passed.
         if (options instanceof FetchEvent) {
@@ -2241,7 +2013,6 @@ define(['exports'], (function (exports) { 'use strict';
             request: options.request
           };
         }
-
         const event = options.event;
         const request = typeof options.request === 'string' ? new Request(options.request) : options.request;
         const params = 'params' in options ? options.params : undefined;
@@ -2250,27 +2021,22 @@ define(['exports'], (function (exports) { 'use strict';
           request,
           params
         });
-
         const responseDone = this._getResponse(handler, request, event);
-
-        const handlerDone = this._awaitComplete(responseDone, handler, request, event); // Return an array of promises, suitable for use with Promise.all().
-
-
+        const handlerDone = this._awaitComplete(responseDone, handler, request, event);
+        // Return an array of promises, suitable for use with Promise.all().
         return [responseDone, handlerDone];
       }
-
       async _getResponse(handler, request, event) {
         await handler.runCallbacks('handlerWillStart', {
           event,
           request
         });
         let response = undefined;
-
         try {
-          response = await this._handle(request, handler); // The "official" Strategy subclasses all throw this error automatically,
+          response = await this._handle(request, handler);
+          // The "official" Strategy subclasses all throw this error automatically,
           // but in case a third-party Strategy doesn't, ensure that we have a
           // consistent failure when there's no response or an error response.
-
           if (!response || response.type === 'error') {
             throw new WorkboxError('no-response', {
               url: request.url
@@ -2284,20 +2050,17 @@ define(['exports'], (function (exports) { 'use strict';
                 event,
                 request
               });
-
               if (response) {
                 break;
               }
             }
           }
-
           if (!response) {
             throw error;
           } else {
             logger.log(`While responding to '${getFriendlyURL(request.url)}', ` + `an ${error instanceof Error ? error.toString() : ''} error occurred. Using a fallback response provided by ` + `a handlerDidError plugin.`);
           }
         }
-
         for (const callback of handler.iterateCallbacks('handlerWillRespond')) {
           response = await callback({
             event,
@@ -2305,21 +2068,18 @@ define(['exports'], (function (exports) { 'use strict';
             response
           });
         }
-
         return response;
       }
-
       async _awaitComplete(responseDone, handler, request, event) {
         let response;
         let error;
-
         try {
           response = await responseDone;
-        } catch (error) {// Ignore errors, as response errors should be caught via the `response`
+        } catch (error) {
+          // Ignore errors, as response errors should be caught via the `response`
           // promise above. The `done` promise will only throw for errors in
           // promises passed to `handler.waitUntil()`.
         }
-
         try {
           await handler.runCallbacks('handlerDidRespond', {
             event,
@@ -2332,7 +2092,6 @@ define(['exports'], (function (exports) { 'use strict';
             error = waitUntilError;
           }
         }
-
         await handler.runCallbacks('handlerDidComplete', {
           event,
           request,
@@ -2340,12 +2099,10 @@ define(['exports'], (function (exports) { 'use strict';
           error: error
         });
         handler.destroy();
-
         if (error) {
           throw error;
         }
       }
-
     }
     /**
      * Classes extending the `Strategy` based class should implement this method,
@@ -2406,7 +2163,6 @@ define(['exports'], (function (exports) { 'use strict';
      * @extends workbox-strategies.Strategy
      * @memberof workbox-strategies
      */
-
     class NetworkFirst extends Strategy {
       /**
        * @param {Object} [options]
@@ -2428,15 +2184,13 @@ define(['exports'], (function (exports) { 'use strict';
        * scenarios.
        */
       constructor(options = {}) {
-        super(options); // If this instance contains no plugins with a 'cacheWillUpdate' callback,
+        super(options);
+        // If this instance contains no plugins with a 'cacheWillUpdate' callback,
         // prepend the `cacheOkAndOpaquePlugin` plugin to the plugins list.
-
         if (!this.plugins.some(p => 'cacheWillUpdate' in p)) {
           this.plugins.unshift(cacheOkAndOpaquePlugin);
         }
-
         this._networkTimeoutSeconds = options.networkTimeoutSeconds || 0;
-
         {
           if (this._networkTimeoutSeconds) {
             finalAssertExports.isType(this._networkTimeoutSeconds, 'number', {
@@ -2455,11 +2209,8 @@ define(['exports'], (function (exports) { 'use strict';
        *     triggered the request.
        * @return {Promise<Response>}
        */
-
-
       async _handle(request, handler) {
         const logs = [];
-
         {
           finalAssertExports.isInstance(request, Request, {
             moduleName: 'workbox-strategies',
@@ -2468,10 +2219,8 @@ define(['exports'], (function (exports) { 'use strict';
             paramName: 'makeRequest'
           });
         }
-
         const promises = [];
         let timeoutId;
-
         if (this._networkTimeoutSeconds) {
           const {
             id,
@@ -2481,41 +2230,39 @@ define(['exports'], (function (exports) { 'use strict';
             logs,
             handler
           });
-
           timeoutId = id;
           promises.push(promise);
         }
-
         const networkPromise = this._getNetworkPromise({
           timeoutId,
           request,
           logs,
           handler
         });
-
         promises.push(networkPromise);
         const response = await handler.waitUntil((async () => {
           // Promise.race() will resolve as soon as the first promise resolves.
-          return (await handler.waitUntil(Promise.race(promises))) || (await networkPromise);
+          return (await handler.waitUntil(Promise.race(promises))) || (
+          // If Promise.race() resolved with null, it might be due to a network
+          // timeout + a cache miss. If that were to happen, we'd rather wait until
+          // the networkPromise resolves instead of returning null.
+          // Note that it's fine to await an already-resolved promise, so we don't
+          // have to check to see if it's still "in flight".
+          await networkPromise);
         })());
-
         {
           logger.groupCollapsed(messages.strategyStart(this.constructor.name, request));
-
           for (const log of logs) {
             logger.log(log);
           }
-
           messages.printFinalResponse(response);
           logger.groupEnd();
         }
-
         if (!response) {
           throw new WorkboxError('no-response', {
             url: request.url
           });
         }
-
         return response;
       }
       /**
@@ -2527,8 +2274,6 @@ define(['exports'], (function (exports) { 'use strict';
        *
        * @private
        */
-
-
       _getTimeoutPromise({
         request,
         logs,
@@ -2540,10 +2285,8 @@ define(['exports'], (function (exports) { 'use strict';
             {
               logs.push(`Timing out the network response at ` + `${this._networkTimeoutSeconds} seconds.`);
             }
-
             resolve(await handler.cacheMatch(request));
           };
-
           timeoutId = setTimeout(onNetworkTimeout, this._networkTimeoutSeconds * 1000);
         });
         return {
@@ -2561,8 +2304,6 @@ define(['exports'], (function (exports) { 'use strict';
        *
        * @private
        */
-
-
       async _getNetworkPromise({
         timeoutId,
         request,
@@ -2571,7 +2312,6 @@ define(['exports'], (function (exports) { 'use strict';
       }) {
         let error;
         let response;
-
         try {
           response = await handler.fetchAndCachePut(request);
         } catch (fetchError) {
@@ -2579,11 +2319,9 @@ define(['exports'], (function (exports) { 'use strict';
             error = fetchError;
           }
         }
-
         if (timeoutId) {
           clearTimeout(timeoutId);
         }
-
         {
           if (response) {
             logs.push(`Got response from network.`);
@@ -2591,10 +2329,8 @@ define(['exports'], (function (exports) { 'use strict';
             logs.push(`Unable to get a response from the network. Will respond ` + `with a cached response.`);
           }
         }
-
         if (error || !response) {
           response = await handler.cacheMatch(request);
-
           {
             if (response) {
               logs.push(`Found a cached response in the '${this.cacheName}'` + ` cache.`);
@@ -2603,10 +2339,8 @@ define(['exports'], (function (exports) { 'use strict';
             }
           }
         }
-
         return response;
       }
-
     }
 
     /*
@@ -2629,7 +2363,6 @@ define(['exports'], (function (exports) { 'use strict';
      * @extends workbox-strategies.Strategy
      * @memberof workbox-strategies
      */
-
     class NetworkOnly extends Strategy {
       /**
        * @param {Object} [options]
@@ -2653,8 +2386,6 @@ define(['exports'], (function (exports) { 'use strict';
        *     triggered the request.
        * @return {Promise<Response>}
        */
-
-
       async _handle(request, handler) {
         {
           finalAssertExports.isInstance(request, Request, {
@@ -2664,20 +2395,15 @@ define(['exports'], (function (exports) { 'use strict';
             paramName: 'request'
           });
         }
-
         let error = undefined;
         let response;
-
         try {
           const promises = [handler.fetch(request)];
-
           if (this._networkTimeoutSeconds) {
             const timeoutPromise = timeout(this._networkTimeoutSeconds * 1000);
             promises.push(timeoutPromise);
           }
-
           response = await Promise.race(promises);
-
           if (!response) {
             throw new Error(`Timed out the network response after ` + `${this._networkTimeoutSeconds} seconds.`);
           }
@@ -2686,30 +2412,24 @@ define(['exports'], (function (exports) { 'use strict';
             error = err;
           }
         }
-
         {
           logger.groupCollapsed(messages.strategyStart(this.constructor.name, request));
-
           if (response) {
             logger.log(`Got response from network.`);
           } else {
             logger.log(`Unable to get a response from the network.`);
           }
-
           messages.printFinalResponse(response);
           logger.groupEnd();
         }
-
         if (!response) {
           throw new WorkboxError('no-response', {
             url: request.url,
             error
           });
         }
-
         return response;
       }
-
     }
 
     /*
@@ -2725,7 +2445,6 @@ define(['exports'], (function (exports) { 'use strict';
      *
      * @memberof workbox-core
      */
-
     function clientsClaim() {
       self.addEventListener('activate', () => self.clients.claim());
     }
@@ -2736,4 +2455,4 @@ define(['exports'], (function (exports) { 'use strict';
     exports.registerRoute = registerRoute;
 
 }));
-//# sourceMappingURL=workbox-e4c22ef5.js.map
+//# sourceMappingURL=workbox-327c579b.js.map
