@@ -52,7 +52,7 @@
 		"react-loadable": "^5.5.0",
 		"react-markdown": "^8.0.0",
 		"redux": "^4.1.1",
-		"socket.io": "^2.4.0",
+		"socket.io": "^2.5.0",
 		"test-listen": "^1.1.0",
 		"ua-parser-js": "^0.7.21",
 		"uuid": "^8.3.0",
