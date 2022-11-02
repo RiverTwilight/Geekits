@@ -19,7 +19,8 @@
 		"paths": {
 			"@/components/*": ["src/components/*"],
 			"@/data/*": ["data/*"],
-			"@/apps/*": ["src/apps/*"]
+			"@/apps/*": ["src/apps/*"],
+			"@/utils/*": ["src/utils/*"]
 		}
 	},
 	"exclude": ["node_modules"],
