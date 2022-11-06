@@ -1,11 +1,36 @@
-module.exports = [
+/**
+ * Add a config to this file to make the new app available.
+ * Besides, you also need to update the /data/appImportList.ts file.
+ */
+
+export type AppData = {
+	name: string;
+	description?: string;
+	// The path to the app's icon.
+	icon?: string;
+	// The path to the app's entry file.
+	link: string;
+	// Only show stable and beta app
+	status?: "stable" | "beta" | "alpha";
+	channel?: number;
+	icon_color?: string;
+	network?: boolean;
+	/**
+	 * @deprecated
+	 * Move desctipion to the app's entry file.
+	 */
+	help?: string;
+};
+
+const data: AppData[] = [
 	{
 		name: "自律神器：积分奖手册",
 		channel: 4,
 		icon: "/icon/tasks.png",
-		statu: "hidden",
+		status: "alpha",
 		link: "point_brochure",
 		icon_color: "",
+		help: "sdfa",
 		description: "利用多巴胺机制帮助你自律",
 	},
 	{
@@ -13,15 +38,14 @@ module.exports = [
 		channel: 4,
 		icon: "/icon/lens.png",
 		link: "coming",
-		statu: "hidden",
+		status: "alpha",
 		icon_color: "teal",
 	},
 	{
-		statu: "development",
 		name: "种子转磁链",
 		channel: 4,
 		icon: "cloud_download",
-		statu: "hidden",
+		status: "alpha",
 		link: "coming",
 		icon_color: "deblue-300",
 		description: "将种子文件转换为磁力链接",
@@ -31,13 +55,13 @@ module.exports = [
 		channel: 1,
 		icon: "font_download",
 		link: "ocr",
-		statu: "hidden",
+		status: "alpha",
 		icon_color: "blue-400",
 		description: "识别图片中的文字，支持多语言",
 	},
 	{
 		name: "服务协议生成",
-		statu: "development",
+		status: "beta",
 		channel: 3,
 		icon: "lock",
 		link: "policy_generator",
@@ -46,12 +70,10 @@ module.exports = [
 	},
 	{
 		name: "AI图像识别",
-		statu: "development",
 		link: "aic",
-		statu: "hidden",
+		status: "beta",
 		icon: "photo_album",
 		icon_color: "blue-500",
-		help: "",
 		description: "识别图中的物体，支持植物/动物/汽车/菜品等等",
 		channel: 1,
 	},
@@ -65,20 +87,18 @@ module.exports = [
 	},
 	{
 		name: "UA解析",
-		statu: "development",
+		status: "beta",
 		link: "ua",
 		icon: "devices",
 		icon_color: "teal-300",
-		help: "默认为本机UA(UserAgent)",
 		channel: 3,
 	},
 	{
 		name: "网页资源抓取",
 		link: "console",
-		statu: "development",
+		status: "beta",
 		icon: "language",
 		icon_color: "indigo-300",
-		help: "动态生成的内容可能无法抓取到",
 		channel: 3,
 	},
 	{
@@ -86,15 +106,14 @@ module.exports = [
 		link: "translate",
 		icon: "/icon/translation.png",
 		icon_color: "blue-400",
-		help: "使用百度翻译引擎",
+		status: "alpha",
 		channel: 4,
 	},
 	{
-		statu: "ready",
+		status: "stable",
 		name: "日期&时间计算",
 		link: "date_calculator",
 		icon: "/icon/Google_Calendar_icon_(2020).svg",
-		help: "输入负数可以向前推算",
 		description:
 			"计算两个日期间隔的天数和时间，或推算几天前后是哪一天，可以算算你活了多久 :)",
 		channel: 4,
@@ -102,7 +121,7 @@ module.exports = [
 	{
 		name: "番茄钟",
 		link: "pomodoro",
-		statu: "development",
+		status: "beta",
 		icon: "/icon/pomodoro.png",
 		description:
 			"番茄工作法极大地提高了工作的效率，还会有意想不到的成就感。",
@@ -115,7 +134,7 @@ module.exports = [
 		icon_color: "green",
 		help: "大文件可能会有很大延迟",
 		network: true,
-		statu: "hidden",
+		status: "beta",
 		channel: 4,
 	},
 	{
@@ -136,7 +155,7 @@ module.exports = [
 	},
 	{
 		name: "B站封面获取",
-		statu: "ready",
+		status: "stable",
 		link: "bilibili_cover",
 		icon: "photo_size_select_actual",
 		icon_color: "pink-300",
@@ -146,7 +165,7 @@ module.exports = [
 	},
 	{
 		name: "PornHub风格Logo生成",
-		statu: "ready",
+		status: "stable",
 		link: "fake_pornhub_logo",
 		icon: "/icon/imagesearch_roller-orange/icon-192-maskable.png",
 		help: "仅供娱乐，产生任何后果自负",
@@ -161,7 +180,7 @@ module.exports = [
 	// 	channel: 4,
 	// },
 	{
-		statu: "development",
+		status: "beta",
 		name: "manifest生成",
 		link: "manifest",
 		icon: "settings_applications",
@@ -172,10 +191,9 @@ module.exports = [
 	{
 		name: "简繁转换",
 		link: "sctc",
-		statu: "development",
+		status: "stable",
 		icon: "font_download",
 		icon_color: "red",
-		statu: "ready",
 		help: "",
 		description: "作者：憂郁的烏龜",
 		channel: 4,
@@ -183,7 +201,7 @@ module.exports = [
 	{
 		name: "做决定",
 		link: "decision",
-		statu: "development",
+		status: "beta",
 		icon: "widgets",
 		icon_color: "indigo",
 		description: "随机选取，选择困难症患者福音",
@@ -200,7 +218,7 @@ module.exports = [
 	},
 	{
 		name: "文件树生成",
-		statu: "ready",
+		status: "stable",
 		link: "folder_tree",
 		icon: "/icon/file.jpg",
 		description: "生成文件夹结构",
@@ -209,7 +227,7 @@ module.exports = [
 	},
 	{
 		name: "GIF制作",
-		statu: "development",
+		status: "beta",
 		link: "gif",
 		icon: "/icon/file.jpg",
 		icon_color: "light-green",
@@ -217,7 +235,7 @@ module.exports = [
 		channel: 2,
 	},
 	{
-		statu: "ready",
+		status: "stable",
 		name: "樱花动漫视频解析",
 		link: "imomoe_parse",
 		icon: "/icon/video.svg",
@@ -231,7 +249,7 @@ module.exports = [
 		icon: "apps",
 		icon_color: "blue",
 		description: "将图片切成九宫格，在社交媒体发布逼格更高",
-		statu: "devlopment",
+		status: "beta",
 		channel: 2,
 	},
 	{
@@ -240,12 +258,12 @@ module.exports = [
 		icon: "sort_by_alpha",
 		icon_color: "green-200",
 		description: "测试正则表达式与文本是否匹配",
-		statu: "ready",
+		status: "stable",
 		help: "",
 		channel: 3,
 	},
 	{
-		statu: "ready",
+		status: "stable",
 		name: "HTML转JSX",
 		link: "html2jsx",
 		icon: "/icon/code-html-green/icon-192-maskable.png",
@@ -254,7 +272,7 @@ module.exports = [
 	},
 	{
 		name: "MIME-type查询",
-		statu: "ready",
+		status: "stable",
 		link: "mimetype",
 		icon: "/icon/file_present-green/icon-192-maskable.png",
 		description: "查询文件的MIME-type，支持正反查询",
@@ -265,49 +283,44 @@ module.exports = [
 		link: "scoreboard",
 		icon: "today",
 		icon_color: "lime",
-		help: "",
-		statu: "hidden",
+		status: "alpha",
 		channel: 4,
 	},
 	{
 		name: "表情制作",
 		link: "meme_maker",
 		icon: "/icon/fun.png",
-		statu: "ready",
-		help: "",
+		status: "stable",
 		channel: 2,
 	},
 	{
 		name: "全能文本转换",
-		statu: "ready",
+		status: "stable",
 		link: "endecode",
 		icon: "wb_auto",
 		icon_color: "cyan-200",
 		description: "可能是最全的文本转换工具，支持多达7种文本",
-		help: "",
 		channel: 3,
 	},
 	{
 		name: "图片转Base64",
-		statu: "ready",
+		status: "stable",
 		link: "img2base64",
 		icon: "photo",
 		icon_color: "green-300",
-		help: "图片过大可能有卡顿",
 		channel: 2,
 	},
 	{
-		statu: "ready",
+		status: "stable",
 		name: "图片&字幕拼接",
 		link: "img_mosaic",
 		icon: "view_column",
 		icon_color: "amber-600",
-		help: "图片过大可能会卡顿；拉动阴影部分可调整拼接范围，适合字幕或长图拼接",
 		channel: 2,
 	},
 	{
 		name: "化学方程式配平",
-		statu: "ready",
+		status: "stable",
 		link: "cem",
 		icon: "/icon/magic-line-blue/icon-192-maskable.png",
 		channel: 4,
@@ -321,7 +334,7 @@ module.exports = [
 		network: true,
 	},
 	{
-		statu: "ready",
+		status: "stable",
 		name: "图片压缩",
 		link: "img_compress",
 		icon: "/icon/finance.png",
@@ -335,7 +348,7 @@ module.exports = [
 		icon: "cloud_circle",
 		icon_color: "green-300",
 		help: "点击图片可保存；不填写文字尺寸则会采用随机大小",
-		statu: "hidden",
+		status: "alpha",
 		channel: 2,
 	},
 	{
@@ -344,7 +357,7 @@ module.exports = [
 		icon: "/icon/audio.svg",
 		help: "每次最多合成500字符",
 		description: "将文字转成mp3朗读音频，支持多种声线/速度/音调/音量自定义",
-		statu: "hidden",
+		status: "alpha",
 		channel: 1,
 		network: true,
 	},
@@ -354,7 +367,7 @@ module.exports = [
 		icon: "attach_money",
 		icon_color: "yellow-600",
 		help: "生成结果仅供参考",
-		statu: "ready",
+		status: "stable",
 		channel: 4,
 	},
 	{
@@ -367,7 +380,7 @@ module.exports = [
 	},
 	{
 		name: "词典",
-		statu: "ready",
+		status: "stable",
 		link: "dic_ci",
 		icon: "/icon/book.png",
 		description: "便捷查询常用词",
@@ -376,7 +389,7 @@ module.exports = [
 	},
 	{
 		name: "歇后语查询",
-		statu: "ready",
+		status: "stable",
 		link: "xiehouyu",
 		icon: "/icon/book.png",
 		description: "支持谜面谜底互查",
@@ -387,13 +400,13 @@ module.exports = [
 		name: "成语词典",
 		link: "dic_idiom",
 		icon: "/icon/book.png",
-		statu: "ready",
+		status: "stable",
 		help: "支持缩写哦",
 		channel: 4,
 		network: true,
 	},
 	{
-		statu: "ready",
+		status: "stable",
 		name: "字典",
 		link: "dic_word",
 		icon: "/icon/book.png",
@@ -404,7 +417,7 @@ module.exports = [
 	},
 	{
 		name: "JS键盘码查询",
-		statu: "ready",
+		status: "stable",
 		link: "js_keycode",
 		icon: "/icon/code-js-yellow/icon-192-maskable.png",
 		channel: 3,
@@ -416,3 +429,5 @@ module.exports = [
 		channel: 5,
 	},
 ];
+
+module.exports = data;

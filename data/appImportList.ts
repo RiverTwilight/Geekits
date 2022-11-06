@@ -24,6 +24,9 @@ export default {
 	policy_generator: dynamic(() => import("../src/apps/policy_generator"), {
 		ssr: false,
 	}),
+	clipboard: dynamic(() => import("../src/apps/clipboard"), {
+		ssr: false,
+	}),
 	dic_ci: dynamic(() => import("../src/apps/dic_ci"), {
 		ssr: false,
 	}),

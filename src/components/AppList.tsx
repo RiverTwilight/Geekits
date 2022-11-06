@@ -1,3 +1,5 @@
+import React from "react";
+import Link from "next/link";
 import Avatar from "@mui/material/Avatar";
 import Chip from "@mui/material/Chip";
 import Grid from "@mui/material/Grid";
@@ -15,8 +17,7 @@ import CodeTwoToneIcon from "@mui/icons-material/CodeTwoTone";
 import LinkTwoToneIcon from "@mui/icons-material/LinkTwoTone";
 import WbSunnyTwoToneIcon from "@mui/icons-material/WbSunnyTwoTone";
 import OutlinedCard from "./OutlinedCard";
-import React from "react";
-import Link from "next/link";
+import type { AppData } from "src/data/i18n/zh-CN/appData";
 
 const useStyles = makeStyles((theme: Theme) => ({
 	root: {
@@ -57,13 +58,12 @@ const AppListItem = ({
 	name,
 	link,
 	description,
-	statu,
+	status,
 	selected,
 	icon,
 }: {
 	description?: string;
-	/**APP状态 */
-	statu?: "hidden" | "development" | "production";
+	status?: Pick<AppData, "status">;
 	name: string;
 	isActive?: boolean;
 	link?: string;
@@ -82,7 +82,7 @@ const AppListItem = ({
 			  }
 			: {
 					component: Link,
-					href: statu !== "development" ? "/app/" + link : "#/",
+					href: status !== "beta" ? "/app/" + link : "#/",
 			  };
 	return (
 		<OutlinedCard>
@@ -108,9 +108,9 @@ const AppListItem = ({
 						primary={
 							<>
 								{name}&nbsp;
-								{statu === "development" && (
+								{status === "beta" && (
 									<Chip
-										label="即将上线"
+										label="开发中"
 										size="small"
 										variant="outlined"
 									/>
@@ -125,11 +125,10 @@ const AppListItem = ({
 	);
 };
 
-//分类栏目
 const MakeChannels = ({
 	data: { name, apps, Icon },
 }: {
-	data: { name: string; apps: IApp[]; Icon: JSX.Element | JSX.Element[] };
+	data: { name: string; apps: AppData[]; Icon: JSX.Element | JSX.Element[] };
 }) => {
 	const classes = useStyles();
 	const [open, setOpen] = React.useState(true);
@@ -148,8 +147,8 @@ const MakeChannels = ({
 			{/* <Collapse in={open} timeout="auto" unmountOnExit> */}
 			<List component="div" disablePadding>
 				<Grid container spacing={1}>
-					{apps.map((app: any) => (
-						<Grid key={app.name} item sm={6} xl={4} xs={12}>
+					{apps.map((app) => (
+						<Grid key={app.link} item sm={6} xl={4} xs={12}>
 							<AppListItem {...app} />
 						</Grid>
 					))}

@@ -1,18 +1,14 @@
 import React, { useEffect } from "react";
-import {
-	ThemeProvider,
-	createTheme,
-	makeStyles,
-} from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
+import { Theme } from "@mui/material/styles";
+import Grid from "@mui/material/Grid";
 import AppList from "@/components/AppList";
 import Search from "@/components/Search";
 import FivList from "@/components/FivList";
 import Board from "@/components/Board";
-import { Theme } from "@mui/material/styles";
-import Grid from "@mui/material/Grid";
 
 export async function getStaticProps({ locale }) {
-	const appData = require("../data/i18n/" + locale + "/appData.js");
+	const appData = require("../data/i18n/" + locale + "/appData.ts");
 
 	const pageDic = require("../data/i18n/" + locale + "/page.js")["/"];
 
@@ -23,7 +19,7 @@ export async function getStaticProps({ locale }) {
 				path: "/",
 			},
 			locale,
-			appData: appData.filter((app) => app.statu !== "hidden"),
+			appData: appData.filter((app) => app.status !== "alpha"),
 			pageDic,
 		},
 	};
