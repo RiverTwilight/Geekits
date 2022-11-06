@@ -9,6 +9,8 @@ import VideocamIcon from "@mui/icons-material/Videocam";
 import ImageIcon from "@mui/icons-material/Image";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 
+("use strict");
+
 interface FRProps
 	extends Omit<
 		React.InputHTMLAttributes<HTMLInputElement>,
