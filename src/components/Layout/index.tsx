@@ -175,7 +175,6 @@ class Layout extends React.Component<
 		return (
 			<>
 				<Head>
-					<meta name="description" content={currentDescription} />
 					<meta
 						name="keywords"
 						content={siteConfig.keywords.join(",")}

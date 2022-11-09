@@ -1,8 +1,28 @@
 import React from "react";
+import { useRouter } from "next/router";
+import InputAdornment from "@mui/material/InputAdornment";
+import Paper from "@mui/material/Paper";
+import { Theme } from "@mui/material/styles";
+import createStyles from "@mui/styles/createStyles";
+import withStyles from "@mui/styles/withStyles";
+import FormControl from "@mui/material/FormControl";
+import TextField from "@mui/material/TextField";
+import SearchSharpIcon from "@mui/icons-material/SearchSharp";
+import Button from "@mui/material/Button";
+import GoogleIcon from "@mui/icons-material/Google";
+import Link from "next/link";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import pinyin from "js-pinyin";
+import useEventListener from "@/utils/Hooks/useEventListener";
 import ClipboardJS from "clipboard";
 import io from "socket.io-client";
 import QRCode from "qrcode";
 import saveFile from "../../utils/fileSaver";
+import { Box } from "@mui/material";
 
 // Doc https://ntfy.sh/docs/subscribe/api/
 
@@ -134,15 +154,13 @@ export default class extends React.Component<{}, ComponentState> {
 	}
 	componentWillMount() {
 		if (window.location.hash) {
-			//如果链接有hash信息保存为token
-			var token = /^\#\/(\d+)$/.exec(window.location.hash)[1];
+			const token = /^\#\/(\d+)$/.exec(window.location.hash)[1];
 			this.setState({
 				token: Number(token),
 			});
 		} else {
 			//没有则生成token
 			const td = new Date();
-			// @ts-expect-error ts-migrate(2403) FIXME: Subsequent variable declarations must have the sam... Remove this comment to see the full error message
 			var token = td.getTime();
 			this.setState({
 				token: token,
@@ -261,25 +279,27 @@ export default class extends React.Component<{}, ComponentState> {
 			<>
 				<MsgList data={receivedData} />
 
-				<div className="bottom-dashboard mdui-card mdui-p-a-1">
-					<Input
-						onValueChange={(newText) => {
-							this.setState({
-								textData: newText,
-							});
-						}}
-						rows={2}
-						maxlength="3000"
-						header="输入要发送的内容，大于3000字符请发送文件"
-						value={textData}
-					/>
+				<Box>
+					<FormControl fullWidth className={classes.input}>
+						<TextField
+							InputProps={{
+								startAdornment: (
+									<InputAdornment position="start">
+										<SearchSharpIcon />
+									</InputAdornment>
+								),
+							}}
+							inputRef={(ref) => (this.searchInput = ref)}
+							autoComplete="off"
+							value={textData}
+							variant="outlined"
+							label="输入要发送的内容，大于3000字符请发送文件"
+						/>
+					</FormControl>
+				</Box>
 
-					<button
-						onClick={this.sendMsg.bind(this)}
-						className="loadBtn mdui-ripple mdui-float-right mdui-color-theme mdui-btn-raised mdui-btn"
-					>
-						发送
-					</button>
+				<Box>
+					<Button onClick={this.sendMsg.bind(this)}>发送</Button>
 
 					<button className="mdui-float-left mdui-btn">
 						<i className="mdui-icon mdui-icon-left material-icons">
@@ -306,34 +326,7 @@ export default class extends React.Component<{}, ComponentState> {
                         <i className="mdui-icon-left mdui-icon material-icons">vpn_key</i>
                         设置密码
                     </button>*/}
-
-					<spanF
-						style={{ marginRight: "5px" }}
-						className="mdui-float-right"
-					>
-						<FileInput
-							maxSize={3 * 1024 * 1024}
-							readbydrag
-							fileType="*/*"
-							onFileUpload={(dataUrl, file) => {
-								this.setState({
-									fileData: {
-										// @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
-										name: file.name,
-										size:
-											Math.round(
-												// @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
-												(file.size / 1024) * 10
-											) /
-												10 +
-											"KB",
-										data: dataUrl,
-									},
-								});
-							}}
-						/>
-					</spanF>
-				</div>
+				</Box>
 				<Share token={token} qrcode={qrcode} />
 			</>
 		);
