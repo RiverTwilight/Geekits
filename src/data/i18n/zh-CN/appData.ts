@@ -428,6 +428,11 @@ const data: AppData[] = [
 		link: "https://imyshare.com/?from=ygktool",
 		channel: 5,
 	},
+	{
+		name: "AIDE高级设置版",
+		link: "https://www.aidepro.top/",
+		channel: 5,
+	},
 ];
 
 module.exports = data;
