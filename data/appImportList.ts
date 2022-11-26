@@ -24,6 +24,9 @@ export default {
 	policy_generator: dynamic(() => import("../src/apps/policy_generator"), {
 		ssr: false,
 	}),
+	img2base64: dynamic(() => import("../src/apps/img2base64"), {
+		ssr: false,
+	}),
 	clipboard: dynamic(() => import("../src/apps/clipboard"), {
 		ssr: false,
 	}),
