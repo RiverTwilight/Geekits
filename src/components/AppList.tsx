@@ -160,7 +160,7 @@ const MakeChannels = ({
 };
 
 const getChannelName = (index: any) =>
-	["AI人工智能", "图片视频", "编程开发", "生活常用", "第三方工具&友情链接"][
+	["AI人工智能", "图片视频", "编程开发", "生活常用", "第三方 & 友情链接"][
 		index - 1
 	];
 

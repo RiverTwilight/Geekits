@@ -431,6 +431,7 @@ const data: AppData[] = [
 	{
 		name: "AIDE高级设置版",
 		link: "https://www.aidepro.top/",
+		icon: "https://previewengine.zoho.com.cn/image/WD/o9yvm0ce51d6b80f346969f2b9fd21529a330",
 		channel: 5,
 	},
 ];
