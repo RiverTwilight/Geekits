@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { getUserInfo } from "../../utils/Services/UserInfo";
 import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
 import Hidden from "@mui/material/Hidden";
@@ -29,6 +28,7 @@ import { store as loginDialogStore } from "../../data/loginDialogState";
 import { store as drawerStore } from "../../data/drawerState";
 import Alert from "@mui/material/Alert";
 import MuiLink from "@mui/material/Link";
+import { getUserInfo } from "@/utils/Services/UserInfo";
 import Shortcuts from "../Shortcuts";
 
 // TODO Shortcuts
@@ -181,12 +181,39 @@ const User = ({ handleLogin }: any) => {
 	);
 };
 
+const LinkWrapper = (props) => {
+	const router = useRouter();
+	const classes = useStyles();
+	const { href, text, Icon, handleClick } = props;
+
+	if (text === "divider") {
+		return <Divider />;
+	}
+
+	return (
+		<Link href={href} passHref legacyBehavior>
+			<ListItem
+				onClick={handleClick}
+				className={clsx(
+					classes.selectedItem,
+					router.pathname == href ? "Mui-selected" : ""
+				)}
+				button
+				key={text}
+			>
+				<ListItemIcon>{Icon}</ListItemIcon>
+				<ListItemText primary={text} />
+			</ListItem>
+		</Link>
+	);
+};
+
 interface IProps {
 	repo?: string;
 }
 
 const LeftDrawer = (props: IProps) => {
-	const { handleLoginOpen, repo } = props;
+	const { handleLoginOpen, repo, onCloseDrawer } = props;
 
 	// const history = useHistory()
 
@@ -210,31 +237,10 @@ const LeftDrawer = (props: IProps) => {
 		drawerStore.subscribe(() => setOpen(drawerStore.getState().value));
 	});
 
-	const Warpper = (props: {
-		a: { href: string; text: string; Icon: any };
-	}) => {
-		const router = useRouter();
-		let { href = "/", text, Icon } = props.a;
-
-		if (text === "divider") {
-			return <Divider />;
-		}
-		return (
-			<Link href={href} passHref legacyBehavior>
-				<ListItem
-					className={clsx(
-						classes.selectedItem,
-						router.pathname == href ? "Mui-selected" : ""
-					)}
-					button
-					key={text}
-				>
-					<ListItemIcon>{Icon}</ListItemIcon>
-					<ListItemText primary={text} />
-				</ListItem>
-			</Link>
-		);
+	const closeDrawer = () => {
+		setOpen(false);
 	};
+
 	const drawer = (
 		<>
 			<div className={classes.toolbar}>
@@ -252,9 +258,16 @@ const LeftDrawer = (props: IProps) => {
 			</Alert>
 			{/* <List className={clsx({ [classes.hoverBlur]: isBlur })}> */}
 			<List>
-				{list.map((item) => (
-					<Warpper key={item.link} a={item} />
-				))}
+				{list.length &&
+					list.map((item) => (
+						<LinkWrapper
+							handleClick={closeDrawer}
+							key={item.href}
+							href={item.href}
+							text={item.text}
+							Icon={item.Icon}
+						/>
+					))}
 			</List>
 			<Box padding={1}>
 				<Shortcuts />
