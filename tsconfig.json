@@ -20,15 +20,10 @@
 			"@/components/*": ["src/components/*"],
 			"@/data/*": ["data/*"],
 			"@/apps/*": ["src/apps/*"],
-			"@/utils/*": ["src/utils/*"]
+			"@/utils/*": ["src/utils/*"],
+			"@/types/*": ["types/*"]
 		}
 	},
 	"exclude": ["node_modules"],
-	"include": [
-		"next-env.d.ts",
-		"**/*.ts",
-		"**/*.tsx",
-		"types/index.d,ts",
-		"src/data/i18n/zh-CN/appData.js"
-	]
+	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "types/index.d,ts"]
 }

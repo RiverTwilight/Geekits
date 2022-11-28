@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import ClipboardJS from "clipboard";
 import FilePicker from "@/components/FilePicker";
 import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Paper from "@mui/material/Paper";
@@ -32,7 +31,7 @@ const Img2Base64: React.FC = (props) => {
 				component="div"
 				sx={{
 					display: "flex",
-					minWidth: "500px",
+					minWidth: "300px",
 					maxWidth: "900px",
 				}}
 			>

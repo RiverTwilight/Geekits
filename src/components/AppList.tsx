@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import Link from "next/link";
 import Avatar from "@mui/material/Avatar";
 import Chip from "@mui/material/Chip";
@@ -17,7 +17,7 @@ import CodeTwoToneIcon from "@mui/icons-material/CodeTwoTone";
 import LinkTwoToneIcon from "@mui/icons-material/LinkTwoTone";
 import WbSunnyTwoToneIcon from "@mui/icons-material/WbSunnyTwoTone";
 import OutlinedCard from "./OutlinedCard";
-import type { AppData } from "src/data/i18n/zh-CN/appData";
+import type { AppData } from "@/types/index.d";
 
 const useStyles = makeStyles((theme: Theme) => ({
 	root: {
@@ -73,17 +73,21 @@ const AppListItem = ({
 }) => {
 	const classes = useStyles();
 
-	const attr =
-		channel === 5
-			? {
-					href: link,
-					target: "_blank",
-					rel: "noopener noreferrer",
-			  }
-			: {
-					component: Link,
-					href: status !== "beta" ? "/app/" + link : "#/",
-			  };
+	const attr = useMemo(
+		() =>
+			channel === 5
+				? {
+						href: link,
+						target: "_blank",
+						rel: "noopener noreferrer",
+				  }
+				: {
+						component: Link,
+						href: status !== "beta" ? "/app/" + link : "#/",
+				  },
+		[status, link]
+	);
+
 	return (
 		<OutlinedCard>
 			<Link {...attr} passHref legacyBehavior>
@@ -187,12 +191,14 @@ const AppList = ({ appData }) => {
 		}
 	}
 
-	var data: { name: string; Icon: any; apps: any[] }[] = channelType.map(
-		(channel: number) => ({
-			name: getChannelName(channel),
-			Icon: getChannelIcon(channel),
-			apps: appData.filter((app) => app.channel === channel),
-		})
+	const data: { name: string; Icon: any; apps: any[] }[] = useMemo(
+		() =>
+			channelType.map((channel: number) => ({
+				name: getChannelName(channel),
+				Icon: getChannelIcon(channel),
+				apps: appData.filter((app) => app.channel === channel),
+			})),
+		[]
 	);
 
 	return (
