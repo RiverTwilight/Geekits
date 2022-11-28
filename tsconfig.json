@@ -24,5 +24,11 @@
 		}
 	},
 	"exclude": ["node_modules"],
-	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "types/index.d,ts"]
+	"include": [
+		"next-env.d.ts",
+		"**/*.ts",
+		"**/*.tsx",
+		"types/index.d,ts",
+		"src/data/i18n/zh-CN/appData.js"
+	]
 }

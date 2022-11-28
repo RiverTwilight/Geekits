@@ -8,7 +8,7 @@ import FivList from "@/components/FivList";
 import Board from "@/components/Board";
 
 export async function getStaticProps({ locale }) {
-	const appData = require("../data/i18n/" + locale + "/appData.ts");
+	const appData = require("../data/i18n/" + locale + "/appData.js");
 
 	const pageDic = require("../data/i18n/" + locale + "/page.js")["/"];
 

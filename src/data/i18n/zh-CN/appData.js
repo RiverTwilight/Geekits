@@ -3,26 +3,7 @@
  * Besides, you also need to update the /data/appImportList.ts file.
  */
 
-export type AppData = {
-	name: string;
-	description?: string;
-	// The path to the app's icon.
-	icon?: string;
-	// The path to the app's entry file.
-	link: string;
-	// Only show stable and beta app
-	status?: "stable" | "beta" | "alpha";
-	channel?: number;
-	icon_color?: string;
-	network?: boolean;
-	/**
-	 * @deprecated
-	 * Move desctipion to the app's entry file.
-	 */
-	help?: string;
-};
-
-const data: AppData[] = [
+const data = [
 	{
 		name: "自律神器：积分奖手册",
 		channel: 4,
@@ -30,7 +11,6 @@ const data: AppData[] = [
 		status: "alpha",
 		link: "point_brochure",
 		icon_color: "",
-		help: "sdfa",
 		description: "利用多巴胺机制帮助你自律",
 	},
 	{
@@ -149,8 +129,8 @@ const data: AppData[] = [
 		name: "二维码生成",
 		link: "qrcode",
 		icon: "/icon/qrcode.png",
-		help: "",
 		description: "支持自定义颜色和大小；支持生成WiFi码",
+		status: "beta",
 		channel: 2,
 	},
 	{
@@ -165,7 +145,7 @@ const data: AppData[] = [
 	},
 	{
 		name: "PornHub风格Logo生成",
-		status: "stable",
+		status: "alpha",
 		link: "fake_pornhub_logo",
 		icon: "/icon/imagesearch_roller-orange/icon-192-maskable.png",
 		help: "仅供娱乐，产生任何后果自负",

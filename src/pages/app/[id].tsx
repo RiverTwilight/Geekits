@@ -7,9 +7,9 @@ import createStyles from "@mui/styles/createStyles";
 import withStyles from "@mui/styles/withStyles";
 import clsx from "clsx";
 import HelpTwoToneIcon from "@mui/icons-material/HelpTwoTone";
-import getAppInfo from "../../utils/appinfo";
-import getPaths from "../../utils/getPaths";
-import getPostId from "../../utils/getPostId";
+import getAppInfo from "@/utils/appinfo";
+import getPaths from "@/utils/getPaths";
+import getPostId from "@/utils/getPostId";
 import appImportList from "@/data/appImportList";
 
 // TODO change favicon dynamically
@@ -24,11 +24,9 @@ export async function getStaticPaths({ locale }) {
 export async function getStaticProps({ locale, locales, ...ctx }) {
 	const { id: currentId } = ctx.params;
 
-	const appData = require("../../data/i18n/" + locale + "/appData.ts");
+	const appData = require("../../data/i18n/" + locale + "/appData.js");
 
 	const appInfo = getAppInfo(appData, currentId);
-
-	console.log(appInfo);
 
 	const appDoc = require("../../apps/" +
 		appInfo.link +
@@ -43,11 +41,12 @@ export async function getStaticProps({ locale, locales, ...ctx }) {
 				path: "/app/" + appInfo.link,
 				description: appInfo.description || "",
 			},
-			locale,
 			appInfo: {
 				link: appInfo.link,
 				name: appInfo.name,
+				status: appInfo.status,
 			},
+			locale,
 			appDoc,
 		},
 	};
@@ -78,10 +77,6 @@ const styles = (theme: Theme) =>
 			},
 		},
 	});
-/**
- * 工具加载框架
- * // TODO 文章板块
- */
 
 class AppContainer extends React.Component<any, any> {
 	constructor(props: any) {
@@ -104,8 +99,13 @@ class AppContainer extends React.Component<any, any> {
 	componentDidMount() {
 		const { setAction, appInfo } = this.props;
 
+		const loadLink =
+			appInfo.status === "stable" || "beta"
+				? appInfo.link
+				: "__development";
+
 		this.setState({
-			AppComp: appImportList[appInfo.link],
+			AppComp: appImportList[loadLink],
 		});
 
 		setAction(() => {
