@@ -1,10 +1,9 @@
 ---
-name: "文件树生成"
+name: "化学方程式配平"
 status: "stable"
-link: "folder_tree"
-icon: "/icon/file.jpg"
-description: "生成文件夹结构"
-channel: 3
+link: "cem"
+icon: "/icon/magic-line-blue/icon-192-maskable.png"
+channel: 4
 ---
 
 #### 方程格式
