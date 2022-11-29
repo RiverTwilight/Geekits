@@ -132,7 +132,7 @@ const data = [
 		link: "qrcode",
 		icon: "/icon/qrcode.png",
 		description: "支持自定义颜色和大小；支持生成WiFi码",
-		status: "beta",
+		status: "stable",
 		channel: 2,
 	},
 	{
@@ -172,7 +172,7 @@ const data = [
 	{
 		name: "简繁转换",
 		link: "sctc",
-		status: "stable",
+		status: "beta",
 		icon: "font_download",
 		icon_color: "red",
 		description: "作者：憂郁的烏龜",

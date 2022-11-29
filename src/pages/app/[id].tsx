@@ -7,16 +7,15 @@ import createStyles from "@mui/styles/createStyles";
 import withStyles from "@mui/styles/withStyles";
 import clsx from "clsx";
 import HelpTwoToneIcon from "@mui/icons-material/HelpTwoTone";
-import getAppInfo from "@/utils/appinfo";
+import { getAppConfig, getAllApps, getAppDoc } from "@/utils/appData";
 import getPaths from "@/utils/getPaths";
-import getPostId from "@/utils/getPostId";
-import appImportList from "@/data/appImportList";
+import appImportList from "@/utils/appEntry";
 
 // TODO change favicon dynamically
 
 export async function getStaticPaths({ locale }) {
 	return {
-		paths: getPaths(locale, getPostId, "apps/**/index.tsx"),
+		paths: getPaths(locale),
 		fallback: false,
 	};
 }
@@ -24,28 +23,18 @@ export async function getStaticPaths({ locale }) {
 export async function getStaticProps({ locale, locales, ...ctx }) {
 	const { id: currentId } = ctx.params;
 
-	const appData = require("../../data/i18n/" + locale + "/appData.js");
+	const appConfig = getAppConfig(currentId, ["name", "status"]);
 
-	const appInfo = getAppInfo(appData, currentId);
-
-	const appDoc = require("../../apps/" +
-		appInfo.link +
-		"/README." +
-		locale +
-		".md").default;
+	const appDoc = getAppDoc(currentId);
 
 	return {
 		props: {
 			currentPage: {
-				title: appInfo.name,
-				path: "/app/" + appInfo.link,
-				description: appInfo.description || "",
+				title: appConfig.name,
+				path: "/app/" + appConfig.id,
+				description: appConfig.description || "",
 			},
-			appInfo: {
-				link: appInfo.link,
-				name: appInfo.name,
-				status: appInfo.status,
-			},
+			appConfig,
 			locale,
 			appDoc,
 		},
@@ -89,7 +78,7 @@ class AppContainer extends React.Component<any, any> {
 		};
 	}
 	componentWillUnmount() {
-		window.loadHide(); // 清除滚动条
+		window.loadHide();
 	}
 	componentDidCatch(error: any, info: any) {
 		window.snackbar({
@@ -97,11 +86,11 @@ class AppContainer extends React.Component<any, any> {
 		});
 	}
 	componentDidMount() {
-		const { setAction, appInfo } = this.props;
+		const { setAction, appConfig } = this.props;
 
 		const loadLink =
-			appInfo.status === "stable" || "beta"
-				? appInfo.link
+			appConfig.status === "stable" || "beta"
+				? appConfig.id
 				: "__development";
 
 		this.setState({
@@ -150,7 +139,9 @@ class AppContainer extends React.Component<any, any> {
 	render() {
 		const { AppComp, FeedbackComp, showFeedbackComp, RightDrawerOpen } =
 			this.state;
-		const { appInfo, appDoc, classes } = this.props;
+		const { appConfig, appDoc, classes } = this.props;
+
+		console.log(appConfig);
 
 		return (
 			<>
@@ -173,7 +164,7 @@ class AppContainer extends React.Component<any, any> {
 					<AppMenu
 						appDoc={appDoc}
 						feedback={this.feedback}
-						appinfo={appInfo}
+						appConfig={appConfig}
 					/>
 				</RightDrawer>
 

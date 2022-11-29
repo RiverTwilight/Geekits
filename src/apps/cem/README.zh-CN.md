@@ -1,3 +1,12 @@
+---
+name: "文件树生成"
+status: "stable"
+link: "folder_tree"
+icon: "/icon/file.jpg"
+description: "生成文件夹结构"
+channel: 3
+---
+
 #### 方程格式
 
 请正确输入方程式，否则无法计算结果。

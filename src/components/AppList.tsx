@@ -56,7 +56,7 @@ const AppListItem = ({
 	isActive,
 	channel,
 	name,
-	link,
+	id,
 	description,
 	status,
 	selected,
@@ -66,7 +66,7 @@ const AppListItem = ({
 	status?: Pick<AppData, "status">;
 	name: string;
 	isActive?: boolean;
-	link?: string;
+	id?: string;
 	selected?: boolean;
 	channel?: number;
 	icon?: string;
@@ -77,15 +77,15 @@ const AppListItem = ({
 		() =>
 			channel === 5
 				? {
-						href: link,
+						href: id,
 						target: "_blank",
 						rel: "noopener noreferrer",
 				  }
 				: {
-						component: Link,
-						href: status !== "beta" ? "/app/" + link : "#/",
+						component: id,
+						href: status !== "beta" ? "/app/" + id : "#/",
 				  },
-		[status, link]
+		[status, id]
 	);
 
 	return (
@@ -152,7 +152,7 @@ const MakeChannels = ({
 			<List component="div" disablePadding>
 				<Grid container spacing={1}>
 					{apps.map((app) => (
-						<Grid key={app.link} item sm={6} xl={4} xs={12}>
+						<Grid key={app.id} item sm={6} xl={4} xs={12}>
 							<AppListItem {...app} />
 						</Grid>
 					))}
@@ -200,6 +200,8 @@ const AppList = ({ appData }) => {
 			})),
 		[]
 	);
+
+	console.log(appData);
 
 	return (
 		<List

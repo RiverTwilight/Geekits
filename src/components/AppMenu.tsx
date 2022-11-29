@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import fivkits from "../utils/Services/fiv";
 import { Theme } from "@mui/material/styles";
-import createStyles from '@mui/styles/createStyles';
-import makeStyles from '@mui/styles/makeStyles';
+import createStyles from "@mui/styles/createStyles";
+import makeStyles from "@mui/styles/makeStyles";
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import TextField from "@mui/material/TextField";
@@ -13,6 +13,7 @@ import StarBorderIcon from "@mui/icons-material/StarBorder";
 import ShareIcon from "@mui/icons-material/Share";
 import StyledMarkdown from "./StyledMarkdown";
 import CodeIcon from "@mui/icons-material/Code";
+import type { AppData } from "@/types/index";
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -29,31 +30,31 @@ const useStyles = makeStyles((theme: Theme) =>
  * 工具菜单
  */
 const AppMenu = ({
-	appinfo,
+	appConfig,
 	feedback,
 	appDoc,
 }: {
-	appinfo: IApp;
+	appConfig: AppData;
 	feedback: () => void;
 	appDoc: string;
 }) => {
 	const classes = useStyles();
-	const { link, name } = appinfo;
+	const { id, name } = appConfig;
 	const [help, setHelp] = useState("暂无帮助文本");
 	const [fiv, setFiv] = useState(false);
 	const [showCode, setShowCode] = useState(false);
 	const handleFiv = () => {
-		const { link, name } = appinfo;
-		if (!fivkits.get(link)) {
+		const { id, name } = appConfig;
+		if (!fivkits.get(id)) {
 			fivkits.add({
-				link,
+				id,
 				name,
 			});
 			setFiv(true);
 			window.snackbar({ message: "已收藏" });
 		} else {
 			fivkits.delete({
-				link,
+				id,
 				name,
 			});
 			setFiv(false);
@@ -77,10 +78,10 @@ const AppMenu = ({
 		setShowCode(!showCode);
 	};
 	useEffect(() => {
-		if (fivkits.get(link)){
+		if (fivkits.get(id)) {
 			setFiv(true);
 		}
-		// const helpMdPath = require(`../../apps/${appinfo.link}/README.md`);
+		// const helpMdPath = require(`../../apps/${appConfig.id}/README.md`);
 		// fetch(helpMdPath.default)
 		// 	.then((response) => {
 		// 		return response.text();
@@ -90,19 +91,24 @@ const AppMenu = ({
 		// 	});
 	});
 	return (
-        <div className={classes.content}>
+		<div className={classes.content}>
 			<ButtonGroup aria-label="more options">
 				<IconButton
-                    component="a"
-                    href={`https://github.com/RiverTwilight/ygktool/tree/master/src/apps/${link}`}
-                    aria-label="在Github上编辑此页面"
-                    size="large">
+					component="a"
+					href={`https://github.com/RiverTwilight/ygktool/tree/master/src/apps/${id}`}
+					aria-label="在Github上编辑此页面"
+					size="large"
+				>
 					<GitHubIcon fontSize="inherit" />
 				</IconButton>
 				<IconButton onClick={handleFiv} aria-label="收藏" size="large">
 					{fiv ? <StarIcon /> : <StarBorderIcon />}
 				</IconButton>
-				<IconButton onClick={handleCode} aria-label="框架引用" size="large">
+				<IconButton
+					onClick={handleCode}
+					aria-label="框架引用"
+					size="large"
+				>
 					<CodeIcon fontSize="inherit" />
 				</IconButton>
 				{/* {typeof(navigator.share) != "undefined" && (
@@ -123,16 +129,16 @@ const AppMenu = ({
 			{showCode && (
 				<TextField
 					onClick={handleClickCode}
-					value={`<iframe src="${window.location.origin}/app/${appinfo.link}?fullscreen=true" width="100%" height="400px" scrolling="no" style="border:0;"></iframe>`}
+					value={`<iframe src="${window.location.origin}/app/${appConfig.id}?fullscreen=true" width="100%" height="400px" scrolling="no" style="border:0;"></iframe>`}
 					id="frame-code"
 					label="嵌入代码"
 					variant="outlined"
 				/>
 			)}
-			
+
 			<StyledMarkdown content={appDoc} />
 		</div>
-    );
+	);
 };
 
 export default AppMenu;

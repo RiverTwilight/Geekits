@@ -12,7 +12,7 @@ export type AppData = {
 	// The path to the app's icon.
 	icon?: string;
 	// The path to the app's entry file.
-	link: string;
+	id: string;
 	// Only show stable and beta app
 	status?: "stable" | "beta" | "alpha";
 	channel?: number;
