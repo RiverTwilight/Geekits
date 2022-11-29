@@ -10,8 +10,6 @@ const getAppConfig = (
 ): { [key: string]: any } => {
 	const config = matter(getConfigFile(appId)).data;
 
-	console.log(config);
-
 	var data = {
 		id: appId,
 	};
@@ -43,8 +41,6 @@ const getAllApps = (): AppData[] => {
 			return Object.assign({ id: appId }, getAppConfig(appId));
 		});
 	})(require.context("../apps", true, /(zh-CN\.md)$/));
-
-	console.log(allApps);
 
 	return allApps;
 };

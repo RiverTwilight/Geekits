@@ -2,14 +2,14 @@ import React from "react";
 import IconButton from "@mui/material/IconButton";
 import RightDrawer from "@/components/RightDrawer";
 import AppMenu from "@/components/AppMenu";
-import { Theme } from "@mui/material/styles";
 import createStyles from "@mui/styles/createStyles";
 import withStyles from "@mui/styles/withStyles";
-import clsx from "clsx";
 import HelpTwoToneIcon from "@mui/icons-material/HelpTwoTone";
-import { getAppConfig, getAllApps, getAppDoc } from "@/utils/appData";
+import { Theme } from "@mui/material/styles";
+import { getAppConfig, getAppDoc } from "@/utils/appData";
 import getPaths from "@/utils/getPaths";
 import appImportList from "@/utils/appEntry";
+import clsx from "clsx";
 
 // TODO change favicon dynamically
 
