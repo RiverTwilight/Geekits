@@ -1,5 +1,6 @@
 import matter from "gray-matter";
 import type { AppData } from "@/types/index";
+import externalApps from "../data/i18n/zh-CN/externalApps";
 
 const getConfigFile = (appId: string): string =>
 	require("../apps/" + appId + "/README.zh-CN.md").default;
@@ -31,7 +32,7 @@ const getAppDoc = (appId: string): string => {
 	return matter(docFile).content.toString();
 };
 
-const getAllApps = (): AppData[] => {
+const getAllApps = (includeExternal?: boolean): AppData[] => {
 	const allApps: AppData[] = ((context) => {
 		const keys = context.keys();
 		// const values = keys.map(context);
@@ -41,6 +42,8 @@ const getAllApps = (): AppData[] => {
 			return Object.assign({ id: appId }, getAppConfig(appId));
 		});
 	})(require.context("../apps", true, /(zh-CN\.md)$/));
+
+	if (includeExternal) return [...allApps, ...externalApps];
 
 	return allApps;
 };

@@ -18,6 +18,7 @@ export type AppData = {
 	channel?: number;
 	icon_color?: string;
 	network?: boolean;
+	link?: string;
 	/**
 	 * @deprecated
 	 * Move desctipion to the app's entry file.

@@ -51,33 +51,27 @@ const useStyles = makeStyles((theme: Theme) => ({
 	},
 }));
 
+interface AppListItemProps extends AppData {
+	selected?: boolean;
+}
 // TODO schema info check https://schema.org
 const AppListItem = ({
-	isActive,
 	channel,
 	name,
 	id,
 	description,
 	status,
+	link,
 	selected,
 	icon,
-}: {
-	description?: string;
-	status?: Pick<AppData, "status">;
-	name: string;
-	isActive?: boolean;
-	id?: string;
-	selected?: boolean;
-	channel?: number;
-	icon?: string;
-}) => {
+}: AppListItemProps) => {
 	const classes = useStyles();
 
 	const attr = useMemo(
 		() =>
 			channel === 5
 				? {
-						href: id,
+						href: link,
 						target: "_blank",
 						rel: "noopener noreferrer",
 				  }
