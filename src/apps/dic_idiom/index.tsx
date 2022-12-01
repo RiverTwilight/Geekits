@@ -1,5 +1,5 @@
 import React from "react";
-import Template from "../../components/EnquireTemplate";
+import Template from "@/components/EnquireTemplate";
 
 const Result = ({ data }: any) => {
 	if (!data) return null;

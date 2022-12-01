@@ -103,7 +103,7 @@ const AppListItem = ({
 								loading: "lazy",
 							}}
 							variant="rounded"
-							alt={name}
+							alt={name + "的图标"}
 							src={icon}
 						/>
 					</ListItemAvatar>
