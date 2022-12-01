@@ -18,7 +18,7 @@ import ListItemText from "@mui/material/ListItemText";
 import { AppListItem } from "./AppList";
 import pinyin from "js-pinyin";
 import useEventListener from "@/utils/Hooks/useEventListener";
-import type { AppData } from "../data/i18n/zh-CN/appData";
+import type { AppData } from "@/types/index";
 
 const Shortcuts = ({ kwd }: { kwd: string }) => {
 	return (

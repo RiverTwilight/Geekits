@@ -9,7 +9,7 @@ import Board from "@/components/Board";
 import { getAllApps } from "@/utils/appData";
 
 export async function getStaticProps({ locale }) {
-	const appData = getAllApps();
+	const appData = getAllApps(true);
 
 	const pageDic = require("../data/i18n/" + locale + "/page.js")["/"];
 
