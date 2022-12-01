@@ -1,16 +1,11 @@
 import React, { useState, useEffect, useMemo } from "react";
-import Layout from "../components/Layout";
+import Layout from "@/components/Layout";
 import siteConfig from "../site.config.js";
-import {
-	ThemeProvider,
-	createTheme,
-	StyledEngineProvider,
-} from "@mui/material/styles";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { green } from "@mui/material/colors";
 import useMediaQuery from "@mui/material/useMediaQuery";
 // import UserContextProvider from "../components/UserContextProvider";
 import "./App.css";
-import { PageProps } from "../../types";
 import type { AppProps } from "next/app";
 
 function MyApp({ Component, pageProps }: AppProps) {

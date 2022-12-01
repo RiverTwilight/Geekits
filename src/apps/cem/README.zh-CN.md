@@ -1,3 +1,11 @@
+---
+name: "化学方程式配平"
+status: "stable"
+link: "cem"
+icon: "/icon/magic-line-blue/icon-192-maskable.png"
+channel: 4
+---
+
 #### 方程格式
 
 请正确输入方程式，否则无法计算结果。

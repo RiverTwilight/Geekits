@@ -20,7 +20,8 @@
 			"@/components/*": ["src/components/*"],
 			"@/data/*": ["data/*"],
 			"@/apps/*": ["src/apps/*"],
-			"@/utils/*": ["src/utils/*"]
+			"@/utils/*": ["src/utils/*"],
+			"@/types/*": ["types/*"]
 		}
 	},
 	"exclude": ["node_modules"],

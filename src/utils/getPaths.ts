@@ -1,34 +1,16 @@
-// import glob from "glob";
+import { getAllApps } from "./appData";
 
-export default (
-	locale: string,
-	processId: (id: string) => string,
-	path: string
-) => {
-	//get all .md files in the posts dir
-	// const blogs = glob.sync(path, {
-	// 	stat: true,
-	// });
+export default (locale, processId: (id: string) => string, path: string) => {
+	const allApps = getAllApps();
 
-	//remove path and extension to leave filename only
-	// const blogSlugs = blogs.map((file) =>
-	// 	file.split("/")[2].replace(/ /g, "-").slice(0, -3).trim()
-	// );
-	// create paths with `slug` param
-	// const paths = blogSlugs.map(slug => `/blog/${encodeURI(slug)}`)
-
-	const appData = require("@/data/appImportList.ts").default;
-
-	const paths = Object.keys(appData).map((slug) => {
+	const paths = allApps.map((app) => {
 		return {
 			params: {
-				id: slug,
+				id: app.id,
 			},
 			locale,
 		};
 	});
-
-	// console.log(paths)
 
 	return paths;
 };

@@ -13,7 +13,7 @@ module.exports = withPWA({
 		ignoreBuildErrors: true,
 	},
 	images: {
-		sizes: [320, 480, 820, 1200, 1600],
+		imageSizes: [320, 480, 820, 1200, 1600],
 		domains: ["i.loli.net", "bgr.com"],
 	},
 	webpack: function (config) {

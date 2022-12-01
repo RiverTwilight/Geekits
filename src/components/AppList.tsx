@@ -1,3 +1,5 @@
+import React, { useMemo } from "react";
+import Link from "next/link";
 import Avatar from "@mui/material/Avatar";
 import Chip from "@mui/material/Chip";
 import Grid from "@mui/material/Grid";
@@ -15,8 +17,7 @@ import CodeTwoToneIcon from "@mui/icons-material/CodeTwoTone";
 import LinkTwoToneIcon from "@mui/icons-material/LinkTwoTone";
 import WbSunnyTwoToneIcon from "@mui/icons-material/WbSunnyTwoTone";
 import OutlinedCard from "./OutlinedCard";
-import React from "react";
-import Link from "next/link";
+import type { AppData } from "@/types/index.d";
 
 const useStyles = makeStyles((theme: Theme) => ({
 	root: {
@@ -55,35 +56,38 @@ const AppListItem = ({
 	isActive,
 	channel,
 	name,
-	link,
+	id,
 	description,
-	statu,
+	status,
 	selected,
 	icon,
 }: {
 	description?: string;
-	/**APP状态 */
-	statu?: "hidden" | "development" | "production";
+	status?: Pick<AppData, "status">;
 	name: string;
 	isActive?: boolean;
-	link?: string;
+	id?: string;
 	selected?: boolean;
 	channel?: number;
 	icon?: string;
 }) => {
 	const classes = useStyles();
 
-	const attr =
-		channel === 5
-			? {
-					href: link,
-					target: "_blank",
-					rel: "noopener noreferrer",
-			  }
-			: {
-					component: Link,
-					href: statu !== "development" ? "/app/" + link : "#/",
-			  };
+	const attr = useMemo(
+		() =>
+			channel === 5
+				? {
+						href: id,
+						target: "_blank",
+						rel: "noopener noreferrer",
+				  }
+				: {
+						component: id,
+						href: status !== "beta" ? "/app/" + id : "#/",
+				  },
+		[status, id]
+	);
+
 	return (
 		<OutlinedCard>
 			<Link {...attr} passHref legacyBehavior>
@@ -99,7 +103,7 @@ const AppListItem = ({
 								loading: "lazy",
 							}}
 							variant="rounded"
-							alt={name}
+							alt={name + "的图标"}
 							src={icon}
 						/>
 					</ListItemAvatar>
@@ -108,9 +112,9 @@ const AppListItem = ({
 						primary={
 							<>
 								{name}&nbsp;
-								{statu === "development" && (
+								{status === "beta" && (
 									<Chip
-										label="即将上线"
+										label="开发中"
 										size="small"
 										variant="outlined"
 									/>
@@ -125,11 +129,10 @@ const AppListItem = ({
 	);
 };
 
-//分类栏目
 const MakeChannels = ({
 	data: { name, apps, Icon },
 }: {
-	data: { name: string; apps: IApp[]; Icon: JSX.Element | JSX.Element[] };
+	data: { name: string; apps: AppData[]; Icon: JSX.Element | JSX.Element[] };
 }) => {
 	const classes = useStyles();
 	const [open, setOpen] = React.useState(true);
@@ -148,8 +151,8 @@ const MakeChannels = ({
 			{/* <Collapse in={open} timeout="auto" unmountOnExit> */}
 			<List component="div" disablePadding>
 				<Grid container spacing={1}>
-					{apps.map((app: any) => (
-						<Grid key={app.name} item sm={6} xl={4} xs={12}>
+					{apps.map((app) => (
+						<Grid key={app.id} item sm={6} xl={4} xs={12}>
 							<AppListItem {...app} />
 						</Grid>
 					))}
@@ -161,7 +164,7 @@ const MakeChannels = ({
 };
 
 const getChannelName = (index: any) =>
-	["AI人工智能", "图片视频", "编程开发", "生活常用", "第三方工具&友情链接"][
+	["AI人工智能", "图片视频", "编程开发", "生活常用", "第三方 & 友情链接"][
 		index - 1
 	];
 
@@ -188,13 +191,17 @@ const AppList = ({ appData }) => {
 		}
 	}
 
-	var data: { name: string; Icon: any; apps: any[] }[] = channelType.map(
-		(channel: number) => ({
-			name: getChannelName(channel),
-			Icon: getChannelIcon(channel),
-			apps: appData.filter((app) => app.channel === channel),
-		})
+	const data: { name: string; Icon: any; apps: any[] }[] = useMemo(
+		() =>
+			channelType.map((channel: number) => ({
+				name: getChannelName(channel),
+				Icon: getChannelIcon(channel),
+				apps: appData.filter((app) => app.channel === channel),
+			})),
+		[]
 	);
+
+	console.log(appData);
 
 	return (
 		<List

@@ -2,21 +2,20 @@ import React from "react";
 import IconButton from "@mui/material/IconButton";
 import RightDrawer from "@/components/RightDrawer";
 import AppMenu from "@/components/AppMenu";
-import { Theme } from "@mui/material/styles";
 import createStyles from "@mui/styles/createStyles";
 import withStyles from "@mui/styles/withStyles";
-import clsx from "clsx";
 import HelpTwoToneIcon from "@mui/icons-material/HelpTwoTone";
-import getAppInfo from "../../utils/appinfo";
-import getPaths from "../../utils/getPaths";
-import getPostId from "../../utils/getPostId";
-import appImportList from "@/data/appImportList";
+import { Theme } from "@mui/material/styles";
+import { getAppConfig, getAppDoc } from "@/utils/appData";
+import getPaths from "@/utils/getPaths";
+import appImportList from "@/utils/appEntry";
+import clsx from "clsx";
 
 // TODO change favicon dynamically
 
 export async function getStaticPaths({ locale }) {
 	return {
-		paths: getPaths(locale, getPostId, "apps/**/index.tsx"),
+		paths: getPaths(locale),
 		fallback: false,
 	};
 }
@@ -24,30 +23,19 @@ export async function getStaticPaths({ locale }) {
 export async function getStaticProps({ locale, locales, ...ctx }) {
 	const { id: currentId } = ctx.params;
 
-	const appData = require("../../data/i18n/" + locale + "/appData.js");
+	const appConfig = getAppConfig(currentId, ["name", "status"]);
 
-	const appInfo = getAppInfo(appData, currentId);
-
-	console.log(appInfo);
-
-	const appDoc = require("../../apps/" +
-		appInfo.link +
-		"/README." +
-		locale +
-		".md").default;
+	const appDoc = getAppDoc(currentId);
 
 	return {
 		props: {
 			currentPage: {
-				title: appInfo.name,
-				path: "/app/" + appInfo.link,
-				description: appInfo.description || "",
+				title: appConfig.name,
+				path: "/app/" + appConfig.id,
+				description: appConfig.description || "",
 			},
+			appConfig,
 			locale,
-			appInfo: {
-				link: appInfo.link,
-				name: appInfo.name,
-			},
 			appDoc,
 		},
 	};
@@ -78,10 +66,6 @@ const styles = (theme: Theme) =>
 			},
 		},
 	});
-/**
- * 工具加载框架
- * // TODO 文章板块
- */
 
 class AppContainer extends React.Component<any, any> {
 	constructor(props: any) {
@@ -94,7 +78,7 @@ class AppContainer extends React.Component<any, any> {
 		};
 	}
 	componentWillUnmount() {
-		window.loadHide(); // 清除滚动条
+		window.loadHide();
 	}
 	componentDidCatch(error: any, info: any) {
 		window.snackbar({
@@ -102,10 +86,15 @@ class AppContainer extends React.Component<any, any> {
 		});
 	}
 	componentDidMount() {
-		const { setAction, appInfo } = this.props;
+		const { setAction, appConfig } = this.props;
+
+		const loadLink =
+			appConfig.status === "stable" || "beta"
+				? appConfig.id
+				: "__development";
 
 		this.setState({
-			AppComp: appImportList[appInfo.link],
+			AppComp: appImportList[loadLink],
 		});
 
 		setAction(() => {
@@ -150,7 +139,9 @@ class AppContainer extends React.Component<any, any> {
 	render() {
 		const { AppComp, FeedbackComp, showFeedbackComp, RightDrawerOpen } =
 			this.state;
-		const { appInfo, appDoc, classes } = this.props;
+		const { appConfig, appDoc, classes } = this.props;
+
+		console.log(appConfig);
 
 		return (
 			<>
@@ -173,7 +164,7 @@ class AppContainer extends React.Component<any, any> {
 					<AppMenu
 						appDoc={appDoc}
 						feedback={this.feedback}
-						appinfo={appInfo}
+						appConfig={appConfig}
 					/>
 				</RightDrawer>
 

@@ -1,1 +1,9 @@
+---
+name: "PornHub风格Logo生成"
+status: "alpha"
+icon: "/icon/imagesearch_roller-orange/icon-192-maskable.png"
+help: "仅供娱乐，产生任何后果自负"
+channel: 2
+---
+
 点击预览部分的文字可以修改文案。

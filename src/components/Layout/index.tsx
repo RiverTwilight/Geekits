@@ -3,25 +3,14 @@ import Head from "next/head";
 import Header from "../Header";
 import LeftDrawer from "../LeftDrawer";
 import LoginDialog from "../LoginDialog";
-import { ICurrentPage, ISiteConfig } from "../../types";
 import CssBaseline from "@mui/material/CssBaseline";
 import { Theme } from "@mui/material/styles";
 import createStyles from "@mui/styles/createStyles";
 import withStyles from "@mui/styles/withStyles";
 import makeStyles from "@mui/styles/makeStyles";
 import Snackbar from "@mui/material/Snackbar";
-import LinearProgress from "@mui/material/LinearProgress";
-
-const useStyles = makeStyles((theme: Theme) =>
-	createStyles({
-		loading: {
-			position: "fixed",
-			top: 0,
-			width: "100%",
-			zIndex: 1101,
-		},
-	})
-);
+import GlobalLoading from "@/components/GlobalLoading";
+import type { ICurrentPage, ISiteConfig } from "@/types/index";
 
 const styles = (theme: Theme) => {
 	return createStyles({
@@ -69,26 +58,6 @@ const GlobalSnackbar = () => {
 			onClose={handleSnackbarClose}
 		/>
 	);
-};
-
-/**
- * 全局Loading
- */
-const GlobalLoading = () => {
-	const [loading, setLoading] = useState(false);
-	const classes = useStyles();
-	useEffect(() => {
-		window.loadShow = () => {
-			setLoading(true);
-		};
-		window.loadHide = () => {
-			setLoading(false);
-		};
-	});
-	if (loading) {
-		return <LinearProgress color="primary" className={classes.loading} />;
-	}
-	return null;
 };
 
 class Layout extends React.Component<
@@ -175,7 +144,6 @@ class Layout extends React.Component<
 		return (
 			<>
 				<Head>
-					<meta name="description" content={currentDescription} />
 					<meta
 						name="keywords"
 						content={siteConfig.keywords.join(",")}
@@ -203,10 +171,9 @@ class Layout extends React.Component<
 						name="google-site-verification"
 						content="3yqvRLDwkcm7nwNQ5bSG06I4wQ5ASf23HUtcyZIaz3I"
 					/>
-					<meta name="viewport" content="viewport-fit=cover" />
 					<meta
 						name="viewport"
-						content="width=device-width,initial-scale=1,maximum-scale=1,user-scaleable=0"
+						content="viewport-fit=cover,width=device-width,initial-scale=1,maximum-scale=1,user-scaleable=no"
 					/>
 					<title>{showTitle}</title>
 				</Head>

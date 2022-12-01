@@ -9,6 +9,8 @@ import VideocamIcon from "@mui/icons-material/Videocam";
 import ImageIcon from "@mui/icons-material/Image";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 
+("use strict");
+
 interface FRProps
 	extends Omit<
 		React.InputHTMLAttributes<HTMLInputElement>,
@@ -30,7 +32,7 @@ interface FRProps
 	 */
 	title?: string;
 	/** 是否监听拖拽文件事件 */
-	readbydrag?: boolean;
+	readByDrag?: boolean;
 	children?: React.ReactNode;
 }
 
@@ -65,14 +67,14 @@ class FilePicker extends React.Component<FRProps, FRState> {
 				webkitdirectory: true,
 			});
 		}
-		this.props.readbydrag &&
+		this.props.readByDrag &&
 			signListener(
 				() => {},
 				(e: any) => this.handleReadFile(null, e)
 			);
 	}
 	componentWillUnmount() {
-		this.props.readbydrag && removeListener();
+		this.props.readByDrag && removeListener();
 	}
 	handleReadFile = (inputEvent?: any, dragEvent?: any) => {
 		if (!inputEvent && !dragEvent) return null;

@@ -6,6 +6,25 @@ interface IApp {
 	description?: string;
 }
 
+export type AppData = {
+	name: string;
+	description?: string;
+	// The path to the app's icon.
+	icon?: string;
+	// The path to the app's entry file.
+	id: string;
+	// Only show stable and beta app
+	status?: "stable" | "beta" | "alpha";
+	channel?: number;
+	icon_color?: string;
+	network?: boolean;
+	/**
+	 * @deprecated
+	 * Move desctipion to the app's entry file.
+	 */
+	help?: string;
+};
+
 declare global {
 	interface Window {
 		/**

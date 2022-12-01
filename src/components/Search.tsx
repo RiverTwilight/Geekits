@@ -1,26 +1,26 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
-import useEventListener from "../utils/Hooks/useEventListener";
-import pinyin from "js-pinyin";
 import InputAdornment from "@mui/material/InputAdornment";
 import Paper from "@mui/material/Paper";
 import { Theme } from "@mui/material/styles";
 import createStyles from "@mui/styles/createStyles";
 import withStyles from "@mui/styles/withStyles";
 import FormControl from "@mui/material/FormControl";
-import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import SearchSharpIcon from "@mui/icons-material/SearchSharp";
 import GoogleIcon from "@mui/icons-material/Google";
 import Link from "next/link";
-import { AppListItem } from "./AppList";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
+import { AppListItem } from "./AppList";
+import pinyin from "js-pinyin";
+import useEventListener from "@/utils/Hooks/useEventListener";
+import type { AppData } from "../data/i18n/zh-CN/appData";
 
-const QuickSearch = ({ kwd }) => {
+const Shortcuts = ({ kwd }: { kwd: string }) => {
 	return (
 		<List>
 			<Link
@@ -54,6 +54,7 @@ const QuickSearch = ({ kwd }) => {
 		</List>
 	);
 };
+
 const styles = (theme: Theme) => {
 	return createStyles({
 		searchBox: {
@@ -99,12 +100,17 @@ const SearchResult = ({ result = [], kwd }: any) => {
 						{...a}
 					/>
 				))}
-			<QuickSearch kwd={kwd} />
+			<Shortcuts kwd={kwd} />
 		</>
 	);
 };
 
 type SearchState = any;
+
+interface SearchProps {
+	appData: AppData[];
+	classes: any;
+}
 
 const debounce = (func, timeout = 300) => {
 	let timer;
@@ -116,11 +122,11 @@ const debounce = (func, timeout = 300) => {
 	};
 };
 
-class Search extends React.Component<any, SearchState> {
+class Search extends React.Component<SearchProps, SearchState> {
 	searchInput: any;
 	searchRes: any;
 	timer: NodeJS.Timeout;
-	constructor(props: {}) {
+	constructor(props: SearchProps) {
 		super(props);
 		this.state = {
 			kwd: "",
@@ -168,12 +174,11 @@ class Search extends React.Component<any, SearchState> {
 		const res = appData.filter((app) => {
 			let keyword = kwd.toLowerCase().trim();
 			return (
-				(pinyin
-					.getFullChars(app.name)
-					.toLowerCase()
-					.indexOf(keyword) !== -1 ||
-					app.name.toLowerCase().indexOf(keyword) !== -1) &&
-				kwd !== ""
+				pinyin.getFullChars(app.name).toLowerCase().indexOf(keyword) !==
+					-1 ||
+				(app.name.toLowerCase().indexOf(keyword) !== -1 &&
+					kwd !== "") ||
+				app.link === kwd
 			);
 		});
 		this.setState({
@@ -185,6 +190,7 @@ class Search extends React.Component<any, SearchState> {
 	render() {
 		const { kwd, searchResult } = this.state;
 		const { classes } = this.props;
+
 		return (
 			<Paper className={classes.searchBox}>
 				<FormControl fullWidth className={classes.input}>
@@ -199,6 +205,7 @@ class Search extends React.Component<any, SearchState> {
 						inputRef={(ref) => (this.searchInput = ref)}
 						autoComplete="off"
 						id="search"
+						type="search"
 						value={kwd}
 						variant="outlined"
 						onChange={this.handleChange}
