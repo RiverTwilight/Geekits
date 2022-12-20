@@ -1,6 +1,5 @@
 /**
- * Add a config to this file to make the new app available.
- * Besides, you also need to update the /data/appImportList.ts file.
+ * Add a config to this file to make the external app available.
  */
 
 const data = [

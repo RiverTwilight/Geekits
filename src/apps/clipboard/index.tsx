@@ -208,8 +208,8 @@ export default class extends React.Component<{}, ComponentState> {
 			}
 		);
 
-		const socket = io("https://ntfy.ygktool.com", {
-			path: "/",
+		const socket = io("wss://ntfy.ygktool.com/", {
+			path: deviceId,
 			query: {
 				token: token,
 			},
@@ -230,7 +230,7 @@ export default class extends React.Component<{}, ComponentState> {
 			});
 		});
 
-		socket.on("chat_message", (msg: any) => {
+		socket.on("message", (msg: any) => {
 			if (msg.deviceId === deviceId) {
 				console.log("clint message");
 				window.loadHide();

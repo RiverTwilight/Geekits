@@ -77,7 +77,7 @@ const AppListItem = ({
 				  }
 				: {
 						component: id,
-						href: status !== "beta" ? "/app/" + id : "#/",
+						href: status !== "alpha" ? "/app/" + id : "#/",
 				  },
 		[status, id]
 	);

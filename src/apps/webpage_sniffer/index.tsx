@@ -1,6 +1,6 @@
 import React from "react";
 import { JQ } from "mdui";
-import Template from "../../layout/EnquireTemplate";
+import Template from "@/components/EnquireTemplate";
 import { ToTop } from "mdui-in-react";
 const $ = JQ;
 
