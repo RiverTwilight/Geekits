@@ -6,3 +6,7 @@ icon: "/icon/monitor_red_outline.png"
 icon_color: "orange-400"
 channel: 2
 ---
+
+## 设备要求
+
+目前暂不支持移动端浏览器以及 Safari。PC 端请使用 Firefox、Chrome 等浏览器的最新版本打开。
