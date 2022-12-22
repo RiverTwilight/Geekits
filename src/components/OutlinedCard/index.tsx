@@ -25,16 +25,25 @@ const OutlinedCard = ({
 	children,
 	padding,
 	className,
+	style = {},
+	...props
 }: {
 	children?: JSX.Element | JSX.Element[];
 	/**将获得10的倍数 Padding */
 	padding?: number;
+	style: {
+		[key: string]: string | number;
+	};
 }) => {
 	const classes = useStyles();
 	return (
 		<div
+			{...props}
 			className={clsx(className, classes.root)}
-			style={{ padding: padding ? `${padding * 10}px` : 0 }}
+			style={Object.assign(
+				{ padding: padding ? `${padding * 10}px` : 0 },
+				style
+			)}
 		>
 			{children}
 		</div>

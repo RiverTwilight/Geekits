@@ -13,22 +13,17 @@ import { Theme } from "@mui/material/styles";
 import createStyles from "@mui/styles/createStyles";
 import makeStyles from "@mui/styles/makeStyles";
 
-const useStyles = makeStyles((theme: Theme) =>
-	createStyles({
-
-	})
-);
+const useStyles = makeStyles((theme: Theme) => createStyles({}));
 
 // https://github.com/RiverTwilight/ygktool/issues/21
 const API =
 	"https://api.github.com/repos/RiverTwilight/ygktool/issues/21/comments?sort=updated";
 
 export default function Board() {
-	const [notice, setNotice] =
-		useState<{
-			content: string;
-			id: number;
-		} | null>(null);
+	const [notice, setNotice] = useState<{
+		content: string;
+		id: number;
+	} | null>(null);
 
 	const classes = useStyles();
 
@@ -51,7 +46,7 @@ export default function Board() {
 	const handleExpand = () => {};
 
 	return (
-		<OutlinedCard>
+		<OutlinedCard style={{ maxWidth: "500px" }}>
 			<DialogTitle>公告</DialogTitle>
 			<DialogContent>
 				<StyledMarkdown content={notice.content} />

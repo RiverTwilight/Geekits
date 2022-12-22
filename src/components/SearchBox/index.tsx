@@ -15,7 +15,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import { AppListItem } from "./AppList";
+import { AppListItem } from "../AppList";
 import pinyin from "js-pinyin";
 import useEventListener from "@/utils/Hooks/useEventListener";
 import type { AppData } from "@/types/index";
@@ -48,6 +48,20 @@ const Shortcuts = ({ kwd }: { kwd: string }) => {
 							<SearchSharpIcon />
 						</ListItemIcon>
 						<ListItemText primary={`使用必应搜索"${kwd}"`} />
+					</ListItemButton>
+				</ListItem>
+			</Link>
+			<Link
+				legacyBehavior
+				href={"https://www.baidu.com/#ie=UTF-8&wd=" + kwd}
+				passHref
+			>
+				<ListItem>
+					<ListItemButton>
+						<ListItemIcon>
+							<SearchSharpIcon />
+						</ListItemIcon>
+						<ListItemText primary={`使用百度搜索"${kwd}"`} />
 					</ListItemButton>
 				</ListItem>
 			</Link>
@@ -105,13 +119,6 @@ const SearchResult = ({ result = [], kwd }: any) => {
 	);
 };
 
-type SearchState = any;
-
-interface SearchProps {
-	appData: AppData[];
-	classes: any;
-}
-
 const debounce = (func, timeout = 300) => {
 	let timer;
 	return (...args) => {
@@ -122,9 +129,16 @@ const debounce = (func, timeout = 300) => {
 	};
 };
 
+type SearchState = any;
+
+interface SearchProps {
+	appData: AppData[];
+	classes: any;
+}
+
 class Search extends React.Component<SearchProps, SearchState> {
 	searchInput: any;
-	searchRes: any;
+	searchRes: () => void;
 	timer: NodeJS.Timeout;
 	constructor(props: SearchProps) {
 		super(props);
@@ -206,6 +220,7 @@ class Search extends React.Component<SearchProps, SearchState> {
 						autoComplete="off"
 						id="search"
 						type="search"
+						aria-label="Type the search keywords here"
 						value={kwd}
 						variant="outlined"
 						onChange={this.handleChange}

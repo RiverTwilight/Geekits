@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Theme } from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
 import AppList from "@/components/AppList";
-import Search from "@/components/Search";
+import Search from "@/components/SearchBox";
 import FivList from "@/components/FivList";
 import Board from "@/components/Board";
 import { getAllApps } from "@/utils/appData";
