@@ -2,7 +2,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import StyledMarkdown from "@/components/StyledMarkdown";
 import { GetStaticProps } from "next";
-import type { PageProps } from "../../types";
+import type { PageProps } from "@/types/index";
 
 interface TermsProps extends PageProps {
 	termsContent: string;

@@ -49,8 +49,6 @@ export default function Index({ appData, setAction }: any) {
 		});
 	}, []);
 
-	console.log(appData);
-
 	return (
 		<div className={classes.root}>
 			<Grid container direction="row-reverse" spacing={1}>
