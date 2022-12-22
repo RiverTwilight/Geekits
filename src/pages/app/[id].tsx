@@ -41,7 +41,7 @@ export async function getStaticProps({ locale, locales, ...ctx }) {
 	};
 }
 
-const drawerWidth = 260;
+const drawerWidth: number = 260;
 
 const styles = (theme: Theme) =>
 	createStyles({

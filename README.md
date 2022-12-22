@@ -37,7 +37,7 @@ See our [translation-repository](https://github/rivertwilight/ygktool-translatio
 
 ## 许可 | License
 
-MIT
+CC-BY-4.0
 
 Copyright © 2020-Present YgkTool Dev team
 
