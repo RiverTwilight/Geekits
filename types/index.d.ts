@@ -1,11 +1,5 @@
 /// <reference types="next" />
 
-interface IApp {
-	name: string;
-	link: string;
-	description?: string;
-}
-
 export type AppData = {
 	name: string;
 	description?: string;

@@ -4,6 +4,8 @@ import Card from "@mui/material/Card";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
+import Switch from "@mui/material/Switch";
+import FormControlLabel from "@mui/material/FormControlLabel";
 
 class ScreenRecorder extends React.Component<{}, {}> {
 	videoRef;
@@ -14,31 +16,43 @@ class ScreenRecorder extends React.Component<{}, {}> {
 			recorder: undefined,
 			onRecord: false,
 			finished: false,
+			recordAudio: false,
 		};
 		this.videoRef = React.createRef();
 	}
 
 	async record() {
 		const { videoRef } = this;
+		const { recordAudio } = this.state;
 		let recorder: any;
-		let captureStream;
+		let captureStream, audioStream, combination;
 
 		try {
 			captureStream = await navigator.mediaDevices.getDisplayMedia({
 				video: true,
-				// audio: true,   not support
-				cursor: "always",
+				audio: true,
+			});
+
+			audioStream = await navigator.mediaDevices.getUserMedia({
+				audio: true,
+				video: false,
 			});
 		} catch (e) {
 			return;
 		}
 
-		window.URL.revokeObjectURL(videoRef.src);
+		window.URL.revokeObjectURL(videoRef.current.src);
 
-		videoRef.autoplay = true;
-		videoRef.srcObject = captureStream;
+		videoRef.current.autoplay = true;
+		videoRef.current.srcObject = captureStream;
 
-		recorder = new MediaRecorder(captureStream);
+		combination = new MediaStream([
+			...captureStream.getTracks(),
+			...audioStream.getTracks(),
+		]);
+
+		recorder = new MediaRecorder(recordAudio ? captureStream : combination);
+
 		recorder.start();
 		this.setState({ onRecord: true });
 
@@ -51,23 +65,23 @@ class ScreenRecorder extends React.Component<{}, {}> {
 			let videoUrl = URL.createObjectURL(event.data, {
 				type: "video/ogg",
 			});
-			videoRef.srcObject = null;
-			videoRef.src = videoUrl;
-			videoRef.autoplay = false;
+			videoRef.current.srcObject = null;
+			videoRef.current.src = videoUrl;
+			videoRef.current.autoplay = false;
 		});
 		this.setState({ recorder: recorder });
 	}
 
 	stop() {
 		const { recorder } = this.state;
-		let tracks = this.videoRef.srcObject.getTracks();
+		let tracks = this.videoRef.current.srcObject.getTracks();
 		tracks.forEach((track: any) => track.stop());
 		recorder.stop();
 		this.setState({ onRecord: false });
 	}
 
 	download() {
-		const url = this.videoRef.src;
+		const url = this.videoRef.current.src;
 		const name = new Date()
 			.toISOString()
 			.slice(0, 19)
@@ -87,7 +101,7 @@ class ScreenRecorder extends React.Component<{}, {}> {
 	}
 
 	render() {
-		const { onRecord, finished } = this.state;
+		const { onRecord, finished, recordAudio } = this.state;
 		return (
 			<Paper
 				style={{
@@ -102,8 +116,24 @@ class ScreenRecorder extends React.Component<{}, {}> {
 
 				<Box padding={2}>
 					<Grid container>
+						<Grid item xs={6} sm={2}>
+							<FormControlLabel
+								onChange={(e) => {
+									console.log(e);
+									this.setState({
+										recordAudio: e.target.checked,
+									});
+								}}
+								checked={recordAudio}
+								control={<Switch />}
+								label="麦克风"
+							/>
+						</Grid>
+
 						<Grid
+							item
 							xs={6}
+							sm={4}
 							component={Button}
 							onClick={() => {
 								if (!onRecord) {
@@ -118,11 +148,14 @@ class ScreenRecorder extends React.Component<{}, {}> {
 						</Grid>
 
 						<Grid
+							item
 							component={Button}
-							xs={6}
+							xs={12}
+							sm={6}
 							onClick={() => {
 								this.download();
 							}}
+							variant="outlined"
 							disabled={onRecord}
 						>
 							下载
