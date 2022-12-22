@@ -22,13 +22,22 @@
 
 ```bash
 $ npm run dev
+# or
+$ yarn run dev
 ```
 
 If your project run successfully, it will opens http://127.0.0.1:3000 in your browser automatically.
 
 ## 协助翻译 | Help Translation
 
-See our [translation-repository](https://github/rivertwilight/ygktool-translation)
+See our [translation-file](/src/data/i18n/i18n.xlsx). You can edit it directly and pull request.
+
+Translations in progress:
+
+-   简体中文
+-   繁体中文（香港）
+-   English
+-   Francis
 
 ## 致谢 | Thanks
 
