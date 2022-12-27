@@ -11,17 +11,18 @@ import { getAllApps } from "@/utils/appData";
 export async function getStaticProps({ locale }) {
 	const appData = getAllApps(true);
 
-	const pageDic = require("../data/i18n/" + locale + "/page.js")["/"];
+	const pageDic = require("../data/i18n/i18n.json");
 
 	return {
 		props: {
 			currentPage: {
-				title: pageDic.title,
+				title: pageDic["homePage.meta.title"][locale],
+				description: pageDic["homePage.meta.description"][locale],
 				path: "/",
 			},
 			appData: appData.filter((app) => app.status !== "alpha"),
 			locale,
-			pageDic,
+			pageDic: JSON.stringify(pageDic),
 		},
 	};
 }

@@ -23,11 +23,18 @@ const excelToJSON = ((sourceFile, targetFile) => {
 		XL_row_object.forEach((row) => {
 			strName = row.Name;
 
-			output[strName] = {};
 			delete row.Name;
-			for (locale in row) {
-				output[strName][locale] = row[locale];
-			}
+
+			Object.keys(row).forEach((locale) => {
+				// console.log(output);
+				if (locale in output) {
+					output[locale][strName] = row[locale];
+				} else {
+					output[locale] = {
+						[strName]: row[locale],
+					};
+				}
+			});
 		});
 
 		fs.writeFileSync(
