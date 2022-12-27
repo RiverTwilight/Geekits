@@ -30,7 +30,7 @@ If your project run successfully, it will opens http://127.0.0.1:3000 in your br
 
 ## 协助翻译 | Help Translation
 
-See our [translation-file](/src/data/i18n/i18n.xlsx). You can edit it directly and pull request.
+See our [translation-file](/src/data/i18n/i18n.xlsx). You can edit it directly and pull request. You should not run `i18n:update` util it's approved.
 
 Translations in progress:
 
@@ -41,8 +41,8 @@ Translations in progress:
 
 ## 致谢 | Thanks
 
--   [unDraw](https://undraw.co/search): Provided some illustrations.
--   [IconKitchen](https://icon.kitchen/): Icon maker
+-   [unDraw](https://undraw.co/search): Free illustrations maker.
+-   [IconKitchen](https://icon.kitchen/): Free icon maker.
 
 ## 许可 | License
 
