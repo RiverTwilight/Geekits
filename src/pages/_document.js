@@ -17,11 +17,9 @@ class MyDocument extends Document {
 
 		// Run the parent `getInitialProps`, it now includes the custom `renderPage`
 		const initialProps = await Document.getInitialProps(ctx);
-		// const config = await import(`../site.config.js`);
 
 		return {
 			...initialProps,
-			// config: config.default,
 		};
 	}
 	render() {
@@ -111,10 +109,10 @@ class MyDocument extends Document {
 					/>
 					<link rel="dns-prefetch" href={apiConfig.url} />
 					<link rel="preconnect" href={apiConfig.url} crossOrigin />
-					<script
+					{/* <script
 						defer
 						src="//hm.baidu.com/hm.js?29ab8ced8f951b925920356991531a45"
-					/>
+					/> */}
 				</Head>
 				<body>
 					<Main />

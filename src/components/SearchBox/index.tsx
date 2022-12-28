@@ -19,6 +19,8 @@ import { AppListItem } from "../AppList";
 import pinyin from "js-pinyin";
 import useEventListener from "@/utils/Hooks/useEventListener";
 import type { AppData } from "@/types/index";
+import TransContext from "@/utils/Context/TransContext";
+import Text from "@/components/i18n";
 
 const Shortcuts = ({ kwd }: { kwd: string }) => {
 	return (
@@ -224,7 +226,7 @@ class Search extends React.Component<SearchProps, SearchState> {
 						value={kwd}
 						variant="outlined"
 						onChange={this.handleChange}
-						label="搜索（Ctrl+F）"
+						label={<Text k="homePage.searchBarPlaceholder" />}
 					/>
 				</FormControl>
 				<SearchResult kwd={kwd} result={searchResult} />

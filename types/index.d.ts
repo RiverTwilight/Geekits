@@ -26,6 +26,7 @@ declare global {
 		 * 修改文档标题和头部标题
 		 */
 		updateTitle(pageName?: string): void;
+		setDark(state: boolean): void;
 		/**
 		 * 显示加载动画
 		 */

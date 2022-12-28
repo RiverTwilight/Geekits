@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
 import Layout from "@/components/Layout";
+import Text from "@/components/i18n";
 import siteConfig from "../site.config.js";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { green } from "@mui/material/colors";
@@ -54,14 +55,16 @@ function MyApp({ Component, pageProps }: AppProps) {
 
 	return (
 		<ThemeProvider theme={theme}>
-			<Layout
-				siteConfig={siteConfig}
-				locale={locale}
-				currentPage={currentPage}
-				menuItems={menuItems}
-			>
-				<Component {...pageProps} siteConfig={siteConfig} />
-			</Layout>
+			<Text dictionary={JSON.parse(pageProps.dic)} language={locale}>
+				<Layout
+					siteConfig={siteConfig}
+					locale={locale}
+					currentPage={currentPage}
+					menuItems={menuItems}
+				>
+					<Component {...pageProps} siteConfig={siteConfig} />
+				</Layout>
+			</Text>
 		</ThemeProvider>
 	);
 }
