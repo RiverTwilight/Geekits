@@ -1,7 +1,7 @@
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import StyledMarkdown from "@/components/StyledMarkdown";
-import { GetStaticProps } from "next";
+import type { GetStaticProps } from "next";
 import type { PageProps } from "@/types/index";
 
 interface TermsProps extends PageProps {
@@ -9,8 +9,6 @@ interface TermsProps extends PageProps {
 }
 
 export const getStaticProps: GetStaticProps = ({ locale }) => {
-	const pageDic = require("../data/i18n/" + locale + "/page.js")["/terms"];
-
 	const termsContent = require("../../data/article/" +
 		locale +
 		"/terms.md").default;
@@ -18,7 +16,7 @@ export const getStaticProps: GetStaticProps = ({ locale }) => {
 	return {
 		props: {
 			currentPage: {
-				title: pageDic.title,
+				title: "使用条款",
 				path: "/terms",
 			},
 			termsContent,

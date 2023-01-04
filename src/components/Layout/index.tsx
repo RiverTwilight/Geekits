@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import Header from "../Header";
+import MetaInfo from "../MetaInfo";
 import LeftDrawer from "../LeftDrawer";
 import LoginDialog from "../LoginDialog";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -125,11 +126,11 @@ class Layout extends React.Component<
 			menuItems,
 		} = this.props;
 		const { author, title } = siteConfig;
-		const showTitle = `${currentPage ? `${currentPage.title} - ` : ""}${
+		const activeTitle = `${currentPage ? `${currentPage.title} - ` : ""}${
 			title[locale]
 		}`;
 
-		const currentDescription =
+		const activeDescription =
 			currentPage.description || siteConfig.description;
 
 		const childrenWithProps = React.Children.map(children, (child) => {
@@ -144,38 +145,13 @@ class Layout extends React.Component<
 		return (
 			<>
 				<Head>
-					<meta
-						name="keywords"
-						content={siteConfig.keywords.join(",")}
+					<MetaInfo
+						authorName={author.name}
+						description={activeDescription}
+						root={siteConfig.root}
+						title={activeTitle}
+						keywords={siteConfig.keywords}
 					/>
-					<meta
-						itemProp="description"
-						name="description"
-						content={currentDescription}
-					/>
-					<meta itemProp="name" content="云极客工具" />
-					<meta property="og:type" content="website" />
-					<meta property="og:title" content={showTitle} />
-					<meta property="og:url" content={siteConfig.root} />
-					<meta property="og:site_name" content={showTitle} />
-					<meta
-						property="og:description"
-						content={currentDescription}
-					/>
-					<meta property="og:locale" content="zh_CN" />
-					<meta property="article:author" content={author.name} />
-					<meta property="article:tag" content={author.name} />
-					<meta property="article:tag" content="云极客" />
-					<meta name="twitter:card" content={currentDescription} />
-					<meta
-						name="google-site-verification"
-						content="3yqvRLDwkcm7nwNQ5bSG06I4wQ5ASf23HUtcyZIaz3I"
-					/>
-					<meta
-						name="viewport"
-						content="viewport-fit=cover,width=device-width,initial-scale=1,maximum-scale=1,user-scaleable=no"
-					/>
-					<title>{showTitle}</title>
 				</Head>
 				<div className={classes.root}>
 					<CssBaseline />

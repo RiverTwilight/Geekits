@@ -7,18 +7,13 @@ import axios from "axios";
 export async function getStaticProps({ locale }) {
 	const path = "/feedback";
 
-	const pageDic = require("../data/i18n/" + locale + "/page.js")[path];
-
-	const { title } = pageDic;
-
 	return {
 		props: {
 			currentPage: {
-				title,
+				title: "反馈",
 				path,
 			},
 			locale,
-			pageDic,
 		},
 	};
 }

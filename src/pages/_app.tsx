@@ -55,7 +55,10 @@ function MyApp({ Component, pageProps }: AppProps) {
 
 	return (
 		<ThemeProvider theme={theme}>
-			<Text dictionary={JSON.parse(pageProps.dic)} language={locale}>
+			<Text
+				dictionary={pageProps.dic ? JSON.parse(pageProps.dic) : {}}
+				language={locale}
+			>
 				<Layout
 					siteConfig={siteConfig}
 					locale={locale}
