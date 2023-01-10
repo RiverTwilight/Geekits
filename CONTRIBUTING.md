@@ -1,4 +1,4 @@
-# Contributing to Ygktool
+# 贡献指南
 
 欢迎你参与贡献！在此之前请先阅读本文。
 
@@ -10,7 +10,7 @@ $ npm run dev
 $ yarn run dev
 ```
 
-If your project run successfully, it will opens http://127.0.0.1:3000 in your browser automatically.
+项目启动后，在浏览器中打开 http://127.0.0.1:3000 即可。
 
 ## 添加一个工具
 
@@ -34,6 +34,8 @@ channel: 4
 ## 如何使用？
 ```
 
+之后，你可以像开发常规 react app 一样编写代码。在`components`文件夹中有一些预先写好的组件。
+
 ## 翻译
 
 除工具文档之外，网站所有的需要翻译的字段都位于`/src/data/i18n/i18n.xlsx`这个表格中。你可以打开自由编辑。
@@ -45,3 +47,9 @@ channel: 4
 -   繁体中文（香港）
 -   English
 -   Francis
+
+## 提交新设计
+
+如果你有新的设计创意，可以把设计原型提交在这个[issue]()中。
+
+## 修复 bug & 改进功能
