@@ -14,37 +14,20 @@
 
 </div>
 
-一个渐进式在线工具网站，是由 MUI , Typescript , React 等许多爱意构建成的.
+一个渐进式在线工具网站，是由 MUI , Typescript , NextJS 等许多爱意构建成的.
 
 我们希望把她打造成一个精美但简约、实用又简单、强大且高效的在线工具箱。
 
-## 贡献 | Contribution
+## 贡献
 
-```bash
-$ npm run dev
-# or
-$ yarn run dev
-```
+我们十分欢迎你参与贡献，在此之前，请先阅读[贡献指南](CONTRIBUTING.md)。
 
-If your project run successfully, it will opens http://127.0.0.1:3000 in your browser automatically.
+## 致谢
 
-## 协助翻译 | Help Translation
+-   [unDraw](https://undraw.co/search): 提供插图。
+-   [IconKitchen](https://icon.kitchen/): 图标制作器。
 
-See our [translation-file](/src/data/i18n/i18n.xlsx). You can edit it directly and pull request. You should not run `i18n:update` util it's approved.
-
-Translations in progress:
-
--   简体中文
--   繁体中文（香港）
--   English
--   Francis
-
-## 致谢 | Thanks
-
--   [unDraw](https://undraw.co/search): Free illustrations maker.
--   [IconKitchen](https://icon.kitchen/): Free icon maker.
-
-## 许可 | License
+## 许可
 
 CC-BY-4.0
 

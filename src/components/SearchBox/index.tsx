@@ -121,8 +121,8 @@ const SearchResult = ({ result = [], kwd }: any) => {
 	);
 };
 
-const debounce = (func, timeout = 300) => {
-	let timer;
+const debounce = (func, timeout: number = 300) => {
+	let timer: NodeJS.Timeout;
 	return (...args) => {
 		clearTimeout(timer);
 		timer = setTimeout(() => {
