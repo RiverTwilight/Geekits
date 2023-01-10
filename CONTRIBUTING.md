@@ -40,7 +40,7 @@ channel: 4
 
 除工具文档之外，网站所有的需要翻译的字段都位于`/src/data/i18n/i18n.xlsx`这个表格中。你可以打开自由编辑。
 
-编辑完成后，请先提交 Pull Request，代码审查完后，你可以运行`yarn run i18n:update`命令输出 json 格式文件。
+编辑完成后，请先[提交 Pull Request](https://github.com/RiverTwilight/YgkTool/pulls)，代码审查完后，你可以运行`yarn run i18n:update`命令输出 json 格式文件。
 
 目前需要翻译的语言有：
 
@@ -50,6 +50,6 @@ channel: 4
 
 ## 提交新设计
 
-如果你有新的设计创意，可以把设计原型提交在这个[issue]()中。
+如果你有新的设计创意，可以把设计原型提交在这个[issue](https://github.com/RiverTwilight/YgkTool/issues/63)中。
 
 ## 修复 bug & 改进功能
