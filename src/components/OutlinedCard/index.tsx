@@ -4,11 +4,6 @@ import makeStyles from "@mui/styles/makeStyles";
 import { Theme } from "@mui/material/styles";
 import clsx from "clsx";
 
-/**
- * Outlined Card
- * @author rivertwilight
- */
-
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		root: {
@@ -34,6 +29,7 @@ const OutlinedCard = ({
 	style: {
 		[key: string]: string | number;
 	};
+	className?: string;
 }) => {
 	const classes = useStyles();
 	return (

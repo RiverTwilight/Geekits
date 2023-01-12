@@ -35,7 +35,7 @@ module.exports = withPWA({
 		return config;
 	},
 	i18n: {
-		locales: ["zh-CN"],
+		locales: ["zh-CN", "en-US"],
 		defaultLocale: "zh-CN",
 	},
 });
