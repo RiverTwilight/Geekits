@@ -4,6 +4,7 @@ import Button from "@material-ui/core/Button";
 import FilePicker from "@/components/FilePicker";
 import JSZip from "jszip";
 import { dataURLtoFile, saveFile } from "../../utils/fileSaver";
+import splitToNineGrids from "./api";
 import "cropperjs/dist/cropper.css";
 
 type ImgCropperState = any;
@@ -66,8 +67,7 @@ class ImgSplit extends React.Component<{}, UiState> {
 		};
 	}
 	generate = () => {
-		// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'res' implicitly has an 'any' type.
-		Split(this.state.cropperCache, (res) => {
+		splitToNineGrids(this.state.cropperCache, (res) => {
 			this.setState({
 				res: res,
 				ifHideCropper: true,

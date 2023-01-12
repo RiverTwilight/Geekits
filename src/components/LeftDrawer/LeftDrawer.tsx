@@ -47,7 +47,6 @@ const list = [
 		text: "反馈",
 		href: "https://support.qq.com/product/421719",
 	},
-
 	{
 		Icon: <VolunteerActivismOutlinedIcon />,
 		text: "捐赠",

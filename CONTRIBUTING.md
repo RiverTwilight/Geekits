@@ -9,12 +9,11 @@ $ npm run dev
 # or
 $ yarn run dev
 ```
-
 项目启动后，在浏览器中打开 http://127.0.0.1:3000 即可。
 
 ## 添加一个工具
 
-在/src/apps 下创建一个目录，并在根目录创建一个`README.zh-CN.md`文件，该文件的头部描述工具信息，内容则会展示给用户。
+在`/src/apps`下创建一个**以工具名命名、采用小蛇型命名法**的目录，并在根目录创建一个`README.zh-CN.md`文件，该文件的头部描述工具信息，内容则会展示给用户。
 
 示例如下：
 
@@ -26,6 +25,12 @@ icon: "/icon/Google_Calendar_icon_(2020).svg"
 description: "计算两个日期间隔的天数和时间，或推算几天前后是哪一天，可以算算你活了多久 :)"
 channel: 4
 ---
+
+其中 channel 代表分类，可选值如下：
+
+-   4: 生活常用
+
+接着，在[appEntry.ts](/src/utils/appEntry.ts)中，根据已有的示例，添加引入函数。完成。
 
 ## 这是什么？
 
