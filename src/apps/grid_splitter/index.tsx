@@ -56,6 +56,14 @@ const Gallary = ({ res }: { res: any[] }) => {
 
 type UiState = any;
 
+const MicroCropper = () => {
+	return (
+		<>
+			<iframe src="/_micro/Cropper"></iframe>
+		</>
+	);
+};
+
 class ImgSplit extends React.Component<{}, UiState> {
 	constructor(props: {}) {
 		super(props);
@@ -106,13 +114,14 @@ class ImgSplit extends React.Component<{}, UiState> {
 					title="确定"
 				/>
 				<br></br>
-				<ImgCropper
+				<MicroCropper />
+				{/* <ImgCropper
 					ifHide={ifHideCropper}
 					onCropperChange={(newImg) => {
 						this.setState({ cropperCache: newImg });
 					}}
 					file={file}
-				/>
+				/> */}
 				<br></br>
 				<Gallary res={this.state.res} />
 			</>

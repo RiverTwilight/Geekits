@@ -40,7 +40,7 @@ const list = [
 		href: "/",
 	},
 	{
-		text: "divider",
+		text: "<divider />",
 	},
 	{
 		Icon: <MessageIcon />,
@@ -181,14 +181,15 @@ const User = ({ handleLogin }: any) => {
 };
 
 const LinkWrapper = (props) => {
-	const router = useRouter();
-	const classes = useStyles();
 	const { href, text, Icon, handleClick } = props;
 
-	if (text === "divider") {
+	if (text === "<divider />") {
 		return <Divider />;
 	}
 
+	const router = useRouter();
+	const classes = useStyles();
+	
 	return (
 		<Link href={href} passHref legacyBehavior>
 			<ListItem
