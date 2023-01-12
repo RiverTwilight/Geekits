@@ -14,9 +14,9 @@ import type { GetStaticProps } from "next";
 
 // TODO change favicon dynamically
 
-export async function getStaticPaths({ locale }) {
+export async function getStaticPaths() {
 	return {
-		paths: getPaths(locale),
+		paths: ["zh-CN", "en-US"].map((locale) => getPaths(locale)).flat(1),
 		fallback: false,
 	};
 }
@@ -25,8 +25,6 @@ export const getStaticProps: GetStaticProps = ({
 	locale = "zh-CN",
 	...ctx
 }) => {
-	console.log("id", locale);
-
 	const { id: currentId } = ctx.params;
 
 	const appConfig = getAppConfig(currentId, ["name", "status"]);

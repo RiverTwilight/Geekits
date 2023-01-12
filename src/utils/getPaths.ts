@@ -1,7 +1,6 @@
-import { TLang } from "@/types/index";
 import { getAllApps } from "./appData";
 
-export default (locale: TLang, processId?: (id: string) => string) => {
+export default (locale: string, processId?: (id: string) => string) => {
 	const allApps = getAllApps();
 
 	const paths = allApps.map((app) => {

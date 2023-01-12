@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import fivkits from "../utils/Services/fiv";
 import { Theme } from "@mui/material/styles";
 import createStyles from "@mui/styles/createStyles";
 import makeStyles from "@mui/styles/makeStyles";
@@ -13,6 +12,7 @@ import StarBorderIcon from "@mui/icons-material/StarBorder";
 import ShareIcon from "@mui/icons-material/Share";
 import StyledMarkdown from "./StyledMarkdown";
 import CodeIcon from "@mui/icons-material/Code";
+import fivkits from "@/utils/Services/fiv";
 import type { AppData } from "@/types/index";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -26,9 +26,6 @@ const useStyles = makeStyles((theme: Theme) =>
 	})
 );
 
-/**
- * 工具菜单
- */
 const AppMenu = ({
 	appConfig,
 	feedback,
