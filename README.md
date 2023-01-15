@@ -22,6 +22,25 @@
 
 我们十分欢迎你参与贡献，在此之前，请先阅读[贡献指南](CONTRIBUTING.md)。
 
+## 部署
+
+### （推荐）使用 Vercel 部署
+
+### 使用 Docker 部署
+
+在仓库根目录执行以下命令生成镜像：
+
+```bash
+docker build -t ygktool .
+```
+
+创建容器：
+
+```bash
+docker run -p 8964:8964 ygktool
+```
+### 手动部署
+
 ## 致谢
 
 -   [unDraw](https://undraw.co/search): 提供插图。
