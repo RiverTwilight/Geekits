@@ -5,6 +5,7 @@
 	"description": "🛠A simple, feature-rich, and efficient online toolbox | 极简，强大，高效的在线工具箱，遵循MD设计规范",
 	"scripts": {
 		"build": "next build",
+		"build:image": "docker build -t ygktool .",
 		"db:init": "prisma generate",
 		"db:update": "prisma db push",
 		"db:panel": "prisma studio",
@@ -12,6 +13,7 @@
 		"i18n:update": "node scripts/i18n-loader.js",
 		"local-build": "next build",
 		"start": "next start -p 8964",
+		"start:container": "docker run -p 8964:8964 ygktool",
 		"test": "jest ./__tests__ --testPathIgnorePatterns support/*",
 		"test:unit": "jest --verbose"
 	},
