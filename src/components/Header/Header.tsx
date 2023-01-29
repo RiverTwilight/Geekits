@@ -25,7 +25,7 @@ interface Props {
 	children: React.ReactElement;
 }
 
-const drawerWidth = 240;
+const [drawerWidth, rightDrawerWidth] = [240, 260];
 
 export default (props: { title: string; PageAction }) => {
 	const { title, PageAction } = props;
@@ -37,6 +37,8 @@ export default (props: { title: string; PageAction }) => {
 				sx={{
 					width: { sm: `calc(100% - ${drawerWidth}px)` },
 					ml: { sm: `${drawerWidth}px` },
+					zIndex: (theme) => theme.zIndex.drawer + 1
+					// mr: { sm: `${rightDrawerWidth}px` },
 				}}
 			>
 				<Toolbar>
@@ -60,7 +62,7 @@ export default (props: { title: string; PageAction }) => {
 					>
 						{title}
 					</Typography>
-					
+
 					{PageAction && <PageAction />}
 				</Toolbar>
 				<Divider />

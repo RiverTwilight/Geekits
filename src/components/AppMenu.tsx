@@ -5,6 +5,7 @@ import ButtonGroup from "@mui/material/ButtonGroup";
 import TextField from "@mui/material/TextField";
 import IconButton from "@mui/material/IconButton";
 import GitHubIcon from "@mui/icons-material/GitHub";
+import Toolbar from "@mui/material/Toolbar";
 import StarIcon from "@mui/icons-material/Star";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import ShareIcon from "@mui/icons-material/Share";
@@ -92,6 +93,7 @@ const AppMenu = ({
 	});
 	return (
 		<Root className={classes.content}>
+			<Toolbar />
 			<ButtonGroup aria-label="more options">
 				<IconButton
 					component="a"

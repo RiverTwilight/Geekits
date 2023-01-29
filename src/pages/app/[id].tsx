@@ -20,31 +20,34 @@ const classes = {
 };
 
 // TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
-const Root = styled("div")<{freeSize?: boolean}>(({ theme }) => ({ freeSize }) => ({
-	margin: freeSize ? "unset" : "0 auto",
-	maxWidth: freeSize ? "unset" : "1400px",
-	[`& .${classes.content}`]: {
-		position: "relative",
-		minHeight: "100%",
-		flexGrow: 1,
-		padding: theme.spacing(1),
-		transition: theme.transitions.create("margin", {
-			easing: theme.transitions.easing.sharp,
-			duration: theme.transitions.duration.leavingScreen,
-		}),
-		marginRight: 0,
-	},
+const Root = styled("div")<{ freeSize?: boolean }>(
+	({ theme }) =>
+		({ freeSize }) => ({
+			margin: freeSize ? "unset" : "0 auto",
+			maxWidth: freeSize ? "unset" : "1400px",
+			[`& .${classes.content}`]: {
+				position: "relative",
+				minHeight: "100%",
+				flexGrow: 1,
+				padding: theme.spacing(1),
+				transition: theme.transitions.create("margin", {
+					easing: theme.transitions.easing.sharp,
+					duration: theme.transitions.duration.leavingScreen,
+				}),
+				marginRight: 0,
+			},
 
-	[`& .${classes.contentShift}`]: {
-		[theme.breakpoints.up("sm")]: {
-			transition: theme.transitions.create("margin", {
-				easing: theme.transitions.easing.easeOut,
-				duration: theme.transitions.duration.enteringScreen,
-			}),
-			marginRight: drawerWidth,
-		},
-	},
-}));
+			[`& .${classes.contentShift}`]: {
+				[theme.breakpoints.up("sm")]: {
+					transition: theme.transitions.create("margin", {
+						easing: theme.transitions.easing.easeOut,
+						duration: theme.transitions.duration.enteringScreen,
+					}),
+					marginRight: drawerWidth,
+				},
+			},
+		})
+);
 
 // TODO change favicon dynamically
 
@@ -119,6 +122,7 @@ class AppContainer extends React.Component<any, any> {
 					RightDrawerOpen: !RightDrawerOpen,
 				});
 			};
+
 			return (
 				<IconButton
 					color="primary"
@@ -126,6 +130,10 @@ class AppContainer extends React.Component<any, any> {
 					onClick={onClick}
 					edge="end"
 					size="large"
+					sx={{
+						marginLeft: "auto",
+						// mr: { sm: `${RightDrawerOpen ? drawerWidth + 10 : 0}px` },
+					}}
 				>
 					<HelpTwoToneIcon />
 				</IconButton>
