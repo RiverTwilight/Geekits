@@ -1,12 +1,10 @@
 import React from "react";
 import DateInterval from "./Interval";
 import CalcDate from "./Calculate";
-import { Theme, useTheme } from "@mui/material/styles";
-import makeStyles from '@mui/styles/makeStyles';
+import Box from "@mui/material/Box";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 
 interface TabPanelProps {
@@ -43,19 +41,7 @@ function a11yProps(index: any) {
 	};
 }
 
-const useStyles = makeStyles((theme: Theme) => ({
-	root: {
-		backgroundColor: theme.palette.background.paper,
-		width: 500,
-	},
-	paper: {
-		padding: theme.spacing(1)
-	}
-}));
-
 const DateCalculator = () => {
-	const classes = useStyles();
-	const theme = useTheme();
 	const [value, setValue] = React.useState(0);
 
 	const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
@@ -63,7 +49,7 @@ const DateCalculator = () => {
 	};
 
 	return (
-		<Paper className={classes.paper}>
+		<Paper component={Box} padding={1}>
 			<Tabs
 				value={value}
 				onChange={handleChange}

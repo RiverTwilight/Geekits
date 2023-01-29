@@ -4,38 +4,22 @@ import Header from "../Header";
 import MetaInfo from "../MetaInfo";
 import LeftDrawer from "../LeftDrawer";
 import LoginDialog from "../LoginDialog";
+import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
-import { Theme } from "@mui/material/styles";
-import createStyles from "@mui/styles/createStyles";
-import withStyles from "@mui/styles/withStyles";
-import makeStyles from "@mui/styles/makeStyles";
+import { styled } from "@mui/material/styles";
 import Snackbar from "@mui/material/Snackbar";
 import GlobalLoading from "@/components/GlobalLoading";
 import type { ICurrentPage, ISiteConfig } from "@/types/index";
 
-const styles = (theme: Theme) => {
-	return createStyles({
-		root: {
-			display: "flex",
-		},
-		content: {
-			flexGrow: 1,
-			padding: theme.spacing(2),
-			paddingTop: "75px",
-			minHeight: "100vh",
-			position: "relative",
-			maxWidth: "1400px",
-			margin: "0 auto"
-		},
-		contentShift: {
-			transition: theme.transitions.create("margin", {
-				easing: theme.transitions.easing.easeOut,
-				duration: theme.transitions.duration.enteringScreen,
-			}),
-			marginLeft: 0,
-		},
-	});
-};
+const Root = styled("main")(({ theme }) => ({
+	flexGrow: 1,
+	padding: theme.spacing(2),
+	paddingTop: "75px",
+	minHeight: "100vh",
+	position: "relative",
+	maxWidth: "1400px",
+	margin: "0 auto",
+}));
 
 /**
  * 全局snackbar
@@ -119,14 +103,8 @@ class Layout extends React.Component<
 	}
 	render() {
 		const { PageAction } = this.state;
-		const {
-			currentPage,
-			siteConfig,
-			locale,
-			classes,
-			children,
-			menuItems,
-		} = this.props;
+		const { currentPage, siteConfig, locale, children, menuItems } =
+			this.props;
 		const { author, title } = siteConfig;
 		const activeTitle = `${currentPage ? `${currentPage.title} - ` : ""}${
 			title[locale]
@@ -155,13 +133,13 @@ class Layout extends React.Component<
 						keywords={siteConfig.keywords}
 					/>
 				</Head>
-				<div className={classes.root}>
+				<Box sx={{ display: "flex" }}>
 					<CssBaseline />
 					<LoginDialog />
 					<Header PageAction={PageAction} title={currentPage.title} />
 					<LeftDrawer repo={siteConfig.repo} />
-					<main className={classes.content}>{childrenWithProps}</main>
-				</div>
+					<Root>{childrenWithProps}</Root>
+				</Box>
 				<GlobalSnackbar />
 				<GlobalLoading />
 			</>
@@ -169,4 +147,4 @@ class Layout extends React.Component<
 	}
 }
 
-export default withStyles(styles)(Layout);
+export default Layout;
