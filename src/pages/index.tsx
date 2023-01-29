@@ -3,25 +3,29 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Theme } from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
 import AppList from "@/components/AppList";
-import Search from "@/components/Search";
+import Search from "@/components/SearchBox";
 import FivList from "@/components/FivList";
 import Board from "@/components/Board";
 import { getAllApps } from "@/utils/appData";
+import translator from "@/utils/translator";
 
 export async function getStaticProps({ locale }) {
 	const appData = getAllApps(true);
 
-	const pageDic = require("../data/i18n/" + locale + "/page.js")["/"];
+	const dic = require("../data/i18n/i18n.json");
+
+	const trans = new translator(dic, locale);
 
 	return {
 		props: {
 			currentPage: {
-				title: pageDic.title,
+				title: trans.use("homePage.meta.title"),
+				description: trans.use("homePage.meta.description"),
 				path: "/",
 			},
 			appData: appData.filter((app) => app.status !== "alpha"),
+			dic: JSON.stringify(trans.get()),
 			locale,
-			pageDic,
 		},
 	};
 }
@@ -48,8 +52,6 @@ export default function Index({ appData, setAction }: any) {
 			return null;
 		});
 	}, []);
-
-	console.log(appData);
 
 	return (
 		<div className={classes.root}>

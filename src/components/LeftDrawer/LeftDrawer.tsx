@@ -40,14 +40,13 @@ const list = [
 		href: "/",
 	},
 	{
-		text: "divider",
+		text: "<divider />",
 	},
 	{
 		Icon: <MessageIcon />,
 		text: "反馈",
 		href: "https://support.qq.com/product/421719",
 	},
-
 	{
 		Icon: <VolunteerActivismOutlinedIcon />,
 		text: "捐赠",
@@ -182,14 +181,15 @@ const User = ({ handleLogin }: any) => {
 };
 
 const LinkWrapper = (props) => {
-	const router = useRouter();
-	const classes = useStyles();
 	const { href, text, Icon, handleClick } = props;
 
-	if (text === "divider") {
+	if (text === "<divider />") {
 		return <Divider />;
 	}
 
+	const router = useRouter();
+	const classes = useStyles();
+	
 	return (
 		<Link href={href} passHref legacyBehavior>
 			<ListItem

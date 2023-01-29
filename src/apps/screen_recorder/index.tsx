@@ -1,43 +1,58 @@
 import React from "react";
 import Button from "@mui/material/Button";
+import Card from "@mui/material/Card";
+import Paper from "@mui/material/Paper";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import Switch from "@mui/material/Switch";
+import FormControlLabel from "@mui/material/FormControlLabel";
 
-type State = any;
+class ScreenRecorder extends React.Component<{}, {}> {
+	videoRef;
 
-export default class extends React.Component<{}, State> {
 	constructor(props: {}) {
 		super(props);
 		this.state = {
 			recorder: undefined,
 			onRecord: false,
 			finished: false,
+			recordAudio: false,
 		};
+		this.videoRef = React.createRef();
 	}
+
 	async record() {
-		const video = this.refs.video;
+		const { videoRef } = this;
+		const { recordAudio } = this.state;
 		let recorder: any;
-		let captureStream;
+		let captureStream, audioStream, combination;
 
 		try {
-			// @ts-expect-error ts-migrate(2339) FIXME: Property 'getDisplayMedia' does not exist on type ... Remove this comment to see the full error message
 			captureStream = await navigator.mediaDevices.getDisplayMedia({
 				video: true,
-				// audio: true,   not support
-				cursor: "always",
+				audio: true,
+			});
+
+			audioStream = await navigator.mediaDevices.getUserMedia({
+				audio: true,
+				video: false,
 			});
 		} catch (e) {
 			return;
 		}
 
-		// @ts-expect-error ts-migrate(2339) FIXME: Property 'src' does not exist on type 'Component<a... Remove this comment to see the full error message
-		window.URL.revokeObjectURL(video.src);
+		window.URL.revokeObjectURL(videoRef.current.src);
 
-		// @ts-expect-error ts-migrate(2339) FIXME: Property 'autoplay' does not exist on type 'Compon... Remove this comment to see the full error message
-		video.autoplay = true;
-		// @ts-expect-error ts-migrate(2339) FIXME: Property 'srcObject' does not exist on type 'Compo... Remove this comment to see the full error message
-		video.srcObject = captureStream;
+		videoRef.current.autoplay = true;
+		videoRef.current.srcObject = captureStream;
 
-		// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'MediaRecorder'.
-		recorder = new MediaRecorder(captureStream);
+		combination = new MediaStream([
+			...captureStream.getTracks(),
+			...audioStream.getTracks(),
+		]);
+
+		recorder = new MediaRecorder(recordAudio ? captureStream : combination);
+
 		recorder.start();
 		this.setState({ onRecord: true });
 
@@ -50,27 +65,23 @@ export default class extends React.Component<{}, State> {
 			let videoUrl = URL.createObjectURL(event.data, {
 				type: "video/ogg",
 			});
-			// @ts-expect-error ts-migrate(2339) FIXME: Property 'srcObject' does not exist on type 'Compo... Remove this comment to see the full error message
-			video.srcObject = null;
-			// @ts-expect-error ts-migrate(2339) FIXME: Property 'src' does not exist on type 'Component<a... Remove this comment to see the full error message
-			video.src = videoUrl;
-			// @ts-expect-error ts-migrate(2339) FIXME: Property 'autoplay' does not exist on type 'Compon... Remove this comment to see the full error message
-			video.autoplay = false;
+			videoRef.current.srcObject = null;
+			videoRef.current.src = videoUrl;
+			videoRef.current.autoplay = false;
 		});
 		this.setState({ recorder: recorder });
 	}
+
 	stop() {
 		const { recorder } = this.state;
-		const video = this.refs.video;
-		// @ts-expect-error ts-migrate(2339) FIXME: Property 'srcObject' does not exist on type 'Compo... Remove this comment to see the full error message
-		let tracks = video.srcObject.getTracks();
+		let tracks = this.videoRef.current.srcObject.getTracks();
 		tracks.forEach((track: any) => track.stop());
 		recorder.stop();
 		this.setState({ onRecord: false });
 	}
+
 	download() {
-		// @ts-expect-error ts-migrate(2339) FIXME: Property 'src' does not exist on type 'Component<a... Remove this comment to see the full error message
-		const url = this.refs.video.src;
+		const url = this.videoRef.current.src;
 		const name = new Date()
 			.toISOString()
 			.slice(0, 19)
@@ -88,19 +99,42 @@ export default class extends React.Component<{}, State> {
 
 		a.click();
 	}
+
 	render() {
-		const { onRecord, finished } = this.state;
+		const { onRecord, finished, recordAudio } = this.state;
 		return (
-			<>
-				<video ref="video" className="mdui-video-fluid" controls>
+			<Paper
+				style={{
+					minHeight: "800px",
+					maxWidth: "800px",
+				}}
+				component={Card}
+			>
+				<video style={{ width: "100%" }} ref={this.videoRef} controls>
 					<source type="video/ogg" />
 				</video>
 
-				<br></br>
+				<Box padding={2}>
+					<Grid container>
+						<Grid item xs={6} sm={2}>
+							<FormControlLabel
+								onChange={(e) => {
+									console.log(e);
+									this.setState({
+										recordAudio: e.target.checked,
+									});
+								}}
+								checked={recordAudio}
+								control={<Switch />}
+								label="麦克风"
+							/>
+						</Grid>
 
-				<div className="mdui-row-xs-2">
-					<div className="mdui-col">
-						<button
+						<Grid
+							item
+							xs={6}
+							sm={4}
+							component={Button}
 							onClick={() => {
 								if (!onRecord) {
 									this.record();
@@ -108,25 +142,29 @@ export default class extends React.Component<{}, State> {
 									this.stop();
 								}
 							}}
-							className="mdui-btn-block mdui-color-theme mdui-ripple mdui-btn-raised mdui-btn"
+							variant="contained"
 						>
 							{!onRecord ? "录制" : "停止"}
-						</button>
-					</div>
+						</Grid>
 
-					<div className="mdui-col">
-						<button
+						<Grid
+							item
+							component={Button}
+							xs={12}
+							sm={6}
 							onClick={() => {
 								this.download();
 							}}
+							variant="outlined"
 							disabled={onRecord}
-							className="mdui-btn-block mdui-color-theme mdui-ripple mdui-btn-raised mdui-btn"
 						>
 							下载
-						</button>
-					</div>
-				</div>
-			</>
+						</Grid>
+					</Grid>
+				</Box>
+			</Paper>
 		);
 	}
 }
+
+export default ScreenRecorder;

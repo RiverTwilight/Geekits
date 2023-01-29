@@ -1,6 +1,6 @@
 import { getAllApps } from "./appData";
 
-export default (locale, processId: (id: string) => string, path: string) => {
+export default (locale: string, processId?: (id: string) => string) => {
 	const allApps = getAllApps();
 
 	const paths = allApps.map((app) => {

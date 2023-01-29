@@ -4,11 +4,6 @@ import makeStyles from "@mui/styles/makeStyles";
 import { Theme } from "@mui/material/styles";
 import clsx from "clsx";
 
-/**
- * Outlined Card
- * @author rivertwilight
- */
-
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		root: {
@@ -25,16 +20,26 @@ const OutlinedCard = ({
 	children,
 	padding,
 	className,
+	style = {},
+	...props
 }: {
 	children?: JSX.Element | JSX.Element[];
 	/**将获得10的倍数 Padding */
 	padding?: number;
+	style: {
+		[key: string]: string | number;
+	};
+	className?: string;
 }) => {
 	const classes = useStyles();
 	return (
 		<div
+			{...props}
 			className={clsx(className, classes.root)}
-			style={{ padding: padding ? `${padding * 10}px` : 0 }}
+			style={Object.assign(
+				{ padding: padding ? `${padding * 10}px` : 0 },
+				style
+			)}
 		>
 			{children}
 		</div>

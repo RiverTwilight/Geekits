@@ -14,30 +14,41 @@
 
 </div>
 
-一个渐进式在线工具网站，是由 MUI , Typescript , React 等许多爱意构建成的.
+一个渐进式在线工具网站，是由 MUI , Typescript , NextJS 等许多爱意构建成的.
 
 我们希望把她打造成一个精美但简约、实用又简单、强大且高效的在线工具箱。
 
-## 贡献 | Contribution
+## 贡献
+
+我们十分欢迎你参与贡献，在此之前，请先阅读[贡献指南](CONTRIBUTING.md)。
+
+## 部署
+
+### （推荐）使用 Vercel 部署
+
+### 使用 Docker 部署
+
+在仓库根目录执行以下命令生成镜像：
 
 ```bash
-$ npm run dev
+docker build -t ygktool .
 ```
 
-If your project run successfully, it will opens http://127.0.0.1:3000 in your browser automatically.
+创建容器：
 
-## 协助翻译 | Help Translation
+```bash
+docker run -p 8964:8964 ygktool
+```
+### 手动部署
 
-See our [translation-repository](https://github/rivertwilight/ygktool-translation)
+## 致谢
 
-## 致谢 | Thanks
+-   [unDraw](https://undraw.co/search): 提供插图。
+-   [IconKitchen](https://icon.kitchen/): 图标制作器。
 
--   [unDraw](https://undraw.co/search): Provided some illustrations.
--   [IconKitchen](https://icon.kitchen/): Icon maker
+## 许可
 
-## 许可 | License
-
-MIT
+CC-BY-4.0
 
 Copyright © 2020-Present YgkTool Dev team
 

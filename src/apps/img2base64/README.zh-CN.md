@@ -1,9 +1,9 @@
 ---
 name: "图片转Base64"
 status: "stable"
-icon: "photo"
+icon: "/icon/scratchpad.png"
 icon_color: "green-300"
 channel: 2
 ---
 
-asfasdf
+选择或者将图片拖入窗口即可自动转换。

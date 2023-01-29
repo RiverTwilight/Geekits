@@ -5,12 +5,15 @@
 	"description": "🛠A simple, feature-rich, and efficient online toolbox | 极简，强大，高效的在线工具箱，遵循MD设计规范",
 	"scripts": {
 		"build": "next build",
+		"build:image": "docker build -t ygktool .",
 		"db:init": "prisma generate",
 		"db:update": "prisma db push",
 		"db:panel": "prisma studio",
 		"dev": "next",
+		"i18n:update": "node scripts/i18n-loader.js",
 		"local-build": "next build",
 		"start": "next start -p 8964",
+		"start:container": "docker run -p 8964:8964 ygktool",
 		"test": "jest ./__tests__ --testPathIgnorePatterns support/*",
 		"test:unit": "jest --verbose"
 	},
@@ -19,7 +22,7 @@
 		"url": "https://github.com/rivertwilight/ygktool.git",
 		"directory": "/"
 	},
-	"license": "MIT",
+	"license": " CC-BY-4.0",
 	"dependencies": {
 		"@emotion/react": "^11.7.1",
 		"@emotion/styled": "^11.6.0",
@@ -44,7 +47,7 @@
 		"jszip": "^3.5.0",
 		"libgif": "0.0.3",
 		"md5": "^2.3.0",
-		"next": "13.0.5",
+		"next": "13.1.1",
 		"next-pwa": "^5.6.0",
 		"postcss": "^8.3.6",
 		"prisma": "^4.0.0",
@@ -79,6 +82,7 @@
 		"file-loader": "^1.1.11",
 		"jest": "^26.6.3",
 		"ttf-loader": "^1.0.2",
-		"typescript": "^4.2.3"
+		"typescript": "^4.2.3",
+		"xlsx": "^0.18.5"
 	}
 }

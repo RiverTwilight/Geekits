@@ -9,13 +9,16 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import MailIcon from "@mui/icons-material/Mail";
 import { GetStaticProps } from "next";
 import { author, repo } from "../site.config";
+import translator from "@/utils/translator";
 
 interface AboutProps extends GetStaticProps {
 	aboutContent: string;
 }
 
 export const getStaticProps: GetStaticProps = ({ locale }) => {
-	const pageDic = require("../data/i18n/" + locale + "/page.js")["/about"];
+	const dic = require("../data/i18n/i18n.json");
+
+	const trans = new translator(dic, locale);
 
 	const aboutContent = require("../../data/article/" +
 		locale +
@@ -24,9 +27,11 @@ export const getStaticProps: GetStaticProps = ({ locale }) => {
 	return {
 		props: {
 			currentPage: {
-				title: pageDic.title,
+				title: trans.use(""),
+				description: trans.use(""),
 				path: "/about",
 			},
+			dic: JSON.stringify(trans.get()),
 			aboutContent,
 			locale,
 		},

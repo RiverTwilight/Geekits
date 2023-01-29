@@ -1,47 +1,54 @@
 import React from "react";
-import IconButton from "@mui/material/IconButton";
-import RightDrawer from "@/components/RightDrawer";
 import AppMenu from "@/components/AppMenu";
+import RightDrawer from "@/components/RightDrawer";
 import createStyles from "@mui/styles/createStyles";
 import withStyles from "@mui/styles/withStyles";
 import HelpTwoToneIcon from "@mui/icons-material/HelpTwoTone";
+import IconButton from "@mui/material/IconButton";
 import { Theme } from "@mui/material/styles";
 import { getAppConfig, getAppDoc } from "@/utils/appData";
-import getPaths from "@/utils/getPaths";
 import appImportList from "@/utils/appEntry";
+import getPaths from "@/utils/getPaths";
 import clsx from "clsx";
+import type { GetStaticProps } from "next";
 
 // TODO change favicon dynamically
 
-export async function getStaticPaths({ locale }) {
+export async function getStaticPaths() {
 	return {
-		paths: getPaths(locale),
+		paths: ["zh-CN", "en-US"].map((locale) => getPaths(locale)).flat(1),
 		fallback: false,
 	};
 }
 
-export async function getStaticProps({ locale, locales, ...ctx }) {
+export const getStaticProps: GetStaticProps = ({
+	locale = "zh-CN",
+	...ctx
+}) => {
 	const { id: currentId } = ctx.params;
 
 	const appConfig = getAppConfig(currentId, ["name", "status"]);
 
 	const appDoc = getAppDoc(currentId);
 
+	const dic = require("../../data/i18n/i18n.json");
+
 	return {
 		props: {
 			currentPage: {
 				title: appConfig.name,
-				path: "/app/" + appConfig.id,
 				description: appConfig.description || "",
+				path: "/app/" + appConfig.id,
 			},
 			appConfig,
 			locale,
+			dic: JSON.stringify(dic[locale]),
 			appDoc,
 		},
 	};
-}
+};
 
-const drawerWidth = 260;
+const drawerWidth: number = 260;
 
 const styles = (theme: Theme) =>
 	createStyles({
@@ -140,8 +147,6 @@ class AppContainer extends React.Component<any, any> {
 		const { AppComp, FeedbackComp, showFeedbackComp, RightDrawerOpen } =
 			this.state;
 		const { appConfig, appDoc, classes } = this.props;
-
-		console.log(appConfig);
 
 		return (
 			<>

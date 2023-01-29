@@ -1,37 +1,13 @@
 /// <reference types="next" />
 
-interface IApp {
-	name: string;
-	link: string;
-	description?: string;
-}
-
-export type AppData = {
-	name: string;
-	description?: string;
-	// The path to the app's icon.
-	icon?: string;
-	// The path to the app's entry file.
-	id: string;
-	// Only show stable and beta app
-	status?: "stable" | "beta" | "alpha";
-	channel?: number;
-	icon_color?: string;
-	network?: boolean;
-	link?: string;
-	/**
-	 * @deprecated
-	 * Move desctipion to the app's entry file.
-	 */
-	help?: string;
-};
-
 declare global {
 	interface Window {
+		scrollListener: any;
 		/**
 		 * 修改文档标题和头部标题
 		 */
 		updateTitle(pageName?: string): void;
+		setDark(state: boolean): void;
 		/**
 		 * 显示加载动画
 		 */
@@ -54,6 +30,26 @@ declare global {
 	}
 }
 
+export type AppData = {
+	name: string;
+	description?: string;
+	// The path to the app's icon.
+	icon?: string;
+	// The path to the app's entry file.
+	id: string;
+	// Only show stable and beta app
+	status?: "stable" | "beta" | "alpha";
+	channel?: number;
+	icon_color?: string;
+	network?: boolean;
+	link?: string;
+	/**
+	 * @deprecated
+	 * Move desctipion to the app's entry file.
+	 */
+	help?: string;
+};
+
 // 本地用户信息
 type userInfoFromLocal = {
 	username: string;
@@ -70,23 +66,6 @@ declare module "gif.js" {
 		public on(eventName, cb);
 	}
 	export = GIF;
-}
-
-export type IPost = {
-	slug: string;
-	defaultTitle: string;
-	frontmatter: {
-		date: string;
-		/** 目录 */
-		categories?: string[];
-	};
-	id: number;
-	/** 文章 */
-	markdownBody?: string;
-};
-
-interface Window {
-	scrollListener: any;
 }
 
 export interface ICurrentPage {

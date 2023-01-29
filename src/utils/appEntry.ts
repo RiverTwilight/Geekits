@@ -54,6 +54,9 @@ const appImportList = {
 	html2jsx: dynamic(() => import("../apps/html2jsx"), {
 		ssr: false,
 	}),
+	grid_splitter: dynamic(() => import("../apps/grid_splitter"), {
+		ssr: false,
+	}),
 };
 
 export default appImportList;

@@ -1,7 +1,13 @@
+import Box from "@mui/material/Box";
 import OutlinedCard from "../OutlinedCard";
 
+// TODO 
 function Shortcuts() {
-	return <OutlinedCard>捷径</OutlinedCard>;
+	return (
+		<OutlinedCard>
+			<Box padding={2}>捷径</Box>
+		</OutlinedCard>
+	);
 }
 
 export default Shortcuts;
