@@ -25,13 +25,8 @@ status: "stable"
 icon: "/icon/Google_Calendar_icon_(2020).svg"
 description: "计算两个日期间隔的天数和时间，或推算几天前后是哪一天，可以算算你活了多久 :)"
 channel: 4
+freeSize: true
 ---
-
-其中 channel 代表分类，可选值如下：
-
--   4: 生活常用
-
-接着，在[appEntry.ts](/src/utils/appEntry.ts)中，根据已有的示例，添加引入函数。完成。
 
 ## 这是什么？
 
@@ -39,6 +34,23 @@ channel: 4
 
 ## 如何使用？
 ```
+
+属性表格：
+
+| 属性名      | 类型    | 描述                                        | 是否必填 |
+| ----------- | ------- | ------------------------------------------- | -------- |
+| name        | string  | 工具名                                      | 是       |
+| status      | string  | 工具状态，可选值为`stable`、`beta`、`alpha` | 是       |
+| icon        | string  | 工具图标，可选值为`/icon/xxx.svg`           | 是       |
+| description | string  | 工具描述                                    | 是       |
+| channel     | number  | 工具所属频道，可选值为`1`、`2`、`3`、`4`    | 是       |
+| freeSize    | boolean | 消除默认的居中样式                          | 否       |
+
+其中 channel 代表分类，可选值如下：
+
+-   4: 生活常用
+
+接着，在[appEntry.ts](/src/utils/appEntry.ts)中，根据已有的示例，添加引入函数。完成。
 
 之后，你可以像开发常规 react app 一样编写代码。在`components`文件夹中有一些预先写好的组件。
 

@@ -60,6 +60,7 @@ export default (props: { title: string; PageAction }) => {
 					>
 						{title}
 					</Typography>
+					
 					{PageAction && <PageAction />}
 				</Toolbar>
 				<Divider />

@@ -1,92 +1,61 @@
 import React from "react";
-import { useTheme, Theme } from "@mui/material/styles";
-import createStyles from "@mui/styles/createStyles";
-import makeStyles from "@mui/styles/makeStyles";
 import Drawer from "@mui/material/Drawer";
 import Box from "@mui/material/Box";
+import Toolbar from '@mui/material/Toolbar';
 
 const drawerWidth = 260;
-
-const useStyles = makeStyles((theme: Theme) =>
-	createStyles({
-		toolbar: theme.mixins.toolbar,
-		drawer: {
-			width: drawerWidth,
-			flexShrink: 0,
-		},
-		drawerPaper: {
-			zIndex: 100,
-			width: drawerWidth,
-		},
-		drawerContainer: {
-			overflow: "auto",
-		},
-	})
-);
 
 const RightDrawer: React.FC<{
 	open?: boolean;
 	onClose?: () => void;
 	children?: React.ReactNode;
 }> = ({ children, open, onClose }) => {
-	const classes = useStyles();
-	const theme = useTheme();
-
-	// console.log(`Is Hidden: %s, Drawer State: %s`, hidden, open);
-
 	return (
-		<>
-			<Box
-				component="nav"
-				sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
-				aria-label="mailbox folders"
+		<Box
+			component="nav"
+			sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+			aria-label="mailbox folders"
+		>
+			<Drawer
+				anchor="right"
+				variant="temporary"
+				open={!open}
+				onClose={onClose}
+				ModalProps={{
+					keepMounted: true, // Better open performance on mobile.
+				}}
+				sx={{
+					display: { xs: "block", sm: "none" },
+					"& .MuiDrawer-paper": {
+						boxSizing: "border-box",
+						width: drawerWidth,
+					},
+				}}
 			>
-				<Drawer
-					variant="temporary"
-					anchor="right"
-					open={!open}
-					onClose={onClose}
-					classes={{
-						paper: classes.drawerPaper,
-					}}
+				<Box
 					sx={{
-						display: { xs: "block", sm: "none" },
-						"& .MuiDrawer-paper": {
-							boxSizing: "border-box",
-							width: drawerWidth,
-						},
+						display: { xl: "block", sm: "none", xs: "none" },
 					}}
 				>
-					<Box
-						sx={{
-							display: { xl: "block", sm: "none", xs: "none" },
-						}}
-					>
-						<div className={classes.toolbar} />
-					</Box>
-
-					<div className={classes.drawerContainer}>{children}</div>
-				</Drawer>
-				<Drawer
-					classes={{
-						paper: classes.drawerPaper,
-					}}
-					anchor="right"
-					variant="persistent"
-					open={open}
-					sx={{
-						display: { xs: "none", sm: "block" },
-						"& .MuiDrawer-paper": {
-							boxSizing: "border-box",
-							width: drawerWidth,
-						},
-					}}
-				>
-					<div className={classes.toolbar} />
-					<div className={classes.drawerContainer}>{children}</div>
-				</Drawer>
-			</Box>
-		</>
+					<Toolbar />
+				</Box>
+				{children}
+			</Drawer>
+			<Drawer
+				anchor="right"
+				variant="persistent"
+				sx={{
+					display: { xs: "none", sm: "block" },
+					"& .MuiDrawer-paper": {
+						boxSizing: "border-box",
+						width: drawerWidth,
+					},
+				}}
+				open={open}
+			>
+				{children}
+			</Drawer>
+		</Box>
 	);
 };
 

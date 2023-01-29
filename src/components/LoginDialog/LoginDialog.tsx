@@ -1,35 +1,41 @@
 import Dialog from "@mui/material/Dialog";
+import { styled } from '@mui/material/styles';
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import { TabPanel } from "../TabToolkits";
-import createStyles from "@mui/styles/createStyles";
-import makeStyles from "@mui/styles/makeStyles";
 import React, { useState } from "react";
 import { store as loginDialogStore } from "../../data/loginDialogState";
 import LoginForm from "./LoginForm";
 
-const useStyles = makeStyles(() =>
-	createStyles({
-		loginIcon: {
+const PREFIX = 'LoginDialog';
+
+const classes = {
+    loginIcon: `${PREFIX}-loginIcon`,
+    dialog: `${PREFIX}-dialog`
+};
+
+const StyledDialog = styled(Dialog)(() =>
+	({
+        [`& .${classes.loginIcon}`]: {
 			"--icon-half-width": "50px",
 			position: "absolute",
 			transform: "translate(0,-70px)",
 			marginLeft: "calc(50% - var(--icon-half-width))",
 			width: "calc(var(--icon-half-width) * 2)",
 		},
-		dialog: {
+
+        [`&.${classes.dialog}`]: {
 			"& .MuiDialog-paper": {
 				overflowY: "unset",
 			},
-		},
-	})
-);
+		}
+    }));
 
 export default function () {
 	const [open, setOpen] = useState(true);
-	const classes = useStyles();
+
 
 	const [value, setValue] = React.useState(0);
 
@@ -46,7 +52,7 @@ export default function () {
 	);
 
 	return (
-		<Dialog className={classes.dialog} open={open} onClose={handleClose}>
+        <StyledDialog className={classes.dialog} open={open} onClose={handleClose}>
 			<Tabs
 				value={value}
 				onChange={handleChange}
@@ -64,6 +70,6 @@ export default function () {
 			<TabPanel value={value} index={1}>
 				<p>d</p>
 			</TabPanel>
-		</Dialog>
-	);
+		</StyledDialog>
+    );
 }

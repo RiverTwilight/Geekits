@@ -1,20 +1,12 @@
-import React from "react";
-import createStyles from "@mui/styles/createStyles";
-import makeStyles from "@mui/styles/makeStyles";
-import { Theme } from "@mui/material/styles";
-import clsx from "clsx";
+import { styled } from "@mui/material/styles";
 
-const useStyles = makeStyles((theme: Theme) =>
-	createStyles({
-		root: {
-			border: {
-				light: "1px solid #e0e0e0",
-				dark: "1px solid rgba(255, 255, 255, 0.23)",
-			}[theme.palette.mode],
-			borderRadius: "8px",
-		},
-	})
-);
+const StyledOutlinedCard = styled("div")(({ theme }) => ({
+	border: {
+		light: "1px solid #e0e0e0",
+		dark: "1px solid rgba(255, 255, 255, 0.23)",
+	}[theme.palette.mode],
+	borderRadius: "8px",
+}));
 
 const OutlinedCard = ({
 	children,
@@ -31,18 +23,16 @@ const OutlinedCard = ({
 	};
 	className?: string;
 }) => {
-	const classes = useStyles();
 	return (
-		<div
+		<StyledOutlinedCard
 			{...props}
-			className={clsx(className, classes.root)}
 			style={Object.assign(
 				{ padding: padding ? `${padding * 10}px` : 0 },
 				style
 			)}
 		>
 			{children}
-		</div>
+		</StyledOutlinedCard>
 	);
 };
 

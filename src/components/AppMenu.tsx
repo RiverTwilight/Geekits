@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Theme } from "@mui/material/styles";
-import createStyles from "@mui/styles/createStyles";
-import makeStyles from "@mui/styles/makeStyles";
+import { styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import TextField from "@mui/material/TextField";
@@ -15,16 +13,22 @@ import CodeIcon from "@mui/icons-material/Code";
 import fivkits from "@/utils/Services/fiv";
 import type { AppData } from "@/types/index";
 
-const useStyles = makeStyles((theme: Theme) =>
-	createStyles({
-		content: {
-			padding: theme.spacing(1),
-		},
-		margin: {
-			marginBottom: theme.spacing(1),
-		},
-	})
-);
+const PREFIX = "AppMenu";
+
+const classes = {
+	content: `${PREFIX}-content`,
+	margin: `${PREFIX}-margin`,
+};
+
+const Root = styled("div")(({ theme }) => ({
+	[`&.${classes.content}`]: {
+		padding: theme.spacing(1),
+	},
+
+	[`& .${classes.margin}`]: {
+		marginBottom: theme.spacing(1),
+	},
+}));
 
 const AppMenu = ({
 	appConfig,
@@ -35,7 +39,6 @@ const AppMenu = ({
 	feedback: () => void;
 	appDoc: string;
 }) => {
-	const classes = useStyles();
 	const { id, name } = appConfig;
 	const [help, setHelp] = useState("暂无帮助文本");
 	const [fiv, setFiv] = useState(false);
@@ -88,7 +91,7 @@ const AppMenu = ({
 		// 	});
 	});
 	return (
-		<div className={classes.content}>
+		<Root className={classes.content}>
 			<ButtonGroup aria-label="more options">
 				<IconButton
 					component="a"
@@ -134,7 +137,7 @@ const AppMenu = ({
 			)}
 
 			<StyledMarkdown content={appDoc} />
-		</div>
+		</Root>
 	);
 };
 

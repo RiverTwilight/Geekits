@@ -1,16 +1,50 @@
 import React from "react";
+import { styled } from "@mui/material/styles";
 import AppMenu from "@/components/AppMenu";
 import RightDrawer from "@/components/RightDrawer";
-import createStyles from "@mui/styles/createStyles";
-import withStyles from "@mui/styles/withStyles";
 import HelpTwoToneIcon from "@mui/icons-material/HelpTwoTone";
 import IconButton from "@mui/material/IconButton";
-import { Theme } from "@mui/material/styles";
 import { getAppConfig, getAppDoc } from "@/utils/appData";
 import appImportList from "@/utils/appEntry";
 import getPaths from "@/utils/getPaths";
 import clsx from "clsx";
 import type { GetStaticProps } from "next";
+
+const drawerWidth: number = 260;
+
+const PREFIX = "RDrawer";
+
+const classes = {
+	content: `${PREFIX}-content`,
+	contentShift: `${PREFIX}-contentShift`,
+};
+
+// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
+const Root = styled("div")<{freeSize?: boolean}>(({ theme }) => ({ freeSize }) => ({
+	margin: freeSize ? "unset" : "0 auto",
+	maxWidth: freeSize ? "unset" : "1400px",
+	[`& .${classes.content}`]: {
+		position: "relative",
+		minHeight: "100%",
+		flexGrow: 1,
+		padding: theme.spacing(1),
+		transition: theme.transitions.create("margin", {
+			easing: theme.transitions.easing.sharp,
+			duration: theme.transitions.duration.leavingScreen,
+		}),
+		marginRight: 0,
+	},
+
+	[`& .${classes.contentShift}`]: {
+		[theme.breakpoints.up("sm")]: {
+			transition: theme.transitions.create("margin", {
+				easing: theme.transitions.easing.easeOut,
+				duration: theme.transitions.duration.enteringScreen,
+			}),
+			marginRight: drawerWidth,
+		},
+	},
+}));
 
 // TODO change favicon dynamically
 
@@ -47,32 +81,6 @@ export const getStaticProps: GetStaticProps = ({
 		},
 	};
 };
-
-const drawerWidth: number = 260;
-
-const styles = (theme: Theme) =>
-	createStyles({
-		content: {
-			position: "relative",
-			minHeight: "100%",
-			flexGrow: 1,
-			padding: theme.spacing(1),
-			transition: theme.transitions.create("margin", {
-				easing: theme.transitions.easing.sharp,
-				duration: theme.transitions.duration.leavingScreen,
-			}),
-			marginRight: 0,
-		},
-		contentShift: {
-			[theme.breakpoints.up("sm")]: {
-				transition: theme.transitions.create("margin", {
-					easing: theme.transitions.easing.easeOut,
-					duration: theme.transitions.duration.enteringScreen,
-				}),
-				marginRight: drawerWidth,
-			},
-		},
-	});
 
 class AppContainer extends React.Component<any, any> {
 	constructor(props: any) {
@@ -116,7 +124,7 @@ class AppContainer extends React.Component<any, any> {
 					color="primary"
 					aria-label="Switch drawer"
 					onClick={onClick}
-					edge="start"
+					edge="end"
 					size="large"
 				>
 					<HelpTwoToneIcon />
@@ -146,18 +154,17 @@ class AppContainer extends React.Component<any, any> {
 	render() {
 		const { AppComp, FeedbackComp, showFeedbackComp, RightDrawerOpen } =
 			this.state;
-		const { appConfig, appDoc, classes } = this.props;
+		const { appConfig, appDoc } = this.props;
 
 		return (
-			<>
+			<Root freeSize={appConfig.freeSize}>
 				<div
-					className={clsx(classes.content, {
-						[classes.contentShift]: RightDrawerOpen,
-					})}
+					className={`${classes.content} ${
+						RightDrawerOpen ? classes.contentShift : ""
+					}`}
 				>
 					{AppComp && <AppComp />}
 				</div>
-
 				<RightDrawer
 					onClose={() => {
 						this.setState({
@@ -172,7 +179,6 @@ class AppContainer extends React.Component<any, any> {
 						appConfig={appConfig}
 					/>
 				</RightDrawer>
-
 				{/* {FeedbackComp && (
 					<FeedbackComp
 						open={showFeedbackComp}
@@ -183,9 +189,9 @@ class AppContainer extends React.Component<any, any> {
 						}}
 					/>
 				)} */}
-			</>
+			</Root>
 		);
 	}
 }
 
-export default withStyles(styles)(AppContainer);
+export default AppContainer;

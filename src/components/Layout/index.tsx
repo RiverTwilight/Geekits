@@ -17,8 +17,6 @@ const Root = styled("main")(({ theme }) => ({
 	paddingTop: "75px",
 	minHeight: "100vh",
 	position: "relative",
-	maxWidth: "1400px",
-	margin: "0 auto",
 }));
 
 /**
