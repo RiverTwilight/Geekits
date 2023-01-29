@@ -29,6 +29,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 	}, []);
 
 	const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
+	// https://mui.com/material-ui/customization/palette/
 	const theme = useMemo(
 		() =>
 			createTheme({
@@ -38,7 +39,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 						main: green[500],
 					},
 					secondary: {
-						main: green[300],
+						main: "#fff",
 					},
 				},
 			}),

@@ -33,11 +33,12 @@ export default (props: { title: string; PageAction }) => {
 	return (
 		<ElevationScroll {...props}>
 			<AppBar
+				color="secondary"
 				position="fixed"
 				sx={{
 					width: { sm: `calc(100% - ${drawerWidth}px)` },
 					ml: { sm: `${drawerWidth}px` },
-					zIndex: (theme) => theme.zIndex.drawer + 1
+					zIndex: (theme) => theme.zIndex.drawer + 1,
 					// mr: { sm: `${rightDrawerWidth}px` },
 				}}
 			>
