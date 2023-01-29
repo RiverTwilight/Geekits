@@ -231,7 +231,10 @@ const LeftDrawer = (props: IProps) => {
 	return (
 		<Box
 			component="nav"
-			sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+			sx={{
+				width: { sm: drawerWidth },
+				flexShrink: { sm: 0 },
+			}}
 			aria-label="mailbox folders"
 		>
 			<Drawer
@@ -247,6 +250,7 @@ const LeftDrawer = (props: IProps) => {
 						boxSizing: "border-box",
 						width: drawerWidth,
 					},
+					zIndex: (theme) => theme.zIndex.drawer + 2,
 				}}
 			>
 				{drawer}

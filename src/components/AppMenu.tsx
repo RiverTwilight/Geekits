@@ -3,6 +3,7 @@ import { styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import TextField from "@mui/material/TextField";
+import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import Toolbar from "@mui/material/Toolbar";
@@ -93,7 +94,8 @@ const AppMenu = ({
 	});
 	return (
 		<Root className={classes.content}>
-			<Toolbar />
+
+				<Toolbar />
 			<ButtonGroup aria-label="more options">
 				<IconButton
 					component="a"

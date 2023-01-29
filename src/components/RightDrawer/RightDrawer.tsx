@@ -1,7 +1,7 @@
 import React from "react";
 import Drawer from "@mui/material/Drawer";
 import Box from "@mui/material/Box";
-import Toolbar from '@mui/material/Toolbar';
+import Toolbar from "@mui/material/Toolbar";
 
 const drawerWidth = 260;
 
@@ -13,7 +13,10 @@ const RightDrawer: React.FC<{
 	return (
 		<Box
 			component="nav"
-			sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+			sx={{
+				width: { sm: drawerWidth },
+				flexShrink: { sm: 0 },
+			}}
 			aria-label="mailbox folders"
 		>
 			<Drawer
@@ -32,13 +35,6 @@ const RightDrawer: React.FC<{
 					},
 				}}
 			>
-				<Box
-					sx={{
-						display: { xl: "block", sm: "none", xs: "none" },
-					}}
-				>
-					<Toolbar />
-				</Box>
 				{children}
 			</Drawer>
 			<Drawer
