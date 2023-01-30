@@ -94,8 +94,7 @@ const AppMenu = ({
 	});
 	return (
 		<Root className={classes.content}>
-
-				<Toolbar />
+			<Toolbar />
 			<ButtonGroup aria-label="more options">
 				<IconButton
 					component="a"
