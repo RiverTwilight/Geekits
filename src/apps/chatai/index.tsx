@@ -1,20 +1,16 @@
 import React, { useState, useEffect } from "react";
 import ClipboardJS from "clipboard";
-import List from "@mui/material/List";
+import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import Box from "@mui/material/Box";
-import FormControl from "@mui/material/FormControl";
 import Paper from "@mui/material/Paper";
 import InputBase from "@mui/material/InputBase";
 import Divider from "@mui/material/Divider";
 import MenuIcon from "@mui/icons-material/Menu";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import OutlinedCard from "@/components/OutlinedCard";
 import axios from "@/utils/axios";
-import { TextField } from "@mui/material";
 import useInput from "@/utils/Hooks/useInput";
 import { styled } from "@mui/material/styles";
-import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 
 const SenderBubble = styled("div")(({ theme }) => ({
 	backgroundColor: theme.palette.primary.main,
@@ -101,27 +97,59 @@ export default function Chat() {
 
 	return (
 		<>
-			<Box sx={{ height: "85vh", overflowY: "scroll" }} padding={2}>
-				<Box sx={{ marginBottom: "10px" }}>
-					{history.map((chat, i) => {
-						return (
-							<ChatItemWarpper>
-								{chat.type === "bot" ? (
-									<ContactBubble>
-										<Typography variant="body1">
-											{chat.text}
-										</Typography>
-									</ContactBubble>
-								) : (
-									<SenderBubble>
-										<Typography variant="body1">
-											{chat.text}
-										</Typography>
-									</SenderBubble>
-								)}
-							</ChatItemWarpper>
-						);
-					})}
+			<Box
+				sx={{
+					height: "85vh",
+					overflowY: "scroll",
+					position: "relative",
+					"&::-webkit-scrollbar": { display: "none" },
+				}}
+				padding={2}
+			>
+				<Box sx={{ marginBottom: "10px", height: "100%" }}>
+					{!!!history.length ? (
+						<Box
+							sx={{
+								display: "flex",
+								flexDirection: "column",
+								justifyContent: "center",
+								height: "inherit",
+							}}
+						>
+							<div className="center-with-flex">
+								<img
+									height="130"
+									width="130"
+									src="/illustration/undraw_share_opinion_re_4qk7.svg"
+								/>
+								<Typography align="center" variant="subtitle1">
+									聊天，提问，抑或是请求帮助
+									<br />
+									更多玩法等你探索
+								</Typography>
+							</div>
+						</Box>
+					) : (
+						history.map((chat, i) => {
+							return (
+								<ChatItemWarpper>
+									{chat.type === "bot" ? (
+										<ContactBubble>
+											<Typography variant="body1">
+												{chat.text}
+											</Typography>
+										</ContactBubble>
+									) : (
+										<SenderBubble>
+											<Typography variant="body1">
+												{chat.text}
+											</Typography>
+										</SenderBubble>
+									)}
+								</ChatItemWarpper>
+							);
+						})
+					)}
 				</Box>
 				<Paper
 					component="form"
@@ -130,6 +158,9 @@ export default function Chat() {
 						display: "flex",
 						alignItems: "center",
 						width: "100%",
+						position: "absolute",
+						bottom: 0,
+						left: 0,
 					}}
 				>
 					<IconButton sx={{ p: "10px" }} aria-label="menu">

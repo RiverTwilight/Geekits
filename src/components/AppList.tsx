@@ -11,7 +11,7 @@ import ListItemText from "@mui/material/ListItemText";
 import ListSubheader from "@mui/material/ListSubheader";
 import { Theme } from "@mui/material/styles";
 import { makeStyles } from "@material-ui/core/styles";
-import BrightnessAutoTwoToneIcon from "@mui/icons-material/BrightnessAutoTwoTone";
+import EmojiObjectsTwoToneIcon from '@mui/icons-material/EmojiObjectsTwoTone';
 import BurstModeIcon from "@mui/icons-material/BurstMode";
 import CodeTwoToneIcon from "@mui/icons-material/CodeTwoTone";
 import LinkTwoToneIcon from "@mui/icons-material/LinkTwoTone";
@@ -158,13 +158,13 @@ const MakeChannels = ({
 };
 
 const getChannelName = (index: any) =>
-	["AI人工智能", "图片视频", "编程开发", "生活常用", "第三方 & 友情链接"][
+	["AI 人工智能", "图片视频", "编程开发", "生活常用", "第三方 & 友情链接"][
 		index - 1
 	];
 
 const getChannelIcon = (index: any) => {
 	const Icons = [
-		<BrightnessAutoTwoToneIcon />,
+		<EmojiObjectsTwoToneIcon />,
 		<BurstModeIcon />,
 		<CodeTwoToneIcon />,
 		<WbSunnyTwoToneIcon />,
