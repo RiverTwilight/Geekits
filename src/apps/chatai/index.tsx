@@ -48,6 +48,7 @@ const ChatItemWarpper = styled("div")(({ theme }) => ({
 export default function Chat() {
 	const [history, setHistory] = useState([]);
 	const [input, setInput] = useInput<String>("");
+	const [loading, setLoading] = useState(false);
 
 	const handleSend = () => {
 		setHistory((prevHistory) => [
@@ -59,7 +60,7 @@ export default function Chat() {
 			},
 		]);
 		setInput("");
-		console.log(history);
+		setLoading(true);
 		axios
 			.post("/api/apps/openai", {
 				packedData: {
@@ -83,6 +84,9 @@ export default function Chat() {
 						date: new Date(),
 					},
 				]);
+			})
+			.finally(() => {
+				setLoading(false);
 			});
 	};
 
@@ -99,14 +103,21 @@ export default function Chat() {
 		<>
 			<Box
 				sx={{
+					width: "100%",
 					height: "85vh",
-					overflowY: "scroll",
 					position: "relative",
 					"&::-webkit-scrollbar": { display: "none" },
 				}}
 				padding={2}
 			>
-				<Box sx={{ marginBottom: "10px", height: "100%" }}>
+				<Box
+					sx={{
+						marginBottom: "10px",
+paddingBottom: "40px",
+						overflowY: "scroll",
+						height: "100%",
+					}}
+				>
 					{!!!history.length ? (
 						<Box
 							sx={{
@@ -149,6 +160,15 @@ export default function Chat() {
 								</ChatItemWarpper>
 							);
 						})
+					)}
+					{loading && (
+						<Typography
+							className="shakingText"
+							align="center"
+							variant="subtitle1"
+						>
+							对方正在输入...
+						</Typography>
 					)}
 				</Box>
 				<Paper

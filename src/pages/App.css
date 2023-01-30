@@ -18,3 +18,22 @@
 	flex-direction: column;
 	align-items: center;
 }
+
+/**  shaking text animation */
+@keyframes shake {
+	0% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0.5;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+.shakingText {
+	transition: opacticy 0.5s ease-in-out;
+	animation: shake 1.5s;
+	animation-iteration-count: infinite;
+}

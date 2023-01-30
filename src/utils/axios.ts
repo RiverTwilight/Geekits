@@ -9,6 +9,6 @@ export default axios.create({
 	baseURL: '/',
 	// baseURL: "https://api.ygktool.cn",
 	// baseURL: "https://ygk-api.yunser.com",
-	timeout: 15000,
+	timeout: 20000,
 	cancelToken: source.token,
 });
