@@ -4,7 +4,6 @@ import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import InputBase from "@mui/material/InputBase";
-import Divider from "@mui/material/Divider";
 import MenuIcon from "@mui/icons-material/Menu";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
@@ -104,16 +103,17 @@ export default function Chat() {
 			<Box
 				sx={{
 					width: "100%",
-					height: "85vh",
+					height: "calc(100vh - 120px)",
 					position: "relative",
-					"&::-webkit-scrollbar": { display: "none" },
 				}}
-				padding={2}
+				paddingY={2}
+				paddingX={1}
 			>
 				<Box
 					sx={{
 						marginBottom: "10px",
-paddingBottom: "40px",
+						paddingBottom: "40px",
+						"&::-webkit-scrollbar": { display: "none" },
 						overflowY: "scroll",
 						height: "100%",
 					}}
