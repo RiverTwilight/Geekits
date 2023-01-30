@@ -27,7 +27,7 @@ const SenderBubble = styled("div")(({ theme }) => ({
 }));
 
 const ContactBubble = styled("div")(({ theme }) => ({
-	backgroundColor: theme.palette.secondary.main,
+	backgroundColor: theme.palette.secondary[theme.palette.mode],
 	color: theme.palette.secondary.contrastText,
 	padding: theme.spacing(1),
 	borderRadius: "20px 20px 20px 2px",
@@ -143,7 +143,7 @@ export default function Chat() {
 					) : (
 						history.map((chat, i) => {
 							return (
-								<ChatItemWarpper>
+								<ChatItemWarpper key={chat.date.toString()}>
 									{chat.type === "bot" ? (
 										<ContactBubble>
 											<Typography variant="body1">
@@ -174,7 +174,7 @@ export default function Chat() {
 				<Paper
 					component="form"
 					sx={{
-						p: "2px 4px",
+						p: "6px 4px",
 						display: "flex",
 						alignItems: "center",
 						width: "100%",
@@ -187,7 +187,16 @@ export default function Chat() {
 						<MenuIcon />
 					</IconButton>
 					<InputBase
-						sx={{ ml: 1, flex: 1 }}
+						sx={{
+							ml: 1,
+							mr: 1,
+							flex: 1,
+							background: (theme) =>
+								theme.palette.secondary[theme.palette.mode],
+							borderRadius: "5px",
+							pl: 1,
+						}}
+						multiline
 						placeholder="Say anything you want..."
 						autoComplete="off"
 						type="search"
@@ -196,7 +205,15 @@ export default function Chat() {
 						onChange={setInput}
 						inputProps={{ "aria-label": "Say something" }}
 					/>
-					<IconButton onClick={handleSend}>
+					<IconButton
+						sx={{
+							backgroundColor: (theme) =>
+								theme.palette.primary.main,
+						}}
+						size="small"
+						disabled={input === ""}
+						onClick={handleSend}
+					>
 						<ArrowUpwardIcon />
 					</IconButton>
 				</Paper>
