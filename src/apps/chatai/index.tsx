@@ -112,7 +112,7 @@ export default function Chat() {
 				<Box
 					sx={{
 						marginBottom: "10px",
-						paddingBottom: "40px",
+						paddingBottom: "60px",
 						"&::-webkit-scrollbar": { display: "none" },
 						overflowY: "scroll",
 						height: "100%",
