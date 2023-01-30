@@ -5,7 +5,7 @@ import * as React from "react";
  * @param defaultValue 初始值
  */
 export default function useInput<S>(defaultValue: (() => S) | S): [any, any] {
-	const [value, setValue] = React.useState<String>(defaultValue);
+	const [value, setValue] = React.useState<S>(defaultValue);
 	function handleInput(event: any) {
 		if (typeof event === "string") {
 			setValue(event);

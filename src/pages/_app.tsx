@@ -28,7 +28,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 			jssStyles.parentNode.removeChild(jssStyles);
 	}, []);
 
-	const prefersDarkMode = !useMediaQuery("(prefers-color-scheme: dark)");
+	const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
 	// https://mui.com/material-ui/customization/palette/
 	const theme = useMemo(
 		() =>

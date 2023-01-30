@@ -28,7 +28,7 @@ const SenderBubble = styled("div")(({ theme }) => ({
 
 const ContactBubble = styled("div")(({ theme }) => ({
 	backgroundColor: theme.palette.secondary[theme.palette.mode],
-	color: theme.palette.secondary.contrastText,
+	color: theme.palette.mode === "dark" ? "#FFF" : theme.palette.primary.contrastText,
 	padding: theme.spacing(1),
 	borderRadius: "20px 20px 20px 2px",
 	margin: theme.spacing(1),
@@ -66,7 +66,7 @@ export default function Chat() {
 					model: "text-davinci-003",
 					prompt: input,
 					temperature: 0.9,
-					max_tokens: 150,
+					max_tokens: 200,
 					top_p: 1,
 					n: 1,
 					stream: false,
@@ -103,7 +103,7 @@ export default function Chat() {
 			<Box
 				sx={{
 					width: "100%",
-					height: "calc(100vh - 120px)",
+					height: "calc(100vh - 110px)",
 					position: "relative",
 				}}
 				paddingY={2}
@@ -146,7 +146,10 @@ export default function Chat() {
 								<ChatItemWarpper key={chat.date.toString()}>
 									{chat.type === "bot" ? (
 										<ContactBubble>
-											<Typography variant="body1">
+											<Typography
+												color={(theme) => theme.pla}
+												variant="body1"
+											>
 												{chat.text}
 											</Typography>
 										</ContactBubble>
@@ -179,7 +182,7 @@ export default function Chat() {
 						alignItems: "center",
 						width: "100%",
 						position: "absolute",
-						bottom: 0,
+						bottom: 10,
 						left: 0,
 					}}
 				>
