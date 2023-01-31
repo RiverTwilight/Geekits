@@ -164,6 +164,8 @@ class AppContainer extends React.Component<any, any> {
 			this.state;
 		const { appConfig, appDoc } = this.props;
 
+		console.log(AppComp)
+
 		return (
 			<Root freeSize={appConfig.freeSize}>
 				<div

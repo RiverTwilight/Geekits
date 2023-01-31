@@ -26,5 +26,5 @@
 		"experimentalDecorators": true
 	},
 	"exclude": ["node_modules"],
-	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "types/index.d,ts", "src/apps/yuepin_converter/convertDic.js", "src/apps/yuepin_converter/convertDic.s"]
+	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "types/index.d,ts", "src/apps/jyutping_converter/convertDic.js", "src/apps/jyutping_converter/convertDic.s"]
 }

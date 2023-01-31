@@ -57,6 +57,9 @@ const appImportList = {
 	chatai: dynamic(() => import("../apps/chatai"), {
 		ssr: false,
 	}),
+	jyutping_converter: dynamic(() => import("../apps/jyutping_converter/index"), {
+		ssr: false,
+	}),
 };
 
 export default appImportList;
