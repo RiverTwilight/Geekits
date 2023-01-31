@@ -13,7 +13,6 @@ import type { ICurrentPage, ISiteConfig } from "@/types/index";
 
 const Root = styled("main")(({ theme }) => ({
 	flexGrow: 1,
-	padding: theme.spacing(2),
 	paddingTop: "75px",
 	minHeight: "100vh",
 	position: "relative",

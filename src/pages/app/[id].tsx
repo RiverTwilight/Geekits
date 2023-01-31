@@ -29,7 +29,6 @@ const Root = styled("div")<{ freeSize?: boolean }>(
 				position: "relative",
 				minHeight: "100%",
 				flexGrow: 1,
-				padding: theme.spacing(1),
 				transition: theme.transitions.create("margin", {
 					easing: theme.transitions.easing.sharp,
 					duration: theme.transitions.duration.leavingScreen,

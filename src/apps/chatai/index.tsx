@@ -47,14 +47,16 @@ export default function Chat() {
 				},
 			})
 			.then((res) => {
+				let timeStemp = new Date();
 				setHistory((prevHistory) => [
 					...prevHistory,
 					{
 						type: "bot",
 						text: res.data.choices[0].text,
-						date: new Date(),
+						date: timeStemp,
 					},
 				]);
+				location.href = `#${timeStemp.toString()}`;
 			})
 			.finally(() => {
 				setLoading(false);
@@ -74,57 +76,63 @@ export default function Chat() {
 		<Box
 			sx={{
 				width: "100%",
-				height: "calc(100vh - 110px)",
+				height: "calc(100dvh - 80px)",
 				position: "relative",
 			}}
-			paddingY={2}
-			paddingX={1}
 		>
 			<ChatList loading={loading} history={history} />
-			<Paper
-				component="form"
+			<Box
 				sx={{
-					p: "6px 4px",
-					display: "flex",
-					alignItems: "center",
-					width: "100%",
-					position: "absolute",
 					bottom: 10,
 					left: 0,
+					right: 0,
+					position: "absolute",
+					paddingX: 2,
 				}}
 			>
-				<IconButton sx={{ p: "10px" }} aria-label="menu">
-					<MenuIcon />
-				</IconButton>
-				<InputBase
+				<Paper
+					component="form"
 					sx={{
-						ml: 1,
-						mr: 1,
-						flex: 1,
-						background: (theme) =>
-							theme.palette.secondary[theme.palette.mode],
-						borderRadius: "5px",
-						pl: 1,
+						p: "6px 4px",
+						display: "flex",
+						alignItems: "center",
+						width: "100%",
 					}}
-					multiline
-					placeholder="Say anything you want..."
-					autoComplete="off"
-					aria-label="Type what you want to ask here"
-					value={input}
-					onChange={setInput}
-					inputProps={{ "aria-label": "Say something" }}
-				/>
-				<IconButton
-					sx={{
-						backgroundColor: (theme) => theme.palette.primary.main,
-					}}
-					size="small"
-					disabled={input === ""}
-					onClick={handleSend}
 				>
-					<ArrowUpwardIcon />
-				</IconButton>
-			</Paper>
+					<IconButton sx={{ p: "10px" }} aria-label="menu">
+						<MenuIcon />
+					</IconButton>
+					<InputBase
+						sx={{
+							ml: 1,
+							mr: 1,
+							flex: 1,
+							background: (theme) =>
+								theme.palette.secondary[theme.palette.mode],
+							borderRadius: "5px",
+							pl: 1,
+						}}
+						multiline
+						placeholder="Say anything you want..."
+						autoComplete="off"
+						aria-label="Type what you want to ask here"
+						value={input}
+						onChange={setInput}
+						inputProps={{ "aria-label": "Say something" }}
+					/>
+					<IconButton
+						sx={{
+							backgroundColor: (theme) =>
+								theme.palette.primary.main,
+						}}
+						size="small"
+						disabled={input === ""}
+						onClick={handleSend}
+					>
+						<ArrowUpwardIcon />
+					</IconButton>
+				</Paper>
+			</Box>
 		</Box>
 	);
 }

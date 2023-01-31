@@ -2,6 +2,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Placeholder from "@/components/Placeholder";
 import { styled } from "@mui/material/styles";
+import { useEffect, useRef } from "react";
 
 export interface IMessageItem {
 	type: string;
@@ -15,7 +16,7 @@ const SenderBubble = styled("div")(({ theme }) => ({
 	margin: theme.spacing(1),
 	maxWidth: "80%",
 	marginLeft: "auto",
-	textAlign: "right",
+	textAlign: "left",
 	wordBreak: "break-all",
 	wordWrap: "break-word",
 	overflowWrap: "break-word",
@@ -33,7 +34,6 @@ const ContactBubble = styled("div")(({ theme }) => ({
 	margin: theme.spacing(1),
 	maxWidth: "80%",
 	textAlign: "left",
-	wordBreak: "break-all",
 	wordWrap: "break-word",
 	overflowWrap: "break-word",
 	hyphens: "auto",
@@ -47,6 +47,12 @@ const ChatItem = ({ chat }) => {
 	const Bubble = chat.type === "bot" ? ContactBubble : SenderBubble;
 	return (
 		<BubbleWarpper>
+			<a
+				href={`#${chat.date.toString()}`}
+				style={{
+					visibility: "hidden",
+				}}
+			></a>
 			<Bubble>
 				<Typography variant="body1">{chat.text}</Typography>
 			</Bubble>
@@ -55,11 +61,20 @@ const ChatItem = ({ chat }) => {
 };
 
 const ChatList = ({ history, loading }) => {
+	const bottomPoint = useRef(null);
+
+	console.log(bottomPoint);
+
+	useEffect(() => {
+		bottomPoint.current.scrollIntoView({ behavior: "smooth" });
+	}, [history]);
+
 	return (
 		<Box
 			sx={{
 				marginBottom: "10px",
-				paddingBottom: "60px",
+				paddingBottom: "70px",
+				paddingX: 1,
 				"&::-webkit-scrollbar": { display: "none" },
 				overflowY: "scroll",
 				height: "100%",
@@ -81,6 +96,7 @@ const ChatList = ({ history, loading }) => {
 					对方正在输入...
 				</Typography>
 			)}
+			<div ref={bottomPoint}></div>
 		</Box>
 	);
 };
