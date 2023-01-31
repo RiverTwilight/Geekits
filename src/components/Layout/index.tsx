@@ -22,7 +22,7 @@ const Root = styled("main")(({ theme }) => ({
  * 全局snackbar
  */
 const GlobalSnackbar = () => {
-	const [openSnackbar, setOpenSnackbar] = useState(false);
+	const [openSnackbar, setOpenSnackbar] = useState<boolean>(false);
 	const [snackbarConfig, setSnackbarConfig] = useState({
 		message: "无消息",
 	});

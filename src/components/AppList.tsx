@@ -195,7 +195,7 @@ const AppList = ({ appData }) => {
 		[]
 	);
 
-	console.log(appData);
+	// console.log(appData);
 
 	return (
 		<List

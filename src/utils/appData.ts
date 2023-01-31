@@ -20,7 +20,7 @@ const getAppConfig = (
 	}
 
 	requireKeys.forEach((key) => {
-		data[key] = config[key];
+		data[key] = config[key] || null;
 	});
 
 	return data;

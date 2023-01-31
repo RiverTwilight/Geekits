@@ -42,7 +42,7 @@ export default function Index({ appData, setAction }: any) {
 	}, []);
 
 	return (
-		<Box sx={{ flexGrow: 1, maxWidth: "1400px", margin: "0 auto" }}>
+		<Box sx={{ flexGrow: 1, maxWidth: "1400px", margin: "0 auto", paddingX: 2, paddingBottom: 10}}>
 			<Grid container direction="row-reverse" spacing={1}>
 				<Grid item xs={12} md={3}>
 					<Board />

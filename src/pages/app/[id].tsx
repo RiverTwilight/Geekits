@@ -23,6 +23,7 @@ const classes = {
 const Root = styled("div")<{ freeSize?: boolean }>(
 	({ theme }) =>
 		({ freeSize }) => ({
+			padding: `0 ${freeSize ? "0": theme.spacing(1)}`,
 			margin: freeSize ? "unset" : "0 auto",
 			maxWidth: freeSize ? "unset" : "1400px",
 			[`& .${classes.content}`]: {
@@ -63,7 +64,7 @@ export const getStaticProps: GetStaticProps = ({
 }) => {
 	const { id: currentId } = ctx.params;
 
-	const appConfig = getAppConfig(currentId, ["name", "status"]);
+	const appConfig = getAppConfig(currentId, ["name", "status", "freeSize"]);
 
 	const appDoc = getAppDoc(currentId);
 
@@ -163,10 +164,8 @@ class AppContainer extends React.Component<any, any> {
 			this.state;
 		const { appConfig, appDoc } = this.props;
 
-		console.log(AppComp)
-
 		return (
-			<Root freeSize={appConfig.freeSize}>
+			<Root freeSize={!!appConfig.freeSize}>
 				<div
 					className={`${classes.content} ${
 						RightDrawerOpen ? classes.contentShift : ""

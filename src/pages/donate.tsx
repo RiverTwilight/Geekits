@@ -68,7 +68,7 @@ export const getStaticProps: GetStaticProps = ({ locale }) => {
 			currentPage: {
 				title: trans.use(""),
 				description: trans.use(""),
-				path: "/about",
+				path: "/donate",
 			},
 			dic: JSON.stringify(trans.get()),
 			aboutContent,
