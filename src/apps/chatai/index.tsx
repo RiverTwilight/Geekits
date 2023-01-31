@@ -56,21 +56,20 @@ export default function Chat() {
 						date: timeStemp,
 					},
 				]);
-				location.href = `#${timeStemp.toString()}`;
 			})
 			.finally(() => {
 				setLoading(false);
 			});
 	};
 
-	useEffect(() => {
-		var clipboard = new ClipboardJS(".copy");
-		clipboard.on("success", (e) => {
-			window.snackbar({ message: "已复制" });
-			e.clearSelection();
-		});
-		return () => clipboard && clipboard.destroy();
-	}, []);
+	// useEffect(() => {
+	// 	var clipboard = new ClipboardJS(".copy");
+	// 	clipboard.on("success", (e) => {
+	// 		window.snackbar({ message: "已复制" });
+	// 		e.clearSelection();
+	// 	});
+	// 	return () => clipboard && clipboard.destroy();
+	// }, []);
 
 	return (
 		<Box
@@ -78,7 +77,7 @@ export default function Chat() {
 				width: "100%",
 				height: "calc(100dvh - 80px)",
 				position: "relative",
-				overflowX: "hidden"
+				overflow: "hidden"
 			}}
 		>
 			<ChatList loading={loading} history={history} />
