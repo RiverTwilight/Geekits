@@ -47,13 +47,29 @@ const ChatItem = ({ chat }) => {
 	const Bubble = chat.type === "bot" ? ContactBubble : SenderBubble;
 	return (
 		<BubbleWarpper>
-			<a
-				href={`#${chat.date.toString()}`}
-				style={{
-					visibility: "hidden",
-				}}
-			></a>
 			<Bubble>
+				{chat.type === "bot" && (
+					<Typography
+						align="left"
+						sx={{
+							fontWeight: 700,
+							color: "white",
+						}}
+						variant="button"
+					>
+						{[
+							"🥦",
+							"🥬",
+							"🥒",
+							"🌽",
+							"🍅",
+							"🍑",
+							"🍍",
+							"🪴",
+						][Math.floor(Math.random() * 8)]}
+						GPT-3
+					</Typography>
+				)}
 				<Typography variant="body1">{chat.text}</Typography>
 			</Bubble>
 		</BubbleWarpper>
@@ -66,7 +82,8 @@ const ChatList = ({ history, loading }) => {
 	console.log(bottomPoint);
 
 	useEffect(() => {
-		bottomPoint.current.scrollIntoView({ behavior: "smooth" });
+		history.length >= 2 &&
+			bottomPoint.current.scrollIntoView({ behavior: "smooth" });
 	}, [history]);
 
 	return (

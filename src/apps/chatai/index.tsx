@@ -78,6 +78,7 @@ export default function Chat() {
 				width: "100%",
 				height: "calc(100dvh - 80px)",
 				position: "relative",
+				overflowX: "hidden"
 			}}
 		>
 			<ChatList loading={loading} history={history} />
