@@ -77,7 +77,7 @@ export default function Chat() {
 				width: "100%",
 				height: "calc(100dvh - 80px)",
 				position: "relative",
-				overflow: "hidden"
+				overflow: "hidden",
 			}}
 		>
 			<ChatList loading={loading} history={history} />
@@ -88,12 +88,15 @@ export default function Chat() {
 					right: 0,
 					position: "absolute",
 					paddingX: 2,
+					display: "flex",
+					justifyContent: "center"
 				}}
 			>
 				<Paper
 					component="form"
 					sx={{
 						p: "6px 4px",
+						maxWidth: "1000px",
 						display: "flex",
 						alignItems: "center",
 						width: "100%",

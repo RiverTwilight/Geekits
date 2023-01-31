@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import Header from "../Header";
-import MetaInfo from "../MetaInfo";
+// import MetaInfo from "../MetaInfo";
 import LeftDrawer from "../LeftDrawer";
 import LoginDialog from "../LoginDialog";
 import Box from "@mui/material/Box";
@@ -122,12 +122,31 @@ class Layout extends React.Component<
 		return (
 			<>
 				<Head>
-					<MetaInfo
-						authorName={author.name}
-						description={activeDescription}
-						root={siteConfig.root}
-						title={activeTitle}
-						keywords={siteConfig.keywords}
+					<title>{activeTitle}</title>
+					<meta name="keywords" content={siteConfig.keywords.join(",")} />
+					<meta
+						itemProp="description"
+						name="description"
+						content={activeDescription}
+					/>
+					<meta itemProp="name" content="云极客工具" />
+					<meta property="og:type" content="website" />
+					<meta property="og:title" content={title} />
+					<meta property="og:url" content={siteConfig.root} />
+					<meta property="og:site_name" content={title} />
+					<meta property="og:description" content={activeDescription} />
+					<meta property="og:locale" content="zh_CN" />
+					<meta property="article:author" content={author.name} />
+					<meta property="article:tag" content={author.name} />
+					<meta property="article:tag" content="云极客" />
+					<meta name="twitter:card" content={activeDescription} />
+					<meta
+						name="google-site-verification"
+						content="3yqvRLDwkcm7nwNQ5bSG06I4wQ5ASf23HUtcyZIaz3I"
+					/>
+					<meta
+						name="viewport"
+						content="viewport-fit=cover,width=device-width,initial-scale=1,maximum-scale=1,user-scaleable=no"
 					/>
 				</Head>
 				<Box sx={{ display: "flex" }}>
