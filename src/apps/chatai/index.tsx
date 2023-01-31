@@ -9,43 +9,16 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import axios from "@/utils/axios";
 import useInput from "@/utils/Hooks/useInput";
-import { styled } from "@mui/material/styles";
-
-const SenderBubble = styled("div")(({ theme }) => ({
-	backgroundColor: theme.palette.primary.main,
-	color: theme.palette.primary.contrastText,
-	padding: theme.spacing(1),
-	borderRadius: "20px 20px 2px 20px",
-	margin: theme.spacing(1),
-	maxWidth: "80%",
-	marginLeft: "auto",
-	textAlign: "right",
-	wordBreak: "break-all",
-	wordWrap: "break-word",
-	overflowWrap: "break-word",
-	hyphens: "auto",
-}));
-
-const ContactBubble = styled("div")(({ theme }) => ({
-	backgroundColor: theme.palette.secondary[theme.palette.mode],
-	color: theme.palette.mode === "dark" ? "#FFF" : theme.palette.primary.contrastText,
-	padding: theme.spacing(1),
-	borderRadius: "20px 20px 20px 2px",
-	margin: theme.spacing(1),
-	maxWidth: "80%",
-	textAlign: "left",
-	wordBreak: "break-all",
-	wordWrap: "break-word",
-	overflowWrap: "break-word",
-	hyphens: "auto",
-}));
-
-const ChatItemWarpper = styled("div")(({ theme }) => ({
-	display: "flex",
-}));
+import { SenderBubble, ContactBubble, BubbleWarpper } from "@/components/Chat";
 
 export default function Chat() {
-	const [history, setHistory] = useState([]);
+	const [history, setHistory] = useState<
+		{
+			text: string;
+			type: string;
+			date: Date;
+		}[]
+	>([]);
 	const [input, setInput] = useInput<String>("");
 	const [loading, setLoading] = useState(false);
 
@@ -142,25 +115,18 @@ export default function Chat() {
 						</Box>
 					) : (
 						history.map((chat, i) => {
+							const Bubble =
+								chat.type === "bot"
+									? ContactBubble
+									: SenderBubble;
 							return (
-								<ChatItemWarpper key={chat.date.toString()}>
-									{chat.type === "bot" ? (
-										<ContactBubble>
-											<Typography
-												color={(theme) => theme.pla}
-												variant="body1"
-											>
-												{chat.text}
-											</Typography>
-										</ContactBubble>
-									) : (
-										<SenderBubble>
-											<Typography variant="body1">
-												{chat.text}
-											</Typography>
-										</SenderBubble>
-									)}
-								</ChatItemWarpper>
+								<BubbleWarpper key={chat.date.toString()}>
+									<Bubble>
+										<Typography variant="body1">
+											{chat.text}
+										</Typography>
+									</Bubble>
+								</BubbleWarpper>
 							);
 						})
 					)}
@@ -202,8 +168,7 @@ export default function Chat() {
 						multiline
 						placeholder="Say anything you want..."
 						autoComplete="off"
-						type="search"
-						aria-label="Type the search keywords here"
+						aria-label="Type what you want to ask here"
 						value={input}
 						onChange={setInput}
 						inputProps={{ "aria-label": "Say something" }}
