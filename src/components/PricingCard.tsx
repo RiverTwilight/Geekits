@@ -1,11 +1,11 @@
 import React from "react";
 import { styled } from "@mui/material/styles";
 import Card from "@mui/material/Card";
+import Divider from "@mui/material/Divider";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import CardActions from "@mui/material/CardActions";
 import Button from "@mui/material/Button";
-import { Divider } from "@material-ui/core";
 import CardHeader from "@mui/material/CardHeader";
 
 const PREFIX = "PricingCard";

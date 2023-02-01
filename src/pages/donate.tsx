@@ -1,4 +1,3 @@
-import OutlinedCard from "../components/OutlinedCard";
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -21,19 +20,6 @@ const Root = styled("div")(({ theme: Theme }) => ({
 	margin: "0 auto",
 	padding: `${Theme.spacing(2)}`,
 	paddingBottom: "50px",
-
-	[`& .${classes.contactGroup}`]: {
-		display: "flex",
-		justifyContent: "center",
-		paddingBottom: "10px",
-	},
-
-	[`& .${classes.authorCard}`]: {
-		marginTop: 80,
-		display: "flex",
-		flexDirection: "column",
-		justifyContent: "center",
-	},
 }));
 
 const FREE_DONATION_WAYS = [
@@ -56,7 +42,7 @@ const FREE_DONATION_WAYS = [
 		subtitles: ["注册可获得 $200"],
 		price: "$0.00",
 		href: "https://m.do.co/c/eed8a86797c9",
-		bgColor: "linear-gradient(to top right, #031b4e, #00359c)"
+		bgColor: "linear-gradient(to top right, #031b4e 52%, #00359c)",
 	},
 ];
 
