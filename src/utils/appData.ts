@@ -1,6 +1,6 @@
 import matter from "gray-matter";
+import externalApps from "../data/zh-CN/externalApps";
 import type { AppData } from "@/types/index";
-import externalApps from "../data/i18n/zh-CN/externalApps";
 
 const getConfigFile = (appId: string): string =>
 	require("../apps/" + appId + "/README.zh-CN.md").default;
@@ -20,7 +20,7 @@ const getAppConfig = (
 	}
 
 	requireKeys.forEach((key) => {
-		data[key] = config[key];
+		data[key] = config[key] || null;
 	});
 
 	return data;

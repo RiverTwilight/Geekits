@@ -8,7 +8,7 @@
 module.exports = [
 	{
 		name: "Credit To-Do",
-		channel: 4,
+		channel: life,
 		icon: "/icon/tasks.png",
 		link: "point_brochure",
 		icon_color: "",
@@ -16,14 +16,14 @@ module.exports = [
 	},
 	{
 		name: "Ionic-Equations Balancing",
-		channel: 4,
+		channel: life,
 		icon: "/icon/lens.png",
 		link: "coming",
 		icon_color: "teal",
 	},
 	{
 		name: "Torrent 2 Magnet",
-		channel: 4,
+		channel: life,
 		icon: "cloud_download",
 		link: "coming",
 		icon_color: "deblue-300",
@@ -31,7 +31,7 @@ module.exports = [
 	},
 	{
 		name: "Online OCR",
-		channel: 1,
+		channel: ai,
 		icon: "font_download",
 		link: "ocr",
 		icon_color: "blue-400",
@@ -39,7 +39,7 @@ module.exports = [
 	},
 	{
 		name: "EULA Generator",
-		channel: 3,
+		channel: dev,
 		icon: "lock",
 		link: "policy_generator",
 		icon_color: "grey-500",
@@ -54,7 +54,7 @@ module.exports = [
 		help: "",
 		description:
 			"Identify objects in the picture, such as plants/animals/cars/dishes...",
-		channel: 1,
+		channel: ai,
 	},
 	{
 		name: "Screen Recorder",
@@ -62,7 +62,7 @@ module.exports = [
 		icon: "videocam",
 		icon_color: "orange-400",
 		help: "Only available in some new versions of browsers on the desktop platform",
-		channel: 2,
+		channel: media,
 	},
 	{
 		name: "UA Analysis",
@@ -71,7 +71,7 @@ module.exports = [
 		icon_color: "teal-300",
 		help: "The UA of the current browser is displayed by default",
 		description: "Analyze the current browser's or specified User-Agent",
-		channel: 3,
+		channel: dev,
 	},
 	{
 		name: "Web Logger",
@@ -79,7 +79,7 @@ module.exports = [
 		icon: "language",
 		icon_color: "indigo-300",
 		help: "Some dynamically loaded content may not be recorded",
-		channel: 3,
+		channel: dev,
 	},
 	// {
 	// 	name: "Text Translator",
@@ -87,7 +87,7 @@ module.exports = [
 	// 	icon: "translate",
 	// 	icon_color: "blue-400",
 	// 	help: "Based on Baidu translation service",
-	// 	channel: 4,
+	// 	channel: life,
 	// },
 	{
 		name: "Time Counter",
@@ -97,7 +97,7 @@ module.exports = [
 		help: "Enter a negative number to calculate the past days",
 		description:
 			"Calculate the time between two dates, or reverse it. You can calculate how long you have lived :)",
-		channel: 4,
+		channel: life,
 	},
 	{
 		name: "Pomodoro",
@@ -106,7 +106,7 @@ module.exports = [
 		icon_color: "red",
 		description:
 			"The Pomodoro Technique greatly improves work efficiency, and there will be an unexpected sense of accomplishment",
-		channel: 4,
+		channel: life,
 	},
 	{
 		name: "Cross-Device Text Transfer",
@@ -115,7 +115,7 @@ module.exports = [
 		icon_color: "green",
 		help: "Large files may have a large delay",
 		network: true,
-		channel: 4,
+		channel: life,
 	},
 	{
 		name: "GIF Decomposition",
@@ -123,7 +123,7 @@ module.exports = [
 		icon: "collections",
 		icon_color: "teal",
 		description: "Extract the frames of the GIF file",
-		channel: 2,
+		channel: media,
 	},
 	{
 		name: "QR-Code Generator",
@@ -132,7 +132,7 @@ module.exports = [
 		help: "",
 		description:
 			"Customizable color and size; support to generate WIFI code",
-		channel: 2,
+		channel: media,
 	},
 	/*{
 		name: "Get Bilibili Video Cover",
@@ -141,7 +141,7 @@ module.exports = [
 		icon_color: "pink-300",
 		description: "Download videos and anime covers on Bilibili",
 		help: "Please start with md for the animation number; start with av for the video number. Click the image link to copy it.",
-		channel: 4,
+		channel: life,
 	},*/
 	{
 		name: "PornHub-like Logo Maker",
@@ -149,7 +149,7 @@ module.exports = [
 		icon: "insert_emoticon",
 		icon_color: "orange",
 		help: "For spoof only, not suitable for minors",
-		channel: 2,
+		channel: media,
 	},
 	{
 		name: "Notes",
@@ -157,7 +157,7 @@ module.exports = [
 		icon: "/icon/scratchpad.png",
 		icon_color: "amber",
 		help: "All content is stored in the browser cache and will not be uploaded to the cloud. Clearing website data may result in data loss.",
-		channel: 4,
+		channel: life,
 	},
 	{
 		name: "Manifest File Maker",
@@ -165,7 +165,7 @@ module.exports = [
 		icon: "settings_applications",
 		icon_color: "grey",
 		help: "Please google by yourself for language type. For example, American English is en-us.",
-		channel: 3,
+		channel: dev,
 	},
 	/*{
 		name: "Chinese Local Scripts Transformer",
@@ -174,7 +174,7 @@ module.exports = [
 		icon_color: "red",
 		help: "This function was made by MelancholyTortoise(憂郁的烏龜).",
 		description: "Translate Traditional Chinese to Simplified Chinese, or reverse",
-		channel: 4,
+		channel: life,
 	},*/
 	{
 		name: "Make a Decision",
@@ -184,7 +184,7 @@ module.exports = [
 		description:
 			"Random selection, the gospel of choosing-difficult persons",
 		help: "",
-		channel: 4,
+		channel: life,
 	},
 	{
 		name: "Templated Text Generator",
@@ -193,7 +193,7 @@ module.exports = [
 		icon_color: "brown-200",
 		description: "Generate regular text or template text in batches",
 		help: "Use“${}”to represent keywords. For example,“${5}”means keywords whose first item is 5. For the time being, only unified tolerance/common ratio is supported",
-		channel: 4,
+		channel: life,
 	},
 	{
 		name: "Directory Tree",
@@ -201,7 +201,7 @@ module.exports = [
 		icon: "/icon/file.jpg",
 		description: "List files and folder hierarchy",
 		help: "Mobile browsers are not supported; too many files may cause lag",
-		channel: 3,
+		channel: dev,
 	},
 	{
 		name: "GIF Maker",
@@ -210,7 +210,7 @@ module.exports = [
 		icon_color: "light-green",
 		description: "Use pictures or videos to synthesize animated GIFs",
 		help: "Oversized videos may be lagging. All operations are performed locally, no data traffic will consumed",
-		channel: 2,
+		channel: media,
 	},
 	/*{
 		name: "SakuraAnimations Downloader",
@@ -218,7 +218,7 @@ module.exports = [
 		icon: "ondemand_video",
 		icon_color: "pink",
 		help: "Some streaming videos cannot be downloaded",
-		channel: 2,
+		channel: media,
 		network: true,
 	},*/
 	{
@@ -229,7 +229,7 @@ module.exports = [
 		description:
 			"Cut the picture into nine square grids for posting on social media",
 		help: "",
-		channel: 2,
+		channel: media,
 	},
 	{
 		name: "Regular Expression Test",
@@ -238,14 +238,14 @@ module.exports = [
 		icon_color: "green-200",
 		description: "Test whether the regular expression matches the text",
 		help: "",
-		channel: 3,
+		channel: dev,
 	},
 	{
 		name: "HTML 2 JSX",
 		link: "html2jsx",
 		icon: "/icon/code.png",
 		help: "Some Html attributes are not supported, please manually change them to the smallCamel. All operations are performed locally and won't consume data traffic",
-		channel: 3,
+		channel: dev,
 	},
 	{
 		name: "MIME Types Lookup",
@@ -253,7 +253,7 @@ module.exports = [
 		icon: "attachment",
 		icon_color: "purple",
 		help: "",
-		channel: 3,
+		channel: dev,
 	},
 	{
 		name: "Sports Scoreboard",
@@ -261,7 +261,7 @@ module.exports = [
 		icon: "today",
 		icon_color: "lime",
 		help: "",
-		channel: 4,
+		channel: life,
 	},
 	{
 		name: "Stickers Maker",
@@ -270,7 +270,7 @@ module.exports = [
 		icon_color: "yellow",
 		description: "Easily make sino-popularly and other styles of memes",
 		help: "",
-		channel: 2,
+		channel: media,
 	},
 	{
 		name: "Almighty Text Encoder",
@@ -280,7 +280,7 @@ module.exports = [
 		description:
 			"Probably the most comprehensive text conversion tool, supporting up to 7 types",
 		help: "",
-		channel: 3,
+		channel: dev,
 	},
 	{
 		name: "Image 2 Base64",
@@ -288,7 +288,7 @@ module.exports = [
 		icon: "photo",
 		icon_color: "green-300",
 		help: "If the picture is too large, it may lagged",
-		channel: 2,
+		channel: media,
 	},
 	{
 		name: "Image Stitching",
@@ -296,21 +296,21 @@ module.exports = [
 		icon: "view_column",
 		icon_color: "amber-600",
 		help: "If the picture is too large, it may lagged. Pull the shadow part to adjust the splicing range, suitable for the splicing of subtitled images or long images",
-		channel: 2,
+		channel: media,
 	},
 	{
 		name: "Chemical Equation Balancing",
 		link: "cem",
 		icon: "linear_scale",
 		icon_color: "blue-600",
-		channel: 4,
+		channel: life,
 	},
 	/*{
 		name: "NeteaseMusic Playlist Comparer",
 		link: "songlist",
 		icon: "queue_music",
 		icon_color: "red-600",
-		channel: 4,
+		channel: life,
 		network: true,
 	},*/
 	{
@@ -319,7 +319,7 @@ module.exports = [
 		icon: "/icon/finance.png",
 		icon_color: "brown-300",
 		help: "Pictures that are too small may not have obvious effects",
-		channel: 2,
+		channel: media,
 	},
 	{
 		name: "Word Art Maker",
@@ -327,7 +327,7 @@ module.exports = [
 		icon: "cloud_circle",
 		icon_color: "green-300",
 		help: "Click on the picture to save the picture; if the text size is not specified, a random size will be used",
-		channel: 2,
+		channel: media,
 	},
 	{
 		name: "Online TTS",
@@ -337,7 +337,7 @@ module.exports = [
 		help: "Up to 500 characters each time",
 		description:
 			"Convert text to sound, supported multiple voice rays and speed/pitch/volume/custom",
-		channel: 1,
+		channel: ai,
 		network: true,
 	},
 	/*{
@@ -346,7 +346,7 @@ module.exports = [
 		icon: "attach_money",
 		icon_color: "yellow-600",
 		help: "The generated results are for reference only",
-		channel: 4,
+		channel: life,
 	},*/
 	{
 		name: "Color Pipet&Palette",
@@ -354,14 +354,14 @@ module.exports = [
 		icon: "colorize",
 		icon_color: "amber-800",
 		help: "You can use the keyboard arrow keys to accurately adjust",
-		channel: 2,
+		channel: media,
 	},
 	/*{
 		name: "Chinese Words Dictionary",
 		link: "dic_ci",
 		icon: "/icon/book.png",
 		description: "Convenient query of Chinese common words",
-		channel: 4,
+		channel: life,
 		network: true,
 	},
 	{
@@ -369,7 +369,7 @@ module.exports = [
 		link: "xiehouyu",
 		icon: "/icon/book.png",
 		description: "Support riddle two-way query",
-		channel: 4,
+		channel: life,
 		network: true,
 	},
 	{
@@ -377,7 +377,7 @@ module.exports = [
 		link: "dic_idiom",
 		icon: "/icon/book.png",
 		help: "Support abbreviations",
-		channel: 4,
+		channel: life,
 		network: true,
 	},
 	{
@@ -385,14 +385,14 @@ module.exports = [
 		link: "dic_word",
 		help: "Do not support too simple character lookup",
 		description: "Explore characters with a history of five thousand years",
-		channel: 4,
+		channel: life,
 		network: true,
 	},*/
 	{
 		name: "JS Keycode Query",
 		link: "js_keycode",
 		icon: "settings_applications",
-		channel: 3,
+		channel: dev,
 	},
 	/*{ name: "HelloTool App", link: "http://hellotool.htm.kim", channel: 5 },
 	{

@@ -1,45 +1,28 @@
 import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import Header from "../Header";
-import MetaInfo from "../MetaInfo";
+// import MetaInfo from "../MetaInfo";
 import LeftDrawer from "../LeftDrawer";
 import LoginDialog from "../LoginDialog";
+import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
-import { Theme } from "@mui/material/styles";
-import createStyles from "@mui/styles/createStyles";
-import withStyles from "@mui/styles/withStyles";
-import makeStyles from "@mui/styles/makeStyles";
+import { styled } from "@mui/material/styles";
 import Snackbar from "@mui/material/Snackbar";
 import GlobalLoading from "@/components/GlobalLoading";
 import type { ICurrentPage, ISiteConfig } from "@/types/index";
 
-const styles = (theme: Theme) => {
-	return createStyles({
-		root: {
-			display: "flex",
-		},
-		content: {
+const Root = styled("main")<{ disableTopPadding?: boolean }>(
+	({ theme }) =>
+		({ disableTopPadding }) => ({
 			flexGrow: 1,
-			padding: theme.spacing(2),
-			paddingTop: "75px",
+			paddingTop: disableTopPadding ? 0 : "70px",
 			minHeight: "100vh",
 			position: "relative",
-		},
-		contentShift: {
-			transition: theme.transitions.create("margin", {
-				easing: theme.transitions.easing.easeOut,
-				duration: theme.transitions.duration.enteringScreen,
-			}),
-			marginLeft: 0,
-		},
-	});
-};
+		})
+);
 
-/**
- * 全局snackbar
- */
 const GlobalSnackbar = () => {
-	const [openSnackbar, setOpenSnackbar] = useState(false);
+	const [openSnackbar, setOpenSnackbar] = useState<boolean>(false);
 	const [snackbarConfig, setSnackbarConfig] = useState({
 		message: "无消息",
 	});
@@ -68,6 +51,7 @@ class Layout extends React.Component<
 		locale?: string;
 		children: JSX.Element | JSX.Element[];
 		menuItems: any[];
+		enableFrame;
 	},
 	{
 		LeftDrawerOpen: boolean;
@@ -121,9 +105,9 @@ class Layout extends React.Component<
 			currentPage,
 			siteConfig,
 			locale,
-			classes,
 			children,
 			menuItems,
+			enableFrame,
 		} = this.props;
 		const { author, title } = siteConfig;
 		const activeTitle = `${currentPage ? `${currentPage.title} - ` : ""}${
@@ -145,21 +129,53 @@ class Layout extends React.Component<
 		return (
 			<>
 				<Head>
-					<MetaInfo
-						authorName={author.name}
-						description={activeDescription}
-						root={siteConfig.root}
-						title={activeTitle}
-						keywords={siteConfig.keywords}
+					<title>{activeTitle}</title>
+					<meta
+						name="keywords"
+						content={siteConfig.keywords.join(",")}
+					/>
+					<meta
+						itemProp="description"
+						name="description"
+						content={activeDescription}
+					/>
+					<meta itemProp="name" content="云极客工具" />
+					<meta property="og:type" content="website" />
+					<meta property="og:title" content={title} />
+					<meta property="og:url" content={siteConfig.root} />
+					<meta property="og:site_name" content={title} />
+					<meta
+						property="og:description"
+						content={activeDescription}
+					/>
+					<meta property="og:locale" content="zh_CN" />
+					<meta property="article:author" content={author.name} />
+					<meta property="article:tag" content={author.name} />
+					<meta property="article:tag" content="云极客" />
+					<meta name="twitter:card" content={activeDescription} />
+					<meta
+						name="google-site-verification"
+						content="3yqvRLDwkcm7nwNQ5bSG06I4wQ5ASf23HUtcyZIaz3I"
+					/>
+					<meta
+						name="viewport"
+						content="viewport-fit=cover,width=device-width,initial-scale=1,maximum-scale=1,user-scaleable=no"
 					/>
 				</Head>
-				<div className={classes.root}>
+				<Box sx={{ display: "flex" }}>
 					<CssBaseline />
 					<LoginDialog />
-					<Header PageAction={PageAction} title={currentPage.title} />
+					{enableFrame && (
+						<Header
+							PageAction={PageAction}
+							title={currentPage.title}
+						/>
+					)}
 					<LeftDrawer repo={siteConfig.repo} />
-					<main className={classes.content}>{childrenWithProps}</main>
-				</div>
+					<Root disableTopPadding={!enableFrame}>
+						{childrenWithProps}
+					</Root>
+				</Box>
 				<GlobalSnackbar />
 				<GlobalLoading />
 			</>
@@ -167,4 +183,4 @@ class Layout extends React.Component<
 	}
 }
 
-export default withStyles(styles)(Layout);
+export default Layout;

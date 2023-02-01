@@ -1,7 +1,7 @@
 ---
 name: "服务协议生成"
 status: "beta"
-channel: 3
+channel: dev
 icon: "lock"
 icon_color: "grey-500"
 description: "定制化生成服务协议和隐私政策"

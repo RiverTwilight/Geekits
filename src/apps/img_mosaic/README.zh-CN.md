@@ -3,5 +3,5 @@
     status: "stable"
     icon: "view_column"
     icon_color: "amber-600"
-    channel: 2
+    channel: media
 ---

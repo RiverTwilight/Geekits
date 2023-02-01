@@ -3,7 +3,7 @@ name: "化学方程式配平"
 status: "stable"
 link: "cem"
 icon: "/icon/magic-line-blue/icon-192-maskable.png"
-channel: 4
+channel: life
 ---
 
 #### 方程格式

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { styled } from '@mui/material/styles';
 import axios from "../utils/axios";
 import Input from "@mui/material/Input";
 import FormControl from "@mui/material/FormControl";
@@ -6,23 +7,25 @@ import InputLabel from "@mui/material/InputLabel";
 import Button from "@mui/material/Button";
 import useInput from "../utils/Hooks/useInput";
 import Snackbar from "@mui/material/Snackbar";
-import { Theme } from '@mui/material/styles';
-import makeStyles from '@mui/styles/makeStyles';
-import createStyles from '@mui/styles/createStyles';
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 
-/**
- * 查询工具模板
- */
+const PREFIX = 'EnquireTemplate';
 
-const useStyles = makeStyles((theme: Theme) =>
-	createStyles({
-		input: {
-			marginBottom: theme.spacing(2),
-		},
-	})
-);
+const classes = {
+    input: `${PREFIX}-input`
+};
+
+// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
+const Root = styled('div')((
+    {
+        theme: Theme
+    }
+) => ({
+    [`& .${classes.input}`]: {
+        marginBottom: theme.spacing(2),
+    }
+}));
 
 const EnquireTemplate = (props: {
 	Result: any;
@@ -34,7 +37,7 @@ const EnquireTemplate = (props: {
 	const [text, setText] = useInput("");
 	const [data, setData] = useState(null);
 	const [openSb, setOpenSb] = React.useState(false);
-	const classes = useStyles();
+
 
 	const handleEnterKeydown = (e: {
 		ctrlKey: any;
@@ -81,8 +84,8 @@ const EnquireTemplate = (props: {
 			});
 	};
 	return (
-		<>
-			<FormControl className={classes.input} fullWidth>
+        (<Root>
+            <FormControl className={classes.input} fullWidth>
 				<InputLabel htmlFor="standard-adornment-amount">
 					搜索（Ctrl+F）
 				</InputLabel>
@@ -92,10 +95,10 @@ const EnquireTemplate = (props: {
 					onChange={setText}
 				/>
 			</FormControl>
-			<Button variant="contained" color="primary" onClick={handleClick}>
+            <Button variant="contained" color="primary" onClick={handleClick}>
 				{btnText || "查询"}
 			</Button>
-			<Snackbar
+            <Snackbar
 				anchorOrigin={{
 					vertical: "bottom",
 					horizontal: "left",
@@ -124,10 +127,10 @@ const EnquireTemplate = (props: {
 					</React.Fragment>
 				}
 			/>
-			<br></br>
-			{/* <Result data={this.state.data} input={input} /> */}
-		</>
-	);
+            <br></br>
+            {/* <Result data={this.state.data} input={input} /> */}
+        </Root>)
+    );
 };
 
 export default EnquireTemplate;

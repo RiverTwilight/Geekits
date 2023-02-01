@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Theme } from "@mui/material/styles";
-import createStyles from "@mui/styles/createStyles";
-import makeStyles from "@mui/styles/makeStyles";
+import { styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import TextField from "@mui/material/TextField";
+import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import GitHubIcon from "@mui/icons-material/GitHub";
+import Toolbar from "@mui/material/Toolbar";
 import StarIcon from "@mui/icons-material/Star";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import ShareIcon from "@mui/icons-material/Share";
@@ -15,16 +15,22 @@ import CodeIcon from "@mui/icons-material/Code";
 import fivkits from "@/utils/Services/fiv";
 import type { AppData } from "@/types/index";
 
-const useStyles = makeStyles((theme: Theme) =>
-	createStyles({
-		content: {
-			padding: theme.spacing(1),
-		},
-		margin: {
-			marginBottom: theme.spacing(1),
-		},
-	})
-);
+const PREFIX = "AppMenu";
+
+const classes = {
+	content: `${PREFIX}-content`,
+	margin: `${PREFIX}-margin`,
+};
+
+const Root = styled("div")(({ theme }) => ({
+	[`&.${classes.content}`]: {
+		padding: theme.spacing(1),
+	},
+
+	[`& .${classes.margin}`]: {
+		marginBottom: theme.spacing(1),
+	},
+}));
 
 const AppMenu = ({
 	appConfig,
@@ -35,11 +41,10 @@ const AppMenu = ({
 	feedback: () => void;
 	appDoc: string;
 }) => {
-	const classes = useStyles();
 	const { id, name } = appConfig;
-	const [help, setHelp] = useState("暂无帮助文本");
 	const [fiv, setFiv] = useState(false);
 	const [showCode, setShowCode] = useState(false);
+	
 	const handleFiv = () => {
 		const { id, name } = appConfig;
 		if (!fivkits.get(id)) {
@@ -78,17 +83,10 @@ const AppMenu = ({
 		if (fivkits.get(id)) {
 			setFiv(true);
 		}
-		// const helpMdPath = require(`../../apps/${appConfig.id}/README.md`);
-		// fetch(helpMdPath.default)
-		// 	.then((response) => {
-		// 		return response.text();
-		// 	})
-		// 	.then((text) => {
-		// 		setHelp(text === "" ? "暂无帮助文本" : text);
-		// 	});
-	});
+	}, [appConfig]);
 	return (
-		<div className={classes.content}>
+		<Root className={classes.content}>
+			<Toolbar />
 			<ButtonGroup aria-label="more options">
 				<IconButton
 					component="a"
@@ -126,7 +124,7 @@ const AppMenu = ({
 			{showCode && (
 				<TextField
 					onClick={handleClickCode}
-					value={`<iframe src="${window.location.origin}/app/${appConfig.id}?fullscreen=true" width="100%" height="400px" scrolling="no" style="border:0;"></iframe>`}
+					value={`<iframe src="${window.location.origin}/app/${appConfig.id}?fullscreen=1" width="100%" height="400px" scrolling="no" style="border:0;"></iframe>`}
 					id="frame-code"
 					label="嵌入代码"
 					variant="outlined"
@@ -134,7 +132,7 @@ const AppMenu = ({
 			)}
 
 			<StyledMarkdown content={appDoc} />
-		</div>
+		</Root>
 	);
 };
 

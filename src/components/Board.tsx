@@ -9,11 +9,6 @@ import {
 import { Button } from "@mui/material";
 import OutlinedCard from "./OutlinedCard";
 import axios from "../utils/axios";
-import { Theme } from "@mui/material/styles";
-import createStyles from "@mui/styles/createStyles";
-import makeStyles from "@mui/styles/makeStyles";
-
-const useStyles = makeStyles((theme: Theme) => createStyles({}));
 
 // https://github.com/RiverTwilight/ygktool/issues/21
 const API =
@@ -24,8 +19,6 @@ export default function Board() {
 		content: string;
 		id: number;
 	} | null>(null);
-
-	const classes = useStyles();
 
 	useEffect(() => {
 		axios.get(API).then((res) => {

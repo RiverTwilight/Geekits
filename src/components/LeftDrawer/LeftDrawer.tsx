@@ -1,20 +1,17 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import Avatar from "@mui/material/Avatar";
 import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
-import Hidden from "@mui/material/Hidden";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
+import Alert from "@mui/material/Alert";
 import Box from "@mui/material/Box";
-import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
-import { useTheme, Theme } from "@mui/material/styles";
-import makeStyles from "@mui/styles/makeStyles";
-import createStyles from "@mui/styles/createStyles";
 import HomeIcon from "@mui/icons-material/Home";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { repo } from "../../site.config";
@@ -23,13 +20,12 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import VolunteerActivismOutlinedIcon from "@mui/icons-material/VolunteerActivismOutlined";
 import { UserContext } from "../UserContextProvider";
-import clsx from "clsx";
-import { store as loginDialogStore } from "../../data/loginDialogState";
-import { store as drawerStore } from "../../data/drawerState";
-import Alert from "@mui/material/Alert";
+import { store as loginDialogStore } from "@/utils/Data/loginDialogState";
+import { store as drawerStore } from "@/utils/Data/drawerState";
 import MuiLink from "@mui/material/Link";
 import { getUserInfo } from "@/utils/Services/UserInfo";
 import Shortcuts from "../Shortcuts";
+import { styled } from "@mui/material/styles";
 
 // TODO Shortcuts
 
@@ -49,7 +45,7 @@ const list = [
 	},
 	{
 		Icon: <VolunteerActivismOutlinedIcon />,
-		text: "捐赠",
+		text: "免费捐赠",
 		href: "/donate",
 	},
 
@@ -77,56 +73,10 @@ const list = [
 
 const drawerWidth = 240;
 
-const useStyles = makeStyles((theme: Theme) =>
-	createStyles({
-		inline: {
-			display: "inline",
-		},
-		drawer: {
-			[theme.breakpoints.up("sm")]: {
-				width: drawerWidth,
-				flexShrink: 0,
-			},
-		},
-		selectedItem: {
-			"&.Mui-selected .MuiListItemText-primary": {
-				fontWeight: 700,
-			},
-		},
-		appBar: {
-			[theme.breakpoints.up("sm")]: {
-				width: `calc(100% - ${drawerWidth}px)`,
-				marginLeft: drawerWidth,
-			},
-		},
-		menuButton: {
-			marginRight: theme.spacing(2),
-			[theme.breakpoints.up("sm")]: {
-				display: "none",
-			},
-		},
-		// necessary for content to be below app bar
-		toolbar: theme.mixins.toolbar,
-		drawerPaper: {
-			width: drawerWidth,
-		},
-		hoverBlur: {
-			[theme.breakpoints.up("sm")]: {
-				transition: "filter .3s",
-				filter: "blur(5px)",
-				"&:hover": {
-					filter: "blur(0)",
-				},
-			},
-		},
-		icon: {
-			borderRadius: "0",
-		},
-	})
-);
+// necessary for content to be below app bar
+const Toolbar = styled("nav")(({ theme }) => theme.mixins.toolbar);
 
 const User = ({ handleLogin }: any) => {
-	const classes = useStyles();
 	const [user, setUser]: [user: userInfoFromLocal | null, setUser: any] =
 		useState(null);
 	useEffect(() => {
@@ -147,7 +97,7 @@ const User = ({ handleLogin }: any) => {
 			<ListItem button {...attr}>
 				<ListItemAvatar>
 					<Avatar
-						className={classes.icon}
+						sx={{ borderRadius: "0" }}
 						alt="Cindy Baker"
 						src="/logo/v2/512.png"
 					/>
@@ -167,7 +117,7 @@ const User = ({ handleLogin }: any) => {
 							<Typography
 								component="span"
 								variant="body2"
-								className={classes.inline}
+								sx={{ display: "inline" }}
 								color="textSecondary"
 							>
 								{user ? user.name : "未登录"}
@@ -188,16 +138,17 @@ const LinkWrapper = (props) => {
 	}
 
 	const router = useRouter();
-	const classes = useStyles();
-	
+
 	return (
 		<Link href={href} passHref legacyBehavior>
 			<ListItem
 				onClick={handleClick}
-				className={clsx(
-					classes.selectedItem,
-					router.pathname == href ? "Mui-selected" : ""
-				)}
+				sx={{
+					"&.Mui-selected .MuiListItemText-primary": {
+						fontWeight: 700,
+					},
+				}}
+				className={router.pathname == href ? "Mui-selected" : ""}
 				button
 				key={text}
 			>
@@ -225,8 +176,6 @@ const LeftDrawer = (props: IProps) => {
 
 	const [open, setOpen] = React.useState(false);
 	const [isBlur, setIsBlur] = React.useState(false);
-	const classes = useStyles();
-	const theme = useTheme();
 
 	const handleClick = () => {
 		window.innerWidth <= 1024 && setOpen(false);
@@ -243,14 +192,14 @@ const LeftDrawer = (props: IProps) => {
 
 	const drawer = (
 		<>
-			<div className={classes.toolbar}>
+			<Toolbar>
 				<User
 					handleLogin={() => {
 						handleClick();
 						handleLoginOpen();
 					}}
 				/>
-			</div>
+			</Toolbar>
 			<Divider />
 			<Alert severity="info">
 				您正在使用新版本，如有任何问题欢迎随时反馈。
@@ -280,38 +229,46 @@ const LeftDrawer = (props: IProps) => {
 	// });
 
 	return (
-		<nav className={classes.drawer} aria-label="left drawer">
-			{/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-			<Hidden smUp implementation="css">
-				<Drawer
-					variant="temporary"
-					anchor={theme.direction === "rtl" ? "right" : "left"}
-					open={open}
-					onClose={() =>
-						drawerStore.dispatch({ type: "drawer/closed" })
-					}
-					classes={{
-						paper: classes.drawerPaper,
-					}}
-					ModalProps={{
-						keepMounted: true, // Better open performance on mobile.
-					}}
-				>
-					{drawer}
-				</Drawer>
-			</Hidden>
-			<Hidden smDown implementation="css">
-				<Drawer
-					classes={{
-						paper: classes.drawerPaper,
-					}}
-					variant="permanent"
-					open
-				>
-					{drawer}
-				</Drawer>
-			</Hidden>
-		</nav>
+		<Box
+			component="nav"
+			sx={{
+				width: { sm: drawerWidth },
+				flexShrink: { sm: 0 },
+			}}
+			aria-label="mailbox folders"
+		>
+			<Drawer
+				variant="temporary"
+				open={open}
+				onClose={() => drawerStore.dispatch({ type: "drawer/closed" })}
+				ModalProps={{
+					keepMounted: true, // Better open performance on mobile.
+				}}
+				sx={{
+					display: { xs: "block", sm: "none" },
+					"& .MuiDrawer-paper": {
+						boxSizing: "border-box",
+						width: drawerWidth,
+					},
+					zIndex: (theme) => theme.zIndex.drawer + 2,
+				}}
+			>
+				{drawer}
+			</Drawer>
+			<Drawer
+				variant="permanent"
+				sx={{
+					display: { xs: "none", sm: "block" },
+					"& .MuiDrawer-paper": {
+						boxSizing: "border-box",
+						width: drawerWidth,
+					},
+				}}
+				open
+			>
+				{drawer}
+			</Drawer>
+		</Box>
 	);
 };
 

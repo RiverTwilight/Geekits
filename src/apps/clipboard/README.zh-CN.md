@@ -4,7 +4,7 @@ icon: "call_split"
 icon_color: "green"
 network: true
 status: "beta"
-channel: 4
+channel: life
 ---
 
 ## 我的数据安全吗

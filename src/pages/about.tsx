@@ -1,7 +1,7 @@
 import OutlinedCard from "../components/OutlinedCard";
+import { styled } from "@mui/material/styles";
 import StyledMarkdown from "../components/StyledMarkdown";
 import Avatar from "@mui/material/Avatar";
-import { makeStyles, createStyles, Theme } from "@mui/styles";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import GitHubIcon from "@mui/icons-material/GitHub";
@@ -10,17 +10,56 @@ import MailIcon from "@mui/icons-material/Mail";
 import { GetStaticProps } from "next";
 import { author, repo } from "../site.config";
 import translator from "@/utils/translator";
+import { version } from "../../package.json";
+
+const PREFIX = "about";
+
+const classes = {
+	authorName: `${PREFIX}-authorName`,
+	avatar: `${PREFIX}-avatar`,
+	contactGroup: `${PREFIX}-contactGroup`,
+	authorCard: `${PREFIX}-authorCard`,
+};
+
+const Root = styled("div")(({ theme: Theme }) => ({
+	maxWidth: "600px",
+	margin: "180px auto 0 auto",
+	padding: `${Theme.spacing(2)}`,
+	paddingBottom: "50px",
+	[`& .${classes.authorName}`]: {
+		transform: "translateY(-10px)",
+	},
+
+	[`& .${classes.avatar}`]: {
+		transform: "translateY(-50%)",
+		marginLeft: "calc(50% - 50px)",
+		boxShadow: "0px 0px 4px 4px rgb(0 0 0 / 10%)",
+	},
+
+	[`& .${classes.contactGroup}`]: {
+		display: "flex",
+		justifyContent: "center",
+		paddingBottom: "10px",
+	},
+
+	[`& .${classes.authorCard}`]: {
+		marginTop: 80,
+		display: "flex",
+		flexDirection: "column",
+		justifyContent: "center",
+	},
+}));
 
 interface AboutProps extends GetStaticProps {
 	aboutContent: string;
 }
 
 export const getStaticProps: GetStaticProps = ({ locale }) => {
-	const dic = require("../data/i18n/i18n.json");
+	const dic = require("../data/i18n.json");
 
 	const trans = new translator(dic, locale);
 
-	const aboutContent = require("../../data/article/" +
+	const aboutContent = require("../data/article/" +
 		locale +
 		"/about.md").default;
 
@@ -38,34 +77,9 @@ export const getStaticProps: GetStaticProps = ({ locale }) => {
 	};
 };
 
-const useStyles = makeStyles((theme: Theme) =>
-	createStyles({
-		authorName: {
-			transform: "translateY(-10px)",
-		},
-		avatar: {
-			transform: "translateY(-50%)",
-			marginLeft: "calc(50% - 50px)",
-			boxShadow: "0px 0px 4px 4px rgb(0 0 0 / 10%)",
-		},
-		contactGroup: {
-			display: "flex",
-			justifyContent: "center",
-			paddingBottom: "10px",
-		},
-		authorCard: {
-			marginTop: 80,
-			display: "flex",
-			flexDirection: "column",
-			justifyContent: "center",
-		},
-	})
-);
-
 export default function About({ aboutContent }: AboutProps) {
-	const classes = useStyles();
 	return (
-		<div style={{ maxWidth: "600px", margin: "0 auto" }}>
+		<Root>
 			<OutlinedCard className={classes.authorCard}>
 				<Avatar
 					className={classes.avatar}
@@ -108,6 +122,9 @@ export default function About({ aboutContent }: AboutProps) {
 			<OutlinedCard padding={2}>
 				<StyledMarkdown content={aboutContent} />
 			</OutlinedCard>
-		</div>
+			<Typography align="center" color="GrayText" variant="subtitle1">
+				Version: {version}
+			</Typography>
+		</Root>
 	);
 }

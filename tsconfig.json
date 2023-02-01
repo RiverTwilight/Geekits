@@ -18,7 +18,7 @@
 		"baseUrl": ".",
 		"paths": {
 			"@/components/*": ["src/components/*"],
-			"@/data/*": ["data/*"],
+			"@/data/*": ["src/data/*"],
 			"@/apps/*": ["src/apps/*"],
 			"@/utils/*": ["src/utils/*"],
 			"@/types/*": ["types/*"]
@@ -26,5 +26,5 @@
 		"experimentalDecorators": true
 	},
 	"exclude": ["node_modules"],
-	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "types/index.d,ts"]
+	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "types/index.d,ts", "src/apps/jyutping_converter/convertDic.js", "src/apps/jyutping_converter/convertDic.s"]
 }

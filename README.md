@@ -31,14 +31,15 @@
 在仓库根目录执行以下命令生成镜像：
 
 ```bash
-docker build -t ygktool .
+npm run build:image
 ```
 
 创建容器：
 
 ```bash
-docker run -p 8964:8964 ygktool
+npm run start:container
 ```
+
 ### 手动部署
 
 ## 致谢

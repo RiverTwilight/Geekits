@@ -1,16 +1,17 @@
 import React, { useState, useEffect, useMemo } from "react";
 import Layout from "@/components/Layout";
 import Text from "@/components/i18n";
-import siteConfig from "../site.config.js";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { green } from "@mui/material/colors";
+import { store as frameStore } from "@/utils/Data/frameState";
 import useMediaQuery from "@mui/material/useMediaQuery";
-// import UserContextProvider from "../components/UserContextProvider";
-import "./App.css";
+import siteConfig from "../site.config.js";
 import type { AppProps } from "next/app";
+import "./App.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
 	const [dark, setDark] = useState(false);
+	const [framed, setFramed] = useState(true);
 
 	useEffect(() => {
 		if (localStorage.getItem("dark")) {
@@ -23,12 +24,11 @@ function MyApp({ Component, pageProps }: AppProps) {
 
 		console.log("Some global functions to nerds: Window.setDark()");
 
-		const jssStyles = document.querySelector("#jss-server-side");
-		if (jssStyles && jssStyles.parentNode)
-			jssStyles.parentNode.removeChild(jssStyles);
+		frameStore.subscribe(() => setFramed(frameStore.getState().value));
 	}, []);
 
 	const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
+	// https://mui.com/material-ui/customization/palette/
 	const theme = useMemo(
 		() =>
 			createTheme({
@@ -38,7 +38,9 @@ function MyApp({ Component, pageProps }: AppProps) {
 						main: green[500],
 					},
 					secondary: {
-						main: green[300],
+						main: "#fff",
+						light: "#ebebeb",
+						dark: "#4e565c",
 					},
 				},
 			}),
@@ -60,6 +62,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 				language={locale}
 			>
 				<Layout
+					enableFrame={framed}
 					siteConfig={siteConfig}
 					locale={locale}
 					currentPage={currentPage}

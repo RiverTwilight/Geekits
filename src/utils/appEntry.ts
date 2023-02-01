@@ -54,7 +54,10 @@ const appImportList = {
 	html2jsx: dynamic(() => import("../apps/html2jsx"), {
 		ssr: false,
 	}),
-	grid_splitter: dynamic(() => import("../apps/grid_splitter"), {
+	chatai: dynamic(() => import("../apps/chatai"), {
+		ssr: false,
+	}),
+	jyutping_converter: dynamic(() => import("../apps/jyutping_converter/index"), {
 		ssr: false,
 	}),
 };

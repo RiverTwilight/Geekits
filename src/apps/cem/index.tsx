@@ -1,18 +1,14 @@
 import React from "react";
-import ClipboardJS from "clipboard";
 import table from "./table";
 import cem from "./dic";
-import Input from "@mui/material/Input";
-import Paper from "@mui/material/Paper";
+import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import BorderColorSharpIcon from "@mui/icons-material/BorderColorSharp";
-import { Theme } from "@mui/material/styles";
-import createStyles from "@mui/styles/createStyles";
-import withStyles from "@mui/styles/withStyles";
-import makeStyles from "@mui/styles/makeStyles";
 import FormControl from "@mui/material/FormControl";
+import Input from "@mui/material/Input";
 import InputAdornment from "@mui/material/InputAdornment";
 import InputLabel from "@mui/material/InputLabel";
+import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -20,29 +16,12 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
-import { Box } from "@mui/material";
-
-const styles = (theme: Theme) => {
-	return createStyles({
-		padding: {
-			padding: theme.spacing(1),
-		},
-	});
-};
-
-const useStyles = makeStyles({
-	table: {
-		minWidth: 650,
-	},
-});
-
-// TODO 具体错误信息
+import ClipboardJS from "clipboard";
 
 const Result = ({ result, eleClass }: any) => {
-	const classes = useStyles();
 	if (result === "") return null;
 	const pt = JSON.parse(table);
-	var info: any = [];
+	let info: any = [];
 	pt.map((stance: any) => {
 		eleClass.map((ele: any) => {
 			if (ele.ele === stance.symbol) info.push(stance);
@@ -52,7 +31,7 @@ const Result = ({ result, eleClass }: any) => {
 		<>
 			<br />
 
-			<Paper>
+			<Paper component={Box} padding={2}>
 				<Typography
 					data-clipboard-text={"sdfasdf"}
 					align="center"
@@ -116,10 +95,14 @@ class Cem extends React.Component<{ classes: any }, UiState> {
 		});
 	}
 	render() {
-		const { classes } = this.props;
 		return (
 			<>
-				<Paper className={classes.padding}>
+				<Paper
+					component={Box}
+					paddingBottom={1}
+					paddingTop={3}
+					paddingX={3}
+				>
 					<FormControl fullWidth>
 						<InputLabel htmlFor="standard-adornment-amount">
 							输入化学方程式
@@ -172,4 +155,4 @@ class Cem extends React.Component<{ classes: any }, UiState> {
 	}
 }
 
-export default withStyles(styles)(Cem);
+export default Cem;

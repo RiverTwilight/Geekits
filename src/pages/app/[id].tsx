@@ -1,18 +1,53 @@
 import React from "react";
 import AppMenu from "@/components/AppMenu";
 import RightDrawer from "@/components/RightDrawer";
-import createStyles from "@mui/styles/createStyles";
-import withStyles from "@mui/styles/withStyles";
 import HelpTwoToneIcon from "@mui/icons-material/HelpTwoTone";
 import IconButton from "@mui/material/IconButton";
-import { Theme } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 import { getAppConfig, getAppDoc } from "@/utils/appData";
 import appImportList from "@/utils/appEntry";
 import getPaths from "@/utils/getPaths";
-import clsx from "clsx";
+import { store as frameStore } from "@/utils/Data/frameState";
+
 import type { GetStaticProps } from "next";
 
-// TODO change favicon dynamically
+const drawerWidth: number = 260;
+
+const PREFIX = "RDrawer";
+
+const classes = {
+	content: `${PREFIX}-content`,
+	contentShift: `${PREFIX}-contentShift`,
+};
+
+const Root = styled("div")<{ freeSize?: boolean }>(
+	({ theme }) =>
+		({ freeSize }) => ({
+			padding: `0 ${freeSize ? "0" : theme.spacing(1)}`,
+			margin: freeSize ? "unset" : "0 auto",
+			maxWidth: freeSize ? "unset" : "1400px",
+			[`& .${classes.content}`]: {
+				position: "relative",
+				minHeight: "100%",
+				flexGrow: 1,
+				transition: theme.transitions.create("margin", {
+					easing: theme.transitions.easing.sharp,
+					duration: theme.transitions.duration.leavingScreen,
+				}),
+				marginRight: 0,
+			},
+
+			[`& .${classes.contentShift}`]: {
+				[theme.breakpoints.up("sm")]: {
+					transition: theme.transitions.create("margin", {
+						easing: theme.transitions.easing.easeOut,
+						duration: theme.transitions.duration.enteringScreen,
+					}),
+					marginRight: drawerWidth,
+				},
+			},
+		})
+);
 
 export async function getStaticPaths() {
 	return {
@@ -27,11 +62,11 @@ export const getStaticProps: GetStaticProps = ({
 }) => {
 	const { id: currentId } = ctx.params;
 
-	const appConfig = getAppConfig(currentId, ["name", "status"]);
+	const appConfig = getAppConfig(currentId, ["name", "status", "freeSize"]);
 
 	const appDoc = getAppDoc(currentId);
 
-	const dic = require("../../data/i18n/i18n.json");
+	const dic = require("../../data/i18n.json");
 
 	return {
 		props: {
@@ -47,32 +82,6 @@ export const getStaticProps: GetStaticProps = ({
 		},
 	};
 };
-
-const drawerWidth: number = 260;
-
-const styles = (theme: Theme) =>
-	createStyles({
-		content: {
-			position: "relative",
-			minHeight: "100%",
-			flexGrow: 1,
-			padding: theme.spacing(1),
-			transition: theme.transitions.create("margin", {
-				easing: theme.transitions.easing.sharp,
-				duration: theme.transitions.duration.leavingScreen,
-			}),
-			marginRight: 0,
-		},
-		contentShift: {
-			[theme.breakpoints.up("sm")]: {
-				transition: theme.transitions.create("margin", {
-					easing: theme.transitions.easing.easeOut,
-					duration: theme.transitions.duration.enteringScreen,
-				}),
-				marginRight: drawerWidth,
-			},
-		},
-	});
 
 class AppContainer extends React.Component<any, any> {
 	constructor(props: any) {
@@ -111,23 +120,26 @@ class AppContainer extends React.Component<any, any> {
 					RightDrawerOpen: !RightDrawerOpen,
 				});
 			};
+
 			return (
 				<IconButton
 					color="primary"
 					aria-label="Switch drawer"
 					onClick={onClick}
-					edge="start"
+					edge="end"
 					size="large"
+					sx={{
+						marginLeft: "auto",
+						// mr: { sm: `${RightDrawerOpen ? drawerWidth + 10 : 0}px` },
+					}}
 				>
 					<HelpTwoToneIcon />
 				</IconButton>
 			);
 		});
 
-		// TODO 链接带有全屏参数，隐藏头部
-		if (window.location.search.indexOf("fullscreen=true") !== -1) {
-			// document.getElementsByTagName("header")[0].style.display = "none";
-			// document.body.classList.remove("mdui-appbar-with-toolbar");
+		if (window.location.search.indexOf("fullscreen=1") !== -1) {
+			frameStore.dispatch({ type: "frame/disabled" });
 		}
 	}
 	feedback = () => {
@@ -146,18 +158,17 @@ class AppContainer extends React.Component<any, any> {
 	render() {
 		const { AppComp, FeedbackComp, showFeedbackComp, RightDrawerOpen } =
 			this.state;
-		const { appConfig, appDoc, classes } = this.props;
+		const { appConfig, appDoc } = this.props;
 
 		return (
-			<>
+			<Root freeSize={!!appConfig.freeSize}>
 				<div
-					className={clsx(classes.content, {
-						[classes.contentShift]: RightDrawerOpen,
-					})}
+					className={`${classes.content} ${
+						RightDrawerOpen ? classes.contentShift : ""
+					}`}
 				>
 					{AppComp && <AppComp />}
 				</div>
-
 				<RightDrawer
 					onClose={() => {
 						this.setState({
@@ -172,7 +183,6 @@ class AppContainer extends React.Component<any, any> {
 						appConfig={appConfig}
 					/>
 				</RightDrawer>
-
 				{/* {FeedbackComp && (
 					<FeedbackComp
 						open={showFeedbackComp}
@@ -183,9 +193,9 @@ class AppContainer extends React.Component<any, any> {
 						}}
 					/>
 				)} */}
-			</>
+			</Root>
 		);
 	}
 }
 
-export default withStyles(styles)(AppContainer);
+export default AppContainer;

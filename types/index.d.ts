@@ -30,6 +30,11 @@ declare global {
 	}
 }
 
+export interface IChannel {
+	name: string;
+	Icon: JSX.Element | JSX.Element[];
+}
+
 export type AppData = {
 	name: string;
 	description?: string;
@@ -39,7 +44,7 @@ export type AppData = {
 	id: string;
 	// Only show stable and beta app
 	status?: "stable" | "beta" | "alpha";
-	channel?: number;
+	channel?: string;
 	icon_color?: string;
 	network?: boolean;
 	link?: string;

@@ -1,7 +1,4 @@
 import React from "react";
-import { Theme } from "@mui/material/styles";
-import createStyles from "@mui/styles/createStyles";
-import makeStyles from "@mui/styles/makeStyles";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -9,8 +6,7 @@ import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import MenuTwoToneIcon from "@mui/icons-material/MenuTwoTone";
 import useScrollTrigger from "@mui/material/useScrollTrigger";
-import clsx from "clsx";
-import { store } from "../../data/drawerState";
+import { store } from "@/utils/Data/drawerState";
 
 function ElevationScroll(props: Props) {
 	const { children } = props;
@@ -31,70 +27,42 @@ interface Props {
 
 const drawerWidth = 240;
 
-const useStyles = makeStyles((theme: Theme) =>
-	createStyles({
-		title: {
-			flexGrow: 1,
-		},
-		appBar: {
-			[theme.breakpoints.up("sm")]: {
-				width: `calc(100% - ${drawerWidth}px)`,
-				marginLeft: drawerWidth,
-			},
-			// filter: "blur(2px)"
-		},
-		cover: {
-			position: "absolute",
-			height: "100%",
-			width: "100%",
-			filter: "blur(20px)",
-			zIndex: -1,
-			background: "rgba(255, 255, 255, 0.9)",
-		},
-		menuButton: {
-			marginRight: theme.spacing(2),
-			[theme.breakpoints.up("sm")]: {
-				display: "none",
-			},
-		},
-		// necessary for content to be below app bar
-		toolbar: theme.mixins.toolbar,
-	})
-);
-
 export default (props: { title: string; PageAction }) => {
-	const classes = useStyles();
-
 	const { title, PageAction } = props;
 
 	return (
 		<ElevationScroll {...props}>
 			<AppBar
+				color="secondary"
 				position="fixed"
-				color="inherit"
-				className={clsx(classes.appBar)}
+				sx={{
+					width: { sm: `calc(100% - ${drawerWidth}px)` },
+					ml: { sm: `${drawerWidth}px` },
+					zIndex: (theme) => theme.zIndex.drawer + 1,
+					// mr: { sm: `${rightDrawerWidth}px` },
+				}}
 			>
-				{/* <div className={classes.cover}></div> */}
 				<Toolbar>
 					<IconButton
-						color="primary"
+						color="inherit"
 						aria-label="open drawer"
 						onClick={() =>
 							store.dispatch({ type: "drawer/opened" })
 						}
-						edge="start"
-						className={classes.menuButton}
-						size="large"
+						sx={{ mr: 2, display: { sm: "none" } }}
 					>
 						<MenuTwoToneIcon />
 					</IconButton>
+
 					<Typography
 						color="primary"
 						variant="h6"
-						className={classes.title}
+						noWrap
+						component="div"
 					>
 						{title}
 					</Typography>
+
 					{PageAction && <PageAction />}
 				</Toolbar>
 				<Divider />
