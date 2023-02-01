@@ -45,7 +45,7 @@ const list = [
 	},
 	{
 		Icon: <VolunteerActivismOutlinedIcon />,
-		text: "捐赠",
+		text: "免费捐赠",
 		href: "/donate",
 	},
 

@@ -57,16 +57,11 @@ const ChatItem = ({ chat }) => {
 						}}
 						variant="button"
 					>
-						{[
-							"🥦",
-							"🥬",
-							"🥒",
-							"🌽",
-							"🍅",
-							"🍑",
-							"🍍",
-							"🪴",
-						][Math.floor(Math.random() * 8)]}
+						{
+							["🥦", "🥬", "🥒", "🌽", "🍅", "🍑", "🍍", "🪴"][
+								Math.floor(Math.random() * 8)
+							]
+						}
 						GPT-3
 					</Typography>
 				)}
@@ -98,7 +93,16 @@ const ChatList = ({ history, loading }) => {
 			}}
 		>
 			{!!!history.length ? (
-				<Placeholder illustrationUrl="/illustration/undraw_share_opinion_re_4qk7.svg" />
+				<Placeholder
+					TextComponent={
+						<Typography align="center" variant="subtitle1">
+							聊天，提问，抑或是请求帮助
+							<br />
+							更多玩法等你探索
+						</Typography>
+					}
+					illustrationUrl="/illustration/undraw_share_opinion_re_4qk7.svg"
+				/>
 			) : (
 				history.map((chat, i) => (
 					<ChatItem key={chat.date.toString()} chat={chat} />
