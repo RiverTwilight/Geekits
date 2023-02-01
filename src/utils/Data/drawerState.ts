@@ -1,6 +1,6 @@
 import { createStore } from "redux";
 
-function drawerReducer(state = { value: false }, action: { type: any }) {
+function drawerReducer(state = { value: true }, action: { type: any }) {
 	switch (action.type) {
 		case "drawer/opened":
 			return { value: true };

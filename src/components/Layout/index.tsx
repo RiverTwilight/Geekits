@@ -11,16 +11,16 @@ import Snackbar from "@mui/material/Snackbar";
 import GlobalLoading from "@/components/GlobalLoading";
 import type { ICurrentPage, ISiteConfig } from "@/types/index";
 
-const Root = styled("main")(({ theme }) => ({
-	flexGrow: 1,
-	paddingTop: "75px",
-	minHeight: "100vh",
-	position: "relative",
-}));
+const Root = styled("main")<{ disableTopPadding?: boolean }>(
+	({ theme }) =>
+		({ disableTopPadding }) => ({
+			flexGrow: 1,
+			paddingTop: disableTopPadding ? 0 : "70px",
+			minHeight: "100vh",
+			position: "relative",
+		})
+);
 
-/**
- * 全局snackbar
- */
 const GlobalSnackbar = () => {
 	const [openSnackbar, setOpenSnackbar] = useState<boolean>(false);
 	const [snackbarConfig, setSnackbarConfig] = useState({
@@ -51,6 +51,7 @@ class Layout extends React.Component<
 		locale?: string;
 		children: JSX.Element | JSX.Element[];
 		menuItems: any[];
+		enableFrame;
 	},
 	{
 		LeftDrawerOpen: boolean;
@@ -100,8 +101,14 @@ class Layout extends React.Component<
 	}
 	render() {
 		const { PageAction } = this.state;
-		const { currentPage, siteConfig, locale, children, menuItems } =
-			this.props;
+		const {
+			currentPage,
+			siteConfig,
+			locale,
+			children,
+			menuItems,
+			enableFrame,
+		} = this.props;
 		const { author, title } = siteConfig;
 		const activeTitle = `${currentPage ? `${currentPage.title} - ` : ""}${
 			title[locale]
@@ -123,7 +130,10 @@ class Layout extends React.Component<
 			<>
 				<Head>
 					<title>{activeTitle}</title>
-					<meta name="keywords" content={siteConfig.keywords.join(",")} />
+					<meta
+						name="keywords"
+						content={siteConfig.keywords.join(",")}
+					/>
 					<meta
 						itemProp="description"
 						name="description"
@@ -134,7 +144,10 @@ class Layout extends React.Component<
 					<meta property="og:title" content={title} />
 					<meta property="og:url" content={siteConfig.root} />
 					<meta property="og:site_name" content={title} />
-					<meta property="og:description" content={activeDescription} />
+					<meta
+						property="og:description"
+						content={activeDescription}
+					/>
 					<meta property="og:locale" content="zh_CN" />
 					<meta property="article:author" content={author.name} />
 					<meta property="article:tag" content={author.name} />
@@ -152,9 +165,16 @@ class Layout extends React.Component<
 				<Box sx={{ display: "flex" }}>
 					<CssBaseline />
 					<LoginDialog />
-					<Header PageAction={PageAction} title={currentPage.title} />
+					{enableFrame && (
+						<Header
+							PageAction={PageAction}
+							title={currentPage.title}
+						/>
+					)}
 					<LeftDrawer repo={siteConfig.repo} />
-					<Root>{childrenWithProps}</Root>
+					<Root disableTopPadding={!enableFrame}>
+						{childrenWithProps}
+					</Root>
 				</Box>
 				<GlobalSnackbar />
 				<GlobalLoading />

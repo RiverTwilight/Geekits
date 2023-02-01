@@ -7,6 +7,8 @@ import { styled } from "@mui/material/styles";
 import { getAppConfig, getAppDoc } from "@/utils/appData";
 import appImportList from "@/utils/appEntry";
 import getPaths from "@/utils/getPaths";
+import { store as frameStore } from "@/utils/Data/frameState";
+
 import type { GetStaticProps } from "next";
 
 const drawerWidth: number = 260;
@@ -21,7 +23,7 @@ const classes = {
 const Root = styled("div")<{ freeSize?: boolean }>(
 	({ theme }) =>
 		({ freeSize }) => ({
-			padding: `0 ${freeSize ? "0": theme.spacing(1)}`,
+			padding: `0 ${freeSize ? "0" : theme.spacing(1)}`,
 			margin: freeSize ? "unset" : "0 auto",
 			maxWidth: freeSize ? "unset" : "1400px",
 			[`& .${classes.content}`]: {
@@ -136,10 +138,8 @@ class AppContainer extends React.Component<any, any> {
 			);
 		});
 
-		// TODO 链接带有全屏参数，隐藏头部
-		if (window.location.search.indexOf("fullscreen=true") !== -1) {
-			// document.getElementsByTagName("header")[0].style.display = "none";
-			// document.body.classList.remove("mdui-appbar-with-toolbar");
+		if (window.location.search.indexOf("fullscreen=1") !== -1) {
+			frameStore.dispatch({ type: "frame/disabled" });
 		}
 	}
 	feedback = () => {

@@ -42,9 +42,9 @@ const AppMenu = ({
 	appDoc: string;
 }) => {
 	const { id, name } = appConfig;
-	const [help, setHelp] = useState("暂无帮助文本");
 	const [fiv, setFiv] = useState(false);
 	const [showCode, setShowCode] = useState(false);
+	
 	const handleFiv = () => {
 		const { id, name } = appConfig;
 		if (!fivkits.get(id)) {
@@ -83,15 +83,7 @@ const AppMenu = ({
 		if (fivkits.get(id)) {
 			setFiv(true);
 		}
-		// const helpMdPath = require(`../../apps/${appConfig.id}/README.md`);
-		// fetch(helpMdPath.default)
-		// 	.then((response) => {
-		// 		return response.text();
-		// 	})
-		// 	.then((text) => {
-		// 		setHelp(text === "" ? "暂无帮助文本" : text);
-		// 	});
-	});
+	}, [appConfig]);
 	return (
 		<Root className={classes.content}>
 			<Toolbar />
@@ -132,7 +124,7 @@ const AppMenu = ({
 			{showCode && (
 				<TextField
 					onClick={handleClickCode}
-					value={`<iframe src="${window.location.origin}/app/${appConfig.id}?fullscreen=true" width="100%" height="400px" scrolling="no" style="border:0;"></iframe>`}
+					value={`<iframe src="${window.location.origin}/app/${appConfig.id}?fullscreen=1" width="100%" height="400px" scrolling="no" style="border:0;"></iframe>`}
 					id="frame-code"
 					label="嵌入代码"
 					variant="outlined"

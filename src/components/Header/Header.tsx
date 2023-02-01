@@ -1,7 +1,7 @@
 import React from "react";
+import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import AppBar from "@mui/material/AppBar";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import MenuTwoToneIcon from "@mui/icons-material/MenuTwoTone";
@@ -25,7 +25,7 @@ interface Props {
 	children: React.ReactElement;
 }
 
-const [drawerWidth, rightDrawerWidth] = [240, 260];
+const drawerWidth = 240;
 
 export default (props: { title: string; PageAction }) => {
 	const { title, PageAction } = props;
@@ -49,7 +49,6 @@ export default (props: { title: string; PageAction }) => {
 						onClick={() =>
 							store.dispatch({ type: "drawer/opened" })
 						}
-						edge="start"
 						sx={{ mr: 2, display: { sm: "none" } }}
 					>
 						<MenuTwoToneIcon />
