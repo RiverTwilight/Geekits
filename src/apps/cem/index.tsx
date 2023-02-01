@@ -18,8 +18,6 @@ import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
 import ClipboardJS from "clipboard";
 
-// TODO 具体错误信息
-
 const Result = ({ result, eleClass }: any) => {
 	if (result === "") return null;
 	const pt = JSON.parse(table);

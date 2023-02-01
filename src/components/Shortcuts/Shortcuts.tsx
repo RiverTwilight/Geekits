@@ -1,7 +1,7 @@
 import Box from "@mui/material/Box";
 import OutlinedCard from "../OutlinedCard";
 
-// TODO 
+// TODO Shortcuts
 function Shortcuts() {
 	return (
 		<OutlinedCard>

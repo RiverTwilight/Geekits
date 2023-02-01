@@ -1,13 +1,12 @@
 import React from "react";
-import { styled } from "@mui/material/styles";
 import AppMenu from "@/components/AppMenu";
 import RightDrawer from "@/components/RightDrawer";
 import HelpTwoToneIcon from "@mui/icons-material/HelpTwoTone";
 import IconButton from "@mui/material/IconButton";
+import { styled } from "@mui/material/styles";
 import { getAppConfig, getAppDoc } from "@/utils/appData";
 import appImportList from "@/utils/appEntry";
 import getPaths from "@/utils/getPaths";
-import clsx from "clsx";
 import type { GetStaticProps } from "next";
 
 const drawerWidth: number = 260;
@@ -19,7 +18,6 @@ const classes = {
 	contentShift: `${PREFIX}-contentShift`,
 };
 
-// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
 const Root = styled("div")<{ freeSize?: boolean }>(
 	({ theme }) =>
 		({ freeSize }) => ({
@@ -48,8 +46,6 @@ const Root = styled("div")<{ freeSize?: boolean }>(
 			},
 		})
 );
-
-// TODO change favicon dynamically
 
 export async function getStaticPaths() {
 	return {

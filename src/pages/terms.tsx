@@ -9,7 +9,7 @@ interface TermsProps extends PageProps {
 }
 
 export const getStaticProps: GetStaticProps = ({ locale }) => {
-	const termsContent = require("../../data/article/" +
+	const termsContent = require("../data/article/" +
 		locale +
 		"/terms.md").default;
 

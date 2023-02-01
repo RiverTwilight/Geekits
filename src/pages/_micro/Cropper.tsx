@@ -1,4 +1,3 @@
-import { Theme } from "@mui/styles";
 
 import { styled } from '@mui/material/styles';
 
@@ -13,6 +12,8 @@ const classes = {
     contactGroup: `${PREFIX}-contactGroup`,
     authorCard: `${PREFIX}-authorCard`
 };
+
+// TODO Cropper
 
 const Root = styled('div')((
     {
