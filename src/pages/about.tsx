@@ -59,7 +59,7 @@ export const getStaticProps: GetStaticProps = ({ locale }) => {
 
 	const trans = new translator(dic, locale);
 
-	const aboutContent = require("../../data/article/" +
+	const aboutContent = require("../data/article/" +
 		locale +
 		"/about.md").default;
 

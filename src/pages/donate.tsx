@@ -41,14 +41,14 @@ const FREE_DONATION_WAYS = [
 		title: "支付宝",
 		subtitles: ["获得随机红包"],
 		price: "$0.00",
-		href: "",
+		href: "/alipay_pocket.jpg",
 		bgColor: "#0e78ff",
 	},
 	{
 		title: "Github",
 		subtitles: ["给我打个⭐"],
 		price: "$0.00",
-		href: "",
+		href: "https://github.com/rivertwilight/ygktool",
 		bgColor: "#000",
 	},
 	{
@@ -92,7 +92,7 @@ export const getStaticProps: GetStaticProps = ({ locale }) => {
 };
 
 const ProductItem = ({ href, ...props }) => (
-	<Grid underline="none" component={Link} href={href} item xs={6}>
+	<Grid underline="none" component={Link} href={href} item xs={6} sm={4}>
 		<PricingCard {...props} />
 	</Grid>
 );
