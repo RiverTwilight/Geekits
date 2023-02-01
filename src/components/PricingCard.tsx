@@ -20,7 +20,7 @@ const classes = {
 
 const StyledCard = styled(Card)(({ theme }) => (
     ({ bgColor }) => ({
-        backgroundColor: bgColor,
+        background: bgColor,
         [`&.${classes.root}`]: {
             borderRadius: 12,
             minWidth: 100,

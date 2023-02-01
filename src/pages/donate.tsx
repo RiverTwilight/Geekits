@@ -56,7 +56,7 @@ const FREE_DONATION_WAYS = [
 		subtitles: ["注册可获得 $200"],
 		price: "$0.00",
 		href: "https://m.do.co/c/eed8a86797c9",
-		// bgColor: "#5ab6ef"
+		bgColor: "linear-gradient(to top right, #031b4e, #00359c)"
 	},
 ];
 
