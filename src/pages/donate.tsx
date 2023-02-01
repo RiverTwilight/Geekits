@@ -55,7 +55,7 @@ interface AboutProps extends GetStaticProps {
 }
 
 export const getStaticProps: GetStaticProps = ({ locale }) => {
-	const dic = require("../data/i18n/i18n.json");
+	const dic = require("../data/i18n.json");
 
 	const trans = new translator(dic, locale);
 
@@ -78,53 +78,5 @@ export const getStaticProps: GetStaticProps = ({ locale }) => {
 };
 
 export default function About({ aboutContent }: AboutProps) {
-	return (
-		<Root>
-			<OutlinedCard className={classes.authorCard}>
-				<Avatar
-					className={classes.avatar}
-					alt="Remy Sharp"
-					src="https://avatars.githubusercontent.com/u/52880665?v=4"
-					sx={{ width: 100, height: 100 }}
-				/>
-				<div className={classes.authorName}>
-					<Typography align="center" variant="subtitle2">
-						Developed and designed by{" "}
-					</Typography>
-					<Typography align="center" variant="h6">
-						RiverTwilight
-					</Typography>
-				</div>
-
-				<div className={classes.contactGroup}>
-					<IconButton href={repo} aria-label="github">
-						<GitHubIcon />
-					</IconButton>
-					{author.twitter && (
-						<IconButton
-							href={author.twitter}
-							aria-label="Go to author's twitter profile"
-						>
-							<TwitterIcon />
-						</IconButton>
-					)}
-					{author.email && (
-						<IconButton
-							href={`maileto://${author.email}`}
-							aria-label="Send an email to me"
-						>
-							<MailIcon />
-						</IconButton>
-					)}
-				</div>
-			</OutlinedCard>
-			<br />
-			<OutlinedCard padding={2}>
-				<StyledMarkdown content={aboutContent} />
-			</OutlinedCard>
-			<Typography align="center" color="GrayText" variant="subtitle1">
-				Version: {version}
-			</Typography>
-		</Root>
-	);
+	return <Root></Root>;
 }

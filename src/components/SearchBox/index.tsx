@@ -1,26 +1,24 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
+import Link from "next/link";
 import InputAdornment from "@mui/material/InputAdornment";
-import Paper from "@mui/material/Paper";
-import { Theme } from "@mui/material/styles";
-import createStyles from "@mui/styles/createStyles";
-import withStyles from "@mui/styles/withStyles";
 import FormControl from "@mui/material/FormControl";
+import Paper from "@mui/material/Paper";
+import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import SearchSharpIcon from "@mui/icons-material/SearchSharp";
 import GoogleIcon from "@mui/icons-material/Google";
-import Link from "next/link";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import { AppListItem } from "../AppList";
+import Text from "@/components/i18n";
 import pinyin from "js-pinyin";
 import useEventListener from "@/utils/Hooks/useEventListener";
 import type { AppData } from "@/types/index";
-import Text from "@/components/i18n";
 
 const Shortcuts = ({ kwd }: { kwd: string }) => {
 	return (
@@ -71,17 +69,6 @@ const Shortcuts = ({ kwd }: { kwd: string }) => {
 	);
 };
 
-const styles = (theme: Theme) => {
-	return createStyles({
-		searchBox: {
-			padding: theme.spacing(1),
-		},
-		input: {
-			marginBottom: theme.spacing(1),
-		},
-	});
-};
-
 const SearchResult = ({ result = [], kwd }: any) => {
 	if (kwd === "") return null;
 
@@ -107,7 +94,7 @@ const SearchResult = ({ result = [], kwd }: any) => {
 	useEventListener("keydown", handleKeydown);
 
 	return (
-		<>
+		<Box paddingY={1}>
 			<List component="div" disablePadding>
 				<Grid container spacing={1}>
 					{!!result.length &&
@@ -124,7 +111,7 @@ const SearchResult = ({ result = [], kwd }: any) => {
 			</List>
 
 			<Shortcuts kwd={kwd} />
-		</>
+		</Box>
 	);
 };
 
@@ -212,11 +199,14 @@ class Search extends React.Component<SearchProps, SearchState> {
 
 	render() {
 		const { kwd, searchResult } = this.state;
-		const { classes } = this.props;
 
 		return (
-			<Paper className={classes.searchBox}>
-				<FormControl fullWidth className={classes.input}>
+			<Paper
+				sx={{
+					padding: (theme) => theme.spacing(1),
+				}}
+			>
+				<FormControl fullWidth>
 					<TextField
 						InputProps={{
 							startAdornment: (
@@ -242,4 +232,4 @@ class Search extends React.Component<SearchProps, SearchState> {
 	}
 }
 
-export default withStyles(styles)(Search);
+export default Search;
