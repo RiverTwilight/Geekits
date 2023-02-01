@@ -9,13 +9,8 @@ import ListItemAvatar from "@mui/material/ListItemAvatar";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import ListSubheader from "@mui/material/ListSubheader";
-import EmojiObjectsTwoToneIcon from "@mui/icons-material/EmojiObjectsTwoTone";
-import BurstModeIcon from "@mui/icons-material/BurstMode";
-import CodeTwoToneIcon from "@mui/icons-material/CodeTwoTone";
-import LinkTwoToneIcon from "@mui/icons-material/LinkTwoTone";
-import WbSunnyTwoToneIcon from "@mui/icons-material/WbSunnyTwoTone";
 import OutlinedCard from "./OutlinedCard";
-import type { AppData } from "@/types/index.d";
+import type { AppData, IChannel } from "@/types/index.d";
 
 interface AppListItemProps extends AppData {
 	selected?: boolean;
@@ -33,7 +28,7 @@ const AppListItem = ({
 }: AppListItemProps) => {
 	const attr = useMemo(
 		() =>
-			channel === 5
+			channel === "external"
 				? {
 						href: link,
 						target: "_blank",
@@ -94,10 +89,12 @@ const AppListItem = ({
 	);
 };
 
-const MakeChannels = ({
-	data: { name, apps, Icon },
+const Channel = ({
+	info: { name, Icon },
+	apps,
 }: {
-	data: { name: string; apps: AppData[]; Icon: JSX.Element | JSX.Element[] };
+	apps: AppData[];
+	info: IChannel;
 }) => {
 	const [open, setOpen] = React.useState(true);
 
@@ -107,11 +104,12 @@ const MakeChannels = ({
 
 	return (
 		<>
-			<ListItem button onClick={handleClick}>
-				<ListItemIcon>{Icon}</ListItemIcon>
-				<ListItemText primary={name} />
-				{/* {open ? <ExpandLess /> : <ExpandMore />} */}
-			</ListItem>
+			{name && Icon && (
+				<ListItem button onClick={handleClick}>
+					<ListItemIcon>{Icon}</ListItemIcon>
+					<ListItemText primary={name} />
+				</ListItem>
+			)}
 			{/* <Collapse in={open} timeout="auto" unmountOnExit> */}
 			<List component="div" disablePadding>
 				<Grid container spacing={1}>
@@ -122,49 +120,17 @@ const MakeChannels = ({
 					))}
 				</Grid>
 			</List>
-			{/* </Collapse> */}
 		</>
 	);
 };
 
-const getChannelName = (index: any) =>
-	["AI 人工智能", "图片视频", "编程开发", "生活常用", "第三方 & 友情链接"][
-		index - 1
-	];
-
-const getChannelIcon = (index: any) => {
-	const Icons = [
-		<EmojiObjectsTwoToneIcon />,
-		<BurstModeIcon />,
-		<CodeTwoToneIcon />,
-		<WbSunnyTwoToneIcon />,
-		<LinkTwoToneIcon />,
-	];
-	return Icons[index - 1];
-};
-
-const AppList = ({ appData }) => {
-	var channelType: any = [];
-
-	for (let i = appData.length - 1; i >= 0; i--) {
-		let app = appData[i];
-		if (!channelType.includes(app.channel)) {
-			channelType.unshift(app.channel);
-		}
-	}
-
-	const data: { name: string; Icon: any; apps: any[] }[] = useMemo(
-		() =>
-			channelType.map((channel: number) => ({
-				name: getChannelName(channel),
-				Icon: getChannelIcon(channel),
-				apps: appData.filter((app) => app.channel === channel),
-			})),
-		[]
-	);
-
-	// console.log(appData);
-
+const AppList = ({
+	appData,
+	channelInfo,
+}: {
+	appData: AppData[];
+	channelInfo;
+}) => {
 	return (
 		<List
 			aria-labelledby="nested-list-subheader"
@@ -174,12 +140,22 @@ const AppList = ({ appData }) => {
 				</ListSubheader>
 			}
 		>
-			{data.map((a: any, i: any) => {
-				return <MakeChannels key={i} data={a} />;
+			{Object.keys(channelInfo).map((key) => {
+				let channelizedApps = appData.filter(
+					(app) => app.channel === key
+				);
+				return (
+					<Channel
+						info={channelInfo[key]}
+						key={key}
+						apps={channelizedApps}
+					/>
+				);
 			})}
 		</List>
 	);
 };
 
-export { AppListItem };
+export { AppListItem, Channel };
+
 export default AppList;

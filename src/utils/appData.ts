@@ -1,6 +1,6 @@
 import matter from "gray-matter";
 import type { AppData } from "@/types/index";
-import externalApps from "../data/i18n/zh-CN/externalApps";
+import externalApps from "../data/zh-CN/externalApps";
 
 const getConfigFile = (appId: string): string =>
 	require("../apps/" + appId + "/README.zh-CN.md").default;

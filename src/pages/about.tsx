@@ -55,7 +55,7 @@ interface AboutProps extends GetStaticProps {
 }
 
 export const getStaticProps: GetStaticProps = ({ locale }) => {
-	const dic = require("../data/i18n/i18n.json");
+	const dic = require("../data/i18n.json");
 
 	const trans = new translator(dic, locale);
 

@@ -7,6 +7,7 @@ import createStyles from "@mui/styles/createStyles";
 import withStyles from "@mui/styles/withStyles";
 import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
+import Grid from "@mui/material/Grid";
 import SearchSharpIcon from "@mui/icons-material/SearchSharp";
 import GoogleIcon from "@mui/icons-material/Google";
 import Link from "next/link";
@@ -19,7 +20,6 @@ import { AppListItem } from "../AppList";
 import pinyin from "js-pinyin";
 import useEventListener from "@/utils/Hooks/useEventListener";
 import type { AppData } from "@/types/index";
-import TransContext from "@/utils/Context/TransContext";
 import Text from "@/components/i18n";
 
 const Shortcuts = ({ kwd }: { kwd: string }) => {
@@ -108,14 +108,21 @@ const SearchResult = ({ result = [], kwd }: any) => {
 
 	return (
 		<>
-			{!!result.length &&
-				result.map((a: any, i: number) => (
-					<AppListItem
-						selected={selectedItem === i}
-						key={a.link + a.icon}
-						{...a}
-					/>
-				))}
+			<List component="div" disablePadding>
+				<Grid container spacing={1}>
+					{!!result.length &&
+						result.map((a: any, i: number) => (
+							<Grid key={a.id} item sm={6} xl={4} xs={12}>
+								<AppListItem
+									selected={selectedItem === i}
+									key={a.link + a.icon}
+									{...a}
+								/>
+							</Grid>
+						))}
+				</Grid>
+			</List>
+
 			<Shortcuts kwd={kwd} />
 		</>
 	);

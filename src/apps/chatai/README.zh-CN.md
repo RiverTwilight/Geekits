@@ -4,7 +4,7 @@ status: "stable"
 link: "chatai"
 icon: "/icon/file.jpg"
 description: "基于GPT-3模型的AI聊天，提供丰富的模板。"
-channel: 1
+channel: ai
 freeSize: 1
 ---
 

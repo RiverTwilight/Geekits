@@ -1,6 +1,6 @@
 import React from "react";
 import loadable from "../../utils/loading";
-import { store as loginDialogStore } from "../../data/loginDialogState";
+import { store as loginDialogStore } from "@/utils/Data/loginDialogState";
 
 export default class extends React.PureComponent<any, any> {
 	constructor(props: any) {

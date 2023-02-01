@@ -68,7 +68,7 @@ export const getStaticProps: GetStaticProps = ({
 
 	const appDoc = getAppDoc(currentId);
 
-	const dic = require("../../data/i18n/i18n.json");
+	const dic = require("../../data/i18n.json");
 
 	return {
 		props: {

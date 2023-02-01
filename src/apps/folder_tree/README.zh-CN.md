@@ -4,7 +4,7 @@ status: "stable"
 link: "folder_tree"
 icon: "/icon/file.jpg"
 description: "生成文件夹结构"
-channel: 3
+channel: dev
 ---
 
 #### 文件树有什么用？

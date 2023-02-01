@@ -6,7 +6,7 @@ import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import MenuTwoToneIcon from "@mui/icons-material/MenuTwoTone";
 import useScrollTrigger from "@mui/material/useScrollTrigger";
-import { store } from "../../data/drawerState";
+import { store } from "@/utils/Data/drawerState";
 
 function ElevationScroll(props: Props) {
 	const { children } = props;

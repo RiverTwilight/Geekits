@@ -4,6 +4,6 @@ link: "dic_idiom"
 icon: "/icon/book.png"
 status: "stable"
 help: "支持缩写哦"
-channel: 4
+channel: life
 network: true
 ---

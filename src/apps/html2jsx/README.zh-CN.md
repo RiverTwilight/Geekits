@@ -2,7 +2,7 @@
 name: "HTML转JSX"
 status: "stable"
 icon: "/icon/code-html-green/icon-192-maskable.png"
-channel: 3
+channel: dev
 ---
 
 ##### JSX
