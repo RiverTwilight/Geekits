@@ -1,11 +1,6 @@
 import { useState, useEffect } from "react";
 import StyledMarkdown from ".//StyledMarkdown";
-import {
-	Dialog,
-	DialogTitle,
-	DialogContent,
-	DialogActions,
-} from "@mui/material";
+import { DialogTitle, DialogContent, DialogActions } from "@mui/material";
 import { Button } from "@mui/material";
 import OutlinedCard from "./OutlinedCard";
 import axios from "../utils/axios";
@@ -23,8 +18,13 @@ export default function Board() {
 	useEffect(() => {
 		axios.get(API).then((res) => {
 			let latestIssue = res.data[res.data.length - 1];
-			// if (latestIssue.id == localStorage.getItem("LATEST_READED_NOTICE"))
-			// 	return;
+
+			let readedRecord = JSON.parse(
+				localStorage.getItem("READED_NOTICES")
+			);
+
+			if (readedRecord && readedRecord.includes(latestIssue.id)) return;
+
 			setNotice({ content: latestIssue.body, id: latestIssue.id });
 		});
 	}, []);
@@ -32,11 +32,16 @@ export default function Board() {
 	if (!!!notice) return null;
 
 	const handleConfirm = () => {
-		localStorage.setItem("LATEST_READED_NOTICE", String(notice.id));
+		let readedRecord =
+			JSON.parse(localStorage.getItem("READED_NOTICES")) || [];
+
+		localStorage.setItem(
+			"READED_NOTICES",
+			JSON.stringify([...readedRecord, notice.id])
+		);
+
 		setNotice(null);
 	};
-
-	const handleExpand = () => {};
 
 	return (
 		<OutlinedCard style={{ maxWidth: "500px" }}>
@@ -45,8 +50,7 @@ export default function Board() {
 				<StyledMarkdown content={notice.content} />
 			</DialogContent>
 			<DialogActions>
-				<Button onClick={handleConfirm}>OK</Button>
-				<Button onClick={handleExpand}>展开</Button>
+				<Button onClick={handleConfirm}>不再显示</Button>
 			</DialogActions>
 		</OutlinedCard>
 	);
