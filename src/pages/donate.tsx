@@ -1,12 +1,12 @@
-import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Link from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
 import { GetStaticProps } from "next";
-import translator from "@/utils/translator";
 import Placeholder from "@/components/Placeholder";
 import PricingCard from "@/components/PricingCard";
+import translator from "@/utils/translator";
+import { styled } from "@mui/material/styles";
 
 const Root = styled("div")(({ theme: Theme }) => ({
 	maxWidth: "600px",

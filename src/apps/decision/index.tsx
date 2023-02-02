@@ -8,14 +8,14 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import ListSubheader from "@mui/material/ListSubheader";
 import Paper from "@mui/material/Paper";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { styled } from "@mui/material/styles";
-import { Typography } from "@mui/material";
-import { PresentToAllSharp } from "@mui/icons-material";
 
 const PREFIX = "Len";
 
 const classes = {
 	lenText: `${PREFIX}-lenText`,
+	lenWarpper: `${PREFIX}-lenWarpper`,
 };
 
 const Root = styled("div")(({ theme: Theme }) => ({
@@ -23,6 +23,12 @@ const Root = styled("div")(({ theme: Theme }) => ({
 	[`& .${classes.lenText}`]: {
 		fill: Theme.palette.mode === "dark" ? "#fff" : "#000",
 		stroke: Theme.palette.mode === "dark" ? "#fff" : "#000",
+	},
+	[`& .${classes.lenWarpper}`]: {
+		boxShadow:
+			Theme.palette.mode === "dark"
+				? "0px 0px 9px 2px #000"
+				: "0px 0px 20px 0px #747070",
 	},
 }));
 
@@ -80,16 +86,20 @@ const Lens: React.FC<{
 
 	return (
 		<Root onClick={onStart}>
-			{/* <Pointer /> */}
-			<Typography align="center" variant="h4">
-				🔽
-			</Typography>
+			<Box
+				sx={{
+					display: "flex",
+					justifyContent: "center",
+				}}
+			>
+				<ArrowDropDownIcon sx={{ transform: "scale(2, 2)" }} />
+			</Box>
 			<Box
 				sx={{
 					borderRadius: "250px",
 					padding: "10px",
-					boxShadow: "0px 0px 9px 2px #000",
 				}}
+				className={classes.lenWarpper}
 			>
 				<svg
 					height={`${R * 2}px`}
@@ -118,11 +128,11 @@ const Lens: React.FC<{
 					{items.map((item, i) => {
 						return (
 							<g
-								font-size="30"
+								fontSize="30"
 								line-height="30"
 								font-family="sans-serif"
 								stroke="none"
-								text-anchor="middle"
+								textAnchor="middle"
 								className={classes.lenText}
 								transform={`rotate(${
 									360 * (percent * i + percent / 2)
@@ -149,7 +159,6 @@ const Lens: React.FC<{
 	);
 };
 
-// get random number from range
 const getRandom = (min: number, max: number) => {
 	return Math.floor(Math.random() * (max - min + 1) + min);
 };
@@ -177,17 +186,30 @@ export default class Decision extends React.Component<{}, ComponentState> {
 			this.setState({
 				itemString: decodeURI(window.location.hash.substring(1)),
 			});
+
+		if (localStorage.getItem("DECISION_MAKER_PRESETS")) {
+			this.setState({
+				presets: JSON.parse(
+					localStorage.getItem("DECISION_MAKER_PRESETS")
+				),
+			});
+		}
 	}
 
-	handleSavePresets = (key: any) => {
+	handleSavePresets = () => {
+		let newPresets = [
+			...this.state.presets,
+			{
+				text: this.state.itemString,
+			},
+		];
 		this.setState({
-			presets: [
-				...this.state.presets,
-				{
-					text: this.state.itemString,
-				},
-			],
+			presets: newPresets,
 		});
+		localStorage.setItem(
+			"DECISION_MAKER_PRESETS",
+			JSON.stringify(newPresets)
+		);
 	};
 
 	handleLoadPreset = (text: string) => {
