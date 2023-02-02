@@ -8,13 +8,6 @@ import translator from "@/utils/translator";
 import Placeholder from "@/components/Placeholder";
 import PricingCard from "@/components/PricingCard";
 
-const PREFIX = "about";
-
-const classes = {
-	contactGroup: `${PREFIX}-contactGroup`,
-	authorCard: `${PREFIX}-authorCard`,
-};
-
 const Root = styled("div")(({ theme: Theme }) => ({
 	maxWidth: "600px",
 	margin: "0 auto",
@@ -29,6 +22,7 @@ const FREE_DONATION_WAYS = [
 		price: "$0.00",
 		href: "/alipay_pocket.jpg",
 		bgColor: "#0e78ff",
+		color: "#fff"
 	},
 	{
 		title: "Github",
@@ -36,6 +30,7 @@ const FREE_DONATION_WAYS = [
 		price: "$0.00",
 		href: "https://github.com/rivertwilight/ygktool",
 		bgColor: "#000",
+		color: "#fff"
 	},
 	{
 		title: "DigitalOcean",
@@ -43,6 +38,7 @@ const FREE_DONATION_WAYS = [
 		price: "$0.00",
 		href: "https://m.do.co/c/eed8a86797c9",
 		bgColor: "linear-gradient(to top right, #031b4e 52%, #00359c)",
+		color: "#fff"
 	},
 ];
 

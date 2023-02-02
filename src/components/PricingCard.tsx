@@ -18,38 +18,37 @@ const classes = {
 	action: `${PREFIX}-action`,
 };
 
-const StyledCard = styled(Card)(({ theme }) => (
-    ({ bgColor }) => ({
-        background: bgColor,
-        [`&.${classes.root}`]: {
-            borderRadius: 12,
-            minWidth: 100,
-            textAlign: "center",
-        },
+const StyledCard = styled(Card)(({ theme }) => ({ bgColor, color }) => ({
+	background: bgColor,
+	color: color && color,
+	[`&.${classes.root}`]: {
+		borderRadius: 12,
+		minWidth: 100,
+		textAlign: "center",
+	},
 
-        [`& .${classes.header}`]: {
-            textAlign: "center",
-            spacing: 10,
-        },
+	[`& .${classes.header}`]: {
+		textAlign: "center",
+		spacing: 10,
+	},
 
-        [`& .${classes.list}`]: {
-            padding: "20px",
-        },
+	[`& .${classes.list}`]: {
+		padding: "20px",
+	},
 
-        [`& .${classes.button}`]: {
-            margin: theme.spacing(1),
-        },
+	[`& .${classes.button}`]: {
+		margin: theme.spacing(1),
+	},
 
-        [`& .${classes.action}`]: {
-            display: "flex",
-            justifyContent: "space-around",
-        },
-    })
-));
+	[`& .${classes.action}`]: {
+		display: "flex",
+		justifyContent: "space-around",
+	},
+}));
 
-function PricingCard({ price, title, subtitles, bgColor }) {
+function PricingCard({ price, title, subtitles, bgColor, color }) {
 	return (
-		<StyledCard bgColor={bgColor} className={classes.root}>
+		<StyledCard bgColor={bgColor} color={color} className={classes.root}>
 			<CardHeader title={title} className={classes.header} />
 			<Divider variant="middle" />
 			<CardContent>
