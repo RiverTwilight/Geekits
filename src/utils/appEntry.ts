@@ -60,6 +60,9 @@ const appImportList = {
 	jyutping_converter: dynamic(() => import("../apps/jyutping_converter/index"), {
 		ssr: false,
 	}),
+	num2roman: dynamic(() => import("../apps/num2roman"), {
+		ssr: false,
+	}),
 };
 
 export default appImportList;

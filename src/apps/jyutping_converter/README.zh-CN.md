@@ -3,7 +3,7 @@ name: "粤语拼音转换器"
 status: "stable"
 icon: "/icon/file_present-green/icon-192-maskable.png"
 description: "查询文件的MIME-type，支持正反查询"
-channel: dev
+channel: life
 ---
 
 # 什么是粤语拼音
