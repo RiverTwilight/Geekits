@@ -7,6 +7,7 @@ import { store as frameStore } from "@/utils/Data/frameState";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import siteConfig from "../site.config.js";
 import type { AppProps } from "next/app";
+
 import "./App.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -68,6 +69,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 					currentPage={currentPage}
 					menuItems={menuItems}
 				>
+					{/**@ts-ignore */}
 					<Component {...pageProps} siteConfig={siteConfig} />
 				</Layout>
 			</Text>
