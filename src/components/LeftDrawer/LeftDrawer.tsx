@@ -130,9 +130,7 @@ const User = ({ handleLogin }: any) => {
 	);
 };
 
-const LinkWrapper = (props) => {
-	const { href, text, Icon, handleClick } = props;
-
+const LinkWrapper = ({ href, text, Icon, handleClick, ...props }) => {
 	if (text === "<divider />") {
 		return <Divider />;
 	}
@@ -140,7 +138,7 @@ const LinkWrapper = (props) => {
 	const router = useRouter();
 
 	return (
-		<Link href={href} passHref legacyBehavior>
+		<Link href={href} passHref legacyBehavior {...props}>
 			<ListItem
 				onClick={handleClick}
 				sx={{
@@ -209,13 +207,14 @@ const LeftDrawer = (props: IProps) => {
 			<List>
 				{list.length &&
 					list.map((item) => (
-						<LinkWrapper
-							handleClick={closeDrawer}
-							key={item.href}
-							href={item.href}
-							text={item.text}
-							Icon={item.Icon}
-						/>
+						<React.Fragment key={item.href}>
+							<LinkWrapper
+								handleClick={closeDrawer}
+								href={item.href}
+								text={item.text}
+								Icon={item.Icon}
+							/>
+						</React.Fragment>
 					))}
 			</List>
 			<Box padding={1}>

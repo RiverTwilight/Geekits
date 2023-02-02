@@ -2,7 +2,29 @@ import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
+import Box from "@mui/material/Box";
+import List from "@mui/material/List";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemText from "@mui/material/ListItemText";
+import ListSubheader from "@mui/material/ListSubheader";
 import Paper from "@mui/material/Paper";
+import { styled } from "@mui/material/styles";
+import { Typography } from "@mui/material";
+import { PresentToAllSharp } from "@mui/icons-material";
+
+const PREFIX = "Len";
+
+const classes = {
+	lenText: `${PREFIX}-lenText`,
+};
+
+const Root = styled("div")(({ theme: Theme }) => ({
+	maxWidth: "500px",
+	[`& .${classes.lenText}`]: {
+		fill: Theme.palette.mode === "dark" ? "#fff" : "#000",
+		stroke: Theme.palette.mode === "dark" ? "#fff" : "#000",
+	},
+}));
 
 const COLOR_LIST = [
 	"#FF0000",
@@ -14,84 +36,6 @@ const COLOR_LIST = [
 	"#8B00FF",
 ];
 
-/**
- * 渲染本地列表
- * @param param0
- */
-// const ReadLocal = ({ local, edit, onClickLi }: any) => {
-// 	return local.map((cache: any, i: any) => (
-// 		<li
-// 			onClick={() => {
-// 				onClickLi(i);
-// 			}}
-// 			key={i}
-// 			className="mdui-col mdui-list-item mdui-ripple"
-// 		>
-// 			<div className="mdui-list-item-content">
-// 				<span className="mdui-text-color-theme">{cache}</span>
-// 			</div>
-
-// 			<i
-// 				onClick={() => {
-// 					edit(i);
-// 				}}
-// 				className="mdui-list-item-icon mdui-icon material-icons"
-// 			>
-// 				edit
-// 			</i>
-// 		</li>
-// 	));
-// };
-
-// //添加组合组件
-// const AddLocal = ({ onLocalChange }: any) => {
-// 	return (
-// 		<li
-// 			onClick={() => {
-// 				if (!localStorage.getItem("decision")) {
-// 					localStorage.setItem("decision", JSON.stringify([]));
-// 				}
-// 				const cache = JSON.parse(localStorage.decision);
-// 				Prompt(
-// 					"使用空格分隔",
-// 					(value: any) => {
-// 						cache.push(value);
-// 						localStorage.setItem("decision", JSON.stringify(cache));
-// 						onLocalChange();
-// 					},
-// 					() => {
-// 						/*取消事件*/
-// 					},
-// 					{
-// 						type: "textarea",
-// 						confirmText: "保存",
-// 						cancelText: "取消",
-// 						history: false,
-// 					}
-// 				);
-// 			}}
-// 			className="mdui-col mdui-list-item mdui-ripple"
-// 		>
-// 			<div className="mdui-list-item-content">
-// 				<span className="mdui-text-color-theme">新增一个组合</span>
-// 			</div>
-
-// 			<i className="mdui-list-item-icon mdui-icon material-icons">add</i>
-// 		</li>
-// 	);
-// };
-
-type StartState = {
-	statu?: "stop" | "start";
-	currentItem?: string;
-	timer: any;
-};
-
-type StartProps = {
-	statu?: any;
-	items: string;
-};
-
 const calcLocation = (r: number, percent: number): { x: number; y: number } => {
 	const x = r * Math.cos(percent * 2 * Math.PI);
 	const y = r * Math.sin(percent * 2 * Math.PI);
@@ -102,16 +46,6 @@ const calcLocation = (r: number, percent: number): { x: number; y: number } => {
 };
 
 const R: number = 150;
-
-const Pointer: React.FC<{}> = ({}) => {
-	return (
-		<>
-			<svg width={R * 2}>
-				<circle cx={R} cy={R} r={R} fill="#66ccff"></circle>
-			</svg>
-		</>
-	);
-};
 
 const Lens: React.FC<{
 	onStart: () => void;
@@ -145,62 +79,73 @@ const Lens: React.FC<{
 	}, [resultIndex, statu]);
 
 	return (
-		<div onClick={onStart}>
+		<Root onClick={onStart}>
 			{/* <Pointer /> */}
-			<svg
-				height={`${R * 2}px`}
-				width={`${R * 2}px`}
-				xmlns=""
-				version="1.1"
-				transform={`rotate(${
-					degree + (getRandom(0, 3) / 10) * DEGREE_PER_ITEM - 90
-				})`}
-				style={{ transition: "transform 5s" }}
+			<Typography align="center" variant="h4">
+				🔽
+			</Typography>
+			<Box
+				sx={{
+					borderRadius: "250px",
+					padding: "10px",
+					boxShadow: "0px 0px 9px 2px #000",
+				}}
 			>
-				{Array(items.length)
-					.fill(0)
-					.map((item, i) => {
+				<svg
+					height={`${R * 2}px`}
+					width={`${R * 2}px`}
+					xmlns=""
+					version="1.1"
+					transform={`rotate(${
+						degree + (getRandom(0, 3) / 10) * DEGREE_PER_ITEM - 90
+					})`}
+					style={{ transition: "transform 5s" }}
+				>
+					{Array(items.length)
+						.fill(0)
+						.map((item, i) => {
+							return (
+								<path
+									fill="#66ccff"
+									className={classes.lenText}
+									d={`M${R} ${R} L${
+										R + calcLocation(r, percent * i).x
+									} ${R + calcLocation(r, percent * i).y}`}
+								></path>
+							);
+						})}
+
+					{items.map((item, i) => {
 						return (
-							<path
-								fill="#66ccff"
-								stroke="#000"
-								d={`M${R} ${R} L${
-									R + calcLocation(r, percent * i).x
-								} ${R + calcLocation(r, percent * i).y}`}
-							></path>
+							<g
+								font-size="30"
+								line-height="30"
+								font-family="sans-serif"
+								stroke="none"
+								text-anchor="middle"
+								className={classes.lenText}
+								transform={`rotate(${
+									360 * (percent * i + percent / 2)
+								})`}
+								transform-origin="initial"
+							>
+								<text key={i + item} x={1.5 * r} y={R} dy={10}>
+									{item}
+								</text>
+							</g>
 						);
 					})}
 
-				{items.map((item, i) => {
-					return (
-						<g
-							font-size="30"
-							line-height="30"
-							font-family="sans-serif"
-							fill="black"
-							stroke="none"
-							text-anchor="middle"
-							transform={`rotate(${
-								360 * (percent * i + percent / 2)
-							})`}
-							transform-origin="initial"
-						>
-							<text key={i + item} x={1.5 * r} y={R} dy={10}>
-								{item}
-							</text>
-						</g>
-					);
-				})}
-
-				<circle
-					stroke="#888"
-					fill="transparent"
-					cx={R}
-					cy={R}
-					r={R}
-				></circle>
-			</svg>
-		</div>
+					<circle
+						stroke="#888"
+						fill="transparent"
+						cx={R}
+						cy={R}
+						r={R}
+					></circle>
+				</svg>
+			</Box>
+		</Root>
 	);
 };
 
@@ -210,56 +155,50 @@ const getRandom = (min: number, max: number) => {
 };
 
 type ComponentState = {
-	statu?: "stop" | "start";
+	status?: "stop" | "start";
 	itemString?: string;
 	resultString?: string;
 	resultIndex?: number;
+	presets: any[];
 };
 
 export default class Decision extends React.Component<{}, ComponentState> {
 	constructor(props: {}) {
 		super(props);
 		this.state = {
-			local: JSON.parse(localStorage.getItem("decision") || "[]"),
-			statu: "stop",
+			status: "stop",
 			itemString: "First Second",
 			resultIndex: null,
+			presets: [],
 		};
 	}
 	componentDidMount() {
 		window.location.hash &&
 			this.setState({
-				items: decodeURI(window.location.hash.substring(1)),
+				itemString: decodeURI(window.location.hash.substring(1)),
 			});
 	}
 
-	editItem = (key: any) => {
-		const { local } = this.state;
-		Prompt(
-			"使用空格分隔",
-			(value: any) => {
-				var local = this.state.local;
-				local.splice(key, 1, value);
-				localStorage.setItem("decision", JSON.stringify(local));
-			},
-			() => {
-				//删除组合
-				let local = this.state.local;
-				local.splice(key, 1);
-				localStorage.setItem("decision", JSON.stringify(local));
-			},
-			{
-				type: "textarea",
-				defaultValue: local[key],
-				confirmText: "保存",
-				cancelText: "删除",
-			}
-		);
+	handleSavePresets = (key: any) => {
+		this.setState({
+			presets: [
+				...this.state.presets,
+				{
+					text: this.state.itemString,
+				},
+			],
+		});
+	};
+
+	handleLoadPreset = (text: string) => {
+		this.setState({
+			itemString: text,
+		});
 	};
 
 	handleStart = () => {
 		this.setState({
-			statu: "start",
+			status: "start",
 			resultIndex: getRandom(
 				0,
 				this.state.itemString.split(" ").length - 1
@@ -274,19 +213,25 @@ export default class Decision extends React.Component<{}, ComponentState> {
 	};
 
 	render() {
-		const { statu, itemString, resultIndex } = this.state;
+		const { status: statu, itemString, resultIndex, presets } = this.state;
 		return (
 			<>
-				<div className="center-with-flex">
+				<Box
+					sx={{
+						paddingY: 2,
+					}}
+					component={Paper}
+					className="center-with-flex"
+				>
 					<Lens
 						resultIndex={resultIndex}
 						items={itemString.split(" ")}
 						onStart={this.handleStart}
 						statu={statu}
 					/>
-				</div>
+				</Box>
 
-				<Paper style={{ padding: "5px" }}>
+				<Box component={Paper} sx={{ padding: "5px", mt: "24px" }}>
 					<FormControl fullWidth>
 						<TextField
 							variant="outlined"
@@ -296,9 +241,32 @@ export default class Decision extends React.Component<{}, ComponentState> {
 							rows={3}
 							placeholder="填入选项，用空格分隔"
 						/>
-						<Button>保存</Button>
+						<Button onClick={this.handleSavePresets}>
+							保存组合
+						</Button>
 					</FormControl>
-				</Paper>
+				</Box>
+
+				{!!presets.length && (
+					<List
+						component={Paper}
+						sx={{
+							mt: "24px",
+						}}
+						subheader={<ListSubheader>已保存的组合</ListSubheader>}
+					>
+						{presets.map((preset) => (
+							<ListItemButton
+								onClick={() =>
+									this.handleLoadPreset(preset.text)
+								}
+							>
+								<ListItemText primary={preset.text} />
+							</ListItemButton>
+						))}
+					</List>
+				)}
+
 				<Paper></Paper>
 			</>
 		);

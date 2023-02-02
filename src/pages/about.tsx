@@ -10,7 +10,7 @@ import MailIcon from "@mui/icons-material/Mail";
 import { GetStaticProps } from "next";
 import { author, repo } from "../site.config";
 import translator from "@/utils/translator";
-import { version } from "../../package.json";
+import packageInfo from "../../package.json";
 
 const PREFIX = "about";
 
@@ -123,7 +123,7 @@ export default function About({ aboutContent }: AboutProps) {
 				<StyledMarkdown content={aboutContent} />
 			</OutlinedCard>
 			<Typography align="center" color="GrayText" variant="subtitle1">
-				Version: {version}
+				Version: {packageInfo.version}
 			</Typography>
 		</Root>
 	);

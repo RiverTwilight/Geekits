@@ -23,7 +23,7 @@ const classes = {
 const Root = styled("div")<{ freeSize?: boolean }>(
 	({ theme }) =>
 		({ freeSize }) => ({
-			padding: `0 ${freeSize ? "0" : theme.spacing(1)}`,
+			padding: `0 ${freeSize ? "0" : theme.spacing(2)}`,
 			margin: freeSize ? "unset" : "0 auto",
 			maxWidth: freeSize ? "unset" : "1400px",
 			[`& .${classes.content}`]: {
