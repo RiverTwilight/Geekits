@@ -7,7 +7,6 @@ import CardContent from "@mui/material/CardContent";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import AddIcon from "@mui/icons-material/Add";
 
 const Img2Base64: React.FC = (props) => {
 	const [file, setFile] = useState("");

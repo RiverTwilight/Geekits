@@ -2,50 +2,45 @@ import matter from "gray-matter";
 import externalApps from "../data/zh-CN/externalApps";
 import type { AppData } from "@/types/index";
 
-const getConfigFile = (appId: string): string =>
-	require("../apps/" + appId + "/README.zh-CN.md").default;
+const getAppConfigFile = (appId: string): string =>
+	require(`../apps/${appId}/README.zh-CN.md`).default;
 
 const getAppConfig = (
 	appId: string,
-	requireKeys?: string[]
+	requiredKeys?: string[]
 ): { [key: string]: any } => {
-	const config = matter(getConfigFile(appId)).data;
+	const { content, data } = matter(getAppConfigFile(appId));
 
-	var data = {
-		id: appId,
-	};
-
-	if (!requireKeys) {
-		return Object.assign(data, config);
+	if (!requiredKeys) {
+		return { id: appId, ...data };
 	}
 
-	requireKeys.forEach((key) => {
-		data[key] = config[key] || null;
-	});
-
-	return data;
+	return requiredKeys.reduce(
+		(acc, key) => {
+			acc[key] = data[key] || null;
+			return acc;
+		},
+		{ id: appId }
+	);
 };
 
 const getAppDoc = (appId: string): string => {
-	const docFile = getConfigFile(appId);
-
-	return matter(docFile).content.toString();
+	const { content } = matter(getAppConfigFile(appId));
+	return content.toString();
 };
 
+const allAppsContext = require.context("../apps", true, /(zh-CN\.md)$/);
+
 const getAllApps = (includeExternal?: boolean): AppData[] => {
-	const allApps: AppData[] = ((context) => {
-		const keys = context.keys();
-		// const values = keys.map(context);
-
-		return keys.slice(0, (keys.length - 1) / 2).map((key: string) => {
+	const allApps = allAppsContext
+		.keys()
+		.slice(0, (allAppsContext.keys().length - 1) / 2)
+		.map((key) => {
 			const appId = key.split("/")[1];
-			return Object.assign({ id: appId }, getAppConfig(appId));
+			return { id: appId, ...getAppConfig(appId) };
 		});
-	})(require.context("../apps", true, /(zh-CN\.md)$/));
 
-	if (includeExternal) return [...allApps, ...externalApps];
-
-	return allApps;
+	return includeExternal ? [...allApps, ...externalApps] : allApps;
 };
 
 export { getAllApps, getAppConfig, getAppDoc };

@@ -40,6 +40,9 @@ const appImportList: Record<string, ComponentType> = {
 	img2base64: dynamic(() => import("../apps/img2base64"), {
 		ssr: false,
 	}),
+	img_compress: dynamic(() => import("../apps/img_compress"), {
+		ssr: false,
+	}),
 	// img_mosaic: dynamic(() => import("../../src/apps/img_mosaic"), {
 	// 	ssr: false,
 	// }),
