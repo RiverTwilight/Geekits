@@ -1,8 +1,9 @@
 import dynamic from "next/dynamic";
+import type { ComponentType } from "react";
 
 // !! next/dynamic options must be an object literal !!
 
-const appImportList = {
+const appImportList: Record<string, ComponentType> = {
 	cem: dynamic(() => import("../apps/cem"), {
 		ssr: false,
 	}),
@@ -57,9 +58,12 @@ const appImportList = {
 	chatai: dynamic(() => import("../apps/chatai"), {
 		ssr: false,
 	}),
-	jyutping_converter: dynamic(() => import("../apps/jyutping_converter/index"), {
-		ssr: false,
-	}),
+	jyutping_converter: dynamic(
+		() => import("../apps/jyutping_converter/index"),
+		{
+			ssr: false,
+		}
+	),
 	num2roman: dynamic(() => import("../apps/num2roman"), {
 		ssr: false,
 	}),
