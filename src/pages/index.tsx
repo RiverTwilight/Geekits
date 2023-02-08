@@ -4,6 +4,7 @@ import Grid from "@mui/material/Grid";
 import AppList from "@/components/AppList";
 import Board from "@/components/Board";
 import Search from "@/components/SearchBox";
+import Tips from "@/components/Tips";
 import FivList from "@/components/FivList";
 import { getAllApps } from "@/utils/appData";
 import channelInfo from "@/data/channelInfo";
@@ -62,6 +63,8 @@ export default function Index({ appData, setAction }: any) {
 					<FivList />
 					<br />
 					<AppList channelInfo={channelInfo} appData={appData} />
+					<br />
+					<Tips />
 				</Grid>
 			</Grid>
 		</Box>
