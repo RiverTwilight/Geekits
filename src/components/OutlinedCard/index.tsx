@@ -2,10 +2,10 @@ import { styled } from "@mui/material/styles";
 
 const StyledOutlinedCard = styled("div")(({ theme }) => ({
 	border: {
-		light: "1px solid #e0e0e0",
-		dark: "1px solid rgba(255, 255, 255, 0.23)",
+		light: "2px solid #e0e0e0",
+		dark: "2px solid rgba(255, 255, 255, 0.23)",
 	}[theme.palette.mode],
-	borderRadius: "8px",
+	borderRadius: theme.spacing(1),
 }));
 
 const OutlinedCard = ({

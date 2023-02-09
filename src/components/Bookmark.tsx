@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import fiv from "../utils/Services/fiv";
 import OutlinedCard from "./OutlinedCard";
@@ -11,7 +11,6 @@ import ListItemText from "@mui/material/ListItemText";
 import Grid from "@mui/material/Grid";
 import StarIcon from "@mui/icons-material/Star";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
-import { useEffect } from "react";
 
 const AppItem = ({
 	data,
@@ -32,7 +31,7 @@ const AppItem = ({
 	};
 	return (
 		<Grid item sm={6} xs={12}>
-			<Link href={`/app/${link}`} passHref>
+			<Link href={`/app/${link}`} passHref legacyBehavior>
 				<ListItem button key={name}>
 					<ListItemIcon onClick={handleClick}>
 						{fiv ? <StarIcon /> : <StarBorderIcon />}
@@ -44,10 +43,7 @@ const AppItem = ({
 	);
 };
 
-/**
- * 收藏列表
- * */
-const FivList = () => {
+const Bookmark = () => {
 	const [list, setList] = useState([]);
 
 	useEffect(() => {
@@ -66,12 +62,14 @@ const FivList = () => {
 			>
 				{!list.length && (
 					<div className="center-with-flex">
-							<img
-								height="120"
-								width="120"
-								src="/illustration/undraw_not_found_-60-pq.svg"
-							/>
-							<Typography variant="subtitle1">&nbsp;空空如也...</Typography>
+						<img
+							height="120"
+							width="120"
+							src="/illustration/undraw_not_found_-60-pq.svg"
+						/>
+						<Typography variant="subtitle1">
+							&nbsp;空空如也...
+						</Typography>
 					</div>
 				)}
 				{list.length > 0 && (
@@ -95,4 +93,4 @@ const FivList = () => {
 	);
 };
 
-export default FivList;
+export default Bookmark;

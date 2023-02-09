@@ -5,7 +5,7 @@ import AppList from "@/components/AppList";
 import Board from "@/components/Board";
 import Search from "@/components/SearchBox";
 import Tips from "@/components/Tips";
-import FivList from "@/components/FivList";
+import Bookmark from "@/components/Bookmark";
 import { getAllApps } from "@/utils/appData";
 import channelInfo from "@/data/channelInfo";
 import translator from "@/utils/translator";
@@ -60,7 +60,7 @@ export default function Index({ appData, setAction }: any) {
 				<Grid item xs={12} md={9}>
 					<Search appData={appData} />
 					<br />
-					<FivList />
+					<Bookmark />
 					<br />
 					<AppList channelInfo={channelInfo} appData={appData} />
 					<br />
