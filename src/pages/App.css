@@ -33,3 +33,11 @@
 	animation: shake 1.5s;
 	animation-iteration-count: infinite;
 }
+@keyframes progress {
+	from {
+		stroke-dashoffset: 630;
+	}
+	to {
+		stroke-dashoffset: 0;
+	}
+}

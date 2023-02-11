@@ -1,37 +1,49 @@
 import React from "react";
 import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import Paper from "@mui/material/Paper";
+import LinearProgress from "@mui/material/LinearProgress";
 
-const sayings = [
-	{
-		content: "自律是一种秩序，一种对快乐和欲望的控制。",
-		author: "柏拉图",
-	},
-	{
-		content: "时刻提醒自己，要自律，要保持份内在的从容与安静。",
-		author: "网络",
-	},
-	{
-		content: "越自律，越自由。",
-		author: "网络",
-	},
-];
+const Graph = ({ percent = 0.75 }: { percent: number; status: string }) => {
+	const R: number = 150;
 
-const Saying = ({ index }) => {
-	const saying = sayings[index];
+	const arc = {
+		x: R + R * Math.cos((360 * percent - 90) * (Math.PI / 180)),
+		y: R + R * Math.sin((360 * percent - 90) * (Math.PI / 180)),
+	};
+
 	return (
-		<Typography variant="body2">
-			<blockquote>
-				{saying.content}
-				<footer>{saying.author}</footer>
-			</blockquote>
-		</Typography>
+		<Box
+			sx={{
+				borderRadius: `${R}px`,
+				padding: "1px",
+			}}
+			component={Paper}
+		>
+			<svg width={R * 2} height={R * 2}>
+				<circle cx={R} cy={R} r={R} fill="transparent" />
+
+				<path
+					style={
+						{
+							// transition: "2s all", Will add some bad effect
+						}
+					}
+					fill="#28a745"
+					d={`M${R} ${R}
+					    L${R} 0 
+						A${R} ${R}
+						${percent > 0.5 ? 0 : 90} 
+						${percent >= 0.5 ? 1 : 0}
+						1 
+						${arc.x} ${arc.y}
+						Z`}
+				/>
+			</svg>
+		</Box>
 	);
 };
-
-function d2a(n: number) {
-	return (n * Math.PI) / 180;
-}
 
 interface recordItem {
 	name: string;
@@ -63,18 +75,14 @@ const Record = ({ closeBottomAlert }: { closeBottomAlert: () => void }) => {
 	};
 	return (
 		<>
-			<div className="mdui-progress">
-				<div
-					className="mdui-progress-determinate"
-					style={{
-						width: `${
-							(historyData.length / 4 > 1
-								? historyData.length / 4 - 1
-								: historyData.length / 4) * 100
-						}%`,
-					}}
-				></div>
-			</div>
+			<LinearProgress
+				variant="determinate"
+				value={
+					historyData.length / 4 > 1
+						? historyData.length / 4 - 1
+						: historyData.length / 4
+				}
+			/>
 			<div className="mdui-p-a-2 mdui-typo">
 				<b>今日：</b>
 				{
@@ -92,7 +100,6 @@ const Record = ({ closeBottomAlert }: { closeBottomAlert: () => void }) => {
 			</div>
 			<div className="mdui-divider"></div>
 			<ul className="mdui-list">
-				{/* @ts-expect-error ts-migrate(7006) FIXME: Parameter 'item' implicitly has an 'any' type. */}
 				{historyData.map((item: recordItem, i) => (
 					<li key={i} className="mdui-list-item mdui-ripple">
 						<i className="mdui-icon mdui-text-color-red material-icons">
@@ -122,111 +129,51 @@ const Record = ({ closeBottomAlert }: { closeBottomAlert: () => void }) => {
 	);
 };
 
-const Tomato = ({
-	r = 34,
-	ang = 20,
-	startWorking,
-	addTime,
-	timeStr,
-	statu,
-}: {
-	r?: number;
-	ang?: number;
-	startWorking: () => void;
-	addTime: () => void;
-	timeStr: string;
-	statu: "sleep" | "rest" | "working";
-}) => {
-	const ang1 = ang;
-	const ang2 = 360;
-	const handleClick = () => {
-		let func = {
-			sleep: startWorking,
-			rest: addTime,
-			working: () => {},
-		};
-		func[statu]();
-	};
-	return (
-		<button
-			onClick={handleClick}
-			className="mdui-shadow-0 mdui-fab mdui-color-theme tomato-box"
-		>
-			<button
-				style={{
-					backgroundColor: document.body.classList.contains(
-						"mdui-theme-layout-dark"
-					)
-						? "#303030"
-						: "#fff",
-				}}
-				className={`mdui-shadow-0 mdui-fab mask`}
-			></button>
-			<svg
-				width="250"
-				height="250"
-				xmlns="http://www.w3.org/2000/svg"
-				viewBox="15 15 70 70"
-			>
-				<circle
-					cx="50"
-					cy="50"
-					r={r}
-					stroke="#fff"
-					strokeWidth="8"
-					fill="transparent"
-				/>
-				<path
-					strokeLinecap="round"
-					d={`M50 50 
-				L${50 + Math.sin(d2a(ang1)) * r} ${50 - Math.cos(d2a(ang1)) * r}
-				A${r} ${r} 0 ${ang2 - ang1 >= 180 ? 1 : 0} 1 ${50 + Math.sin(d2a(ang2)) * r} ${
-						50 - Math.cos(d2a(ang2)) * r
-					} Z`}
-					stroke="#4caf50"
-					fill="transparent"
-					strokeWidth="2.8"
-				/>
-			</svg>
-			<div className="statu mdui-text-color-theme">
-				{
-					{
-						working: "工作中",
-						rest: "点击延长休息时间",
-						sleep: "开始一个番茄",
-					}[statu]
-				}
-			</div>
-			<div className="tt-countdown mdui-text-color-theme">{timeStr}</div>
-		</button>
-	);
-};
-
 type TomatoClockState = any;
 
-export default class TomatoClock extends React.Component<{}, TomatoClockState> {
+const formatTime = (time: number) => {
+	const min = Math.floor(time / 60);
+	const sec = time % 60;
+	return `${min < 10 ? "0" + min : min}:${sec < 10 ? "0" + sec : sec}`;
+};
+
+enum StatusSet {
+	work = "work",
+	sleep = "sleep",
+}
+
+export default class Pomodoro extends React.Component<
+	{},
+	{
+		status: StatusSet;
+		restSeconds: number;
+		defaultSeconds: number;
+		title: string;
+	}
+> {
 	constructor(props: {}) {
 		super(props);
 		this.state = {
-			min: 25,
-			sec: 0,
-			statu: "sleep",
-			originTitle: document.title,
-			showHistory: false,
+			defaultSeconds: 25 * 60,
+			restSeconds: 25 * 60,
+			status: StatusSet.sleep,
 			title: "",
 		};
 	}
+
 	componentWillUnmount() {
 		clearInterval(window.tomato);
 		document.title = this.state.originTitle;
 	}
-	startATomato(minute = 25) {
+
+	startATomato = () => {
 		window.tomato && clearInterval(window.tomato);
+
 		const cb = () => {
-			const { min, sec, title, statu } = this.state;
-			if (!min && !sec) {
+			const { restSeconds, title, status } = this.state;
+			if (!!!restSeconds) {
 				this.playRingtone();
-				if (statu === "working") {
+				if (status === StatusSet.work) {
 					window.snackbar({
 						message: "你完成了一个番茄，现在休息五分钟吧！",
 					});
@@ -240,88 +187,69 @@ export default class TomatoClock extends React.Component<{}, TomatoClockState> {
 					localStorage.setItem("tomato", JSON.stringify(originData));
 					this.setState(
 						{
-							statu: "rest",
+							status: StatusSet.sleep,
 						},
 						() => {
 							this.startATomato(5);
 						}
 					);
-
 				} else {
 					this.setState(
 						{
-							statu: "working",
+							status: StatusSet.work,
 						},
 						() => {
 							this.startATomato();
 						}
 					);
 				}
-			} else {
-				const newTime = {
-					sec: sec - 1 < 0 ? 59 : sec - 1,
-					min: sec - 1 < 0 ? min - 1 : min,
-				};
-				document.title = `${newTime.min}:${
-					newTime.sec < 10 ? `0${newTime.sec}` : newTime.sec
-				} | ${this.state.originTitle}`;
-				this.setState(newTime);
+			} else if (status === StatusSet.work) {
+				document.title = `${formatTime(restSeconds)} | ${
+					this.state.originTitle
+				}`;
+				this.setState({
+					restSeconds: restSeconds - 1,
+				});
 			}
 		};
+
 		this.setState({
-			min: minute,
+			status: StatusSet.work,
 		});
+
 		window.tomato = setInterval(cb, 1000);
-	}
+	};
+
 	playRingtone() {
-		var sound = new Audio("/audio/alarm.mp3");
+		const sound = new Audio("/audio/alarm.mp3");
 		if (!sound.paused) sound.pause();
 		sound.currentTime = 0;
 		sound.play();
 	}
-	endATomato = () => {
-		const { statu, min, sec, originTitle } = this.state;
+
+	abandonTomato = () => {
+		const { status, restSeconds, defaultSeconds } = this.state;
 		// 含文本、标题和确认按钮回调
-		statu === "working" &&
-			min &&
-			sec &&
-			// @ts-expect-error ts-migrate(2339) FIXME: Property 'confirm' does not exist on type 'IMduiSt... Remove this comment to see the full error message
-			mdui.confirm(
-				"此次专注将无法保存",
-				"确定要放弃这1/4个番茄吗？",
-				() => {
-					this.setState({
-						statu: "sleep",
-						min: 25,
-						sec: 0,
-					});
-					clearInterval(window.tomato);
-					document.title = originTitle;
-				},
-				() => {},
-				{
-					confirmText: "确定",
-					cancelText: "不，自律使我自由！",
-					history: false,
-				}
-			);
-		if (statu === "rest") {
-			this.setState(
-				{
-					statu: "sleep",
-				},
-				() => {
-					this.startATomato();
-				}
-			);
+		if (status === StatusSet.work && restSeconds > 0) {
+			this.setState({
+				restSeconds: defaultSeconds,
+				status: StatusSet.sleep,
+			});
 		}
 	};
+
 	render() {
-		const { min, sec, showHistory, title, statu } = this.state;
+		const { restSeconds, defaultSeconds, title, status } = this.state;
 		return (
 			<>
-				<div className="center">
-					<Input
+				<Box
+					sx={{
+						display: "flex",
+						flexDirection: "column",
+						justifyContent: "center",
+					}}
+				>
+					{/* <Input
 						value={title}
 						placeholder="给这颗番茄起个名字吧"
 						onValueChange={(newText) => {
@@ -329,67 +257,42 @@ export default class TomatoClock extends React.Component<{}, TomatoClockState> {
 								title: newText,
 							});
 						}}
-					/>
-					<br></br>
-					<Tomato
-						ang={((1500.1 - min * 60 - sec) / 1500) * 360}
-						timeStr={`${min}:${sec < 10 ? `0${sec}` : sec}`}
-						startWorking={() => {
-							this.startATomato();
-							this.setState({
-								statu: "working",
-							});
+					/> */}
+
+					<Box
+						sx={{
+							display: "flex",
+							justifyContent: "center",
 						}}
-						addTime={() => {
-							this.setState({
-								min: min + 5,
-							});
-						}}
-						statu={statu}
-					/>
-					<br></br>
-					<button
-						style={{
-							display: statu !== "sleep" ? "block" : "none",
-						}}
-						onClick={this.endATomato}
-						className="mdui-color-theme mdui-btn mdui-btn-raised"
 					>
-						{
-							//@ts-expect-error
-							{
-								rest: "跳过休息",
-								working: "重置",
-							}[statu]
-						}
-					</button>
-				</div>
+						<Graph
+							percent={
+								(defaultSeconds - restSeconds) / defaultSeconds
+							}
+							status={status}
+						/>
+					</Box>
 
-				<button
-					onClick={() => {
-						this.setState({ showHistory: !showHistory });
-					}}
-					className="mdui-color-theme mdui-fab mdui-fab-mini mdui-fab-fixed"
-				>
-					<i className="mdui-icon material-icons">&#xe192;</i>
-				</button>
+					<br></br>
 
-				<BottomAlert
-					title="记录"
-					height={500}
-					onClose={() => {
-						this.setState({
-							showHistory: false,
-						});
-					}}
-					ifShow={showHistory}
-				>
-					<Record
-						closeBottomAlert={() => {
-							this.setState({ showHistory: false });
-						}}
-					/>
-				</BottomAlert>
+					<Typography align="center" variant="h3">
+						{formatTime(restSeconds)}
+					</Typography>
+
+					<br></br>
+
+					{status == StatusSet.sleep && (
+						<Button onClick={this.startATomato} variant="contained">
+							开始
+						</Button>
+					)}
+
+					{status === StatusSet.work && (
+						<Button onClick={this.abandonTomato} variant="outlined">
+							放弃
+						</Button>
+					)}
+				</Box>
 			</>
 		);
 	}

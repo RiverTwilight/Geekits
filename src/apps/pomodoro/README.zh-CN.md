@@ -1,6 +1,6 @@
 ---
 name: "番茄钟"
-status: "beta"
+status: "stable"
 icon: "/icon/pomodoro.png"
 channel: life
 ---
