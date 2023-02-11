@@ -19,7 +19,7 @@ export default function Chat() {
 		}[]
 	>([]);
 	const [input, setInput] = useInput<String>("");
-	const [loading, setLoading] = useState(false);
+	const [loading, setLoading] = useState<Boolean>(false);
 
 	const handleSend = () => {
 		setHistory((prevHistory) => [
@@ -37,13 +37,13 @@ export default function Chat() {
 				packedData: {
 					model: "text-davinci-003",
 					prompt: input,
-					temperature: 0.9,
+					temperature: 0.5,
 					max_tokens: 200,
 					top_p: 1,
 					n: 1,
 					stream: false,
 					logprobs: null,
-					stop: ["\u2022"],
+					// stop: ["\u2022"],
 				},
 			})
 			.then((res) => {
@@ -89,7 +89,7 @@ export default function Chat() {
 					position: "absolute",
 					paddingX: 2,
 					display: "flex",
-					justifyContent: "center"
+					justifyContent: "center",
 				}}
 			>
 				<Paper
@@ -113,6 +113,8 @@ export default function Chat() {
 							background: (theme) =>
 								theme.palette.secondary[theme.palette.mode],
 							borderRadius: "5px",
+							maxHeight: "500px",
+							overflowY: "scroll",
 							pl: 1,
 						}}
 						multiline
