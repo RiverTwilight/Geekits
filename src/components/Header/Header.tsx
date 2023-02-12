@@ -25,9 +25,9 @@ function ElevationScroll(props: Props) {
 
 	return React.cloneElement(children, {
 		elevation: trigger ? 4 : 0,
-		sx:{
-			borderBottom: trigger ? "" : "none"
-		}
+		sx: {
+			borderBottom: trigger ? "" : "none",
+		},
 	});
 }
 
@@ -67,8 +67,8 @@ export default (props: { title: string; PageAction }) => {
 							alignItems: "center",
 						}}
 					>
-						<ListItem>
-							<ListItemAvatar sx={{display: { xs: "none", sm: "block" }}}>
+						<ListItem sx={{ display: { xs: "none", sm: "inherit" } }}>
+							<ListItemAvatar>
 								<Avatar
 									alt="Cindy Baker"
 									src="/logo/v2/512.png"
@@ -91,6 +91,7 @@ export default (props: { title: string; PageAction }) => {
 							color="primary"
 							variant="h6"
 							noWrap
+							sx={{ overflow: "initial" }}
 						>
 							{title}
 						</Typography>

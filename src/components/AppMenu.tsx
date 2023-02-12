@@ -24,12 +24,8 @@ const classes = {
 
 const Root = styled("div")(({ theme }) => ({
 	[`&.${classes.content}`]: {
-		paddingX: theme.spacing(1),
-		button: {
-			width: "100%",
-		},
+		paddingX: theme.spacing(2),
 	},
-
 	[`& .${classes.margin}`]: {
 		marginBottom: theme.spacing(1),
 	},
@@ -89,24 +85,27 @@ const AppMenu = ({
 	}, [appConfig]);
 	return (
 		<Root className={classes.content}>
-			<Box sx={{
-				display: "flex",
-				flexDirection: "column",
-				alignItems: "center",
-				justifyContent: "center",
-				marginBottom: 2,
-				"button": {
-					marginTop: 1,
-				},
-				paddingX: 1
-			}}>
+			<Box
+				sx={{
+					display: "flex",
+					flexDirection: "column",
+					alignItems: "center",
+					justifyContent: "center",
+					marginBottom: 2,
+					button: {
+						marginTop: 1,
+						width: "100%"
+					},
+					paddingX: 1,
+				}}
+			>
 				<Button
 					href={`https://github.com/RiverTwilight/ygktool/tree/master/src/apps/${id}`}
 					aria-label="在Github上编辑此页面"
 					startIcon={<GitHubIcon fontSize="inherit" />}
 					variant="contained"
 					sx={{
-						width: "100%"
+						width: "100%",
 					}}
 				>
 					在Github上编辑

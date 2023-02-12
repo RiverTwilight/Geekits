@@ -169,7 +169,7 @@ class Layout extends React.Component<
 						<Header
 							PageAction={PageAction}
 							title={
-								["/"].includes(currentPage.path)
+								[].includes(currentPage.path)
 									? ""
 									: currentPage.title
 							}

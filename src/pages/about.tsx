@@ -22,7 +22,7 @@ const classes = {
 };
 
 const Root = styled("div")(({ theme: Theme }) => ({
-	maxWidth: "600px",
+	maxWidth: "864px",
 	margin: "180px auto 0 auto",
 	padding: `${Theme.spacing(2)}`,
 	paddingBottom: "50px",

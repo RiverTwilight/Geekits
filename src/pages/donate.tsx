@@ -9,7 +9,7 @@ import translator from "@/utils/translator";
 import { styled } from "@mui/material/styles";
 
 const Root = styled("div")(({ theme: Theme }) => ({
-	maxWidth: "600px",
+	maxWidth: "864px",
 	margin: "0 auto",
 	padding: `${Theme.spacing(2)}`,
 	paddingBottom: "50px",
