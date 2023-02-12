@@ -25,7 +25,7 @@ const Root = styled("div")<{ freeSize?: boolean }>(
 		({ freeSize }) => ({
 			padding: `${freeSize ? "0" : theme.spacing(2)}`,
 			margin: freeSize ? "unset" : "0 auto",
-			maxWidth: freeSize ? "unset" : "1400px",
+			maxWidth: freeSize ? "unset" : "1120px",
 			[`& .${classes.content}`]: {
 				position: "relative",
 				minHeight: "100%",

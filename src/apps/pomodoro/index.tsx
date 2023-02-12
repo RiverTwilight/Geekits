@@ -171,7 +171,7 @@ export default class Pomodoro extends React.Component<
 
 		const cb = () => {
 			const { restSeconds, title, status } = this.state;
-			if (!!!restSeconds) {
+			if (restSeconds <= 0) {
 				this.playRingtone();
 				if (status === StatusSet.work) {
 					window.snackbar({
@@ -190,7 +190,7 @@ export default class Pomodoro extends React.Component<
 							status: StatusSet.sleep,
 						},
 						() => {
-							this.startATomato(5);
+							this.startATomato();
 						}
 					);
 				} else {

@@ -1,12 +1,19 @@
 import React from "react";
+import Avatar from "@mui/material/Avatar";
 import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import MenuTwoToneIcon from "@mui/icons-material/MenuTwoTone";
 import useScrollTrigger from "@mui/material/useScrollTrigger";
 import { store } from "@/utils/Data/drawerState";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
 
 function ElevationScroll(props: Props) {
 	const { children } = props;
@@ -18,14 +25,15 @@ function ElevationScroll(props: Props) {
 
 	return React.cloneElement(children, {
 		elevation: trigger ? 4 : 0,
+		sx:{
+			borderBottom: trigger ? "" : "none"
+		}
 	});
 }
 
 interface Props {
 	children: React.ReactElement;
 }
-
-const drawerWidth = 240;
 
 export default (props: { title: string; PageAction }) => {
 	const { title, PageAction } = props;
@@ -36,8 +44,6 @@ export default (props: { title: string; PageAction }) => {
 				color="secondary"
 				position="fixed"
 				sx={{
-					width: { sm: `calc(100% - ${drawerWidth}px)` },
-					ml: { sm: `${drawerWidth}px` },
 					zIndex: (theme) => theme.zIndex.drawer + 1,
 					// mr: { sm: `${rightDrawerWidth}px` },
 				}}
@@ -54,18 +60,45 @@ export default (props: { title: string; PageAction }) => {
 						<MenuTwoToneIcon />
 					</IconButton>
 
-					<Typography
-						color="primary"
-						variant="h6"
-						noWrap
-						component="div"
+					<Box
+						sx={{
+							display: "flex",
+							justifyContent: "center",
+							alignItems: "center",
+						}}
 					>
-						{title}
-					</Typography>
+						<ListItem>
+							<ListItemAvatar sx={{display: { xs: "none", sm: "block" }}}>
+								<Avatar
+									alt="Cindy Baker"
+									src="/logo/v2/512.png"
+								/>
+							</ListItemAvatar>
+							<ListItemText
+								primary={
+									<Typography
+										component="span"
+										variant="h6"
+										color="textPrimary"
+									>
+										云极客工具
+									</Typography>
+								}
+							/>
+						</ListItem>
+
+						<Typography
+							color="primary"
+							variant="h6"
+							noWrap
+						>
+							{title}
+						</Typography>
+					</Box>
 
 					{PageAction && <PageAction />}
 				</Toolbar>
-				<Divider />
+				{/* <Divider /> */}
 			</AppBar>
 		</ElevationScroll>
 	);

@@ -35,9 +35,9 @@ const list = [
 		text: "首页",
 		href: "/",
 	},
-	{
-		text: "<divider />",
-	},
+	// {
+	// 	text: "<divider />",
+	// },
 	{
 		Icon: <MessageIcon />,
 		text: "反馈",
@@ -71,7 +71,7 @@ const list = [
 	},
 ];
 
-const drawerWidth = 240;
+const drawerWidth = 260;
 
 // necessary for content to be below app bar
 const Toolbar = styled("nav")(({ theme }) => theme.mixins.toolbar);
@@ -145,6 +145,9 @@ const LinkWrapper = ({ href, text, Icon, handleClick, ...props }) => {
 					"&.Mui-selected .MuiListItemText-primary": {
 						fontWeight: 700,
 					},
+					borderBottomRightRadius: "30px",
+					borderTopRightRadius: "30px",
+					paddingLeft: "20px"
 				}}
 				className={router.pathname == href ? "Mui-selected" : ""}
 				button
@@ -190,21 +193,12 @@ const LeftDrawer = (props: IProps) => {
 
 	const drawer = (
 		<>
-			<Toolbar>
-				<User
-					handleLogin={() => {
-						handleClick();
-						handleLoginOpen();
-					}}
-				/>
-			</Toolbar>
-			<Divider />
-			<Alert severity="info">
+			{/* <Alert severity="info">
 				您正在使用新版本，如有任何问题欢迎随时反馈。
 				<MuiLink href="https://v1.ygktool.com">返回旧版</MuiLink>
-			</Alert>
+			</Alert> */}
 			{/* <List className={clsx({ [classes.hoverBlur]: isBlur })}> */}
-			<List>
+			<List sx={{ pr: "20px" }}>
 				{list.length &&
 					list.map((item) => (
 						<React.Fragment key={item.href}>
@@ -257,10 +251,14 @@ const LeftDrawer = (props: IProps) => {
 			<Drawer
 				variant="permanent"
 				sx={{
+					zIndex: (theme) => theme.zIndex.drawer,
+
 					display: { xs: "none", sm: "block" },
 					"& .MuiDrawer-paper": {
 						boxSizing: "border-box",
+						borderRight: "none",
 						width: drawerWidth,
+						marginTop: "70px",
 					},
 				}}
 				open

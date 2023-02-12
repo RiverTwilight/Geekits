@@ -168,7 +168,11 @@ class Layout extends React.Component<
 					{enableFrame && (
 						<Header
 							PageAction={PageAction}
-							title={currentPage.title}
+							title={
+								["/"].includes(currentPage.path)
+									? ""
+									: currentPage.title
+							}
 						/>
 					)}
 					<LeftDrawer repo={siteConfig.repo} />

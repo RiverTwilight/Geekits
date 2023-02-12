@@ -24,7 +24,10 @@ const classes = {
 
 const Root = styled("div")(({ theme }) => ({
 	[`&.${classes.content}`]: {
-		padding: theme.spacing(1),
+		paddingX: theme.spacing(1),
+		button: {
+			width: "100%",
+		},
 	},
 
 	[`& .${classes.margin}`]: {
@@ -44,7 +47,7 @@ const AppMenu = ({
 	const { id, name } = appConfig;
 	const [fiv, setFiv] = useState(false);
 	const [showCode, setShowCode] = useState(false);
-	
+
 	const handleFiv = () => {
 		const { id, name } = appConfig;
 		if (!fivkits.get(id)) {
@@ -86,26 +89,44 @@ const AppMenu = ({
 	}, [appConfig]);
 	return (
 		<Root className={classes.content}>
-			<Toolbar />
-			<ButtonGroup aria-label="more options">
-				<IconButton
-					component="a"
+			<Box sx={{
+				display: "flex",
+				flexDirection: "column",
+				alignItems: "center",
+				justifyContent: "center",
+				marginBottom: 2,
+				"button": {
+					marginTop: 1,
+				},
+				paddingX: 1
+			}}>
+				<Button
 					href={`https://github.com/RiverTwilight/ygktool/tree/master/src/apps/${id}`}
 					aria-label="在Github上编辑此页面"
-					size="large"
+					startIcon={<GitHubIcon fontSize="inherit" />}
+					variant="contained"
+					sx={{
+						width: "100%"
+					}}
 				>
-					<GitHubIcon fontSize="inherit" />
-				</IconButton>
-				<IconButton onClick={handleFiv} aria-label="收藏" size="large">
-					{fiv ? <StarIcon /> : <StarBorderIcon />}
-				</IconButton>
-				<IconButton
+					在Github上编辑
+				</Button>
+				<Button
+					variant="outlined"
+					onClick={handleFiv}
+					aria-label="收藏"
+					startIcon={fiv ? <StarIcon /> : <StarBorderIcon />}
+				>
+					收藏
+				</Button>
+				<Button
+					variant="outlined"
 					onClick={handleCode}
 					aria-label="框架引用"
-					size="large"
+					startIcon={<CodeIcon fontSize="inherit" />}
 				>
-					<CodeIcon fontSize="inherit" />
-				</IconButton>
+					框架引用
+				</Button>
 				{/* {typeof(navigator.share) != "undefined" && (
 					<IconButton onClick={handleShare} aria-label="分享">
 						<ShareIcon fontSize="inherit" />
@@ -119,7 +140,7 @@ const AppMenu = ({
 				>
 					反馈
 				</Button>
-			</ButtonGroup>
+			</Box>
 
 			{showCode && (
 				<TextField
