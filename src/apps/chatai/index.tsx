@@ -1,14 +1,30 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import ClipboardJS from "clipboard";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import InputBase from "@mui/material/InputBase";
+import ClickAwayListener from "@mui/material/ClickAwayListener";
 import MenuIcon from "@mui/icons-material/Menu";
+import Popper from "@mui/material/Popper";
+import MenuItem from "@mui/material/MenuItem";
+import MenuList from "@mui/material/MenuList";
+import Grow from "@mui/material/Grow";
 import IconButton from "@mui/material/IconButton";
 import axios from "@/utils/axios";
 import useInput from "@/utils/Hooks/useInput";
 import ChatList from "@/components/Chat";
+
+const PRESETS = [
+	{
+		title: "求职信",
+		prompt: "Please write an job cover for [Your job].",
+	},
+	{
+		title: "产品idea",
+		prompt: "Please give me an idea of a SaaS service which is less competitve and easy to start.",
+	},
+];
 
 export default function Chat() {
 	const [history, setHistory] = useState<
@@ -20,6 +36,42 @@ export default function Chat() {
 	>([]);
 	const [input, setInput] = useInput<String>("");
 	const [loading, setLoading] = useState<Boolean>(false);
+	const [open, setOpen] = useState(false);
+	const anchorRef = useRef<HTMLButtonElement>(null);
+
+	const handleToggle = () => {
+		setOpen((prevOpen) => !prevOpen);
+	};
+
+	const handleClose = (event: Event | React.SyntheticEvent) => {
+		if (
+			anchorRef.current &&
+			anchorRef.current.contains(event.target as HTMLElement)
+		) {
+			return;
+		}
+
+		setOpen(false);
+	};
+
+	function handleListKeyDown(event: React.KeyboardEvent) {
+		if (event.key === "Tab") {
+			event.preventDefault();
+			setOpen(false);
+		} else if (event.key === "Escape") {
+			setOpen(false);
+		}
+	}
+
+	// return focus to the button when we transitioned from !open -> open
+	const prevOpen = useRef(open);
+	useEffect(() => {
+		if (prevOpen.current === true && open === false) {
+			anchorRef.current!.focus();
+		}
+
+		prevOpen.current = open;
+	}, [open]);
 
 	const handleSend = () => {
 		setHistory((prevHistory) => [
@@ -102,9 +154,67 @@ export default function Chat() {
 						width: "100%",
 					}}
 				>
-					<IconButton sx={{ p: "10px" }} aria-label="menu">
+					<IconButton
+						ref={anchorRef}
+						id="composition-button"
+						aria-controls={open ? "composition-menu" : undefined}
+						aria-expanded={open ? "true" : undefined}
+						aria-haspopup="true"
+						onClick={handleToggle}
+						sx={{ p: "10px" }}
+						aria-label="menu"
+					>
 						<MenuIcon />
 					</IconButton>
+					<Popper
+						open={open}
+						anchorEl={anchorRef.current}
+						role={undefined}
+						placement="bottom-start"
+						transition
+						disablePortal
+					>
+						{({ TransitionProps, placement }) => (
+							<Grow
+								{...TransitionProps}
+								style={{
+									transformOrigin:
+										placement === "bottom-start"
+											? "left top"
+											: "left bottom",
+								}}
+							>
+								<Paper>
+									<ClickAwayListener
+										onClickAway={handleClose}
+									>
+										<MenuList
+											autoFocusItem={open}
+											id="composition-menu"
+											aria-labelledby="composition-button"
+											onKeyDown={handleListKeyDown}
+										>
+											{PRESETS.map((preset) => {
+												return (
+													<MenuItem
+														key={preset.title}
+														onClick={(e) => {
+															setInput(
+																preset.prompt
+															);
+															handleClose(e);
+														}}
+													>
+														{preset.title}
+													</MenuItem>
+												);
+											})}
+										</MenuList>
+									</ClickAwayListener>
+								</Paper>
+							</Grow>
+						)}
+					</Popper>
 					<InputBase
 						sx={{
 							ml: 1,
