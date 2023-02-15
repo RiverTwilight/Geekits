@@ -24,7 +24,7 @@ const classes = {
 
 const Root = styled("div")(({ theme }) => ({
 	[`&.${classes.content}`]: {
-		paddingX: theme.spacing(2),
+		padding: theme.spacing(2),
 	},
 	[`& .${classes.margin}`]: {
 		marginBottom: theme.spacing(1),
@@ -94,9 +94,8 @@ const AppMenu = ({
 					marginBottom: 2,
 					button: {
 						marginTop: 1,
-						width: "100%"
+						width: "100%",
 					},
-					paddingX: 1,
 				}}
 			>
 				<Button
@@ -126,6 +125,18 @@ const AppMenu = ({
 				>
 					框架引用
 				</Button>
+				{showCode && (
+					<>
+						<br />
+						<TextField
+							onClick={handleClickCode}
+							value={`<iframe src="${window.location.origin}/app/${appConfig.id}?fullscreen=1" width="100%" height="400px" scrolling="no" style="border:0;"></iframe>`}
+							id="frame-code"
+							label="嵌入代码"
+							variant="outlined"
+						/>
+					</>
+				)}
 				{/* {typeof(navigator.share) != "undefined" && (
 					<IconButton onClick={handleShare} aria-label="分享">
 						<ShareIcon fontSize="inherit" />
@@ -140,16 +151,6 @@ const AppMenu = ({
 					反馈
 				</Button>
 			</Box>
-
-			{showCode && (
-				<TextField
-					onClick={handleClickCode}
-					value={`<iframe src="${window.location.origin}/app/${appConfig.id}?fullscreen=1" width="100%" height="400px" scrolling="no" style="border:0;"></iframe>`}
-					id="frame-code"
-					label="嵌入代码"
-					variant="outlined"
-				/>
-			)}
 
 			<StyledMarkdown content={appDoc} />
 		</Root>
