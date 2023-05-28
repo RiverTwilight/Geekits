@@ -3179,6 +3179,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@vercel/analytics@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "@vercel/analytics@npm:1.0.1"
+  checksum: 6876e1d0868e85198d43a17ffec7266cdee5a53d5fc797d3f7e0d64e9d76a2ade3cbdcbc0a665e2ee2389f65dfc80591f7d667e9fc981cdbaa848006cbaefe19
+  languageName: node
+  linkType: hard
+
 "abab@npm:^2.0.3, abab@npm:^2.0.5":
   version: 2.0.6
   resolution: "abab@npm:2.0.6"
@@ -11802,6 +11809,7 @@ __metadata:
     "@types/react-dom": ^17.0.0
     "@types/react-loadable": ^5.5.4
     "@types/react-router-dom": ^5.1.7
+    "@vercel/analytics": ^1.0.1
     axios: ^0.21.1
     clipboard: ^2.0.6
     compress.js: ^1.2.2

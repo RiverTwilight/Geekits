@@ -7,6 +7,7 @@ import { store as frameStore } from "@/utils/Data/frameState";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import siteConfig from "../site.config.js";
 import type { AppProps } from "next/app";
+import { Analytics } from "@vercel/analytics/react";
 
 import "./App.css";
 
@@ -72,6 +73,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 					{/**@ts-ignore */}
 					<Component {...pageProps} siteConfig={siteConfig} />
 				</Layout>
+				<Analytics />
 			</Text>
 		</ThemeProvider>
 	);
