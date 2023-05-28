@@ -5,6 +5,7 @@
 /node_modules_bak
 /.pnp
 .pnp.js
+.yarn
 
 # testing
 /coverage
