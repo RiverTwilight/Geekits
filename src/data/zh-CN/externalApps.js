@@ -5,9 +5,10 @@
 const data = [
 	{
 		id: "hellotool",
-		name: "Hello Tool",
+		name: "哈兔 Box",
 		status: "stable",
-		link: "http://hellotool.htm.kim",
+		link: "https://jesse205.netlify.app/hellotool/",
+		icon: "https://jesse205.netlify.app/hellotool/img/logo/rabbit4-wbg.svg",
 		channel: "external",
 	},
 	{
