@@ -128,7 +128,7 @@ export default function Chat() {
 			sx={{
 				width: "100%",
 				// height: "calc(100vh - 80px)",
-				height : '100%',
+				height: '100%',
 				// position: "relative",
 				// overflow: "hidden",
 				display: 'flex',
@@ -180,6 +180,9 @@ export default function Chat() {
 						placement="bottom-start"
 						transition
 						disablePortal
+						sx={{
+							zIndex: 1,
+						}}
 					>
 						{({ TransitionProps, placement }) => (
 							<Grow
