@@ -26,9 +26,11 @@ const Root = styled("div")<{ freeSize?: boolean }>(
 			padding: `${freeSize ? "0" : theme.spacing(2)}`,
 			margin: freeSize ? "unset" : "0 auto",
 			maxWidth: freeSize ? "unset" : "1120px",
+			height: '100%',
 			[`& .${classes.content}`]: {
 				position: "relative",
 				minHeight: "100%",
+				height: '100%',
 				flexGrow: 1,
 				transition: theme.transitions.create("margin", {
 					easing: theme.transitions.easing.sharp,
