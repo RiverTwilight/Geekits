@@ -235,7 +235,7 @@ export default function Chat() {
 							borderRadius: "4px",
 							// maxHeight: "500px",
 							// overflowY: "auto",
-							// pl: 1,
+							pl: 1,
 						}}
 						maxRows={20}
 						multiline
