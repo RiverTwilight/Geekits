@@ -51,7 +51,7 @@ const Bookmark = () => {
 	}, []);
 
 	return (
-		<OutlinedCard>
+		<OutlinedCard padding={1}>
 			<List
 				aria-labelledby="nested-list-subheader"
 				subheader={
