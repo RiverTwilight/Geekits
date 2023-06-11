@@ -229,11 +229,12 @@ export default function Chat() {
 							flex: 1,
 							background: (theme) =>
 								theme.palette.secondary[theme.palette.mode],
-							borderRadius: "5px",
-							maxHeight: "500px",
-							overflowY: "scroll",
-							pl: 1,
+							borderRadius: "4px",
+							// maxHeight: "500px",
+							// overflowY: "auto",
+							// pl: 1,
 						}}
+						maxRows={20}
 						multiline
 						placeholder="Say anything you want..."
 						autoComplete="off"
