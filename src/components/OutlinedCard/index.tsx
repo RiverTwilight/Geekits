@@ -30,6 +30,9 @@ const OutlinedCard = ({
 				{ padding: padding ? `${padding * 10}px` : 0 },
 				style
 			)}
+			sx={{
+				overflow: "hidden",
+			}}
 		>
 			{children}
 		</StyledOutlinedCard>
