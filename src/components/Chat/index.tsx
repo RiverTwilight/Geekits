@@ -84,8 +84,8 @@ const ChatList = ({ history, loading }) => {
 	return (
 		<Box
 			sx={{
-				marginBottom: "10px",
-				paddingBottom: "70px",
+				// marginBottom: "10px",
+				// paddingBottom: "70px",
 				paddingX: 1,
 				"&::-webkit-scrollbar": { display: "none" },
 				overflowY: "scroll",

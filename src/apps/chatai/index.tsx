@@ -129,8 +129,11 @@ export default function Chat() {
 				width: "100%",
 				// height: "calc(100vh - 80px)",
 				height : '100%',
-				position: "relative",
-				overflow: "hidden",
+				// position: "relative",
+				// overflow: "hidden",
+				display: 'flex',
+				flexDirection: 'column',
+				justifyContent: 'flex-end'
 			}}
 		>
 			<ChatList loading={loading} history={history} />
@@ -139,7 +142,8 @@ export default function Chat() {
 					bottom: 10,
 					left: 0,
 					right: 0,
-					position: "absolute",
+					// position: "absolute",
+					position: 'sticky',
 					paddingX: 2,
 					display: "flex",
 					justifyContent: "center",
