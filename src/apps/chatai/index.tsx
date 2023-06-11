@@ -139,7 +139,7 @@ export default function Chat() {
 			<ChatList loading={loading} history={history} />
 			<Box
 				sx={{
-					bottom: 10,
+					bottom: 16,
 					left: 0,
 					right: 0,
 					// position: "absolute",
@@ -147,6 +147,8 @@ export default function Chat() {
 					paddingX: 2,
 					display: "flex",
 					justifyContent: "center",
+					paddingLeft: 0,
+					paddingRight: 0,
 				}}
 			>
 				<Paper
