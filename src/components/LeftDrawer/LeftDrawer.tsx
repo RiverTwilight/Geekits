@@ -12,10 +12,10 @@ import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Alert from "@mui/material/Alert";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import HomeIcon from "@mui/icons-material/Home";
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import SettingsIcon from "@mui/icons-material/Settings";
 import { repo } from "../../site.config";
-import MessageIcon from "@mui/icons-material/Message";
+import MessageOutlinedIcon from '@mui/icons-material/MessageOutlined';
 import GitHubIcon from "@mui/icons-material/GitHub";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import VolunteerActivismOutlinedIcon from "@mui/icons-material/VolunteerActivismOutlined";
@@ -31,7 +31,7 @@ import { styled } from "@mui/material/styles";
 
 const list = [
 	{
-		Icon: <HomeIcon />,
+		Icon: <HomeOutlinedIcon />,
 		text: "首页",
 		href: "/",
 	},
@@ -39,7 +39,7 @@ const list = [
 	// 	text: "<divider />",
 	// },
 	{
-		Icon: <MessageIcon />,
+		Icon: <MessageOutlinedIcon />,
 		text: "反馈",
 		href: "https://support.qq.com/product/421719",
 	},
