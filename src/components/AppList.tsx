@@ -145,11 +145,12 @@ const AppList = ({
 					(app) => app.channel === key
 				);
 				return (
-					<Channel
+					<><Channel
 						info={channelInfo[key]}
 						key={key}
 						apps={channelizedApps}
-					/>
+					/><br /></>
+					
 				);
 			})}
 		</List>

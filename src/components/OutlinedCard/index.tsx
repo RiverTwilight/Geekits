@@ -5,7 +5,12 @@ const StyledOutlinedCard = styled("div")(({ theme }) => ({
 		light: "1.5px solid #e0e0e0",
 		dark: "1.5px solid rgba(255, 255, 255, 0.23)",
 	}[theme.palette.mode],
-	borderRadius: theme.spacing(1),
+	borderRadius: "14px",
+	boxShadow: "1px black",
+	transition: "border-radius 0.5s ease", // Add this line to create the transition effect
+	"&:hover": { // Add this block to define the hover state
+		borderRadius: "5px",
+	},
 }));
 
 const OutlinedCard = ({

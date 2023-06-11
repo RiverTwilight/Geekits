@@ -241,6 +241,7 @@ export default class Decision extends React.Component<{}, ComponentState> {
 				<Box
 					sx={{
 						paddingY: 2,
+						borderRadius: "10px",
 					}}
 					component={Paper}
 					className="center-with-flex"
@@ -253,7 +254,7 @@ export default class Decision extends React.Component<{}, ComponentState> {
 					/>
 				</Box>
 
-				<Box component={Paper} sx={{ padding: "5px", mt: "24px" }}>
+				<Box padding={2} component={Paper} sx={{ mt: "24px" }}>
 					<FormControl fullWidth>
 						<TextField
 							variant="outlined"

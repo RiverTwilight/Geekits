@@ -17,9 +17,12 @@ const Graph = ({ percent = 0.75 }: { percent: number; status: string }) => {
 		<Box
 			sx={{
 				borderRadius: `${R}px`,
-				padding: "1px",
+				border: (theme) =>
+					({
+						light: "3px dashed #e0e0e0",
+						dark: "3px dashed rgba(255, 255, 255, 0.23)",
+					}[theme.palette.mode]),
 			}}
-			component={Paper}
 		>
 			<svg width={R * 2} height={R * 2}>
 				<circle cx={R} cy={R} r={R} fill="transparent" />
