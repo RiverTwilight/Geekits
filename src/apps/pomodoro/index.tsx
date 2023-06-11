@@ -4,6 +4,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Paper from "@mui/material/Paper";
 import LinearProgress from "@mui/material/LinearProgress";
+import adaptiveBorder from "@/utils/adaptiveBorder";
 
 const Graph = ({ percent = 0.75 }: { percent: number; status: string }) => {
 	const R: number = 150;
@@ -17,11 +18,7 @@ const Graph = ({ percent = 0.75 }: { percent: number; status: string }) => {
 		<Box
 			sx={{
 				borderRadius: `${R}px`,
-				border: (theme) =>
-					({
-						light: "3px dashed #e0e0e0",
-						dark: "3px dashed rgba(255, 255, 255, 0.23)",
-					}[theme.palette.mode]),
+				border: (theme) => adaptiveBorder(theme, "dashed"),
 			}}
 		>
 			<svg width={R * 2} height={R * 2}>

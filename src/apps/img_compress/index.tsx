@@ -7,6 +7,8 @@ import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import Compress from "compress.js";
+import adaptiveBorder from "@/utils/adaptiveBorder";
+import Button from "@mui/material/Button/Button";
 
 const Img2Base64: React.FC = (props) => {
 	const [compressedImage, setCompressedImage] = useState(null);
@@ -38,12 +40,13 @@ const Img2Base64: React.FC = (props) => {
 			}}
 		>
 			<Box sx={{ display: "flex", justifyContent: "center" }}>
-				<Card
-					component={Paper}
+				<Box
 					sx={{
-						width: "200px",
+						width: "300px",
 						height: "200px",
 						display: "flex",
+						borderRadius: "26px",
+						border: (theme) => adaptiveBorder(theme, "dashed"),
 						justifyContent: "center",
 					}}
 				>
@@ -60,17 +63,19 @@ const Img2Base64: React.FC = (props) => {
 							handleFileUpload={handleImageChange}
 						></FilePicker>
 					</CardContent>
-				</Card>
+				</Box>
 			</Box>
-			<Box
-				sx={{
-					display: "flex",
-					justifyContent: "center",
-					padding: "40px 20px",
-				}}
-			>
-				<ArrowForwardIcon sx={{ transform: "rotate(90deg)" }} />
-			</Box>
+			{compressedImage && (
+				<Box
+					sx={{
+						display: "flex",
+						justifyContent: "center",
+						padding: "40px 20px",
+					}}
+				>
+					<ArrowForwardIcon sx={{ transform: "rotate(90deg)" }} />
+				</Box>
+			)}
 
 			<Box
 				sx={{
