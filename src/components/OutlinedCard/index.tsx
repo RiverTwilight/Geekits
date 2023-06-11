@@ -18,7 +18,7 @@ const OutlinedCard = ({
 	children?: JSX.Element | JSX.Element[];
 	/**将获得10的倍数 Padding */
 	padding?: number;
-	style: {
+	style?: {
 		[key: string]: string | number;
 	};
 	className?: string;
