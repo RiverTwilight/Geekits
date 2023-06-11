@@ -129,7 +129,7 @@ type SearchState = any;
 
 interface SearchProps {
 	appData: AppData[];
-	classes: any;
+	classes?: any;
 }
 
 class Search extends React.Component<SearchProps, SearchState> {
