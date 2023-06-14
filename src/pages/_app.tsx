@@ -13,7 +13,7 @@ import "./App.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
 	const [dark, setDark] = useState(false);
-	const [framed, setFramed] = useState(true);
+	const [framed, setFramed] = useState<Boolean>(true);
 
 	useEffect(() => {
 		if (localStorage.getItem("dark")) {
@@ -34,6 +34,9 @@ function MyApp({ Component, pageProps }: AppProps) {
 	const theme = useMemo(
 		() =>
 			createTheme({
+				typography: {
+					fontFamily: `"Product Sans", "Roboto", "Helvetica", "Arial", sans-serif`,
+				},
 				palette: {
 					mode: prefersDarkMode ? "dark" : "light",
 					primary: {

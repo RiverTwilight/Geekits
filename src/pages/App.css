@@ -1,3 +1,13 @@
+@font-face {
+	font-family: "Product Sans Bold";
+	src: url(/font/Product-Sans-Bold.ttf);
+}
+
+@font-face {
+	font-family: "Product Sans";
+	src: url(/font/Product-Sans-Regular.ttf);
+}
+
 .clearfix:after {
 	content: "";
 	display: table;

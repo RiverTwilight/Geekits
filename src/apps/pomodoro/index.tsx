@@ -1,12 +1,15 @@
 import React from "react";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import Paper from "@mui/material/Paper";
 import LinearProgress from "@mui/material/LinearProgress";
 import adaptiveBorder from "@/utils/adaptiveBorder";
+import { styled } from "@mui/material/styles";
+import Button, { ButtonProps } from "@mui/material/Button";
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+import DeleteIcon from '@mui/icons-material/Delete';
 
-const Graph = ({ percent = 0.75 }: { percent: number; status: string }) => {
+const Graph = ({ percent = 0.75 }: { percent: number; status: string }): JSX.Element => {
 	const R: number = 150;
 
 	const arc = {
@@ -18,7 +21,7 @@ const Graph = ({ percent = 0.75 }: { percent: number; status: string }) => {
 		<Box
 			sx={{
 				borderRadius: `${R}px`,
-				border: (theme) => adaptiveBorder(theme, "dashed"),
+				border: (theme) => adaptiveBorder(theme, "solid", "5px"),
 			}}
 		>
 			<svg width={R * 2} height={R * 2}>
@@ -44,6 +47,16 @@ const Graph = ({ percent = 0.75 }: { percent: number; status: string }) => {
 		</Box>
 	);
 };
+
+const BUTTON_SIZE = "80px";
+
+const RoundButton = styled(Button)<ButtonProps>(({ theme }) => ({
+	height: BUTTON_SIZE,
+	width: BUTTON_SIZE,
+	borderRadius: "50%",
+	background: theme.palette.primary.main,
+	color: theme.palette.primary.contrastText,
+}));
 
 interface recordItem {
 	name: string;
@@ -131,10 +144,15 @@ const Record = ({ closeBottomAlert }: { closeBottomAlert: () => void }) => {
 
 type TomatoClockState = any;
 
-const formatTime = (time: number) => {
+const formatTime = (time: number, useString?: string): any => {
 	const min = Math.floor(time / 60);
 	const sec = time % 60;
-	return `${min < 10 ? "0" + min : min}:${sec < 10 ? "0" + sec : sec}`;
+	if (useString)
+		return `${min < 10 ? "0" + min : min}:${sec < 10 ? "0" + sec : sec}`;
+	return {
+		min,
+		sec,
+	};
 };
 
 enum StatusSet {
@@ -204,7 +222,7 @@ export default class Pomodoro extends React.Component<
 					);
 				}
 			} else if (status === StatusSet.work) {
-				document.title = `${formatTime(restSeconds)} | ${
+				document.title = `${formatTime(restSeconds, true)} | ${
 					this.state.originTitle
 				}`;
 				this.setState({
@@ -271,26 +289,38 @@ export default class Pomodoro extends React.Component<
 							}
 							status={status}
 						/>
+						<Box
+							sx={{
+								position: "absolute",
+								top: "123px",
+							}}
+						>
+							<Typography sx={{
+								fontFamily: "Product Sans"
+							}} align="right" variant="h2">
+								{formatTime(restSeconds, true)}
+							</Typography>
+						</Box>
 					</Box>
 
 					<br></br>
 
-					<Typography align="center" variant="h3">
-						{formatTime(restSeconds)}
-					</Typography>
-
 					<br></br>
 
 					{status == StatusSet.sleep && (
-						<Button onClick={this.startATomato} variant="contained">
-							开始
-						</Button>
+						<Box sx={{ display: "flex", justifyContent: "center" }}>
+							<RoundButton onClick={this.startATomato}>
+								<PlayArrowIcon />
+							</RoundButton>
+						</Box>
 					)}
 
 					{status === StatusSet.work && (
-						<Button onClick={this.abandonTomato} variant="outlined">
-							放弃
-						</Button>
+						<Box sx={{ display: "flex", justifyContent: "center" }}>
+							<RoundButton onClick={this.abandonTomato}>
+								<DeleteIcon />
+							</RoundButton>
+						</Box>
 					)}
 				</Box>
 			</>
