@@ -8,8 +8,10 @@ import ClickAwayListener from "@mui/material/ClickAwayListener";
 import MenuIcon from "@mui/icons-material/Menu";
 import Popper from "@mui/material/Popper";
 import MenuItem from "@mui/material/MenuItem";
+import Divider from "@mui/material/Divider";
 import MenuList from "@mui/material/MenuList";
 import Grow from "@mui/material/Grow";
+import SendIcon from "@mui/icons-material/Send";
 import IconButton from "@mui/material/IconButton";
 import axios from "@/utils/axios";
 import useInput from "@/utils/Hooks/useInput";
@@ -35,6 +37,7 @@ export default function Chat() {
 		}[]
 	>([]);
 	const [input, setInput] = useInput<String>("");
+	const [focus, setFocus] = useState<Boolean>(false);
 	const [loading, setLoading] = useState<Boolean>(false);
 	const [open, setOpen] = useState(false);
 	const anchorRef = useRef<HTMLButtonElement>(null);
@@ -144,7 +147,7 @@ export default function Chat() {
 					justifyContent: "center",
 				}}
 			>
-				<Paper
+				<Box
 					component="form"
 					sx={{
 						p: "6px 4px",
@@ -154,18 +157,30 @@ export default function Chat() {
 						width: "100%",
 					}}
 				>
-					<IconButton
-						ref={anchorRef}
-						id="composition-button"
-						aria-controls={open ? "composition-menu" : undefined}
-						aria-expanded={open ? "true" : undefined}
-						aria-haspopup="true"
-						onClick={handleToggle}
-						sx={{ p: "10px" }}
-						aria-label="menu"
+					<Box
+						sx={{
+							display: "flex",
+							flexDirection: "column",
+							justifyContent: "center",
+							height: "100%",
+						}}
 					>
-						<MenuIcon />
-					</IconButton>
+						<IconButton
+							ref={anchorRef}
+							id="composition-button"
+							aria-controls={
+								open ? "composition-menu" : undefined
+							}
+							aria-expanded={open ? "true" : undefined}
+							aria-haspopup="true"
+							onClick={handleToggle}
+							sx={{ p: "10px" }}
+							aria-label="menu"
+						>
+							<MenuIcon />
+						</IconButton>
+					</Box>
+
 					<Popper
 						open={open}
 						anchorEl={anchorRef.current}
@@ -194,6 +209,10 @@ export default function Chat() {
 											aria-labelledby="composition-button"
 											onKeyDown={handleListKeyDown}
 										>
+											<MenuItem onClick={(e) => {}}>
+												设置
+											</MenuItem>
+											<Divider />
 											{PRESETS.map((preset) => {
 												return (
 													<MenuItem
@@ -219,34 +238,48 @@ export default function Chat() {
 						sx={{
 							ml: 1,
 							mr: 1,
+							px: 2,
 							flex: 1,
-							background: (theme) =>
-								theme.palette.secondary[theme.palette.mode],
-							borderRadius: "5px",
-							maxHeight: "500px",
+							height: "58px",
+							borderRadius: "29px",
+							border: (theme) =>
+								`2px solid ${focus ? theme.palette.primary.main : "#888"}}`,
 							overflowY: "scroll",
-							pl: 1,
+							"&::-webkit-scrollbar": {
+								display: "none",
+							},
+							"-ms-overflow-style": "none" /* IE and Edge */,
+							"scrollbar-width": "none" /* Firefox */,
 						}}
-						multiline
 						placeholder="Say anything you want..."
 						autoComplete="off"
 						aria-label="Type what you want to ask here"
 						value={input}
 						onChange={setInput}
+						onFocus={() => setFocus(true)}
+						onBlur={() => setFocus(false)}
 						inputProps={{ "aria-label": "Say something" }}
 					/>
-					<IconButton
+					<Box
 						sx={{
-							backgroundColor: (theme) =>
-								theme.palette.primary.main,
+							display: "flex",
+							flexDirection: "column",
+							justifyContent: "center",
+							height: "100%",
 						}}
-						size="small"
-						disabled={input === ""}
-						onClick={handleSend}
 					>
-						<ArrowUpwardIcon />
-					</IconButton>
-				</Paper>
+						<IconButton
+							sx={{
+								color: (theme) => theme.palette.primary.main,
+							}}
+							size="small"
+							disabled={input === ""}
+							onClick={handleSend}
+						>
+							<SendIcon />
+						</IconButton>
+					</Box>
+				</Box>
 			</Box>
 		</Box>
 	);
