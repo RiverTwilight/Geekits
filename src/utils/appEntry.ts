@@ -69,6 +69,9 @@ const appImportList: Record<string, ComponentType> = {
 	),
 	num2roman: dynamic(() => import("../apps/num2roman"), {
 		ssr: false,
+	}),
+	grid_splitter: dynamic(() => import("../apps/grid_splitter"), {
+		ssr: false,
 	})
 };
 

@@ -58,6 +58,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 		},
 		locale = "zh-CN",
 		menuItems = [],
+		hideFrame,
 	} = pageProps;
 
 	return (
@@ -66,17 +67,23 @@ function MyApp({ Component, pageProps }: AppProps) {
 				dictionary={pageProps.dic ? JSON.parse(pageProps.dic) : {}}
 				language={locale}
 			>
-				<Layout
-					enableFrame={framed}
-					siteConfig={siteConfig}
-					locale={locale}
-					currentPage={currentPage}
-					menuItems={menuItems}
-				>
-					{/**@ts-ignore */}
+				{hideFrame ? (
 					<Component {...pageProps} siteConfig={siteConfig} />
-				</Layout>
-				<Analytics />
+				) : (
+					<>
+						<Layout
+							enableFrame={framed}
+							siteConfig={siteConfig}
+							locale={locale}
+							currentPage={currentPage}
+							menuItems={menuItems}
+						>
+							{/**@ts-ignore */}
+							<Component {...pageProps} siteConfig={siteConfig} />
+						</Layout>
+						<Analytics />
+					</>
+				)}
 			</Text>
 		</ThemeProvider>
 	);

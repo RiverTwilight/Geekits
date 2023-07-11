@@ -1,66 +1,85 @@
 import React from "react";
-import Cropper from "react-cropper";
-import Button from "@material-ui/core/Button";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import CloseIcon from "@mui/icons-material/Close";
+import IconButton from "@mui/material/IconButton";
 import FilePicker from "@/components/FilePicker";
 import JSZip from "jszip";
-import { dataURLtoFile, saveFile } from "../../utils/fileSaver";
+import { dataURLtoFile, saveFile } from "@/utils/fileSaver";
 import splitToNineGrids from "./api";
-import "cropperjs/dist/cropper.css";
+import FileField from "@/components/FileField";
 
-type ImgCropperState = any;
+import Card from "@mui/material/Card";
+import Grid from "@mui/material/Grid";
+import CardMedia from "@mui/material/CardMedia";
+import Slide from "@mui/material/Slide";
+import { TransitionProps } from "@mui/material/transitions";
 
-class ImgCropper extends React.Component<{}, ImgCropperState> {
-	constructor(props: {}) {
-		super(props);
-		this.state = {};
-	}
-	_crop() {
-		// @ts-expect-error ts-migrate(2339) FIXME: Property 'getCroppedCanvas' does not exist on type... Remove this comment to see the full error message
-		var img = this.refs.cropper.getCroppedCanvas().toDataURL();
-		// @ts-expect-error ts-migrate(2339) FIXME: Property 'onCropperChange' does not exist on type ... Remove this comment to see the full error message
-		this.props.onCropperChange(img);
-	}
-	render() {
-		// @ts-expect-error ts-migrate(2339) FIXME: Property 'ifHide' does not exist on type 'Readonly... Remove this comment to see the full error message
-		console.log(this.props.ifHide);
-		// @ts-expect-error ts-migrate(2339) FIXME: Property 'ifHide' does not exist on type 'Readonly... Remove this comment to see the full error message
-		if (this.props.ifHide) return null;
-		return (
-			<Cropper
-				ref="cropper"
-				// @ts-expect-error ts-migrate(2339) FIXME: Property 'file' does not exist on type 'Readonly<{... Remove this comment to see the full error message
-				src={this.props.file}
-				style={{ height: 400, width: "100%" }}
-				aspectRatio={1 / 1}
-				guides={true}
-				crop={this._crop.bind(this)}
-			/>
-		);
-	}
-}
+const Transition = React.forwardRef(function Transition(
+	props: TransitionProps & {
+		children: React.ReactElement;
+	},
+	ref: React.Ref<unknown>
+) {
+	return <Slide direction="up" ref={ref} {...props} />;
+});
 
-const Gallary = ({ res }: { res: any[] }) => {
+const Gallery = ({ res }: { res: string[] }) => {
 	if (!res.length) return null;
 	return (
-		<div className="mdui-row-xs-3 mdui-grid-list">
+		<Grid container spacing={3}>
 			{res.map((a, i) => (
-				<div key={i} className="mdui-col">
-					<div className="mdui-grid-tile">
-						<img alt={`第${i}张照片`} src={a} />
-					</div>
-				</div>
+				<Grid item xs={4} key={i}>
+					<Card>
+						<CardMedia
+							component="img"
+							alt={`第${i}张照片`}
+							image={a}
+						/>
+					</Card>
+				</Grid>
 			))}
-		</div>
+		</Grid>
 	);
 };
 
 type UiState = any;
 
-const MicroCropper = () => {
+const MicroCropper = ({ file, onCropperChange }) => {
+	const iframeRef = React.useRef(null);
+
+	React.useEffect(() => {
+		const receiveMessage = (event) => {
+			// if (event.origin !== "http://your-iframe-origin.com")
+			// 	return;
+			if (event.data === "ready") {
+				iframeRef.current.contentWindow.postMessage(file, "*");
+			} else {
+				onCropperChange(event.data);
+			}
+		};
+
+		window.addEventListener("message", receiveMessage, false);
+
+		return () => window.removeEventListener("message", receiveMessage);
+	}, [file, onCropperChange]);
+
 	return (
-		<>
-			<iframe src="/_micro/Cropper"></iframe>
-		</>
+		<iframe
+			ref={iframeRef}
+			style={{
+				border: "none",
+				width: "100%",
+				height: "100%",
+				overflow: "hidden",
+				display: "block",
+			}}
+			src="/_micro/Cropper"
+		></iframe>
 	);
 };
 
@@ -71,14 +90,14 @@ class ImgSplit extends React.Component<{}, UiState> {
 			file: null,
 			res: [],
 			cropperCache: null,
-			ifHideCropper: true,
+			dialogOpen: false,
 		};
 	}
+
 	generate = () => {
 		splitToNineGrids(this.state.cropperCache, (res) => {
 			this.setState({
-				res: res,
-				ifHideCropper: true,
+				res,
 			});
 			var zip = new JSZip();
 			res.map((img: string, i: number) => {
@@ -95,35 +114,82 @@ class ImgSplit extends React.Component<{}, UiState> {
 			});
 		});
 	};
+
+	handleClose = () => {
+		this.setState({
+			dialogOpen: false,
+		});
+	};
+
+	handleConfirm = () => {
+		this.handleClose();
+		this.setState({
+			res: this.generate(),
+		});
+	};
+
 	render() {
-		const { file, ifHideCropper } = this.state;
+		const { file, dialogOpen, res } = this.state;
 		return (
 			<>
-				<FilePicker
-					readByDrag
-					fileType="image/*"
-					handleFileUpload={(file) => {
-						this.setState({
-							file,
-						});
-					}}
-				></FilePicker>
+				<Box sx={{ display: "flex", justifyContent: "center" }}>
+					<FileField>
+						<FilePicker
+							readByDrag
+							fileType="image/*"
+							handleFileUpload={(file) => {
+								this.setState({
+									file,
+									dialogOpen: true,
+								});
+							}}
+						></FilePicker>
+					</FileField>
+				</Box>
 				<Button
 					disabled={file === null}
 					onClick={this.generate}
 					title="确定"
 				/>
 				<br></br>
-				<MicroCropper />
-				{/* <ImgCropper
-					ifHide={ifHideCropper}
-					onCropperChange={(newImg) => {
-						this.setState({ cropperCache: newImg });
-					}}
-					file={file}
-				/> */}
+				<Dialog fullScreen open={dialogOpen}>
+					<AppBar sx={{ position: "relative" }}>
+						<Toolbar>
+							<IconButton
+								edge="start"
+								color="inherit"
+								onClick={this.handleClose}
+								aria-label="close"
+							>
+								<CloseIcon />
+							</IconButton>
+							<Typography
+								sx={{ ml: 2, flex: 1 }}
+								variant="h6"
+								component="div"
+							>
+								Sound
+							</Typography>
+							<Button
+								autoFocus
+								color="inherit"
+								onClick={this.handleConfirm}
+							>
+								使用照片
+							</Button>
+						</Toolbar>
+					</AppBar>
+					<MicroCropper
+						file={file}
+						onCropperChange={(newImg) => {
+							this.setState({
+								cropperCache: newImg,
+							});
+						}}
+					/>
+				</Dialog>
 				<br></br>
-				<Gallary res={this.state.res} />
+				{res && <Gallery res={res} />}
 			</>
 		);
 	}
