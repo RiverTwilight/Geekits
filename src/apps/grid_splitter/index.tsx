@@ -101,7 +101,7 @@ class ImgSplit extends React.Component<{}, UiState> {
 			this.setState({
 				res,
 			});
-			var zip = new JSZip();
+			const zip = new JSZip();
 			res.map((img: string, i: number) => {
 				zip.file(i + 1 + ".png", dataURLtoFile(img, i + 1 + ".png"));
 			});

@@ -34,7 +34,7 @@ name: "日期&时间计算"
 status: "stable"
 icon: "/icon/Google_Calendar_icon_(2020).svg"
 description: "计算两个日期间隔的天数和时间，或推算几天前后是哪一天，可以算算你活了多久 :)"
-channel: 4
+channel: life
 freeSize: true
 ---
 
@@ -53,7 +53,7 @@ freeSize: true
 | status      | string  | 工具状态，可选值为`stable`、`beta`、`alpha` | 是       |
 | icon        | string  | 工具图标，可选值为`/icon/xxx.svg`           | 是       |
 | description | string  | 工具描述                                    | 是       |
-| channel     | number  | 工具所属频道，可选值为`1`、`2`、`3`、`4`    | 是       |
+| channel     | number  | 工具所属频道，可选值为`life`、`ai`、`media`、`4`    | 是       |
 | freeSize    | boolean | 消除默认的居中样式                          | 否       |
 
 其中 channel 代表分类，可选值如下：

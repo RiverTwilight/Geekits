@@ -32,9 +32,10 @@ const getAppDoc = (appId: string): string => {
 const allAppsContext = require.context("../apps", true, /(zh-CN\.md)$/);
 
 const getAllApps = (includeExternal?: boolean): AppData[] => {
+	console.log(allAppsContext.keys())
 	const allApps = allAppsContext
 		.keys()
-		.slice(0, (allAppsContext.keys().length - 1) / 2)
+		.slice(0, (allAppsContext.keys().length) / 2)
 		.map((key) => {
 			const appId = key.split("/")[1];
 			return { id: appId, ...getAppConfig(appId) };
