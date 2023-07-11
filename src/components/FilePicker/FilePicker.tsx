@@ -32,7 +32,7 @@ interface FRProps
 	 */
 	title?: string;
 	/** 是否监听拖拽文件事件 */
-	readByDrag?: boolean;
+	enableDrag?: boolean;
 	children?: React.ReactNode;
 }
 
@@ -67,14 +67,14 @@ class FilePicker extends React.Component<FRProps, FRState> {
 				webkitdirectory: true,
 			});
 		}
-		this.props.readByDrag &&
+		this.props.enableDrag &&
 			signListener(
 				() => {},
 				(e: any) => this.handleReadFile(null, e)
 			);
 	}
 	componentWillUnmount() {
-		this.props.readByDrag && removeListener();
+		this.props.enableDrag && removeListener();
 	}
 	handleReadFile = (inputEvent?: any, dragEvent?: any) => {
 		if (!inputEvent && !dragEvent) return null;
@@ -124,6 +124,7 @@ class FilePicker extends React.Component<FRProps, FRState> {
 			maxWidth = "120px",
 			children,
 			template,
+			enableDrag,
 			...props
 		} = this.props;
 

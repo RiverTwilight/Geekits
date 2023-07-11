@@ -43,7 +43,7 @@ const Img2Base64: React.FC = (props) => {
 			<Box sx={{ display: "flex", justifyContent: "center" }}>
 				<FileField>
 					<FilePicker
-						readByDrag
+						enableDrag
 						fileType="image/*"
 						handleFileUpload={handleImageChange}
 					></FilePicker>

@@ -3,6 +3,7 @@ import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
 import { GetStaticProps } from "next";
 import translator from "@/utils/translator";
+import { isSameOrigin } from "@/utils/checkOrigin";
 
 export const getStaticProps: GetStaticProps = ({ locale }) => {
 	const dic = require("../../data/i18n.json");
@@ -28,10 +29,9 @@ export default function FramedCropper() {
 	const [imgSrc, setImgSrc] = React.useState(null);
 
 	useEffect(() => {
-		// Listen for message from the parent window
+
 		const receiveMessage = (event) => {
-			// if (event.origin !== "http://your-parent-window-origin.com")
-			//     return;
+			if (!isSameOrigin(event.origin))  return;
 			setImgSrc(event.data);
 		};
 

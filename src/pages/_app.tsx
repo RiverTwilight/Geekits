@@ -11,7 +11,7 @@ import { Analytics } from "@vercel/analytics/react";
 
 import "./App.css";
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MainApp({ Component, pageProps }: AppProps) {
 	const [dark, setDark] = useState(false);
 	const [framed, setFramed] = useState<Boolean>(true);
 
@@ -103,4 +103,4 @@ function MyApp({ Component, pageProps }: AppProps) {
 //     return { ...appProps };
 // };
 
-export default MyApp;
+export default MainApp;

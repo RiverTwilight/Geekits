@@ -1,23 +1,25 @@
+import JSZip from "jszip";
 import React from "react";
-import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
+
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Card from "@mui/material/Card";
+import CardMedia from "@mui/material/CardMedia";
+import CloseIcon from "@mui/icons-material/Close";
+import Dialog from "@mui/material/Dialog";
+import Grid from "@mui/material/Grid";
+import IconButton from "@mui/material/IconButton";
+import Slide from "@mui/material/Slide";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import CloseIcon from "@mui/icons-material/Close";
-import IconButton from "@mui/material/IconButton";
-import FilePicker from "@/components/FilePicker";
-import JSZip from "jszip";
-import { dataURLtoFile, saveFile } from "@/utils/fileSaver";
-import splitToNineGrids from "./api";
-import FileField from "@/components/FileField";
-
-import Card from "@mui/material/Card";
-import Grid from "@mui/material/Grid";
-import CardMedia from "@mui/material/CardMedia";
-import Slide from "@mui/material/Slide";
 import { TransitionProps } from "@mui/material/transitions";
+
+import FileField from "@/components/FileField";
+import FilePicker from "@/components/FilePicker";
+import { dataURLtoFile, saveFile } from "@/utils/fileSaver";
+import { isSameOrigin } from "@/utils/checkOrigin";
+import splitToNineGrids from "./api";
 
 const Transition = React.forwardRef(function Transition(
 	props: TransitionProps & {
@@ -54,8 +56,8 @@ const MicroCropper = ({ file, onCropperChange }) => {
 
 	React.useEffect(() => {
 		const receiveMessage = (event) => {
-			// if (event.origin !== "http://your-iframe-origin.com")
-			// 	return;
+			if (!isSameOrigin(event.origin)) return;
+
 			if (event.data === "ready") {
 				iframeRef.current.contentWindow.postMessage(file, "*");
 			} else {
@@ -135,7 +137,7 @@ class ImgSplit extends React.Component<{}, UiState> {
 				<Box sx={{ display: "flex", justifyContent: "center" }}>
 					<FileField>
 						<FilePicker
-							readByDrag
+							enableDrag={true}
 							fileType="image/*"
 							handleFileUpload={(file) => {
 								this.setState({
@@ -152,7 +154,11 @@ class ImgSplit extends React.Component<{}, UiState> {
 					title="确定"
 				/>
 				<br></br>
-				<Dialog fullScreen open={dialogOpen}>
+				<Dialog
+					TransitionComponent={Transition}
+					fullScreen
+					open={dialogOpen}
+				>
 					<AppBar sx={{ position: "relative" }}>
 						<Toolbar>
 							<IconButton
@@ -168,7 +174,7 @@ class ImgSplit extends React.Component<{}, UiState> {
 								variant="h6"
 								component="div"
 							>
-								Sound
+								裁剪
 							</Typography>
 							<Button
 								autoFocus
