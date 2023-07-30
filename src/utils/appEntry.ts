@@ -28,6 +28,9 @@ const appImportList: Record<string, ComponentType> = {
 	screen_recorder: dynamic(() => import("../apps/screen_recorder"), {
 		ssr: false,
 	}),
+	icon_slasher: dynamic(() => import("../apps/icon_slasher"), {
+		ssr: false,
+	}),
 	pomodoro: dynamic(() => import("../apps/pomodoro"), {
 		ssr: false,
 	}),
