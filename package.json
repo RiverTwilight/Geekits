@@ -52,7 +52,7 @@
 		"next": "13.1.1",
 		"next-pwa": "^5.6.0",
 		"openai": "^3.1.0",
-		"postcss": "^8.3.6",
+		"postcss": "^8.4.31",
 		"prisma": "^4.0.0",
 		"qrcode": "^1.4.4",
 		"raw-loader": "^4.0.1",
