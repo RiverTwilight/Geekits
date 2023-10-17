@@ -6,6 +6,8 @@
 
 <h1 align="center">YgkTool</h1>
 
+[简体中文](./README.md) | **English**
+
 [![Release](https://img.shields.io/github/release/rivertwilight/ygktool.svg)](https://github.com/rivertwilight/ygktool/releases)
 [![License](https://img.shields.io/github/license/rivertwilight/ygktool.svg)](https://github.com/rivertwilight/ygktool/blob/master/LICENSE)
 [![Stars](https://img.shields.io/github/stars/rivertwilight/ygktool)](https://github.com/rivertwilight/ygktool)

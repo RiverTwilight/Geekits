@@ -6,6 +6,8 @@
 
 <h1 align="center">云极客工具</h1>
 
+**简体中文** | [English](./README.en.md)
+
 [![Release](https://img.shields.io/github/release/rivertwilight/ygktool.svg)](https://github.com/rivertwilight/ygktool/releases)
 [![License](https://img.shields.io/github/license/rivertwilight/ygktool.svg)](https://github.com/rivertwilight/ygktool/blob/master/LICENSE)
 [![Stars](https://img.shields.io/github/stars/rivertwilight/ygktool)](https://github.com/rivertwilight/ygktool)
