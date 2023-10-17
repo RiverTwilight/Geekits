@@ -16,7 +16,7 @@ $ yarn
 $ yarn run dev
 ```
 
-项目启动后，在浏览器中打开 <http://127.0.0.1:3000> 即可。
+项目启动后，在浏览器中打开 http://127.0.0.1:3000 即可。
 
 ## 添加一个工具
 
@@ -54,7 +54,7 @@ freeSize: true
 
 其中 channel 代表分类，可选值如下：
 
-- 4: 生活常用
+-   4: 生活常用
 
 接着，在[appEntry.ts](/src/utils/appEntry.ts)中，根据已有的示例，添加引入函数。完成。
 
@@ -68,9 +68,9 @@ freeSize: true
 
 目前需要翻译的语言有：
 
-- 繁体中文（香港）
-- English
-- Francis
+-   繁体中文（香港）
+-   English
+-   Francis
 
 ## 提交新设计
 
