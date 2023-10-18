@@ -6,6 +6,8 @@
 
 <h1 align="center">云极客工具</h1>
 
+**简体中文** | [English](./README.en.md)
+
 [![Release](https://img.shields.io/github/release/rivertwilight/ygktool.svg)](https://github.com/rivertwilight/ygktool/releases)
 [![License](https://img.shields.io/github/license/rivertwilight/ygktool.svg)](https://github.com/rivertwilight/ygktool/blob/master/LICENSE)
 [![Stars](https://img.shields.io/github/stars/rivertwilight/ygktool)](https://github.com/rivertwilight/ygktool)
@@ -14,7 +16,7 @@
 
 </div>
 
-一个渐进式在线工具网站，是由 MUI , Typescript , NextJS 等许多爱意构建成的.
+一个渐进式在线工具网站，是由 MUI , Typescript , NextJS 等许多爱意构建成的。
 
 我们希望把她打造成一个精美但简约、实用又简单、强大且高效的在线工具箱。
 
