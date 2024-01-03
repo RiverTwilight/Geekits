@@ -242,6 +242,7 @@ const LeftDrawer = (props: IProps) => {
 					"& .MuiDrawer-paper": {
 						boxSizing: "border-box",
 						width: drawerWidth,
+						background: (theme) => theme.palette.background.default,
 					},
 					zIndex: (theme) => theme.zIndex.drawer + 2,
 				}}
@@ -252,13 +253,13 @@ const LeftDrawer = (props: IProps) => {
 				variant="permanent"
 				sx={{
 					zIndex: (theme) => theme.zIndex.drawer,
-
 					display: { xs: "none", sm: "block" },
 					"& .MuiDrawer-paper": {
 						boxSizing: "border-box",
 						borderRight: "none",
 						width: drawerWidth,
 						marginTop: "70px",
+						background: (theme) => theme.palette.background.default,
 					},
 				}}
 				open

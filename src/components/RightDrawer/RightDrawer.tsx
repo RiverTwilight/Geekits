@@ -32,6 +32,7 @@ const RightDrawer: React.FC<{
 					"& .MuiDrawer-paper": {
 						boxSizing: "border-box",
 						width: drawerWidth,
+						background: (theme) => theme.palette.background.default,
 					},
 				}}
 			>
@@ -47,6 +48,7 @@ const RightDrawer: React.FC<{
 						width: drawerWidth,
 						marginTop: "64px",
 						borderLeft: "none",
+						background: (theme) => theme.palette.background.default,
 					},
 				}}
 				open={open}

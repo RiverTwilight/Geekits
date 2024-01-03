@@ -55,7 +55,7 @@ const Bookmark = () => {
 			<List
 				aria-labelledby="nested-list-subheader"
 				subheader={
-					<ListSubheader component="div" id="nested-list-subheader">
+					<ListSubheader sx={{background: "unset"}} component="div" id="nested-list-subheader">
 						收藏
 					</ListSubheader>
 				}

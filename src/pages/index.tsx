@@ -48,10 +48,12 @@ export default function Index({ appData, setAction }: any) {
 		<Box
 			sx={{
 				flexGrow: 1,
-				maxWidth: "1400px",
-				margin: "0 auto",
-				paddingX: 2,
-				paddingBottom: 10,
+				maxWidth: "1500px",
+				// margin: "0 auto",
+				paddingX: 4,
+				paddingY: 3,
+				background: (theme) => theme.palette.background.paper,
+				borderRadius: "24px",
 			}}
 		>
 			<Grid container direction="row-reverse" spacing={1}>

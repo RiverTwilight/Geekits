@@ -23,12 +23,15 @@ const classes = {
 const Root = styled("div")<{ freeSize?: boolean }>(
 	({ theme }) =>
 		({ freeSize }) => ({
-			padding: `${freeSize ? "0" : theme.spacing(2)}`,
+			paddingX: `${freeSize ? "0" : theme.spacing(2)}`,
 			margin: freeSize ? "unset" : "0 auto",
-			maxWidth: freeSize ? "unset" : "1120px",
+			// maxWidth: freeSize ? "unset" : "1120px",
 			[`& .${classes.content}`]: {
 				position: "relative",
-				minHeight: "100%",
+				minHeight: "calc(100vh - 56px - 12px)",
+				borderRadius: "24px",
+				background: theme.palette.background.paper,
+				padding: freeSize ? "0" : "30px",
 				flexGrow: 1,
 				transition: theme.transitions.create("margin", {
 					easing: theme.transitions.easing.sharp,
@@ -83,6 +86,9 @@ export const getStaticProps: GetStaticProps = ({
 	};
 };
 
+/**
+ * Universal App Container
+ */
 class AppContainer extends React.Component<any, any> {
 	constructor(props: any) {
 		super(props);

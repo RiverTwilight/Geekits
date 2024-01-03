@@ -112,7 +112,7 @@ const Channel = ({
 			)}
 			{/* <Collapse in={open} timeout="auto" unmountOnExit> */}
 			<List component="div" disablePadding>
-				<Grid container spacing={1}>
+				<Grid container spacing={2}>
 					{apps.map((app) => (
 						<Grid key={app.id} item sm={6} xl={4} xs={12}>
 							<AppListItem {...app} />

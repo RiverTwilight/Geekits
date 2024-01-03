@@ -48,7 +48,11 @@ export default (props: { title: string; PageAction }) => {
 					// mr: { sm: `${rightDrawerWidth}px` },
 				}}
 			>
-				<Toolbar>
+				<Toolbar
+					sx={{
+						bgcolor: (theme) => theme.palette.background.default,
+					}}
+				>
 					<IconButton
 						color="inherit"
 						aria-label="open drawer"
@@ -67,7 +71,9 @@ export default (props: { title: string; PageAction }) => {
 							alignItems: "center",
 						}}
 					>
-						<ListItem sx={{ display: { xs: "none", sm: "inherit" } }}>
+						<ListItem
+							sx={{ display: { xs: "none", sm: "inherit" } }}
+						>
 							<ListItemAvatar>
 								<Avatar
 									alt="Cindy Baker"

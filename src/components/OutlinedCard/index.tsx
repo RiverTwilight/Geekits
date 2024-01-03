@@ -1,16 +1,17 @@
 import { styled } from "@mui/material/styles";
 
 const StyledOutlinedCard = styled("div")(({ theme }) => ({
-	border: {
-		light: "1.5px solid #e0e0e0",
-		dark: "1.5px solid rgba(255, 255, 255, 0.23)",
-	}[theme.palette.mode],
-	borderRadius: "14px",
+	// border: {
+	// 	light: "1.5px solid #e0e0e0",
+	// 	dark: "1.5px solid rgba(255, 255, 255, 0.23)",
+	// }[theme.palette.mode],
+	borderRadius: "24px",
 	boxShadow: "1px black",
 	transition: "border-radius 0.5s ease", // Add this line to create the transition effect
-	"&:hover": { // Add this block to define the hover state
-		borderRadius: "5px",
-	},
+	// "&:hover": { // Add this block to define the hover state
+	// 	borderRadius: "5px",
+	// },
+	background: theme.palette.background.default,
 }));
 
 const OutlinedCard = ({

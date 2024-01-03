@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import StyledMarkdown from ".//StyledMarkdown";
-import { DialogTitle, DialogContent, DialogActions } from "@mui/material";
+import { DialogTitle, DialogContent, DialogActions, Box } from "@mui/material";
 import { Button } from "@mui/material";
 import OutlinedCard from "./OutlinedCard";
 import axios from "../utils/axios";
@@ -44,7 +44,7 @@ export default function Board() {
 	};
 
 	return (
-		<OutlinedCard style={{ maxWidth: "500px" }}>
+		<Box style={{ maxWidth: "500px" }}>
 			<DialogTitle>公告</DialogTitle>
 			<DialogContent>
 				<StyledMarkdown content={notice.content} />
@@ -52,6 +52,6 @@ export default function Board() {
 			<DialogActions>
 				<Button onClick={handleConfirm}>不再显示</Button>
 			</DialogActions>
-		</OutlinedCard>
+		</Box>
 	);
 }
