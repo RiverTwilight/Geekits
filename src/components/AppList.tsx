@@ -134,23 +134,25 @@ const AppList = ({
 	return (
 		<List
 			aria-labelledby="nested-list-subheader"
-			subheader={
-				<ListSubheader component="div" id="nested-list-subheader">
-					所有工具
-				</ListSubheader>
-			}
+			// subheader={
+			// 	<ListSubheader component="div" id="nested-list-subheader">
+			// 		所有工具
+			// 	</ListSubheader>
+			// }
 		>
 			{Object.keys(channelInfo).map((key) => {
 				let channelizedApps = appData.filter(
 					(app) => app.channel === key
 				);
 				return (
-					<><Channel
-						info={channelInfo[key]}
-						key={key}
-						apps={channelizedApps}
-					/><br /></>
-					
+					<>
+						<Channel
+							info={channelInfo[key]}
+							key={key}
+							apps={channelizedApps}
+						/>
+						<br />
+					</>
 				);
 			})}
 		</List>

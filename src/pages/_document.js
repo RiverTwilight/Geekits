@@ -99,7 +99,7 @@ class MyDocument extends Document {
 					<link rel="icon" href="/logo/v2/favicon.ico" />
 					<link rel="manifest" href="/manifest.json" />
 
-					<meta name="theme-color" content="#FFFFFF" />
+					<meta name="theme-color" content="#f0f4f9" />
 					<meta name="renderer" content="webkit" />
 					<meta name="force-rendering" content="webkit" />
 					<meta
