@@ -14,6 +14,14 @@ import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
+import {
+	GitHub,
+	MessageOutlined,
+	MessageRounded,
+	SettingsApplicationsRounded,
+	SettingsRounded,
+} from "@mui/icons-material";
+import Link from "next/link";
 
 function ElevationScroll(props: Props) {
 	const { children } = props;
@@ -35,8 +43,8 @@ interface Props {
 	children: React.ReactElement;
 }
 
-export default (props: { title: string; PageAction }) => {
-	const { title, PageAction } = props;
+export default (props: { title: string; PageAction; repo: string }) => {
+	const { title, PageAction, repo } = props;
 
 	return (
 		<ElevationScroll {...props}>
@@ -51,58 +59,48 @@ export default (props: { title: string; PageAction }) => {
 				<Toolbar
 					sx={{
 						bgcolor: (theme) => theme.palette.background.default,
+						justifyContent: "space-between",
 					}}
 				>
 					<IconButton
-						color="inherit"
+						edge="start"
+						size="large"
 						aria-label="open drawer"
 						onClick={() =>
-							store.dispatch({ type: "drawer/opened" })
+							store.dispatch({ type: "drawer/toggle" })
 						}
-						sx={{ mr: 2, display: { sm: "none" } }}
 					>
 						<MenuTwoToneIcon />
 					</IconButton>
 
-					<Box
-						sx={{
-							display: "flex",
-							justifyContent: "center",
-							alignItems: "center",
-						}}
-					>
-						<ListItem
-							sx={{ display: { xs: "none", sm: "inherit" } }}
-						>
-							<ListItemAvatar>
-								<Avatar
-									alt="Cindy Baker"
-									src="/logo/v2/512.png"
-								/>
-							</ListItemAvatar>
-							<ListItemText
-								primary={
-									<Typography
-										component="span"
-										variant="h6"
-										color="textPrimary"
-									>
-										云极客工具
-									</Typography>
-								}
-							/>
-						</ListItem>
-
+					<Link href={"/"} legacyBehavior>
 						<Typography
-							color="primary"
+							component="span"
 							variant="h6"
-							noWrap
-							sx={{ overflow: "initial" }}
+							color="textPrimary"
 						>
-							{title}
+							Geekits
 						</Typography>
-					</Box>
+					</Link>
+					<Typography
+						color="primary"
+						variant="h6"
+						noWrap
+						sx={{ overflow: "initial", marginLeft: ".4em" }}
+					>
+						{title}
+					</Typography>
 
+					<Box sx={{ flexGrow: 1 }} />
+
+					<IconButton
+						edge="end"
+						href={repo}
+						size="large"
+						sx={{ display: { xs: "none" } }}
+					>
+						<GitHub />
+					</IconButton>
 					{PageAction && <PageAction />}
 				</Toolbar>
 				{/* <Divider /> */}

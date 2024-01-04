@@ -12,10 +12,10 @@ import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Alert from "@mui/material/Alert";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
+import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { repo } from "../../site.config";
-import MessageOutlinedIcon from '@mui/icons-material/MessageOutlined';
+import MessageOutlinedIcon from "@mui/icons-material/MessageOutlined";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import VolunteerActivismOutlinedIcon from "@mui/icons-material/VolunteerActivismOutlined";
@@ -34,6 +34,11 @@ const list = [
 		Icon: <HomeOutlinedIcon />,
 		text: "首页",
 		href: "/",
+		sx: {
+			display: {
+				sm: "none",
+			},
+		},
 	},
 	// {
 	// 	text: "<divider />",
@@ -48,21 +53,15 @@ const list = [
 		text: "免费捐赠",
 		href: "/donate",
 	},
-
-	// {
-	// 	Icon: <AppsIcon style={{ color: blue[300] }} />,
-	// 	text: "发现",
-	// 	href: "/discover",
-	// },
-	// {
-	// 	Icon: <SettingsIcon style={{ color: green[500] }} />,
-	// 	text: "设置",
-	// 	href: "/setting",
-	// },
 	{
 		Icon: <GitHubIcon />,
 		text: "Github",
 		href: repo,
+		sx: {
+			display: {
+				sm: "none",
+			},
+		},
 	},
 	{
 		Icon: <InfoOutlinedIcon />,
@@ -130,7 +129,7 @@ const User = ({ handleLogin }: any) => {
 	);
 };
 
-const LinkWrapper = ({ href, text, Icon, handleClick, ...props }) => {
+const LinkWrapper = ({ href, text, Icon, handleClick, sx, ...props }) => {
 	if (text === "<divider />") {
 		return <Divider />;
 	}
@@ -147,7 +146,8 @@ const LinkWrapper = ({ href, text, Icon, handleClick, ...props }) => {
 					},
 					borderBottomRightRadius: "30px",
 					borderTopRightRadius: "30px",
-					paddingLeft: "20px"
+					paddingLeft: "20px",
+					...sx,
 				}}
 				className={router.pathname == href ? "Mui-selected" : ""}
 				button
@@ -191,32 +191,74 @@ const LeftDrawer = (props: IProps) => {
 		setOpen(false);
 	};
 
-	const drawer = (
-		<>
-			{/* <Alert severity="info">
-				您正在使用新版本，如有任何问题欢迎随时反馈。
-				<MuiLink href="https://v1.ygktool.com">返回旧版</MuiLink>
-			</Alert> */}
-			{/* <List className={clsx({ [classes.hoverBlur]: isBlur })}> */}
-			<List sx={{ pr: "20px" }}>
-				{list.length &&
-					list.map((item) => (
-						<React.Fragment key={item.href}>
-							<LinkWrapper
-								handleClick={closeDrawer}
-								href={item.href}
-								text={item.text}
-								Icon={item.Icon}
-							/>
-						</React.Fragment>
-					))}
-			</List>
-			<Box padding={1}>
-				<Shortcuts />
-			</Box>
-		</>
-	);
+	// const drawer = (
+	// 	<>
+	// 		{/* <Alert severity="info">
+	// 			您正在使用新版本，如有任何问题欢迎随时反馈。
+	// 			<MuiLink href="https://v1.ygktool.com">返回旧版</MuiLink>
+	// 		</Alert> */}
+	// 		{/* <List className={clsx({ [classes.hoverBlur]: isBlur })}> */}
+	// 		<List sx={{ pr: "20px" }}>
+	// 			{list.length &&
+	// 				list.map((item) => (
+	// 					<React.Fragment key={item.href}>
+	// 						<LinkWrapper
+	// 							handleClick={closeDrawer}
+	// 							href={item.href}
+	// 							text={item.text}
+	// 							Icon={item.Icon}
+	// 						/>
+	// 					</React.Fragment>
+	// 				))}
+	// 		</List>
+	// 		<Box padding={1}>
+	// 			<Shortcuts />
+	// 		</Box>
+	// 	</>
+	// );
 
+	const drawer = (
+		<Box
+			display="flex"
+			flexDirection="column"
+			height="100%"
+			sx={{
+				paddingBottom: "70px",
+			}}
+		>
+			<Box flex="1" overflow="auto">
+				<List sx={{ pr: "20px" }}>
+					{list.length &&
+						list.map((item) => (
+							<React.Fragment key={item.href}>
+								<LinkWrapper
+									handleClick={closeDrawer}
+									href={item.href}
+									text={item.text}
+									sx={item.sx}
+									Icon={item.Icon}
+								/>
+							</React.Fragment>
+						))}
+				</List>
+				<Box padding={1}>
+					<Shortcuts />
+				</Box>
+			</Box>
+			<Box alignSelf="stretch">
+				<ListItem>
+					<ListItemAvatar>
+						<Avatar>YG</Avatar>{" "}
+						{/* replace "YG" with your company logo */}
+					</ListItemAvatar>
+					<ListItemText
+						secondary="A Product From"
+						primary="YGeeker"
+					/>
+				</ListItem>
+			</Box>
+		</Box>
+	);
 	// history.listen(() => {
 	// 	setIsBlur(testBlur());
 	// });
@@ -225,8 +267,13 @@ const LeftDrawer = (props: IProps) => {
 		<Box
 			component="nav"
 			sx={{
-				width: { sm: drawerWidth },
+				width: { sm: open ? drawerWidth : 24 },
 				flexShrink: { sm: 0 },
+				transition: (theme) =>
+					theme.transitions.create("width", {
+						easing: theme.transitions.easing.sharp,
+						duration: theme.transitions.duration.enteringScreen,
+					}),
 			}}
 			aria-label="mailbox folders"
 		>
@@ -250,19 +297,20 @@ const LeftDrawer = (props: IProps) => {
 				{drawer}
 			</Drawer>
 			<Drawer
-				variant="permanent"
+				variant="persistent"
 				sx={{
 					zIndex: (theme) => theme.zIndex.drawer,
 					display: { xs: "none", sm: "block" },
 					"& .MuiDrawer-paper": {
 						boxSizing: "border-box",
+						marginTop: "70px",
 						borderRight: "none",
 						width: drawerWidth,
-						marginTop: "70px",
 						background: (theme) => theme.palette.background.default,
 					},
 				}}
-				open
+				open={open}
+				onClose={() => drawerStore.dispatch({ type: "drawer/closed" })}
 			>
 				{drawer}
 			</Drawer>

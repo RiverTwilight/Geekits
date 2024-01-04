@@ -162,22 +162,25 @@ class Layout extends React.Component<
 						content="viewport-fit=cover,width=device-width,initial-scale=1,maximum-scale=1,user-scaleable=no"
 					/>
 				</Head>
+				<LoginDialog />
+				{enableFrame && (
+					<Header
+						repo={siteConfig.repo}
+						PageAction={PageAction}
+						title={
+							[].includes(currentPage.path)
+								? ""
+								: currentPage.title
+						}
+					/>
+				)}
 				<Box sx={{ display: "flex" }}>
 					<CssBaseline />
-					<LoginDialog />
-					{enableFrame && (
-						<Header
-							PageAction={PageAction}
-							title={
-								[].includes(currentPage.path)
-									? ""
-									: currentPage.title
-							}
-						/>
-					)}
 					<LeftDrawer repo={siteConfig.repo} />
 					<Root disableTopPadding={!enableFrame}>
-						{childrenWithProps}
+						<Box sx={{ display: "flex", justifyContent: "center" }}>
+							{childrenWithProps}
+						</Box>
 					</Root>
 				</Box>
 				<GlobalSnackbar />

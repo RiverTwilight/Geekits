@@ -48,28 +48,36 @@ export default function Index({ appData, setAction }: any) {
 		<Box
 			sx={{
 				flexGrow: 1,
-				maxWidth: "1500px",
 				// margin: "0 auto",
-				paddingX: 4,
+				paddingX: { sm: 4, xs: 3 },
 				paddingY: 3,
+				marginX: { sm: 4, xs: 2 },
 				background: (theme) => theme.palette.background.paper,
 				borderRadius: "24px",
+				display: "flex",
+				justifyContent: "center",
 			}}
 		>
-			<Grid container direction="row-reverse" spacing={1}>
-				<Grid item xs={12} md={3}>
-					<Board />
+			<Box
+				sx={{
+					maxWidth: "1400px",
+				}}
+			>
+				<Grid container direction="row-reverse" spacing={1}>
+					<Grid item xs={12} md={3}>
+						<Board />
+					</Grid>
+					<Grid item xs={12} md={9}>
+						<Search appData={appData} />
+						<br />
+						<Bookmark />
+						<br />
+						<AppList channelInfo={channelInfo} appData={appData} />
+						<br />
+						<Tips />
+					</Grid>
 				</Grid>
-				<Grid item xs={12} md={9}>
-					<Search appData={appData} />
-					<br />
-					<Bookmark />
-					<br />
-					<AppList channelInfo={channelInfo} appData={appData} />
-					<br />
-					<Tips />
-				</Grid>
-			</Grid>
+			</Box>
 		</Box>
 	);
 }

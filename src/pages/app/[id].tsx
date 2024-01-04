@@ -10,6 +10,7 @@ import getPaths from "@/utils/getPaths";
 import { store as frameStore } from "@/utils/Data/frameState";
 
 import type { GetStaticProps } from "next";
+import { HelpOutlineTwoTone } from "@mui/icons-material";
 
 const drawerWidth: number = 260;
 
@@ -24,12 +25,14 @@ const Root = styled("div")<{ freeSize?: boolean }>(
 	({ theme }) =>
 		({ freeSize }) => ({
 			paddingX: `${freeSize ? "0" : theme.spacing(2)}`,
-			margin: freeSize ? "unset" : "0 auto",
+			margin: freeSize ? "unset" : "0 auto 24px auto",
+			width: "100%",
 			// maxWidth: freeSize ? "unset" : "1120px",
 			[`& .${classes.content}`]: {
 				position: "relative",
 				minHeight: "calc(100vh - 56px - 12px)",
 				borderRadius: "24px",
+				marginX: { sm: 4, xs: 0 },
 				background: theme.palette.background.paper,
 				padding: freeSize ? "0" : "30px",
 				flexGrow: 1,
@@ -129,7 +132,6 @@ class AppContainer extends React.Component<any, any> {
 
 			return (
 				<IconButton
-					color="primary"
 					aria-label="Switch drawer"
 					onClick={onClick}
 					edge="end"
@@ -139,7 +141,7 @@ class AppContainer extends React.Component<any, any> {
 						// mr: { sm: `${RightDrawerOpen ? drawerWidth + 10 : 0}px` },
 					}}
 				>
-					<HelpTwoToneIcon />
+					<HelpOutlineTwoTone />
 				</IconButton>
 			);
 		});
