@@ -20,11 +20,10 @@ import VolunteerActivismOutlinedIcon from "@mui/icons-material/VolunteerActivism
 import { UserContext } from "../UserContextProvider";
 import { store as loginDialogStore } from "@/utils/Data/loginDialogState";
 import { store as drawerStore } from "@/utils/Data/drawerState";
-import MuiLink from "@mui/material/Link";
 import { getUserInfo } from "@/utils/Services/UserInfo";
-import Shortcuts from "../Shortcuts";
 import { styled } from "@mui/material/styles";
 import { TimerOutlined } from "@mui/icons-material";
+import { Theme, useMediaQuery } from "@mui/material";
 
 // TODO Shortcuts
 
@@ -33,11 +32,6 @@ const list = [
 		Icon: <HomeOutlinedIcon />,
 		text: "首页",
 		href: "/",
-		sx: {
-			display: {
-				sm: "none",
-			},
-		},
 	},
 	// {
 	// 	text: "<divider />",
@@ -177,6 +171,10 @@ const LeftDrawer = (props: IProps) => {
 	const [open, setOpen] = React.useState(false);
 	const [isBlur, setIsBlur] = React.useState(false);
 
+	const downXs = useMediaQuery((theme: Theme) =>
+		theme.breakpoints.down("xs")
+	);
+
 	const handleClick = () => {
 		window.innerWidth <= 1024 && setOpen(false);
 	};
@@ -187,7 +185,9 @@ const LeftDrawer = (props: IProps) => {
 	});
 
 	const closeDrawer = () => {
-		setOpen(false);
+		if (downXs) {
+			setOpen(false);
+		}
 	};
 
 	// const drawer = (
@@ -276,6 +276,7 @@ const LeftDrawer = (props: IProps) => {
 		>
 			<Drawer
 				variant="temporary"
+				disableScrollLock
 				open={open}
 				onClose={() => drawerStore.dispatch({ type: "drawer/closed" })}
 				ModalProps={{
@@ -294,13 +295,14 @@ const LeftDrawer = (props: IProps) => {
 				{drawer}
 			</Drawer>
 			<Drawer
+				disableScrollLock
 				variant="persistent"
 				sx={{
 					zIndex: (theme) => theme.zIndex.drawer,
 					display: { xs: "none", sm: "block" },
 					"& .MuiDrawer-paper": {
 						boxSizing: "border-box",
-						marginTop: "70px",
+						marginTop: "68px",
 						borderRight: "none",
 						width: drawerWidth,
 						background: (theme) => theme.palette.background.default,

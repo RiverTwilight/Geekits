@@ -79,18 +79,16 @@ function MainApp({ Component, pageProps }: AppProps) {
 					<>
 						<Layout
 							enableFrame={framed}
-							siteConfig={siteConfig}
 							locale={locale}
-							dic={pageProps.dic}
 							currentPage={currentPage}
 							menuItems={menuItems}
 						>
 							{/**@ts-ignore */}
 							<Component {...pageProps} siteConfig={siteConfig} />
 						</Layout>
-						<Analytics />
 					</>
 				)}
+				<Analytics />
 			</Text>
 		</ThemeProvider>
 	);

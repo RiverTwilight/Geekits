@@ -56,7 +56,7 @@ export default function Index({ appData, setAction }: any) {
 		>
 			<Box
 				sx={{
-					maxWidth: "1200px",
+					maxWidth: "1180px",
 				}}
 			>
 				<Grid container direction="row-reverse" spacing={1}>

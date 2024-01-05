@@ -30,7 +30,7 @@ const Root = styled("div")<{ freeSize?: boolean }>(
 			// maxWidth: freeSize ? "unset" : "1120px",
 			[`& .${classes.content}`]: {
 				position: "relative",
-				minHeight: "calc(100vh - 56px - 12px)",
+				// minHeight: "calc(100vh - 56px - 12px)",
 				borderRadius: "24px",
 				marginX: { sm: 4, xs: 0 },
 				background: theme.palette.background.paper,
@@ -136,10 +136,11 @@ class AppContainer extends React.Component<any, any> {
 					onClick={onClick}
 					edge="end"
 					size="large"
-					sx={{
-						marginLeft: "auto",
-						// mr: { sm: `${RightDrawerOpen ? drawerWidth + 10 : 0}px` },
-					}}
+					sx={
+						{
+							// mr: { sm: `${RightDrawerOpen ? drawerWidth + 10 : 0}px` },
+						}
+					}
 				>
 					<HelpOutlineTwoTone />
 				</IconButton>

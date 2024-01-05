@@ -116,10 +116,6 @@ class MyDocument extends Document {
 					/>
 					<link rel="dns-prefetch" href={apiConfig.url} />
 					<link rel="preconnect" href={apiConfig.url} crossOrigin />
-					{/* <script
-						defer
-						src="//hm.baidu.com/hm.js?29ab8ced8f951b925920356991531a45"
-					/> */}
 				</Head>
 				<body>
 					<Main />

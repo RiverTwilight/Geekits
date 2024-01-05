@@ -10,7 +10,7 @@ import { styled } from "@mui/material/styles";
 import Snackbar from "@mui/material/Snackbar";
 import GlobalLoading from "@/components/GlobalLoading";
 import type { ICurrentPage, ISiteConfig } from "@/types/index";
-import translator from "@/utils/translator";
+import siteConfig from "../../site.config.js";
 
 const Root = styled("main")<{ disableTopPadding?: boolean }>(
 	({ theme }) =>
@@ -47,7 +47,6 @@ const GlobalSnackbar = () => {
 
 class Layout extends React.Component<
 	{
-		siteConfig: ISiteConfig;
 		currentPage: ICurrentPage;
 		locale?: string;
 		children: JSX.Element | JSX.Element[];
@@ -102,14 +101,8 @@ class Layout extends React.Component<
 	}
 	render() {
 		const { PageAction } = this.state;
-		const {
-			currentPage,
-			siteConfig,
-			locale,
-			children,
-			menuItems,
-			enableFrame,
-		} = this.props;
+		const { currentPage, locale, children, menuItems, enableFrame } =
+			this.props;
 
 		const { author, title } = siteConfig;
 		const metaTitle = `${
@@ -164,6 +157,7 @@ class Layout extends React.Component<
 						content="viewport-fit=cover,width=device-width,initial-scale=1,maximum-scale=1,user-scaleable=no"
 					/>
 				</Head>
+				<CssBaseline />
 				<LoginDialog />
 				{enableFrame && (
 					<Header
@@ -178,15 +172,15 @@ class Layout extends React.Component<
 				)}
 				<Box sx={{ display: "flex" }}>
 					<CssBaseline />
-					<LeftDrawer repo={siteConfig.repo} />
 					<Root disableTopPadding={!enableFrame}>
 						<Box
 							sx={{
 								display: "flex",
 								justifyContent: "center",
-								marginTop: { xs: 0, sm: 1 }, // Appbar is a bit higher above SM
+								marginTop: { xs: 0, sm: 2 }, // Appbar is a bit higher above SM
 							}}
 						>
+							<LeftDrawer repo={siteConfig.repo} />
 							{childrenWithProps}
 						</Box>
 					</Root>
