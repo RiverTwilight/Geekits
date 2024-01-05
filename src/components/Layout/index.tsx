@@ -10,12 +10,13 @@ import { styled } from "@mui/material/styles";
 import Snackbar from "@mui/material/Snackbar";
 import GlobalLoading from "@/components/GlobalLoading";
 import type { ICurrentPage, ISiteConfig } from "@/types/index";
+import translator from "@/utils/translator";
 
 const Root = styled("main")<{ disableTopPadding?: boolean }>(
 	({ theme }) =>
 		({ disableTopPadding }) => ({
 			flexGrow: 1,
-			paddingTop: disableTopPadding ? 0 : "70px",
+			paddingTop: disableTopPadding ? 0 : "56px",
 			minHeight: "100vh",
 			position: "relative",
 		})
@@ -109,9 +110,10 @@ class Layout extends React.Component<
 			menuItems,
 			enableFrame,
 		} = this.props;
+
 		const { author, title } = siteConfig;
-		const activeTitle = `${currentPage ? `${currentPage.title} - ` : ""}${
-			title[locale]
+		const metaTitle = `${
+			currentPage ? `${currentPage.title} - Geekits` : "Geekits"
 		}`;
 
 		const activeDescription =
@@ -129,7 +131,7 @@ class Layout extends React.Component<
 		return (
 			<>
 				<Head>
-					<title>{activeTitle}</title>
+					<title>{metaTitle}</title>
 					<meta
 						name="keywords"
 						content={siteConfig.keywords.join(",")}
@@ -178,7 +180,13 @@ class Layout extends React.Component<
 					<CssBaseline />
 					<LeftDrawer repo={siteConfig.repo} />
 					<Root disableTopPadding={!enableFrame}>
-						<Box sx={{ display: "flex", justifyContent: "center" }}>
+						<Box
+							sx={{
+								display: "flex",
+								justifyContent: "center",
+								marginTop: { xs: 0, sm: 1 }, // Appbar is a bit higher above SM
+							}}
+						>
 							{childrenWithProps}
 						</Box>
 					</Root>

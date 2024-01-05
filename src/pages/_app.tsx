@@ -81,6 +81,7 @@ function MainApp({ Component, pageProps }: AppProps) {
 							enableFrame={framed}
 							siteConfig={siteConfig}
 							locale={locale}
+							dic={pageProps.dic}
 							currentPage={currentPage}
 							menuItems={menuItems}
 						>

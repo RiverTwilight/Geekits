@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import AppList from "@/components/AppList";
-import Board from "@/components/Board";
 import Search from "@/components/SearchBox";
 import Tips from "@/components/Tips";
 import Bookmark from "@/components/Bookmark";
@@ -20,8 +19,7 @@ export async function getStaticProps({ locale }) {
 	return {
 		props: {
 			currentPage: {
-				title: "云极客工具",
-				// title: trans.use("homePage.meta.title"),
+				title: trans.use("homePage.meta.title"),
 				description: trans.use("homePage.meta.description"),
 				path: "/",
 			},
@@ -49,9 +47,9 @@ export default function Index({ appData, setAction }: any) {
 				flexGrow: 1,
 				paddingX: { sm: 4, xs: 3 },
 				paddingY: { sm: 3, xs: 3 },
-				marginX: { sm: 4, xs: 2 },
+				marginX: { sm: 4, xs: 0 },
 				background: (theme) => theme.palette.background.paper,
-				borderRadius: "24px",
+				borderRadius: { xs: "0px", sm: "24px" },
 				display: "flex",
 				justifyContent: "center",
 			}}
