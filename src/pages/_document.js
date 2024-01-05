@@ -98,8 +98,16 @@ class MyDocument extends Document {
 
 					<link rel="icon" href="/logo/v2/favicon.ico" />
 					<link rel="manifest" href="/manifest.json" />
-
-					<meta name="theme-color" content="#f0f4f9" />
+					<meta
+						name="theme-color"
+						media="(prefers-color-scheme: light)"
+						content="#f0f4f9"
+					/>
+					<meta
+						name="theme-color"
+						media="(prefers-color-scheme: dark)"
+						content="#1e2020"
+					/>
 					<meta name="renderer" content="webkit" />
 					<meta name="force-rendering" content="webkit" />
 					<meta

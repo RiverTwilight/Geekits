@@ -36,7 +36,6 @@ export function MenuButton() {
 	return <button>test</button>;
 }
 
-// TODO 移动端头部添加搜索按钮以聚焦搜索框
 export default function Index({ appData, setAction }: any) {
 	useEffect(() => {
 		setAction(() => {
@@ -48,9 +47,8 @@ export default function Index({ appData, setAction }: any) {
 		<Box
 			sx={{
 				flexGrow: 1,
-				// margin: "0 auto",
 				paddingX: { sm: 4, xs: 3 },
-				paddingY: 3,
+				paddingY: { sm: 3, xs: 3 },
 				marginX: { sm: 4, xs: 2 },
 				background: (theme) => theme.palette.background.paper,
 				borderRadius: "24px",
@@ -60,14 +58,11 @@ export default function Index({ appData, setAction }: any) {
 		>
 			<Box
 				sx={{
-					maxWidth: "1400px",
+					maxWidth: "1200px",
 				}}
 			>
 				<Grid container direction="row-reverse" spacing={1}>
-					<Grid item xs={12} md={3}>
-						<Board />
-					</Grid>
-					<Grid item xs={12} md={9}>
+					<Grid item xs={12} md={12}>
 						<Search appData={appData} />
 						<br />
 						<Bookmark />

@@ -17,7 +17,7 @@ import ListItemText from "@mui/material/ListItemText";
 import { AppListItem } from "../AppList";
 import Text from "@/components/i18n";
 import pinyin from "js-pinyin";
-import useEventListener from "@/utils/Hooks/useEventListener";
+import useEventListener from "@/utils/hooks/useEventListener";
 import type { AppData } from "@/types/index";
 import { Icon, InputBase } from "@mui/material";
 import ReactDOMServer from "react-dom/server";

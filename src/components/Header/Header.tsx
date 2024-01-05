@@ -1,27 +1,39 @@
-import React from "react";
-import Avatar from "@mui/material/Avatar";
+import React, { useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
 import Toolbar from "@mui/material/Toolbar";
 import Divider from "@mui/material/Divider";
+import Popover from "@mui/material/Popover";
 import IconButton from "@mui/material/IconButton";
 import MenuTwoToneIcon from "@mui/icons-material/MenuTwoTone";
 import useScrollTrigger from "@mui/material/useScrollTrigger";
 import { store } from "@/utils/Data/drawerState";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
 import {
 	GitHub,
 	MessageOutlined,
 	MessageRounded,
+	NotificationsOutlined,
 	SettingsApplicationsRounded,
 	SettingsRounded,
 } from "@mui/icons-material";
 import Link from "next/link";
+import {
+	Avatar,
+	Badge,
+	ListItemAvatar,
+	ListItemText,
+	Menu,
+	Paper,
+	Theme,
+	useMediaQuery,
+} from "@mui/material";
+import useNotifications from "@/utils/hooks/useNotification";
+import OutlinedCard from "../OutlinedCard";
+import { ReactMarkdown } from "react-markdown/lib/react-markdown";
+import ReactDOMServer from "react-dom/server";
 
 function ElevationScroll(props: Props) {
 	const { children } = props;
@@ -43,8 +55,108 @@ interface Props {
 	children: React.ReactElement;
 }
 
+function NotificationButton() {
+	const [notifications] = useNotifications();
+	const unreadCount = notifications.filter((n) => !n.isRead).length;
+
+	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
+	const handlePopoverOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
+		setAnchorEl(event.currentTarget);
+	};
+
+	const handlePopoverClose = () => {
+		setAnchorEl(null);
+	};
+
+	const open = Boolean(anchorEl);
+
+	if (!unreadCount) return null;
+
+	return (
+		<>
+			<IconButton
+				edge="end"
+				size="large"
+				aria-label="notifications"
+				onClick={handlePopoverOpen}
+			>
+				<Badge badgeContent={unreadCount} color="error">
+					<NotificationsOutlined />
+				</Badge>
+			</IconButton>
+
+			<Popover
+				open={open}
+				anchorEl={anchorEl}
+				onClose={handlePopoverClose}
+				anchorOrigin={{
+					vertical: "bottom",
+					horizontal: "right",
+				}}
+				transformOrigin={{
+					vertical: "top",
+					horizontal: "right",
+				}}
+				sx={{
+					"& .MuiPopover-paper": {
+						borderRadius: "24px",
+						background: (theme) => theme.palette.background.default,
+					},
+				}}
+			>
+				<List
+					sx={{
+						width: "100%",
+						maxWidth: 360,
+						bgcolor: "background.paper",
+					}}
+				>
+					{notifications.length === 0 ? (
+						<ListItem>
+							<ListItemText primary="No notifications" />
+						</ListItem>
+					) : (
+						notifications
+							.filter((not) => !not.isRead)
+							.reverse()
+							.map((notification) => {
+								const title = notification.content.split(
+									"\n",
+									1
+								)[0];
+								return (
+									<Link href="/notification" legacyBehavior>
+										<ListItem
+											key={notification.id}
+											alignItems="flex-start"
+											sx={{
+												cursor: "pointer",
+											}}
+										>
+											<ListItemText
+												primary={title}
+												secondary={
+													notification.createDate
+												}
+											/>
+										</ListItem>
+									</Link>
+								);
+							})
+					)}
+				</List>
+			</Popover>
+		</>
+	);
+}
+
 export default (props: { title: string; PageAction; repo: string }) => {
 	const { title, PageAction, repo } = props;
+
+	const hidden = useMediaQuery((theme: Theme) =>
+		theme.breakpoints.down("sm")
+	);
 
 	return (
 		<ElevationScroll {...props}>
@@ -53,7 +165,6 @@ export default (props: { title: string; PageAction; repo: string }) => {
 				position="fixed"
 				sx={{
 					zIndex: (theme) => theme.zIndex.drawer + 1,
-					// mr: { sm: `${rightDrawerWidth}px` },
 				}}
 			>
 				<Toolbar
@@ -93,17 +204,16 @@ export default (props: { title: string; PageAction; repo: string }) => {
 
 					<Box sx={{ flexGrow: 1 }} />
 
-					<IconButton
-						edge="end"
-						href={repo}
-						size="large"
-						sx={{ display: { xs: "none" } }}
-					>
-						<GitHub />
-					</IconButton>
+					{!hidden && (
+						<IconButton edge="end" href={repo} size="large">
+							<GitHub />
+						</IconButton>
+					)}
+
+					<NotificationButton />
+
 					{PageAction && <PageAction />}
 				</Toolbar>
-				{/* <Divider /> */}
 			</AppBar>
 		</ElevationScroll>
 	);

@@ -1,7 +1,7 @@
 import React from "react";
 import { Dialog } from "mdui";
 import { Input } from "mdui-in-react";
-import useInput from "../../utils/Hooks/useInput";
+import useInput from "../../utils/hooks/useInput";
 
 const InsertLink = ({
 	onConfirm,

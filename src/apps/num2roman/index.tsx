@@ -4,7 +4,7 @@ import FormControl from "@mui/material/FormControl";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import OutlinedCard from "@/components/OutlinedCard";
-import useInput from "@/utils/Hooks/useInput";
+import useInput from "@/utils/hooks/useInput";
 import toRoman from "./api";
 
 const Result = ({ res }: any) => {

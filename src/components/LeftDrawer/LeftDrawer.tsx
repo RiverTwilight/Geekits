@@ -9,11 +9,9 @@ import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
-import Alert from "@mui/material/Alert";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
-import SettingsIcon from "@mui/icons-material/Settings";
 import { repo } from "../../site.config";
 import MessageOutlinedIcon from "@mui/icons-material/MessageOutlined";
 import GitHubIcon from "@mui/icons-material/GitHub";
@@ -26,6 +24,7 @@ import MuiLink from "@mui/material/Link";
 import { getUserInfo } from "@/utils/Services/UserInfo";
 import Shortcuts from "../Shortcuts";
 import { styled } from "@mui/material/styles";
+import { TimerOutlined } from "@mui/icons-material";
 
 // TODO Shortcuts
 
@@ -223,7 +222,7 @@ const LeftDrawer = (props: IProps) => {
 			flexDirection="column"
 			height="100%"
 			sx={{
-				paddingBottom: "70px",
+				paddingBottom: { xs: "unset", sm: "70px" },
 			}}
 		>
 			<Box flex="1" overflow="auto">
@@ -241,21 +240,19 @@ const LeftDrawer = (props: IProps) => {
 							</React.Fragment>
 						))}
 				</List>
-				<Box padding={1}>
+				{/* <Box padding={1}>
 					<Shortcuts />
-				</Box>
+				</Box> */}
 			</Box>
 			<Box alignSelf="stretch">
-				<ListItem>
-					<ListItemAvatar>
-						<Avatar>YG</Avatar>{" "}
-						{/* replace "YG" with your company logo */}
-					</ListItemAvatar>
-					<ListItemText
-						secondary="A Product From"
-						primary="YGeeker"
+				<List sx={{ pr: "20px" }}>
+					<LinkWrapper
+						handleClick={closeDrawer}
+						href={"/notification"}
+						text={"更新日志"}
+						Icon={<TimerOutlined />}
 					/>
-				</ListItem>
+				</List>
 			</Box>
 		</Box>
 	);

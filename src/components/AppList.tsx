@@ -104,14 +104,26 @@ const Channel = ({
 
 	return (
 		<>
-			{name && Icon && (
+			{/* {name && Icon && (
 				<ListItem button onClick={handleClick}>
 					<ListItemIcon>{Icon}</ListItemIcon>
 					<ListItemText primary={name} />
 				</ListItem>
-			)}
+			)} */}
 			{/* <Collapse in={open} timeout="auto" unmountOnExit> */}
-			<List component="div" disablePadding>
+			<List
+				subheader={
+					<ListSubheader
+						sx={{ background: "unset" }}
+						component="div"
+						id="nested-list-subheader"
+					>
+						{name}
+					</ListSubheader>
+				}
+				component="div"
+				disablePadding
+			>
 				<Grid container spacing={2}>
 					{apps.map((app) => (
 						<Grid key={app.id} item sm={6} xl={4} xs={12}>
@@ -151,7 +163,6 @@ const AppList = ({
 							key={key}
 							apps={channelizedApps}
 						/>
-						<br />
 					</>
 				);
 			})}
