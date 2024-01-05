@@ -30,7 +30,7 @@ import {
 	Theme,
 	useMediaQuery,
 } from "@mui/material";
-import useNotifications from "@/utils/hooks/useNotification";
+import useNotifications from "@/utils/Hooks/useNotification";
 import OutlinedCard from "../OutlinedCard";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 import ReactDOMServer from "react-dom/server";

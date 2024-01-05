@@ -14,7 +14,7 @@ import Grow from "@mui/material/Grow";
 import SendIcon from "@mui/icons-material/Send";
 import IconButton from "@mui/material/IconButton";
 import axios from "@/utils/axios";
-import useInput from "@/utils/hooks/useInput";
+import useInput from "@/utils/Hooks/useInput";
 import ChatList from "@/components/Chat";
 
 const PRESETS = [

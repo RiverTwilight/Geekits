@@ -9,7 +9,7 @@ import {
 	Box,
 } from "@mui/material";
 import StyledMarkdown from "@/components/StyledMarkdown"; // Adjust the import path as needed
-import useNotifications from "@/utils/hooks/useNotification"; // Adjust the import path as needed
+import useNotifications from "@/utils/Hooks/useNotification"; // Adjust the import path as needed
 import { useMemo } from "react";
 import OutlinedCard from "@/components/OutlinedCard";
 

@@ -4,7 +4,7 @@ import { DialogTitle, DialogContent, DialogActions, Box } from "@mui/material";
 import { Button } from "@mui/material";
 import OutlinedCard from "./OutlinedCard";
 import axios from "../utils/axios";
-import useNotification from "@/utils/hooks/useNotification";
+import useNotification from "@/utils/Hooks/useNotification";
 
 // https://github.com/RiverTwilight/ygktool/issues/21
 const API =

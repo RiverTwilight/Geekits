@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Input, Button } from "mdui-in-react";
 import Form from "../../components/Form";
-import useInput from "../../utils/hooks/useInput";
+import useInput from "../../utils/Hooks/useInput";
 import PG from "./generator";
 import { saveFile } from "../../utils/fileSaver";
 import { Divider } from "@mui/material";
