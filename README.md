@@ -1,10 +1,10 @@
 <div align="center">
 
-<a href="https://www.ygktool.com">
-  <img width="180" src="https://www.ygktool.com/logo/v2/512.png">
+<a href="https://geekits.ygeeker.com">
+  <img width="180" src="https://geekits.ygeeker.com/logo/v2/512.png">
 </a>
 
-<h1 align="center">云极客工具</h1>
+<h1 align="center">Geekits 云极客工具</h1>
 
 **简体中文** | [English](./README.en.md)
 
@@ -46,13 +46,12 @@ npm run start:container
 
 ## 致谢
 
--   [unDraw](https://undraw.co/search): 提供插图。
 -   [IconKitchen](https://icon.kitchen/): 图标制作器。
 
 ## 许可
 
 CC-BY-4.0
 
-Copyright © 2020-Present YgkTool Dev team
+Copyright © 2023 YGeeker
 
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FRiverTwilight%2FYgkTool.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FRiverTwilight%2FYgkTool?ref=badge_large)
