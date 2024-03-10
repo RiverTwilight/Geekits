@@ -1,4 +1,5 @@
 module.exports = {
+	title: "Geekits",
 	keywords: [
 		"云极客工具",
 		"Geekits",
@@ -13,7 +14,7 @@ module.exports = {
 		twitter: "https://twitter.com/rea1DonandTrump",
 	},
 	repo: "https://github.com/rivertwilight/ygktool",
-	root: "https://www.ygktool.com",
+	root: "https://geekits.ygeeker.com",
 	apiConfig: {
 		url: "https://openapi.ygktool.com",
 	},

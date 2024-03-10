@@ -72,11 +72,13 @@ class Layout extends React.Component<
 			PageAction: null,
 		};
 	}
+
 	setAction = (Comp) => {
 		this.setState({
 			PageAction: Comp,
 		});
 	};
+
 	componentDidMount() {
 		window.loadShow = () => {
 			window.loadingDelay = setTimeout(() => {
@@ -104,9 +106,10 @@ class Layout extends React.Component<
 		const { currentPage, locale, children, menuItems, enableFrame } =
 			this.props;
 
-		const { author, title } = siteConfig;
 		const metaTitle = `${
-			currentPage ? `${currentPage.title} - Geekits` : "Geekits"
+			currentPage
+				? `${currentPage.title} - ${siteConfig.title}`
+				: siteConfig.title
 		}`;
 
 		const activeDescription =
@@ -134,19 +137,30 @@ class Layout extends React.Component<
 						name="description"
 						content={activeDescription}
 					/>
-					<meta itemProp="name" content="云极客工具" />
+					<meta itemProp="name" content={metaTitle} />
+
 					<meta property="og:type" content="website" />
-					<meta property="og:title" content={title} />
+					<meta property="og:title" content={metaTitle} />
 					<meta property="og:url" content={siteConfig.root} />
-					<meta property="og:site_name" content={title} />
+					<meta property="og:site_name" content={siteConfig.title} />
 					<meta
 						property="og:description"
 						content={activeDescription}
 					/>
 					<meta property="og:locale" content="zh_CN" />
-					<meta property="article:author" content={author.name} />
-					<meta property="article:tag" content={author.name} />
-					<meta property="article:tag" content="云极客" />
+
+					<meta
+						property="article:author"
+						content={siteConfig.author.name}
+					/>
+					<meta
+						property="article:tag"
+						content={siteConfig.author.name}
+					/>
+					<meta
+						property="article:tag"
+						content={siteConfig.keywords.join(",")}
+					/>
 					<meta name="twitter:card" content={activeDescription} />
 					<meta
 						name="google-site-verification"
