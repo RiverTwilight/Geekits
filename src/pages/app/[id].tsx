@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import AppMenu from "@/components/AppMenu";
 import RightDrawer from "@/components/RightDrawer";
 import HelpTwoToneIcon from "@mui/icons-material/HelpTwoTone";
@@ -92,43 +92,21 @@ export const getStaticProps: GetStaticProps = ({
 /**
  * Universal App Container
  */
-class AppContainer extends React.Component<any, any> {
-	constructor(props: any) {
-		super(props);
-		this.state = {
-			AppComp: null,
-			FeedbackComp: null,
-			showFeedbackComp: false,
-			RightDrawerOpen: true,
-		};
-	}
-	componentWillUnmount() {
-		window.loadHide();
-	}
-	componentDidCatch(error: any, info: any) {
-		window.snackbar({
-			message: "您的浏览器捕捉到一个错误：" + error,
-		});
-	}
-	componentDidMount() {
-		const { setAction, appConfig } = this.props;
+const AppContainer = ({ setAction, appConfig, appDoc }) => {
+	const [FeedbackComp, setFeedbackComp] = useState(null);
+	const [showFeedbackComp, setShowFeedbackComp] = useState(false);
+	const [RightDrawerOpen, setRightDrawerOpen] = useState(true);
 
-		const loadLink =
-			appConfig.status === "stable" || "beta"
-				? appConfig.id
-				: "__development";
+	const loadLink =
+		appConfig.status === "stable" || appConfig.status === "beta"
+			? appConfig.id
+			: "__development";
 
-		this.setState({
-			AppComp: appImportList[loadLink],
-		});
+	const AppComp = appImportList[loadLink];
 
+	useEffect(() => {
 		setAction(() => {
-			const onClick = () => {
-				const { RightDrawerOpen } = this.state;
-				this.setState({
-					RightDrawerOpen: !RightDrawerOpen,
-				});
-			};
+			const onClick = () => setRightDrawerOpen(!RightDrawerOpen);
 
 			return (
 				<IconButton
@@ -148,63 +126,53 @@ class AppContainer extends React.Component<any, any> {
 		});
 
 		if (window.location.search.indexOf("fullscreen=1") !== -1) {
+			console.log("Detected Frame");
 			frameStore.dispatch({ type: "frame/disabled" });
 		}
-	}
-	feedback = () => {
-		let { FeedbackComp } = this.state;
-		if (!FeedbackComp) {
-			// this.setState({
-			// 	FeedbackComp:
-			// 		!FeedbackComp &&
-			// 		Loadable(() => import("@/components/FeedbackComp")),
-			// });
-		}
-		this.setState({
-			showFeedbackComp: true,
-		});
-	};
-	render() {
-		const { AppComp, FeedbackComp, showFeedbackComp, RightDrawerOpen } =
-			this.state;
-		const { appConfig, appDoc } = this.props;
 
-		return (
-			<Root freeSize={!!appConfig.freeSize}>
-				<div
-					className={`${classes.content} ${
-						RightDrawerOpen ? classes.contentShift : ""
-					}`}
-				>
-					{AppComp && <AppComp />}
-				</div>
-				<RightDrawer
-					onClose={() => {
-						this.setState({
-							RightDrawerOpen: !RightDrawerOpen,
-						});
-					}}
-					open={RightDrawerOpen}
-				>
-					<AppMenu
-						appDoc={appDoc}
-						feedback={this.feedback}
-						appConfig={appConfig}
-					/>
-				</RightDrawer>
-				{/* {FeedbackComp && (
-					<FeedbackComp
-						open={showFeedbackComp}
-						onClose={() => {
-							this.setState({
-								showFeedbackComp: false,
-							});
-						}}
-					/>
-				)} */}
-			</Root>
-		);
-	}
-}
+		// Equivalent to componentWillUnmount
+		return () => {
+			window.loadHide();
+		};
+	}, []); // Empty dependency array means this runs once on mount.
+
+	const feedback = useCallback(() => {
+		if (!FeedbackComp) {
+			// setFeedbackComp(
+			//   !FeedbackComp &&
+			//   Loadable(() => import("@/components/FeedbackComp"))
+			// );
+		}
+		setShowFeedbackComp(true);
+	}, [FeedbackComp]);
+
+	return (
+		<Root freeSize={!!appConfig.freeSize}>
+			<div
+				className={`${classes.content} ${
+					RightDrawerOpen ? classes.contentShift : ""
+				}`}
+			>
+				{AppComp && <AppComp />}
+			</div>
+			<RightDrawer
+				onClose={() => setRightDrawerOpen(!RightDrawerOpen)}
+				open={RightDrawerOpen}
+			>
+				<AppMenu
+					appDoc={appDoc}
+					feedback={feedback}
+					appConfig={appConfig}
+				/>
+			</RightDrawer>
+			{/* {FeedbackComp && (
+        <FeedbackComp
+          open={showFeedbackComp}
+          onClose={() => setShowFeedbackComp(false)}
+        />
+      )} */}
+		</Root>
+	);
+};
 
 export default AppContainer;

@@ -76,17 +76,15 @@ function MainApp({ Component, pageProps }: AppProps) {
 				{hideFrame ? (
 					<Component {...pageProps} siteConfig={siteConfig} />
 				) : (
-					<>
-						<Layout
-							enableFrame={framed}
-							locale={locale}
-							currentPage={currentPage}
-							menuItems={menuItems}
-						>
-							{/**@ts-ignore */}
-							<Component {...pageProps} siteConfig={siteConfig} />
-						</Layout>
-					</>
+					<Layout
+						enableFrame={framed}
+						locale={locale}
+						currentPage={currentPage}
+						menuItems={menuItems}
+					>
+						{/**@ts-ignore */}
+						<Component {...pageProps} siteConfig={siteConfig} />
+					</Layout>
 				)}
 				<Analytics />
 			</Text>
