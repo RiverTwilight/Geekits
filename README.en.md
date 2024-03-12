@@ -7,7 +7,7 @@
 <h1 align="center">YgkTool</h1>
 
 [![Release](https://img.shields.io/github/release/rivertwilight/ygktool.svg)](https://github.com/rivertwilight/ygktool/releases)
-[![License](https://img.shields.io/github/license/rivertwilight/ygktool.svg)](https://github.com/rivertwilight/ygktool/blob/master/LICENSE)
+[![License](https://img.shields.io/github/license/rivertwilight/ygktool.svg)](https://github.com/rivertwilight/ygktool/blob/main/LICENSE)
 [![Stars](https://img.shields.io/github/stars/rivertwilight/ygktool)](https://github.com/rivertwilight/ygktool)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-Angular-red.svg)](https://github.com/lin-123/javascript)
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FRiverTwilight%2FYgkTool.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FRiverTwilight%2FYgkTool?ref=badge_shield)
