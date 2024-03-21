@@ -1,7 +1,7 @@
 <div align="center">
 
 <a href="https://geekits.ygeeker.com">
-  <img width="180" src="https://geekits.ygeeker.com/logo/v2/512.png">
+  <img width="180" src="https://geekits.ygeeker.com/logo/v3/512.png">
 </a>
 
 <h1 align="center">Geekits 云极客工具</h1>

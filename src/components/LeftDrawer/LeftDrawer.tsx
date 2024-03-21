@@ -91,7 +91,7 @@ const User = ({ handleLogin }: any) => {
 					<Avatar
 						sx={{ borderRadius: "0" }}
 						alt="Cindy Baker"
-						src="/logo/v2/512.png"
+						src="/logo/v3/512.png"
 					/>
 				</ListItemAvatar>
 				<ListItemText

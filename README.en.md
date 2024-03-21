@@ -1,7 +1,7 @@
 <div align="center">
 
 <a href="https://www.ygktool.com">
-  <img width="180" src="https://www.ygktool.com/logo/v2/512.png">
+  <img width="180" src="https://www.ygktool.com/logo/v3/512.png">
 </a>
 
 <h1 align="center">YgkTool</h1>
