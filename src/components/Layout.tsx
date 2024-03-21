@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 import Head from "next/head";
-import Header from "../Header";
+import Header from "@/components/Navbar";
 // import MetaInfo from "../MetaInfo";
-import LeftDrawer from "../LeftDrawer";
-import LoginDialog from "../LoginDialog";
+import LeftDrawer from "@/components/Sidebar";
+import LoginDialog from "@/components/LoginDialog";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 import { styled } from "@mui/material/styles";
 import Snackbar from "@mui/material/Snackbar";
 import GlobalLoading from "@/components/GlobalLoading";
 import type { ICurrentPage, ISiteConfig } from "@/types/index";
-import siteConfig from "../../site.config.js";
+import siteConfig from "../site.config.js";
 
 const Root = styled("main")<{ disableTopPadding?: boolean }>(
 	({ theme }) =>
