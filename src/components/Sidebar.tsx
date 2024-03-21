@@ -24,6 +24,7 @@ import { getUserInfo } from "@/utils/Services/UserInfo";
 import { styled } from "@mui/material/styles";
 import { TimerOutlined } from "@mui/icons-material";
 import { Theme, useMediaQuery } from "@mui/material";
+import { useSidebar } from "@/contexts/sidebar";
 
 // TODO Shortcuts
 
@@ -153,13 +154,7 @@ const LinkWrapper = ({ href, text, Icon, handleClick, sx, ...props }) => {
 	);
 };
 
-interface IProps {
-	repo?: string;
-}
-
-const LeftDrawer = (props: IProps) => {
-	const { handleLoginOpen, repo, onCloseDrawer } = props;
-
+const LeftDrawer = () => {
 	// const history = useHistory()
 
 	const userData = React.useContext(UserContext);
@@ -168,7 +163,7 @@ const LeftDrawer = (props: IProps) => {
 
 	const testBlur = () => /(\S+)\/app\/\S+/.test(window.location.href);
 
-	const [open, setOpen] = React.useState(false);
+	const { sidebar, setSidebar } = useSidebar();
 	const [isBlur, setIsBlur] = React.useState(false);
 
 	const downXs = useMediaQuery((theme: Theme) =>
@@ -176,17 +171,17 @@ const LeftDrawer = (props: IProps) => {
 	);
 
 	const handleClick = () => {
-		window.innerWidth <= 1024 && setOpen(false);
+		window.innerWidth <= 1024 && setSidebar(false);
 	};
 
 	useEffect(() => {
 		setIsBlur(testBlur());
-		drawerStore.subscribe(() => setOpen(drawerStore.getState().value));
+		drawerStore.subscribe(() => setSidebar(drawerStore.getState().value));
 	});
 
 	const closeDrawer = () => {
 		if (downXs) {
-			setOpen(false);
+			setSidebar(false);
 		}
 	};
 
@@ -264,7 +259,7 @@ const LeftDrawer = (props: IProps) => {
 		<Box
 			component="nav"
 			sx={{
-				width: { sm: open ? drawerWidth : 24 },
+				width: { sm: sidebar ? drawerWidth : 24 },
 				flexShrink: { sm: 0 },
 				transition: (theme) =>
 					theme.transitions.create("width", {
@@ -277,7 +272,7 @@ const LeftDrawer = (props: IProps) => {
 			<Drawer
 				variant="temporary"
 				disableScrollLock
-				open={open}
+				open={sidebar}
 				onClose={() => drawerStore.dispatch({ type: "drawer/closed" })}
 				ModalProps={{
 					keepMounted: true, // Better open performance on mobile.
@@ -308,7 +303,7 @@ const LeftDrawer = (props: IProps) => {
 						background: (theme) => theme.palette.background.default,
 					},
 				}}
-				open={open}
+				open={sidebar}
 				onClose={() => drawerStore.dispatch({ type: "drawer/closed" })}
 			>
 				{drawer}
