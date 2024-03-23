@@ -10,13 +10,9 @@ import {
 } from "@mui/material";
 import StyledMarkdown from "@/components/StyledMarkdown"; // Adjust the import path as needed
 import useNotifications from "@/utils/Hooks/useNotification"; // Adjust the import path as needed
-import { useMemo } from "react";
-import OutlinedCard from "@/components/OutlinedCard";
+import { GetStaticProps } from "next";
 
-export const getStaticProps: GetStaticProps = ({
-	locale = "zh-CN",
-	...ctx
-}) => {
+export const getStaticProps: GetStaticProps = ({ locale = "zh-CN" }) => {
 	const dic = require("../data/i18n.json");
 
 	return {
