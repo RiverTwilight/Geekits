@@ -251,7 +251,7 @@ const nums2array = (nums, max) => {
 	return newLine;
 };
 
-const cem = (equation) => {
+const cem = (equation, enableHtmlMark = true) => {
 	const resultants: string = equation.split("=")[1].trim(); //生成物
 	const reactants: string = equation.split("=")[0].trim(); //反应物
 
@@ -326,18 +326,41 @@ const cem = (equation) => {
 
 	var result = "";
 
+	let reactSubstance = [];
+	let resultSubstance = [];
+
 	// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'stance' implicitly has an 'any' type.
 	reactant.map((stance, i) => {
-		result += `<span class="Textc(green)">${res[i]}</span>${stance.tance} ${
-			i === reactant.length - 1 ? " == " : " + "
-		}`;
+		if (enableHtmlMark) {
+			result += `<span class="Textc(green)">${res[i]}</span>${
+				stance.tance
+			} ${i === reactant.length - 1 ? " == " : " + "}`;
+		} else {
+			result += `${res[i]}${stance.tance} ${
+				i === reactant.length - 1 ? " == " : " + "
+			}`;
+		}
+		reactSubstance.push({
+			element: stance.tance,
+			number: res[i],
+		});
 	});
 
 	// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'stance' implicitly has an 'any' type.
 	resultant.map((stance, i) => {
-		result += `<span class="Textc(green)">${
-			res[reactant.length + i]
-		}</span>${stance.tance} ${i === resultant.length - 1 ? "" : "+"}`;
+		if (enableHtmlMark) {
+			result += `<span class="Textc(green)">${
+				res[reactant.length + i]
+			}</span>${stance.tance} ${i === resultant.length - 1 ? "" : "+"}`;
+		} else {
+			result += `${res[reactant.length + i]}${stance.tance} ${
+				i === resultant.length - 1 ? "" : "+"
+			}`;
+		}
+		resultSubstance.push({
+			element: stance.tance,
+			number: reactant.length + i,
+		});
 	});
 
 	var result = result.replace(/([A-z\)])(\d)/g, (num) => {
@@ -345,8 +368,13 @@ const cem = (equation) => {
 		return num.substring(0, 1) + idx;
 	});
 
+	const resultRaw = {
+		resultSubstance,
+		reactSubstance,
+	};
+
 	// @ts-expect-error ts-migrate(7005) FIXME: Variable 'eleClass' implicitly has an 'any[]' type... Remove this comment to see the full error message
-	return { result, eleClass };
+	return { result, eleClass, resultRaw };
 };
 
 export default cem;

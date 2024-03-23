@@ -7,16 +7,12 @@
 首先安装依赖：
 
 ```bash
-$ npm i
-# or
 $ yarn
 ```
 
 启动项目：
 
 ```bash
-$ npm run dev
-# or
 $ yarn run dev
 ```
 

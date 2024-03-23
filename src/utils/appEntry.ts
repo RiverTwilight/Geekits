@@ -1,5 +1,5 @@
 import dynamic from "next/dynamic";
-import type { ComponentType } from "react";
+import type { ComponentType, FC } from "react";
 
 // !! next/dynamic options must be an object literal !!
 
@@ -75,7 +75,7 @@ const appImportList: Record<string, ComponentType> = {
 	}),
 	grid_splitter: dynamic(() => import("../apps/grid_splitter"), {
 		ssr: false,
-	})
+	}),
 };
 
 export default appImportList;

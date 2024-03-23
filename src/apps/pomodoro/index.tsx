@@ -7,9 +7,14 @@ import adaptiveBorder from "@/utils/adaptiveBorder";
 import { styled } from "@mui/material/styles";
 import Button, { ButtonProps } from "@mui/material/Button";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
-import DeleteIcon from '@mui/icons-material/Delete';
+import DeleteIcon from "@mui/icons-material/Delete";
 
-const Graph = ({ percent = 0.75 }: { percent: number; status: string }): JSX.Element => {
+const Graph = ({
+	percent = 0.75,
+}: {
+	percent: number;
+	status: string;
+}): JSX.Element => {
 	const R: number = 150;
 
 	const arc = {
@@ -295,9 +300,16 @@ export default class Pomodoro extends React.Component<
 								top: "123px",
 							}}
 						>
-							<Typography sx={{
-								fontFamily: "Product Sans"
-							}} align="right" variant="h2">
+							<Typography
+								sx={{
+									// fontFamily: "Product Sans",
+									fontFamily: `"Roboto","Helvetica","Arial",sans-serif`,
+									fontVariantNumeric: "tabular-nums",
+									fontWeight: 500,
+								}}
+								align="right"
+								variant="h2"
+							>
 								{formatTime(restSeconds, true)}
 							</Typography>
 						</Box>

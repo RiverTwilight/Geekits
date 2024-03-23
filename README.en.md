@@ -1,10 +1,12 @@
 <div align="center">
 
 <a href="https://www.ygktool.com">
-  <img width="180" src="https://www.ygktool.com/logo/v2/512.png">
+  <img width="180" src="https://www.ygktool.com/logo/v3/512.png">
 </a>
 
 <h1 align="center">YgkTool</h1>
+
+[简体中文](./README.md) | **English**
 
 [![Release](https://img.shields.io/github/release/rivertwilight/ygktool.svg)](https://github.com/rivertwilight/ygktool/releases)
 [![License](https://img.shields.io/github/license/rivertwilight/ygktool.svg)](https://github.com/rivertwilight/ygktool/blob/master/LICENSE)

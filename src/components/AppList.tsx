@@ -104,15 +104,27 @@ const Channel = ({
 
 	return (
 		<>
-			{name && Icon && (
+			{/* {name && Icon && (
 				<ListItem button onClick={handleClick}>
 					<ListItemIcon>{Icon}</ListItemIcon>
 					<ListItemText primary={name} />
 				</ListItem>
-			)}
+			)} */}
 			{/* <Collapse in={open} timeout="auto" unmountOnExit> */}
-			<List component="div" disablePadding>
-				<Grid container spacing={1}>
+			<List
+				subheader={
+					<ListSubheader
+						sx={{ background: "unset" }}
+						component="div"
+						id="nested-list-subheader"
+					>
+						{name}
+					</ListSubheader>
+				}
+				component="div"
+				disablePadding
+			>
+				<Grid container spacing={2}>
 					{apps.map((app) => (
 						<Grid key={app.id} item sm={6} xl={4} xs={12}>
 							<AppListItem {...app} />
@@ -134,23 +146,24 @@ const AppList = ({
 	return (
 		<List
 			aria-labelledby="nested-list-subheader"
-			subheader={
-				<ListSubheader component="div" id="nested-list-subheader">
-					所有工具
-				</ListSubheader>
-			}
+			// subheader={
+			// 	<ListSubheader component="div" id="nested-list-subheader">
+			// 		所有工具
+			// 	</ListSubheader>
+			// }
 		>
 			{Object.keys(channelInfo).map((key) => {
 				let channelizedApps = appData.filter(
 					(app) => app.channel === key
 				);
 				return (
-					<><Channel
-						info={channelInfo[key]}
-						key={key}
-						apps={channelizedApps}
-					/><br /></>
-					
+					<>
+						<Channel
+							info={channelInfo[key]}
+							key={key}
+							apps={channelizedApps}
+						/>
+					</>
 				);
 			})}
 		</List>

@@ -19,6 +19,8 @@ import Text from "@/components/i18n";
 import pinyin from "js-pinyin";
 import useEventListener from "@/utils/Hooks/useEventListener";
 import type { AppData } from "@/types/index";
+import { Icon, InputBase } from "@mui/material";
+import ReactDOMServer from "react-dom/server";
 
 const Shortcuts = ({ kwd }: { kwd: string }) => {
 	return (
@@ -201,33 +203,49 @@ class Search extends React.Component<SearchProps, SearchState> {
 		const { kwd, searchResult } = this.state;
 
 		return (
-			<Paper
+			<Box
 				sx={{
-					padding: (theme) => theme.spacing(1),
+					padding: (theme) => theme.spacing(0),
 				}}
 			>
 				<FormControl fullWidth>
-					<TextField
-						InputProps={{
-							startAdornment: (
-								<InputAdornment position="start">
-									<SearchSharpIcon />
-								</InputAdornment>
-							),
+					<Box
+						flex={1}
+						sx={{
+							width: "100%",
+							display: "flex",
+							alignItems: "center",
+							gap: "1em",
 						}}
-						inputRef={(ref) => (this.searchInput = ref)}
-						autoComplete="off"
-						id="search"
-						type="search"
-						aria-label="Type the search keywords here"
-						value={kwd}
-						variant="outlined"
-						onChange={this.handleChange}
-						label={<Text k="homePage.searchBarPlaceholder" />}
-					/>
+					>
+						<SearchSharpIcon />
+						<InputBase
+							sx={{
+								borderRadius: "36px",
+								paddingY: 1,
+								paddingX: 2,
+								border: (theme) =>
+									({
+										light: "1.5px solid #e0e0e0",
+										dark: "1.5px solid rgba(255, 255, 255, 0.23)",
+									}[theme.palette.mode]),
+							}}
+							fullWidth
+							inputRef={(ref) => (this.searchInput = ref)}
+							autoComplete="off"
+							id="search"
+							type="search"
+							aria-label="Type the search keywords here"
+							value={kwd}
+							onChange={this.handleChange}
+							placeholder={ReactDOMServer.renderToString(
+								<Text k="homePage.searchBarPlaceholder" />
+							)}
+						/>
+					</Box>
 				</FormControl>
 				<SearchResult kwd={kwd} result={searchResult} />
-			</Paper>
+			</Box>
 		);
 	}
 }

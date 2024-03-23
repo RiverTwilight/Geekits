@@ -32,6 +32,7 @@
 
 .tt-countdown {
 	font-family: font, "Courier New", Courier, monospace;
+    font-variant-numeric: oldstyle-nums;
 	color: #fff;
     font-size: 60px;
     top: -160px;

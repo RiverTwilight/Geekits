@@ -50,12 +50,18 @@ const Bookmark = () => {
 		setList(fiv.getAll());
 	}, []);
 
+	if(!!!list.length) return null
+
 	return (
 		<OutlinedCard padding={1}>
 			<List
 				aria-labelledby="nested-list-subheader"
 				subheader={
-					<ListSubheader component="div" id="nested-list-subheader">
+					<ListSubheader
+						sx={{ background: "unset" }}
+						component="div"
+						id="nested-list-subheader"
+					>
 						收藏
 					</ListSubheader>
 				}

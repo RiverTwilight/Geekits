@@ -41,11 +41,17 @@ function MainApp({ Component, pageProps }: AppProps) {
 					mode: prefersDarkMode ? "dark" : "light",
 					primary: {
 						main: green[500],
+						light: "#ebebeb",
+						dark: "#4e565c",
 					},
 					secondary: {
 						main: "#fff",
 						light: "#ebebeb",
 						dark: "#4e565c",
+					},
+					background: {
+						default: prefersDarkMode ? "#1e2020" : "#f0f4f9",
+						paper: prefersDarkMode ? "#141414" : "#ffffff",
 					},
 				},
 			}),
@@ -70,20 +76,17 @@ function MainApp({ Component, pageProps }: AppProps) {
 				{hideFrame ? (
 					<Component {...pageProps} siteConfig={siteConfig} />
 				) : (
-					<>
-						<Layout
-							enableFrame={framed}
-							siteConfig={siteConfig}
-							locale={locale}
-							currentPage={currentPage}
-							menuItems={menuItems}
-						>
-							{/**@ts-ignore */}
-							<Component {...pageProps} siteConfig={siteConfig} />
-						</Layout>
-						<Analytics />
-					</>
+					<Layout
+						enableFrame={framed}
+						locale={locale}
+						currentPage={currentPage}
+						menuItems={menuItems}
+					>
+						{/**@ts-ignore */}
+						<Component {...pageProps} siteConfig={siteConfig} />
+					</Layout>
 				)}
+				<Analytics />
 			</Text>
 		</ThemeProvider>
 	);
