@@ -32,7 +32,9 @@ const Root = styled("div")<{ freeSize?: boolean }>(
 			[`& .${classes.content}`]: {
 				position: "relative",
 				// minHeight: "calc(100vh - 56px - 12px)",
-				borderRadius: "24px",
+				[theme.breakpoints.up("sm")]: {
+					borderRadius: "24px",
+				},
 				marginX: { sm: 4, xs: 0 },
 				background: theme.palette.background.paper,
 				padding: freeSize ? "0" : "30px",
