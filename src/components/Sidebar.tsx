@@ -26,17 +26,12 @@ import { TimerOutlined } from "@mui/icons-material";
 import { Theme, useMediaQuery } from "@mui/material";
 import { useSidebar } from "@/contexts/sidebar";
 
-// TODO Shortcuts
-
 const list = [
 	{
 		Icon: <HomeOutlinedIcon />,
 		text: "首页",
 		href: "/",
 	},
-	// {
-	// 	text: "<divider />",
-	// },
 	{
 		Icon: <MessageOutlinedIcon />,
 		text: "反馈",
@@ -272,8 +267,8 @@ const LeftDrawer = () => {
 			<Drawer
 				variant="temporary"
 				disableScrollLock
-				open={sidebar}
-				onClose={() => drawerStore.dispatch({ type: "drawer/closed" })}
+				open={!sidebar}
+				onClose={() => setSidebar(true)} // Should reverse as defaultly hide on mobile screen
 				ModalProps={{
 					keepMounted: true, // Better open performance on mobile.
 				}}
@@ -304,7 +299,7 @@ const LeftDrawer = () => {
 					},
 				}}
 				open={sidebar}
-				onClose={() => drawerStore.dispatch({ type: "drawer/closed" })}
+				onClose={() => setSidebar(false)}
 			>
 				{drawer}
 			</Drawer>

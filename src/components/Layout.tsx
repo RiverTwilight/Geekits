@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import Header from "@/components/Navbar";
 // import MetaInfo from "../MetaInfo";
-import LeftDrawer from "@/components/Sidebar";
+import Sidebar from "@/components/Sidebar";
 import LoginDialog from "@/components/LoginDialog";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -12,6 +12,7 @@ import GlobalLoading from "@/components/GlobalLoading";
 import type { ICurrentPage, ISiteConfig } from "@/types/index";
 import siteConfig from "../site.config.js";
 import { SidebarProvider } from "@/contexts/sidebar";
+import { ActionProvider } from "@/contexts/action";
 
 const Root = styled("main")<{ disableTopPadding?: boolean }>(
 	({ theme }) =>
@@ -46,24 +47,19 @@ const GlobalSnackbar = () => {
 	);
 };
 
-const Layout = ({ currentPage, locale, children, menuItems, enableFrame }) => {
+const Layout = ({ currentPage, children, enableFrame }) => {
 	const [sidebar, setSidebar] = useState(true);
-	const [anchorEl, setAnchorEl] = useState(null);
 	const [loading, setLoading] = useState(true);
-	const [title, setTitle] = useState("首页");
-	const [PageAction, setPageAction] = useState(null);
+	const [action, setAction] = useState(null);
 
-	const setAction = (Comp) => {
-		setPageAction(Comp);
-	};
-
-	React.useEffect(() => {
+	useEffect(() => {
 		window.loadShow = () => {
 			window.loadingDelay = setTimeout(() => {
 				setLoading(true);
 				delete window.loadingDelay;
 			}, 700);
 		};
+		
 		window.loadHide = () => {
 			if (window.loadingDelay) {
 				clearTimeout(window.loadingDelay);
@@ -71,6 +67,11 @@ const Layout = ({ currentPage, locale, children, menuItems, enableFrame }) => {
 			} else {
 				setLoading(false);
 			}
+		};
+
+		return () => {
+			delete window.loadHide;
+			delete window.loadShow;
 		};
 	}, []);
 
@@ -82,78 +83,83 @@ const Layout = ({ currentPage, locale, children, menuItems, enableFrame }) => {
 
 	const activeDescription = currentPage.description || siteConfig.description;
 
-	const childrenWithProps = React.Children.map(children, (child) => {
-		const props = { setAction };
-		if (React.isValidElement(child)) {
-			return React.cloneElement(child, props);
-		}
-		return child;
-	});
-
 	return (
 		<SidebarProvider value={{ sidebar: sidebar, setSidebar: setSidebar }}>
-			<Head>
-				<title>{metaTitle}</title>
-				<meta name="keywords" content={siteConfig.keywords.join(",")} />
-				<meta
-					itemProp="description"
-					name="description"
-					content={activeDescription}
-				/>
-				<meta itemProp="name" content={metaTitle} />
-				<meta property="og:type" content="website" />
-				<meta property="og:title" content={metaTitle} />
-				<meta property="og:url" content={siteConfig.root} />
-				<meta property="og:site_name" content={siteConfig.title} />
-				<meta property="og:description" content={activeDescription} />
-				<meta property="og:locale" content="zh_CN" />
-				<meta
-					property="article:author"
-					content={siteConfig.author.name}
-				/>
-				<meta property="article:tag" content={siteConfig.author.name} />
-				<meta
-					property="article:tag"
-					content={siteConfig.keywords.join(",")}
-				/>
-				<meta name="twitter:card" content={activeDescription} />
-				<meta
-					name="google-site-verification"
-					content="3yqvRLDwkcm7nwNQ5bSG06I4wQ5ASf23HUtcyZIaz3I"
-				/>
-				<meta
-					name="viewport"
-					content="viewport-fit=cover,width=device-width,initial-scale=1,maximum-scale=1,user-scaleable=no"
-				/>
-			</Head>
-			<CssBaseline />
-			<LoginDialog />
-			{enableFrame && (
-				<Header
-					repo={siteConfig.repo}
-					PageAction={PageAction}
-					title={
-						[].includes(currentPage.path) ? "" : currentPage.title
-					}
-				/>
-			)}
-			<Box sx={{ display: "flex" }}>
+			<ActionProvider value={{ action: action, setAction: setAction }}>
+				<Head>
+					<title>{metaTitle}</title>
+					<meta
+						name="keywords"
+						content={siteConfig.keywords.join(",")}
+					/>
+					<meta
+						itemProp="description"
+						name="description"
+						content={activeDescription}
+					/>
+					<meta itemProp="name" content={metaTitle} />
+					<meta property="og:type" content="website" />
+					<meta property="og:title" content={metaTitle} />
+					<meta property="og:url" content={siteConfig.root} />
+					<meta property="og:site_name" content={siteConfig.title} />
+					<meta
+						property="og:description"
+						content={activeDescription}
+					/>
+					<meta property="og:locale" content="zh_CN" />
+					<meta
+						property="article:author"
+						content={siteConfig.author.name}
+					/>
+					<meta
+						property="article:tag"
+						content={siteConfig.author.name}
+					/>
+					<meta
+						property="article:tag"
+						content={siteConfig.keywords.join(",")}
+					/>
+					<meta name="twitter:card" content={activeDescription} />
+					<meta
+						name="google-site-verification"
+						content="3yqvRLDwkcm7nwNQ5bSG06I4wQ5ASf23HUtcyZIaz3I"
+					/>
+					<meta
+						name="viewport"
+						content="viewport-fit=cover,width=device-width,initial-scale=1,maximum-scale=1,user-scaleable=no"
+					/>
+				</Head>
 				<CssBaseline />
-				<Root disableTopPadding={!enableFrame}>
-					<Box
-						sx={{
-							display: "flex",
-							justifyContent: "center",
-							marginTop: { xs: 0, sm: 2 },
-						}}
-					>
-						<LeftDrawer />
-						{childrenWithProps}
-					</Box>
-				</Root>
-			</Box>
-			<GlobalSnackbar />
-			<GlobalLoading />
+				<LoginDialog />
+				{enableFrame && (
+					<Header
+						repo={siteConfig.repo}
+						PageAction={action}
+						title={
+							[].includes(currentPage.path)
+								? ""
+								: currentPage.title
+						}
+					/>
+				)}
+				<Box sx={{ display: "flex" }}>
+					<CssBaseline />
+					<Root disableTopPadding={!enableFrame}>
+						<Box
+							sx={{
+								display: "flex",
+								justifyContent: "center",
+								marginTop: { xs: 0, sm: 2 },
+							}}
+						>
+							<Sidebar />
+							{children}
+						</Box>
+					</Root>
+				</Box>
+				<GlobalSnackbar />
+				<GlobalLoading />
+			</ActionProvider>
 		</SidebarProvider>
 	);
 };

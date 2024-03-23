@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, FC } from "react";
 import AppMenu from "@/components/AppMenu";
 import RightDrawer from "@/components/RightDrawer";
 import HelpTwoToneIcon from "@mui/icons-material/HelpTwoTone";
@@ -11,6 +11,7 @@ import { store as frameStore } from "@/utils/Data/frameState";
 
 import type { GetStaticProps } from "next";
 import { HelpOutlineTwoTone } from "@mui/icons-material";
+import { useAction } from "@/contexts/action";
 
 const drawerWidth: number = 260;
 
@@ -92,17 +93,19 @@ export const getStaticProps: GetStaticProps = ({
 /**
  * Universal App Container
  */
-const AppContainer = ({ setAction, appConfig, appDoc }) => {
+const AppContainer = ({ appConfig, appDoc }) => {
 	const [FeedbackComp, setFeedbackComp] = useState(null);
 	const [showFeedbackComp, setShowFeedbackComp] = useState(false);
 	const [RightDrawerOpen, setRightDrawerOpen] = useState(true);
+
+	const { setAction } = useAction();
 
 	const loadLink =
 		appConfig.status === "stable" || appConfig.status === "beta"
 			? appConfig.id
 			: "__development";
 
-	const AppComp = appImportList[loadLink];
+	const AppComp = appImportList[loadLink] as FC;
 
 	useEffect(() => {
 		setAction(() => {
@@ -130,11 +133,10 @@ const AppContainer = ({ setAction, appConfig, appDoc }) => {
 			frameStore.dispatch({ type: "frame/disabled" });
 		}
 
-		// Equivalent to componentWillUnmount
 		return () => {
 			window.loadHide();
 		};
-	}, []); // Empty dependency array means this runs once on mount.
+	}, []);
 
 	const feedback = useCallback(() => {
 		if (!FeedbackComp) {

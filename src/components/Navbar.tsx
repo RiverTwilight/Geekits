@@ -31,9 +31,7 @@ import {
 	useMediaQuery,
 } from "@mui/material";
 import useNotifications from "@/utils/Hooks/useNotification";
-import OutlinedCard from "./OutlinedCard";
-import { ReactMarkdown } from "react-markdown/lib/react-markdown";
-import ReactDOMServer from "react-dom/server";
+import { useSidebar } from "@/contexts/sidebar";
 
 function ElevationScroll(props: Props) {
 	const { children } = props;
@@ -154,6 +152,8 @@ function NotificationButton() {
 export default (props: { title: string; PageAction; repo: string }) => {
 	const { title, PageAction, repo } = props;
 
+	const { sidebar, setSidebar } = useSidebar();
+
 	const hidden = useMediaQuery((theme: Theme) =>
 		theme.breakpoints.down("sm")
 	);
@@ -176,19 +176,20 @@ export default (props: { title: string; PageAction; repo: string }) => {
 					<IconButton
 						edge="start"
 						size="large"
-						aria-label="open drawer"
-						onClick={() =>
-							store.dispatch({ type: "drawer/toggle" })
-						}
+						aria-label="Toggle drawer"
+						onClick={() => setSidebar(!sidebar)}
 					>
 						<MenuTwoToneIcon />
 					</IconButton>
 
-					<Link href={"/"} legacyBehavior>
+					<Link href="/" legacyBehavior>
 						<Typography
 							component="span"
 							variant="h6"
 							color="textPrimary"
+							sx={{
+								cursor: "pointer",
+							}}
 						>
 							Geekits
 						</Typography>
@@ -212,7 +213,7 @@ export default (props: { title: string; PageAction; repo: string }) => {
 
 					<NotificationButton />
 
-					{PageAction && <PageAction />}
+					{PageAction}
 				</Toolbar>
 			</AppBar>
 		</ElevationScroll>

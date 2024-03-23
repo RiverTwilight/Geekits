@@ -8,6 +8,7 @@ import Bookmark from "@/components/Bookmark";
 import { getAllApps } from "@/utils/appData";
 import channelInfo from "@/data/channelInfo";
 import translator from "@/utils/translator";
+import { useAction } from "@/contexts/action";
 
 export async function getStaticProps({ locale }) {
 	const appData = getAllApps(true);
@@ -34,11 +35,11 @@ export function MenuButton() {
 	return <button>test</button>;
 }
 
-export default function Index({ appData, setAction }: any) {
+export default function Index({ appData }: any) {
+	const { setAction } = useAction();
+
 	useEffect(() => {
-		setAction(() => {
-			return null;
-		});
+		setAction(null);
 	}, []);
 
 	return (
