@@ -2,8 +2,8 @@ import type { Dispatch, FC, SetStateAction } from "react";
 import { createContext, useContext } from "react";
 
 interface Action {
-	action: FC;
-	setAction: Dispatch<SetStateAction<FC>>;
+	action: FC | Element;
+	setAction: Dispatch<SetStateAction<FC | Element>>;
 }
 
 const ActionContext = createContext<Action>({

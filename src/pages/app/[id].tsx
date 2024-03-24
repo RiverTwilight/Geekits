@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback, FC } from "react";
 import AppMenu from "@/components/AppMenu";
 import RightDrawer from "@/components/RightDrawer";
-import HelpTwoToneIcon from "@mui/icons-material/HelpTwoTone";
 import IconButton from "@mui/material/IconButton";
 import { styled } from "@mui/material/styles";
 import { getAppConfig, getAppDoc } from "@/utils/appData";
@@ -12,6 +11,7 @@ import { store as frameStore } from "@/utils/Data/frameState";
 import type { GetStaticProps } from "next";
 import { HelpOutlineTwoTone } from "@mui/icons-material";
 import { useAction } from "@/contexts/action";
+import { useAppBar } from "@/contexts/appBar";
 
 const drawerWidth: number = 260;
 
@@ -71,9 +71,13 @@ export const getStaticProps: GetStaticProps = ({
 }) => {
 	const { id: currentId } = ctx.params;
 
-	const appConfig = getAppConfig(currentId, ["name", "status", "freeSize"]);
+	const appConfig = getAppConfig(currentId as string, [
+		"name",
+		"status",
+		"freeSize",
+	]);
 
-	const appDoc = getAppDoc(currentId);
+	const appDoc = getAppDoc(currentId as string);
 
 	const dic = require("../../data/i18n.json");
 
@@ -92,15 +96,33 @@ export const getStaticProps: GetStaticProps = ({
 	};
 };
 
+const SidebarToggle = ({ handleToggle }) => {
+	return (
+		<IconButton
+			aria-label="Switch drawer"
+			onClick={handleToggle}
+			edge="end"
+			size="large"
+			sx={
+				{
+					// mr: { sm: `${RightDrawerOpen ? drawerWidth + 10 : 0}px` },
+				}
+			}
+		>
+			<HelpOutlineTwoTone />
+		</IconButton>
+	);
+};
+
 /**
  * Universal App Container
  */
 const AppContainer = ({ appConfig, appDoc }) => {
 	const [FeedbackComp, setFeedbackComp] = useState(null);
 	const [showFeedbackComp, setShowFeedbackComp] = useState(false);
-	const [RightDrawerOpen, setRightDrawerOpen] = useState(true);
 
 	const { setAction } = useAction();
+	const { appBar, setAppBar } = useAppBar();
 
 	const loadLink =
 		appConfig.status === "stable" || appConfig.status === "beta"
@@ -110,26 +132,10 @@ const AppContainer = ({ appConfig, appDoc }) => {
 	const AppComp = appImportList[loadLink] as FC;
 
 	useEffect(() => {
-		setAction(() => {
-			const onClick = () => setRightDrawerOpen(!RightDrawerOpen);
+		setAction(<SidebarToggle handleToggle={() => setAppBar(!appBar)} />);
+	}, [appBar]);
 
-			return (
-				<IconButton
-					aria-label="Switch drawer"
-					onClick={onClick}
-					edge="end"
-					size="large"
-					sx={
-						{
-							// mr: { sm: `${RightDrawerOpen ? drawerWidth + 10 : 0}px` },
-						}
-					}
-				>
-					<HelpOutlineTwoTone />
-				</IconButton>
-			);
-		});
-
+	useEffect(() => {
 		if (window.location.search.indexOf("fullscreen=1") !== -1) {
 			console.log("Detected Frame");
 			frameStore.dispatch({ type: "frame/disabled" });
@@ -154,21 +160,19 @@ const AppContainer = ({ appConfig, appDoc }) => {
 		<Root freeSize={!!appConfig.freeSize}>
 			<div
 				className={`${classes.content} ${
-					RightDrawerOpen ? classes.contentShift : ""
+					appBar ? classes.contentShift : ""
 				}`}
 			>
 				{AppComp && <AppComp />}
 			</div>
-			<RightDrawer
-				onClose={() => setRightDrawerOpen(!RightDrawerOpen)}
-				open={RightDrawerOpen}
-			>
+			<RightDrawer onClose={() => setAppBar(!appBar)} open={appBar}>
 				<AppMenu
 					appDoc={appDoc}
 					feedback={feedback}
 					appConfig={appConfig}
 				/>
 			</RightDrawer>
+
 			{/* {FeedbackComp && (
         <FeedbackComp
           open={showFeedbackComp}
