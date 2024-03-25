@@ -22,6 +22,9 @@ const appImportList: Record<string, ComponentType> = {
 	dic_idiom: dynamic(() => import("../apps/dic_idiom"), {
 		ssr: false,
 	}),
+	fuel_consumption_calculator: dynamic(() => import("../apps/fuel_consumption_calculator"), {
+		ssr: false,
+	}),
 	fake_pornhub_logo: dynamic(() => import("../apps/fake_pornhub_logo"), {
 		ssr: false,
 	}),
