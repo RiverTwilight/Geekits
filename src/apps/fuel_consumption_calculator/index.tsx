@@ -169,7 +169,7 @@ export default function FuelConsumptionCalculator() {
 							<ListItemIcon>
 								<SwapHoriz />
 							</ListItemIcon>
-							<ListItemText primary="往返" />
+							<ListItemText primary="添加返程" secondary="启用后，油费和过路费将按两倍计算" />
 							<ListItemSecondaryAction>
 								<Switch
 									edge="end"
