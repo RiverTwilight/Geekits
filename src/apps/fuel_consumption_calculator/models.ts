@@ -12,11 +12,11 @@ const fuelConsumptionByModel: Record<string, Brand> = {
 	VW: {
 		name: "大众",
 		models: [
-			{ name: "高尔夫", consumption: 6.5 },
+			{ name: "高尔夫", consumption: 7.1 },
 			{ name: "帕萨特", consumption: 7.2 },
 			{ name: "途观", consumption: 8.1 },
-			{ name: "朗逸", consumption: 6.1 },
-			{ name: "轩逸", consumption: 6.1 },
+			{ name: "朗逸", consumption: 6.9 },
+			{ name: "宝来", consumption: 7.3 },
 		],
 	},
 	Volvo: {
@@ -54,7 +54,7 @@ const fuelConsumptionByModel: Record<string, Brand> = {
 	Audi: {
 		name: "奥迪",
 		models: [
-			{ name: "A4L", consumption: 6.4 },
+			{ name: "A4L", consumption: 7.2 },
 			{ name: "A6L", consumption: 7.8 },
 			{ name: "Q5L", consumption: 8.5 },
 		],
@@ -79,6 +79,7 @@ const fuelConsumptionByModel: Record<string, Brand> = {
 		name: "现代",
 		models: [
 			{ name: "伊兰特", consumption: 5.3 },
+			{ name: "伊兰特 N", consumption: 6.1 },
 			{ name: "索纳塔", consumption: 6.9 },
 			{ name: "途胜", consumption: 7.5 },
 		],
@@ -102,7 +103,7 @@ const fuelConsumptionByModel: Record<string, Brand> = {
 	Mazda: {
 		name: "马自达",
 		models: [
-			{ name: "昂克赛拉", consumption: 5.8 },
+			{ name: "昂克赛拉", consumption: 6.2 },
 			{ name: "阿特兹", consumption: 6.5 },
 			{ name: "CX-5", consumption: 7.2 },
 		],
@@ -118,7 +119,7 @@ const fuelConsumptionByModel: Record<string, Brand> = {
 	Chevrolet: {
 		name: "雪弗兰",
 		models: [
-			{ name: "科鲁泽", consumption: 5.7 },
+			{ name: "科鲁泽", consumption: 6.2 },
 			{ name: "迈锐宝XL", consumption: 6.8 },
 			{ name: "探界者", consumption: 7.9 },
 		],
