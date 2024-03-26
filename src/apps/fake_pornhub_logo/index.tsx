@@ -13,6 +13,7 @@ import Switch from "@mui/material/Switch";
 import BorderVerticalIcon from "@mui/icons-material/BorderVertical";
 import ColorLensIcon from "@mui/icons-material/ColorLens";
 import OutlinedCard from "../../components/OutlinedCard";
+import { Box } from "@mui/material";
 
 const IfBr = ({ statu }: any) => {
 	return statu === "vertical" ? <br></br> : null;
@@ -37,7 +38,7 @@ const FakeLogo = ({ hStyle, frontStyle, lastStyle }: any) => {
 			<h1
 				style={{
 					marginTop: "20px",
-					fontFamily: "SimHei,STHeiti",
+					fontFamily: `"SF Pro Text", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif, SimHei,STHeiti`,
 					fontWeight: 1000,
 					letterSpacing: "-1.5px",
 					fontSize: hStyle.size + "em",
@@ -124,8 +125,8 @@ export default class FakePornhubLogo extends React.Component<{}, UiState> {
 					/>
 				</div>
 				<br />
-				<OutlinedCard padding={1}>
-					<List>
+				<List>
+					<OutlinedCard padding={2}>
 						<SliderWithIcon title={"字号：" + hStyle.size}>
 							<Slider
 								value={hStyle.size}
@@ -142,6 +143,9 @@ export default class FakePornhubLogo extends React.Component<{}, UiState> {
 								max={10}
 							/>
 						</SliderWithIcon>
+					</OutlinedCard>
+					<br />
+					<OutlinedCard padding={1}>
 						<ListItem>
 							<ListItemIcon>
 								<BorderVerticalIcon />
@@ -174,6 +178,9 @@ export default class FakePornhubLogo extends React.Component<{}, UiState> {
 								/>
 							</ListItemSecondaryAction>
 						</ListItem>
+					</OutlinedCard>
+					<br />
+					<OutlinedCard padding={1}>
 						<ListItem>
 							<ListItemIcon>
 								<ColorLensIcon />
@@ -218,15 +225,19 @@ export default class FakePornhubLogo extends React.Component<{}, UiState> {
 								/>
 							</ListItemSecondaryAction>
 						</ListItem>
+					</OutlinedCard>
+					<br />
+					<br />
+					<Box display="flex" justifyContent="center">
 						<Button
 							onClick={this.handleDownload}
+							variant="outlined"
 							color="primary"
-							variant="contained"
 						>
 							下载
 						</Button>
-					</List>
-				</OutlinedCard>
+					</Box>
+				</List>
 			</>
 		);
 	}
