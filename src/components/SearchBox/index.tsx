@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -127,64 +127,41 @@ const debounce = (func, timeout: number = 300) => {
 	};
 };
 
-type SearchState = any;
-
 interface SearchProps {
 	appData: AppData[];
-	classes: any;
 }
 
-class Search extends React.Component<SearchProps, SearchState> {
-	searchInput: any;
-	searchRes: () => void;
-	timer: NodeJS.Timeout;
-	constructor(props: SearchProps) {
-		super(props);
-		this.state = {
-			kwd: "",
-			searchResult: [],
-		};
-		this.searchRes = debounce(() => {
-			this.search();
-		}, 500);
-	}
+const Search = ({ appData }: SearchProps) => {
+	const [kwd, setKwd] = useState("");
+	const [searchResult, setSearchResult] = useState([]);
+	const searchInputRef = useRef<HTMLInputElement>(null);
 
-	handleSearchKeydown(e: KeyboardEvent) {
-		if (e.ctrlKey && e.keyCode === 70) {
-			e.preventDefault();
-			this.searchInput && this.searchInput.focus();
-		}
-	}
-	componentDidMount() {
+	useEffect(() => {
 		pinyin.setOptions({ checkPolyphone: false, charCase: 0 });
-		document.addEventListener(
-			"keydown",
-			this.handleSearchKeydown.bind(this)
-		);
-	}
 
-	componentWillUnmount() {
-		document.removeEventListener(
-			"keydown",
-			this.handleSearchKeydown.bind(this)
-		);
-	}
+		const handleSearchKeydown = (e: KeyboardEvent) => {
+			if (e.ctrlKey && e.keyCode === 70) {
+				e.preventDefault();
+				searchInputRef.current?.focus();
+			}
+		};
 
-	handleChange = (e: { target: { value: any } }) => {
-		const {
-			target: { value },
-		} = e;
+		document.addEventListener("keydown", handleSearchKeydown);
 
-		this.setState({ kwd: value });
+		return () =>
+			document.removeEventListener("keydown", handleSearchKeydown);
+	}, []);
 
-		this.searchRes();
+	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setKwd(e.target.value);
+		searchRes();
 	};
 
-	search() {
-		const { kwd } = this.state;
-		const { appData } = this.props;
+	const searchRes = debounce(() => search(), 500);
+
+	const search = () => {
+		const keyword = kwd.toLowerCase().trim();
 		const res = appData.filter((app) => {
-			let keyword = kwd.toLowerCase().trim();
 			return (
 				pinyin.getFullChars(app.name).toLowerCase().indexOf(keyword) !==
 					-1 ||
@@ -193,61 +170,54 @@ class Search extends React.Component<SearchProps, SearchState> {
 				app.link === kwd
 			);
 		});
-		this.setState({
-			searchResult: res || [],
-		});
-		// console.log(res);
-	}
+		setSearchResult(res || []);
+	};
 
-	render() {
-		const { kwd, searchResult } = this.state;
-
-		return (
-			<Box
-				sx={{
-					padding: (theme) => theme.spacing(0),
-				}}
-			>
-				<FormControl fullWidth>
-					<Box
-						flex={1}
+	return (
+		<Box
+			sx={{
+				padding: (theme) => theme.spacing(0),
+			}}
+		>
+			<FormControl fullWidth>
+				<Box
+					flex={1}
+					sx={{
+						width: "100%",
+						display: "flex",
+						alignItems: "center",
+						gap: "1em",
+					}}
+				>
+					<SearchSharpIcon />
+					<InputBase
 						sx={{
-							width: "100%",
-							display: "flex",
-							alignItems: "center",
-							gap: "1em",
+							borderRadius: "36px",
+							paddingY: 1,
+							paddingX: 2,
+							border: (theme) =>
+								({
+									light: "1.5px solid #e0e0e0",
+									dark: "1.5px solid rgba(255, 255, 255, 0.23)",
+								}[theme.palette.mode]),
 						}}
-					>
-						<SearchSharpIcon />
-						<InputBase
-							sx={{
-								borderRadius: "36px",
-								paddingY: 1,
-								paddingX: 2,
-								border: (theme) =>
-									({
-										light: "1.5px solid #e0e0e0",
-										dark: "1.5px solid rgba(255, 255, 255, 0.23)",
-									}[theme.palette.mode]),
-							}}
-							fullWidth
-							inputRef={(ref) => (this.searchInput = ref)}
-							autoComplete="off"
-							id="search"
-							type="search"
-							aria-label="Type the search keywords here"
-							value={kwd}
-							onChange={this.handleChange}
-							placeholder={ReactDOMServer.renderToString(
-								<Text k="homePage.searchBarPlaceholder" />
-							)}
-						/>
-					</Box>
-				</FormControl>
-				<SearchResult kwd={kwd} result={searchResult} />
-			</Box>
-		);
-	}
-}
+						fullWidth
+						inputRef={searchInputRef}
+						autoComplete="off"
+						id="search"
+						type="search"
+						aria-label="Type the search keywords here"
+						value={kwd}
+						onChange={handleChange}
+						placeholder={ReactDOMServer.renderToString(
+							<Text k="homePage.searchBarPlaceholder" />
+						)}
+					/>
+				</Box>
+			</FormControl>
+			<SearchResult kwd={kwd} result={searchResult} />
+		</Box>
+	);
+};
 
 export default Search;

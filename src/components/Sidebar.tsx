@@ -19,7 +19,6 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import VolunteerActivismOutlinedIcon from "@mui/icons-material/VolunteerActivismOutlined";
 import { UserContext } from "./UserContextProvider";
 import { store as loginDialogStore } from "@/utils/Data/loginDialogState";
-import { store as drawerStore } from "@/utils/Data/drawerState";
 import { getUserInfo } from "@/utils/Services/UserInfo";
 import { styled } from "@mui/material/styles";
 import { TimerOutlined } from "@mui/icons-material";
@@ -149,32 +148,18 @@ const LinkWrapper = ({ href, text, Icon, handleClick, sx, ...props }) => {
 	);
 };
 
-const LeftDrawer = () => {
+const Sidebar = () => {
 	// const history = useHistory()
 
 	const userData = React.useContext(UserContext);
 
-	// console.log(userData);
-
-	const testBlur = () => /(\S+)\/app\/\S+/.test(window.location.href);
-
 	const { sidebar, setSidebar } = useSidebar();
-	const [isBlur, setIsBlur] = React.useState(false);
 
 	const downXs = useMediaQuery((theme: Theme) =>
 		theme.breakpoints.down("xs")
 	);
 
-	const handleClick = () => {
-		window.innerWidth <= 1024 && setSidebar(false);
-	};
-
-	useEffect(() => {
-		setIsBlur(testBlur());
-		drawerStore.subscribe(() => setSidebar(drawerStore.getState().value));
-	});
-
-	const closeDrawer = () => {
+	const handleClickNavItem = () => {
 		if (downXs) {
 			setSidebar(false);
 		}
@@ -221,7 +206,7 @@ const LeftDrawer = () => {
 						list.map((item) => (
 							<React.Fragment key={item.href}>
 								<LinkWrapper
-									handleClick={closeDrawer}
+									handleClick={handleClickNavItem}
 									href={item.href}
 									text={item.text}
 									sx={item.sx}
@@ -237,7 +222,7 @@ const LeftDrawer = () => {
 			<Box alignSelf="stretch">
 				<List sx={{ pr: "20px" }}>
 					<LinkWrapper
-						handleClick={closeDrawer}
+						handleClick={handleClickNavItem}
 						href={"/notification"}
 						text={"更新日志"}
 						Icon={<TimerOutlined />}
@@ -307,4 +292,4 @@ const LeftDrawer = () => {
 	);
 };
 
-export default LeftDrawer;
+export default Sidebar;
