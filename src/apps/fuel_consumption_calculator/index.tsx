@@ -14,8 +14,8 @@ import TextField from "@mui/material/TextField";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
-import { Box, Checkbox, Fab, FormControlLabel, Switch } from "@mui/material";
-import { CheckOutlined, Label, SwapHoriz } from "@mui/icons-material";
+import { Box, Fab, Switch } from "@mui/material";
+import { CheckOutlined, SwapHoriz } from "@mui/icons-material";
 import fuelConsumptionByModel from "./models";
 import OutlinedCard from "@/components/OutlinedCard";
 
