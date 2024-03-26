@@ -25,7 +25,7 @@ const FREE_DONATION_WAYS = [
 		color: "#fff"
 	},
 	{
-		title: "Github",
+		title: "GitHub",
 		subtitles: ["给我打个⭐"],
 		price: "$0.00",
 		href: "https://github.com/rivertwilight/ygktool",

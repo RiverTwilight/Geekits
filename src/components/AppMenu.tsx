@@ -100,14 +100,14 @@ const AppMenu = ({
 			>
 				<Button
 					href={`https://github.com/RiverTwilight/ygktool/tree/dev/src/apps/${id}`}
-					aria-label="在Github上编辑此页面"
+					aria-label="在GitHub上编辑此页面"
 					startIcon={<GitHubIcon fontSize="inherit" />}
 					variant="contained"
 					sx={{
 						width: "100%",
 					}}
 				>
-					在Github上编辑
+					在GitHub上编辑
 				</Button>
 				<Button
 					variant="outlined"

@@ -43,7 +43,7 @@ const list = [
 	},
 	{
 		Icon: <GitHubIcon />,
-		text: "Github",
+		text: "GitHub",
 		href: repo,
 		sx: {
 			display: {
