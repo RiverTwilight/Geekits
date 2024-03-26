@@ -48,14 +48,14 @@ const AppMenu = ({
 		const { id, name } = appConfig;
 		if (!fivkits.get(id)) {
 			fivkits.add({
-				id,
+				link: id,
 				name,
 			});
 			setFiv(true);
 			window.snackbar({ message: "已收藏" });
 		} else {
 			fivkits.delete({
-				id,
+				link: id,
 				name,
 			});
 			setFiv(false);
@@ -99,7 +99,7 @@ const AppMenu = ({
 				}}
 			>
 				<Button
-					href={`https://github.com/RiverTwilight/ygktool/tree/main/src/apps/${id}`}
+					href={`https://github.com/RiverTwilight/ygktool/tree/dev/src/apps/${id}`}
 					aria-label="在Github上编辑此页面"
 					startIcon={<GitHubIcon fontSize="inherit" />}
 					variant="contained"

@@ -60,16 +60,18 @@ export default function FuelConsumptionCalculator() {
 
 	return (
 		<>
-			<FormControl fullWidth>
-				<TextField
-					name="distance"
-					label="里程 (km)"
-					type="number"
-					value={state.distance}
-					onChange={handleChange}
-					margin="normal"
-				/>
-			</FormControl>
+			<Box sx={{ display: "flex", gap: 1 }}>
+				<FormControl fullWidth>
+					<TextField
+						name="distance"
+						label="里程 (km)"
+						type="number"
+						value={state.distance}
+						onChange={handleChange}
+						margin="normal"
+					/>
+				</FormControl>
+			</Box>
 			<br />
 			<br />
 			<Box sx={{ display: "flex", gap: 1 }}>
