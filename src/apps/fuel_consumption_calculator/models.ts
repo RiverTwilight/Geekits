@@ -12,11 +12,13 @@ const fuelConsumptionByModel: Record<string, Brand> = {
 	VW: {
 		name: "大众",
 		models: [
+			{ name: "朗逸", consumption: 6.9 },
 			{ name: "高尔夫", consumption: 7.1 },
 			{ name: "帕萨特", consumption: 7.2 },
-			{ name: "途观", consumption: 8.1 },
-			{ name: "朗逸", consumption: 6.9 },
 			{ name: "宝来", consumption: 7.3 },
+			{ name: "途观", consumption: 8.1 },
+			{ name: "探岳", consumption: 8.5 },
+			{ name: "途昂", consumption: 10.5 },
 		],
 	},
 	Volvo: {
@@ -107,6 +109,10 @@ const fuelConsumptionByModel: Record<string, Brand> = {
 			{ name: "阿特兹", consumption: 6.5 },
 			{ name: "CX-5", consumption: 7.2 },
 		],
+	},
+	Haval: {
+		name: "哈弗",
+		models: [{ name: "H9", consumption: 12.6 }],
 	},
 	Peugeot: {
 		name: "标致",

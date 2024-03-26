@@ -181,7 +181,7 @@ export default function FuelConsumptionCalculator() {
 										});
 									}}
 									inputProps={{
-										"aria-labelledby": "颜色反转",
+										"aria-labelledby": "往返模式",
 									}}
 								/>
 							</ListItemSecondaryAction>
