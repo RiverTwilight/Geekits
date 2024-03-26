@@ -32,6 +32,7 @@ import {
 } from "@mui/material";
 import useNotifications from "@/utils/Hooks/useNotification";
 import { useSidebar } from "@/contexts/sidebar";
+import siteConfig from "src/site.config";
 
 function ElevationScroll(props: Props) {
 	const { children } = props;
@@ -191,14 +192,14 @@ export default (props: { title: string; PageAction; repo: string }) => {
 								cursor: "pointer",
 							}}
 						>
-							Geekits
+							{siteConfig.title}
 						</Typography>
 					</Link>
 					<Typography
 						color="primary"
 						variant="h6"
 						noWrap
-						sx={{ overflow: "initial", marginLeft: ".4em" }}
+						sx={{ overflow: "hidden", marginLeft: ".4em" }}
 					>
 						{title}
 					</Typography>
