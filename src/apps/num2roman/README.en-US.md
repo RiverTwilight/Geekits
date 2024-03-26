@@ -1,7 +1,6 @@
 ---
 name: "Number to Roman"
 status: "stable"
-icon: "language"
-icon_color: "indigo-300"
+icon: "/icon/number_green.png"
 channel: life
 ---
