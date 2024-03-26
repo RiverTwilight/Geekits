@@ -2,20 +2,23 @@ import matter from "gray-matter";
 import externalApps from "../data/zh-CN/externalApps";
 import type { AppData } from "@/types/index";
 
-const getAppConfigFile = (appId: string): string =>
-	require(`../apps/${appId}/README.zh-CN.md`).default;
+const getAppConfigFile = (appId: string, locale: string): string =>
+	require(`../apps/${appId}/README.${locale}.md`).default;
 
 const getAppConfig = (
 	appId: string,
-	requiredKeys?: string[]
+	config: {
+		requiredKeys?: string[];
+		locale?: string;
+	}
 ): { [key: string]: any } => {
-	const { content, data } = matter(getAppConfigFile(appId));
+	const { content, data } = matter(getAppConfigFile(appId, config.locale));
 
-	if (!requiredKeys) {
+	if (!config.requiredKeys) {
 		return { id: appId, ...data };
 	}
 
-	return requiredKeys.reduce(
+	return config.requiredKeys.reduce(
 		(acc, key) => {
 			acc[key] = data[key] || null;
 			return acc;
@@ -24,21 +27,30 @@ const getAppConfig = (
 	);
 };
 
-const getAppDoc = (appId: string): string => {
-	const { content } = matter(getAppConfigFile(appId));
+const getAppDoc = (appId: string, locale: string = "zh-CN"): string => {
+	const { content } = matter(getAppConfigFile(appId, locale));
 	return content.toString();
 };
 
 const allAppsContext = require.context("../apps", true, /(zh-CN\.md)$/);
+const allAppsContext_en = require.context("../apps", true, /(en-US\.md)$/);
 
-const getAllApps = (includeExternal?: boolean): AppData[] => {
-	console.log(allAppsContext.keys())
-	const allApps = allAppsContext
+const getAllApps = (
+	includeExternal: boolean = true,
+	locale: string = "zh-CN"
+): AppData[] => {
+	const activeAppsContext =
+		{
+			"zh-CN": allAppsContext,
+			"en-US": allAppsContext_en,
+		}[locale] || allAppsContext;
+
+	const allApps = activeAppsContext
 		.keys()
-		.slice(0, (allAppsContext.keys().length) / 2)
+		.slice(0, activeAppsContext.keys().length / 2)
 		.map((key) => {
 			const appId = key.split("/")[1];
-			return { id: appId, ...getAppConfig(appId) };
+			return { id: appId, ...getAppConfig(appId, { locale }) };
 		});
 
 	return includeExternal ? [...allApps, ...externalApps] : allApps;

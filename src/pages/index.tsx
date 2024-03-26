@@ -11,7 +11,7 @@ import translator from "@/utils/translator";
 import { useAction } from "@/contexts/action";
 
 export async function getStaticProps({ locale }) {
-	const appData = getAllApps(true);
+	const appData = getAllApps(true, locale);
 
 	const dic = require("../data/i18n.json");
 
@@ -29,10 +29,6 @@ export async function getStaticProps({ locale }) {
 			locale,
 		},
 	};
-}
-
-export function MenuButton() {
-	return <button>test</button>;
 }
 
 export default function Index({ appData }: any) {
