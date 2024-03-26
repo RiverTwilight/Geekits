@@ -40,7 +40,7 @@ export default function FuelConsumptionCalculator() {
 		setState({ ...state, [name]: value });
 	};
 
-	const calculateCost = () => {
+	const calculateCost = (): void => {
 		const { distance, brand, model, highwayFee, fuelPrice } = state;
 		const selectedModel = fuelConsumptionByModel[brand].models.find(
 			(m) => m.name === model
@@ -50,7 +50,7 @@ export default function FuelConsumptionCalculator() {
 		}
 		const fuelConsumption = selectedModel.consumption;
 		const fuelCost = (distance / 100) * fuelConsumption * fuelPrice;
-		const totalCost = fuelCost + highwayFee;
+		const totalCost: number = Number(fuelCost) + Number(highwayFee);
 		setState({ ...state, totalCost });
 	};
 
