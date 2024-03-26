@@ -71,11 +71,10 @@ export const getStaticProps: GetStaticProps = ({
 }) => {
 	const { id: currentId } = ctx.params;
 
-	const appConfig = getAppConfig(currentId as string, [
-		"name",
-		"status",
-		"freeSize",
-	]);
+	const appConfig = getAppConfig(currentId as string, {
+		requiredKeys: ["name", "status", "freeSize"],
+		locale: locale
+	});
 
 	const appDoc = getAppDoc(currentId as string);
 

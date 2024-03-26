@@ -10,7 +10,7 @@ const getAppConfig = (
 	config: {
 		requiredKeys?: string[];
 		locale?: string;
-	}
+	} = { locale: "zh-CN" }
 ): { [key: string]: any } => {
 	const { content, data } = matter(getAppConfigFile(appId, config.locale));
 
