@@ -156,12 +156,12 @@ const Sidebar = () => {
 	const { sidebar, setSidebar } = useSidebar();
 
 	const downXs = useMediaQuery((theme: Theme) =>
-		theme.breakpoints.down("xs")
+		theme.breakpoints.down("md")
 	);
-
+	
 	const handleClickNavItem = () => {
 		if (downXs) {
-			setSidebar(false);
+			setSidebar(true); // Should reverse as defaultly hide on mobile screen
 		}
 	};
 
