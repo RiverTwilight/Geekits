@@ -1,13 +1,11 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
-import Button from "@mui/material/Button";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
 import {
 	Box,
-	FormControlLabel,
 	IconButton,
 	InputAdornment,
 	OutlinedInput,
@@ -15,8 +13,9 @@ import {
 } from "@mui/material";
 import { ContentCopy, SwapVert } from "@mui/icons-material";
 
-const units = ["mm", "mile", "cm", "m", "km"];
+const units = ["mm", "mil", "cm", "m", "km"];
 
+// Validation: https://www.unitconverters.net/length/mil-to-millimeter.htm
 const Converter = () => {
 	const [inputValue, setInputValue] = useState("");
 	const [inputUnit, setInputUnit] = useState("mm");
@@ -31,7 +30,6 @@ const Converter = () => {
 	}
 
 	const handleCopy = (text) => {
-		console.log("1234452353425");
 		copyTextToClipboard(text)
 			.then(() => {
 				window.snackbar({ message: "已复制" });
@@ -50,7 +48,7 @@ const Converter = () => {
 			case "mm":
 				convertedValue = value;
 				break;
-			case "mile":
+			case "mil":
 				convertedValue = value * 0.0254;
 				break;
 			case "cm":
@@ -68,7 +66,7 @@ const Converter = () => {
 			case "mm":
 				convertedValue /= 1;
 				break;
-			case "mile":
+			case "mil":
 				convertedValue /= 0.0254;
 				break;
 			case "cm":
@@ -83,7 +81,7 @@ const Converter = () => {
 		}
 
 		return convertedValue.toFixed(2);
-	}, [inputUnit, inputValue]);
+	}, [inputUnit, inputValue, outputUnit]);
 
 	const swapUnits = () => {
 		const temp = inputUnit;
