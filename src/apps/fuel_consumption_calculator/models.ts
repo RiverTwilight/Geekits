@@ -12,11 +12,12 @@ const fuelConsumptionByModel: Record<string, Brand> = {
 	VW: {
 		name: "大众",
 		models: [
-			{ name: "朗逸", consumption: 6.9 },
+			{ name: "朗逸", consumption: 6.78 },
 			{ name: "高尔夫", consumption: 7.1 },
 			{ name: "帕萨特", consumption: 7.2 },
-			{ name: "宝来", consumption: 7.3 },
+			{ name: "宝来", consumption: 6.65 },
 			{ name: "途观", consumption: 8.1 },
+			{ name: "速腾", consumption: 6.82 },
 			{ name: "探岳", consumption: 8.5 },
 			{ name: "途昂", consumption: 10.5 },
 		],
@@ -34,6 +35,7 @@ const fuelConsumptionByModel: Record<string, Brand> = {
 		models: [
 			{ name: "卡罗拉", consumption: 5.6 },
 			{ name: "凯美瑞", consumption: 6.8 },
+			{ name: "雷凌", consumption: 6.46 },
 			{ name: "RAV4", consumption: 7.2 },
 		],
 	},
@@ -42,6 +44,7 @@ const fuelConsumptionByModel: Record<string, Brand> = {
 		models: [
 			{ name: "思域", consumption: 5.8 },
 			{ name: "雅阁", consumption: 6.5 },
+			{ name: "缤智", consumption: 7.19 },
 			{ name: "CR-V", consumption: 7.4 },
 		],
 	},
@@ -49,7 +52,9 @@ const fuelConsumptionByModel: Record<string, Brand> = {
 		name: "宝马",
 		models: [
 			{ name: "3系", consumption: 6.2 },
-			{ name: "5系", consumption: 7.5 },
+			{ name: "5系（进口 245 马力）", consumption: 8.87 },
+			{ name: "5系（进口 184 马力）", consumption: 8.98 },
+			{ name: "5系（245 马力）", consumption: 9.1 },
 			{ name: "X3", consumption: 8.2 },
 		],
 	},
@@ -57,7 +62,7 @@ const fuelConsumptionByModel: Record<string, Brand> = {
 		name: "奥迪",
 		models: [
 			{ name: "A4L", consumption: 7.2 },
-			{ name: "A6L", consumption: 7.8 },
+			{ name: "A6L", consumption: 9.12 },
 			{ name: "Q5L", consumption: 8.5 },
 		],
 	},
@@ -105,7 +110,7 @@ const fuelConsumptionByModel: Record<string, Brand> = {
 	Mazda: {
 		name: "马自达",
 		models: [
-			{ name: "昂克赛拉", consumption: 6.2 },
+			{ name: "昂克赛拉", consumption: 6.13 },
 			{ name: "阿特兹", consumption: 6.5 },
 			{ name: "CX-5", consumption: 7.2 },
 		],
