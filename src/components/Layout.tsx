@@ -115,8 +115,12 @@ const Layout = ({ currentPage, children, enableFrame }) => {
 							content={activeDescription}
 						/>
 						<meta property="og:locale" content={"zh_CN"} />
-						<meta property="og:image" content="/image/general_og" />
-						<meta name="twitter:card" content={activeDescription} />
+						<meta property="og:image" content="/image/general_og.png" />
+						<meta
+							name="twitter:card"
+							content="summary_large_image"
+						/>
+						<meta name="twitter:site" content="@YGeeker_Official" />
 						<meta
 							name="google-site-verification"
 							content="3yqvRLDwkcm7nwNQ5bSG06I4wQ5ASf23HUtcyZIaz3I"
