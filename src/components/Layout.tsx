@@ -114,19 +114,8 @@ const Layout = ({ currentPage, children, enableFrame }) => {
 							property="og:description"
 							content={activeDescription}
 						/>
-						<meta property="og:locale" content="zh_CN" />
-						<meta
-							property="article:author"
-							content={siteConfig.author.name}
-						/>
-						<meta
-							property="article:tag"
-							content={siteConfig.author.name}
-						/>
-						<meta
-							property="article:tag"
-							content={siteConfig.keywords.join(",")}
-						/>
+						<meta property="og:locale" content={"zh_CN"} />
+						<meta property="og:image" content="/image/general_og" />
 						<meta name="twitter:card" content={activeDescription} />
 						<meta
 							name="google-site-verification"

@@ -33,6 +33,7 @@ const Root = styled("div")<{ freeSize?: boolean }>(
 				position: "relative",
 				// minHeight: "calc(100vh - 56px - 12px)",
 				[theme.breakpoints.up("sm")]: {
+					marginRight: 16,
 					borderRadius: "24px",
 				},
 				marginX: { sm: 4, xs: 0 },
@@ -43,7 +44,6 @@ const Root = styled("div")<{ freeSize?: boolean }>(
 					easing: theme.transitions.easing.sharp,
 					duration: theme.transitions.duration.leavingScreen,
 				}),
-				marginRight: 0,
 			},
 
 			[`& .${classes.contentShift}`]: {
