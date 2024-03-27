@@ -28,6 +28,12 @@ const appImportList: Record<string, ComponentType> = {
 			ssr: false,
 		}
 	),
+	length_unit_convertor: dynamic(
+		() => import("../apps/length_unit_convertor"),
+		{
+			ssr: false,
+		}
+	),
 	fake_pornhub_logo: dynamic(() => import("../apps/fake_pornhub_logo"), {
 		ssr: false,
 	}),
