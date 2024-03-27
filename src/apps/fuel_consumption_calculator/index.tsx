@@ -36,6 +36,11 @@ interface FuelConsumptionCalculatorState {
 	twoSide: boolean;
 }
 
+function topFunction() {
+	document.body.scrollTop = 0; // For Safari
+	document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+}
+
 export default function FuelConsumptionCalculator() {
 	const [state, setState] = useState<FuelConsumptionCalculatorState>({
 		distance: 100,
@@ -108,6 +113,7 @@ export default function FuelConsumptionCalculator() {
 		const totalCost: number =
 			Number(fuelCost) + Number(twoSide ? highwayFee * 2 : highwayFee);
 		setState({ ...state, totalCost });
+		topFunction();
 	};
 
 	return (
@@ -162,17 +168,19 @@ export default function FuelConsumptionCalculator() {
 			</Dialog>
 			<Box display="flex" justifyContent="center" sx={{ width: "100%" }}>
 				<Box sx={{ maxWidth: "600px" }}>
-					<br />
 					{state.totalCost > 0 && (
-						<Typography textAlign="center" variant="h5">
-							本行程总计开销&nbsp;
-							<span className="Textc(green)">
-								{Math.floor(state.totalCost * 100) / 100}
-							</span>
-							&nbsp;元
-						</Typography>
+						<>
+							<br />
+							<Typography textAlign="center" variant="h5">
+								本行程总计开销&nbsp;
+								<span className="Textc(green)">
+									{Math.floor(state.totalCost * 100) / 100}
+								</span>
+								&nbsp;元
+							</Typography>
+							<br />
+						</>
 					)}
-					<br />
 
 					<FormControl fullWidth>
 						<TextField
