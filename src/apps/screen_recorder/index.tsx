@@ -1,170 +1,168 @@
-import React from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Button from "@mui/material/Button";
-import Card from "@mui/material/Card";
-import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
 import Switch from "@mui/material/Switch";
 import FormControlLabel from "@mui/material/FormControlLabel";
+import OutlinedCard from "@/components/OutlinedCard";
+import { Alert, Typography } from "@mui/material";
 
-class ScreenRecorder extends React.Component<{}, {}> {
-	videoRef;
+const ScreenRecorder = () => {
+	const videoRef = useRef(null);
+	const [recorder, setRecorder] = useState(null);
+	const [onRecord, setOnRecord] = useState(false);
+	const [finished, setFinished] = useState(false);
+	const [recordAudio, setRecordAudio] = useState(false);
+	const [errorMsg, setErrorMsg] = useState("");
 
-	constructor(props: {}) {
-		super(props);
-		this.state = {
-			recorder: undefined,
-			onRecord: false,
-			finished: false,
-			recordAudio: false,
-		};
-		this.videoRef = React.createRef();
-	}
-
-	async record() {
-		const { videoRef } = this;
-		const { recordAudio } = this.state;
-		let recorder: any;
-		let captureStream, audioStream, combination;
-
-		try {
-			captureStream = await navigator.mediaDevices.getDisplayMedia({
-				video: true,
-				audio: true,
-			});
-
-			audioStream = await navigator.mediaDevices.getUserMedia({
-				audio: true,
-				video: false,
-			});
-		} catch (e) {
-			return;
+	useEffect(() => {
+		// Check browser compatibility for getDisplayMedia and MediaRecorder
+		if (
+			!navigator.mediaDevices ||
+			!navigator.mediaDevices.getDisplayMedia ||
+			!window.MediaRecorder
+		) {
+			console.error("Browser does not support screen recording.");
+			setErrorMsg("Browser does not support screen recording.");
+			// Handle error appropriately, e.g., display a message to the user
 		}
+	}, []);
 
-		window.URL.revokeObjectURL(videoRef.current.src);
-
-		videoRef.current.autoplay = true;
-		videoRef.current.srcObject = captureStream;
-
-		combination = new MediaStream([
-			...captureStream.getTracks(),
-			...audioStream.getTracks(),
-		]);
-
-		recorder = new MediaRecorder(recordAudio ? captureStream : combination);
-
-		recorder.start();
-		this.setState({ onRecord: true });
-
-		captureStream.getVideoTracks()[0].onended = () => {
-			recorder.stop();
-		};
-
-		recorder.addEventListener("dataavailable", (event: any) => {
-			// @ts-expect-error ts-migrate(2554) FIXME: Expected 1 arguments, but got 2.
-			let videoUrl = URL.createObjectURL(event.data, {
-				type: "video/ogg",
+	const record = async () => {
+		try {
+			const captureStream = await navigator.mediaDevices.getDisplayMedia({
+				video: true,
+				audio: recordAudio,
 			});
-			videoRef.current.srcObject = null;
-			videoRef.current.src = videoUrl;
-			videoRef.current.autoplay = false;
-		});
-		this.setState({ recorder: recorder });
-	}
 
-	stop() {
-		const { recorder } = this.state;
-		let tracks = this.videoRef.current.srcObject.getTracks();
-		tracks.forEach((track: any) => track.stop());
-		recorder.stop();
-		this.setState({ onRecord: false });
-	}
+			const audioStream = recordAudio
+				? await navigator.mediaDevices.getUserMedia({
+						audio: true,
+						video: false,
+				  })
+				: null;
 
-	download() {
-		const url = this.videoRef.current.src;
-		const name = new Date()
-			.toISOString()
-			.slice(0, 19)
-			.replace("T", " ")
-			.replace(" ", "_")
-			.replace(/:/g, "-");
-		const a = document.createElement("a");
+			const combination = audioStream
+				? new MediaStream([
+						...captureStream.getTracks(),
+						...audioStream.getTracks(),
+				  ])
+				: captureStream;
 
-		// @ts-expect-error ts-migrate(2540) FIXME: Cannot assign to 'style' because it is a read-only... Remove this comment to see the full error message
-		a.style = "display: none";
-		a.download = `${name}.ogg`;
-		a.href = url;
+			const newRecorder = new MediaRecorder(combination);
 
-		document.body.appendChild(a);
+			newRecorder.start();
+			setOnRecord(true);
 
-		a.click();
-	}
+			captureStream.getVideoTracks()[0].onended = () => {
+				newRecorder.stop();
+			};
 
-	render() {
-		const { onRecord, finished, recordAudio } = this.state;
-		return (
-			<Paper
-				style={{
-					minHeight: "800px",
-					maxWidth: "800px",
-				}}
-				component={Card}
-			>
-				<video style={{ width: "100%" }} ref={this.videoRef} controls>
-					<source type="video/ogg" />
-				</video>
+			newRecorder.addEventListener("dataavailable", (event) => {
+				const videoUrl = URL.createObjectURL(event.data, {
+					type: "video/webm",
+				}); // Use webm for broader compatibility
+				videoRef.current.srcObject = null;
+				videoRef.current.src = videoUrl;
+				videoRef.current.autoplay = false;
+			});
 
-				<Box padding={2}>
-					<Grid container>
-						<Grid item xs={6} sm={2}>
+			newRecorder.addEventListener("stop", () => {
+				setFinished(true);
+			});
+
+			setRecorder(newRecorder);
+		} catch (error) {
+			console.error("Error recording screen:", error);
+			// Handle error appropriately, e.g., display a message to the user
+		}
+	};
+
+	const stop = () => {
+		if (recorder) {
+			recorder.stop();
+			setOnRecord(false);
+		}
+	};
+
+	const download = () => {
+		if (finished) {
+			const url = videoRef.current.src;
+			const name = new Date()
+				.toISOString()
+				.slice(0, 19)
+				.replace("T", " ")
+				.replace(" ", "_")
+				.replace(/:/g, "-");
+			const a = document.createElement("a");
+			a.style.display = "none";
+			a.download = `${name}.webm`;
+			a.href = url;
+			document.body.appendChild(a);
+			a.click();
+			document.body.removeChild(a);
+		}
+	};
+
+	return (
+		<>
+			{errorMsg && (
+				<Alert severity="warning">
+					Your browser does not support screen recording.
+				</Alert>
+			)}
+			<Box display="flex" justifyContent="center" sx={{ width: "100%" }}>
+				<Box padding={1} sx={{ maxWidth: "600px", width: "100%" }}>
+					<video style={{ width: "100%" }} ref={videoRef} controls>
+						<source type="video/webm" />
+					</video>
+
+					<OutlinedCard padding={2}>
+						<Box
+							sx={{
+								display: "flex",
+								gap: 1,
+								justifyContent: "space-between",
+							}}
+						>
 							<FormControlLabel
-								onChange={(e) => {
-									console.log(e);
-									this.setState({
-										recordAudio: e.target.checked,
-									});
-								}}
+								onChange={(e) =>
+									setRecordAudio(e.target.checked)
+								}
 								checked={recordAudio}
 								control={<Switch />}
 								label="麦克风"
 							/>
-						</Grid>
-
-						<Grid
-							item
-							xs={6}
-							sm={4}
-							component={Button}
-							onClick={() => {
-								if (!onRecord) {
-									this.record();
-								} else {
-									this.stop();
-								}
-							}}
-							variant="contained"
-						>
-							{!onRecord ? "录制" : "停止"}
-						</Grid>
-
-						<Grid
-							item
-							component={Button}
-							xs={12}
-							sm={6}
-							onClick={() => {
-								this.download();
-							}}
-							variant="outlined"
-							disabled={onRecord}
-						>
-							下载
-						</Grid>
-					</Grid>
+							<Box display="flex" alignItems="center" gap={1}>
+								<Button
+									onClick={() => {
+										if (!onRecord) {
+											record();
+										} else {
+											stop();
+										}
+									}}
+									variant="contained"
+									sx={{
+										color: "#fff",
+									}}
+									disabled={onRecord}
+								>
+									{onRecord ? "停止" : "录制"}
+								</Button>
+								<Button
+									onClick={download}
+									variant="outlined"
+									disabled={onRecord}
+								>
+									导出
+								</Button>
+							</Box>
+						</Box>
+					</OutlinedCard>
 				</Box>
-			</Paper>
-		);
-	}
-}
+			</Box>
+		</>
+	);
+};
 
 export default ScreenRecorder;

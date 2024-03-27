@@ -1,7 +1,7 @@
 ---
-name: "无线电呼号归属地查询"
-status: "alpha"
-icon: "language"
-icon_color: "indigo-300"
+name: "Screen Recorder"
+status: "stable"
+icon: "/icon/monitor_red_outline.png"
 channel: life
+freeSize: true
 ---
