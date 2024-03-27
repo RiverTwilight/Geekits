@@ -7,6 +7,7 @@ import Typography from "@mui/material/Typography";
 import CardActions from "@mui/material/CardActions";
 import Button from "@mui/material/Button";
 import CardHeader from "@mui/material/CardHeader";
+import OutlinedCard from "./OutlinedCard";
 
 const PREFIX = "PricingCard";
 
@@ -22,7 +23,7 @@ const StyledCard = styled(Card)(({ theme }) => ({ bgColor, color }) => ({
 	background: bgColor,
 	color: color && color,
 	[`&.${classes.root}`]: {
-		borderRadius: 12,
+		borderRadius: "24px",
 		minWidth: 100,
 		textAlign: "center",
 	},

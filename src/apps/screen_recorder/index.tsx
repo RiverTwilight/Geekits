@@ -3,7 +3,7 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Switch from "@mui/material/Switch";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import OutlinedCard from "@/components/OutlinedCard";
+import OutlinedCard from "@/components/OutlinedCard/index";
 import { Alert, Typography } from "@mui/material";
 
 const ScreenRecorder = () => {

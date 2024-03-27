@@ -3,7 +3,7 @@ import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
-import OutlinedCard from "@/components/OutlinedCard";
+import OutlinedCard from "@/components/OutlinedCard/index";
 import useInput from "@/utils/Hooks/useInput";
 import toRoman from "./api";
 

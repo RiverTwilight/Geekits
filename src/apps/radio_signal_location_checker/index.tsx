@@ -14,7 +14,7 @@ import {
 	TableHead,
 	TableRow,
 } from "@mui/material";
-import OutlinedCard from "@/components/OutlinedCard";
+import OutlinedCard from "@/components/OutlinedCard/index";
 import { Search } from "@mui/icons-material";
 
 const countryList = {

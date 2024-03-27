@@ -17,7 +17,7 @@ import InputLabel from "@mui/material/InputLabel";
 import { Box, Fab, Switch } from "@mui/material";
 import { CheckOutlined, SwapHoriz } from "@mui/icons-material";
 import fuelConsumptionByModel from "./models";
-import OutlinedCard from "@/components/OutlinedCard";
+import OutlinedCard from "@/components/OutlinedCard/index";
 
 interface FuelConsumptionCalculatorState {
 	distance: number;
