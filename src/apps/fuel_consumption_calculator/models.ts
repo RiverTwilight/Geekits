@@ -151,14 +151,12 @@ const fuelConsumptionByModel: Record<string, Brand> = {
 			{ name: "揽胜星脉", consumption: 9.3 },
 		],
 	},
-	Porsche: {
-		name: "保时捷",
-		models: [
-			{ name: "Macan", consumption: 8.9 },
-			{ name: "Cayenne", consumption: 10.2 },
-			{ name: "911", consumption: 11.5 },
-		],
-	},
+	// BYD: {
+	// 	name: "比亚迪",
+	// 	models: [
+	// 		{ name: "宋PLUS", consumption: 6.97 },
+	// 	],
+	// },
 };
 
 export default fuelConsumptionByModel;
