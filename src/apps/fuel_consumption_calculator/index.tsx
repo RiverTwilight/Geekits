@@ -67,6 +67,11 @@ export default function FuelConsumptionCalculator() {
 		event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
 	) => {
 		const { name, value } = event.target;
+
+		if (name === "brand") {
+			setState({ ...state, brand: value, model: "" });
+		}
+
 		setState({ ...state, [name]: value });
 	};
 
@@ -78,29 +83,14 @@ export default function FuelConsumptionCalculator() {
 		return fuelConsumptionByModel[state.brand].models.find(
 			(m) => m.name === state.model
 		);
-	}, [state.model]);
+	}, [state.model, state.brand]);
 
 	const calculateCost = (): void => {
-		const {
-			distance,
-			brand,
-			model,
-			highwayFee,
-			fuelPrice,
-			twoSide,
-			consumption,
-			noob,
-		} = state;
+		const { distance, highwayFee, fuelPrice, twoSide, consumption, noob } =
+			state;
 
-		let selectedModel;
-
-		if (consumption === 0) {
-			selectedModel = fuelConsumptionByModel[brand].models.find(
-				(m) => m.name === model
-			);
-			if (!selectedModel) {
-				return;
-			}
+		if (consumption === 0 && !selectedModel) {
+			return;
 		}
 
 		const fuelConsumption =
@@ -203,6 +193,7 @@ export default function FuelConsumptionCalculator() {
 								name="brand"
 								value={state.brand}
 								onChange={handleChange}
+								disabled={state.consumption > 0}
 								label="Brand"
 							>
 								{Object.keys(fuelConsumptionByModel).map(
@@ -222,7 +213,7 @@ export default function FuelConsumptionCalculator() {
 								value={state.model}
 								onChange={handleChange}
 								label="车型"
-								disabled={!state.brand}
+								disabled={!state.brand || state.consumption > 0}
 							>
 								{state.brand &&
 									fuelConsumptionByModel[
@@ -242,14 +233,10 @@ export default function FuelConsumptionCalculator() {
 						{selectedModel &&
 							state.consumption === 0 &&
 							`该车型综合油耗大约为
-						${
-							fuelConsumptionByModel[state.brand].models.find(
-								(m) => m.name === state.model
-							).consumption
-						}
+						${selectedModel.consumption}
 						L/100km。`}
 						{state.consumption > 0 &&
-							`自定义油耗：${state.consumption} L/100km`}
+							`正在使用自定义油耗：${state.consumption} L/100km`}
 						<Button onClick={handleClickOpen} size="small">
 							自定义数据...
 						</Button>
