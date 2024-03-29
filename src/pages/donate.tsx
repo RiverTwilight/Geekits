@@ -8,18 +8,26 @@ import translator from "@/utils/translator";
 import { styled } from "@mui/material/styles";
 import OutlinedCard from "@/components/OutlinedCard/index";
 import PaperBackground from "@/components/PaperBackground";
-import { Alert } from "@mui/material";
+import {
+	Alert,
+	Avatar,
+	ListItem,
+	ListItemAvatar,
+	ListItemText,
+} from "@mui/material";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-const Root = styled("div")(({ theme: Theme }) => ({
-	maxWidth: "864px",
-	margin: "0 auto",
-	padding: `${Theme.spacing(2)}`,
-	paddingBottom: "50px",
-}));
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import { Coffee } from "@mui/icons-material";
+import { useAction } from "@/contexts/action";
 
 const FREE_DONATION_WAYS = [
 	{
@@ -74,14 +82,37 @@ const FREE_DONATION_WAYS = [
 
 const PAIED_DONATION_WAYS = [
 	{
-		title: "☕一杯咖啡",
-		price: "$2.00",
+		title: "请我一杯咖啡",
+		amount: "¥6.00",
 		href: "",
 	},
 	{
-		title: "📗一本好书",
-		price: "$5.00",
+		title: "请我一杯奶茶",
+		amount: "¥15.00",
 		href: "",
+	},
+	{
+		title: "请我一顿饭",
+		amount: "¥25.00",
+		href: "",
+	},
+	{
+		title: "自定义金额",
+		amount: "",
+		href: "",
+	},
+];
+
+const DONATION_HISTORY = [
+	{
+		amount: "¥80.0",
+		donator: "Yunser",
+		method: "微信",
+	},
+	{
+		amount: "¥5",
+		donator: "SJX",
+		method: "微信",
 	},
 ];
 
@@ -138,7 +169,26 @@ const ProductItem = ({ href, ...props }) => (
 	</Grid>
 );
 
+const PaidOptionItem = ({ href, ...props }) => (
+	<Grid item xs={6} sm={4}>
+		<OutlinedCard padding={1}>
+			<ListItem>
+				<ListItemAvatar>
+					<Avatar>
+						<Coffee />
+					</Avatar>
+				</ListItemAvatar>
+				<ListItemText primary={props.title} secondary={props.amount} />
+			</ListItem>
+		</OutlinedCard>
+	</Grid>
+);
+
 export default function Donate() {
+	const { setAction } = useAction()
+
+	setAction(null);
+	
 	return (
 		<PaperBackground contentWidth={900}>
 			<Box height="200px">
@@ -154,7 +204,6 @@ export default function Donate() {
 			</Typography>
 
 			<br />
-			{/* <Typography variant="h5">免费捐赠</Typography> */}
 			<Alert severity="info">
 				以下方式都是免费的，你只需要动动手指，我和你都能从中获益。
 			</Alert>
@@ -169,17 +218,57 @@ export default function Donate() {
 			</Grid>
 
 			<br />
+			<br />
 
-			{/* <Typography variant="h5">付费捐赠</Typography>
+			<Typography variant="h6">其他方式</Typography>
+
+			<br />
+
 			<Grid
-				spacing={1}
+				spacing={{ xs: 1, md: 2 }}
 				sx={{ paddingY: (theme) => theme.spacing(1) }}
 				container
 			>
 				{PAIED_DONATION_WAYS.map((way) => (
-					<ProductItem {...way} />
+					<PaidOptionItem {...way} />
 				))}
-			</Grid> */}
+			</Grid>
+			<br />
+
+			<Typography variant="h6">捐赠记录</Typography>
+
+			<br />
+
+			<TableContainer component={OutlinedCard}>
+				<Table aria-label="simple table">
+					<TableHead>
+						<TableRow>
+							<TableCell>方式</TableCell>
+							<TableCell>金额</TableCell>
+							<TableCell>捐赠者</TableCell>
+						</TableRow>
+					</TableHead>
+					<TableBody>
+						{DONATION_HISTORY.map((row, i) => (
+							<TableRow key={i}>
+								<TableCell>{row.method}</TableCell>
+								<TableCell>{row.amount}</TableCell>
+								<TableCell>{row.donator}</TableCell>
+							</TableRow>
+						))}
+					</TableBody>
+				</Table>
+				<Box
+					display={"flex"}
+					width={"full"}
+					justifyContent={"center"}
+					paddingY={2}
+				>
+					<Button LinkComponent={Link} href="mailto:rene@ygeeker.com">
+						问题反馈
+					</Button>
+				</Box>
+			</TableContainer>
 		</PaperBackground>
 	);
 }

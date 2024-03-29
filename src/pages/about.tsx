@@ -11,6 +11,7 @@ import { GetStaticProps } from "next";
 import { author, repo } from "../site.config";
 import translator from "@/utils/translator";
 import packageInfo from "../../package.json";
+import { useAction } from "@/contexts/action";
 
 const PREFIX = "about";
 
@@ -78,6 +79,10 @@ export const getStaticProps: GetStaticProps = ({ locale }) => {
 };
 
 export default function About({ aboutContent }: AboutProps) {
+	const { setAction } = useAction();
+
+	setAction(null);
+
 	return (
 		<Root>
 			<OutlinedCard className={classes.authorCard}>
