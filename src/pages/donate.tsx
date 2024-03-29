@@ -3,9 +3,7 @@ import Grid from "@mui/material/Grid";
 import Link from "@mui/material/Link";
 import { GetStaticProps } from "next";
 import Placeholder from "@/components/Placeholder";
-import PricingCard from "@/components/PricingCard";
 import translator from "@/utils/translator";
-import { styled } from "@mui/material/styles";
 import OutlinedCard from "@/components/OutlinedCard/index";
 import PaperBackground from "@/components/PaperBackground";
 import {
@@ -15,7 +13,6 @@ import {
 	ListItemAvatar,
 	ListItemText,
 } from "@mui/material";
-import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
@@ -26,7 +23,7 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import { Coffee } from "@mui/icons-material";
+import { AttachMoney, Coffee, Fastfood, LocalBar } from "@mui/icons-material";
 import { useAction } from "@/contexts/action";
 
 const FREE_DONATION_WAYS = [
@@ -84,21 +81,25 @@ const PAIED_DONATION_WAYS = [
 	{
 		title: "请我一杯咖啡",
 		amount: "¥6.00",
+		icon: <Coffee />,
 		href: "",
 	},
 	{
 		title: "请我一杯奶茶",
 		amount: "¥15.00",
+		icon: <LocalBar />,
 		href: "",
 	},
 	{
 		title: "请我一顿饭",
 		amount: "¥25.00",
+		icon: <Fastfood />,
 		href: "",
 	},
 	{
 		title: "自定义金额",
 		amount: "",
+		icon: <AttachMoney />,
 		href: "",
 	},
 ];
@@ -113,6 +114,11 @@ const DONATION_HISTORY = [
 		amount: "¥5",
 		donator: "SJX",
 		method: "微信",
+	},
+	{
+		amount: "⭐️ * 1",
+		donator: "Gloridust",
+		method: "GitHub",
 	},
 ];
 
@@ -172,23 +178,30 @@ const ProductItem = ({ href, ...props }) => (
 const PaidOptionItem = ({ href, ...props }) => (
 	<Grid item xs={6} sm={4}>
 		<OutlinedCard padding={1}>
-			<ListItem>
+			<ListItem sx={{ height: { xs: "6em", sm: "4em" } }}>
 				<ListItemAvatar>
 					<Avatar>
-						<Coffee />
+						{props.icon}
 					</Avatar>
 				</ListItemAvatar>
-				<ListItemText primary={props.title} secondary={props.amount} />
+				{!!props.amount ? (
+					<ListItemText
+						primary={props.title}
+						secondary={props.amount}
+					/>
+				) : (
+					<ListItemText primary={props.title} />
+				)}
 			</ListItem>
 		</OutlinedCard>
 	</Grid>
 );
 
 export default function Donate() {
-	const { setAction } = useAction()
+	const { setAction } = useAction();
 
 	setAction(null);
-	
+
 	return (
 		<PaperBackground contentWidth={900}>
 			<Box height="200px">
@@ -196,11 +209,12 @@ export default function Donate() {
 			</Box>
 
 			<Typography variant="body1">
-				感谢您对我们的开源项目的关注。我们的项目已经开发了三年多，这期间我投入了大量的时间、精力和金钱，包括购买域名和服务器。作为一名没有收入的学生，这一切对我来说是非常昂贵的。但是，我仍然坚守着对这个项目的热爱。如果您愿意，您可以通过捐赠来支持我们，帮助我们继续开发这个项目，使其对更多人有所帮助。我们非常感谢您的支持！
+				感谢您对我的开源项目的关注。Geekits
+				已经开发了五年多，这期间我投入了大量的时间、精力和金钱，包括购买域名和服务器。作为一名没有收入的学生，这一切对我来说是非常昂贵的。但是，我仍然坚守着对这个项目的热爱。
+				你可以通过捐赠来支持我，帮助我继续开发这个项目，使其对更多人有所帮助。非常感谢你的支持！
 				<br />
 				<br />
-				无论哪种捐赠方式，都是对我们莫大的支持。所有的收益都将用于开发、维护、运行
-				Geekits。
+				所有的收益都将用于开发、维护、运行 Geekits。
 			</Typography>
 
 			<br />
@@ -233,6 +247,8 @@ export default function Donate() {
 					<PaidOptionItem {...way} />
 				))}
 			</Grid>
+
+			<br />
 			<br />
 
 			<Typography variant="h6">捐赠记录</Typography>
