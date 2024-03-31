@@ -92,6 +92,17 @@ const Layout = ({ currentPage, children, enableFrame }) => {
 					value={{ action: action, setAction: setAction }}
 				>
 					<Head>
+						<link
+							rel="alternate"
+							href={`${siteConfig.root}/zh-CN`}
+							hrefLang="zh-CN"
+						></link>
+						<link
+							rel="alternate"
+							href={`${siteConfig.root}/en-US`}
+							hrefLang="en-US"
+						></link>
+
 						<title>{metaTitle}</title>
 						<meta
 							name="keywords"
@@ -115,7 +126,10 @@ const Layout = ({ currentPage, children, enableFrame }) => {
 							content={activeDescription}
 						/>
 						<meta property="og:locale" content={"zh_CN"} />
-						<meta property="og:image" content="/image/general_og.png" />
+						<meta
+							property="og:image"
+							content="/image/general_og.png"
+						/>
 						<meta
 							name="twitter:card"
 							content="summary_large_image"
