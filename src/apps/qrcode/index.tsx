@@ -17,13 +17,8 @@ import FormControl from "@mui/material/FormControl";
 import Card from "@mui/material/Card";
 import { TabPanel, a11yProps } from "../../components/TabToolkits";
 import OutlinedCard from "@/components/OutlinedCard";
-<<<<<<< HEAD
 import { Box, Fab, IconButton } from "@mui/material";
 import { CheckOutlined, ContentCopy, Download } from "@mui/icons-material";
-=======
-import { Box, IconButton } from "@mui/material";
-import { ContentCopy, Download } from "@mui/icons-material";
->>>>>>> 862ef768209634365da1c3851e0ccd26c6da5413
 
 const create = (opts: any, text: any, callback: any, iconData: any) => {
 	const loadImgae = (url) => {
@@ -246,11 +241,7 @@ class Qrcode extends React.Component<{}, QrcodeState> {
 			<Grid
 				direction={{ xs: "column-reverse", sm: "row" }}
 				container
-<<<<<<< HEAD
 				spacing={2}
-=======
-				spacing={1}
->>>>>>> 862ef768209634365da1c3851e0ccd26c6da5413
 			>
 				<Grid item xs={12} sm={6}>
 					<OutlinedCard>
