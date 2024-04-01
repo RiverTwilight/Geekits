@@ -108,7 +108,7 @@ export default function About({ aboutContent }: AboutProps) {
 					{author.twitter && (
 						<IconButton
 							href={author.twitter}
-							aria-label="Go to author's twitter profile"
+							aria-label="Go to author's X profile"
 						>
 							<TwitterIcon />
 						</IconButton>
