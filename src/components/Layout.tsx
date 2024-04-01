@@ -23,9 +23,7 @@ const Root = styled("main")<{ disableTopPadding?: boolean }>(
 			flexGrow: 1,
 			paddingTop: disableTopPadding
 				? 0
-				: isCapacitor()
-				? "84px"
-				: "56px",
+				: "calc(var(--ion-safe-area-top) + 56px)",
 			minHeight: "100vh",
 			position: "relative",
 		})

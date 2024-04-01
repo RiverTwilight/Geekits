@@ -262,7 +262,7 @@ const Sidebar = () => {
 					display: { xs: "block", sm: "none" },
 					"& .MuiDrawer-paper": {
 						boxSizing: "border-box",
-						paddingTop: isCapacitor() ? "" : 6,
+						paddingTop: "var(--ion-safe-area-top)",
 						width: drawerWidth,
 						background: (theme) => theme.palette.background.default,
 					},

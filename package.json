@@ -6,8 +6,7 @@
 	"scripts": {
 		"build": "next build",
 		"build:image": "docker build -t ygktool .",
-		"build:cap": "CAPACITOR_BUILD=true next build",
-		"export:cap": "CAPACITOR_BUILD=true next export",
+		"build:cap": "CAPACITOR_BUILD=true next build && CAPACITOR_BUILD=true next export && npx cap sync",
 		"db:init": "prisma generate",
 		"db:update": "prisma db push",
 		"db:panel": "prisma studio",

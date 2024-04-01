@@ -5,7 +5,6 @@ import Box from "@mui/material/Box";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import Toolbar from "@mui/material/Toolbar";
-import Divider from "@mui/material/Divider";
 import Popover from "@mui/material/Popover";
 import IconButton from "@mui/material/IconButton";
 import MenuTwoToneIcon from "@mui/icons-material/MenuTwoTone";
@@ -13,8 +12,6 @@ import useScrollTrigger from "@mui/material/useScrollTrigger";
 import { store } from "@/utils/Data/drawerState";
 import {
 	GitHub,
-	MessageOutlined,
-	MessageRounded,
 	NotificationsOutlined,
 	SettingsApplicationsRounded,
 	SettingsRounded,
@@ -34,7 +31,7 @@ import useNotifications from "@/utils/Hooks/useNotification";
 import { useSidebar } from "@/contexts/sidebar";
 import siteConfig from "src/site.config";
 import { Capacitor } from "@capacitor/core";
-import { isCapacitor } from "@/utils/platform";
+import { isCapacitor, isWeb } from "@/utils/platform";
 
 function ElevationScroll(props: Props) {
 	const { children } = props;
@@ -174,7 +171,7 @@ export default (props: { title: string; PageAction; repo: string }) => {
 					sx={{
 						bgcolor: (theme) => theme.palette.background.default,
 						justifyContent: "space-between",
-						paddingTop: isCapacitor() ? 6 : "",
+						paddingTop: "var(--ion-safe-area-top)",
 					}}
 				>
 					<IconButton
