@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import QRCode from "qrcode";
 import FileInput from "../../components/FilePicker";
 import Tabs from "@mui/material/Tabs";
@@ -16,6 +16,9 @@ import Typography from "@mui/material/Typography";
 import FormControl from "@mui/material/FormControl";
 import Card from "@mui/material/Card";
 import { TabPanel, a11yProps } from "../../components/TabToolkits";
+import OutlinedCard from "@/components/OutlinedCard";
+import { Box, IconButton } from "@mui/material";
+import { ContentCopy, Download } from "@mui/icons-material";
 
 const create = (opts: any, text: any, callback: any, iconData: any) => {
 	const loadImgae = (url) => {
@@ -61,16 +64,61 @@ const create = (opts: any, text: any, callback: any, iconData: any) => {
 		}
 	});
 };
-
 const Result = ({ qrcode }) => {
-	if (!qrcode) return null;
+	const imageContainer = useRef(null);
+
+	const handleDownload = () => {
+		const canvas = document.createElement("canvas");
+		const context = canvas.getContext("2d");
+		const img = new Image();
+		img.src = qrcode;
+
+		img.onload = () => {
+			canvas.width = img.width;
+			canvas.height = img.height;
+			context.drawImage(img, 0, 0);
+
+			const dataURL = canvas.toDataURL();
+			const link = document.createElement("a");
+			link.download = "qr-code.png";
+			link.href = dataURL;
+			link.click();
+		};
+	};
+
 	return (
-		<Card>
-			<div className="center-with-flex">
-				<img alt="qrcode" src={qrcode}></img>
-			</div>
-			<Alert severity="info">长按或右键图片即可保存</Alert>
-		</Card>
+		<OutlinedCard style={{ height: "100%" }}>
+			<Box
+				display={"flex"}
+				flexDirection={"column"}
+				justifyContent={"center"}
+				alignItems={"center"}
+				sx={{ height: "100%" }}
+				paddingY={2}
+			>
+				<Paper sx={{ height: "150px", width: "150px" }}>
+					{qrcode && (
+						<img
+							ref={imageContainer}
+							height="100%"
+							width="100%"
+							alt="qrcode"
+							src={qrcode}
+						></img>
+					)}
+				</Paper>
+				{qrcode && (
+					<>
+						<br />
+						<Box>
+							<IconButton onClick={handleDownload}>
+								<Download />
+							</IconButton>
+						</Box>
+					</>
+				)}
+			</Box>
+		</OutlinedCard>
 	);
 };
 
@@ -190,43 +238,48 @@ class Qrcode extends React.Component<{}, QrcodeState> {
 				</>
 			);
 		return (
-			<>
-				<Paper>
-					<Tabs
-						value={currentTab}
-						onChange={this.handleTabChange}
-						indicatorColor="primary"
-						textColor="primary"
-						variant="fullWidth"
-						aria-label="options"
-					>
-						<Tab label="基本" {...a11yProps(0)} />
-						<Tab label="高级" {...a11yProps(1)} />
-					</Tabs>
-					<TabPanel value={currentTab} index={0}>
-						<FormControl fullWidth component="fieldset">
-							<FormLabel component="legend">类型</FormLabel>
-							<RadioGroup
-								aria-label="type"
-								name="类型"
-								value={mode}
-								onChange={this.handleModeChange}
-							>
-								<FormControlLabel
-									value="normal"
-									control={<Radio />}
-									label="文本"
-								/>
-								<FormControlLabel
-									value="wifi"
-									control={<Radio />}
-									label="WIFI"
-								/>
-							</RadioGroup>
-						</FormControl>
-						{Form}
+			<Grid
+				direction={{ xs: "column-reverse", sm: "row" }}
+				container
+				spacing={1}
+			>
+				<Grid item xs={12} sm={6}>
+					<OutlinedCard>
+						<Tabs
+							value={currentTab}
+							onChange={this.handleTabChange}
+							indicatorColor="primary"
+							textColor="primary"
+							variant="fullWidth"
+							aria-label="options"
+						>
+							<Tab label="基本" {...a11yProps(0)} />
+							<Tab label="高级" {...a11yProps(1)} />
+						</Tabs>
+						<TabPanel value={currentTab} index={0}>
+							<FormControl fullWidth component="fieldset">
+								<FormLabel component="legend">类型</FormLabel>
+								<RadioGroup
+									aria-label="type"
+									name="类型"
+									value={mode}
+									onChange={this.handleModeChange}
+								>
+									<FormControlLabel
+										value="normal"
+										control={<Radio />}
+										label="文本"
+									/>
+									<FormControlLabel
+										value="wifi"
+										control={<Radio />}
+										label="WIFI"
+									/>
+								</RadioGroup>
+							</FormControl>
+							{Form}
 
-						{/* 
+							{/* 
 						<RangeInput
 							value={width}
 							min="50"
@@ -236,63 +289,72 @@ class Qrcode extends React.Component<{}, QrcodeState> {
 							}}
 							title={"大小" + width + "px"}
 						/> */}
-					</TabPanel>
-					<TabPanel value={currentTab} index={1}>
-						<Grid container spacing={3}>
-							<Grid item xs={6}>
-								<FormControl fullWidth>
-									<TextField
-										onChange={(e) => {
-											this.setState({
-												colorLight: e.target.value,
-											});
-										}}
-										value={colorLight}
-										type="color"
-										label="亮色"
-									></TextField>
-								</FormControl>
+						</TabPanel>
+						<TabPanel value={currentTab} index={1}>
+							<Grid container spacing={3}>
+								<Grid item xs={6}>
+									<FormControl fullWidth>
+										<TextField
+											onChange={(e) => {
+												this.setState({
+													colorLight: e.target.value,
+												});
+											}}
+											value={colorLight}
+											type="color"
+											label="亮色"
+										></TextField>
+									</FormControl>
+								</Grid>
+								<Grid item xs={6}>
+									<FormControl fullWidth>
+										<TextField
+											onChange={(e) => {
+												this.setState({
+													colorDark: e.target.value,
+												});
+											}}
+											value={colorDark}
+											type="color"
+											label="暗色"
+										></TextField>
+									</FormControl>
+								</Grid>
 							</Grid>
-							<Grid item xs={6}>
-								<FormControl fullWidth>
-									<TextField
-										onChange={(e) => {
-											this.setState({
-												colorDark: e.target.value,
-											});
-										}}
-										value={colorDark}
-										type="color"
-										label="暗色"
-									></TextField>
-								</FormControl>
-							</Grid>
-						</Grid>
 
-						<br />
+							<br />
 
-						<Typography variant="h6">图标</Typography>
+							<Typography variant="h6">图标</Typography>
 
-						<FileInput
-							fileType="image/*"
-							// @ts-expect-error ts-migrate(2769) FIXME: Property 'file' does not exist on type 'IntrinsicA... Remove this comment to see the full error message
-							file={icon}
-							handleFileUpload={(file) => {
-								this.setState({
-									icon: file,
-								});
-							}}
-						/>
-					</TabPanel>
-				</Paper>
-
-				<br></br>
-
-				<Button onClick={this.handleClick} variant="outlined">
-					生成
-				</Button>
-				<Result qrcode={qrcode} />
-			</>
+							<FileInput
+								fileType="image/*"
+								// @ts-expect-error ts-migrate(2769) FIXME: Property 'file' does not exist on type 'IntrinsicA... Remove this comment to see the full error message
+								file={icon}
+								handleFileUpload={(file) => {
+									this.setState({
+										icon: file,
+									});
+								}}
+							/>
+						</TabPanel>
+						<Box
+							justifyContent={"center"}
+							display={"center"}
+							paddingY={1}
+						>
+							<Button
+								onClick={this.handleClick}
+								variant="outlined"
+							>
+								生成
+							</Button>
+						</Box>
+					</OutlinedCard>
+				</Grid>
+				<Grid item xs={12} sm={6}>
+					<Result qrcode={qrcode} />
+				</Grid>
+			</Grid>
 		);
 	}
 }
