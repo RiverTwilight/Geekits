@@ -4,10 +4,12 @@
 
 ## 启动项目
 
-首先安装依赖：
+安装依赖：
 
 ```bash
 $ yarn
+# Or
+$ npm i
 ```
 
 启动项目：
@@ -17,6 +19,12 @@ $ yarn run dev
 ```
 
 项目启动后，在浏览器中打开 http://127.0.0.1:3000 即可。
+
+如果要更新 Native App 仓库，可以运行：
+
+```bash
+$ yarn run build:cap
+```
 
 ## 添加一个工具
 
@@ -29,32 +37,24 @@ $ yarn run dev
 name: "日期&时间计算"
 status: "stable"
 icon: "/icon/Google_Calendar_icon_(2020).svg"
-description: "计算两个日期间隔的天数和时间，或推算几天前后是哪一天，可以算算你活了多久 :)"
+description: "计算两个日期间隔的天数和时间，或推算几天前后是哪一天，可以算算你活了多久"
 channel: life
 freeSize: true
 ---
 
-## 这是什么？
-
-这是一个日期计算器。
-
-## 如何使用？
+这里是帮助文本，提供必要的说明。
 ```
 
 属性表格：
 
-| 属性名      | 类型    | 描述                                        | 是否必填 |
-| ----------- | ------- | ------------------------------------------- | -------- |
-| name        | string  | 工具名                                      | 是       |
-| status      | string  | 工具状态，可选值为`stable`、`beta`、`alpha` | 是       |
-| icon        | string  | 工具图标，可选值为`/icon/xxx.svg`           | 是       |
-| description | string  | 工具描述                                    | 是       |
-| channel     | number  | 工具所属频道，可选值为`life`、`ai`、`media`、`4`    | 是       |
-| freeSize    | boolean | 消除默认的居中样式                          | 否       |
-
-其中 channel 代表分类，可选值如下：
-
--   4: 生活常用
+| 属性名      | 类型    | 描述                                             | 是否必填 |
+| ----------- | ------- | ------------------------------------------------ | -------- |
+| name        | string  | 工具名                                           | 是       |
+| status      | string  | 工具状态，可选值为`stable`、`beta`、`alpha`      | 是       |
+| icon        | string  | 工具图标路径                                     | 是       |
+| description | string  | 工具描述                                         | 是       |
+| channel     | number  | 工具所属频道，可选值为`life`、`ai`、`media`、`4` | 是       |
+| freeSize    | boolean | 消除默认的居中样式                               | 否       |
 
 接着，在[appEntry.ts](/src/utils/appEntry.ts)中，根据已有的示例，添加引入函数。完成。
 
