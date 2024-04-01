@@ -4,6 +4,8 @@ const withPWA = require("next-pwa")({
 	skipWaiting: true,
 });
 
+const isCapacitor = process.env.CAPACITOR_BUILD === "true";
+
 module.exports = withPWA({
 	typescript: {
 		// !! WARN !!
@@ -15,6 +17,7 @@ module.exports = withPWA({
 	images: {
 		imageSizes: [320, 480, 820, 1200, 1600],
 		domains: ["i.loli.net", "bgr.com"],
+		unoptimized: isCapacitor,
 	},
 	webpack: function (config) {
 		config.module.rules.push({
@@ -34,8 +37,10 @@ module.exports = withPWA({
 		});
 		return config;
 	},
-	i18n: {
-		locales: ["zh-CN", "en-US"],
-		defaultLocale: "zh-CN",
-	},
+	i18n: isCapacitor
+		? undefined
+		: {
+				locales: ["zh-CN", "en-US"],
+				defaultLocale: "zh-CN",
+		  },
 });

@@ -6,6 +6,8 @@
 	"scripts": {
 		"build": "next build",
 		"build:image": "docker build -t ygktool .",
+		"build:cap": "CAPACITOR_BUILD=true next build",
+		"export:cap": "CAPACITOR_BUILD=true next export",
 		"db:init": "prisma generate",
 		"db:update": "prisma db push",
 		"db:panel": "prisma studio",
@@ -24,6 +26,8 @@
 	},
 	"license": " CC-BY-4.0",
 	"dependencies": {
+		"@capacitor/core": "^5.7.4",
+		"@capacitor/ios": "^5.7.4",
 		"@emotion/react": "^11.7.1",
 		"@emotion/styled": "^11.6.0",
 		"@material-ui/core": "^4.11.3",
@@ -72,6 +76,7 @@
 		"xmldom": "^0.6.0"
 	},
 	"devDependencies": {
+		"@capacitor/cli": "^5.7.4",
 		"@ianvs/prettier-plugin-sort-imports": "^4.2.1",
 		"@testing-library/jest-dom": "^4.2.4",
 		"@testing-library/react": "^9.5.0",

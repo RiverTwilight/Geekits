@@ -4,7 +4,7 @@ import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
 import axios from "axios";
 
-export async function getStaticProps({ locale }) {
+export async function getStaticProps({ locale="zh-CN" }) {
 	const path = "/feedback";
 
 	return {

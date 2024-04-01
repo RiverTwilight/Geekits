@@ -24,6 +24,7 @@ import { styled } from "@mui/material/styles";
 import { TimerOutlined } from "@mui/icons-material";
 import { Theme, useMediaQuery } from "@mui/material";
 import { useSidebar } from "@/contexts/sidebar";
+import { isCapacitor } from "@/utils/platform";
 
 const list = [
 	{
@@ -158,7 +159,7 @@ const Sidebar = () => {
 	const downXs = useMediaQuery((theme: Theme) =>
 		theme.breakpoints.down("md")
 	);
-	
+
 	const handleClickNavItem = () => {
 		if (downXs) {
 			setSidebar(true); // Should reverse as defaultly hide on mobile screen
@@ -261,6 +262,7 @@ const Sidebar = () => {
 					display: { xs: "block", sm: "none" },
 					"& .MuiDrawer-paper": {
 						boxSizing: "border-box",
+						paddingTop: isCapacitor() ? "" : 6,
 						width: drawerWidth,
 						background: (theme) => theme.palette.background.default,
 					},

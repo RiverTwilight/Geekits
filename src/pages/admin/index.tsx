@@ -2,7 +2,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import prisma from "../../utils/prisma";
 
-export async function getStaticProps({ locale }) {
+export async function getStaticProps({ locale ="zh-CN"}) {
 	// get data with prisma
 	// const data = await prisma.query.users({
 	// 	where: {},

@@ -12,6 +12,7 @@ import type { GetStaticProps } from "next";
 import { HelpOutlineTwoTone } from "@mui/icons-material";
 import { useAction } from "@/contexts/action";
 import { useAppBar } from "@/contexts/appBar";
+import { isCapacitor } from "@/utils/platform";
 
 const drawerWidth: number = 260;
 
@@ -59,6 +60,13 @@ const Root = styled("div")<{ freeSize?: boolean }>(
 );
 
 export async function getStaticPaths() {
+	if (isCapacitor()) {
+		return {
+			paths: getPaths(),
+			fallback: false,
+		};
+	}
+
 	return {
 		paths: ["zh-CN", "en-US"].map((locale) => getPaths(locale)).flat(1),
 		fallback: false,
@@ -73,7 +81,7 @@ export const getStaticProps: GetStaticProps = ({
 
 	const appConfig = getAppConfig(currentId as string, {
 		requiredKeys: ["name", "status", "freeSize"],
-		locale: locale
+		locale: locale,
 	});
 
 	const appDoc = getAppDoc(currentId as string);

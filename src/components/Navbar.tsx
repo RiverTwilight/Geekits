@@ -33,6 +33,8 @@ import {
 import useNotifications from "@/utils/Hooks/useNotification";
 import { useSidebar } from "@/contexts/sidebar";
 import siteConfig from "src/site.config";
+import { Capacitor } from "@capacitor/core";
+import { isCapacitor } from "@/utils/platform";
 
 function ElevationScroll(props: Props) {
 	const { children } = props;
@@ -172,6 +174,7 @@ export default (props: { title: string; PageAction; repo: string }) => {
 					sx={{
 						bgcolor: (theme) => theme.palette.background.default,
 						justifyContent: "space-between",
+						paddingTop: isCapacitor() ? 6 : "",
 					}}
 				>
 					<IconButton

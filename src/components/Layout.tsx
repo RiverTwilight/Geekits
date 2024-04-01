@@ -14,12 +14,18 @@ import siteConfig from "../site.config.js";
 import { SidebarProvider } from "@/contexts/sidebar";
 import { ActionProvider } from "@/contexts/action";
 import { AppBarProvider } from "@/contexts/appBar";
+import { Capacitor } from "@capacitor/core";
+import { isCapacitor } from "@/utils/platform.js";
 
 const Root = styled("main")<{ disableTopPadding?: boolean }>(
 	({ theme }) =>
 		({ disableTopPadding }) => ({
 			flexGrow: 1,
-			paddingTop: disableTopPadding ? 0 : "56px",
+			paddingTop: disableTopPadding
+				? 0
+				: isCapacitor()
+				? "84px"
+				: "56px",
 			minHeight: "100vh",
 			position: "relative",
 		})

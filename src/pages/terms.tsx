@@ -8,7 +8,7 @@ interface TermsProps extends PageProps {
 	termsContent: string;
 }
 
-export const getStaticProps: GetStaticProps = ({ locale }) => {
+export const getStaticProps: GetStaticProps = ({ locale = "zh-CN" }) => {
 	const termsContent = require("../data/article/" +
 		locale +
 		"/terms.md").default;
