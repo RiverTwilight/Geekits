@@ -1,7 +1,7 @@
 {
 	"name": "ygktool",
 	"version": "2.0.2",
-	"homepage": "https://www.ygktool.com",
+	"homepage": "https://geekits.ygeeker.com",
 	"description": "🛠A simple, feature-rich, and efficient online toolbox | 极简，强大，高效的在线工具箱，遵循MD设计规范",
 	"scripts": {
 		"build": "next build",
