@@ -25,6 +25,7 @@
 	},
 	"license": " CC-BY-4.0",
 	"dependencies": {
+		"@capacitor/android": "^5.7.4",
 		"@capacitor/core": "^5.7.4",
 		"@capacitor/ios": "^5.7.4",
 		"@emotion/react": "^11.7.1",

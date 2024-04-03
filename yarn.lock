@@ -1213,6 +1213,11 @@
   resolved "https://registry.npmmirror.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
+"@capacitor/android@^5.7.4":
+  version "5.7.4"
+  resolved "https://registry.npmjs.org/@capacitor/android/-/android-5.7.4.tgz#e91cb4dd06492ad41f0102a901dd329093610d8c"
+  integrity sha512-9ETwrCaLaimLHbwGpgfsPS9cHcPMFLmKFdlYsFsYIusMO6aOrcQTA9Q4xVAkr55ava4Wk+pVRniRYsekrbOLdw==
+
 "@capacitor/cli@^5.7.4":
   version "5.7.4"
   resolved "https://registry.npmjs.org/@capacitor/cli/-/cli-5.7.4.tgz#2505b1fbc82a683666098c7a85f29ab01c9eda7f"
