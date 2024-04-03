@@ -10,12 +10,14 @@ const data = [
 		link: "https://jesse205.netlify.app/hellotool/",
 		icon: "https://jesse205.netlify.app/hellotool/img/logo/rabbit4-wbg.svg",
 		channel: "external",
+		platform: ["web"],
 	},
 	{
 		id: "imyshare",
 		name: "精品网站导航",
 		status: "stable",
 		link: "https://imyshare.com/?from=ygktool",
+		platform: ["web"],
 		channel: "external",
 	},
 ];

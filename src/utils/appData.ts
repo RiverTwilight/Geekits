@@ -14,17 +14,23 @@ const getAppConfig = (
 ): { [key: string]: any } => {
 	const { content, data } = matter(getAppConfigFile(appId, config.locale));
 
+	const defaultConfig = {
+		platform: ["web", "ios", "android"],
+	};
+
 	if (!config.requiredKeys) {
-		return { id: appId, ...data };
+		return { ...defaultConfig, id: appId, ...data };
 	}
 
-	return config.requiredKeys.reduce(
+	const loadedConfig = config.requiredKeys.reduce(
 		(acc, key) => {
 			acc[key] = data[key] || null;
 			return acc;
 		},
 		{ id: appId }
 	);
+
+	return { ...defaultConfig, ...loadedConfig };
 };
 
 const getAppDoc = (appId: string, locale: string = "zh-CN"): string => {

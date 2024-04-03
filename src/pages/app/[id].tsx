@@ -80,7 +80,7 @@ export const getStaticProps: GetStaticProps = ({
 	const { id: currentId } = ctx.params;
 
 	const appConfig = getAppConfig(currentId as string, {
-		requiredKeys: ["name", "status", "freeSize"],
+		requiredKeys: ["name", "status", "freeSize", "platform"],
 		locale: locale,
 	});
 
@@ -130,6 +130,8 @@ const AppContainer = ({ appConfig, appDoc }) => {
 
 	const { setAction } = useAction();
 	const { appBar, setAppBar } = useAppBar();
+
+	console.log(appConfig)
 
 	const loadLink =
 		appConfig.status === "stable" || appConfig.status === "beta"

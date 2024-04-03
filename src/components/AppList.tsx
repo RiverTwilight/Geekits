@@ -11,6 +11,7 @@ import ListItemText from "@mui/material/ListItemText";
 import ListSubheader from "@mui/material/ListSubheader";
 import OutlinedCard from "./OutlinedCard";
 import type { AppData, IChannel } from "@/types/index.d";
+import { Capacitor } from "@capacitor/core";
 
 interface AppListItemProps extends AppData {
 	selected?: boolean;
@@ -98,6 +99,8 @@ const Channel = ({
 }) => {
 	const [open, setOpen] = React.useState(true);
 
+	if (!!!apps.length) return null;
+
 	const handleClick = () => {
 		setOpen(!open);
 	};
@@ -154,7 +157,9 @@ const AppList = ({
 		>
 			{Object.keys(channelInfo).map((key) => {
 				let channelizedApps = appData.filter(
-					(app) => app.channel === key
+					(app) =>
+						app.channel === key &&
+						app.platform.includes(Capacitor.getPlatform())
 				);
 				return (
 					<>
