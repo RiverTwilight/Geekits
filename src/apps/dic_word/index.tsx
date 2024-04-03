@@ -1,93 +1,120 @@
-import React, { useState } from "react";
-// @ts-expect-error ts-migrate(2691) FIXME: An import path cannot end with a '.tsx' extension.... Remove this comment to see the full error message
-import Template from "../../components/EnquireTemplate.tsx";
+import React, { useState, useEffect, useMemo } from "react";
+import TextField from "@mui/material/TextField";
+import FormControl from "@mui/material/FormControl";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import CircularProgress from "@mui/material/CircularProgress";
+import localForage from "localforage";
+import { Box, Typography } from "@mui/material";
+import OutlinedCard from "@/components/OutlinedCard";
 
-import { ToTop } from "mdui-in-react";
+const WordDictionary = () => {
+	const [data, setData] = useState([]);
+	const [loading, setLoading] = useState(true);
+	const [searchTerm, setSearchTerm] = useState("");
 
-const Word = ({ item }: any) => {
-	const [open, setOpen] = useState(false);
-	//item.more = item.more.replace(/\n/g, "<br>")
-	return (
-		<div key={item.word} className="mdui-table-fluid">
-			<table className="mdui-table">
-				<tbody>
-					<tr>
-						<td>汉字</td>
-						<td style={{ fontSize: "1.5em" }}>
-							<ruby>
-								{item.word}
-								<rp>(</rp>
-								<rt>{item.pinyin}</rt>
-								<rp>)</rp>
-							</ruby>
-						</td>
-						<td>旧体字</td>
-						<td>{item.oldword}</td>
-					</tr>
-					<tr>
-						<td>偏旁</td>
-						<td>{item.radicals}</td>
-						<td>笔画</td>
-						<td>{item.strokes}</td>
-					</tr>
-					<tr>
-						<td colSpan={4}>{item.explanation}</td>
-					</tr>
-					<tr style={{ display: !open ? "contents" : "none" }}>
-						<td colSpan={4}>
-							{item.more.substring(0, 200)}...
-							<button
-								onClick={() => setOpen(true)}
-								className="mdui-float-right mdui-btn"
-							>
-								展开
-							</button>
-						</td>
-					</tr>
-					{item.more.length > 200 && (
-						<tr style={{ display: open ? "contents" : "none" }}>
-							<td colSpan={4}>
-								{item.more}
-								<br></br>
+	useEffect(() => {
+		const fetchData = async () => {
+			try {
+				const cachedData = await localForage.getItem("dictionaryData");
+				if (cachedData) {
+					setData(cachedData);
+				} else {
+					const response = await fetch("/data/word.json");
+					const jsonData = await response.json();
+					setData(jsonData);
+					localForage.setItem("dictionaryData", jsonData);
+				}
+			} catch (error) {
+				console.error("Error fetching data:", error);
+				// Display error message to the user
+			} finally {
+				setLoading(false);
+			}
+		};
 
-								<button
-									onClick={() => setOpen(false)}
-									className="mdui-float-right mdui-btn"
-								>
-									收起
-								</button>
-							</td>
-						</tr>
-					)}
-				</tbody>
-			</table>
-		</div>
-	);
-};
+		fetchData();
+	}, []);
 
-const Result = ({ data }: any) => {
-	if (!data) return null;
-	if (!data.length)
-		return <p className="mdui-text-center">暂未收录，建议谷歌一下</p>;
+	const filteredData = useMemo(() => {
+		if (!!!searchTerm.length) return [];
+
+		return data.filter((entry) => {
+			return entry.word.startsWith(searchTerm);
+		});
+	}, [searchTerm]);
+
 	return (
 		<>
-			{data.map((item: any) => (
-				<Word key={item.word} item={item} />
-			))}
+			<FormControl fullWidth>
+				<TextField
+					autoFocus
+					onChange={(event) => setSearchTerm(event.target.value)}
+					placeholder="输入词语"
+					value={searchTerm}
+					data-testId="inputKey"
+				/>
+			</FormControl>
+
+			<br />
+			<br />
+
+			{loading ? (
+				<OutlinedCard>
+					<Box
+						display={"flex"}
+						sx={{
+							width: "100%",
+							justifyContent: "center",
+							flexDirection: "column",
+							alignItems: "center",
+							paddingY: 2,
+						}}
+					>
+						<CircularProgress />
+						<br />
+						<Typography variant="body1">
+							正在下载词典，大约消耗 60MB
+							流量。下次使用将无需下载。
+						</Typography>
+					</Box>
+				</OutlinedCard>
+			) : (
+				<TableContainer component={OutlinedCard}>
+					{filteredData.length > 0 && (
+						<Table>
+							<TableHead>
+								<TableRow>
+									<TableCell>词语</TableCell>
+									<TableCell>拼音</TableCell>
+									<TableCell>释义</TableCell>
+								</TableRow>
+							</TableHead>
+							<TableBody>
+								{filteredData.map((entry) => (
+									<TableRow key={entry.word}>
+										<TableCell
+											sx={{ whiteSpace: "nowrap" }}
+										>
+											{entry.word}
+										</TableCell>
+										<TableCell>{entry.pinyin}</TableCell>
+										<TableCell>
+											{entry.explanation}
+										</TableCell>
+									</TableRow>
+								))}
+							</TableBody>
+						</Table>
+					)}
+				</TableContainer>
+			)}
 		</>
 	);
 };
 
-export default () => (
-	<>
-		<Template
-			Result={Result}
-			api="/api/dic_word?word="
-			inputOpt={{
-				header: "从14502个汉字中查询",
-				icon: "search",
-			}}
-		/>
-		<ToTop />
-	</>
-);
+export default WordDictionary;

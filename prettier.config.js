@@ -10,6 +10,9 @@ module.exports = {
 		// for sorting imports
 		"@ianvs/prettier-plugin-sort-imports",
 	],
+	importOrder: ["^(react|react-dom)$", "^@?\\w", "^[./]"],
+	importOrderSeparation: true,
+	importOrderSortSpecifiers: true,
 	overrides: [
 		{
 			files: "*.svg",

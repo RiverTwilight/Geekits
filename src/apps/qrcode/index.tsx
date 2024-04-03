@@ -3,9 +3,7 @@ import QRCode from "qrcode";
 import FileInput from "../../components/FilePicker";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import Alert from "@mui/material/Alert";
 import Paper from "@mui/material/Paper";
-import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import Radio from "@mui/material/Radio";
@@ -14,7 +12,6 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
 import Typography from "@mui/material/Typography";
 import FormControl from "@mui/material/FormControl";
-import Card from "@mui/material/Card";
 import { TabPanel, a11yProps } from "../../components/TabToolkits";
 import OutlinedCard from "@/components/OutlinedCard";
 import { Box, Fab, IconButton } from "@mui/material";
@@ -262,6 +259,7 @@ class Qrcode extends React.Component<{}, QrcodeState> {
 								<RadioGroup
 									aria-label="type"
 									name="类型"
+									row
 									value={mode}
 									onChange={this.handleModeChange}
 								>
@@ -277,6 +275,8 @@ class Qrcode extends React.Component<{}, QrcodeState> {
 									/>
 								</RadioGroup>
 							</FormControl>
+							<br />
+							<br />
 							{Form}
 
 							{/* 

@@ -1,10 +1,9 @@
 ---
 status: "stable"
-name: "字典"
+name: "词典"
 link: "dic_word"
-icon: "/icon/book.png"
-help: "暂不支持太简单的字查询"
-description: "我们中国的汉字，落笔成画留下五千年的历史"
+icon: "/icon/book_white.png"
+description: "查询常用词的拼音、含义"
 channel: life
 network: true
 ---

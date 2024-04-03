@@ -16,7 +16,7 @@ const appImportList: Record<string, ComponentType> = {
 	decision: dynamic(() => import("../apps/decision"), {
 		ssr: false,
 	}),
-	dic_ci: dynamic(() => import("../apps/dic_ci"), {
+	dic_word: dynamic(() => import("../apps/dic_word"), {
 		ssr: false,
 	}),
 	dic_idiom: dynamic(() => import("../apps/dic_idiom"), {
