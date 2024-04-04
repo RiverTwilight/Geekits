@@ -58,9 +58,9 @@ const appImportList: Record<string, ComponentType> = {
 	img_compress: dynamic(() => import("../apps/img_compress"), {
 		ssr: false,
 	}),
-	// img_mosaic: dynamic(() => import("../../src/apps/img_mosaic"), {
-	// 	ssr: false,
-	// }),
+	img_mosaic: dynamic(() => import("../../src/apps/img_mosaic"), {
+		ssr: false,
+	}),
 	folder_tree: dynamic(() => import("../apps/folder_tree"), {
 		ssr: false,
 	}),

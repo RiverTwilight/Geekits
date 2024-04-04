@@ -1,19 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
-import ButtonGroup from "@mui/material/ButtonGroup";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
-import IconButton from "@mui/material/IconButton";
 import GitHubIcon from "@mui/icons-material/GitHub";
-import Toolbar from "@mui/material/Toolbar";
 import StarIcon from "@mui/icons-material/Star";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
-import ShareIcon from "@mui/icons-material/Share";
 import StyledMarkdown from "./StyledMarkdown";
 import CodeIcon from "@mui/icons-material/Code";
 import fivkits from "@/utils/Services/fiv";
 import type { AppData } from "@/types/index";
+import { isWeb } from "@/utils/platform";
 
 const PREFIX = "AppMenu";
 
@@ -117,14 +114,16 @@ const AppMenu = ({
 				>
 					收藏
 				</Button>
-				<Button
-					variant="outlined"
-					onClick={handleCode}
-					aria-label="框架引用"
-					startIcon={<CodeIcon fontSize="inherit" />}
-				>
-					框架引用
-				</Button>
+				{isWeb && (
+					<Button
+						variant="outlined"
+						onClick={handleCode}
+						aria-label="框架引用"
+						startIcon={<CodeIcon fontSize="inherit" />}
+					>
+						框架引用
+					</Button>
+				)}
 				{showCode && (
 					<>
 						<br />

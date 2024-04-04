@@ -1,7 +1,13 @@
 import React from "react";
-import { snackbar } from "mdui";
 import FileInput from "../../components/FilePicker";
-import { Button } from "mdui-in-react";
+import { Box, Button, Fab, IconButton } from "@mui/material";
+import {
+	ArrowDownward,
+	ArrowUpward,
+	CheckOutlined,
+	Close,
+} from "@mui/icons-material";
+import OutlinedCard from "@/components/OutlinedCard";
 
 class captionMosaic {
 	img: any[];
@@ -10,13 +16,11 @@ class captionMosaic {
 		// @ts-expect-error ts-migrate(2551) FIXME: Property 'cutedImg' does not exist on type 'captio... Remove this comment to see the full error message
 		this.cutedImg = [];
 	}
-	// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'base64' implicitly has an 'any' type.
 	async loadImg(base64) {
 		var img = new Image();
 		img.src = base64;
 		return img;
 	}
-	// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'base64' implicitly has an 'any' type.
 	addImg(base64, top, bottom) {
 		this.img.push({
 			base64,
@@ -24,7 +28,6 @@ class captionMosaic {
 			bottom,
 		});
 	}
-	// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'base64' implicitly has an 'any' type.
 	async cutImg(base64, top, bottom) {
 		var cutWork = document.createElement("canvas"),
 			workCtx = cutWork.getContext("2d"),
@@ -42,7 +45,6 @@ class captionMosaic {
 			cut height is ${ele.height - top - bottom}
 		`);
 
-		// @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
 		workCtx.drawImage(
 			ele,
 			0,
@@ -59,14 +61,13 @@ class captionMosaic {
 		console.log(res);
 		return res;
 	}
+	
 	async imgMosaic_Y() {
 		for (var i = 0; i <= this.img.length - 1; i++) {
 			let { top, bottom, base64 } = this.img[i];
 			// @ts-expect-error ts-migrate(2551) FIXME: Property 'cutedImg' does not exist on type 'captio... Remove this comment to see the full error message
 			this.cutedImg.push(await this.cutImg(base64, top, bottom));
 		}
-		// @ts-expect-error ts-migrate(2551) FIXME: Property 'cutedImg' does not exist on type 'captio... Remove this comment to see the full error message
-		console.log(this.cutedImg);
 
 		var c = document.createElement("canvas");
 		var ctx = c.getContext("2d");
@@ -87,19 +88,25 @@ class captionMosaic {
 		var startY = 0;
 
 		for (let j = 0; j <= imgs.length - 1; j++) {
-			// @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
 			ctx.drawImage(imgs[j], 0, startY, imgs[j].width, imgs[j].height);
 			startY += imgs[j].height;
 		}
 
-		var res = c.toDataURL();
+		const res = c.toDataURL();
+		console.log(res);
+
 		return res;
 	}
 }
 
 const Preview = ({ res }: { res: any }) => {
 	if (!res) return null;
-	return <img className="mdui-img-fluid" src={res} />;
+
+	return (
+		<Box>
+			<img width="100%" height="100%" src={res} />
+		</Box>
+	);
 };
 
 type AlbumState = any;
@@ -123,8 +130,6 @@ type AlbumProps = {
 	putBack: (index: number) => void;
 };
 
-/** 相册组件
- */
 class Album extends React.Component<AlbumProps, AlbumState> {
 	constructor(props: AlbumProps) {
 		super(props);
@@ -137,13 +142,17 @@ class Album extends React.Component<AlbumProps, AlbumState> {
 			this.props;
 		const { startPosition } = this.state;
 		return (
-			<div className="mdui-row-xs-2 mdui-row-sm-3">
+			<Box
+				sx={{
+					maxWidth: "450px",
+					display: "flex",
+					flexDirection: "column",
+					gap: 1,
+				}}
+			>
 				{assets.map((assest, i) => (
-					<div
-						style={{ marginTop: "5px" }}
-						className="mdui-card mdui-col"
-					>
-						<div key={i} className="mdui-card-media mdui-center">
+					<OutlinedCard style={{ overflow: "hidden" }} key={i}>
+						<Box style={{ position: "relative" }}>
 							<img
 								onLoad={(e) => {
 									getConHeight(
@@ -152,8 +161,11 @@ class Album extends React.Component<AlbumProps, AlbumState> {
 										i
 									);
 								}}
+								width="100%"
+								height="100%"
 								src={assest.img}
 							/>
+
 							<span
 								draggable={true}
 								onDragStart={(e) => {
@@ -233,44 +245,40 @@ class Album extends React.Component<AlbumProps, AlbumState> {
 								style={{ height: `${assest.bottom}px` }}
 								className="mask mask-bottom"
 							></span>
-
-							<div className="mdui-card-menu">
-								<button
-									style={{
-										background: "rgba(0, 0, 0, 0.27)",
-									}}
+						</Box>
+						<Box>
+							<IconButton
+								style={{
+									background: "rgba(0, 0, 0, 0.27)",
+								}}
+								onClick={() => {
+									deleteImg(i);
+								}}
+							>
+								<Close />
+							</IconButton>
+							{i >= 1 && (
+								<IconButton
 									onClick={() => {
-										deleteImg(i);
+										this.props.putForward(i);
 									}}
-									className="mdui-btn mdui-btn-icon mdui-text-color-white"
 								>
-									<i className="mdui-icon material-icons">
-										close
-									</i>
-								</button>
-								{i >= 1 && (
-									<Button
-										onClick={() => {
-											this.props.putForward(i);
-										}}
-										icon="arrow_upward"
-										iconColor="white"
-									/>
-								)}
-								{i >= 1 && i < assets.length - 1 && (
-									<Button
-										onClick={() => {
-											this.props.putBack(i);
-										}}
-										icon="arrow_downward"
-										iconColor="white"
-									/>
-								)}
-							</div>
-						</div>
-					</div>
+									<ArrowUpward />
+								</IconButton>
+							)}
+							{i >= 1 && i < assets.length - 1 && (
+								<IconButton
+									onClick={() => {
+										this.props.putForward(i);
+									}}
+								>
+									<ArrowDownward />
+								</IconButton>
+							)}
+						</Box>
+					</OutlinedCard>
 				))}
-			</div>
+			</Box>
 		);
 	}
 }
@@ -303,7 +311,7 @@ class VideoShotter extends React.Component<
 		addImg(res);
 	}
 	componentDidUpdate() {
-		this.videoDom.load();
+		// this.videoDom.load();
 	}
 	render() {
 		const { video } = this.props;
@@ -395,18 +403,16 @@ export default class extends React.Component<{}, ComponentState> {
 						}}
 					/>
 
-					<span style={{ margin: "0px 5px 0px 5px" }}></span>
-
-					<FileInput
+					{/* <FileInput
 						fileType="video/*"
 						handleFileUpload={(file) => {
 							this.setState({ video: file });
 						}}
 						title="截取视频"
-					/>
+					/> */}
 				</div>
 
-				<VideoShotter
+				{/* <VideoShotter
 					video={video}
 					addImg={(img) => {
 						assets.push({
@@ -424,33 +430,28 @@ export default class extends React.Component<{}, ComponentState> {
 							});
 						});
 					}}
-				/>
-
-				<button
-					style={{ zIndex: 1003 }}
-					className="mdui-fab mdui-fab-fixed mdui-color-theme"
-					onClick={() => {
-						var mos = new captionMosaic();
-						// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'assest' implicitly has an 'any' type.
-						assets.map((assest) => {
-							mos.addImg(
-								assest.img,
-								assest.top / assest.cHeight,
-								assest.bottom / assest.cHeight
-							);
-						});
-						mos.imgMosaic_Y().then((res) => {
-							this.setState({ res: res }, () => {
-								snackbar({
-									message: "图片制作成功，请在页面底部查看",
-								});
+				/> */}
+				<Box justifyContent={"center"} display={"center"} paddingY={2}>
+					<Fab
+						color="primary"
+						onClick={() => {
+							var mos = new captionMosaic();
+							assets.map((assest) => {
+								mos.addImg(
+									assest.img,
+									assest.top / assest.cHeight,
+									assest.bottom / assest.cHeight
+								);
 							});
-						});
-					}}
-				>
-					<i className="mdui-icon material-icons">&#xe5ca;</i>
-				</button>
-				<br></br>
+							mos.imgMosaic_Y().then((res) => {
+								this.setState({ res: res });
+							});
+						}}
+					>
+						<CheckOutlined />
+					</Fab>
+				</Box>
+
 				<Preview res={res} />
 			</>
 		);
