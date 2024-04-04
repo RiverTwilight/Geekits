@@ -1,5 +1,5 @@
 import dynamic from "next/dynamic";
-import type { ComponentType, FC } from "react";
+import type { ComponentType } from "react";
 
 // !! next/dynamic options must be an object literal !!
 
@@ -20,6 +20,9 @@ const appImportList: Record<string, ComponentType> = {
 		ssr: false,
 	}),
 	dic_idiom: dynamic(() => import("../apps/dic_idiom"), {
+		ssr: false,
+	}),
+	dic_char: dynamic(() => import("../apps/dic_char"), {
 		ssr: false,
 	}),
 	fuel_consumption_calculator: dynamic(
