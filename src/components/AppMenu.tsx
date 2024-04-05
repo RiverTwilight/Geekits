@@ -11,6 +11,7 @@ import CodeIcon from "@mui/icons-material/Code";
 import fivkits from "@/utils/Services/fiv";
 import type { AppData } from "@/types/index";
 import { isWeb } from "@/utils/platform";
+import Text from "./i18n";
 
 const PREFIX = "AppMenu";
 
@@ -104,7 +105,7 @@ const AppMenu = ({
 						width: "100%",
 					}}
 				>
-					在GitHub上编辑
+					<Text k="appMenu.github" />
 				</Button>
 				<Button
 					variant="outlined"
@@ -112,7 +113,7 @@ const AppMenu = ({
 					aria-label="收藏"
 					startIcon={fiv ? <StarIcon /> : <StarBorderIcon />}
 				>
-					收藏
+					<Text k="appMenu.bookmark" />
 				</Button>
 				{isWeb && (
 					<Button

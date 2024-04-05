@@ -12,6 +12,7 @@ import ListSubheader from "@mui/material/ListSubheader";
 import OutlinedCard from "./OutlinedCard";
 import type { AppData, IChannel } from "@/types/index.d";
 import { Capacitor } from "@capacitor/core";
+import Text from "./i18n";
 
 interface AppListItemProps extends AppData {
 	selected?: boolean;
@@ -75,7 +76,7 @@ const AppListItem = ({
 								{name}&nbsp;
 								{status === "beta" && (
 									<Chip
-										label="开发中"
+										label={<Text k="channel.wip" />}
 										size="small"
 										variant="outlined"
 									/>
