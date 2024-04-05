@@ -2,7 +2,7 @@
 name: "Grid Image Generator"
 icon: "/icon/aspect-colorful/icon-192-maskable.png"
 icon_color: "blue"
-description: "将图片切成九宫格，在社交媒体发布逼格更高"
+description: "Slice the image to 3x3 grid"
 status: "stable"
 channel: media
 ---

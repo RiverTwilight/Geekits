@@ -124,7 +124,7 @@ const list = [
 	},
 	{
 		Icon: <MessageOutlinedIcon />,
-		text: "反馈",
+		text: <Text k="navbar.feedback" />,
 		href: "https://support.qq.com/product/421719",
 	},
 	{

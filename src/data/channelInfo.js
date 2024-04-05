@@ -3,26 +3,27 @@ import BurstModeIcon from "@mui/icons-material/BurstMode";
 import CodeTwoToneIcon from "@mui/icons-material/CodeTwoTone";
 import LinkTwoToneIcon from "@mui/icons-material/LinkTwoTone";
 import WbSunnyTwoToneIcon from "@mui/icons-material/WbSunnyTwoTone";
+import Text from "@/components/i18n";
 
 const channelInfo = {
 	ai: {
-		name: "人工智能",
+		name: <Text k="channel.ai" />,
 		Icon: <EmojiObjectsTwoToneIcon />,
 	},
 	life: {
-		name: "生活常用",
+		name: <Text k="channel.life" />,
 		Icon: <WbSunnyTwoToneIcon />,
 	},
 	media: {
-		name: "图片视频",
+		name: <Text k="channel.image" />,
 		Icon: <BurstModeIcon />,
 	},
 	dev: {
-		name: "编程开发",
+		name: <Text k="channel.developer" />,
 		Icon: <CodeTwoToneIcon />,
 	},
 	external: {
-		name: "第三方 App",
+		name: <Text k="channel.external" />,
 		Icon: <LinkTwoToneIcon />,
 	},
 };

@@ -1,5 +1,5 @@
 ---
-name: "成语词典"
+name: "Chinese Idiom Dictionary"
 link: "dic_idiom"
 icon: "/icon/book_white.png"
 status: "stable"
