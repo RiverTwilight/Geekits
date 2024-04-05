@@ -9,8 +9,9 @@ import { getAllApps } from "@/utils/appData";
 import channelInfo from "@/data/channelInfo";
 import translator from "@/utils/translator";
 import { useAction } from "@/contexts/action";
+import { defaultLocale } from "src/site.config";
 
-export async function getStaticProps({ locale = "zh-CN" }) {
+export async function getStaticProps({ locale = defaultLocale }) {
 	const appData = getAllApps(true, locale);
 
 	const dic = require("../data/i18n.json");

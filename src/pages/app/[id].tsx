@@ -13,6 +13,7 @@ import { HelpOutlineTwoTone } from "@mui/icons-material";
 import { useAction } from "@/contexts/action";
 import { useAppBar } from "@/contexts/appBar";
 import { isCapacitor } from "@/utils/platform";
+import { defaultLocale } from "src/site.config";
 
 const drawerWidth: number = 260;
 
@@ -74,7 +75,7 @@ export async function getStaticPaths() {
 }
 
 export const getStaticProps: GetStaticProps = ({
-	locale = "zh-CN",
+	locale = defaultLocale,
 	...ctx
 }) => {
 	const { id: currentId } = ctx.params;

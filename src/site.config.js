@@ -18,4 +18,5 @@ module.exports = {
 	apiConfig: {
 		url: "https://openapi.ygktool.com",
 	},
+	defaultLocale: "en-US", // For native app only
 };

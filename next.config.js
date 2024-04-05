@@ -41,6 +41,6 @@ module.exports = withPWA({
 		? undefined
 		: {
 				locales: ["zh-CN", "en-US"],
-				defaultLocale: "zh-CN",
+				defaultLocale: "en-US",
 		  },
 });

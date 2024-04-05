@@ -3,12 +3,13 @@ import CardContent from "@mui/material/CardContent";
 import StyledMarkdown from "@/components/StyledMarkdown";
 import type { GetStaticProps } from "next";
 import type { PageProps } from "@/types/index";
+import { defaultLocale } from "src/site.config";
 
 interface TermsProps extends PageProps {
 	termsContent: string;
 }
 
-export const getStaticProps: GetStaticProps = ({ locale = "zh-CN" }) => {
+export const getStaticProps: GetStaticProps = ({ locale = defaultLocale }) => {
 	const termsContent = require("../data/article/" +
 		locale +
 		"/terms.md").default;

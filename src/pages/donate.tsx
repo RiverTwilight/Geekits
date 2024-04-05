@@ -25,6 +25,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { AttachMoney, Coffee, Fastfood, LocalBar } from "@mui/icons-material";
 import { useAction } from "@/contexts/action";
+import { defaultLocale } from "src/site.config";
 
 const FREE_DONATION_WAYS = [
 	{
@@ -122,7 +123,7 @@ const DONATION_HISTORY = [
 	},
 ];
 
-export const getStaticProps: GetStaticProps = ({ locale = "zh-CN" }) => {
+export const getStaticProps: GetStaticProps = ({ locale = defaultLocale }) => {
 	const dic = require("../data/i18n.json");
 
 	const trans = new translator(dic, locale);
