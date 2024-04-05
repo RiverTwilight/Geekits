@@ -225,7 +225,7 @@ const Sidebar = () => {
 					<LinkWrapper
 						handleClick={handleClickNavItem}
 						href={"/notification"}
-						text={"更新日志"}
+						text={<Text k="navbar.log" />}
 						Icon={<TimerOutlined />}
 					/>
 				</List>
