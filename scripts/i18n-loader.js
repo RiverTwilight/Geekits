@@ -7,8 +7,8 @@ XLSX.stream.set_readable(Readable);
 
 const path = require("path");
 
-const SOURCE_FILE = "../src/data/i18n/i18n.xlsx";
-const TARGET_FILE = "../src/data/i18n/i18n.json";
+const SOURCE_FILE = "../src/data/i18n.xlsx";
+const TARGET_FILE = "../src/data/i18n.json";
 
 const excelToJSON = ((sourceFile, targetFile) => {
 	var workbook = XLSX.readFile(path.join(__dirname, sourceFile));

@@ -24,40 +24,7 @@ import { styled } from "@mui/material/styles";
 import { TimerOutlined } from "@mui/icons-material";
 import { Theme, useMediaQuery } from "@mui/material";
 import { useSidebar } from "@/contexts/sidebar";
-import { isCapacitor } from "@/utils/platform";
-
-const list = [
-	{
-		Icon: <HomeOutlinedIcon />,
-		text: "首页",
-		href: "/",
-	},
-	{
-		Icon: <MessageOutlinedIcon />,
-		text: "反馈",
-		href: "https://support.qq.com/product/421719",
-	},
-	{
-		Icon: <VolunteerActivismOutlinedIcon />,
-		text: "免费捐赠",
-		href: "/donate",
-	},
-	{
-		Icon: <GitHubIcon />,
-		text: "GitHub",
-		href: repo,
-		sx: {
-			display: {
-				sm: "none",
-			},
-		},
-	},
-	{
-		Icon: <InfoOutlinedIcon />,
-		text: "关于",
-		href: "/about",
-	},
-];
+import Text from "./i18n";
 
 const drawerWidth = 260;
 
@@ -148,6 +115,39 @@ const LinkWrapper = ({ href, text, Icon, handleClick, sx, ...props }) => {
 		</Link>
 	);
 };
+
+const list = [
+	{
+		Icon: <HomeOutlinedIcon />,
+		text: <Text k="navbar.home" />,
+		href: "/",
+	},
+	{
+		Icon: <MessageOutlinedIcon />,
+		text: "反馈",
+		href: "https://support.qq.com/product/421719",
+	},
+	{
+		Icon: <VolunteerActivismOutlinedIcon />,
+		text: <Text k="navbar.donation" />,
+		href: "/donate",
+	},
+	{
+		Icon: <GitHubIcon />,
+		text: "GitHub",
+		href: repo,
+		sx: {
+			display: {
+				sm: "none",
+			},
+		},
+	},
+	{
+		Icon: <InfoOutlinedIcon />,
+		text: <Text k="navbar.about" />,
+		href: "/about",
+	},
+];
 
 const Sidebar = () => {
 	// const history = useHistory()
