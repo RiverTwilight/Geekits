@@ -1,30 +1,42 @@
-import React from "react";
+import React, { useMemo } from "react";
 import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
-import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
-import OutlinedCard from "@/components/OutlinedCard/index";
 import useInput from "@/utils/Hooks/useInput";
 import toRoman from "./api";
+import { Box, Card, IconButton } from "@mui/material";
+import { ContentCopy } from "@mui/icons-material";
+import handleCopy from "@/utils/copyToClipboard";
 
 const Result = ({ res }: any) => {
 	if (res === "") return null;
+
 	return (
 		<>
-			<OutlinedCard>
-				<code>{res}</code>
-			</OutlinedCard>
+			<Card sx={{ paddingX: 2, paddingY: 1 }}>
+				<Box
+					sx={{
+						display: "flex",
+						justifyContent: "space-between",
+						alignItems: "center",
+					}}
+				>
+					<code>{res}</code>
+					<IconButton onClick={() => handleCopy(res)}>
+						<ContentCopy />
+					</IconButton>
+				</Box>
+			</Card>
 		</>
 	);
 };
 
 const Converter = () => {
 	const [input, setInput] = useInput("");
-	const [res, setRes] = React.useState("");
 
-	const handleConvert = () => {
-		setRes(toRoman(input));
-	};
+	const res = useMemo(() => {
+		return toRoman(input);
+	}, [input]);
 
 	return (
 		<>
@@ -40,30 +52,6 @@ const Converter = () => {
 							label="输入整数"
 						/>
 					</FormControl>
-					<div className="clearfix"></div>
-					<br></br>
-					<Grid container spacing={2}>
-						<Grid item xs={6}>
-							<Button
-								fullWidth
-								onClick={handleConvert}
-								variant="contained"
-							>
-								转换
-							</Button>
-						</Grid>
-						<Grid item xs={6}>
-							<Button
-								disabled={input === ""}
-								fullWidth
-								variant="outlined"
-								id="becopy"
-								data-clipboard-text={res}
-							>
-								复制结果
-							</Button>
-						</Grid>
-					</Grid>
 				</Grid>
 				<Grid item md={6} xs={12}>
 					<Result res={res} />

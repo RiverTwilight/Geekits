@@ -12,6 +12,7 @@ import {
 	Tooltip,
 } from "@mui/material";
 import { ContentCopy, SwapVert } from "@mui/icons-material";
+import handleCopy from "@/utils/copyToClipboard";
 
 const units = ["mm", "mil", "cm", "m", "km"];
 
@@ -20,24 +21,6 @@ const Converter = () => {
 	const [inputValue, setInputValue] = useState("");
 	const [inputUnit, setInputUnit] = useState("mm");
 	const [outputUnit, setOutputUnit] = useState("cm");
-
-	async function copyTextToClipboard(text) {
-		if ("clipboard" in navigator) {
-			return await navigator.clipboard.writeText(text);
-		} else {
-			return document.execCommand("copy", true, text);
-		}
-	}
-
-	const handleCopy = (text) => {
-		copyTextToClipboard(text)
-			.then(() => {
-				window.snackbar({ message: "已复制" });
-			})
-			.catch((err) => {
-				console.log(err);
-			});
-	};
 
 	const convert = useMemo(() => {
 		const value = parseFloat(inputValue);
