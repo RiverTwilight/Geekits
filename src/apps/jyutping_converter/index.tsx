@@ -3,17 +3,31 @@ import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
-import OutlinedCard from "@/components/OutlinedCard/index";
 import useInput from "@/utils/Hooks/useInput";
 import toYuepin from "./yuepin";
+import { Box, Card, IconButton } from "@mui/material";
+import { ContentCopy } from "@mui/icons-material";
+import handleCopy from "@/utils/copyToClipboard";
 
 const Result = ({ res }: any) => {
 	if (res === "") return null;
+
 	return (
 		<>
-			<OutlinedCard>
-				<code>{res}</code>
-			</OutlinedCard>
+			<Card sx={{ paddingX: 2, paddingY: 1 }}>
+				<Box
+					sx={{
+						display: "flex",
+						justifyContent: "space-between",
+						alignItems: "center",
+					}}
+				>
+					<code>{res}</code>
+					<IconButton onClick={() => handleCopy(res)}>
+						<ContentCopy />
+					</IconButton>
+				</Box>
+			</Card>
 		</>
 	);
 };
@@ -44,24 +58,13 @@ const Converter = () => {
 					<div className="clearfix"></div>
 					<br></br>
 					<Grid container spacing={2}>
-						<Grid item xs={6}>
+						<Grid item xs={12}>
 							<Button
 								fullWidth
 								onClick={handleConvert}
 								variant="contained"
 							>
 								转换为粤拼
-							</Button>
-						</Grid>
-						<Grid item xs={6}>
-							<Button
-								disabled={input === ""}
-								fullWidth
-								variant="outlined"
-								id="becopy"
-								data-clipboard-text={res}
-							>
-								复制结果
 							</Button>
 						</Grid>
 					</Grid>
