@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import AppList from "@/components/AppList";
@@ -10,34 +10,44 @@ import channelInfo from "@/data/channelInfo";
 import translator from "@/utils/translator";
 import { useAction } from "@/contexts/action";
 import { defaultLocale } from "src/site.config";
+import { isCapacitor } from "@/utils/platform";
+import { useLocale } from "@/contexts/locale";
 
 export async function getStaticProps({ locale = defaultLocale }) {
-	const appData = getAllApps(true, locale);
+	const appData = getAllApps(true);
 
 	const dic = require("../data/i18n.json");
 
 	const trans = new translator(dic, locale);
 
-	return {
-		props: {
-			currentPage: {
-				title: trans.use("homePage.meta.title"),
-				description: trans.use("homePage.meta.description"),
-				path: "/",
-			},
-			appData: appData.filter((app) => app.status !== "alpha"),
-			dic: JSON.stringify(trans.get()),
-			locale,
+	const pageProps = {
+		currentPage: {
+			title: trans.use("homePage.meta.title"),
+			description: trans.use("homePage.meta.description"),
+			path: "/",
 		},
+		appData: appData.filter((app) => app.status !== "alpha"),
+		dic: JSON.stringify(dic),
+		locale,
+	};
+
+	return {
+		props: pageProps,
 	};
 }
 
 export default function Index({ appData }: any) {
 	const { setAction } = useAction();
+	const { locale } = useLocale();
 
 	useEffect(() => {
 		setAction(null);
 	}, []);
+
+	const localizedAppData = useMemo(
+		() => appData.filter((app) => app.locale === locale),
+		[locale]
+	);
 
 	return (
 		<Box
@@ -59,11 +69,14 @@ export default function Index({ appData }: any) {
 			>
 				<Grid container direction="row-reverse" spacing={1}>
 					<Grid item xs={12} md={12}>
-						<Search appData={appData} />
+						<Search appData={localizedAppData} />
 						<br />
 						<Bookmark />
 						<br />
-						<AppList channelInfo={channelInfo} appData={appData} />
+						<AppList
+							channelInfo={channelInfo}
+							appData={localizedAppData}
+						/>
 						<br />
 						<Tips />
 					</Grid>

@@ -3,6 +3,22 @@ import Image from "next/image";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
+export async function getStaticProps() {
+	const dic = require("../data/i18n.json");
+
+	const pageProps = {
+		currentPage: {
+			title: "404",
+			path: "/",
+		},
+		dic: JSON.stringify(dic),
+	};
+
+	return {
+		props: pageProps,
+	};
+}
+
 export default function Custom404() {
 	return (
 		<div className="center-with-flex">

@@ -11,6 +11,7 @@
 		"db:update": "prisma db push",
 		"db:panel": "prisma studio",
 		"dev": "next",
+		"dev:cap": "CAPACITOR_BUILD=true next",
 		"i18n:update": "node scripts/i18n-loader.js",
 		"local-build": "next build",
 		"start": "next start -p 8964",
@@ -27,6 +28,7 @@
 	"dependencies": {
 		"@capacitor/android": "^5.7.4",
 		"@capacitor/core": "^5.7.4",
+		"@capacitor/device": "^5.0.7",
 		"@capacitor/ios": "^5.7.4",
 		"@emotion/react": "^11.7.1",
 		"@emotion/styled": "^11.6.0",

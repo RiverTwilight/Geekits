@@ -71,7 +71,7 @@ export const getStaticProps: GetStaticProps = ({ locale = "zh-CN" }) => {
 				description: trans.use(""),
 				path: "/about",
 			},
-			dic: JSON.stringify(trans.get()),
+			dic: JSON.stringify(dic),
 			aboutContent,
 			locale,
 		},

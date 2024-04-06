@@ -96,9 +96,9 @@ export const getStaticProps: GetStaticProps = ({
 				description: appConfig.description || "",
 				path: "/app/" + appConfig.id,
 			},
+			dic: JSON.stringify(dic),
 			appConfig,
 			locale,
-			dic: JSON.stringify(dic[locale]),
 			appDoc,
 		},
 	};
@@ -131,8 +131,6 @@ const AppContainer = ({ appConfig, appDoc }) => {
 
 	const { setAction } = useAction();
 	const { appBar, setAppBar } = useAppBar();
-
-	console.log(appConfig)
 
 	const loadLink =
 		appConfig.status === "stable" || appConfig.status === "beta"

@@ -66,8 +66,6 @@ async function imgMosaic_Y(assests: string[], callback) {
 		imgs.push(ele);
 	}
 
-	console.log("the canvas size is " + c.width + " x " + c.height);
-
 	var startX = 0;
 	var startY = 0;
 	console.log(imgs);

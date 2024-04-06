@@ -3,9 +3,13 @@ import React from "react";
 import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
 import axios from "axios";
+import translator from "@/utils/translator";
 
-export async function getStaticProps({ locale="zh-CN" }) {
+export async function getStaticProps({ locale = "zh-CN" }) {
 	const path = "/feedback";
+	const dic = require("../data/i18n.json");
+
+	const trans = new translator(dic, locale);
 
 	return {
 		props: {
@@ -14,6 +18,7 @@ export async function getStaticProps({ locale="zh-CN" }) {
 				path,
 			},
 			locale,
+			dic: JSON.stringify(dic),
 		},
 	};
 }

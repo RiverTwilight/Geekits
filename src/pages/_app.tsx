@@ -1,60 +1,60 @@
 import React, { useState, useEffect, useMemo } from "react";
 import Layout from "@/components/Layout";
 import Text from "@/components/i18n";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { green } from "@mui/material/colors";
+import { ThemeProvider } from "@mui/material/styles";
 import { store as frameStore } from "@/utils/Data/frameState";
-import useMediaQuery from "@mui/material/useMediaQuery";
 import siteConfig from "../site.config.js";
 import type { AppProps } from "next/app";
 import { Analytics } from "@vercel/analytics/react";
+import { Device } from "@capacitor/device";
+import customTheme from "@/utils/theme";
+import { useMediaQuery } from "@mui/material";
+import { LocaleProvider } from "@/contexts/locale";
 
 import "./App.css";
 
+async function getDeviceLanguage() {
+	let { value } = await Device.getLanguageCode();
+
+	if (value === "en") {
+		value = "en-US";
+	}
+	if (value === "zh") {
+		value = "zh-CN";
+	}
+
+	return value;
+}
+
 function MainApp({ Component, pageProps }: AppProps) {
-	const [dark, setDark] = useState(false);
 	const [framed, setFramed] = useState<Boolean>(true);
 
-	useEffect(() => {
-		if (localStorage.getItem("dark")) {
-			setDark(!!localStorage.getItem("dark"));
-		}
+	// The auto-detected locale from NextJS
+	// If user has no preferred locale, use auto
+	const [preferredLocale, setPreferredLocale] = useState(pageProps.locale);
 
-		window.setDark = (state) => {
-			setDark(state);
+	useEffect(() => {
+		const readLocaleConfig = async () => {
+			// https://en.wikipedia.org/wiki/IETF_language_tag
+			setPreferredLocale(await getDeviceLanguage());
 		};
 
-		console.log("Some global functions to nerds: Window.setDark()");
+		readLocaleConfig();
+	}, []);
 
+	useEffect(() => {
 		frameStore.subscribe(() => setFramed(frameStore.getState().value));
 	}, []);
 
 	const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
-	// https://mui.com/material-ui/customization/palette/
+
+	const localizedDic = useMemo(
+		() => JSON.parse(pageProps.dic)[preferredLocale],
+		[preferredLocale, pageProps.dic]
+	);
+
 	const theme = useMemo(
-		() =>
-			createTheme({
-				typography: {
-					fontFamily: `"Product Sans", "Roboto", "Helvetica", "Arial", sans-serif`,
-				},
-				palette: {
-					mode: prefersDarkMode ? "dark" : "light",
-					primary: {
-						main: green[500],
-						light: "#ebebeb",
-						dark: "#4e565c",
-					},
-					secondary: {
-						main: "#fff",
-						light: "#ebebeb",
-						dark: "#4e565c",
-					},
-					background: {
-						default: prefersDarkMode ? "#1e2020" : "#f0f4f9",
-						paper: prefersDarkMode ? "#141414" : "#ffffff",
-					},
-				},
-			}),
+		() => customTheme(prefersDarkMode),
 		[prefersDarkMode]
 	);
 
@@ -62,33 +62,35 @@ function MainApp({ Component, pageProps }: AppProps) {
 		currentPage = {
 			title: "404",
 		},
-		locale = "zh-CN",
 		menuItems = [],
 		hideFrame,
 	} = pageProps;
 
 	return (
-		<ThemeProvider theme={theme}>
-			<Text
-				dictionary={pageProps.dic ? JSON.parse(pageProps.dic) : {}}
-				language={locale}
-			>
-				{hideFrame ? (
-					<Component {...pageProps} siteConfig={siteConfig} />
-				) : (
-					<Layout
-						enableFrame={framed}
-						locale={locale}
-						currentPage={currentPage}
-						menuItems={menuItems}
-					>
-						{/**@ts-ignore */}
+		<LocaleProvider
+			value={{ locale: preferredLocale, setLocale: setPreferredLocale }}
+		>
+			<ThemeProvider theme={theme}>
+				<Text
+					dictionary={localizedDic || {}}
+					language={preferredLocale}
+				>
+					{hideFrame ? (
 						<Component {...pageProps} siteConfig={siteConfig} />
-					</Layout>
-				)}
-				<Analytics />
-			</Text>
-		</ThemeProvider>
+					) : (
+						<Layout
+							enableFrame={framed}
+							currentPage={currentPage}
+							menuItems={menuItems}
+						>
+							{/**@ts-ignore */}
+							<Component {...pageProps} siteConfig={siteConfig} />
+						</Layout>
+					)}
+					<Analytics />
+				</Text>
+			</ThemeProvider>
+		</LocaleProvider>
 	);
 }
 

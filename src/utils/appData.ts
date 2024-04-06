@@ -43,21 +43,25 @@ const allAppsContext_en = require.context("../apps", true, /(en-US\.md)$/);
 
 const getAllApps = (
 	includeExternal: boolean = true,
-	locale: string = "zh-CN"
+	locale?: string
 ): AppData[] => {
-	const activeAppsContext =
-		{
-			"zh-CN": allAppsContext,
-			"en-US": allAppsContext_en,
-		}[locale] || allAppsContext;
+	const appsContext = { ...allAppsContext, allAppsContext_en };
 
-	const allApps = activeAppsContext
+	const allApps = appsContext
 		.keys()
-		.slice(0, activeAppsContext.keys().length / 2)
+		.slice(0, appsContext.keys().length / 2)
 		.map((key) => {
 			const appId = key.split("/")[1];
-			return { id: appId, ...getAppConfig(appId, { locale }) };
-		});
+
+			if (!locale) {
+				return ["zh-CN", "en-US"].map((locale) => {
+					return { id: appId, locale, ...getAppConfig(appId, { locale }) };
+				});
+			}
+
+			return [{ id: appId, locale, ...getAppConfig(appId, { locale }) }];
+		})
+		.flat(1);
 
 	return includeExternal ? [...allApps, ...externalApps] : allApps;
 };

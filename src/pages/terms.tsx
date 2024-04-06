@@ -4,6 +4,7 @@ import StyledMarkdown from "@/components/StyledMarkdown";
 import type { GetStaticProps } from "next";
 import type { PageProps } from "@/types/index";
 import { defaultLocale } from "src/site.config";
+import translator from "@/utils/translator";
 
 interface TermsProps extends PageProps {
 	termsContent: string;
@@ -13,6 +14,10 @@ export const getStaticProps: GetStaticProps = ({ locale = defaultLocale }) => {
 	const termsContent = require("../data/article/" +
 		locale +
 		"/terms.md").default;
+		
+	const dic = require("../data/i18n.json");
+
+	const trans = new translator(dic, locale);
 
 	return {
 		props: {
@@ -20,6 +25,7 @@ export const getStaticProps: GetStaticProps = ({ locale = defaultLocale }) => {
 				title: "使用条款",
 				path: "/terms",
 			},
+			dic: JSON.stringify(dic),
 			termsContent,
 			locale,
 		},

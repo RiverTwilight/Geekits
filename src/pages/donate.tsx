@@ -135,7 +135,7 @@ export const getStaticProps: GetStaticProps = ({ locale = defaultLocale }) => {
 				description: trans.use(""),
 				path: "/donate",
 			},
-			dic: JSON.stringify(trans.get()),
+			dic: JSON.stringify(dic),
 			locale,
 		},
 	};
@@ -181,9 +181,7 @@ const PaidOptionItem = ({ href, ...props }) => (
 		<OutlinedCard padding={1}>
 			<ListItem sx={{ height: { xs: "6em", sm: "4em" } }}>
 				<ListItemAvatar>
-					<Avatar>
-						{props.icon}
-					</Avatar>
+					<Avatar>{props.icon}</Avatar>
 				</ListItemAvatar>
 				{!!props.amount ? (
 					<ListItemText

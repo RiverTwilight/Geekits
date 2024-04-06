@@ -36,7 +36,7 @@ export default function Text({
 	return (
 		<Consumer>
 			{(value) => {
-				console.log(value.dictionary);
+				// console.log(value.dictionary);
 				if (
 					Object.prototype.toString.call(props[k]) ===
 					"[object Array]"
