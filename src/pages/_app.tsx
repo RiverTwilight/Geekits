@@ -3,16 +3,15 @@ import Layout from "@/components/Layout";
 import Text from "@/components/i18n";
 import { ThemeProvider } from "@mui/material/styles";
 import { store as frameStore } from "@/utils/Data/frameState";
-import siteConfig from "../site.config.js";
 import type { AppProps } from "next/app";
 import { Analytics } from "@vercel/analytics/react";
 import { Device } from "@capacitor/device";
 import customTheme from "@/utils/theme";
 import { useMediaQuery } from "@mui/material";
 import { LocaleProvider } from "@/contexts/locale";
+import { isWeb } from "@/utils/platform.js";
 
 import "./App.css";
-import { isCapacitor, isWeb } from "@/utils/platform.js";
 
 async function getDeviceLanguage() {
 	let { value } = await Device.getLanguageCode();
@@ -42,6 +41,7 @@ function MainApp({ Component, pageProps }: AppProps) {
 				if (preferredSet === "auto" && !isWeb()) {
 					setPreferredLocale(await getDeviceLanguage());
 				} else if (preferredSet !== "auto") {
+					// If user has spicified the language
 					setPreferredLocale(preferredSet);
 				}
 			}
@@ -84,15 +84,14 @@ function MainApp({ Component, pageProps }: AppProps) {
 					language={preferredLocale}
 				>
 					{hideFrame ? (
-						<Component {...pageProps} siteConfig={siteConfig} />
+						<Component {...pageProps} />
 					) : (
 						<Layout
 							enableFrame={framed}
 							currentPage={currentPage}
 							menuItems={menuItems}
 						>
-							{/**@ts-ignore */}
-							<Component {...pageProps} siteConfig={siteConfig} />
+							{<Component {...pageProps} />}
 						</Layout>
 					)}
 					<Analytics />

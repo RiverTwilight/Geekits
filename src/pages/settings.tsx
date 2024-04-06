@@ -49,11 +49,10 @@ export default function Settings() {
 	});
 
 	return (
-		<PaperBackground contentWidth={900}>
+		<PaperBackground contentWidth={600}>
 			<Box
 				display={"flex"}
 				sx={{
-					minWidth: "400px",
 					width: "100%",
 				}}
 				justifyContent={"space-between"}
@@ -62,6 +61,9 @@ export default function Settings() {
 				<Typography variant="body1">
 					<Text k="settings.language.title" />
 				</Typography>
+
+				<Box sx={{ flexGrow: 1 }} />
+
 				<FormControl sx={{ width: 180 }}>
 					<InputLabel id="settings-language-label">
 						<Text k="settings.language.title" />

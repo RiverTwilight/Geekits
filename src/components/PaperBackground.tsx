@@ -34,6 +34,7 @@ const PaperBackground = ({
 			<Box
 				sx={{
 					maxWidth: `${contentWidth}px`,
+					width: "100%",
 				}}
 			>
 				{children}
