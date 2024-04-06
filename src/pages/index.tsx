@@ -10,7 +10,6 @@ import channelInfo from "@/data/channelInfo";
 import translator from "@/utils/translator";
 import { useAction } from "@/contexts/action";
 import { defaultLocale } from "src/site.config";
-import { isCapacitor } from "@/utils/platform";
 import { useLocale } from "@/contexts/locale";
 
 export async function getStaticProps({ locale = defaultLocale }) {

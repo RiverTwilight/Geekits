@@ -21,7 +21,12 @@ import { UserContext } from "./UserContextProvider";
 import { store as loginDialogStore } from "@/utils/Data/loginDialogState";
 import { getUserInfo } from "@/utils/Services/UserInfo";
 import { styled } from "@mui/material/styles";
-import { Settings, TimerOutlined } from "@mui/icons-material";
+import {
+	Cloud,
+	OpenInBrowser,
+	Settings,
+	TimerOutlined,
+} from "@mui/icons-material";
 import { Theme, useMediaQuery } from "@mui/material";
 import { useSidebar } from "@/contexts/sidebar";
 import Text from "./i18n";
@@ -149,8 +154,18 @@ const list = [
 	},
 	{
 		Icon: <InfoOutlinedIcon />,
+		text: "<divider />",
+		href: "/about",
+	},
+	{
+		Icon: <InfoOutlinedIcon />,
 		text: <Text k="navbar.about" />,
 		href: "/about",
+	},
+	{
+		Icon: <TimerOutlined />,
+		text: <Text k="navbar.log" />,
+		href: "/notification",
 	},
 ];
 
@@ -226,13 +241,28 @@ const Sidebar = () => {
 				</Box> */}
 			</Box>
 			<Box alignSelf="stretch">
-				<List sx={{ pr: "20px" }}>
-					<LinkWrapper
-						handleClick={handleClickNavItem}
-						href={"/notification"}
-						text={<Text k="navbar.log" />}
-						Icon={<TimerOutlined />}
-					/>
+				<List sx={{ cursor: "pointer" }}>
+					<Link
+						href="https://www.ygeeker.com"
+						passHref
+						legacyBehavior
+					>
+						<ListItem dense>
+							<ListItemAvatar>
+								<Avatar
+									sx={{ width: 24, height: 24 }}
+									alt="YGeeker Logo"
+									src="https://www.ygeeker.com/logo.svg"
+								/>
+							</ListItemAvatar>
+							<ListItemText
+								primary={<Text k="navbar.copyright.title" />}
+								secondary={
+									<Text k="navbar.copyright.subtitle" />
+								}
+							/>
+						</ListItem>
+					</Link>
 				</List>
 			</Box>
 		</Box>

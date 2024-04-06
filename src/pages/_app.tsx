@@ -41,7 +41,7 @@ function MainApp({ Component, pageProps }: AppProps) {
 			if (preferredSet) {
 				if (preferredSet === "auto" && !isWeb()) {
 					setPreferredLocale(await getDeviceLanguage());
-				} else {
+				} else if (preferredSet !== "auto") {
 					setPreferredLocale(preferredSet);
 				}
 			}

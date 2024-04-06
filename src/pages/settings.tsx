@@ -1,10 +1,6 @@
 import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
-import Link from "@mui/material/Link";
 import { GetStaticProps } from "next";
-import Placeholder from "@/components/Placeholder";
 import translator from "@/utils/translator";
-import OutlinedCard from "@/components/OutlinedCard/index";
 import PaperBackground from "@/components/PaperBackground";
 import Typography from "@mui/material/Typography";
 import { useAction } from "@/contexts/action";
