@@ -1,11 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
-import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import SearchSharpIcon from "@mui/icons-material/SearchSharp";
 import GoogleIcon from "@mui/icons-material/Google";
@@ -82,7 +79,7 @@ const SearchResult = ({ result = [], kwd }: any) => {
 			);
 		} else if (e.keyCode === 13) {
 			e.preventDefault();
-			handleClick(`/app/${result[selectedItem].link}`);
+			handleClick(`/app/${result[selectedItem].id}`);
 		}
 	};
 

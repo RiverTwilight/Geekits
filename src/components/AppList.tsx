@@ -6,7 +6,6 @@ import Grid from "@mui/material/Grid";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
-import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import ListSubheader from "@mui/material/ListSubheader";
 import OutlinedCard from "./OutlinedCard";
@@ -68,7 +67,7 @@ const AppListItem = ({
 						sx={{
 							paddingLeft: "20px",
 							"& .MuiListItemText-primary": {
-								fontWeight: 700,
+								fontFamily: "Product Sans Bold",
 							},
 						}}
 						primary={

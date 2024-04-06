@@ -103,7 +103,8 @@ const LinkWrapper = ({ href, text, Icon, handleClick, sx, ...props }) => {
 				onClick={handleClick}
 				sx={{
 					"&.Mui-selected .MuiListItemText-primary": {
-						fontWeight: 700,
+						fontFamily: "Product Sans Bold",
+
 					},
 					borderBottomRightRadius: "30px",
 					borderTopRightRadius: "30px",
