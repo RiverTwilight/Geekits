@@ -8,6 +8,7 @@ import Typography from "@mui/material/Typography";
 import FilePicker from "@/components/FilePicker";
 import pathToTree from "./engine";
 import OutlinedCard from "../../components/OutlinedCard";
+import { ContentCopy } from "@mui/icons-material";
 
 export default function FolderTree() {
 	const [fileList, setFileList] = useState([]);
@@ -26,7 +27,9 @@ export default function FolderTree() {
 	return (
 		<>
 			<OutlinedCard padding={2}>
-				<Typography variant="h5">1. 选择一个文件夹</Typography>
+				<Typography variant="h5" gutterBottom>
+					1. 选择一个文件夹
+				</Typography>
 				<FilePicker
 					multiple
 					webkitdirectory
@@ -43,7 +46,7 @@ export default function FolderTree() {
 			</OutlinedCard>
 			<br />
 			<OutlinedCard padding={2}>
-				<Typography variant="h5">
+				<Typography variant="h5" gutterBottom>
 					2. 设置要排除的路径（可选）
 				</Typography>
 				<FormControl fullWidth>
@@ -58,25 +61,25 @@ export default function FolderTree() {
 			</OutlinedCard>
 			<br />
 			<OutlinedCard padding={2}>
-				<Typography variant="h5">3. 生成文件树</Typography>
+				<Typography variant="h5" gutterBottom>
+					3. 生成文件树
+				</Typography>
 				<Button
 					onClick={() => {
 						setTree(pathToTree(fileList, except.split("\n")));
 					}}
 					variant="contained"
 					color="primary"
+					disabled={!!!fileList.length}
 				>
 					生成
 				</Button>
 
-				<IconButton
-					data-clipboard-text={tree}
-					className={`${
-						tree === "" ? "hidden" : ""
-					} copy mdui-btn mdui-btn-icon`}
-				>
-					<i className="mdui-icon material-icons">&#xe14d;</i>
-				</IconButton>
+				{tree !== "" && (
+					<IconButton data-clipboard-text={tree} className={`copy`}>
+						<ContentCopy />
+					</IconButton>
+				)}
 
 				<br></br>
 
