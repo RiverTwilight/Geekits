@@ -21,7 +21,7 @@ import { UserContext } from "./UserContextProvider";
 import { store as loginDialogStore } from "@/utils/Data/loginDialogState";
 import { getUserInfo } from "@/utils/Services/UserInfo";
 import { styled } from "@mui/material/styles";
-import { TimerOutlined } from "@mui/icons-material";
+import { Settings, TimerOutlined } from "@mui/icons-material";
 import { Theme, useMediaQuery } from "@mui/material";
 import { useSidebar } from "@/contexts/sidebar";
 import Text from "./i18n";
@@ -121,6 +121,11 @@ const list = [
 		Icon: <HomeOutlinedIcon />,
 		text: <Text k="navbar.home" />,
 		href: "/",
+	},
+	{
+		Icon: <Settings />,
+		text: <Text k="navbar.settings" />,
+		href: "/settings",
 	},
 	{
 		Icon: <MessageOutlinedIcon />,

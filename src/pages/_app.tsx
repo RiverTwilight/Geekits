@@ -12,6 +12,7 @@ import { useMediaQuery } from "@mui/material";
 import { LocaleProvider } from "@/contexts/locale";
 
 import "./App.css";
+import { isCapacitor, isWeb } from "@/utils/platform.js";
 
 async function getDeviceLanguage() {
 	let { value } = await Device.getLanguageCode();
@@ -36,7 +37,14 @@ function MainApp({ Component, pageProps }: AppProps) {
 	useEffect(() => {
 		const readLocaleConfig = async () => {
 			// https://en.wikipedia.org/wiki/IETF_language_tag
-			setPreferredLocale(await getDeviceLanguage());
+			let preferredSet = localStorage.getItem("locale");
+			if (preferredSet) {
+				if (preferredSet === "auto" && !isWeb()) {
+					setPreferredLocale(await getDeviceLanguage());
+				} else {
+					setPreferredLocale(preferredSet);
+				}
+			}
 		};
 
 		readLocaleConfig();
