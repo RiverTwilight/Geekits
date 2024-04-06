@@ -1,7 +1,7 @@
 import { createTheme } from "@mui/material";
-import { green } from "@mui/material/colors";
-// https://mui.com/material-ui/customization/palette/
 
+// https://mui.com/material-ui/customization/palette/
+// Create by https://material-foundation.github.io/material-theme-builder/
 const customTheme = (prefersDarkMode: boolean) => {
 	return createTheme({
 		typography: {
@@ -16,8 +16,8 @@ const customTheme = (prefersDarkMode: boolean) => {
 			},
 			secondary: {
 				main: "#586249",
-				light: "#ebebeb",
-				dark: "#bfcbad",
+				light: "#001b3e",
+				dark: "#dae2f9",
 			},
 			background: {
 				default: prefersDarkMode ? "#1d2023" : "#ededf4",
