@@ -6,6 +6,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
+import OutlinedCard from "@/components/OutlinedCard";
 
 interface TabPanelProps {
 	children?: React.ReactNode;
@@ -49,25 +50,34 @@ const DateCalculator = () => {
 	};
 
 	return (
-		<Paper component={Box} padding={1}>
-			<Tabs
-				value={value}
-				onChange={handleChange}
-				indicatorColor="primary"
-				textColor="primary"
-				variant="fullWidth"
-				aria-label="full width tabs example"
-			>
-				<Tab label="日期&时间间隔" {...a11yProps(0)} />
-				<Tab label="日期推算" {...a11yProps(1)} />
-			</Tabs>
-			<TabPanel value={value} index={0}>
-				<DateInterval />
-			</TabPanel>
-			<TabPanel value={value} index={1}>
-				<CalcDate />
-			</TabPanel>
-		</Paper>
+		<Box
+			display={"flex"}
+			sx={{
+				width: "100%",
+			}}
+			justifyContent={"center"}
+			alignItems={"center"}
+		>
+			<Paper component={OutlinedCard} padding={1}>
+				<Tabs
+					value={value}
+					onChange={handleChange}
+					indicatorColor="primary"
+					textColor="primary"
+					variant="fullWidth"
+					aria-label="full width tabs example"
+				>
+					<Tab label="日期&时间间隔" {...a11yProps(0)} />
+					<Tab label="日期推算" {...a11yProps(1)} />
+				</Tabs>
+				<TabPanel value={value} index={0}>
+					<DateInterval />
+				</TabPanel>
+				<TabPanel value={value} index={1}>
+					<CalcDate />
+				</TabPanel>
+			</Paper>
+		</Box>
 	);
 };
 

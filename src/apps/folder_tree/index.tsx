@@ -10,10 +10,14 @@ import pathToTree from "./engine";
 import OutlinedCard from "../../components/OutlinedCard";
 import { ContentCopy } from "@mui/icons-material";
 
+type TreeDataType = {
+	[key: string]: TreeDataType | string;
+};
+
 export default function FolderTree() {
-	const [fileList, setFileList] = useState([]);
-	const [except, setExcept] = useState("");
-	const [tree, setTree] = useState("");
+	const [fileList, setFileList] = useState<string[]>([]);
+	const [except, setExcept] = useState<string>("");
+	const [tree, setTree] = useState<TreeDataType>({});
 
 	useEffect(() => {
 		var clipboard = new ClipboardJS(".copy");

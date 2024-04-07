@@ -1,94 +1,114 @@
-import React, { useEffect, useState } from "react";
-import ClipboardJS from "clipboard";
+import React, { useRef, useState } from "react";
 import FilePicker from "@/components/FilePicker";
-import TextField from "@mui/material/TextField";
-import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import OutlinedCard from "@/components/OutlinedCard";
+import { IconButton } from "@mui/material";
+import { ContentCopy } from "@mui/icons-material";
+import handleCopy from "@/utils/copyToClipboard";
 
-const Img2Base64: React.FC = (props) => {
+const Img2Base64: React.FC = () => {
 	const [file, setFile] = useState("");
-
-	useEffect(() => {
-		clipboard && clipboard.destroy();
-		var clipboard = new ClipboardJS("#copy");
-		clipboard.on("success", (e) => {
-			window.snackbar({ message: "已复制" });
-			e.clearSelection();
-		});
-		clipboard.on("error", (e) => {
-			window.snackbar({ message: "文本太长无法复制" });
-			e.clearSelection();
-		});
-	}, []);
+	const resContainer = useRef(null);
 
 	return (
-		<>
-			<Box
-				component="div"
-				sx={{
+		<Box
+			sx={{
+				display: "flex",
+				flexDirection: {
+					xs: "column",
+					md: "row",
+				},
+				justifyContent: "center",
+				alignItems: "center",
+				width: "100%",
+			}}
+		>
+			<OutlinedCard
+				style={{
+					backgroundImage: `url(${file})`,
+					backgroundSize: "cover",
+					backgroundPosition: "center",
+					width: "100%",
+					height: "200px",
 					display: "flex",
-					minWidth: "300px",
-					maxWidth: "900px",
+					overflow: "hidden",
+					justifyContent: "center",
+					position: "relative",
 				}}
 			>
-				<Card
-					component={Paper}
+				{file && (
+					<Box
+						sx={{
+							position: "absolute",
+							top: 0,
+							bottom: 0,
+							right: 0,
+							left: 0,
+							background: "rgba(0,0,0,0.5)",
+						}}
+					></Box>
+				)}
+				<CardContent
 					sx={{
-						backgroundImage: `url(${file})`,
-						backgroundSize: "cover",
-						backgroundRepeat: "no-repeat",
-						backgroundPosition: "center",
-						// filter: "blur(2px)",
-						width: "200px",
-						height: "200px",
 						display: "flex",
+						flexDirection: "column",
 						justifyContent: "center",
 					}}
 				>
-					<CardContent
-						sx={{
-							display: "flex",
-							flexDirection: "column",
-							justifyContent: "center",
+					<FilePicker
+						enableDrag
+						fileType="image/*"
+						handleFileUpload={(file) => {
+							resContainer.current.innerText = `${file.slice(
+								0,
+								500
+							)}...`;
+
+							setFile(file);
 						}}
-					>
-						<FilePicker
-							enableDrag
-							fileType="image/*"
-							handleFileUpload={(file) => {
-								setFile(file);
-							}}
-						></FilePicker>
-					</CardContent>
-				</Card>
+					></FilePicker>
+				</CardContent>
+			</OutlinedCard>
+			<Box
+				sx={{
+					transform: {
+						xs: "rotate(90deg)",
+						md: "rotate(0deg)",
+					},
+					padding: "20px",
+				}}
+			>
+				<ArrowForwardIcon />
+			</Box>
+			<OutlinedCard
+				style={{
+					width: "100%",
+				}}
+			>
 				<Box
 					sx={{
+						height: "200px",
 						display: "flex",
-						justifyContent: "center",
-						flexDirection: "column",
-						padding: "0 20px",
+						justifyContent: "space-between",
+						padding: 2,
+						overflow: "hidden",
 					}}
 				>
-					<ArrowForwardIcon />
+					<code
+						ref={resContainer}
+						style={{ whiteSpace: "pre-wrap", wordWrap: "anywhere" }}
+					></code>
+					<IconButton
+						disabled={!file}
+						onClick={() => handleCopy(file)}
+					>
+						<ContentCopy />
+					</IconButton>
 				</Box>
-				<TextField
-					sx={{
-						height: "200px",
-					}}
-					multiline
-					rows={7}
-					data-clipboard-text={file}
-					value={file}
-				/>
-			</Box>
-
-			{/* <Button id="copy" hidden={file !== ""}>
-				复制
-			</Button> */}
-		</>
+			</OutlinedCard>
+		</Box>
 	);
 };
 

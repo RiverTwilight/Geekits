@@ -86,8 +86,6 @@ export default function Settings() {
 					</Select>
 				</FormControl>
 			</Box>
-
-			<br />
 		</PaperBackground>
 	);
 }
