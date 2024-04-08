@@ -101,12 +101,12 @@ class MyDocument extends Document {
 					<meta
 						name="theme-color"
 						media="(prefers-color-scheme: light)"
-						content="#f0f4f9"
+						content="#ededf4"
 					/>
 					<meta
 						name="theme-color"
 						media="(prefers-color-scheme: dark)"
-						content="#1e2020"
+						content="#1d2023"
 					/>
 					<meta name="renderer" content="webkit" />
 					<meta name="force-rendering" content="webkit" />
