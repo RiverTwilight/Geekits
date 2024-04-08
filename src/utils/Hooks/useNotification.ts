@@ -1,5 +1,5 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
+import axios from "axios";
 
 const API =
 	"https://api.github.com/repos/RiverTwilight/ygktool/issues/21/comments?sort=created";

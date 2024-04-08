@@ -71,6 +71,7 @@ export default function Settings() {
 					<Select
 						labelId="settings-language-label"
 						id="settings-language"
+						name="language"
 						value={age}
 						onChange={handleChange}
 					>

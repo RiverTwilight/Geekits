@@ -23,7 +23,7 @@ export const getStaticProps: GetStaticProps = ({ locale = "zh-CN" }) => {
 			},
 
 			locale,
-			dic: JSON.stringify(dic[locale]),
+			dic: JSON.stringify(dic),
 		},
 	};
 };
@@ -32,9 +32,16 @@ const NotificationPage = () => {
 	const [notifications, handleMarkAsRead] = useNotifications();
 
 	return (
-		<Box sx={{ marginBottom: 4, paddingX: { sm: 0, xs: 2 } }}>
+		<Box
+			sx={{
+				width: { sm: "768px", xs: "100%" },
+				marginBottom: 4,
+				paddingX: { sm: 0, xs: 2 },
+			}}
+		>
 			{notifications
 				.reverse()
+				.filter((not) => !not.isRead)
 				.slice(0, 5)
 				.map((notification) => (
 					<Card
@@ -61,7 +68,6 @@ const NotificationPage = () => {
 						{!notification.isRead && (
 							<CardActions>
 								<Button
-									size="small"
 									onClick={() =>
 										handleMarkAsRead(notification.id)
 									}
@@ -73,12 +79,16 @@ const NotificationPage = () => {
 					</Card>
 				))}
 
-			<Link
-				href="https://github.com/RiverTwilight/ygktool/issues/21"
-				target="_blank"
-			>
-				Check archived notification
-			</Link>
+			<Box sx={{ display: "flex", justifyContent: "center" }}>
+				<Link
+					href="https://github.com/RiverTwilight/ygktool/issues/21"
+					target="_blank"
+					component={Button}
+					underline="none"
+				>
+					Check archived notification
+				</Link>
+			</Box>
 		</Box>
 	);
 };

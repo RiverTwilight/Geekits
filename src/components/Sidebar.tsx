@@ -92,7 +92,7 @@ const User = ({ handleLogin }: any) => {
 
 const LinkWrapper = ({ href, text, Icon, handleClick, sx, ...props }) => {
 	if (text === "<divider />") {
-		return <Divider />;
+		return <Divider sx={{ marginY: 1 }} />;
 	}
 
 	const router = useRouter();
@@ -104,7 +104,6 @@ const LinkWrapper = ({ href, text, Icon, handleClick, sx, ...props }) => {
 				sx={{
 					"&.Mui-selected .MuiListItemText-primary": {
 						fontFamily: "Product Sans Bold",
-
 					},
 					borderBottomRightRadius: "30px",
 					borderTopRightRadius: "30px",
