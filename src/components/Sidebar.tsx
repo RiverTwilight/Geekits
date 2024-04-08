@@ -30,6 +30,7 @@ import {
 import { Theme, useMediaQuery } from "@mui/material";
 import { useSidebar } from "@/contexts/sidebar";
 import Text from "./i18n";
+import { isIOS, isWeb } from "@/utils/platform";
 
 const drawerWidth = 260;
 
@@ -137,7 +138,7 @@ const list = [
 		text: <Text k="navbar.feedback" />,
 		href: "https://support.qq.com/product/421719",
 	},
-	{
+	!isIOS() && {
 		Icon: <VolunteerActivismOutlinedIcon />,
 		text: <Text k="navbar.donation" />,
 		href: "/donate",
@@ -224,17 +225,19 @@ const Sidebar = () => {
 			<Box flex="1" overflow="auto">
 				<List sx={{ pr: "20px" }}>
 					{list.length &&
-						list.map((item) => (
-							<React.Fragment key={item.href}>
-								<LinkWrapper
-									handleClick={handleClickNavItem}
-									href={item.href}
-									text={item.text}
-									sx={item.sx}
-									Icon={item.Icon}
-								/>
-							</React.Fragment>
-						))}
+						list
+							.filter((item) => item)
+							.map((item) => (
+								<React.Fragment key={item.href}>
+									<LinkWrapper
+										handleClick={handleClickNavItem}
+										href={item.href}
+										text={item.text}
+										sx={item.sx}
+										Icon={item.Icon}
+									/>
+								</React.Fragment>
+							))}
 				</List>
 				{/* <Box padding={1}>
 					<Shortcuts />
