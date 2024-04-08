@@ -73,7 +73,7 @@ ${contact}
 				});
 		} else {
 			axios
-				.post("https://www.ygeeker.com/api/feedback", {
+				.post("https://geekits.ygeeker.com/api/feedback", {
 					message: fbTemplate,
 				})
 				.then(async () => {
