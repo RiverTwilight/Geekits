@@ -136,7 +136,8 @@ const list = [
 	{
 		Icon: <MessageOutlinedIcon />,
 		text: <Text k="navbar.feedback" />,
-		href: "https://support.qq.com/product/421719",
+		href: "/feedback",
+		// href: "https://support.qq.com/product/421719",
 	},
 	!isIOS() && {
 		Icon: <VolunteerActivismOutlinedIcon />,
@@ -228,7 +229,7 @@ const Sidebar = () => {
 						list
 							.filter((item) => item)
 							.map((item) => (
-								<React.Fragment key={item.href}>
+								<React.Fragment key={item.href + item.text}>
 									<LinkWrapper
 										handleClick={handleClickNavItem}
 										href={item.href}

@@ -4,6 +4,12 @@ import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
 import axios from "axios";
 import translator from "@/utils/translator";
+import { isWeb } from "@/utils/platform";
+import { Toast } from "@capacitor/toast";
+import { Box, FormControlLabel, Typography } from "@mui/material";
+import PaperBackground from "@/components/PaperBackground";
+import Checkbox from "@mui/material/Checkbox";
+import Text from "@/components/i18n";
 
 export async function getStaticProps({ locale = "zh-CN" }) {
 	const path = "/feedback";
@@ -23,50 +29,68 @@ export async function getStaticProps({ locale = "zh-CN" }) {
 	};
 }
 
-export default function Feedback({ currentPage }) {
+export default function Feedback() {
 	const [feedback, setFeedback] = React.useState("");
 	const [contact, setContact] = React.useState("");
+	const [debugInfo, setDebugInfo] = React.useState(false);
 	const [isLoading, setIsLoading] = React.useState(false);
 
 	const handleSubmit = () => {
 		const fbTemplate = `
-New feedback
----------
-*Content*:
-
 ${feedback}
 ---------
-*Contact*:
+**Contact**:
 
 ${contact}
 ---------
-*Create Date*: ${new Date().toLocaleString()}
+**Create Date**: ${new Date().toLocaleString()}
 
-*Source Page*: [${window.location.href}](${window.location.href})
+**Source Page**: [${window.location.href}](${window.location.href})
 
-*Browser*: ${window.navigator.userAgent}
+**Browser**: ${window.navigator.userAgent}
 
-*Device*: ${window.navigator.platform}
+**Device**: ${window.navigator.platform}
 
 `;
 
 		window.loadShow();
 		setIsLoading(true);
 
-		axios
-			.post("/api/sendToTelegram", {
-				message: fbTemplate,
-			})
-			.then(() => {
-				window.snackbar({ message: "已提交反馈，感谢您的反馈！" });
-			})
-			.catch(() => {
-				window.snackbar({ message: "反馈提交失败，请稍后再试！" });
-			})
-			.finally(() => {
-				window.loadHide();
-				setIsLoading(false);
-			});
+		if (isWeb()) {
+			axios
+				.post("/api/feedback", {
+					message: fbTemplate,
+				})
+				.then(() => {
+					window.snackbar({ message: "已提交反馈，感谢您的反馈！" });
+				})
+				.catch(() => {
+					window.snackbar({ message: "反馈提交失败，请稍后再试！" });
+				})
+				.finally(() => {
+					window.loadHide();
+					setIsLoading(false);
+				});
+		} else {
+			axios
+				.post("https://www.ygeeker.com/api/feedback", {
+					message: fbTemplate,
+				})
+				.then(async () => {
+					await Toast.show({
+						text: "已提交反馈，感谢您的反馈！",
+					});
+				})
+				.catch(async () => {
+					await Toast.show({
+						text: "反馈提交失败，请稍后再试！",
+					});
+				})
+				.finally(() => {
+					window.loadHide();
+					setIsLoading(false);
+				});
+		}
 	};
 
 	const handleChange = (event) => {
@@ -78,18 +102,20 @@ ${contact}
 	};
 
 	return (
-		<div style={{ maxWidth: "800px" }}>
+		<PaperBackground contentWidth={800}>
+			<Typography gutterBottom align="center" variant="h4">
+				<Text k="feedback.hero" />
+			</Typography>
 			<FormControl fullWidth>
 				<TextField
 					autoComplete="off"
-					id="feedback"
 					value={feedback}
 					variant="outlined"
 					onChange={handleChange}
 					rows={6}
 					required
 					multiline
-					label="输入内容"
+					label={<Text k="feedback.content.placeholder" />}
 				/>
 			</FormControl>
 			<br />
@@ -101,12 +127,29 @@ ${contact}
 					value={contact}
 					variant="outlined"
 					onChange={handleContactChange}
-					label="联系方式"
+					label={<Text k="feedback.contact.placeholder" />}
 				/>
 			</FormControl>
-			<Button disabled={isLoading} onClick={handleSubmit}>
-				提交
-			</Button>
-		</div>
+			<br />
+			<br />
+			<Box display={"flex"} alignItems={"center"} justifyContent={"end"}>
+				<FormControlLabel
+					control={
+						<Checkbox
+							checked={debugInfo}
+							onChange={(_, checked) => setDebugInfo(checked)}
+						/>
+					}
+					label={<Text k="feedback.debug" />}
+				/>
+				<Button
+					disabled={isLoading}
+					variant="contained"
+					onClick={handleSubmit}
+				>
+					<Text k="feedback.send" />
+				</Button>
+			</Box>
+		</PaperBackground>
 	);
 }
