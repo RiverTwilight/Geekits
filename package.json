@@ -14,8 +14,8 @@
 		"dev:cap": "CAPACITOR_BUILD=true next",
 		"i18n:update": "node scripts/i18n-loader.js",
 		"local-build": "next build",
-		"start": "next start -p 8964",
-		"start:container": "docker run -p 8964:8964 ygktool",
+		"start": "next start -p 4000",
+		"start:container": "docker run -p 4000:4000 ygktool",
 		"test": "jest ./__tests__ --testPathIgnorePatterns support/*",
 		"test:unit": "jest --verbose"
 	},
