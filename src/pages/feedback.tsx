@@ -56,7 +56,7 @@ ${contact}
 		window.loadShow();
 		setIsLoading(true);
 
-		if (isWeb()) {
+		if (!isWeb()) {
 			axios
 				.post("/api/feedback", {
 					message: fbTemplate,
@@ -81,9 +81,9 @@ ${contact}
 						text: "已提交反馈，感谢您的反馈！",
 					});
 				})
-				.catch(async () => {
+				.catch(async (e) => {
 					await Toast.show({
-						text: "反馈提交失败，请稍后再试！",
+						text: "反馈提交失败，请稍后再试！" + e,
 					});
 				})
 				.finally(() => {
