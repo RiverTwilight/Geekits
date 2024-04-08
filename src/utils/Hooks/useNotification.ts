@@ -48,7 +48,7 @@ function useNotifications(): [INotification[], (id: number) => void] {
 		const readedRecord = JSON.parse(
 			localStorage.getItem("READED_NOTICES") || "[]"
 		);
-        
+
 		if (!readedRecord.includes(id)) {
 			localStorage.setItem(
 				"READED_NOTICES",

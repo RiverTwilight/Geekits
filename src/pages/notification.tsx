@@ -8,8 +8,8 @@ import {
 	Divider,
 	Box,
 } from "@mui/material";
-import StyledMarkdown from "@/components/StyledMarkdown"; // Adjust the import path as needed
-import useNotifications from "@/utils/Hooks/useNotification"; // Adjust the import path as needed
+import StyledMarkdown from "@/components/StyledMarkdown";
+import useNotifications from "@/utils/Hooks/useNotification";
 import { GetStaticProps } from "next";
 
 export const getStaticProps: GetStaticProps = ({ locale = "zh-CN" }) => {

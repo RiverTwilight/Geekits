@@ -10,25 +10,26 @@ import ListSubheader from "@mui/material/ListSubheader";
 import Paper from "@mui/material/Paper";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { styled } from "@mui/material/styles";
+import OutlinedCard from "@/components/OutlinedCard";
+import { Fab, Typography } from "@mui/material";
+import { RefreshRounded } from "@mui/icons-material";
 
 const PREFIX = "Len";
 
 const classes = {
 	lenText: `${PREFIX}-lenText`,
 	lenWarpper: `${PREFIX}-lenWarpper`,
+	lenBorder: `${PREFIX}-lenBorder`,
 };
 
 const Root = styled("div")(({ theme: Theme }) => ({
 	maxWidth: "500px",
 	[`& .${classes.lenText}`]: {
-		fill: Theme.palette.mode === "dark" ? "#fff" : "#000",
-		stroke: Theme.palette.mode === "dark" ? "#fff" : "#000",
+		fill: Theme.palette.primary.main,
+		stroke: Theme.palette.primary.main,
 	},
-	[`& .${classes.lenWarpper}`]: {
-		boxShadow:
-			Theme.palette.mode === "dark"
-				? "0px 0px 9px 2px #000"
-				: "0px 0px 20px 0px #747070",
+	[`& .${classes.lenBorder}`]: {
+		stroke: Theme.palette.primary.main,
 	},
 }));
 
@@ -82,7 +83,7 @@ const Lens: React.FC<{
 
 		setDegree(targetDegree);
 		setIndex(resultIndex);
-	}, [resultIndex, statu]);
+	}, [resultIndex]);
 
 	return (
 		<Root onClick={onStart}>
@@ -96,31 +97,39 @@ const Lens: React.FC<{
 			</Box>
 			<Box
 				sx={{
-					borderRadius: "250px",
-					padding: "10px",
+					borderRadius: "999px",
+					padding: 2,
+					display: "flex",
+					justifyContent: "center",
+					alignItems: "center",
+					background: (theme) => theme.palette.background.paper,
 				}}
-				className={classes.lenWarpper}
 			>
 				<svg
-					height={`${R * 2}px`}
-					width={`${R * 2}px`}
+					height={`${R * 2 + 4}px`}
+					width={`${R * 2 + 4}px`}
 					xmlns=""
 					version="1.1"
-					transform={`rotate(${
-						degree + (getRandom(0, 3) / 10) * DEGREE_PER_ITEM - 90
-					})`}
-					style={{ transition: "transform 5s" }}
+					style={{
+						transform: `rotate(${
+							degree +
+							(getRandom(0, 3) / 10) * DEGREE_PER_ITEM -
+							90
+						}deg)`,
+						transition: "transform 5s",
+					}}
 				>
 					{Array(items.length)
 						.fill(0)
 						.map((item, i) => {
 							return (
 								<path
-									fill="#66ccff"
 									className={classes.lenText}
-									d={`M${R} ${R} L${
-										R + calcLocation(r, percent * i).x
-									} ${R + calcLocation(r, percent * i).y}`}
+									d={`M${R + 2} ${R + 2} L${
+										R + 2 + calcLocation(r, percent * i).x
+									} ${
+										R + 2 + calcLocation(r, percent * i).y
+									}`}
 								></path>
 							);
 						})}
@@ -137,9 +146,13 @@ const Lens: React.FC<{
 								transform={`rotate(${
 									360 * (percent * i + percent / 2)
 								})`}
+								style={{
+									fontFamily: "Product Sans",
+								}}
+								key={item}
 								transform-origin="initial"
 							>
-								<text key={i + item} x={1.5 * r} y={R} dy={10}>
+								<text x={1.5 * r} y={R} dy={10}>
 									{item}
 								</text>
 							</g>
@@ -148,9 +161,11 @@ const Lens: React.FC<{
 
 					<circle
 						stroke="#888"
+						strokeWidth={"4px"}
+						className={classes.lenBorder}
 						fill="transparent"
-						cx={R}
-						cy={R}
+						cx={R + 2}
+						cy={R + 2}
 						r={R}
 					></circle>
 				</svg>
@@ -237,61 +252,82 @@ export default class Decision extends React.Component<{}, ComponentState> {
 	render() {
 		const { status: statu, itemString, resultIndex, presets } = this.state;
 		return (
-			<>
-				<Box
-					sx={{
-						paddingY: 2,
-						borderRadius: "10px",
-					}}
-					component={Paper}
-					className="center-with-flex"
-				>
-					<Lens
-						resultIndex={resultIndex}
-						items={itemString.split(" ")}
-						onStart={this.handleStart}
-						statu={statu}
-					/>
-				</Box>
-
-				<Box padding={2} component={Paper} sx={{ mt: "24px" }}>
-					<FormControl fullWidth>
-						<TextField
-							variant="outlined"
-							value={itemString}
-							onChange={this.handleChange}
-							multiline
-							rows={3}
-							placeholder="填入选项，用空格分隔"
+			<Box
+				sx={{
+					maxWidth: "1000px",
+				}}
+			>
+				<OutlinedCard>
+					<Box
+						sx={{
+							padding: 1,
+							borderRadius: "10px",
+							display: "flex",
+							justifyContent: "center",
+							alignItems: "center",
+							position: "relative",
+						}}
+					>
+						<Lens
+							resultIndex={resultIndex}
+							items={itemString.split(" ")}
+							onStart={this.handleStart}
+							statu={statu}
 						/>
-						<Button onClick={this.handleSavePresets}>
-							保存组合
-						</Button>
-					</FormControl>
-				</Box>
+						<Fab
+							onClick={this.handleStart}
+							size="small"
+							sx={{ position: "absolute", bottom: 8, right: 8 }}
+						>
+							<RefreshRounded />
+						</Fab>
+					</Box>
+				</OutlinedCard>
+
+				<br />
+
+				<OutlinedCard>
+					<Box padding={2}>
+						<FormControl fullWidth>
+							<TextField
+								variant="outlined"
+								value={itemString}
+								onChange={this.handleChange}
+								placeholder="填入选项，用空格分隔"
+							/>
+						</FormControl>
+						<br />
+						<br />
+						<Box display={"flex"} justifyContent={"center"}>
+							<Button
+								variant="outlined"
+								onClick={this.handleSavePresets}
+							>
+								保存组合
+							</Button>
+						</Box>
+					</Box>
+				</OutlinedCard>
+
+				<br />
 
 				{!!presets.length && (
-					<List
-						component={Paper}
-						sx={{
-							mt: "24px",
-						}}
-						subheader={<ListSubheader>已保存的组合</ListSubheader>}
-					>
-						{presets.map((preset) => (
-							<ListItemButton
-								onClick={() =>
-									this.handleLoadPreset(preset.text)
-								}
-							>
-								<ListItemText primary={preset.text} />
-							</ListItemButton>
-						))}
-					</List>
+					<OutlinedCard padding={2}>
+						<Typography gutterBottom>预设</Typography>
+						<List>
+							{presets.map((preset) => (
+								<ListItemButton
+									onClick={() =>
+										this.handleLoadPreset(preset.text)
+									}
+								>
+									<ListItemText primary={preset.text} />
+								</ListItemButton>
+							))}
+						</List>
+					</OutlinedCard>
 				)}
-
-				<Paper></Paper>
-			</>
+			</Box>
 		);
 	}
 }
