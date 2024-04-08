@@ -1258,6 +1258,11 @@
   resolved "https://registry.npmjs.org/@capacitor/ios/-/ios-5.7.4.tgz#485db26af1a8b44190466b5379ec16e431052204"
   integrity sha512-tQH24WMSYVKYr/Jl1gFImooQmu8OdXUFHoDaPV1WpZIiwbwxbTdwOXeLlGes5U8B8t7xuxTWMWMDt3IwRlDbhQ==
 
+"@capacitor/toast@^5.0.7":
+  version "5.0.7"
+  resolved "https://registry.npmjs.org/@capacitor/toast/-/toast-5.0.7.tgz#e5488c12211989dafd73236a36a59c1457b0d338"
+  integrity sha512-E2AuYXUoPPFrfwv3iC5FOeSAkVwlJpIM0w0Sw4uqLM7jvSsOEZh3z9I4/Gdz0ltY0JsQmmnfvoFYiZ1TVsbhWw==
+
 "@cnakazawa/watch@^1.0.3":
   version "1.0.4"
   resolved "https://registry.npmmirror.com/@cnakazawa/watch/-/watch-1.0.4.tgz#f864ae85004d0fcab6f50be9141c4da368d1656a"
