@@ -16,7 +16,7 @@ module.exports = {
 	repo: "https://github.com/rivertwilight/ygktool",
 	root: "https://geekits.ygeeker.com",
 	apiConfig: {
-		url: "https://openapi.ygktool.com",
+		url: "https://geekits.ygeeker.com",
 	},
 	defaultLocale: "en-US", // For native app only
 };
