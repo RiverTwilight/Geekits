@@ -56,7 +56,7 @@ ${contact}
 		window.loadShow();
 		setIsLoading(true);
 
-		if (!isWeb()) {
+		if (isWeb()) {
 			axios
 				.post("/api/feedback", {
 					message: fbTemplate,
