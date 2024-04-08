@@ -1,8 +1,4 @@
-#### Submit Your App
-
-Do not contact me directly if you want to submit an external app, as Geekits is a 100% open source product. Please submit at this [Issue](https://github.com/RiverTwilight/YgkTool/issues/64).
-
-#### One more thing
+If you want to submit an external app, please submit at this [Issue](https://github.com/RiverTwilight/YgkTool/issues/64), as Geekits is a 100% open source product.
 
 We will insist on the open source of the website. For open source projects, the greatest support may be ⭐ in your hands.
 
