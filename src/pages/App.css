@@ -15,21 +15,8 @@ html {
 	--ion-safe-area-right: env(safe-area-inset-right);
 }
 
-.clearfix:after {
-	content: "";
-	display: table;
-	clear: both;
-}
-
 .Textc\(green\) {
 	color: #4caf50;
-}
-
-.center-with-flex {
-	display: flex;
-	justify-content: center;
-	flex-direction: column;
-	align-items: center;
 }
 
 /**  shaking text animation */
@@ -59,21 +46,21 @@ html {
 	}
 }
 
-.mask{
+.mask {
 	cursor: row-resize;
 	position: absolute;
 	background-color: rgba(0, 0, 0, 0.6);
 	left: 0;
-    right: 0;
-    touch-action: none
+	right: 0;
+	touch-action: none;
 }
 
-.mask-top{
-    top: 0;
-    border-bottom: 5px solid #177b1f
+.mask-top {
+	top: 0;
+	border-bottom: 5px solid #177b1f;
 }
 
-.mask-bottom{
+.mask-bottom {
 	border-top: 5px solid #177b1f;
 	bottom: 0;
 }
