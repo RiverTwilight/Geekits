@@ -26,6 +26,12 @@ $ yarn run dev
 $ yarn run build:cap
 ```
 
+## 环境变量
+
+|      Name      |                     Description                      |
+| :------------: | :--------------------------------------------------: |
+| RESEND_API_KEY | Your Resend key. Used to send feedback to your email |
+
 ## 添加一个工具
 
 在`/src/apps`下创建一个**以工具名命名、采用小蛇型命名法**的目录，并在根目录创建一个`README.zh-CN.md`文件，该文件的头部描述工具信息，内容则会展示给用户。
