@@ -1,20 +1,19 @@
-import React, { useState, useEffect, useCallback, FC } from "react";
-import AppMenu from "@/components/AppMenu";
-import RightDrawer from "@/components/RightDrawer";
-import IconButton from "@mui/material/IconButton";
-import { styled } from "@mui/material/styles";
-import { getAppConfig, getAppDoc } from "@/utils/appData";
-import appImportList from "@/utils/appEntry";
-import getPaths from "@/utils/getPaths";
-import { store as frameStore } from "@/utils/Data/frameState";
-
-import type { GetStaticProps } from "next";
 import { HelpOutlineTwoTone } from "@mui/icons-material";
 import { useAction } from "@/contexts/action";
 import { useAppBar } from "@/contexts/appBar";
+import { useLocale } from "@/contexts/locale";
+import AppMenu from "@/components/AppMenu";
+import IconButton from "@mui/material/IconButton";
+import RightDrawer from "@/components/RightDrawer";
+import { FC, useCallback, useEffect, useState } from "react";
+import { GetStaticProps } from "next";
 import { isCapacitor } from "@/utils/platform";
 import { defaultLocale } from "src/site.config";
-import { useLocale } from "@/contexts/locale";
+import { styled } from "@mui/material/styles";
+import appImportList from "@/utils/appEntry";
+import { getAppConfig, getAppDoc } from "@/utils/appData";
+import getPaths from "@/utils/getPaths";
+import { store as frameStore } from "@/utils/Data/frameState";
 
 const drawerWidth: number = 260;
 
@@ -181,13 +180,6 @@ const AppContainer = ({ appConfig, appDoc }) => {
 					appConfig={appConfig}
 				/>
 			</RightDrawer>
-
-			{/* {FeedbackComp && (
-        <FeedbackComp
-          open={showFeedbackComp}
-          onClose={() => setShowFeedbackComp(false)}
-        />
-      )} */}
 		</Root>
 	);
 };

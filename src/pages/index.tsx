@@ -66,17 +66,20 @@ export default function Index({ appData }: any) {
 					maxWidth: "1180px",
 				}}
 			>
-				<Grid container direction="row-reverse" spacing={1}>
-					<Grid item xs={12} md={12}>
+				<Grid container direction="row-reverse" spacing={2}>
+					<Grid item xs={12}>
 						<Search appData={localizedAppData} />
-						<br />
+					</Grid>
+					<Grid item xs={12}>
 						<Bookmark />
-						<br />
+					</Grid>
+					<Grid item xs={12}>
 						<AppList
 							channelInfo={channelInfo}
 							appData={localizedAppData}
 						/>
-						<br />
+					</Grid>
+					<Grid item xs={12}>
 						<Tips />
 					</Grid>
 				</Grid>

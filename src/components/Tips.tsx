@@ -30,7 +30,7 @@ export default function Tips() {
 			flexDirection={"column"}
 			justifyContent={"center"}
 			alignItems={"center"}
-			marginTop={4}
+			paddingY={1}
 		>
 			<AutoAwesome
 				sx={{
