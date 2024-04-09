@@ -58,7 +58,10 @@ const DateCalculator = () => {
 			justifyContent={"center"}
 			alignItems={"center"}
 		>
-			<Paper component={OutlinedCard} padding={1}>
+			<OutlinedCard
+				style={{ width: "100%", maxWidth: "600px" }}
+				padding={1}
+			>
 				<Tabs
 					value={value}
 					onChange={handleChange}
@@ -76,7 +79,7 @@ const DateCalculator = () => {
 				<TabPanel value={value} index={1}>
 					<CalcDate />
 				</TabPanel>
-			</Paper>
+			</OutlinedCard>
 		</Box>
 	);
 };

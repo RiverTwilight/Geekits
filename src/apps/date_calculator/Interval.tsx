@@ -58,7 +58,7 @@ const DateInterval: React.FC = () => {
 	const { dateEarly, dateLate, diffDay, diffHour, diffMin } = state;
 
 	return (
-		<>
+		<Box>
 			<Grid container spacing={2}>
 				<Grid item xs={12} sm={6}>
 					<InputLabel>从</InputLabel>
@@ -103,7 +103,7 @@ const DateInterval: React.FC = () => {
 					</Typography>
 				</Box>
 			)}
-		</>
+		</Box>
 	);
 };
 
