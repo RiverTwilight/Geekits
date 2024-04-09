@@ -30,6 +30,7 @@ const RightDrawer: React.FC<{
 				sx={{
 					display: { xs: "block", sm: "none" },
 					"& .MuiDrawer-paper": {
+						paddingTop: "var(--ion-safe-area-top)",
 						boxSizing: "border-box",
 						width: drawerWidth,
 						background: (theme) => theme.palette.background.default,

@@ -9,7 +9,6 @@ import StarBorderIcon from "@mui/icons-material/StarBorder";
 import StyledMarkdown from "./StyledMarkdown";
 import CodeIcon from "@mui/icons-material/Code";
 import fivkits from "@/utils/Services/fiv";
-import type { AppData } from "@/types/index";
 import { isWeb } from "@/utils/platform";
 import Text from "./i18n";
 
@@ -115,7 +114,7 @@ const AppMenu = ({
 				>
 					<Text k="appMenu.bookmark" />
 				</Button>
-				{isWeb && (
+				{isWeb() && (
 					<Button
 						variant="outlined"
 						onClick={handleCode}

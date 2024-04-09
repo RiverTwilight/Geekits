@@ -14,6 +14,7 @@ import { useAction } from "@/contexts/action";
 import { useAppBar } from "@/contexts/appBar";
 import { isCapacitor } from "@/utils/platform";
 import { defaultLocale } from "src/site.config";
+import { useLocale } from "@/contexts/locale";
 
 const drawerWidth: number = 260;
 
@@ -131,6 +132,7 @@ const AppContainer = ({ appConfig, appDoc }) => {
 
 	const { setAction } = useAction();
 	const { appBar, setAppBar } = useAppBar();
+	const { locale } = useLocale();
 
 	const loadLink =
 		appConfig.status === "stable" || appConfig.status === "beta"
@@ -145,7 +147,6 @@ const AppContainer = ({ appConfig, appDoc }) => {
 
 	useEffect(() => {
 		if (window.location.search.indexOf("fullscreen=1") !== -1) {
-			console.log("Detected Frame");
 			frameStore.dispatch({ type: "frame/disabled" });
 		}
 
@@ -175,7 +176,7 @@ const AppContainer = ({ appConfig, appDoc }) => {
 			</div>
 			<RightDrawer onClose={() => setAppBar(!appBar)} open={appBar}>
 				<AppMenu
-					appDoc={appDoc}
+					appDoc={appDoc[locale]}
 					feedback={feedback}
 					appConfig={appConfig}
 				/>

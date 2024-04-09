@@ -33,7 +33,17 @@ const getAppConfig = (
 	return { ...defaultConfig, ...loadedConfig };
 };
 
-const getAppDoc = (appId: string, locale: string = "zh-CN"): string => {
+const getAppDoc = (
+	appId: string,
+	locale?: string
+): string | { [locale: string]: string } => {
+	if (!locale) {
+		return {
+			"zh-CN": matter(getAppConfigFile(appId, "zh-CN")).content,
+			"en-US": matter(getAppConfigFile(appId, "en-US")).content,
+		};
+	}
+
 	const { content } = matter(getAppConfigFile(appId, locale));
 	return content.toString();
 };
@@ -55,7 +65,11 @@ const getAllApps = (
 
 			if (!locale) {
 				return ["zh-CN", "en-US"].map((locale) => {
-					return { id: appId, locale, ...getAppConfig(appId, { locale }) };
+					return {
+						id: appId,
+						locale,
+						...getAppConfig(appId, { locale }),
+					};
 				});
 			}
 

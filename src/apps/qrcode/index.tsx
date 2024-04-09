@@ -15,7 +15,8 @@ import FormControl from "@mui/material/FormControl";
 import { TabPanel, a11yProps } from "../../components/TabToolkits";
 import OutlinedCard from "@/components/OutlinedCard";
 import { Box, Fab, IconButton } from "@mui/material";
-import { CheckOutlined, ContentCopy, Download } from "@mui/icons-material";
+import { CheckOutlined, Download } from "@mui/icons-material";
+import Text from "@/components/i18n";
 
 const create = (opts: any, text: any, callback: any, iconData: any) => {
 	const loadImgae = (url) => {
@@ -194,7 +195,7 @@ class Qrcode extends React.Component<{}, QrcodeState> {
 							this.setState({ text: e.target.value });
 						}}
 						value={text}
-						label="链接或文本"
+						label={<Text k="qrcode.basic.placeholder" />}
 						variant="outlined"
 					/>
 				</FormControl>
@@ -250,15 +251,23 @@ class Qrcode extends React.Component<{}, QrcodeState> {
 							variant="fullWidth"
 							aria-label="options"
 						>
-							<Tab label="基本" {...a11yProps(0)} />
-							<Tab label="高级" {...a11yProps(1)} />
+							<Tab
+								label={<Text k="qrcode.basic.title" />}
+								{...a11yProps(0)}
+							/>
+							<Tab
+								label={<Text k="qrcode.advanced.title" />}
+								{...a11yProps(1)}
+							/>
 						</Tabs>
 						<TabPanel value={currentTab} index={0}>
 							<FormControl fullWidth component="fieldset">
-								<FormLabel component="legend">类型</FormLabel>
+								<FormLabel component="legend">
+									<Text k="qrcode.basic.type" />
+								</FormLabel>
 								<RadioGroup
 									aria-label="type"
-									name="类型"
+									name={<Text k="qrcode.basic.type" />}
 									row
 									value={mode}
 									onChange={this.handleModeChange}
@@ -266,12 +275,12 @@ class Qrcode extends React.Component<{}, QrcodeState> {
 									<FormControlLabel
 										value="normal"
 										control={<Radio />}
-										label="文本"
+										label={<Text k="qrcode.basic.text" />}
 									/>
 									<FormControlLabel
 										value="wifi"
 										control={<Radio />}
-										label="WIFI"
+										label={<Text k="qrcode.basic.wifi" />}
 									/>
 								</RadioGroup>
 							</FormControl>
@@ -302,7 +311,9 @@ class Qrcode extends React.Component<{}, QrcodeState> {
 											}}
 											value={colorLight}
 											type="color"
-											label="亮色"
+											label={
+												<Text k="qrcode.advanced.light" />
+											}
 										></TextField>
 									</FormControl>
 								</Grid>
@@ -316,7 +327,9 @@ class Qrcode extends React.Component<{}, QrcodeState> {
 											}}
 											value={colorDark}
 											type="color"
-											label="暗色"
+											label={
+												<Text k="qrcode.advanced.dark" />
+											}
 										></TextField>
 									</FormControl>
 								</Grid>
@@ -324,7 +337,9 @@ class Qrcode extends React.Component<{}, QrcodeState> {
 
 							<br />
 
-							<Typography variant="h6">图标</Typography>
+							<Typography variant="h6">
+								<Text k="qrcode.advanced.icon" />
+							</Typography>
 
 							<FileInput
 								fileType="image/*"

@@ -12,6 +12,8 @@ import { author, repo } from "../site.config";
 import translator from "@/utils/translator";
 import packageInfo from "../../package.json";
 import { useAction } from "@/contexts/action";
+import { useEffect, useState } from "react";
+import { useLocale } from "@/contexts/locale";
 
 const PREFIX = "about";
 
@@ -60,10 +62,6 @@ export const getStaticProps: GetStaticProps = ({ locale = "zh-CN" }) => {
 
 	const trans = new translator(dic, locale);
 
-	const aboutContent = require("../data/article/" +
-		locale +
-		"/about.md").default;
-
 	return {
 		props: {
 			currentPage: {
@@ -72,14 +70,23 @@ export const getStaticProps: GetStaticProps = ({ locale = "zh-CN" }) => {
 				path: "/about",
 			},
 			dic: JSON.stringify(dic),
-			aboutContent,
 			locale,
 		},
 	};
 };
 
-export default function About({ aboutContent }: AboutProps) {
+export default function About({ ...props }: AboutProps) {
+	const { locale } = useLocale();
 	const { setAction } = useAction();
+	const [content, setContent] = useState("");
+
+	useEffect(() => {
+		fetch(`/data/article/${locale}/about.md`)
+			.then((res) => res.text())
+			.then((res) => {
+				setContent(res);
+			});
+	}, []);
 
 	setAction(null);
 
@@ -125,7 +132,7 @@ export default function About({ aboutContent }: AboutProps) {
 			</OutlinedCard>
 			<br />
 			<OutlinedCard padding={2}>
-				<StyledMarkdown content={aboutContent} />
+				<StyledMarkdown content={content} />
 			</OutlinedCard>
 			<Typography align="center" color="GrayText" variant="subtitle1">
 				Version: {packageInfo.version}
