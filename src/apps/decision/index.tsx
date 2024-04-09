@@ -186,148 +186,141 @@ type ComponentState = {
 	presets: any[];
 };
 
-export default class Decision extends React.Component<{}, ComponentState> {
-	constructor(props: {}) {
-		super(props);
-		this.state = {
-			status: "stop",
-			itemString: "First Second",
-			resultIndex: null,
-			presets: [],
-		};
-	}
-	componentDidMount() {
+export default function Decision() {
+	const [state, setState] = React.useState<ComponentState>({
+		status: "stop",
+		itemString: "First Second",
+		resultIndex: null,
+		presets: [],
+	});
+
+	React.useEffect(() => {
 		window.location.hash &&
-			this.setState({
+			setState((s) => ({
+				...s,
 				itemString: decodeURI(window.location.hash.substring(1)),
-			});
+			}));
 
-		if (localStorage.getItem("DECISION_MAKER_PRESETS")) {
-			this.setState({
-				presets: JSON.parse(
-					localStorage.getItem("DECISION_MAKER_PRESETS")
-				),
-			});
+		const presets = localStorage.getItem("DECISION_MAKER_PRESETS");
+		if (presets) {
+			setState((s) => ({
+				...s,
+				presets: JSON.parse(presets),
+			}));
 		}
-	}
+	}, []);
 
-	handleSavePresets = () => {
-		let newPresets = [
-			...this.state.presets,
+	const handleSavePresets = () => {
+		const newPresets = [
+			...state.presets,
 			{
-				text: this.state.itemString,
+				text: state.itemString,
 			},
 		];
-		this.setState({
+		setState((s) => ({
+			...s,
 			presets: newPresets,
-		});
+		}));
 		localStorage.setItem(
 			"DECISION_MAKER_PRESETS",
 			JSON.stringify(newPresets)
 		);
 	};
 
-	handleLoadPreset = (text: string) => {
-		this.setState({
+	const handleLoadPreset = (text: string) => {
+		setState((s) => ({
+			...s,
 			itemString: text,
-		});
+		}));
 	};
 
-	handleStart = () => {
-		this.setState({
+	const handleStart = () => {
+		setState((s) => ({
+			...s,
 			status: "start",
-			resultIndex: getRandom(
-				0,
-				this.state.itemString.split(" ").length - 1
-			),
-		});
+			resultIndex: getRandom(0, state.itemString.split(" ").length - 1),
+		}));
 	};
 
-	handleChange = (event) => {
-		this.setState({
+	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		setState((s) => ({
+			...s,
 			itemString: event.target.value,
-		});
+		}));
 	};
 
-	render() {
-		const { status: statu, itemString, resultIndex, presets } = this.state;
-		return (
-			<Box
-				sx={{
-					maxWidth: "1000px",
-				}}
-			>
-				<OutlinedCard>
-					<Box
-						sx={{
-							padding: 1,
-							borderRadius: "10px",
-							display: "flex",
-							justifyContent: "center",
-							alignItems: "center",
-							position: "relative",
-						}}
+	const { statu, itemString, resultIndex, presets } = state;
+	return (
+		<Box
+			sx={{
+				maxWidth: "1000px",
+			}}
+		>
+			<OutlinedCard>
+				<Box
+					sx={{
+						padding: 1,
+						borderRadius: "10px",
+						display: "flex",
+						justifyContent: "center",
+						alignItems: "center",
+						position: "relative",
+					}}
+				>
+					<Lens
+						resultIndex={resultIndex}
+						items={itemString.split(" ")}
+						onStart={handleStart}
+						statu={statu}
+					/>
+					<Fab
+						onClick={handleStart}
+						size="small"
+						sx={{ position: "absolute", bottom: 8, right: 8 }}
 					>
-						<Lens
-							resultIndex={resultIndex}
-							items={itemString.split(" ")}
-							onStart={this.handleStart}
-							statu={statu}
+						<RefreshRounded />
+					</Fab>
+				</Box>
+			</OutlinedCard>
+
+			<br />
+
+			<OutlinedCard>
+				<Box padding={2}>
+					<FormControl fullWidth>
+						<TextField
+							variant="outlined"
+							value={itemString}
+							onChange={handleChange}
+							placeholder="填入选项，用空格分隔"
 						/>
-						<Fab
-							onClick={this.handleStart}
-							size="small"
-							sx={{ position: "absolute", bottom: 8, right: 8 }}
-						>
-							<RefreshRounded />
-						</Fab>
+					</FormControl>
+					<br />
+					<br />
+					<Box display={"flex"} justifyContent={"center"}>
+						<Button variant="outlined" onClick={handleSavePresets}>
+							保存组合
+						</Button>
 					</Box>
-				</OutlinedCard>
+				</Box>
+			</OutlinedCard>
 
-				<br />
+			<br />
 
-				<OutlinedCard>
-					<Box padding={2}>
-						<FormControl fullWidth>
-							<TextField
-								variant="outlined"
-								value={itemString}
-								onChange={this.handleChange}
-								placeholder="填入选项，用空格分隔"
-							/>
-						</FormControl>
-						<br />
-						<br />
-						<Box display={"flex"} justifyContent={"center"}>
-							<Button
-								variant="outlined"
-								onClick={this.handleSavePresets}
+			{!!presets.length && (
+				<OutlinedCard padding={2}>
+					<Typography gutterBottom>预设</Typography>
+					<List>
+						{presets.map((preset) => (
+							<ListItemButton
+								onClick={() => handleLoadPreset(preset.text)}
 							>
-								保存组合
-							</Button>
-						</Box>
-					</Box>
+								<ListItemText primary={preset.text} />
+							</ListItemButton>
+						))}
+					</List>
 				</OutlinedCard>
-
-				<br />
-
-				{!!presets.length && (
-					<OutlinedCard padding={2}>
-						<Typography gutterBottom>预设</Typography>
-						<List>
-							{presets.map((preset) => (
-								<ListItemButton
-									onClick={() =>
-										this.handleLoadPreset(preset.text)
-									}
-								>
-									<ListItemText primary={preset.text} />
-								</ListItemButton>
-							))}
-						</List>
-					</OutlinedCard>
-				)}
-			</Box>
-		);
-	}
+			)}
+		</Box>
+	);
 }

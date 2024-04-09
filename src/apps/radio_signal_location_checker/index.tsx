@@ -89,7 +89,7 @@ const RadioCodeLocation = () => {
 						startIcon={<Search />}
 						onClick={findLocation}
 						disabled={!radioCode}
-						sx={{whiteSpace:"nowrap"}}
+						sx={{ whiteSpace: "nowrap" }}
 						variant="outlined"
 					>
 						查询

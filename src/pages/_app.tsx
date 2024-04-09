@@ -3,13 +3,14 @@ import Layout from "@/components/Layout";
 import Text from "@/components/i18n";
 import { ThemeProvider } from "@mui/material/styles";
 import { store as frameStore } from "@/utils/Data/frameState";
-import type { AppProps } from "next/app";
 import { Analytics } from "@vercel/analytics/react";
 import { Device } from "@capacitor/device";
 import customTheme from "@/utils/theme";
 import { useMediaQuery } from "@mui/material";
 import { LocaleProvider } from "@/contexts/locale";
 import { isWeb } from "@/utils/platform.js";
+
+import type { AppProps } from "next/app";
 
 import "./App.css";
 
@@ -70,7 +71,6 @@ function MainApp({ Component, pageProps }: AppProps) {
 		currentPage = {
 			title: "404",
 		},
-		menuItems = [],
 		hideFrame,
 	} = pageProps;
 
@@ -84,14 +84,12 @@ function MainApp({ Component, pageProps }: AppProps) {
 					language={preferredLocale}
 				>
 					{hideFrame ? (
-						<Component {...pageProps} />
+						<>
+							<Component {...pageProps} />
+						</>
 					) : (
-						<Layout
-							enableFrame={framed}
-							currentPage={currentPage}
-							menuItems={menuItems}
-						>
-							{<Component {...pageProps} />}
+						<Layout enableFrame={framed} currentPage={currentPage}>
+							<Component {...pageProps} />
 						</Layout>
 					)}
 					<Analytics />
