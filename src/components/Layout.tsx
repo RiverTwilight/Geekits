@@ -9,13 +9,10 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { styled } from "@mui/material/styles";
 import Snackbar from "@mui/material/Snackbar";
 import GlobalLoading from "@/components/GlobalLoading";
-import type { ICurrentPage, ISiteConfig } from "@/types/index";
 import siteConfig from "../site.config.js";
 import { SidebarProvider } from "@/contexts/sidebar";
 import { ActionProvider } from "@/contexts/action";
 import { AppBarProvider } from "@/contexts/appBar";
-import { Capacitor } from "@capacitor/core";
-import { isCapacitor } from "@/utils/platform.js";
 
 const Root = styled("main")<{ disableTopPadding?: boolean }>(
 	({ theme }) =>
