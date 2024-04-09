@@ -10,6 +10,7 @@ import TextField from "@mui/material/TextField";
 import Fab from "@mui/material/Fab";
 import CheckIcon from "@mui/icons-material/Check";
 import Box from "@mui/material/Box";
+import { Button, FormControl } from "@mui/material";
 
 type CalcDateState = any;
 
@@ -52,9 +53,9 @@ export default class CalcDate extends React.Component<{}, CalcDateState> {
 	render() {
 		const { dateStart, day, whichDay } = this.state;
 		return (
-			<div className="">
-				<Grid container>
-					<Grid item sm={6}>
+			<Box>
+				<Grid container spacing={2}>
+					<Grid item xs={12} sm={6}>
 						<InputLabel>从</InputLabel>
 						<TextField
 							onChange={(e) => {
@@ -65,7 +66,7 @@ export default class CalcDate extends React.Component<{}, CalcDateState> {
 							value={dateStart}
 						/>
 					</Grid>
-					<Grid item sm={6}>
+					<Grid item xs={12} sm={6}>
 						<InputLabel>{`往${day >= 0 ? "后" : "前"}推${Math.abs(
 							day
 						)}天`}</InputLabel>
@@ -90,29 +91,25 @@ export default class CalcDate extends React.Component<{}, CalcDateState> {
 
 				<br />
 				<br />
-				<Box
-					sx={{
-						display: "flex",
-						justifyContent: "space-around",
-						alignItems: "center",
-						p: 1,
-						m: 1,
-					}}
-				>
-					<Fab
+
+				<FormControl fullWidth>
+					<Button
 						onClick={this.handleClick}
+						variant="contained"
 						color="primary"
-						aria-label="add"
 					>
-						<CheckIcon />
-					</Fab>
-				</Box>
+						计算
+					</Button>
+				</FormControl>
+
 				{whichDay && (
-					<Typography variant="body1" align="center">
-						{whichDay}
-					</Typography>
+					<Box marginTop={2}>
+						<Typography variant="h5" align="center">
+							{whichDay}
+						</Typography>
+					</Box>
 				)}
-			</div>
+			</Box>
 		);
 	}
 }

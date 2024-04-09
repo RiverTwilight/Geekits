@@ -92,17 +92,14 @@ const DateInterval: React.FC = () => {
 			{typeof diffDay === "number" && (
 				<Box marginTop={2}>
 					<Typography align="center" variant="h5">
-						<small>相差</small>
-						{diffDay}
-						<small>天</small>
-
-						<br></br>
-
-						<small>折合</small>
+						相差{diffDay}天
+					</Typography>
+					<Typography align="center" variant="h5">
+						折合
 						{diffHour}
-						<small>小时</small>
+						小时
 						{diffMin}
-						<small>分钟</small>
+						分钟
 					</Typography>
 				</Box>
 			)}
