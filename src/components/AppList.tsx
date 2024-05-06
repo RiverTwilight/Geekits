@@ -12,10 +12,12 @@ import OutlinedCard from "./OutlinedCard";
 import type { AppData, IChannel } from "@/types/index.d";
 import { Capacitor } from "@capacitor/core";
 import Text from "./i18n";
+import { ListItemButton } from "@mui/material";
 
 interface AppListItemProps extends AppData {
 	selected?: boolean;
 }
+
 // TODO schema info check https://schema.org
 const AppListItem = ({
 	channel,
@@ -37,56 +39,73 @@ const AppListItem = ({
 				  }
 				: {
 						component: id,
-						href: status !== "alpha" ? "/app/" + id : "#/",
+						href: "/app/" + id,
 				  },
 		[status, id]
 	);
 
-	return (
-		<OutlinedCard>
-			<Link {...attr} passHref legacyBehavior>
-				<ListItem
-					sx={{
-						height: "93px",
+	const Inner = () => (
+		<ListItemButton
+			sx={{
+				height: "93px",
+			}}
+			selected={selected}
+			key={id}
+		>
+			<ListItemAvatar>
+				<Avatar
+					imgProps={{
+						loading: "lazy",
 					}}
-					selected={selected}
-					button
-					key={name}
-				>
-					<ListItemAvatar>
-						<Avatar
-							imgProps={{
-								loading: "lazy",
-							}}
-							variant="rounded"
-							alt={name + "的图标"}
-							src={icon}
-						/>
-					</ListItemAvatar>
-					<ListItemText
-						sx={{
-							paddingLeft: "20px",
-							"& .MuiListItemText-primary": {
-								fontFamily: "Product Sans Bold",
-							},
-						}}
-						primary={
-							<>
-								{name}&nbsp;
-								{status === "beta" && (
-									<Chip
-										label={<Text k="channel.wip" />}
-										size="small"
-										variant="outlined"
-									/>
-								)}
-							</>
-						}
-						secondary={description}
-					/>
-				</ListItem>
-			</Link>
-		</OutlinedCard>
+					variant="rounded"
+					alt={name + "的图标"}
+					src={icon}
+				/>
+			</ListItemAvatar>
+			<ListItemText
+				sx={{
+					paddingLeft: "20px",
+					"& .MuiListItemText-primary": {
+						fontFamily: "Product Sans Bold",
+					},
+				}}
+				primary={
+					<>
+						{name}&nbsp;
+						{status === "beta" && (
+							<Chip
+								label={<Text k="channel.wip" />}
+								size="small"
+								variant="outlined"
+							/>
+						)}
+					</>
+				}
+				secondary={description}
+			/>
+		</ListItemButton>
+	);
+
+	if (status == "beta") {
+		return (
+			<OutlinedCard
+				onClick={() => {
+					window.snackbar({
+						message: "即将到来",
+					});
+				}}
+			>
+				<Inner />
+			</OutlinedCard>
+		);
+	}
+
+	return (
+		<Link {...attr} passHref legacyBehavior>
+			<OutlinedCard>
+				<Inner />
+			</OutlinedCard>
+		</Link>
 	);
 };
 

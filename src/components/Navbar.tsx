@@ -124,7 +124,11 @@ function NotificationButton() {
 									1
 								)[0];
 								return (
-									<Link href="/notification" legacyBehavior>
+									<Link
+										key={title}
+										href="/notification"
+										legacyBehavior
+									>
 										<ListItem
 											key={notification.id}
 											alignItems="flex-start"
