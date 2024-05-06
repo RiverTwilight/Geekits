@@ -4,9 +4,9 @@ status: "stable"
 description: "使用浏览器便捷录制屏幕"
 icon: "/icon/monitor_red_outline.png"
 channel: media
+freeSize: true
 platform:
     - web
-freeSize: true
 ---
 
 ## 设备要求

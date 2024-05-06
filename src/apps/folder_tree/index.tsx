@@ -7,7 +7,7 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import FilePicker from "@/components/FilePicker";
 import pathToTree from "./engine";
-import OutlinedCard from "../../components/OutlinedCard";
+import OutlinedCard from "@/components/OutlinedCard";
 import { ContentCopy } from "@mui/icons-material";
 
 type TreeDataType = {
@@ -17,7 +17,7 @@ type TreeDataType = {
 export default function FolderTree() {
 	const [fileList, setFileList] = useState<string[]>([]);
 	const [except, setExcept] = useState<string>("");
-	const [tree, setTree] = useState<TreeDataType>({});
+	const [tree, setTree] = useState<TreeDataType>(null);
 
 	useEffect(() => {
 		var clipboard = new ClipboardJS(".copy");
@@ -79,7 +79,7 @@ export default function FolderTree() {
 					生成
 				</Button>
 
-				{tree !== "" && (
+				{tree && (
 					<IconButton data-clipboard-text={tree} className={`copy`}>
 						<ContentCopy />
 					</IconButton>
@@ -87,7 +87,7 @@ export default function FolderTree() {
 
 				<br></br>
 
-				{tree !== "" && (
+				{tree && (
 					<Typography>
 						<pre>{tree}</pre>
 					</Typography>
