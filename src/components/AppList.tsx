@@ -165,6 +165,7 @@ const AppList = ({
 	appData: AppData[];
 	channelInfo;
 }) => {
+	console.log(appData);
 	return (
 		<List
 			aria-labelledby="nested-list-subheader"
