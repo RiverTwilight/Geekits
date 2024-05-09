@@ -1,7 +1,7 @@
 PODS:
-  - Capacitor (5.7.4):
+  - Capacitor (5.7.5):
     - CapacitorCordova
-  - CapacitorCordova (5.7.4)
+  - CapacitorCordova (5.7.5)
   - CapacitorDevice (5.0.7):
     - Capacitor
   - CapacitorToast (5.0.7):
@@ -24,8 +24,8 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/@capacitor/toast"
 
 SPEC CHECKSUMS:
-  Capacitor: 4fe9adf012caceb4c71ffea2f1f4d005cdcbeea7
-  CapacitorCordova: a6e87fccc0307dee7aec1560ec9398485f2b0ce7
+  Capacitor: 7d42085cb786b2d3ea9ac8a17ebd7e3305be7b72
+  CapacitorCordova: c946a6052b547e1e185fc46862003f7b9130ead1
   CapacitorDevice: fc91bdb484dc0e70755e9b621cd557afe642613a
   CapacitorToast: c8bb89eeb59a23c1fc298f138cc06c8ff4d90ac1
 
