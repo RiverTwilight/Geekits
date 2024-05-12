@@ -144,6 +144,13 @@ const Layout = ({ currentPage, children, enableFrame }) => {
 							name="viewport"
 							content="viewport-fit=cover,width=device-width,initial-scale=1,maximum-scale=1,user-scaleable=no"
 						/>
+
+						<link
+							rel="sitemap"
+							type="application/xml"
+							title="Sitemap"
+							href="/sitemap.xml"
+						/>
 					</Head>
 					<CssBaseline />
 					<LoginDialog />
