@@ -10,6 +10,9 @@ import Compress from "compress.js";
 import adaptiveBorder from "@/utils/adaptiveBorder";
 import Button from "@mui/material/Button/Button";
 import FileField from "@/components/FileField";
+import { IconButton } from "@mui/material";
+import { Download } from "@mui/icons-material";
+import saveFile from "@/utils/fileSaver";
 
 const Img2Base64: React.FC = (props) => {
 	const [compressedImage, setCompressedImage] = useState(null);
@@ -30,6 +33,14 @@ const Img2Base64: React.FC = (props) => {
 				setcompressedPercent(img.sizeReducedInPercent);
 				setCompressedImage(img.prefix + img.data);
 			});
+	};
+
+	const handleDownload = () => {
+		saveFile({
+			file: compressedImage,
+			type: "png",
+			filename: "compressed.png", // TODO Keep original name
+		});
 	};
 
 	return (
@@ -69,7 +80,14 @@ const Img2Base64: React.FC = (props) => {
 				}}
 			>
 				{compressedImage && (
-					<img width="100%" height="100%" src={compressedImage} />
+					<>
+						<img width="100%" height="100%" src={compressedImage} />
+						<Box display={"flex"} justifyContent={"center"}>
+							<IconButton onClick={handleDownload}>
+								<Download />
+							</IconButton>
+						</Box>
+					</>
 				)}
 				{compressedPercent > 0 && (
 					<Typography align="center" variant="body1">
