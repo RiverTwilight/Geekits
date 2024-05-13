@@ -48,6 +48,7 @@ const AppListItem = ({
 		<ListItemButton
 			sx={{
 				height: "93px",
+				overflow: "hidden"
 			}}
 			selected={selected}
 			key={id}
@@ -148,7 +149,7 @@ const Channel = ({
 			>
 				<Grid container spacing={2}>
 					{apps.map((app) => (
-						<Grid key={app.id} item sm={6} xl={4} xs={12}>
+						<Grid key={app.id} item md={6} xl={4} xs={12}>
 							<AppListItem {...app} />
 						</Grid>
 					))}
