@@ -1,14 +1,14 @@
 PODS:
-  - Capacitor (5.7.5):
+  - Capacitor (6.0.0):
     - CapacitorCordova
-  - CapacitorCordova (5.7.5)
-  - CapacitorDevice (5.0.7):
+  - CapacitorCordova (6.0.0)
+  - CapacitorDevice (6.0.0):
     - Capacitor
   - CapacitorFilesystem (6.0.0):
     - Capacitor
   - CapacitorShare (6.0.0):
     - Capacitor
-  - CapacitorToast (5.0.7):
+  - CapacitorToast (6.0.0):
     - Capacitor
 
 DEPENDENCIES:
@@ -34,12 +34,12 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/@capacitor/toast"
 
 SPEC CHECKSUMS:
-  Capacitor: 7d42085cb786b2d3ea9ac8a17ebd7e3305be7b72
-  CapacitorCordova: c946a6052b547e1e185fc46862003f7b9130ead1
-  CapacitorDevice: fc91bdb484dc0e70755e9b621cd557afe642613a
+  Capacitor: 559d073c4ca6c27f8e7002c807eea94c3ba435a9
+  CapacitorCordova: 8c4bfdf69368512e85b1d8b724dd7546abeb30af
+  CapacitorDevice: f8fd88f9edd1261c55a109f32015b09bbbfdc4a0
   CapacitorFilesystem: 60e59ba274c234a979e7a3be2552feaadcee4263
   CapacitorShare: a771200d3b924a5d7ad9d9fecbac517e4c0aa74f
-  CapacitorToast: c8bb89eeb59a23c1fc298f138cc06c8ff4d90ac1
+  CapacitorToast: ba573a7bc5dfd622e78d5be126a84ee221da4180
 
 PODFILE CHECKSUM: 444182461ac111b0718e97c040d8ceb7301266bc
 

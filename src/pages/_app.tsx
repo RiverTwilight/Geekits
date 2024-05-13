@@ -28,6 +28,27 @@ async function getDeviceLanguage() {
 }
 
 function MainApp({ Component, pageProps }: AppProps) {
+	// const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
+	const [prefersDarkMode, setPrefersDarkMode] = useState(false);
+
+    useEffect(() => {
+        const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        setPrefersDarkMode(isDarkMode);
+    }, []);
+
+    useEffect(() => {
+        const handleChange = (event: MediaQueryListEvent) => {
+            setPrefersDarkMode(event.matches);
+        };
+
+        const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+        mediaQuery.addEventListener('change', handleChange);
+
+        return () => {
+            mediaQuery.removeEventListener('change', handleChange);
+        };
+    }, []);
+
 	const [framed, setFramed] = useState<Boolean>(true);
 
 	// The auto-detected locale from NextJS
@@ -54,8 +75,6 @@ function MainApp({ Component, pageProps }: AppProps) {
 	useEffect(() => {
 		frameStore.subscribe(() => setFramed(frameStore.getState().value));
 	}, []);
-
-	const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
 
 	const localizedDic = useMemo(
 		() => JSON.parse(pageProps.dic)[preferredLocale],
