@@ -22,7 +22,7 @@ const Root = styled("main")<{ disableTopPadding?: boolean }>(
 				? 0
 				: "calc(var(--ion-safe-area-top) + 56px)",
 			minHeight: "100vh",
-			position: "relative",
+			// position: "relative",
 		})
 );
 

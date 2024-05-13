@@ -33,7 +33,7 @@ const Root = styled("div")<{ freeSize?: boolean }>(
 			width: "100%",
 			// maxWidth: freeSize ? "unset" : "1120px",
 			[`& .${classes.content}`]: {
-				position: "relative",
+				// position: "relative",
 				// minHeight: "calc(100vh - 56px - 12px)",
 				[theme.breakpoints.up("sm")]: {
 					marginRight: 16,
