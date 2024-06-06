@@ -256,7 +256,7 @@ const Sidebar = () => {
 								<Avatar
 									sx={{ width: 24, height: 24 }}
 									alt="YGeeker Logo"
-									src="https://www.ygeeker.com/logo.svg"
+									src="https://www.ygeeker.com/logo-optimized.svg"
 								/>
 							</ListItemAvatar>
 							<ListItemText
