@@ -10,16 +10,11 @@ import {
 	removeListener,
 } from "../../components/FilePicker/useDragListener";
 
-/**
- * @author RiverTwilight
- * TODO 中文乱码
- */
-
 const Result = ({ res }: any) => {
 	if (res === "") return null;
 	return (
 		<>
-			<OutlinedCard>
+			<OutlinedCard padding={1}>
 				<code>{res}</code>
 			</OutlinedCard>
 		</>
@@ -65,6 +60,7 @@ export default class Html2Jsx extends React.Component<{}, ComponentState> {
 					if (content !== "" && content !== undefined) return style;
 				})
 				.filter((style) => style);
+			console.log(usefulStyle)
 			usefulStyle
 				.slice(usefulStyle.length / 2, usefulStyle.length)
 				.map((style) => (jsxStyle[style] = styleObj[style]));
