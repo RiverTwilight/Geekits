@@ -9,75 +9,144 @@ import FilePicker from "@/components/FilePicker";
 import { Box, Grid } from "@mui/material";
 import OutlinedCard from "@/components/OutlinedCard";
 
-async function loadImg(src: any) {
-	var img = await new Image();
-	img.src = src;
-	return img;
+async function loadImg(src) {
+	return new Promise((resolve, reject) => {
+		var img = new Image();
+		img.onload = () => resolve(img);
+		img.onerror = reject;
+		img.src = src;
+	});
+}
+async function compressAndLoadImg(src, maxWidth, maxHeight) {
+	return new Promise((resolve, reject) => {
+		var img = new Image();
+		img.onload = () => {
+			var shouldCompress = false;
+
+			// Check if UA is Safari on iOS
+			var isSafariMobile =
+				navigator.userAgent.match(/(iPhone|iPod|iPad)/) &&
+				navigator.userAgent.match(/AppleWebKit/);
+
+			if (
+				isSafariMobile &&
+				(img.width > maxWidth || img.height > maxHeight)
+			) {
+				shouldCompress = true;
+			}
+
+			if (shouldCompress) {
+				var canvas = document.createElement("canvas");
+				var ctx = canvas.getContext("2d");
+
+				var width = img.width;
+				var height = img.height;
+
+				if (width > maxWidth) {
+					height *= maxWidth / width;
+					width = maxWidth;
+				}
+
+				if (height > maxHeight) {
+					width *= maxHeight / height;
+					height = maxHeight;
+				}
+
+				canvas.width = width;
+				canvas.height = height;
+
+				ctx.drawImage(img, 0, 0, width, height);
+
+				resolve(canvas.toDataURL()); // Resolve with compressed image data URL
+			} else {
+				resolve(src); // Resolve with original image source if no compression needed
+			}
+		};
+
+		img.onerror = reject;
+		img.src = src;
+	});
 }
 
-async function imgMosaic_X(assets: string[], callback) {
+async function imgMosaic_Y(assets, callback) {
+	var compressedImages = await Promise.all(
+		assets.map((src) => compressAndLoadImg(src, 512, 512))
+	); // Adjust maxWidth and maxHeight as needed
+
+	var totalHeight = compressedImages.reduce((acc, dataURL) => {
+		var img = new Image();
+		img.src = dataURL;
+		return acc + img.height; // Use img.height directly
+	}, 0);
+
+	var maxWidth = Math.max(
+		...compressedImages.map((dataURL) => {
+			var img = new Image();
+			img.src = dataURL;
+			return img.width; // Use img.width directly
+		})
+	);
+
 	var c = document.createElement("canvas");
 	var ctx = c.getContext("2d");
+	c.width = maxWidth;
+	c.height = totalHeight;
 
-	var imgs = [];
-	c.width = 0;
-	c.height = 0;
-
-	for (var i = 0; i < assets.length; i++) {
-		// Corrected the loop condition
-		var ele = await loadImg(assets[i]);
-
-		c.width += ele.width;
-
-		if (ele.height > c.height) c.height = ele.height; // Adjust canvas height
-
-		imgs.push(ele);
-	}
-
-	var startX = 0;
 	var startY = 0;
-	console.log(imgs);
-
-	for (var j = 0; j < imgs.length; j++) {
-		// Corrected the loop condition
-		ctx.drawImage(imgs[j], startX, 0, imgs[j].width, imgs[j].height);
-		startX += imgs[j].width;
-	}
-
-	var res = c.toDataURL();
-	callback(res);
+	// Use forEach to ensure all images are drawn sequentially
+	compressedImages.forEach((dataURL) => {
+		var img = new Image();
+		img.onload = () => {
+			ctx.drawImage(img, 0, startY, img.width, img.height);
+			startY += img.height;
+			if (startY >= totalHeight) {
+				var res = c.toDataURL();
+				callback(res); // Callback once all images are drawn
+			}
+		};
+		img.src = dataURL;
+	});
 }
 
-async function imgMosaic_Y(assests: string[], callback) {
+async function imgMosaic_X(assets, callback) {
+	var compressedImages = await Promise.all(
+		assets.map((src) => compressAndLoadImg(src, 512, 512))
+	);
+
+	var totalWidth = compressedImages.reduce((acc, dataURL) => {
+		var img = new Image();
+		img.src = dataURL;
+		return acc + img.width;
+	}, 0);
+
+	var maxHeight = Math.max(
+		...compressedImages.map((dataURL) => {
+			var img = new Image();
+			img.src = dataURL;
+			return img.height;
+		})
+	);
+
 	var c = document.createElement("canvas");
 	var ctx = c.getContext("2d");
-
-	var imgs = [];
-	c.width = 0;
-	c.height = 0;
-
-	for (var i = 0; i <= assests.length; i++) {
-		var ele = await loadImg(assests[i]);
-
-		c.height += ele.height;
-
-		if (ele.width > c.width) c.width = ele.width;
-
-		imgs.push(ele);
-	}
+	c.width = totalWidth;
+	c.height = maxHeight;
 
 	var startX = 0;
-	var startY = 0;
-	console.log(imgs);
-
-	for (var j = 0; j <= imgs.length - 1; j++) {
-		//console.log(imgs[j])
-		ctx.drawImage(imgs[j], 0, startY, imgs[j].width, imgs[j].height);
-		startY += imgs[j].height;
-	}
-
-	var res = c.toDataURL();
-	callback(res);
+	// Use forEach to ensure all images are drawn sequentially
+	compressedImages.forEach((dataURL) => {
+		var img = new Image();
+		img.onload = () => {
+			ctx.drawImage(img, startX, 0, img.width, img.height);
+			startX += img.width;
+			if (startX >= totalWidth) {
+				var res = c.toDataURL();
+				console.log("get res", res);
+				callback(res); // Callback once all images are drawn
+			}
+		};
+		img.src = dataURL;
+	});
 }
 
 const Preview: React.FC<{ res: string }> = (props) => {
@@ -132,10 +201,10 @@ export default class extends React.Component<
 		switch (direction) {
 			case 0:
 				imgMosaic_X.apply(this, [...params]);
-				return;
+				break;
 			case 1:
 				imgMosaic_Y.apply(this, [...params]);
-				return;
+				break;
 		}
 	};
 
@@ -183,6 +252,7 @@ export default class extends React.Component<
 													right: "5px",
 													background:
 														"rgba(0, 0, 0, 0.6)",
+													color: "white",
 												}}
 												onClick={() => {
 													assests.splice(i, 1);
