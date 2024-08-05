@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-const signListener = (cb: () => void, getEventCb?: (event: any) => void) => {
+const signListener = (cb: (content: any) => void, getEventCb?: (event: any) => void) => {
 	document.ondragover = (e) => {
 		e.preventDefault();
 	};
@@ -36,7 +36,7 @@ const removeListener = () => {
 	document.ondragenter = null;
 };
 
-const useFileDrager = (cb: () => void) => {
+const useFileDrager = (cb: (content: any) => void) => {
 	useEffect(() => {
 		signListener(cb);
 		return removeListener;

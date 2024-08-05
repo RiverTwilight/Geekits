@@ -1,0 +1,40 @@
+import fs from "fs";
+
+const generateSitemap = (apps) => {
+	const links = [
+		{
+			url: "/",
+			changefreq: "daily",
+			priority: 1.0,
+		},
+		{
+			url: "/about",
+			changefreq: "daily",
+			priority: 0.8,
+		},
+		...apps,
+	];
+
+	// create xml file and save to /public
+	const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+        ${links
+			.map((link) => {
+				return `
+                <url>
+                    <loc>${link.url}</loc>
+                    <changefreq>${link.changefreq}</changefreq>
+                    <priority>${link.priority}</priority>
+                </url>
+            `;
+			})
+			.join("")}
+    </urlset>
+    `;
+
+	fs.writeFileSync("./public/sitemap.xml", sitemap, "utf-8");
+
+	return sitemap;
+};
+
+export default generateSitemap;

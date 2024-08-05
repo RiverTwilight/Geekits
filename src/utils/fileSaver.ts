@@ -1,8 +1,13 @@
-// TODO 无法保存 via\QQ
+import { Capacitor } from "@capacitor/core";
+import { Filesystem, Directory } from "@capacitor/filesystem";
+import { Share } from "@capacitor/share";
 
-const save = (fileObj: File, type: string, filename?: string): void => {
+const saveFileObjOnWeb = (
+	fileObj: File,
+	type: string,
+	filename?: string
+): void => {
 	const url = URL.createObjectURL(fileObj);
-	//没有文件名使用日期
 	const name =
 		filename ||
 		new Date()
@@ -19,6 +24,24 @@ const save = (fileObj: File, type: string, filename?: string): void => {
 	a.href = url;
 	document.body.appendChild(a);
 	a.click();
+};
+
+const saveBase64OnNative = async (
+	filename: string,
+	type: string,
+	base64: string
+) => {
+	const cachedFile = await Filesystem.writeFile({
+		path: `${filename}.${type}`,
+		data: base64,
+		directory: Directory.Cache,
+		recursive: true,
+	});
+
+	await Share.share({
+		title: "Share PDF",
+		files: [cachedFile.uri],
+	});
 };
 
 async function blobToDataURI(blob: Blob, callback: (file: File) => void) {
@@ -45,26 +68,43 @@ function dataURLtoFile(dataurl: any, filename?: string): File {
 	});
 }
 
+const blobToBase64 = (blob: Blob): Promise<string> => {
+	return new Promise((resolve, reject) => {
+		const reader = new FileReader();
+		reader.readAsDataURL(blob);
+		reader.onload = () => resolve(reader.result as string);
+		reader.onerror = (error) => reject(error);
+	});
+};
+
 /**
  * 保存文件
  * @param {object} config
  * **type**:文件后缀
- * **file**:Blob或String
+ * **file**:Blob 或 String
  */
 const saveFile = async (config: {
 	filename: string;
 	type: string;
 	file: Blob | string;
 }) => {
-	//统一转换成fileObj后保存
 	const { file, filename, type } = config;
+
 	if (typeof file === "object") {
-		//switch(/\[object\s(\S+)\]/.exec(file.toString())[1]){
-		blobToDataURI(file, (fileObj) => {
-			save(fileObj, type, filename);
-		});
+		if (Capacitor.isNativePlatform()) {
+			saveBase64OnNative(filename, type, await blobToBase64(file));
+		} else {
+			blobToDataURI(file, (fileObj) => {
+				saveFileObjOnWeb(fileObj, type, filename);
+			});
+		}
+		// switch(/\[object\s(\S+)\]/.exec(file.toString())[1]){
 	} else {
-		save(dataURLtoFile(file, filename), type, filename);
+		if (Capacitor.isNativePlatform()) {
+			saveBase64OnNative(filename, type, file);
+		} else {
+			saveFileObjOnWeb(dataURLtoFile(file, filename), type, filename);
+		}
 	}
 };
 

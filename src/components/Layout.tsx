@@ -22,7 +22,7 @@ const Root = styled("main")<{ disableTopPadding?: boolean }>(
 				? 0
 				: "calc(var(--ion-safe-area-top) + 56px)",
 			minHeight: "100vh",
-			position: "relative",
+			// position: "relative",
 		})
 );
 
@@ -143,6 +143,13 @@ const Layout = ({ currentPage, children, enableFrame }) => {
 						<meta
 							name="viewport"
 							content="viewport-fit=cover,width=device-width,initial-scale=1,maximum-scale=1,user-scaleable=no"
+						/>
+
+						<link
+							rel="sitemap"
+							type="application/xml"
+							title="Sitemap"
+							href="/sitemap.xml"
 						/>
 					</Head>
 					<CssBaseline />

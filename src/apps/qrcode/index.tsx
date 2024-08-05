@@ -17,6 +17,7 @@ import OutlinedCard from "@/components/OutlinedCard";
 import { Box, Fab, IconButton } from "@mui/material";
 import { CheckOutlined, Download } from "@mui/icons-material";
 import Text from "@/components/i18n";
+import saveFile from "@/utils/fileSaver";
 
 const create = (opts: any, text: any, callback: any, iconData: any) => {
 	const loadImgae = (url) => {
@@ -77,10 +78,11 @@ const Result = ({ qrcode }) => {
 			context.drawImage(img, 0, 0);
 
 			const dataURL = canvas.toDataURL();
-			const link = document.createElement("a");
-			link.download = "qr-code.png";
-			link.href = dataURL;
-			link.click();
+			saveFile({
+				file: dataURL,
+				type: "png",
+				filename: "geekits-qrcode.png",
+			});
 		};
 	};
 

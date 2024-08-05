@@ -39,10 +39,8 @@ export default function Feedback() {
 		const fbTemplate = `
 ${feedback}
 ---------
-**Contact**:
+**Contact**: ${contact}
 
-${contact}
----------
 **Create Date**: ${new Date().toLocaleString()}
 
 **Source Page**: [${window.location.href}](${window.location.href})

@@ -14,6 +14,7 @@ import appImportList from "@/utils/appEntry";
 import { getAppConfig, getAppDoc } from "@/utils/appData";
 import getPaths from "@/utils/getPaths";
 import { store as frameStore } from "@/utils/Data/frameState";
+import generateSitemap from "@/utils/generateSitemap";
 
 const drawerWidth: number = 260;
 
@@ -32,7 +33,7 @@ const Root = styled("div")<{ freeSize?: boolean }>(
 			width: "100%",
 			// maxWidth: freeSize ? "unset" : "1120px",
 			[`& .${classes.content}`]: {
-				position: "relative",
+				// position: "relative",
 				// minHeight: "calc(100vh - 56px - 12px)",
 				[theme.breakpoints.up("sm")]: {
 					marginRight: 16,
@@ -68,8 +69,16 @@ export async function getStaticPaths() {
 		};
 	}
 
+	const paths = ["zh-CN", "en-US"].map((locale) => getPaths(locale)).flat(1);
+
+	generateSitemap(
+		paths.map((p) => {
+			return { url: `/app/` + p.params.id, changefreq: "monthly", priority: 0.7 };
+		})
+	);
+
 	return {
-		paths: ["zh-CN", "en-US"].map((locale) => getPaths(locale)).flat(1),
+		paths,
 		fallback: false,
 	};
 }
