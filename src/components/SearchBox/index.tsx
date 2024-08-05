@@ -114,9 +114,14 @@ const SearchResult = ({ result = [], kwd }: any) => {
 	);
 };
 
-const debounce = (func, timeout: number = 300) => {
+type Procedure = (...args: any[]) => void;
+
+const debounce = <F extends Procedure>(
+	func: F,
+	timeout: number = 300
+): ((...args: Parameters<F>) => void) => {
 	let timer: NodeJS.Timeout;
-	return (...args) => {
+	return (...args: Parameters<F>) => {
 		clearTimeout(timer);
 		timer = setTimeout(() => {
 			func.apply(this, args);
