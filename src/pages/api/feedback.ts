@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { Resend } from "resend";
 import { EmailTemplate } from "@/components/EmailTemplate";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = new Resend("re_Ji1EMB87_5bitDdVwBdnRa6tgmXHimyxi");
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
 	// Set CORS headers
