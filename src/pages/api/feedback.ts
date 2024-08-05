@@ -23,7 +23,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 		return;
 	}
 
-	const { message } = req.body;
+	const { message, appName = "Geekits" } = req.body;
 
 	if (!!!message) {
 		return res.status(400).json({});
@@ -32,8 +32,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 	const { data, error } = await resend.emails.send({
 		from: "Geekits <geekits@ygeeker.com>",
 		to: ["rene@ygeeker.com"],
-		subject: "Feedback from Geekits",
-		react: EmailTemplate({ content: message }),
+		subject: `Feedback from ${appName}`,
+		react: EmailTemplate({ content: message, appName }),
 	});
 
 	if (error) {
