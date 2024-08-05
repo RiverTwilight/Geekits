@@ -1,6 +1,6 @@
 ---
 name: "Manifest Generator"
-status: "beta"
+status: "stable"
 icon: "settings_applications"
-channel: dev
+channel: "dev"
 ---

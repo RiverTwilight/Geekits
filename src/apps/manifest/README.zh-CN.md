@@ -1,6 +1,6 @@
 ---
 name: "manifest生成"
-status: "beta"
+status: "stable"
 icon: "settings_applications"
-channel: dev
+channel: "dev"
 ---

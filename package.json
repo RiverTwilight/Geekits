@@ -58,6 +58,7 @@
     "jszip": "^3.5.0",
     "libgif": "0.0.3",
     "localforage": "^1.10.0",
+    "material-ui-color": "^1.2.0",
     "md5": "^2.3.0",
     "next": "13.1.1",
     "next-pwa": "^5.6.0",
