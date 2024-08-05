@@ -11,6 +11,7 @@ import MenuTwoToneIcon from "@mui/icons-material/MenuTwoTone";
 import useScrollTrigger from "@mui/material/useScrollTrigger";
 import { store } from "@/utils/Data/drawerState";
 import {
+	CheckCircleOutline,
 	GitHub,
 	NotificationsOutlined,
 	SettingsApplicationsRounded,
@@ -52,9 +53,8 @@ function ElevationScroll(props: Props) {
 interface Props {
 	children: React.ReactElement;
 }
-
 function NotificationButton() {
-	const [notifications] = useNotifications();
+	const [notifications, setRead] = useNotifications();
 	const unreadCount = notifications.filter((n) => !n.isRead).length;
 
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -67,9 +67,13 @@ function NotificationButton() {
 		setAnchorEl(null);
 	};
 
+	const handleMarkAsRead = (id: number) => {
+		setRead(id);
+	};
+
 	const open = Boolean(anchorEl);
 
-	if (!unreadCount) return null;
+	if (unreadCount === 0) return null;
 
 	return (
 		<>
@@ -124,26 +128,29 @@ function NotificationButton() {
 									1
 								)[0];
 								return (
-									<Link
-										key={title}
-										href="/notification"
-										legacyBehavior
+									<ListItem
+										key={notification.id}
+										alignItems="flex-start"
+										sx={{
+											cursor: "pointer",
+										}}
 									>
-										<ListItem
-											key={notification.id}
-											alignItems="flex-start"
-											sx={{
-												cursor: "pointer",
-											}}
+										<ListItemText
+											primary={title}
+											secondary={notification.createDate}
+										/>
+										<IconButton
+											edge="end"
+											aria-label="mark as read"
+											onClick={() =>
+												handleMarkAsRead(
+													notification.id
+												)
+											}
 										>
-											<ListItemText
-												primary={title}
-												secondary={
-													notification.createDate
-												}
-											/>
-										</ListItem>
-									</Link>
+											<CheckCircleOutline />
+										</IconButton>
+									</ListItem>
 								);
 							})
 					)}
