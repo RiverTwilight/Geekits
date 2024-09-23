@@ -94,6 +94,9 @@ const appImportList: Record<string, ComponentType> = {
 	grid_splitter: dynamic(() => import("../apps/grid_splitter"), {
 		ssr: false,
 	}),
+	base64toimg: dynamic(() => import("../apps/base64toimg"), {
+		ssr: false,
+	}),
 	radio_signal_location_checker: dynamic(
 		() => import("../apps/radio_signal_location_checker"),
 		{
