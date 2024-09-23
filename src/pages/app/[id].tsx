@@ -73,7 +73,11 @@ export async function getStaticPaths() {
 
 	generateSitemap(
 		paths.map((p) => {
-			return { url: `/app/` + p.params.id, changefreq: "monthly", priority: 0.7 };
+			return {
+				url: `/app/` + p.params.id,
+				changefreq: "monthly",
+				priority: 0.7,
+			};
 		})
 	);
 
@@ -90,7 +94,7 @@ export const getStaticProps: GetStaticProps = ({
 	const { id: currentId } = ctx.params;
 
 	const appConfig = getAppConfig(currentId as string, {
-		requiredKeys: ["name", "status", "freeSize", "platform"],
+		requiredKeys: ["name", "seoOptimizedDescription", "status", "freeSize", "platform"],
 		locale: locale,
 	});
 
@@ -102,7 +106,7 @@ export const getStaticProps: GetStaticProps = ({
 		props: {
 			currentPage: {
 				title: appConfig.name,
-				description: appConfig.description || "",
+				description: appConfig.seoOptimizedDescription || "",
 				path: "/app/" + appConfig.id,
 			},
 			dic: JSON.stringify(dic),

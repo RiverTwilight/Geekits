@@ -1,5 +1,5 @@
 ---
-name: "图片转Base64"
+name: "Base64 转图片"
 status: "stable"
 icon: "/icon/image-blue-score/icon-192-maskable.png"
 icon_color: "green-300"
