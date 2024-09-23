@@ -176,6 +176,20 @@ const AccountPanel: React.FC<AccountPanelProps> = ({ open, onClose }) => {
 								Login
 							</Button>
 							<Button
+								variant="outlined"
+								fullWidth
+								color="primary"
+								onClick={() =>
+									window.open(
+										"https://www.ygeeker.com/account/create",
+										"_blank"
+									)
+								}
+								sx={{ mt: 2 }}
+							>
+								Create account
+							</Button>
+							<Button
 								variant="text"
 								color="primary"
 								startIcon={<OpenInNewRounded />}

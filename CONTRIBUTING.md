@@ -28,9 +28,11 @@ $ yarn run build:cap
 
 ## 环境变量
 
-|      Name      |                     Description                      |
-| :------------: | :--------------------------------------------------: |
-| RESEND_API_KEY | Your Resend key. Used to send feedback to your email |
+|             Name              |                     Description                      |
+| :---------------------------: | :--------------------------------------------------: |
+|        RESEND_API_KEY         | Your Resend key. Used to send feedback to your email |
+| NEXT_PUBLIC_SUPABASE_ANON_KEY | Your Resend key. Used to send feedback to your email |
+|   NEXT_PUBLIC_SUPABASE_URL    | Your Resend key. Used to send feedback to your email |
 
 ## 添加一个工具
 
