@@ -14,11 +14,17 @@ module.exports = {
 		email: "contact@rene.wang",
 		twitter: "https://x.com/rea1DonandTrump",
 	},
-	repo: "https://github.com/rivertwilight/ygktool",
+	repo: "https://github.com/rivertwilight/geekits",
 	root: "https://geekits.ygeeker.com",
 	apiConfig: {
 		url: "https://geekits.ygeeker.com",
 	},
-	nativeApp: "com.ygeeker.geekits",
+	appstore: {
+		appId: "6480398974",
+		bundleId: "com.ygeeker.geekits",
+	},
+	playstore: {
+		appId: "com.ygeeker.geekits",
+	},
 	defaultLocale: "en-US", // For native app only
 };
