@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, lazy, Suspense } from "react";
 import AppBar from "@mui/material/AppBar";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
@@ -9,13 +9,10 @@ import Popover from "@mui/material/Popover";
 import IconButton from "@mui/material/IconButton";
 import MenuTwoToneIcon from "@mui/icons-material/MenuTwoTone";
 import useScrollTrigger from "@mui/material/useScrollTrigger";
-import { store } from "@/utils/Data/drawerState";
 import {
 	CheckCircleOutline,
 	GitHub,
 	NotificationsOutlined,
-	SettingsApplicationsRounded,
-	SettingsRounded,
 } from "@mui/icons-material";
 import Link from "next/link";
 import {
@@ -33,6 +30,8 @@ import { useSidebar } from "@/contexts/sidebar";
 import siteConfig from "src/site.config";
 import { Capacitor } from "@capacitor/core";
 import { isCapacitor, isWeb } from "@/utils/platform";
+import { Button, CircularProgress } from "@mui/material";
+import { useAccount } from "@/contexts/account";
 
 function ElevationScroll(props: Props) {
 	const { children } = props;
@@ -160,74 +159,100 @@ function NotificationButton() {
 	);
 }
 
+const AccountPanel = lazy(() => import("./AccountPanel"));
+
 export default (props: { title: string; PageAction; repo: string }) => {
 	const { title, PageAction, repo } = props;
 
 	const { sidebar, setSidebar } = useSidebar();
-
+	const [showLoginDialog, setShowLoginDialog] = useState(false);
+	const { account } = useAccount();
 	const hidden = useMediaQuery((theme: Theme) =>
 		theme.breakpoints.down("sm")
 	);
 
 	return (
-		<ElevationScroll {...props}>
-			<AppBar
-				color="secondary"
-				position="fixed"
-				sx={{
-					zIndex: (theme) => theme.zIndex.drawer + 1,
-				}}
-			>
-				<Toolbar
+		<>
+			<ElevationScroll {...props}>
+				<AppBar
+					color="secondary"
+					position="fixed"
 					sx={{
-						bgcolor: (theme) => theme.palette.background.default,
-						justifyContent: "space-between",
-						paddingTop: "var(--ion-safe-area-top)",
+						zIndex: (theme) => theme.zIndex.drawer + 1,
 					}}
 				>
-					<IconButton
-						edge="start"
-						size="large"
-						aria-label="Toggle drawer"
-						onClick={() => setSidebar(!sidebar)}
+					<Toolbar
+						sx={{
+							bgcolor: (theme) =>
+								theme.palette.background.default,
+							justifyContent: "space-between",
+							paddingTop: "var(--ion-safe-area-top)",
+						}}
 					>
-						<MenuTwoToneIcon />
-					</IconButton>
-
-					<Link href="/" legacyBehavior>
-						<Typography
-							component="span"
-							variant="h6"
-							color="textPrimary"
-							sx={{
-								cursor: "pointer",
-							}}
+						<IconButton
+							edge="start"
+							size="large"
+							aria-label="Toggle drawer"
+							onClick={() => setSidebar(!sidebar)}
 						>
-							{siteConfig.title}
-						</Typography>
-					</Link>
-					<Typography
-						color="primary"
-						variant="h6"
-						noWrap
-						sx={{ overflow: "hidden", marginLeft: ".4em" }}
-					>
-						{title}
-					</Typography>
-
-					<Box sx={{ flexGrow: 1 }} />
-
-					{!hidden && (
-						<IconButton edge="end" href={repo} size="large">
-							<GitHub />
+							<MenuTwoToneIcon />
 						</IconButton>
-					)}
 
-					<NotificationButton />
+						<Link href="/" legacyBehavior>
+							<Typography
+								component="span"
+								variant="h6"
+								color="textPrimary"
+								sx={{
+									cursor: "pointer",
+								}}
+							>
+								{siteConfig.title}
+							</Typography>
+						</Link>
+						<Typography
+							color="primary"
+							variant="h6"
+							noWrap
+							sx={{ overflow: "hidden", marginLeft: ".4em" }}
+						>
+							{title}
+						</Typography>
 
-					{PageAction}
-				</Toolbar>
-			</AppBar>
-		</ElevationScroll>
+						<Box sx={{ flexGrow: 1 }} />
+
+						{!hidden && (
+							<IconButton edge="end" href={repo} size="large">
+								<GitHub />
+							</IconButton>
+						)}
+
+						<NotificationButton />
+
+						{PageAction}
+
+						<IconButton
+							onClick={() => setShowLoginDialog(true)}
+							sx={{ marginLeft: 2 }}
+						>
+							<Avatar
+								src={account ? account["avatarUrl"] : null}
+								alt={
+									account ? account["user"]["email"] : "User"
+								}
+							/>
+						</IconButton>
+					</Toolbar>
+				</AppBar>
+			</ElevationScroll>
+			{showLoginDialog && (
+				<Suspense fallback={<CircularProgress />}>
+					<AccountPanel
+						open={showLoginDialog}
+						onClose={() => setShowLoginDialog(false)}
+					/>
+				</Suspense>
+			)}
+		</>
 	);
 };

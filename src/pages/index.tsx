@@ -35,7 +35,7 @@ export async function getStaticProps({ locale = defaultLocale }) {
 	};
 }
 
-export default function Index({ appData }: any) {
+const Index = React.memo(({ appData }: any) => {
 	const { setAction } = useAction();
 	const { locale } = useLocale();
 
@@ -86,4 +86,8 @@ export default function Index({ appData }: any) {
 			</Box>
 		</Box>
 	);
-}
+});
+
+Index.displayName = 'Index';
+
+export default Index;

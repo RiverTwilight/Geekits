@@ -3,7 +3,6 @@ import Head from "next/head";
 import Header from "@/components/Navbar";
 // import MetaInfo from "../MetaInfo";
 import Sidebar from "@/components/Sidebar";
-import LoginDialog from "@/components/LoginDialog";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 import { styled } from "@mui/material/styles";
@@ -13,6 +12,8 @@ import siteConfig from "../site.config.js";
 import { SidebarProvider } from "@/contexts/sidebar";
 import { ActionProvider } from "@/contexts/action";
 import { AppBarProvider } from "@/contexts/appBar";
+import { AccountProvider } from "@/contexts/account";
+import { createClient } from "@/utils/supabase/component";
 
 const Root = styled("main")<{ disableTopPadding?: boolean }>(
 	({ theme }) =>
@@ -54,6 +55,8 @@ const Layout = ({ currentPage, children, enableFrame }) => {
 	const [appBar, setAppBar] = useState(true);
 	const [loading, setLoading] = useState(true);
 	const [action, setAction] = useState(null);
+	const [account, setAccount] = useState(null);
+	const supabase = createClient();
 
 	useEffect(() => {
 		window.loadShow = () => {
@@ -76,6 +79,33 @@ const Layout = ({ currentPage, children, enableFrame }) => {
 			delete window.loadHide;
 			delete window.loadShow;
 		};
+	}, []);
+
+	useEffect(() => {
+		const fetchUserData = async () => {
+			const {
+				data: { user },
+			} = await supabase.auth.getUser();
+			if (user) {
+				const { data, error } = await supabase
+					.from("Account")
+					.select("email, first_name, last_name, avatarUrl, uid")
+					.eq("uid", user.id)
+					.single();
+
+				if (error) {
+					console.error("Error fetching user data:", error);
+				} else {
+					setAccount({
+						user,
+						avatarUrl: data.avatarUrl,
+						firstName: data.first_name,
+						lastName: data.last_name,
+					});
+				}
+			}
+		};
+		fetchUserData();
 	}, []);
 
 	const metaTitle = `${
@@ -153,33 +183,34 @@ const Layout = ({ currentPage, children, enableFrame }) => {
 						/>
 					</Head>
 					<CssBaseline />
-					<LoginDialog />
-					{enableFrame && (
-						<Header
-							repo={siteConfig.repo}
-							PageAction={action}
-							title={
-								[].includes(currentPage.path)
-									? ""
-									: currentPage.title
-							}
-						/>
-					)}
-					<Box sx={{ display: "flex" }}>
-						<CssBaseline />
-						<Root disableTopPadding={!enableFrame}>
-							<Box
-								sx={{
-									display: "flex",
-									justifyContent: "center",
-									marginTop: { xs: 0, sm: 2 },
-								}}
-							>
-								<Sidebar />
-								{children}
-							</Box>
-						</Root>
-					</Box>
+					<AccountProvider value={{ account, setAccount }}>
+						{enableFrame && (
+							<Header
+								repo={siteConfig.repo}
+								PageAction={action}
+								title={
+									[].includes(currentPage.path)
+										? ""
+										: currentPage.title
+								}
+							/>
+						)}
+						<Box sx={{ display: "flex" }}>
+							<CssBaseline />
+							<Root disableTopPadding={!enableFrame}>
+								<Box
+									sx={{
+										display: "flex",
+										justifyContent: "center",
+										marginTop: { xs: 0, sm: 2 },
+									}}
+								>
+									<Sidebar />
+									{children}
+								</Box>
+							</Root>
+						</Box>
+					</AccountProvider>
 					<GlobalSnackbar />
 					<GlobalLoading />
 				</ActionProvider>

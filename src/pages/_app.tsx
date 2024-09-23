@@ -27,43 +27,36 @@ async function getDeviceLanguage() {
 	return value;
 }
 
-function MainApp({ Component, pageProps }: AppProps) {
-	// const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
+const MainApp = React.memo(({ Component, pageProps }: AppProps) => {
 	const [prefersDarkMode, setPrefersDarkMode] = useState(false);
-
-    useEffect(() => {
-        const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        setPrefersDarkMode(isDarkMode);
-    }, []);
-
-    useEffect(() => {
-        const handleChange = (event: MediaQueryListEvent) => {
-            setPrefersDarkMode(event.matches);
-        };
-
-        const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-        mediaQuery.addEventListener('change', handleChange);
-
-        return () => {
-            mediaQuery.removeEventListener('change', handleChange);
-        };
-    }, []);
-
 	const [framed, setFramed] = useState<Boolean>(true);
-
-	// The auto-detected locale from NextJS
-	// If user has no preferred locale, use auto
 	const [preferredLocale, setPreferredLocale] = useState(pageProps.locale);
 
 	useEffect(() => {
+		const isDarkMode = window.matchMedia(
+			"(prefers-color-scheme: dark)"
+		).matches;
+		setPrefersDarkMode(isDarkMode);
+
+		const handleChange = (event: MediaQueryListEvent) => {
+			setPrefersDarkMode(event.matches);
+		};
+
+		const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+		mediaQuery.addEventListener("change", handleChange);
+
+		return () => {
+			mediaQuery.removeEventListener("change", handleChange);
+		};
+	}, []);
+
+	useEffect(() => {
 		const readLocaleConfig = async () => {
-			// https://en.wikipedia.org/wiki/IETF_language_tag
 			let preferredSet = localStorage.getItem("locale");
 			if (preferredSet) {
 				if (preferredSet === "auto" && !isWeb()) {
 					setPreferredLocale(await getDeviceLanguage());
 				} else if (preferredSet !== "auto") {
-					// If user has spicified the language
 					setPreferredLocale(preferredSet);
 				}
 			}
@@ -73,7 +66,10 @@ function MainApp({ Component, pageProps }: AppProps) {
 	}, []);
 
 	useEffect(() => {
-		frameStore.subscribe(() => setFramed(frameStore.getState().value));
+		const unsubscribe = frameStore.subscribe(() =>
+			setFramed(frameStore.getState().value)
+		);
+		return () => unsubscribe();
 	}, []);
 
 	const localizedDic = useMemo(
@@ -103,11 +99,9 @@ function MainApp({ Component, pageProps }: AppProps) {
 					language={preferredLocale}
 				>
 					{hideFrame ? (
-						<>
-							<Component {...pageProps} />
-						</>
+						<Component {...pageProps} />
 					) : (
-						<Layout enableFrame={framed} currentPage={currentPage}>
+						<Layout currentPage={currentPage} enableFrame={framed}>
 							<Component {...pageProps} />
 						</Layout>
 					)}
@@ -116,7 +110,9 @@ function MainApp({ Component, pageProps }: AppProps) {
 			</ThemeProvider>
 		</LocaleProvider>
 	);
-}
+});
+
+MainApp.displayName = "MainApp";
 
 // Only uncomment this method if you have blocking data requirements for
 // every single page in your application. This disables the ability to
