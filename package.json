@@ -1,6 +1,6 @@
 {
 	"name": "ygktool",
-	"version": "2.1.0",
+	"version": "2.1.1",
 	"homepage": "https://geekits.ygeeker.com",
 	"description": "🛠A simple, feature-rich, and efficient online toolbox | 极简，强大，高效的在线工具箱，遵循MD设计规范",
 	"scripts": {
@@ -18,9 +18,6 @@
 		"start:container": "docker run -p 4000:4000 ygktool",
 		"test": "jest ./__tests__ --testPathIgnorePatterns support/*",
 		"test:unit": "jest --verbose"
-	},
-	"engines": {
-		"yarn": ">=1.22.19"
 	},
 	"repository": {
 		"type": "git",
