@@ -8,6 +8,20 @@ import { styled } from "@mui/material/styles";
 import Button, { ButtonProps } from "@mui/material/Button";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import DeleteIcon from "@mui/icons-material/Delete";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import AlarmIcon from "@mui/icons-material/Alarm";
+import Divider from "@mui/material/Divider";
+import Drawer from "@mui/material/Drawer";
+import IconButton from "@mui/material/IconButton";
+import HistoryIcon from "@mui/icons-material/History";
 
 const Graph = ({
 	percent = 0.75,
@@ -73,24 +87,22 @@ const Record = ({ closeBottomAlert }: { closeBottomAlert: () => void }) => {
 	!localStorage.tomato && localStorage.setItem("tomato", "[]");
 	const historyData = JSON.parse(localStorage.tomato);
 	const now = new Date();
-	const clearHistory = () => {
-		mdui.JQ.hideOverlay();
-		closeBottomAlert && closeBottomAlert();
-		// @ts-expect-error ts-migrate(2339) FIXME: Property 'confirm' does not exist on type 'IMduiSt... Remove this comment to see the full error message
-		mdui.confirm(
-			"此操作不可逆！",
-			"清除历史记录",
-			() => {
-				localStorage.setItem("tomato", "[]");
-			},
-			() => {},
-			{
-				confirmText: "确定",
-				cancelText: "我手残了",
-				history: false,
-			}
-		);
+	const [open, setOpen] = React.useState(false);
+
+	const handleClickOpen = () => {
+		setOpen(true);
 	};
+
+	const handleClose = () => {
+		setOpen(false);
+	};
+
+	const clearHistory = () => {
+		handleClose();
+		localStorage.setItem("tomato", "[]");
+		closeBottomAlert && closeBottomAlert();
+	};
+
 	return (
 		<>
 			<LinearProgress
@@ -101,48 +113,69 @@ const Record = ({ closeBottomAlert }: { closeBottomAlert: () => void }) => {
 						: historyData.length / 4
 				}
 			/>
-			<div className="mdui-p-a-2 mdui-typo">
-				<b>今日：</b>
-				{
-					historyData.filter(
-						(item: recordItem) =>
-							item.metaDate === now.toLocaleDateString()
-					).length
-				}
-				<br></br>
-				<b>总计：</b>
-				{historyData.length}
-				<p className="mdui-text-color-black-secondary">
+			<Box p={2}>
+				<Typography variant="body1">
+					<b>今日：</b>
+					{
+						historyData.filter(
+							(item: recordItem) =>
+								item.metaDate === now.toLocaleDateString()
+						).length
+					}
+				</Typography>
+				<Typography variant="body1">
+					<b>总计：</b>
+					{historyData.length}
+				</Typography>
+				<Typography variant="body2" color="textSecondary">
 					每个番茄完成后，你可以休息5分钟。每四个番茄完成后，你可以休息地更久一点。
-				</p>
-			</div>
-			<div className="mdui-divider"></div>
-			<ul className="mdui-list">
+				</Typography>
+			</Box>
+			<Divider />
+			<List>
 				{historyData.map((item: recordItem, i) => (
-					<li key={i} className="mdui-list-item mdui-ripple">
-						<i className="mdui-icon mdui-text-color-red material-icons">
-							access_alarms
-						</i>
-						<div className="mdui-list-item-content">
-							<div className="mdui-list-item-title">
-								{item.name}
-							</div>
-							<div className="mdui-list-item-text">
-								{item.date}
-							</div>
-						</div>
-					</li>
+					<ListItem key={i}>
+						<ListItemIcon>
+							<AlarmIcon color="error" />
+						</ListItemIcon>
+						<ListItemText
+							primary={item.name}
+							secondary={item.date}
+						/>
+					</ListItem>
 				))}
-				<button
-					style={{
-						display: historyData.length ? "block" : "none",
-					}}
-					onClick={clearHistory}
-					className="mdui-btn mdui-btn-block mdui-ripple"
+			</List>
+			{historyData.length > 0 && (
+				<Button
+					variant="contained"
+					color="secondary"
+					onClick={handleClickOpen}
+					fullWidth
 				>
 					清空记录
-				</button>
-			</ul>
+				</Button>
+			)}
+			<Dialog
+				open={open}
+				onClose={handleClose}
+				aria-labelledby="alert-dialog-title"
+				aria-describedby="alert-dialog-description"
+			>
+				<DialogTitle id="alert-dialog-title">清除历史记录</DialogTitle>
+				<DialogContent>
+					<DialogContentText id="alert-dialog-description">
+						此操作不可逆！确定要清除历史记录吗？
+					</DialogContentText>
+				</DialogContent>
+				<DialogActions>
+					<Button onClick={handleClose} color="primary">
+						我手残了
+					</Button>
+					<Button onClick={clearHistory} color="primary" autoFocus>
+						确定
+					</Button>
+				</DialogActions>
+			</Dialog>
 		</>
 	);
 };
@@ -172,6 +205,8 @@ export default class Pomodoro extends React.Component<
 		restSeconds: number;
 		defaultSeconds: number;
 		title: string;
+		isDrawerOpen: boolean;
+		originTitle: string;
 	}
 > {
 	constructor(props: {}) {
@@ -181,7 +216,13 @@ export default class Pomodoro extends React.Component<
 			restSeconds: 25 * 60,
 			status: StatusSet.sleep,
 			title: "",
+			isDrawerOpen: false,
+			originTitle: document.title,
 		};
+	}
+
+	componentDidMount() {
+		this.setState({ originTitle: document.title });
 	}
 
 	componentWillUnmount() {
@@ -261,31 +302,31 @@ export default class Pomodoro extends React.Component<
 		}
 	};
 
+	toggleDrawer = (open: boolean) => {
+		this.setState({ isDrawerOpen: open });
+	};
+
 	render() {
-		const { restSeconds, defaultSeconds, title, status } = this.state;
+		const { restSeconds, defaultSeconds, title, status, isDrawerOpen } =
+			this.state;
 		return (
 			<>
 				<Box
 					sx={{
 						display: "flex",
 						flexDirection: "column",
-						justifyContent: "center",
+						justifyContent: "start",
+						alignItems: "center",
+						height: "100vh",
 					}}
 				>
-					{/* <Input
-						value={title}
-						placeholder="给这颗番茄起个名字吧"
-						onValueChange={(newText) => {
-							this.setState({
-								title: newText,
-							});
-						}}
-					/> */}
-
 					<Box
 						sx={{
 							display: "flex",
 							justifyContent: "center",
+							position: "relative",
+							width: "300px",
+							height: "300px",
 						}}
 					>
 						<Graph
@@ -297,17 +338,18 @@ export default class Pomodoro extends React.Component<
 						<Box
 							sx={{
 								position: "absolute",
-								top: "123px",
+								top: "50%",
+								left: "50%",
+								transform: "translate(-50%, -50%)",
 							}}
 						>
 							<Typography
 								sx={{
-									// fontFamily: "Product Sans",
 									fontFamily: `"Roboto","Helvetica","Arial",sans-serif`,
 									fontVariantNumeric: "tabular-nums",
 									fontWeight: 500,
 								}}
-								align="right"
+								align="center"
 								variant="h2"
 							>
 								{formatTime(restSeconds, true)}
@@ -315,26 +357,38 @@ export default class Pomodoro extends React.Component<
 						</Box>
 					</Box>
 
-					<br></br>
-
-					<br></br>
-
-					{status == StatusSet.sleep && (
-						<Box sx={{ display: "flex", justifyContent: "center" }}>
+					<Box sx={{ mt: 4 }}>
+						{status === StatusSet.sleep && (
 							<RoundButton onClick={this.startATomato}>
 								<PlayArrowIcon />
 							</RoundButton>
-						</Box>
-					)}
+						)}
 
-					{status === StatusSet.work && (
-						<Box sx={{ display: "flex", justifyContent: "center" }}>
+						{status === StatusSet.work && (
 							<RoundButton onClick={this.abandonTomato}>
 								<DeleteIcon />
 							</RoundButton>
-						</Box>
-					)}
+						)}
+					</Box>
+
+					<Box sx={{ mt: 4 }}>
+						<IconButton onClick={() => this.toggleDrawer(true)}>
+							<HistoryIcon />
+						</IconButton>
+					</Box>
 				</Box>
+
+				<Drawer
+					anchor="right"
+					open={isDrawerOpen}
+					onClose={() => this.toggleDrawer(false)}
+				>
+					<Box sx={{ width: 300 }}>
+						<Record
+							closeBottomAlert={() => this.toggleDrawer(false)}
+						/>
+					</Box>
+				</Drawer>
 			</>
 		);
 	}
