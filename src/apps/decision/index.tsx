@@ -30,8 +30,8 @@ const classes = {
 
 const StyledBox = styled(Box)(({ theme }) => ({
 	[`&.${classes.root}`]: {
-		maxWidth: "600px",
-		margin: "0 auto",
+		maxWidth: "100vw",
+		// margin: "0 auto",
 		padding: theme.spacing(3),
 	},
 	[`& .${classes.wheel}`]: {
@@ -74,8 +74,12 @@ const RandomChooser = () => {
 	const handleSpin = () => {
 		const newIndex = Math.floor(Math.random() * items.length);
 		const extraRotations = 360 * 5; // 5 full rotations
+		const offset = items.length === 4 ? 45 : 0; // Adjust offset for 4 items
 		const newRotation =
-			rotation - extraRotations - (360 / items.length) * newIndex;
+			rotation -
+			extraRotations -
+			(360 / items.length) * newIndex +
+			offset;
 		setRotation(newRotation);
 		setResultIndex(newIndex);
 	};
@@ -110,6 +114,7 @@ const RandomChooser = () => {
 			<Box
 				display="flex"
 				justifyContent="center"
+				alignItems="center"
 				mb={4}
 				position="relative"
 			>
@@ -129,6 +134,7 @@ const RandomChooser = () => {
 						alignItems: "center",
 						background: theme.palette.background.paper,
 						boxShadow: theme.shadows[4],
+						overflow: "hidden",
 					}}
 				>
 					<svg
