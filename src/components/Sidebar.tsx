@@ -245,7 +245,7 @@ const Sidebar = () => {
 				</Box> */}
 			</Box>
 			<Box alignSelf="stretch">
-				<List sx={{ cursor: "pointer" }}>
+				<List sx={{ cursor: "pointer", }}>
 					<Link
 						href="https://www.ygeeker.com"
 						passHref
@@ -260,6 +260,11 @@ const Sidebar = () => {
 								/>
 							</ListItemAvatar>
 							<ListItemText
+								sx={{
+									"& .MuiListItemText-primary": {
+										fontFamily: "Product Sans",
+									},
+								}}
 								primary={<Text k="navbar.copyright.title" />}
 								secondary={
 									<Text k="navbar.copyright.subtitle" />

@@ -4,9 +4,6 @@ import { createTheme } from "@mui/material";
 // Create by https://material-foundation.github.io/material-theme-builder/
 const customTheme = (prefersDarkMode: boolean) => {
 	return createTheme({
-		typography: {
-			fontFamily: `"Product Sans","Product Sans Bold", "Roboto", "Helvetica", "Arial", sans-serif`,
-		},
 		palette: {
 			mode: prefersDarkMode ? "dark" : "light",
 			primary: {

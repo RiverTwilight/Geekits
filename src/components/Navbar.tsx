@@ -207,6 +207,7 @@ export default (props: { title: string; PageAction; repo: string }) => {
 								variant="h6"
 								color="textPrimary"
 								sx={{
+									fontFamily: "Product Sans",
 									cursor: "pointer",
 								}}
 							>
@@ -217,7 +218,10 @@ export default (props: { title: string; PageAction; repo: string }) => {
 							color="primary"
 							variant="h6"
 							noWrap
-							sx={{ overflow: "hidden", marginLeft: ".4em" }}
+							sx={{ overflow: "hidden",
+								fontFamily: "Product Sans",
+								
+								marginLeft: ".4em" }}
 						>
 							{title}
 						</Typography>

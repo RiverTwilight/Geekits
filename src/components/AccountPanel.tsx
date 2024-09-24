@@ -91,7 +91,13 @@ const AccountPanel: React.FC<AccountPanelProps> = ({ open, onClose }) => {
 								marginRight: "10px",
 							}}
 						/>
-						<Typography variant="h5" component="h2">
+						<Typography
+							sx={{
+								fontFamily: "Product Sans",
+							}}
+							variant="h5"
+							component="h2"
+						>
 							YGeeker Account
 						</Typography>
 					</Box>
