@@ -4,7 +4,7 @@
   <img width="180" src="https://geekits.ygeeker.com/logo/v3/rounded.png">
 </a>
 
-<h1 align="center">Geekits 云极客工具</h1>
+<h1 align="center">Geekits</h1>
 
 **简体中文** | [English](./README.en.md)
 
@@ -52,6 +52,6 @@ npm run start:container
 
 CC-BY-4.0
 
-Copyright © 2023 YGeeker
+Copyright © 2019 YGeeker
 
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FRiverTwilight%2FYgkTool.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FRiverTwilight%2FYgkTool?ref=badge_large)

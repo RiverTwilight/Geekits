@@ -181,7 +181,7 @@ const AccountPanel: React.FC<AccountPanelProps> = ({ open, onClose }) => {
 								color="primary"
 								onClick={() =>
 									window.open(
-										"https://www.ygeeker.com/account/create",
+										"https://www.ygeeker.com/account/sign-in",
 										"_blank"
 									)
 								}
@@ -195,7 +195,7 @@ const AccountPanel: React.FC<AccountPanelProps> = ({ open, onClose }) => {
 								startIcon={<OpenInNewRounded />}
 								onClick={() =>
 									window.open(
-										"https://www.ygeeker.com/forgot-password",
+										"https://www.ygeeker.com/account/reset-password",
 										"_blank"
 									)
 								}

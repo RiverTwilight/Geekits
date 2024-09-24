@@ -4,7 +4,7 @@
   <img width="180" src="https://www.ygktool.com/logo/v3/512.png">
 </a>
 
-<h1 align="center">YgkTool</h1>
+<h1 align="center">Geekits</h1>
 
 [简体中文](./README.md) | **English**
 
@@ -31,6 +31,6 @@ Any Contribution is welcomed. Before you start working, please take some time re
 
 CC-BY-4.0
 
-Copyright © 2020-Present YgkTool Dev team
+Copyright © 2019 YGeeker
 
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FRiverTwilight%2FYgkTool.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FRiverTwilight%2FYgkTool?ref=badge_large)
