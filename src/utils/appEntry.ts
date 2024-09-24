@@ -79,6 +79,9 @@ const appImportList: Record<string, ComponentType> = {
 	html2jsx: dynamic(() => import("../apps/html2jsx"), {
 		ssr: false,
 	}),
+	icon_generator: dynamic(() => import("../apps/icon_generator"), {
+		ssr: false,
+	}),
 	chatai: dynamic(() => import("../apps/chatai"), {
 		ssr: false,
 	}),

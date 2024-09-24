@@ -182,6 +182,18 @@
                 </url>
             
                 <url>
+                    <loc>/app/icon_generator</loc>
+                    <changefreq>monthly</changefreq>
+                    <priority>0.7</priority>
+                </url>
+            
+                <url>
+                    <loc>/app/icon_generator</loc>
+                    <changefreq>monthly</changefreq>
+                    <priority>0.7</priority>
+                </url>
+            
+                <url>
                     <loc>/app/icon_slasher</loc>
                     <changefreq>monthly</changefreq>
                     <priority>0.7</priority>
@@ -309,18 +321,6 @@
             
                 <url>
                     <loc>/app/num2roman</loc>
-                    <changefreq>monthly</changefreq>
-                    <priority>0.7</priority>
-                </url>
-            
-                <url>
-                    <loc>/app/policy_generator</loc>
-                    <changefreq>monthly</changefreq>
-                    <priority>0.7</priority>
-                </url>
-            
-                <url>
-                    <loc>/app/policy_generator</loc>
                     <changefreq>monthly</changefreq>
                     <priority>0.7</priority>
                 </url>
@@ -566,6 +566,18 @@
                 </url>
             
                 <url>
+                    <loc>/app/icon_generator</loc>
+                    <changefreq>monthly</changefreq>
+                    <priority>0.7</priority>
+                </url>
+            
+                <url>
+                    <loc>/app/icon_generator</loc>
+                    <changefreq>monthly</changefreq>
+                    <priority>0.7</priority>
+                </url>
+            
+                <url>
                     <loc>/app/icon_slasher</loc>
                     <changefreq>monthly</changefreq>
                     <priority>0.7</priority>
@@ -693,18 +705,6 @@
             
                 <url>
                     <loc>/app/num2roman</loc>
-                    <changefreq>monthly</changefreq>
-                    <priority>0.7</priority>
-                </url>
-            
-                <url>
-                    <loc>/app/policy_generator</loc>
-                    <changefreq>monthly</changefreq>
-                    <priority>0.7</priority>
-                </url>
-            
-                <url>
-                    <loc>/app/policy_generator</loc>
                     <changefreq>monthly</changefreq>
                     <priority>0.7</priority>
                 </url>

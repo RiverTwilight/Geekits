@@ -7,6 +7,7 @@ import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import OutlinedCard from "@/components/OutlinedCard";
+import { styled } from "@mui/material/styles";
 
 interface TabPanelProps {
 	children?: React.ReactNode;
@@ -14,6 +15,32 @@ interface TabPanelProps {
 	index: any;
 	value: any;
 }
+
+const StyledBox = styled(Box)(({ theme }) => ({
+	display: "flex",
+	width: "100%",
+	justifyContent: "center",
+	alignItems: "center",
+	padding: theme.spacing(2),
+}));
+
+const StyledOutlinedCard = styled(OutlinedCard)(({ theme }) => ({
+	width: "100%",
+	maxWidth: "600px",
+	padding: theme.spacing(2),
+	borderRadius: theme.shape.borderRadius,
+	boxShadow: theme.shadows[3],
+}));
+
+const StyledTabs = styled(Tabs)(({ theme }) => ({
+	marginBottom: theme.spacing(2),
+}));
+
+const StyledTabPanel = styled(Box)(({ theme }) => ({
+	padding: theme.spacing(3),
+	borderRadius: theme.shape.borderRadius,
+	boxShadow: theme.shadows[1],
+}));
 
 function TabPanel(props: TabPanelProps) {
 	const { children, value, index, ...other } = props;
@@ -27,9 +54,9 @@ function TabPanel(props: TabPanelProps) {
 			{...other}
 		>
 			{value === index && (
-				<Box p={3}>
+				<StyledTabPanel>
 					<Typography>{children}</Typography>
-				</Box>
+				</StyledTabPanel>
 			)}
 		</div>
 	);
@@ -50,19 +77,9 @@ const DateCalculator = () => {
 	};
 
 	return (
-		<Box
-			display={"flex"}
-			sx={{
-				width: "100%",
-			}}
-			justifyContent={"center"}
-			alignItems={"center"}
-		>
-			<OutlinedCard
-				style={{ width: "100%", maxWidth: "600px" }}
-				padding={1}
-			>
-				<Tabs
+		<StyledBox>
+			<StyledOutlinedCard>
+				<StyledTabs
 					value={value}
 					onChange={handleChange}
 					indicatorColor="primary"
@@ -72,15 +89,15 @@ const DateCalculator = () => {
 				>
 					<Tab label="日期&时间间隔" {...a11yProps(0)} />
 					<Tab label="日期推算" {...a11yProps(1)} />
-				</Tabs>
+				</StyledTabs>
 				<TabPanel value={value} index={0}>
 					<DateInterval />
 				</TabPanel>
 				<TabPanel value={value} index={1}>
 					<CalcDate />
 				</TabPanel>
-			</OutlinedCard>
-		</Box>
+			</StyledOutlinedCard>
+		</StyledBox>
 	);
 };
 
