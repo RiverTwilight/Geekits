@@ -386,6 +386,18 @@
                 </url>
             
                 <url>
+                    <loc>/app/tax_calculator</loc>
+                    <changefreq>monthly</changefreq>
+                    <priority>0.7</priority>
+                </url>
+            
+                <url>
+                    <loc>/app/tax_calculator</loc>
+                    <changefreq>monthly</changefreq>
+                    <priority>0.7</priority>
+                </url>
+            
+                <url>
                     <loc>/app/webpage_sniffer</loc>
                     <changefreq>monthly</changefreq>
                     <priority>0.7</priority>
@@ -765,6 +777,18 @@
             
                 <url>
                     <loc>/app/subtitle_merge</loc>
+                    <changefreq>monthly</changefreq>
+                    <priority>0.7</priority>
+                </url>
+            
+                <url>
+                    <loc>/app/tax_calculator</loc>
+                    <changefreq>monthly</changefreq>
+                    <priority>0.7</priority>
+                </url>
+            
+                <url>
+                    <loc>/app/tax_calculator</loc>
                     <changefreq>monthly</changefreq>
                     <priority>0.7</priority>
                 </url>

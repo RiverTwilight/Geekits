@@ -70,6 +70,9 @@ const appImportList: Record<string, ComponentType> = {
 	qrcode: dynamic(() => import("../apps/qrcode"), {
 		ssr: false,
 	}),
+	tax_calculator: dynamic(() => import("../apps/tax_calculator"), {
+		ssr: false,
+	}),
 	mimetype: dynamic(() => import("../apps/mimetype"), {
 		ssr: false,
 	}),
