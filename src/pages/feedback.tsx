@@ -101,7 +101,24 @@ ${feedback}
 
 	return (
 		<PaperBackground contentWidth={800}>
-			<Typography gutterBottom align="center" variant="h4">
+			<Typography
+				sx={{
+					fontFamily: "Product Sans",
+					marginTop: 2,
+				}}
+				align="center"
+				variant="h5"
+			>
+				<Text k="feedback.hero" />
+			</Typography>
+			<Typography
+				sx={{
+					marginBottom: 4,
+				}}
+				gutterBottom
+				align="center"
+				variant="body1"
+			>
 				<Text k="feedback.hero" />
 			</Typography>
 			<FormControl fullWidth>
