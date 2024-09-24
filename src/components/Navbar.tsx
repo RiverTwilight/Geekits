@@ -32,6 +32,7 @@ import { Capacitor } from "@capacitor/core";
 import { isCapacitor, isWeb } from "@/utils/platform";
 import { Button, CircularProgress } from "@mui/material";
 import { useAccount } from "@/contexts/account";
+import { useRouter } from "next/router";
 
 function ElevationScroll(props: Props) {
 	const { children } = props;
@@ -170,6 +171,8 @@ export default (props: { title: string; PageAction; repo: string }) => {
 	const hidden = useMediaQuery((theme: Theme) =>
 		theme.breakpoints.down("sm")
 	);
+	const router = useRouter();
+	const isRootRoute = router.pathname === "/";
 
 	return (
 		<>
@@ -227,21 +230,30 @@ export default (props: { title: string; PageAction; repo: string }) => {
 							</IconButton>
 						)}
 
-						<NotificationButton />
+						{(!hidden || isRootRoute) && (
+							<>
+								<NotificationButton />
+								<IconButton
+									onClick={() => setShowLoginDialog(true)}
+									sx={{ marginLeft: 2 }}
+								>
+									<Avatar
+										src={
+											account
+												? account["avatarUrl"]
+												: null
+										}
+										alt={
+											account
+												? account["user"]["email"]
+												: "User"
+										}
+									/>
+								</IconButton>
+							</>
+						)}
 
 						{PageAction}
-
-						<IconButton
-							onClick={() => setShowLoginDialog(true)}
-							sx={{ marginLeft: 2 }}
-						>
-							<Avatar
-								src={account ? account["avatarUrl"] : null}
-								alt={
-									account ? account["user"]["email"] : "User"
-								}
-							/>
-						</IconButton>
 					</Toolbar>
 				</AppBar>
 			</ElevationScroll>
