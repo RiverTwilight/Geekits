@@ -7,7 +7,6 @@ import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import TextField from "@mui/material/TextField";
 import { createClient } from "@/utils/supabase/component";
-import { useRouter } from "next/router";
 import { useAccount } from "@/contexts/account";
 import { OpenInNewRounded } from "@mui/icons-material";
 
@@ -19,7 +18,6 @@ interface AccountPanelProps {
 const AccountPanel: React.FC<AccountPanelProps> = ({ open, onClose }) => {
 	const { account: accountMeta } = useAccount();
 	const supabase = createClient();
-	const router = useRouter();
 	const [email, setEmail] = React.useState("");
 	const [password, setPassword] = React.useState("");
 
@@ -39,7 +37,7 @@ const AccountPanel: React.FC<AccountPanelProps> = ({ open, onClose }) => {
 			console.error("Error logging in:", error.message);
 		} else {
 			onClose();
-			router.push("/");
+			location.reload();
 		}
 	};
 

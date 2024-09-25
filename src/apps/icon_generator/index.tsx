@@ -1,7 +1,5 @@
-import JSZip from "jszip";
 import React, { useState } from "react";
-
-import AppBar from "@mui/material/AppBar";
+import JSZip from "jszip";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
@@ -11,34 +9,8 @@ import Chip from "@mui/material/Chip";
 import FileField from "@/components/FileField";
 import FilePicker from "@/components/FilePicker";
 import { dataURLtoFile, saveFile } from "@/utils/fileSaver";
-import {
-	IconButton,
-	Checkbox,
-	FormControlLabel,
-	FormGroup,
-} from "@mui/material";
-import { Download, FolderZipOutlined } from "@mui/icons-material";
 
 const sizes = [16, 32, 48, 64, 128, 256, 512];
-
-const Gallery = ({ res }: { res: string[] }) => {
-	if (!res.length) return null;
-	return (
-		<Grid container spacing={2}>
-			{res.map((a, i) => (
-				<Grid item xs={4} key={i}>
-					<Card>
-						<CardMedia
-							component="img"
-							alt={`Icon size ${sizes[i]}x${sizes[i]}`}
-							image={a}
-						/>
-					</Card>
-				</Grid>
-			))}
-		</Grid>
-	);
-};
 
 const IconGenerator: React.FC = () => {
 	const [file, setFile] = useState<File | null>(null);
@@ -95,24 +67,34 @@ const IconGenerator: React.FC = () => {
 	};
 
 	const handleDownload = (images: string[]) => {
-		const zip = new JSZip();
-
-		images.map((img: string, i: number) => {
-			zip.file(
-				`${selectedSizes[i]}x${selectedSizes[i]}.png`,
-				dataURLtoFile(
-					img,
-					`${selectedSizes[i]}x${selectedSizes[i]}.png`
-				)
-			);
-		});
-		zip.generateAsync({ type: "blob" }).then((content) => {
+		if (images.length === 1) {
+			// If only one file, download directly
+			const fileName = `${selectedSizes[0]}x${selectedSizes[0]}.png`;
 			saveFile({
-				file: content,
-				filename: "icon_generator.zip",
-				type: "zip",
+				file: dataURLtoFile(images[0], fileName),
+				filename: fileName,
+				type: "png",
 			});
-		});
+		} else {
+			// If multiple files, create a zip
+			const zip = new JSZip();
+			images.forEach((img: string, i: number) => {
+				zip.file(
+					`${selectedSizes[i]}x${selectedSizes[i]}.png`,
+					dataURLtoFile(
+						img,
+						`${selectedSizes[i]}x${selectedSizes[i]}.png`
+					)
+				);
+			});
+			zip.generateAsync({ type: "blob" }).then((content) => {
+				saveFile({
+					file: content,
+					filename: "icon_generator.zip",
+					type: "zip",
+				});
+			});
+		}
 	};
 
 	const handleSizeChange = (size: number) => {
