@@ -5,7 +5,6 @@ import Box from "@mui/material/Box";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
-import Paper from "@mui/material/Paper";
 import OutlinedCard from "@/components/OutlinedCard";
 import { styled } from "@mui/material/styles";
 
@@ -29,7 +28,6 @@ const StyledOutlinedCard = styled(OutlinedCard)(({ theme }) => ({
 	maxWidth: "600px",
 	padding: theme.spacing(2),
 	borderRadius: theme.shape.borderRadius,
-	boxShadow: theme.shadows[3],
 }));
 
 const StyledTabs = styled(Tabs)(({ theme }) => ({
@@ -39,7 +37,6 @@ const StyledTabs = styled(Tabs)(({ theme }) => ({
 const StyledTabPanel = styled(Box)(({ theme }) => ({
 	padding: theme.spacing(3),
 	borderRadius: theme.shape.borderRadius,
-	boxShadow: theme.shadows[1],
 }));
 
 function TabPanel(props: TabPanelProps) {
