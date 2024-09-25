@@ -21,6 +21,15 @@ const customTheme = (prefersDarkMode: boolean) => {
 				paper: prefersDarkMode ? "#111218" : "#f9f9ff",
 			},
 		},
+		components: {
+			MuiButton: {
+				styleOverrides: {
+					root: {
+						fontFamily: "Product Sans Bold, Roboto, Helvetica, Arial, sans-serif",
+					},
+				},
+			},
+		},
 	});
 };
 

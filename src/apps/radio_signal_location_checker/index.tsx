@@ -27,7 +27,6 @@ const countryList = {
 	germany: { name: "德国" },
 	france: { name: "法国" },
 	australia: { name: "澳大利亚" },
-	// Add more countries as needed
 };
 
 // https://zh.wikipedia.org/wiki/%E4%B8%9A%E4%BD%99%E6%97%A0%E7%BA%BF%E7%94%B5%E5%8F%B0%E5%91%BC%E5%8F%B7

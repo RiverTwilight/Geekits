@@ -1,7 +1,8 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import Mimetype, { Result } from "./index";
-import '@testing-library/jest-dom';
+import "@testing-library/jest-dom";
+import { cleanup } from "@testing-library/react";
 
 // Mock the mimeTypes dictionary
 jest.mock("./dictionary", () => ({
@@ -41,7 +42,7 @@ describe("Mimetype component", () => {
 			expect(screen.getByText(expectedType)).toBeInTheDocument();
 
 			// Clean up after each render
-			screen.unmount();
+			cleanup();
 		});
 	});
 
