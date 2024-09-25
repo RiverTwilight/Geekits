@@ -31,7 +31,6 @@ const StyledOutlinedCard = styled(OutlinedCard)(({ theme }) => ({
 	maxWidth: "600px",
 	padding: theme.spacing(2),
 	borderRadius: theme.shape.borderRadius,
-	boxShadow: theme.shadows[3],
 }));
 
 const StyledTabs = styled(Tabs)(({ theme }) => ({
@@ -41,7 +40,6 @@ const StyledTabs = styled(Tabs)(({ theme }) => ({
 const StyledTabPanel = styled(Box)(({ theme }) => ({
 	padding: theme.spacing(3),
 	borderRadius: theme.shape.borderRadius,
-	boxShadow: theme.shadows[1],
 }));
 
 function TabPanel(props: TabPanelProps) {
