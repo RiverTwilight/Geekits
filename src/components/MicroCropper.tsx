@@ -9,6 +9,8 @@ import Slide from "@mui/material/Slide";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { TransitionProps } from "@mui/material/transitions";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
 
 import { isSameOrigin } from "@/utils/checkOrigin";
 import { isWeb } from "@/utils/platform";
@@ -24,6 +26,8 @@ const Transition = React.forwardRef(function Transition(
 
 const MicroCropper = ({ file, onConfirm, onCancel, open }) => {
 	const iframeRef = React.useRef(null);
+	const theme = useTheme();
+	const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
 	React.useEffect(() => {
 		const receiveMessage = async (event) => {
@@ -52,11 +56,17 @@ const MicroCropper = ({ file, onConfirm, onCancel, open }) => {
 	};
 
 	return (
-		<Dialog TransitionComponent={Transition} open={open} fullScreen>
+		<Dialog 
+			TransitionComponent={Transition} 
+			open={open} 
+			fullScreen={fullScreen}
+			maxWidth="md"
+			fullWidth
+		>
 			<AppBar
 				sx={{
 					position: "relative",
-					paddingTop: "var(--ion-safe-area-top)",
+					paddingTop: fullScreen ? "var(--ion-safe-area-top)" : 0,
 				}}
 			>
 				<Toolbar>
@@ -85,7 +95,7 @@ const MicroCropper = ({ file, onConfirm, onCancel, open }) => {
 				style={{
 					border: "none",
 					width: "100%",
-					height: "100%",
+					height: fullScreen ? "100%" : "calc(100vh - 200px)",
 					overflow: "hidden",
 					display: "block",
 				}}
