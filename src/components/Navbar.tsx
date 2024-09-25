@@ -217,7 +217,6 @@ function AppsMenu() {
 			<IconButton
 				onClick={handleClick}
 				size="large"
-				sx={{ color: "text.primary" }}
 			>
 				<AppsIcon />
 			</IconButton>
@@ -288,6 +287,7 @@ function AppsMenu() {
 											borderRadius: "12px",
 											overflow: "hidden",
 											marginBottom: "8px",
+											boxShadow: (theme) => theme.shadows[1], // Added small shadow for product icon
 										}}
 									>
 										<Image
