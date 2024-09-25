@@ -63,6 +63,7 @@ export default class CalcDate extends React.Component<{}, CalcDateState> {
 							}}
 							placeholder=" "
 							type="date"
+							fullWidth
 							value={dateStart}
 						/>
 					</Grid>
@@ -74,15 +75,18 @@ export default class CalcDate extends React.Component<{}, CalcDateState> {
 							onChange={(e) => {
 								this.handleInput(e, "day");
 							}}
-							startAdornment={
-								<InputAdornment position="start">
-									{day >= 0 ? (
-										<FastForwardTwoToneIcon />
-									) : (
-										<FastRewindTwoToneIcon />
-									)}
-								</InputAdornment>
-							}
+							InputProps={{
+								startAdornment: (
+									<InputAdornment position="start">
+										{day >= 0 ? (
+											<FastForwardTwoToneIcon />
+										) : (
+											<FastRewindTwoToneIcon />
+										)}
+									</InputAdornment>
+								),
+							}}
+							fullWidth
 							type="number"
 							value={day}
 						/>

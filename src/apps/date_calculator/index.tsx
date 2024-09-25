@@ -50,11 +50,7 @@ function TabPanel(props: TabPanelProps) {
 			aria-labelledby={`full-width-tab-${index}`}
 			{...other}
 		>
-			{value === index && (
-				<StyledTabPanel>
-					<Typography>{children}</Typography>
-				</StyledTabPanel>
-			)}
+			{value === index && <StyledTabPanel>{children}</StyledTabPanel>}
 		</div>
 	);
 }

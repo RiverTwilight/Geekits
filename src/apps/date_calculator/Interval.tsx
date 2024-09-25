@@ -66,12 +66,14 @@ const DateInterval: React.FC = () => {
 						onChange={(e) => handleInput(e, "dateLate")}
 						type="date"
 						value={dateLate}
+						fullWidth
 					/>
 				</Grid>
 				<Grid item xs={12} sm={6}>
 					<InputLabel>到</InputLabel>
 					<TextField
 						onChange={(e) => handleInput(e, "dateEarly")}
+						fullWidth
 						type="date"
 						value={dateEarly}
 					/>
