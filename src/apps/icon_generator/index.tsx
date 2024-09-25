@@ -19,7 +19,7 @@ import {
 } from "@mui/material";
 import { Download, FolderZipOutlined } from "@mui/icons-material";
 
-const sizes = [16, 48, 64, 128, 256, 512];
+const sizes = [16, 32, 48, 64, 128, 256, 512];
 
 const Gallery = ({ res }: { res: string[] }) => {
 	if (!res.length) return null;
