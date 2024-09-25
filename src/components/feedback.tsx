@@ -35,7 +35,7 @@ export default class extends React.Component<{}, State> {
 				snackbar({ message: "出错了！" + err });
 			})
 			.then(() => {
-				window.loadHide();
+				window.hideGlobalLoadingOverlay();
 			});
 	}
 	render() {

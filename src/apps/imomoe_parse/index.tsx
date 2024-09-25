@@ -97,7 +97,7 @@ export default class extends React.Component<{}, ComponentState> {
 			});
 		}
 		loadJosnp().then(() => {
-			window.loadHide();
+			window.hideGlobalLoadingOverlay();
 			// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'VideoListJson'.
 			this.setState({ data: VideoListJson });
 		});

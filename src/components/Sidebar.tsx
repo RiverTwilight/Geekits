@@ -37,60 +37,6 @@ const drawerWidth = 260;
 // necessary for content to be below app bar
 const Toolbar = styled("nav")(({ theme }) => theme.mixins.toolbar);
 
-const User = ({ handleLogin }: any) => {
-	const [user, setUser]: [user: userInfoFromLocal | null, setUser: any] =
-		useState(null);
-	useEffect(() => {
-		setUser(getUserInfo());
-	}, [handleLogin]);
-	const attr = user
-		? {
-				href: "/user",
-				component: Link,
-		  }
-		: {
-				onClick: () => {
-					loginDialogStore.dispatch({ type: "loginDialog/opened" });
-				},
-		  };
-	return (
-		<>
-			<ListItem button {...attr}>
-				<ListItemAvatar>
-					<Avatar
-						sx={{ borderRadius: "0" }}
-						alt="Cindy Baker"
-						src="/logo/v3/512.png"
-					/>
-				</ListItemAvatar>
-				<ListItemText
-					primary={
-						<Typography
-							component="span"
-							variant="h6"
-							color="textPrimary"
-						>
-							云极客工具
-						</Typography>
-					}
-					secondary={
-						<>
-							<Typography
-								component="span"
-								variant="body2"
-								sx={{ display: "inline" }}
-								color="textSecondary"
-							>
-								{user ? user.name : "未登录"}
-							</Typography>
-						</>
-					}
-				/>
-			</ListItem>
-		</>
-	);
-};
-
 const LinkWrapper = ({ href, text, Icon, handleClick, sx, ...props }) => {
 	if (text === "<divider />") {
 		return <Divider sx={{ marginY: 1 }} />;
@@ -144,16 +90,7 @@ const list = [
 		text: <Text k="navbar.donation" />,
 		href: "/donate",
 	},
-	{
-		Icon: <GitHubIcon />,
-		text: "GitHub",
-		href: repo,
-		// sx: {
-		// 	display: {
-		// 		sm: "none",
-		// 	},
-		// },
-	},
+
 	{
 		Icon: <InfoOutlinedIcon />,
 		text: "<divider />",
@@ -163,6 +100,16 @@ const list = [
 		Icon: <InfoOutlinedIcon />,
 		text: <Text k="navbar.about" />,
 		href: "/about",
+	},
+	{
+		Icon: <GitHubIcon />,
+		text: "GitHub",
+		href: repo,
+		// sx: {
+		// 	display: {
+		// 		sm: "none",
+		// 	},
+		// },
 	},
 	{
 		Icon: <TimerOutlined />,

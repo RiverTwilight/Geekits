@@ -214,11 +214,7 @@ function AppsMenu() {
 
 	return (
 		<>
-			<IconButton
-				onClick={handleClick}
-				size="large"
-				sx={{ color: "text.primary" }}
-			>
+			<IconButton onClick={handleClick} size="large">
 				<AppsIcon />
 			</IconButton>
 			<Popover
@@ -288,6 +284,8 @@ function AppsMenu() {
 											borderRadius: "12px",
 											overflow: "hidden",
 											marginBottom: "8px",
+											boxShadow: (theme) =>
+												theme.shadows[1], // Added small shadow for product icon
 										}}
 									>
 										<Image
@@ -328,7 +326,7 @@ function AppsMenu() {
 const AccountPanel = lazy(() => import("./AccountPanel"));
 
 export default (props: { title: string; PageAction; repo: string }) => {
-	const { title, PageAction, repo } = props;
+	const { title, PageAction } = props;
 
 	const { sidebar, setSidebar } = useSidebar();
 	const [showLoginDialog, setShowLoginDialog] = useState(false);

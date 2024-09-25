@@ -91,7 +91,7 @@ class LoginForm extends React.Component<
 				}
 			})
 			.then(() => {
-				window.loadHide();
+				window.hideGlobalLoadingOverlay();
 			});
 	}
 	login() {
@@ -133,7 +133,7 @@ class LoginForm extends React.Component<
 				console.log(e);
 			})
 			.then(() => {
-				window.loadHide();
+				window.hideGlobalLoadingOverlay();
 			});
 	}
 	handleClickShowPassword = () => {

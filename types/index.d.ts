@@ -18,7 +18,7 @@ declare global {
 		/**
 		 * 隐藏加载动画
 		 */
-		loadHide(): void;
+		hideGlobalLoadingOverlay(): void;
 		setRightDrawer(content, icon?): void;
 		menu: any;
 		loadingDelay: number;
