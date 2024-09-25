@@ -42,12 +42,12 @@ const GlobalLoading = () => {
 		window.showGlobalLoadingOverlay = () => {
 			setLoading(true);
 		};
-		window.loadHide = () => {
+		window.hideGlobalLoadingOverlay = () => {
 			setLoading(false);
 		};
 
 		return () => {
-			delete window.loadHide;
+			delete window.hideGlobalLoadingOverlay;
 			delete window.showGlobalLoadingOverlay;
 		};
 	}, []);

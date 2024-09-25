@@ -80,7 +80,7 @@ const EnquireTemplate = (props: {
 				setOpenSb(true);
 			})
 			.then(() => {
-				window.loadHide();
+				window.hideGlobalLoadingOverlay();
 			});
 	};
 	return (

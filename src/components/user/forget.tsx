@@ -48,7 +48,7 @@ class Forget extends React.Component<{}, ForgetState> {
 				}
 			})
 			.then((_) => {
-				window.loadHide();
+				window.hideGlobalLoadingOverlay();
 			});
 	}
 	render() {

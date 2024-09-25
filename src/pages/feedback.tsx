@@ -66,7 +66,7 @@ ${feedback}
 					window.snackbar({ message: "反馈提交失败，请稍后再试！" });
 				})
 				.finally(() => {
-					window.loadHide();
+					window.hideGlobalLoadingOverlay();
 					setIsLoading(false);
 				});
 		} else {
@@ -85,7 +85,7 @@ ${feedback}
 					});
 				})
 				.finally(() => {
-					window.loadHide();
+					window.hideGlobalLoadingOverlay();
 					setIsLoading(false);
 				});
 		}

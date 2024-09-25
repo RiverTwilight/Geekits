@@ -233,7 +233,7 @@ export default class extends React.Component<{}, ComponentState> {
 		socket.on("message", (msg: any) => {
 			if (msg.deviceId === deviceId) {
 				console.log("clint message");
-				window.loadHide();
+				window.hideGlobalLoadingOverlay();
 				// 接收到本机消息后清空草稿
 				if (msg.type === "text") {
 					this.setState({

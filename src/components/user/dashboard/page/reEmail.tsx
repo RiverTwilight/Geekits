@@ -56,7 +56,7 @@ class Ui extends React.Component<{}, State> {
 				}
 			})
 			.then(() => {
-				window.loadHide();
+				window.hideGlobalLoadingOverlay();
 			});
 	}
 	render() {

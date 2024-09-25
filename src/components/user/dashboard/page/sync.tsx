@@ -41,7 +41,7 @@ export default class extends React.Component<{}, State> {
                     break;
             }
         }).then(_ => {
-            window.loadHide()
+            window.hideGlobalLoadingOverlay()
         })
     }
     render() {

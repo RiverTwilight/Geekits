@@ -96,12 +96,12 @@ const MainApp = React.memo(({ Component, pageProps }: AppProps) => {
 		const handleRouteChangeStart = () => {
 			loadTimer = setTimeout(() => {
 				window.showGlobalLoadingOverlay();
-			}, 500);
+			}, 0);
 		};
 
 		const handleRouteChangeComplete = () => {
 			clearTimeout(loadTimer);
-			window.loadHide();
+			window.hideGlobalLoadingOverlay();
 		};
 
 		router.events.on("routeChangeStart", handleRouteChangeStart);
