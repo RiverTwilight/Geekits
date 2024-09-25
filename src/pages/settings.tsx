@@ -1,3 +1,4 @@
+import React from "react";
 import Box from "@mui/material/Box";
 import { GetStaticProps } from "next";
 import translator from "@/utils/translator";
