@@ -31,6 +31,7 @@ import { isCapacitor, isWeb } from "@/utils/platform";
 import { Button, CircularProgress } from "@mui/material";
 import { useAccount } from "@/contexts/account";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 function ElevationScroll(props: Props) {
 	const { children } = props;
@@ -160,6 +161,9 @@ function NotificationButton() {
 
 function AppsMenu() {
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+	const [hoverDescription, setHoverDescription] = useState<string>(
+		"Discover more apps from YGeeker"
+	);
 
 	const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
 		setAnchorEl(event.currentTarget);
@@ -170,17 +174,51 @@ function AppsMenu() {
 	};
 
 	const apps = [
-		{ name: "App 1", icon: "🚀" },
-		{ name: "App 2", icon: "🌟" },
-		{ name: "App 3", icon: "🎨" },
-		{ name: "App 4", icon: "📊" },
-		{ name: "App 5", icon: "🔧" },
-		{ name: "App 6", icon: "📱" },
+		{
+			name: "ClipMemo",
+			icon: "https://www.ygeeker.com/image/product/clipmemo.png",
+			link: "https://clipmemo.ygeeker.com",
+			description: "Effortlessly capture and organize your ideas",
+		},
+		{
+			name: "Dali",
+			icon: "https://www.ygeeker.com/image/product/dali.png",
+			link: "https://dali.ygeeker.com",
+			description: "Create stunning AI-generated artwork",
+		},
+		{
+			name: "I Didn't",
+			icon: "https://www.ygeeker.com/image/product/ididnt.png",
+			link: "https://ididnt.ygeeker.com",
+			description: "Track habits you want to break",
+		},
+		{
+			name: "FlowFerry",
+			icon: "https://www.ygeeker.com/image/product/flowferry.png",
+			link: "https://flowferry.ygeeker.com",
+			description: "Streamline your workflow automation",
+		},
+		{
+			name: "Currates",
+			icon: "https://www.ygeeker.com/image/product/currates.png",
+			link: "https://currates.ygeeker.com",
+			description: "Curate and share your favorite content",
+		},
+		{
+			name: "Timeline",
+			icon: "https://www.ygeeker.com/image/product/timeline.png",
+			link: "https://timeline.ygeeker.com",
+			description: "Visualize your personal or project history",
+		},
 	];
 
 	return (
 		<>
-			<IconButton onClick={handleClick} size="large">
+			<IconButton
+				onClick={handleClick}
+				size="large"
+				sx={{ color: "text.primary" }}
+			>
 				<AppsIcon />
 			</IconButton>
 			<Popover
@@ -197,43 +235,91 @@ function AppsMenu() {
 				}}
 				sx={{
 					"& .MuiPopover-paper": {
-						borderRadius: "28px",
-						background: (theme) => theme.palette.background.default,
-						width: "300px",
-						padding: "16px",
+						borderRadius: "16px",
+						background: (theme) => theme.palette.background.paper,
+						width: "320px",
+						padding: "24px",
+						boxShadow: (theme) => theme.shadows[3],
 					},
 				}}
 			>
-				<Typography variant="h6" gutterBottom>
+				<Typography
+					variant="h6"
+					gutterBottom
+					sx={{
+						fontWeight: 500,
+						marginBottom: "16px",
+						fontFamily: "Product Sans",
+					}}
+				>
 					More apps from YGeeker
 				</Typography>
 				<Grid container spacing={2}>
 					{apps.map((app, index) => (
 						<Grid item xs={4} key={index}>
-							<Box
-								sx={{
-									display: "flex",
-									flexDirection: "column",
-									alignItems: "center",
-									cursor: "pointer",
-								}}
-							>
-								<Avatar
+							<Link legacyBehavior href={app.link} passHref>
+								<Box
+									component="a"
+									target="_blank"
+									rel="noopener noreferrer"
 									sx={{
-										width: 48,
-										height: 48,
-										fontSize: "1.5rem",
+										display: "flex",
+										flexDirection: "column",
+										alignItems: "center",
+										cursor: "pointer",
+										padding: "8px",
+										borderRadius: "12px",
+										transition: "background-color 0.2s",
+										"&:hover": {
+											backgroundColor: (theme) =>
+												theme.palette.action.hover,
+										},
+										textDecoration: "none",
+										color: "inherit",
 									}}
+									onMouseEnter={() =>
+										setHoverDescription(app.description)
+									}
 								>
-									{app.icon}
-								</Avatar>
-								<Typography variant="caption" align="center">
-									{app.name}
-								</Typography>
-							</Box>
+									<Box
+										sx={{
+											width: 56,
+											height: 56,
+											borderRadius: "12px",
+											overflow: "hidden",
+											marginBottom: "8px",
+										}}
+									>
+										<Image
+											src={app.icon}
+											alt={app.name}
+											width={56}
+											height={56}
+										/>
+									</Box>
+									<Typography
+										variant="body2"
+										align="center"
+										sx={{ fontWeight: 500 }}
+									>
+										{app.name}
+									</Typography>
+								</Box>
+							</Link>
 						</Grid>
 					))}
 				</Grid>
+				<Typography
+					variant="caption"
+					sx={{
+						display: "block",
+						textAlign: "center",
+						marginTop: "16px",
+						minHeight: "2em",
+					}}
+				>
+					{hoverDescription}
+				</Typography>
 			</Popover>
 		</>
 	);
