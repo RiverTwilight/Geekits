@@ -148,11 +148,11 @@ const list = [
 		Icon: <GitHubIcon />,
 		text: "GitHub",
 		href: repo,
-		sx: {
-			display: {
-				sm: "none",
-			},
-		},
+		// sx: {
+		// 	display: {
+		// 		sm: "none",
+		// 	},
+		// },
 	},
 	{
 		Icon: <InfoOutlinedIcon />,
@@ -188,32 +188,6 @@ const Sidebar = () => {
 		}
 	};
 
-	// const drawer = (
-	// 	<>
-	// 		{/* <Alert severity="info">
-	// 			您正在使用新版本，如有任何问题欢迎随时反馈。
-	// 			<MuiLink href="https://v1.ygktool.com">返回旧版</MuiLink>
-	// 		</Alert> */}
-	// 		{/* <List className={clsx({ [classes.hoverBlur]: isBlur })}> */}
-	// 		<List sx={{ pr: "20px" }}>
-	// 			{list.length &&
-	// 				list.map((item) => (
-	// 					<React.Fragment key={item.href}>
-	// 						<LinkWrapper
-	// 							handleClick={closeDrawer}
-	// 							href={item.href}
-	// 							text={item.text}
-	// 							Icon={item.Icon}
-	// 						/>
-	// 					</React.Fragment>
-	// 				))}
-	// 		</List>
-	// 		<Box padding={1}>
-	// 			<Shortcuts />
-	// 		</Box>
-	// 	</>
-	// );
-
 	const drawer = (
 		<Box
 			display="flex"
@@ -245,7 +219,7 @@ const Sidebar = () => {
 				</Box> */}
 			</Box>
 			<Box alignSelf="stretch">
-				<List sx={{ cursor: "pointer", }}>
+				<List sx={{ cursor: "pointer" }}>
 					<Link
 						href="https://www.ygeeker.com"
 						passHref

@@ -11,19 +11,17 @@ import MenuTwoToneIcon from "@mui/icons-material/MenuTwoTone";
 import useScrollTrigger from "@mui/material/useScrollTrigger";
 import {
 	CheckCircleOutline,
-	GitHub,
 	NotificationsOutlined,
+	Apps as AppsIcon,
 } from "@mui/icons-material";
 import Link from "next/link";
 import {
 	Avatar,
 	Badge,
-	ListItemAvatar,
 	ListItemText,
-	Menu,
-	Paper,
 	Theme,
 	useMediaQuery,
+	Grid,
 } from "@mui/material";
 import useNotifications from "@/utils/Hooks/useNotification";
 import { useSidebar } from "@/contexts/sidebar";
@@ -102,7 +100,7 @@ function NotificationButton() {
 				}}
 				sx={{
 					"& .MuiPopover-paper": {
-						borderRadius: "24px",
+						borderRadius: "28px",
 						background: (theme) => theme.palette.background.default,
 					},
 				}}
@@ -155,6 +153,87 @@ function NotificationButton() {
 							})
 					)}
 				</List>
+			</Popover>
+		</>
+	);
+}
+
+function AppsMenu() {
+	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
+	const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+		setAnchorEl(event.currentTarget);
+	};
+
+	const handleClose = () => {
+		setAnchorEl(null);
+	};
+
+	const apps = [
+		{ name: "App 1", icon: "🚀" },
+		{ name: "App 2", icon: "🌟" },
+		{ name: "App 3", icon: "🎨" },
+		{ name: "App 4", icon: "📊" },
+		{ name: "App 5", icon: "🔧" },
+		{ name: "App 6", icon: "📱" },
+	];
+
+	return (
+		<>
+			<IconButton onClick={handleClick} size="large">
+				<AppsIcon />
+			</IconButton>
+			<Popover
+				anchorEl={anchorEl}
+				open={Boolean(anchorEl)}
+				onClose={handleClose}
+				anchorOrigin={{
+					vertical: "bottom",
+					horizontal: "right",
+				}}
+				transformOrigin={{
+					vertical: "top",
+					horizontal: "right",
+				}}
+				sx={{
+					"& .MuiPopover-paper": {
+						borderRadius: "28px",
+						background: (theme) => theme.palette.background.default,
+						width: "300px",
+						padding: "16px",
+					},
+				}}
+			>
+				<Typography variant="h6" gutterBottom>
+					More apps from YGeeker
+				</Typography>
+				<Grid container spacing={2}>
+					{apps.map((app, index) => (
+						<Grid item xs={4} key={index}>
+							<Box
+								sx={{
+									display: "flex",
+									flexDirection: "column",
+									alignItems: "center",
+									cursor: "pointer",
+								}}
+							>
+								<Avatar
+									sx={{
+										width: 48,
+										height: 48,
+										fontSize: "1.5rem",
+									}}
+								>
+									{app.icon}
+								</Avatar>
+								<Typography variant="caption" align="center">
+									{app.name}
+								</Typography>
+							</Box>
+						</Grid>
+					))}
+				</Grid>
 			</Popover>
 		</>
 	);
@@ -218,21 +297,19 @@ export default (props: { title: string; PageAction; repo: string }) => {
 							color="primary"
 							variant="h6"
 							noWrap
-							sx={{ overflow: "hidden",
+							sx={{
+								overflow: "hidden",
 								fontFamily: "Product Sans",
-								
-								marginLeft: ".4em" }}
+
+								marginLeft: ".4em",
+							}}
 						>
 							{title}
 						</Typography>
 
 						<Box sx={{ flexGrow: 1 }} />
 
-						{!hidden && (
-							<IconButton edge="end" href={repo} size="large">
-								<GitHub />
-							</IconButton>
-						)}
+						{!hidden && <AppsMenu />}
 
 						{(!hidden || isRootRoute) && (
 							<>
