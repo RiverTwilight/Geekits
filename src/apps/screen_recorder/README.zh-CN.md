@@ -2,6 +2,7 @@
 name: "屏幕录制"
 status: "stable"
 description: "使用浏览器便捷录制屏幕"
+seoOptimizedDescription: "使用浏览器便捷录制屏幕，无需安装任何软件"
 icon: "/icon/monitor_red_outline.png"
 channel: media
 freeSize: true

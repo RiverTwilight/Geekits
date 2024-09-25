@@ -66,7 +66,7 @@ export const getStaticProps: GetStaticProps = ({ locale = "zh-CN" }) => {
 	return {
 		props: {
 			currentPage: {
-				title: trans.use(""),
+				title: trans.use("aboutPage.meta.title"),
 				description: trans.use(""),
 				path: "/about",
 			},

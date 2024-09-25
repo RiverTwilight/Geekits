@@ -1,5 +1,7 @@
 ---
 name: "Screen Recorder"
+description: "Record your screen without install any software"
+seoOptimizedDescription: "Record your screen without install any software"
 status: "stable"
 icon: "/icon/monitor_red_outline.png"
 channel: life
