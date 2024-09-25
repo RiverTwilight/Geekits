@@ -73,7 +73,7 @@ export default class extends React.Component<{}, ComponentState> {
 		});
 	}
 	loadCommentsFromServer() {
-		window.loadShow();
+		window.showGlobalLoadingOverlay();
 		const { url } = this.state;
 		function loadJosnp() {
 			var VideoListJson;

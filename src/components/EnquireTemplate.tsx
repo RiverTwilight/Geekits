@@ -66,7 +66,7 @@ const EnquireTemplate = (props: {
 	});
 
 	const connectWithServer = () => {
-		window.loadShow();
+		window.showGlobalLoadingOverlay();
 		axios({
 			method: "get",
 			url: api + text,

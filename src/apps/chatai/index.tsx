@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import ClipboardJS from "clipboard";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import Box from "@mui/material/Box";
@@ -243,7 +243,9 @@ export default function Chat() {
 							height: "58px",
 							borderRadius: "29px",
 							border: (theme) =>
-								`2px solid ${focus ? theme.palette.primary.main : "#888"}}`,
+								`2px solid ${
+									focus ? theme.palette.primary.main : "#888"
+								}}`,
 							overflowY: "scroll",
 							"&::-webkit-scrollbar": {
 								display: "none",

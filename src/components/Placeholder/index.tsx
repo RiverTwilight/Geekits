@@ -1,6 +1,10 @@
+import React from "react";
 import Box from "@mui/material/Box";
 
-const Placeholder = ({ illustrationUrl, TextComponent }:{
+const Placeholder = ({
+	illustrationUrl,
+	TextComponent,
+}: {
 	TextComponent?: React.ComponentType;
 	illustrationUrl: string;
 }) => (
@@ -9,15 +13,16 @@ const Placeholder = ({ illustrationUrl, TextComponent }:{
 			display: "flex",
 			flexDirection: "column",
 			justifyContent: "center",
+			alignItems: "center",
 			height: "inherit",
 		}}
 	>
-		<div className="center-with-flex">
+		<Box className="center-with-flex">
 			{illustrationUrl && (
 				<img height="130" width="130" src={illustrationUrl} />
 			)}
 			{TextComponent}
-		</div>
+		</Box>
 	</Box>
 );
 

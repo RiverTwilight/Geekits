@@ -15,7 +15,7 @@ export default class extends React.Component<{}, State> {
     }
     sync() {
         const { mode } = this.state
-        window.loadShow();
+        window.showGlobalLoadingOverlay();
         Axios({
             method: 'post',
             url: '/ygktool/user/sync',

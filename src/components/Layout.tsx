@@ -53,33 +53,9 @@ const GlobalSnackbar = () => {
 const Layout = ({ currentPage, children, enableFrame }) => {
 	const [sidebar, setSidebar] = useState(true);
 	const [appBar, setAppBar] = useState(true);
-	const [loading, setLoading] = useState(true);
 	const [action, setAction] = useState(null);
 	const [account, setAccount] = useState(null);
 	const supabase = createClient();
-
-	useEffect(() => {
-		window.loadShow = () => {
-			window.loadingDelay = setTimeout(() => {
-				setLoading(true);
-				delete window.loadingDelay;
-			}, 700);
-		};
-
-		window.loadHide = () => {
-			if (window.loadingDelay) {
-				clearTimeout(window.loadingDelay);
-				delete window.loadingDelay;
-			} else {
-				setLoading(false);
-			}
-		};
-
-		return () => {
-			delete window.loadHide;
-			delete window.loadShow;
-		};
-	}, []);
 
 	useEffect(() => {
 		const fetchUserData = async () => {

@@ -51,7 +51,7 @@ ${feedback}
 
 `;
 
-		window.loadShow();
+		window.showGlobalLoadingOverlay();
 		setIsLoading(true);
 
 		if (isWeb()) {

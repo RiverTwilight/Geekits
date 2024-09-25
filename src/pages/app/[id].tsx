@@ -164,7 +164,7 @@ const AppContainer = ({ appConfig, appDoc }) => {
 		}
 
 		return () => {
-			window.loadHide();
+			// window.loadHide();
 		};
 	}, []);
 

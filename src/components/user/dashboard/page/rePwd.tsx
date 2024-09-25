@@ -19,7 +19,7 @@ class Ui extends React.Component<{}, State> {
     }
     reset(){
         const { username, password, xcode } = this.state
-        window.loadShow();
+        window.showGlobalLoadingOverlay();
         Axios({
             method: 'post',
             url: 'https://api.ygktool.cn/ygktool/user/reset',

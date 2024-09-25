@@ -1,3 +1,4 @@
+import React from "react";
 import OutlinedCard from "../components/OutlinedCard";
 import { styled } from "@mui/material/styles";
 import StyledMarkdown from "../components/StyledMarkdown";

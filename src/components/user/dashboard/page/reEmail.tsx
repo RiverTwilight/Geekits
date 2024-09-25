@@ -22,7 +22,7 @@ class Ui extends React.Component<{}, State> {
 	}
 	reset() {
 		const { username, email, xcode } = this.state;
-		window.loadShow();
+		window.showGlobalLoadingOverlay();
 		Axios({
 			method: "post",
 			url: "https://api.ygktool.cn/ygktool/user/reset",

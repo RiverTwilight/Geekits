@@ -21,7 +21,7 @@ class Forget extends React.Component<{}, ForgetState> {
 	}
 	reset() {
 		const { email, password, xcode } = this.state;
-		window.loadShow();
+		window.showGlobalLoadingOverlay();
 		Axios({
 			method: "post",
 			url: "/ygktool/user/reset",

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from "react";
+import { useRouter } from "next/router";
 import Layout from "@/components/Layout";
 import Text from "@/components/i18n";
 import { ThemeProvider } from "@mui/material/styles";
@@ -6,7 +7,6 @@ import { store as frameStore } from "@/utils/Data/frameState";
 import { Analytics } from "@vercel/analytics/react";
 import { Device } from "@capacitor/device";
 import customTheme from "@/utils/theme";
-import { useMediaQuery } from "@mui/material";
 import { LocaleProvider } from "@/contexts/locale";
 import { isWeb } from "@/utils/platform.js";
 
@@ -28,6 +28,7 @@ async function getDeviceLanguage() {
 }
 
 const MainApp = React.memo(({ Component, pageProps }: AppProps) => {
+	const router = useRouter();
 	const [prefersDarkMode, setPrefersDarkMode] = useState(false);
 	const [framed, setFramed] = useState<Boolean>(true);
 	const [preferredLocale, setPreferredLocale] = useState(pageProps.locale);
@@ -88,6 +89,31 @@ const MainApp = React.memo(({ Component, pageProps }: AppProps) => {
 		},
 		hideFrame,
 	} = pageProps;
+
+	useEffect(() => {
+		let loadTimer: NodeJS.Timeout;
+
+		const handleRouteChangeStart = () => {
+			loadTimer = setTimeout(() => {
+				window.showGlobalLoadingOverlay();
+			}, 500);
+		};
+
+		const handleRouteChangeComplete = () => {
+			clearTimeout(loadTimer);
+			window.loadHide();
+		};
+
+		router.events.on("routeChangeStart", handleRouteChangeStart);
+		router.events.on("routeChangeComplete", handleRouteChangeComplete);
+		router.events.on("routeChangeError", handleRouteChangeComplete);
+
+		return () => {
+			router.events.off("routeChangeStart", handleRouteChangeStart);
+			router.events.off("routeChangeComplete", handleRouteChangeComplete);
+			router.events.off("routeChangeError", handleRouteChangeComplete);
+		};
+	}, [router]);
 
 	return (
 		<LocaleProvider

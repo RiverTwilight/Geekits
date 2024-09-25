@@ -252,7 +252,7 @@ export default class extends React.Component<{}, ComponentState> {
 		});
 	}
 	sendMsg() {
-		window.loadShow();
+		window.showGlobalLoadingOverlay();
 		const metaDate = new Date().toLocaleTimeString();
 		const { textData, fileData, token, socket, pwd, deviceId } = this.state;
 		textData !== "" &&

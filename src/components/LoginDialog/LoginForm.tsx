@@ -64,7 +64,7 @@ class LoginForm extends React.Component<
 	componentDidMount() {}
 	signin() {
 		const { username, password, remember } = this.state;
-		window.loadShow();
+		window.showGlobalLoadingOverlay();
 		Axios({
 			method: "post",
 			url: "/userContent/auth/local/register",
@@ -96,7 +96,7 @@ class LoginForm extends React.Component<
 	}
 	login() {
 		const { username, password } = this.state;
-		// window.loadShow();
+		// window.showGlobalLoadingOverlay();
 
 		Axios.post("/userContent/auth/local", {
 			identifier: username,
