@@ -1,7 +1,7 @@
 ---
 name: "Chemistry Equation Balancer"
+description: "Get the balanced chemical equation"
 status: "stable"
-link: "cem"
 icon: "/icon/magic-line-blue/icon-192-maskable.png"
 channel: life
 ---

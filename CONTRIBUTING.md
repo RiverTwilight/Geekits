@@ -26,13 +26,19 @@ $ yarn run dev
 $ yarn run build:cap
 ```
 
-## 环境变量
+为了能正常运行，需要配置环境变量。
+
+## 配置环境变量
+
+项目需要以下环境变量：
 
 |             Name              |                     Description                      |
 | :---------------------------: | :--------------------------------------------------: |
 |        RESEND_API_KEY         | Your Resend key. Used to send feedback to your email |
 | NEXT_PUBLIC_SUPABASE_ANON_KEY | Your Resend key. Used to send feedback to your email |
 |   NEXT_PUBLIC_SUPABASE_URL    | Your Resend key. Used to send feedback to your email |
+
+注意，请及时更新`capacitor-varibles.example.js`文件，并将其内容复制到`capacitor-varibles.js`文件中。
 
 ## 添加一个工具
 
@@ -83,5 +89,3 @@ freeSize: true
 ## 提交新设计
 
 如果你有新的设计创意，可以把设计原型提交在这个[issue](https://github.com/RiverTwilight/YgkTool/issues/63)中。
-
-## 修复 bug & 改进功能
