@@ -10,8 +10,8 @@ import TableContainer from "@mui/material/TableContainer";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 
-//结果展示
-function Result({ kwd }: { kwd: string }) {
+// Export the Result component for testing
+export function Result({ kwd }: { kwd: string }) {
 	if (kwd === "") return null;
 	const length = Object.getOwnPropertyNames(mimeTypes).length;
 	const type = Object.values(mimeTypes);
@@ -38,7 +38,6 @@ function Result({ kwd }: { kwd: string }) {
 					{res.map((piece, i) => (
 						<TableRow key={i}>
 							<TableCell>{piece.extension}</TableCell>
-							{/*@ts-expect-error */}
 							<TableCell>{piece.type}</TableCell>
 						</TableRow>
 					))}
