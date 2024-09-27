@@ -11,10 +11,12 @@ import {
 	useTheme,
 	IconButton,
 	Chip,
+	ListItemSecondaryAction,
 } from "@mui/material";
 import {
 	RefreshRounded as RefreshIcon,
 	Close as CloseIcon,
+	Delete as DeleteIcon,
 } from "@mui/icons-material";
 import { styled } from "@mui/material/styles";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
@@ -97,7 +99,7 @@ const RandomChooser = () => {
 	};
 
 	const handleSavePreset = () => {
-		const newPresets = [...presets, { text: items.join(" ") }];
+		const newPresets = [...presets, { options: items }];
 		setPresets(newPresets);
 		localStorage.setItem(
 			"DECISION_MAKER_PRESETS",
@@ -105,8 +107,17 @@ const RandomChooser = () => {
 		);
 	};
 
-	const handleLoadPreset = (text) => {
-		setItems(text.split(" "));
+	const handleLoadPreset = (options) => {
+		setItems(options);
+	};
+
+	const handleDeletePreset = (index) => {
+		const newPresets = presets.filter((_, i) => i !== index);
+		setPresets(newPresets);
+		localStorage.setItem(
+			"DECISION_MAKER_PRESETS",
+			JSON.stringify(newPresets)
+		);
 	};
 
 	return (
@@ -203,6 +214,23 @@ const RandomChooser = () => {
 			</Box>
 
 			<Box mb={4}>
+				<Typography variant="h6" gutterBottom>
+					Current Options
+				</Typography>
+				<Box display="flex" flexWrap="wrap" gap={1}>
+					{items.map((item, index) => (
+						<Chip
+							key={index}
+							label={item}
+							onDelete={() => handleRemoveItem(index)}
+							color="primary"
+							variant="outlined"
+						/>
+					))}
+				</Box>
+			</Box>
+			
+			<Box mb={4}>
 				<TextField
 					fullWidth
 					variant="outlined"
@@ -229,23 +257,6 @@ const RandomChooser = () => {
 				</Box>
 			</Box>
 
-			<Box mb={4}>
-				<Typography variant="h6" gutterBottom>
-					Current Options
-				</Typography>
-				<Box display="flex" flexWrap="wrap" gap={1}>
-					{items.map((item, index) => (
-						<Chip
-							key={index}
-							label={item}
-							onDelete={() => handleRemoveItem(index)}
-							color="primary"
-							variant="outlined"
-						/>
-					))}
-				</Box>
-			</Box>
-
 			{presets.length > 0 && (
 				<Box>
 					<Typography variant="h6" gutterBottom>
@@ -255,9 +266,22 @@ const RandomChooser = () => {
 						{presets.map((preset, index) => (
 							<ListItemButton
 								key={index}
-								onClick={() => handleLoadPreset(preset.text)}
+								onClick={() => handleLoadPreset(preset.options)}
 							>
-								<ListItemText primary={preset.text} />
+								<ListItemText
+									primary={preset.options.join(", ")}
+								/>
+								<ListItemSecondaryAction>
+									<IconButton
+										edge="end"
+										aria-label="delete"
+										onClick={() =>
+											handleDeletePreset(index)
+										}
+									>
+										<DeleteIcon />
+									</IconButton>
+								</ListItemSecondaryAction>
 							</ListItemButton>
 						))}
 					</List>
