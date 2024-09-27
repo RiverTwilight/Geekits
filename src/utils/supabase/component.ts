@@ -3,7 +3,8 @@ import { isCapacitor } from "../platform";
 
 export function createClient() {
 	if (isCapacitor()) {
-		const capacitorVariables = require("../../capacitor-varibles");
+		const getCapacitorVariables = () => require("../../capacitor-varibles");
+		const capacitorVariables = getCapacitorVariables();
 
 		return createBrowserClient(
 			capacitorVariables.NextPublicSupabaseUrl,
