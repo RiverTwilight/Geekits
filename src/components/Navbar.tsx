@@ -12,7 +12,7 @@ import useScrollTrigger from "@mui/material/useScrollTrigger";
 import {
 	CheckCircleOutline,
 	NotificationsOutlined,
-	Apps as AppsIcon,
+	AppsRounded,
 } from "@mui/icons-material";
 import Link from "next/link";
 import {
@@ -26,8 +26,6 @@ import {
 import useNotifications from "@/utils/Hooks/useNotification";
 import { useSidebar } from "@/contexts/sidebar";
 import siteConfig from "src/site.config";
-import { Capacitor } from "@capacitor/core";
-import { isCapacitor, isWeb } from "@/utils/platform";
 import { Button, CircularProgress } from "@mui/material";
 import { useAccount } from "@/contexts/account";
 import { useRouter } from "next/router";
@@ -215,7 +213,7 @@ function AppsMenu() {
 	return (
 		<>
 			<IconButton onClick={handleClick} size="large">
-				<AppsIcon />
+				<AppsRounded />
 			</IconButton>
 			<Popover
 				anchorEl={anchorEl}
@@ -393,6 +391,8 @@ export default (props: { title: string; PageAction; repo: string }) => {
 
 						<Box sx={{ flexGrow: 1 }} />
 
+						{PageAction}
+
 						{!hidden && <AppsMenu />}
 
 						{(!hidden || isRootRoute) && (
@@ -417,13 +417,11 @@ export default (props: { title: string; PageAction; repo: string }) => {
 								</IconButton>
 							</>
 						)}
-
-						{PageAction}
 					</Toolbar>
 				</AppBar>
 			</ElevationScroll>
 			{showLoginDialog && (
-				<Suspense fallback={<CircularProgress />}>
+				<Suspense fallback={<Box />}>
 					<AccountPanel
 						open={showLoginDialog}
 						onClose={() => setShowLoginDialog(false)}

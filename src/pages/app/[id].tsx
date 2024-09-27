@@ -123,7 +123,6 @@ const SidebarToggle = ({ handleToggle }) => {
 		<IconButton
 			aria-label="Switch drawer"
 			onClick={handleToggle}
-			edge="end"
 			size="large"
 			sx={
 				{

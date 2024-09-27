@@ -25,6 +25,9 @@ const appImportList: Record<string, ComponentType> = {
 	dic_char: dynamic(() => import("../apps/dic_char"), {
 		ssr: false,
 	}),
+	url_cleaner: dynamic(() => import("../apps/url_cleaner"), {
+		ssr: false,
+	}),
 	fuel_consumption_calculator: dynamic(
 		() => import("../apps/fuel_consumption_calculator"),
 		{

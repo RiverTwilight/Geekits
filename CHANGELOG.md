@@ -7,3 +7,4 @@
 -   feat: Add loading overlay
 -   fix: UI problem on small screen for decision maker
 -   fix: Remove policy generator
+-   fix: Style of date calculator
