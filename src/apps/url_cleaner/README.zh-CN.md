@@ -1,7 +1,7 @@
 ---
 name: "URL 净化"
 status: "stable"
-icon: "/icon/chat-colorful/icon-192-maskable.png"
+icon: "/api/icon?iconColor=fff&iconName=VerifiedUser&backgroundColor1=888"
 description: "移除 URL 中的无用参数，保护隐私"
 keywords:
     - 字符串

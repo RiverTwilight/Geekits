@@ -1,7 +1,7 @@
 ---
 name: "URL Cleaner"
 status: "stable"
-icon: "/icon/chat-colorful/icon-192-maskable.png"
+icon: "/api/icon?iconColor=fff&iconName=VerifiedUser&backgroundColor1=888"
 description: "Remove useless parameters from URL"
 keywords:
     - string

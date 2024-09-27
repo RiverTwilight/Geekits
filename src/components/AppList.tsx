@@ -48,24 +48,17 @@ const AppListItem = ({
 		<ListItemButton
 			sx={{
 				height: "93px",
-				overflow: "hidden"
+				overflow: "hidden",
+				padding: "0 18px",
 			}}
 			selected={selected}
 			key={id}
 		>
 			<ListItemAvatar>
-				<Avatar
-					imgProps={{
-						loading: "lazy",
-					}}
-					variant="rounded"
-					alt={name + "的图标"}
-					src={icon}
-				/>
+				<Avatar variant="circular" alt={name + "的图标"} src={icon} />
 			</ListItemAvatar>
 			<ListItemText
 				sx={{
-					paddingLeft: "20px",
 					"& .MuiListItemText-primary": {
 						fontFamily: "Product Sans Bold",
 					},

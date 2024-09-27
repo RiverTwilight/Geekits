@@ -2,7 +2,7 @@
 name: "Folder Tree Generator"
 status: "stable"
 link: "folder_tree"
-icon: "/icon/file.jpg"
+icon: "/api/icon?iconColor=fff&iconName=AccountTree&backgroundColor1=33A718"
 description: "Generate the structure of a folder"
 channel: dev
 ---
