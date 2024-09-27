@@ -31,6 +31,8 @@ import { Theme, useMediaQuery } from "@mui/material";
 import { useSidebar } from "@/contexts/sidebar";
 import Text from "./i18n";
 import { isIOS, isWeb } from "@/utils/platform";
+import useNotifications from "@/utils/Hooks/useNotification";
+import { Badge } from "@mui/material";
 
 const drawerWidth = 260;
 
@@ -68,56 +70,6 @@ const LinkWrapper = ({ href, text, Icon, handleClick, sx, ...props }) => {
 	);
 };
 
-const list = [
-	{
-		Icon: <HomeOutlinedIcon />,
-		text: <Text k="navbar.home" />,
-		href: "/",
-	},
-	{
-		Icon: <Settings />,
-		text: <Text k="navbar.settings" />,
-		href: "/settings",
-	},
-	{
-		Icon: <MessageOutlinedIcon />,
-		text: <Text k="navbar.feedback" />,
-		href: "/feedback",
-		// href: "https://support.qq.com/product/421719",
-	},
-	!isIOS() && {
-		Icon: <VolunteerActivismOutlinedIcon />,
-		text: <Text k="navbar.donation" />,
-		href: "/donate",
-	},
-
-	{
-		Icon: <InfoOutlinedIcon />,
-		text: "<divider />",
-		href: "/about",
-	},
-	{
-		Icon: <InfoOutlinedIcon />,
-		text: <Text k="navbar.about" />,
-		href: "/about",
-	},
-	{
-		Icon: <GitHubIcon />,
-		text: "GitHub",
-		href: repo,
-		// sx: {
-		// 	display: {
-		// 		sm: "none",
-		// 	},
-		// },
-	},
-	{
-		Icon: <TimerOutlined />,
-		text: <Text k="navbar.log" />,
-		href: "/notification",
-	},
-];
-
 const Sidebar = () => {
 	// const history = useHistory()
 
@@ -134,6 +86,63 @@ const Sidebar = () => {
 			setSidebar(true); // Should reverse as defaultly hide on mobile screen
 		}
 	};
+
+	const [notifications] = useNotifications();
+	const unreadCount = notifications.filter((n) => !n.isRead).length;
+
+	const list = [
+		{
+			Icon: <HomeOutlinedIcon />,
+			text: <Text k="navbar.home" />,
+			href: "/",
+		},
+		{
+			Icon: <Settings />,
+			text: <Text k="navbar.settings" />,
+			href: "/settings",
+		},
+		{
+			Icon: <MessageOutlinedIcon />,
+			text: <Text k="navbar.feedback" />,
+			href: "/feedback",
+			// href: "https://support.qq.com/product/421719",
+		},
+		!isIOS() && {
+			Icon: <VolunteerActivismOutlinedIcon />,
+			text: <Text k="navbar.donation" />,
+			href: "/donate",
+		},
+
+		{
+			Icon: <InfoOutlinedIcon />,
+			text: "<divider />",
+			href: "/about",
+		},
+		{
+			Icon: <InfoOutlinedIcon />,
+			text: <Text k="navbar.about" />,
+			href: "/about",
+		},
+		{
+			Icon: <GitHubIcon />,
+			text: "GitHub",
+			href: repo,
+			// sx: {
+			// 	display: {
+			// 		sm: "none",
+			// 	},
+			// },
+		},
+		{
+			Icon: (
+				<Badge badgeContent={unreadCount} color="error">
+					<TimerOutlined />
+				</Badge>
+			),
+			text: <Text k="navbar.log" />,
+			href: "/changelog",
+		},
+	];
 
 	const drawer = (
 		<Box
@@ -197,9 +206,6 @@ const Sidebar = () => {
 			</Box>
 		</Box>
 	);
-	// history.listen(() => {
-	// 	setIsBlur(testBlur());
-	// });
 
 	return (
 		<Box

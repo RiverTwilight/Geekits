@@ -1,13 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
 	Card,
 	CardContent,
-	CardActions,
-	Button,
 	Typography,
 	Link,
 	Divider,
 	Box,
+	Button,
 } from "@mui/material";
 import StyledMarkdown from "@/components/StyledMarkdown";
 import useNotifications from "@/utils/Hooks/useNotification";
@@ -21,7 +20,7 @@ export const getStaticProps: GetStaticProps = ({ locale = "zh-CN" }) => {
 		props: {
 			currentPage: {
 				title: "更新公告",
-				path: "/notification",
+				path: "/changelog",
 			},
 			locale,
 			dic: JSON.stringify(dic),
@@ -31,6 +30,15 @@ export const getStaticProps: GetStaticProps = ({ locale = "zh-CN" }) => {
 
 const NotificationPage = () => {
 	const [notifications, handleMarkAsRead] = useNotifications();
+
+	useEffect(() => {
+		// Mark all notifications as read when the page is opened
+		notifications.forEach((notification) => {
+			if (!notification.isRead) {
+				handleMarkAsRead(notification.id);
+			}
+		});
+	}, [notifications, handleMarkAsRead]);
 
 	return (
 		<Box
@@ -43,11 +51,11 @@ const NotificationPage = () => {
 			{notifications
 				.slice()
 				.reverse()
-				.filter((not) => !not.isRead)
 				.slice(0, 5)
 				.map((notification) => (
 					<Card
 						key={notification.id}
+						id={`notification-${notification.id}`}
 						sx={{
 							marginBottom: 2,
 							borderRadius: "24px",
@@ -67,17 +75,6 @@ const NotificationPage = () => {
 								/>
 							</Box>
 						</CardContent>
-						{!notification.isRead && (
-							<CardActions>
-								<Button
-									onClick={() =>
-										handleMarkAsRead(notification.id)
-									}
-								>
-									Mark as read
-								</Button>
-							</CardActions>
-						)}
 					</Card>
 				))}
 
@@ -85,11 +82,14 @@ const NotificationPage = () => {
 				<Link
 					href="https://github.com/RiverTwilight/ygktool/issues/21"
 					target="_blank"
-					component={Button}
+					rel="noopener noreferrer"
 					underline="none"
-					endIcon={<OpenInNewIcon />}
 				>
-					Check archived notification
+					<Button
+						endIcon={<OpenInNewIcon />}
+					>
+						Check archived notification
+					</Button>
 				</Link>
 			</Box>
 		</Box>

@@ -11,7 +11,6 @@ import MenuTwoToneIcon from "@mui/icons-material/MenuTwoTone";
 import useScrollTrigger from "@mui/material/useScrollTrigger";
 import {
 	CheckCircleOutline,
-	NotificationsOutlined,
 	AppsRounded,
 } from "@mui/icons-material";
 import Link from "next/link";
@@ -49,112 +48,6 @@ function ElevationScroll(props: Props) {
 
 interface Props {
 	children: React.ReactElement;
-}
-function NotificationButton() {
-	const [notifications, setRead] = useNotifications();
-	const unreadCount = notifications.filter((n) => !n.isRead).length;
-
-	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-
-	const handlePopoverOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
-		setAnchorEl(event.currentTarget);
-	};
-
-	const handlePopoverClose = () => {
-		setAnchorEl(null);
-	};
-
-	const handleMarkAsRead = (id: number) => {
-		setRead(id);
-	};
-
-	const open = Boolean(anchorEl);
-
-	if (unreadCount === 0) return null;
-
-	return (
-		<>
-			<IconButton
-				edge="end"
-				size="large"
-				aria-label="notifications"
-				onClick={handlePopoverOpen}
-			>
-				<Badge badgeContent={unreadCount} color="error">
-					<NotificationsOutlined />
-				</Badge>
-			</IconButton>
-
-			<Popover
-				open={open}
-				anchorEl={anchorEl}
-				onClose={handlePopoverClose}
-				anchorOrigin={{
-					vertical: "bottom",
-					horizontal: "right",
-				}}
-				transformOrigin={{
-					vertical: "top",
-					horizontal: "right",
-				}}
-				sx={{
-					"& .MuiPopover-paper": {
-						borderRadius: "28px",
-						background: (theme) => theme.palette.background.default,
-					},
-				}}
-			>
-				<List
-					sx={{
-						width: "100%",
-						maxWidth: 360,
-						bgcolor: "background.paper",
-					}}
-				>
-					{notifications.length === 0 ? (
-						<ListItem>
-							<ListItemText primary="No notifications" />
-						</ListItem>
-					) : (
-						notifications
-							.filter((not) => !not.isRead)
-							.reverse()
-							.map((notification) => {
-								const title = notification.content.split(
-									"\n",
-									1
-								)[0];
-								return (
-									<ListItem
-										key={notification.id}
-										alignItems="flex-start"
-										sx={{
-											cursor: "pointer",
-										}}
-									>
-										<ListItemText
-											primary={title}
-											secondary={notification.createDate}
-										/>
-										<IconButton
-											edge="end"
-											aria-label="mark as read"
-											onClick={() =>
-												handleMarkAsRead(
-													notification.id
-												)
-											}
-										>
-											<CheckCircleOutline />
-										</IconButton>
-									</ListItem>
-								);
-							})
-					)}
-				</List>
-			</Popover>
-		</>
-	);
 }
 
 function AppsMenu() {
@@ -397,7 +290,6 @@ export default (props: { title: string; PageAction; repo: string }) => {
 
 						{(!hidden || isRootRoute) && (
 							<>
-								<NotificationButton />
 								<IconButton
 									onClick={() => setShowLoginDialog(true)}
 									sx={{ marginLeft: 2 }}

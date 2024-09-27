@@ -1,8 +1,7 @@
 ---
-name: "图片转Base64"
+name: "图片转 Base64"
 status: "stable"
 icon: "/icon/image-blue-score/icon-192-maskable.png"
-icon_color: "green-300"
 channel: media
 ---
 
