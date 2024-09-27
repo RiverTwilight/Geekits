@@ -38,4 +38,4 @@ yarn-error.log*
 /public/workbox-*.js.map
 
 .env
-capacitor-varibles.js
+capacitor-variables.js
