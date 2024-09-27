@@ -34,6 +34,13 @@ const UrlCleaner: React.FC = () => {
 			);
 
 			if (matchedRule) {
+				if (matchedRule.needRedirect) {
+					// We can't follow redirects due to CORS, so we'll just clean the original URL
+					console.warn(
+						"Cannot follow redirects due to CORS restrictions. Cleaning original URL."
+					);
+				}
+
 				matchedRule.queryParams.forEach((param) => {
 					urlObj.searchParams.delete(param);
 				});
