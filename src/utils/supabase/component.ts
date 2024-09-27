@@ -1,9 +1,10 @@
 import { createBrowserClient } from "@supabase/ssr";
 import { isCapacitor } from "../platform";
-import capacitorVariables from "../../capacitor-varibles";
 
 export function createClient() {
 	if (isCapacitor()) {
+		const capacitorVariables = require("../../capacitor-varibles");
+
 		return createBrowserClient(
 			capacitorVariables.NextPublicSupabaseUrl,
 			capacitorVariables.NextPublicSupabaseAnonKey
