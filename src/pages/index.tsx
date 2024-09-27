@@ -11,6 +11,8 @@ import translator from "@/utils/translator";
 import { useAction } from "@/contexts/action";
 import { defaultLocale } from "src/site.config";
 import { useLocale } from "@/contexts/locale";
+import { isCapacitor } from "@/utils/platform";
+import fetch from "node-fetch";
 
 export async function getStaticProps({ locale = defaultLocale }) {
 	const appData = getAllApps(true);
@@ -18,6 +20,29 @@ export async function getStaticProps({ locale = defaultLocale }) {
 	const dic = require("../data/i18n.json");
 
 	const trans = new translator(dic, locale);
+
+	if (isCapacitor()) {
+		await Promise.all(
+			appData.map(async (app) => {
+				if (app.icon && app.icon.startsWith("/api/")) {
+					try {
+						const iconUrl = `http://localhost:3000${app.icon}`;
+						const response = await fetch(iconUrl);
+						const arrayBuffer = await response.arrayBuffer();
+						const buffer = Buffer.from(arrayBuffer);
+						const base64 = buffer.toString("base64");
+						const mimeType = response.headers.get("content-type");
+						app.icon = `data:${mimeType};base64,${base64}`;
+					} catch (error) {
+						console.error(
+							`Failed to convert icon to base64 for app ${app.id}:`,
+							error
+						);
+					}
+				}
+			})
+		);
+	}
 
 	const pageProps = {
 		currentPage: {
@@ -88,6 +113,6 @@ const Index = React.memo(({ appData }: any) => {
 	);
 });
 
-Index.displayName = 'Index';
+Index.displayName = "Index";
 
 export default Index;
