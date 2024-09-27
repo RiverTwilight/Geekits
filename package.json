@@ -25,9 +25,9 @@
 		"directory": "/"
 	},
 	"license": " CC-BY-4.0",
-  "resolutions": {
-    "string-width": "^4.2.0"
-  },
+	"resolutions": {
+		"string-width": "^4.2.0"
+	},
 	"dependencies": {
 		"@capacitor/android": "^6.0.0",
 		"@capacitor/core": "^6.0.0",
@@ -112,7 +112,6 @@
 		"jest-environment-jsdom": "^29.7.0",
 		"ttf-loader": "^1.0.2",
 		"typescript": "^4.2.3",
-		"xlsx": "^0.18.5",
-		"yarn": "^1.22.22"
+		"xlsx": "^0.18.5"
 	}
 }
