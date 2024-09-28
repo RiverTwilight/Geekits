@@ -22,15 +22,6 @@ const data = [
 		platform: ["web", "ios", "android"],
 		channel: "external",
 	},
-	{
-		id: "ezbdc",
-		name: "ez 背单词",
-		status: "stable",
-		locale: "zh-CN",
-		link: "https://ezbdc.dashu.ai/",
-		platform: ["web", "ios", "android"],
-		channel: "external",
-	},
 ];
 
 module.exports = data;
