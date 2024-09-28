@@ -4,6 +4,7 @@ description: "Get the balanced chemical equation"
 status: "stable"
 icon: "/icon/magic-line-blue/icon-192-maskable.png"
 channel: life
+seoOptimizedDescription: "Free online chemical equation balancer. No need to register or download."
 ---
 
 Please input the correct chemical equation, otherwise the result cannot be calculated.

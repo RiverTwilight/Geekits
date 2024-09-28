@@ -1,12 +1,12 @@
 ---
 name: "Folder Tree Generator"
 status: "stable"
-link: "folder_tree"
 icon: "/api/icon?iconColor=fff&iconName=AccountTree&backgroundColor1=33A718"
 description: "Generate the structure of a folder"
 channel: dev
+seoOptimizedDescription: "Generate the structure of a folder. Free & no ads."
 ---
 
-#### 文件树有什么用？
+#### What is the folder tree?
 
-文件树可以用于项目结构介绍，或者给一个复杂的项目写一个“目录”
+The folder tree can be used for project structure introduction, or to write a "directory" for a complex project.

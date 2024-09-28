@@ -4,6 +4,7 @@ status: "stable"
 icon: "/api/icon?iconColor=fff&iconName=AccountTree&backgroundColor1=33A718"
 description: "生成文件夹结构"
 channel: dev
+seoOptimizedDescription: "生成文件夹结构。免费且无广告。"
 ---
 
 #### 文件树有什么用？

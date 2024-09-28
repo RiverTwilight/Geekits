@@ -5,6 +5,5 @@ freeSize: true
 icon: "/icon/category-yellow/icon-192-maskable.png"
 description: "Help you randomly choose an option"
 channel: life
+seoOptimizedDescription: "Help you randomly choose an option. Free & no ads."
 ---
-
-点击转盘即可开始。

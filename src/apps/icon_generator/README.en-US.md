@@ -1,8 +1,8 @@
 ---
 name: "App Icon Generator"
 icon: "/icon/aspect-colorful/icon-192-maskable.png"
-icon_color: "blue"
-description: "Slice the image to 3x3 grid"
+description: "Generate different sizes for your icon"
 status: "stable"
 channel: media
+seoOptimizedDescription: "Generate different sizes for your icon. Free & no ads."
 ---
