@@ -11,22 +11,13 @@ import MenuTwoToneIcon from "@mui/icons-material/MenuTwoTone";
 import useScrollTrigger from "@mui/material/useScrollTrigger";
 import { CheckCircleOutline, AppsRounded } from "@mui/icons-material";
 import Link from "next/link";
-import {
-	Avatar,
-	Badge,
-	ListItemText,
-	Theme,
-	useMediaQuery,
-	Grid,
-} from "@mui/material";
+import { Avatar, Theme, useMediaQuery, Grid } from "@mui/material";
 import useNotifications from "@/utils/Hooks/useNotification";
 import { useSidebar } from "@/contexts/sidebar";
 import siteConfig from "src/site.config";
-import { Button, CircularProgress } from "@mui/material";
 import { useAccount } from "@/contexts/account";
 import { useRouter } from "next/router";
 import Image from "next/image";
-import { isWeb } from "@/utils/platform";
 
 function ElevationScroll(props: Props) {
 	const { children } = props;
@@ -284,7 +275,7 @@ export default (props: { title: string; PageAction; repo: string }) => {
 
 						{PageAction}
 
-						{!hidden && <AppsMenu />}
+						{(isRootRoute || !hidden) && <AppsMenu />}
 
 						{(!hidden || isRootRoute) && (
 							<>

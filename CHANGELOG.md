@@ -1,4 +1,4 @@
-## 2.1.1 (2024-09)
+## 2.1.1 (2024-09-28)
 
 -   feat: Show app store and play store banner
 -   feat: Income tax calculator
@@ -10,4 +10,5 @@
 -   fix: Remove policy generator
 -   fix: Style of date calculator
 -   fix: Add missing description
+-   fix: i18n not working in some situations
 -   refact: Move notification badage to sidebar
