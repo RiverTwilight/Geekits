@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
 
 export async function getStaticProps() {
 	const dic = require("../data/i18n.json");
@@ -20,23 +21,28 @@ export async function getStaticProps() {
 	};
 }
 
-export default function Custom404() {
+export default function Custom500() {
 	return (
-		<div className="center-with-flex">
+		<Box
+			display="flex"
+			flexDirection="column"
+			alignItems="center"
+			justifyContent="center"
+		>
 			<Image
-				alt="Illustration of a 404 page"
+				alt="Illustration of a 500 page"
 				height="200"
 				width="200"
-				src="/illustration/undraw_taken_re_yn20.svg"
+				src="/illustration/undraw_server_down.svg"
 			/>
-			<Typography variant="h4">电波无法到达哦</Typography>
+			<Typography variant="h4">内部服务器错误</Typography>
 			<Typography variant="body1">
-				想要的工具不见了？返回首页找找吧！
+				哎呀，发生了一些问题！请稍后再试。
 			</Typography>
 			<br />
 			<Link href="/">
 				<Button variant="outlined">返回首页</Button>
 			</Link>
-		</div>
+		</Box>
 	);
 }
