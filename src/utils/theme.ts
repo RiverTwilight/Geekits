@@ -12,8 +12,8 @@ const customTheme = (prefersDarkMode: boolean) => {
 				dark: "#aac7ff",
 			},
 			secondary: {
-				main: "#586249",
-				light: "#001b3e",
+				main: "#f2f5fc",
+				light: "#eaf1fb",
 				dark: "#dae2f9",
 			},
 			background: {
@@ -25,37 +25,30 @@ const customTheme = (prefersDarkMode: boolean) => {
 			MuiButton: {
 				styleOverrides: {
 					root: {
-						fontFamily: "Product Sans Bold, Roboto, Helvetica, Arial, sans-serif",
+						fontFamily:
+							"Product Sans Bold, Roboto, Helvetica, Arial, sans-serif",
+					},
+				},
+			},
+			MuiDialog: {
+				styleOverrides: {
+					paper: {
+						borderRadius: "18px",
+						backgroundColor: prefersDarkMode
+							? "#aac7ff"
+							: "#f2f5fc",
+					},
+				},
+			},
+			MuiAccordion: {
+				styleOverrides: {
+					root: {
+						boxShadow: "none",
 					},
 				},
 			},
 		},
 	});
 };
-
-// const customTheme = (prefersDarkMode: boolean) => {
-// 	return createTheme({
-// 		typography: {
-// 			fontFamily: `"Product Sans", "Roboto", "Helvetica", "Arial", sans-serif`,
-// 		},
-// 		palette: {
-// 			mode: prefersDarkMode ? "dark" : "light",
-// 			primary: {
-// 				main: "#4c662b",
-// 				light: "#ebebeb",
-// 				dark: "#b1d18a",
-// 			},
-// 			secondary: {
-// 				main: "#586249",
-// 				light: "#ebebeb",
-// 				dark: "#bfcbad",
-// 			},
-// 			background: {
-// 				default: prefersDarkMode ? "#12130e" : "#eeefe3",
-// 				paper: prefersDarkMode ? "#1e1f1a" : "#f9faef",
-// 			},
-// 		},
-// 	});
-// };
 
 export default customTheme;

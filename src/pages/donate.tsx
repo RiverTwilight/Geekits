@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Link from "@mui/material/Link";
@@ -27,6 +27,16 @@ import TableRow from "@mui/material/TableRow";
 import { AttachMoney, Coffee, Fastfood, LocalBar } from "@mui/icons-material";
 import { useAction } from "@/contexts/action";
 import { defaultLocale } from "src/site.config";
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContent from "@mui/material/DialogContent";
+import DialogActions from "@mui/material/DialogActions";
+import Popover from "@mui/material/Popover";
+import Image from "next/image";
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 const FREE_DONATION_WAYS = [
 	{
@@ -63,7 +73,7 @@ const FREE_DONATION_WAYS = [
 	},
 	{
 		title: "N26",
-		subtitles: ["注册后你可免费获得德国万事达银行卡一张"],
+		subtitles: ["注册后你可免费获得德万事达银行卡一张"],
 		price: "¥312",
 		href: "https://n26.com/r/renjiew1161",
 		bgColor: "#36a18c",
@@ -176,26 +186,103 @@ const ProductItem = ({ href, ...props }) => (
 		</OutlinedCard>
 	</Grid>
 );
+const PaidOptionItem = ({ href, ...props }) => {
+	const [open, setOpen] = useState(false);
 
-const PaidOptionItem = ({ href, ...props }) => (
-	<Grid item xs={6} sm={4}>
-		<OutlinedCard padding={1}>
-			<ListItem sx={{ height: { xs: "6em", sm: "4em" } }}>
-				<ListItemAvatar>
-					<Avatar>{props.icon}</Avatar>
-				</ListItemAvatar>
-				{!!props.amount ? (
-					<ListItemText
-						primary={props.title}
-						secondary={props.amount}
-					/>
-				) : (
-					<ListItemText primary={props.title} />
-				)}
-			</ListItem>
-		</OutlinedCard>
-	</Grid>
-);
+	const handleClick = () => {
+		setOpen(true);
+	};
+
+	const handleClose = () => {
+		setOpen(false);
+	};
+
+	return (
+		<>
+			<Grid item xs={6} sm={4}>
+				<OutlinedCard
+					padding={1}
+					onClick={handleClick}
+					sx={{ cursor: "pointer" }}
+				>
+					<ListItem sx={{ height: { xs: "6em", sm: "4em" } }}>
+						<ListItemAvatar>
+							<Avatar>{props.icon}</Avatar>
+						</ListItemAvatar>
+						{!!props.amount ? (
+							<ListItemText
+								primary={props.title}
+								secondary={props.amount}
+							/>
+						) : (
+							<ListItemText primary={props.title} />
+						)}
+					</ListItem>
+				</OutlinedCard>
+			</Grid>
+
+			<Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
+				<DialogTitle>选择支付方式</DialogTitle>
+				<DialogContent>
+					<Accordion defaultExpanded>
+						<AccordionSummary expandIcon={<ExpandMoreIcon />}>
+							<Typography>Gumroad</Typography>
+						</AccordionSummary>
+						<AccordionDetails>
+							<Button
+								fullWidth
+								variant="contained"
+								color="primary"
+								href={`https://gumroad.com/l/your-product-link?wanted=true&price=${props.amount}`}
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								通过 Gumroad 支付
+							</Button>
+						</AccordionDetails>
+					</Accordion>
+					<Accordion>
+						<AccordionSummary expandIcon={<ExpandMoreIcon />}>
+							<Typography>微信支付</Typography>
+						</AccordionSummary>
+						<AccordionDetails>
+							<Box display="flex" justifyContent="center">
+								<Image
+									src="/image/wechat_6.jpg"
+									alt="WeChat QR Code"
+									width={200}
+									height={200}
+									style={{ borderRadius: "8px" }}
+								/>
+							</Box>
+						</AccordionDetails>
+					</Accordion>
+					<Accordion>
+						<AccordionSummary expandIcon={<ExpandMoreIcon />}>
+							<Typography>支付宝</Typography>
+						</AccordionSummary>
+						<AccordionDetails>
+							<Box display="flex" justifyContent="center">
+								<Image
+									src="/image/alipay_6.jpg"
+									alt="Alipay QR Code"
+									width={200}
+									height={200}
+									style={{ borderRadius: "8px" }}
+								/>
+							</Box>
+						</AccordionDetails>
+					</Accordion>
+				</DialogContent>
+				<DialogActions>
+					<Button onClick={handleClose} color="primary">
+						取消
+					</Button>
+				</DialogActions>
+			</Dialog>
+		</>
+	);
+};
 
 export default function Donate() {
 	const { setAction } = useAction();
