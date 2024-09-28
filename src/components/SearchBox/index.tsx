@@ -11,7 +11,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import { AppListItem } from "../AppList";
+import { AppListItem } from "../AppGallery";
 import Text from "@/components/i18n";
 import pinyin from "js-pinyin";
 import useEventListener from "@/utils/Hooks/useEventListener";

@@ -4,7 +4,6 @@ import Avatar from "@mui/material/Avatar";
 import Chip from "@mui/material/Chip";
 import Grid from "@mui/material/Grid";
 import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import ListItemText from "@mui/material/ListItemText";
 import ListSubheader from "@mui/material/ListSubheader";
@@ -18,7 +17,6 @@ interface AppListItemProps extends AppData {
 	selected?: boolean;
 }
 
-// TODO schema info check https://schema.org
 const AppListItem = ({
 	channel,
 	name,
@@ -53,9 +51,16 @@ const AppListItem = ({
 			}}
 			selected={selected}
 			key={id}
+			itemScope
+			itemType="https://schema.org/SoftwareApplication"
 		>
 			<ListItemAvatar>
-				<Avatar variant="circular" alt={name + "的图标"} src={icon} />
+				<Avatar
+					variant="circular"
+					alt={name + "的图标"}
+					src={icon}
+					itemProp="image"
+				/>
 			</ListItemAvatar>
 			<ListItemText
 				sx={{
@@ -65,7 +70,7 @@ const AppListItem = ({
 				}}
 				primary={
 					<>
-						{name}&nbsp;
+						<span itemProp="name">{name}</span>&nbsp;
 						{status === "beta" && (
 							<Chip
 								label={<Text k="channel.wip" />}
@@ -75,20 +80,16 @@ const AppListItem = ({
 						)}
 					</>
 				}
-				secondary={description}
+				secondary={<span itemProp="description">{description}</span>}
 			/>
+			<meta itemProp="applicationCategory" content="Utility" />
+			<meta itemProp="operatingSystem" content="Web" />
 		</ListItemButton>
 	);
 
-	if (status == "beta") {
+	if (status === "beta") {
 		return (
-			<OutlinedCard
-				onClick={() => {
-					window.snackbar({
-						message: "即将到来",
-					});
-				}}
-			>
+			<OutlinedCard>
 				<Inner />
 			</OutlinedCard>
 		);
@@ -110,23 +111,16 @@ const Channel = ({
 	apps: AppData[];
 	info: IChannel;
 }) => {
-	const [open, setOpen] = React.useState(true);
-
 	if (!!!apps.length) return null;
 
-	const handleClick = () => {
-		setOpen(!open);
-	};
+	// Sort apps alphabetically by name
+	const sortedApps = useMemo(
+		() => [...apps].sort((a, b) => a.name.localeCompare(b.name)),
+		[apps]
+	);
 
 	return (
 		<>
-			{/* {name && Icon && (
-				<ListItem button onClick={handleClick}>
-					<ListItemIcon>{Icon}</ListItemIcon>
-					<ListItemText primary={name} />
-				</ListItem>
-			)} */}
-			{/* <Collapse in={open} timeout="auto" unmountOnExit> */}
 			<List
 				subheader={
 					<ListSubheader
@@ -141,7 +135,7 @@ const Channel = ({
 				disablePadding
 			>
 				<Grid container spacing={2}>
-					{apps.map((app) => (
+					{sortedApps.map((app) => (
 						<Grid key={app.id} item md={6} xl={4} xs={12}>
 							<AppListItem {...app} />
 						</Grid>

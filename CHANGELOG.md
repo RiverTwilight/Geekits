@@ -8,4 +8,5 @@
 -   fix: UI problem on small screen for decision maker
 -   fix: Remove policy generator
 -   fix: Style of date calculator
+-   fix: Add missing description
 -   refact: Move notification badage to sidebar
