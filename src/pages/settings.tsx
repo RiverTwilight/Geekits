@@ -12,6 +12,8 @@ import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { useEffect, useState } from "react";
 import Text from "@/components/i18n";
+import { isWeb } from "@/utils/platform";
+import { useRouter } from "next/router";
 
 export const getStaticProps: GetStaticProps = ({ locale = defaultLocale }) => {
 	const dic = require("../data/i18n.json");
@@ -23,7 +25,7 @@ export const getStaticProps: GetStaticProps = ({ locale = defaultLocale }) => {
 			currentPage: {
 				title: "Settings",
 				description: trans.use(""),
-				path: "/donate",
+				path: "/settings",
 			},
 			dic: JSON.stringify(dic),
 			locale,
@@ -34,20 +36,31 @@ export const getStaticProps: GetStaticProps = ({ locale = defaultLocale }) => {
 export default function Settings() {
 	const { setAction } = useAction();
 	const [age, setAge] = useState("auto");
+	const router = useRouter();
 
 	const handleChange = (event: SelectChangeEvent) => {
-		setAge(event.target.value as string);
-		localStorage.setItem("locale", event.target.value);
-		window.location.reload(false);
+		const newLocale = event.target.value as string;
+		setAge(newLocale);
+		localStorage.setItem("locale", newLocale);
+
+		if (isWeb()) {
+			const targetPath = `${window.location.origin}/${
+				newLocale === "auto" ? "" : newLocale
+			}/settings`;
+			window.location.href = targetPath;
+		} else {
+			window.location.reload();
+		}
 	};
 
 	setAction(null);
 
 	useEffect(() => {
-		if (localStorage.getItem("locale")) {
-			setAge(localStorage.getItem("locale"));
+		const storedLocale = localStorage.getItem("locale");
+		if (storedLocale) {
+			setAge(storedLocale);
 		}
-	});
+	}, []);
 
 	return (
 		<PaperBackground contentWidth={600}>

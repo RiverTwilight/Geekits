@@ -49,6 +49,7 @@ export async function getStaticProps({ locale = defaultLocale }) {
 			title: trans.use("homePage.meta.title"),
 			description: trans.use("homePage.meta.description"),
 			path: "/",
+			dicKey: "homePage.meta.title",
 		},
 		appData: appData.filter((app) => app.status !== "alpha"),
 		dic: JSON.stringify(dic),

@@ -56,8 +56,23 @@ const MainApp = React.memo(({ Component, pageProps }: AppProps) => {
 			let preferredSet = localStorage.getItem("locale");
 			if (preferredSet) {
 				if (preferredSet === "auto" && !isWeb()) {
+					// Use device language on native apps
 					setPreferredLocale(await getDeviceLanguage());
-				} else if (preferredSet !== "auto") {
+				} else if (preferredSet !== "auto" && isWeb()) {
+					// Redirect to the new locale on web
+					// If the path has locale, we should do nothing, as this has higher priority
+					// than setting locale manually in the Settings page.
+					let pathLocaleActive = router.locales.some((locale) => {
+						return window.location.pathname.includes(locale);
+					});
+
+					if (!pathLocaleActive && router.locale !== preferredSet) {
+						// Visitor is not using localized path, which means NextJS is using the default locale.
+						// But the preferred locale is not the default one, so we need to redirect to the new locale.
+						window.location.href = `/${preferredSet}${window.location.pathname}`;
+					}
+				} else {
+					// Use preferred locale on native apps
 					setPreferredLocale(preferredSet);
 				}
 			}
@@ -78,17 +93,20 @@ const MainApp = React.memo(({ Component, pageProps }: AppProps) => {
 		[preferredLocale, pageProps.dic]
 	);
 
+	useEffect(() => {
+		if (!isWeb()) {
+			const localizedTitle =
+				localizedDic[pageProps.currentPage.dicKey] ||
+				pageProps.currentPage.title;
+
+			pageProps.currentPage.title = localizedTitle;
+		}
+	}, [pageProps.currentPage.title]);
+
 	const theme = useMemo(
 		() => customTheme(prefersDarkMode),
 		[prefersDarkMode]
 	);
-
-	const {
-		currentPage = {
-			title: "404",
-		},
-		hideFrame,
-	} = pageProps;
 
 	useEffect(() => {
 		let loadTimer: NodeJS.Timeout;
@@ -103,7 +121,7 @@ const MainApp = React.memo(({ Component, pageProps }: AppProps) => {
 			clearTimeout(loadTimer);
 			window.hideGlobalLoadingOverlay();
 		};
-		
+
 		if (isWeb()) {
 			router.events.on("routeChangeStart", handleRouteChangeStart);
 			router.events.on("routeChangeComplete", handleRouteChangeComplete);
@@ -122,6 +140,13 @@ const MainApp = React.memo(({ Component, pageProps }: AppProps) => {
 			};
 		}
 	}, [router]);
+
+	const {
+		currentPage = {
+			title: "404",
+		},
+		hideFrame,
+	} = pageProps;
 
 	return (
 		<LocaleProvider

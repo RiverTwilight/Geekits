@@ -9,10 +9,7 @@ import Popover from "@mui/material/Popover";
 import IconButton from "@mui/material/IconButton";
 import MenuTwoToneIcon from "@mui/icons-material/MenuTwoTone";
 import useScrollTrigger from "@mui/material/useScrollTrigger";
-import {
-	CheckCircleOutline,
-	AppsRounded,
-} from "@mui/icons-material";
+import { CheckCircleOutline, AppsRounded } from "@mui/icons-material";
 import Link from "next/link";
 import {
 	Avatar,
@@ -29,6 +26,7 @@ import { Button, CircularProgress } from "@mui/material";
 import { useAccount } from "@/contexts/account";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import { isWeb } from "@/utils/platform";
 
 function ElevationScroll(props: Props) {
 	const { children } = props;
@@ -269,13 +267,13 @@ export default (props: { title: string; PageAction; repo: string }) => {
 							</Typography>
 						</Link>
 						<Typography
+							id="navbar-localTitle"
 							color="primary"
 							variant="h6"
 							noWrap
 							sx={{
 								overflow: "hidden",
 								fontFamily: "Product Sans",
-
 								marginLeft: ".4em",
 							}}
 						>
