@@ -63,6 +63,7 @@ const Layout = ({ currentPage, children, enableFrame }) => {
 				data: { user },
 			} = await supabase.auth.getUser();
 			if (user) {
+				console.log("***fetching");
 				const { data, error } = await supabase
 					.from("Account")
 					.select("email, first_name, last_name, avatarUrl, uid")
@@ -110,7 +111,7 @@ const Layout = ({ currentPage, children, enableFrame }) => {
 							name="keywords"
 							content={siteConfig.keywords.join(",")}
 						/>
-						<meta name="author" content={siteConfig.author} />
+						<meta name="author" content={siteConfig.author.name} />
 
 						<link
 							rel="canonical"
