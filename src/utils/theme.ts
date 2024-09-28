@@ -34,9 +34,27 @@ const customTheme = (prefersDarkMode: boolean) => {
 				styleOverrides: {
 					paper: {
 						borderRadius: "18px",
-						backgroundColor: prefersDarkMode
-							? "#aac7ff"
-							: "#f2f5fc",
+					},
+				},
+			},
+			MuiDialogTitle: {
+				styleOverrides: {
+					root: {
+						background: prefersDarkMode ? "#1d2023" : "#ededf4",
+					},
+				},
+			},
+			MuiDialogContent: {
+				styleOverrides: {
+					root: {
+						background: prefersDarkMode ? "#1d2023" : "#ededf4",
+					},
+				},
+			},
+			MuiDialogActions: {
+				styleOverrides: {
+					root: {
+						background: prefersDarkMode ? "#1d2023" : "#ededf4",
 					},
 				},
 			},

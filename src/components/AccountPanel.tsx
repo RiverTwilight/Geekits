@@ -57,11 +57,7 @@ const AccountPanel: React.FC<AccountPanelProps> = ({ open, onClose }) => {
 				},
 			}}
 		>
-			<DialogContent
-				sx={{
-					background: (theme) => theme.palette.background.default,
-				}}
-			>
+			<DialogContent>
 				<Box
 					sx={{
 						display: "flex",

@@ -33,18 +33,12 @@ export default function Tips() {
 			paddingY={1}
 		>
 			<AutoAwesome
-				sx={{
-					color: (theme) =>
-						theme.palette.secondary[theme.palette.mode],
-				}}
+	
 			/>
 			<br />
 			<Typography
 				onClick={updateContent}
-				sx={{
-					color: (theme) =>
-						theme.palette.secondary[theme.palette.mode],
-				}}
+		
 				align="center"
 				variant="body2"
 			>
