@@ -20,6 +20,7 @@ import {
 } from "@mui/icons-material";
 import { styled } from "@mui/material/styles";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import Text from "@/components/i18n";
 
 const PREFIX = "RandomChooser";
 
@@ -215,7 +216,7 @@ const RandomChooser = () => {
 
 			<Box mb={4}>
 				<Typography variant="h6" gutterBottom>
-					Current Options
+					<Text k="app.decision.currentOption" />
 				</Typography>
 				<Box display="flex" flexWrap="wrap" gap={1}>
 					{items.map((item, index) => (
@@ -229,7 +230,7 @@ const RandomChooser = () => {
 					))}
 				</Box>
 			</Box>
-			
+
 			<Box mb={4}>
 				<TextField
 					fullWidth
@@ -245,14 +246,14 @@ const RandomChooser = () => {
 						color="primary"
 						onClick={handleAddItem}
 					>
-						Add Option
+						<Text k="app.decision.addOption" />
 					</Button>
 					<Button
 						variant="outlined"
 						color="primary"
 						onClick={handleSavePreset}
 					>
-						Save Preset
+						<Text k="app.decision.savePreset" />
 					</Button>
 				</Box>
 			</Box>

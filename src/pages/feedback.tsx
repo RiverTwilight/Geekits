@@ -119,7 +119,7 @@ ${feedback}
 				align="center"
 				variant="body1"
 			>
-				<Text k="feedback.hero" />
+				<Text k="feedback.subtitle" />
 			</Typography>
 			<FormControl fullWidth>
 				<TextField

@@ -5,6 +5,7 @@
 -   feat: Sign in with YGeeker Account
 -   feat: Add more apps from YGeeker
 -   feat: Add loading overlay
+-   feat: Add mission donation entries
 -   fix: UI problem on small screen for decision maker
 -   fix: Remove policy generator
 -   fix: Style of date calculator
