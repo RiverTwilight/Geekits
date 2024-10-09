@@ -1,5 +1,5 @@
 ---
-name: "Decision Maker"
+name: "Random Chooser"
 status: "stable"
 freeSize: true
 icon: "/icon/category-yellow/icon-192-maskable.png"

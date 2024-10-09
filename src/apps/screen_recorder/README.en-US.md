@@ -7,5 +7,5 @@ channel: life
 freeSize: true
 platform:
     - web
-seoOptimizedDescription: "Record your screen without install any software"
+seoOptimizedDescription: "Record your screen without install any software. 100% free & no ads."
 ---

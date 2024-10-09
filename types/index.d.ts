@@ -38,15 +38,23 @@ export interface IChannel {
 export type AppData = {
 	name: string;
 	description?: string;
+	seoOptimizedDescription?: string;
 	// The path to the app's icon.
 	icon?: string;
-	// The path to the app's entry file.
-	id: string;
 	// Only show stable and beta app
 	status?: "stable" | "beta" | "alpha";
-	channel?: string;
+	channel?: "life" | "media" | "ai" | "dev";
+	keywords?: string[];
+	/**
+	 * @deprecated
+	 * No longer needed.
+	 */
 	icon_color?: string;
 	network?: boolean;
+	/**
+	 * @deprecated
+	 * No longer needed.
+	 */
 	link?: string;
 	/**
 	 * @deprecated
