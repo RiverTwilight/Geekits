@@ -11,12 +11,13 @@ export default async function handler(
 ) {
 	if (req.method === "POST") {
 		try {
-			const { amount } = req.body;
+			const { amount, description } = req.body;
 
 			// Create a PaymentIntent with the order amount and currency
 			const paymentIntent = await stripe.paymentIntents.create({
 				amount: parseFloat(amount) * 100, // Stripe expects the amount in cents
 				currency: "cny",
+				description: description,
 			});
 
 			res.status(200).json({ clientSecret: paymentIntent.client_secret });
