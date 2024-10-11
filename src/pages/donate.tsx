@@ -276,7 +276,7 @@ const PaidOptionItem = ({ href, ...props }) => {
 								fullWidth
 								variant="contained"
 								color="primary"
-								href={`https://gumroad.com/l/your-product-link?wanted=true&price=${props.amount}`}
+								href={`https://ygeeker.gumroad.com/coffee`}
 								target="_blank"
 								rel="noopener noreferrer"
 							>
