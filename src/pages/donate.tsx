@@ -200,10 +200,10 @@ const ProductItem = ({ href, ...props }) => (
 		</OutlinedCard>
 	</Grid>
 );
-
 const PaidOptionItem = ({ href, ...props }) => {
 	const [open, setOpen] = useState(false);
 	const [paymentIntent, setPaymentIntent] = useState(null);
+	const [expandedAccordion, setExpandedAccordion] = useState<string | false>("gumroad");
 
 	const handleClick = () => {
 		setOpen(true);
@@ -211,6 +211,11 @@ const PaidOptionItem = ({ href, ...props }) => {
 
 	const handleClose = () => {
 		setOpen(false);
+		setExpandedAccordion("gumroad");
+	};
+
+	const handleAccordionChange = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
+		setExpandedAccordion(isExpanded ? panel : false);
 	};
 
 	const handleStripePayment = async () => {
@@ -219,7 +224,7 @@ const PaidOptionItem = ({ href, ...props }) => {
 			headers: {
 				"Content-Type": "application/json",
 			},
-			body: JSON.stringify({ amount: props.amount }),
+			body: JSON.stringify({ amount: props.amount, description: props.title }),
 		});
 		const data = await response.json();
 		setPaymentIntent(data.clientSecret);
@@ -252,7 +257,10 @@ const PaidOptionItem = ({ href, ...props }) => {
 			<Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
 				<DialogTitle>选择支付方式</DialogTitle>
 				<DialogContent>
-					<Accordion defaultExpanded>
+					<Accordion 
+						expanded={expandedAccordion === "gumroad"}
+						onChange={handleAccordionChange("gumroad")}
+					>
 						<AccordionSummary expandIcon={<ExpandMoreIcon />}>
 							<Typography>Gumroad</Typography>
 						</AccordionSummary>
@@ -269,7 +277,10 @@ const PaidOptionItem = ({ href, ...props }) => {
 							</Button>
 						</AccordionDetails>
 					</Accordion>
-					<Accordion>
+					<Accordion 
+						expanded={expandedAccordion === "wechat"}
+						onChange={handleAccordionChange("wechat")}
+					>
 						<AccordionSummary expandIcon={<ExpandMoreIcon />}>
 							<Typography>微信支付</Typography>
 						</AccordionSummary>
@@ -285,7 +296,10 @@ const PaidOptionItem = ({ href, ...props }) => {
 							</Box>
 						</AccordionDetails>
 					</Accordion>
-					<Accordion>
+					<Accordion 
+						expanded={expandedAccordion === "alipay"}
+						onChange={handleAccordionChange("alipay")}
+					>
 						<AccordionSummary expandIcon={<ExpandMoreIcon />}>
 							<Typography>支付宝</Typography>
 						</AccordionSummary>
@@ -301,7 +315,10 @@ const PaidOptionItem = ({ href, ...props }) => {
 							</Box>
 						</AccordionDetails>
 					</Accordion>
-					<Accordion>
+					<Accordion 
+						expanded={expandedAccordion === "stripe"}
+						onChange={handleAccordionChange("stripe")}
+					>
 						<AccordionSummary expandIcon={<ExpandMoreIcon />}>
 							<Typography>Stripe</Typography>
 						</AccordionSummary>
