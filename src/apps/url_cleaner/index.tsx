@@ -17,6 +17,7 @@ import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import OutlinedCard from "@/components/OutlinedCard";
 import initialDomainRules, { DomainRule } from "./rules";
 import { Language } from "@mui/icons-material";
+import Text from "@/components/i18n";
 
 const UrlCleaner: React.FC = () => {
 	const [url, setUrl] = useState("");
@@ -78,7 +79,7 @@ const UrlCleaner: React.FC = () => {
 					},
 				}}
 			>
-				Clean URL
+				<Text k="app.urlcleaner.confirmBtn" />
 			</Button>
 
 			{cleanedUrl && (
@@ -107,7 +108,7 @@ const UrlCleaner: React.FC = () => {
 				gutterBottom
 				sx={{ mt: 4, fontFamily: "Product Sans" }}
 			>
-				Domain Rules
+				<Text k="app.urlcleaner.ruleTitle" />
 			</Typography>
 
 			<List>
