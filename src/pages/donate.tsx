@@ -31,7 +31,6 @@ import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
-import Popover from "@mui/material/Popover";
 import Image from "next/image";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -44,6 +43,7 @@ import {
 	useStripe,
 	useElements,
 } from "@stripe/react-stripe-js";
+import Text from "@/components/i18n";
 
 const FREE_DONATION_WAYS = [
 	{
@@ -203,7 +203,9 @@ const ProductItem = ({ href, ...props }) => (
 const PaidOptionItem = ({ href, ...props }) => {
 	const [open, setOpen] = useState(false);
 	const [paymentIntent, setPaymentIntent] = useState(null);
-	const [expandedAccordion, setExpandedAccordion] = useState<string | false>("gumroad");
+	const [expandedAccordion, setExpandedAccordion] = useState<string | false>(
+		"gumroad"
+	);
 
 	const handleClick = () => {
 		setOpen(true);
@@ -214,9 +216,11 @@ const PaidOptionItem = ({ href, ...props }) => {
 		setExpandedAccordion("gumroad");
 	};
 
-	const handleAccordionChange = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
-		setExpandedAccordion(isExpanded ? panel : false);
-	};
+	const handleAccordionChange =
+		(panel: string) =>
+		(event: React.SyntheticEvent, isExpanded: boolean) => {
+			setExpandedAccordion(isExpanded ? panel : false);
+		};
 
 	const handleStripePayment = async () => {
 		const response = await fetch("/api/create-payment-intent", {
@@ -224,7 +228,10 @@ const PaidOptionItem = ({ href, ...props }) => {
 			headers: {
 				"Content-Type": "application/json",
 			},
-			body: JSON.stringify({ amount: props.amount, description: props.title }),
+			body: JSON.stringify({
+				amount: props.amount,
+				description: props.title,
+			}),
 		});
 		const data = await response.json();
 		setPaymentIntent(data.clientSecret);
@@ -242,10 +249,10 @@ const PaidOptionItem = ({ href, ...props }) => {
 						<ListItemAvatar>
 							<Avatar>{props.icon}</Avatar>
 						</ListItemAvatar>
-						{!!props.amount ? (
+						{!!props.tag ? (
 							<ListItemText
 								primary={props.title}
-								secondary={props.amount}
+								secondary={props.tag}
 							/>
 						) : (
 							<ListItemText primary={props.title} />
@@ -257,7 +264,7 @@ const PaidOptionItem = ({ href, ...props }) => {
 			<Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
 				<DialogTitle>选择支付方式</DialogTitle>
 				<DialogContent>
-					<Accordion 
+					<Accordion
 						expanded={expandedAccordion === "gumroad"}
 						onChange={handleAccordionChange("gumroad")}
 					>
@@ -277,7 +284,7 @@ const PaidOptionItem = ({ href, ...props }) => {
 							</Button>
 						</AccordionDetails>
 					</Accordion>
-					<Accordion 
+					<Accordion
 						expanded={expandedAccordion === "wechat"}
 						onChange={handleAccordionChange("wechat")}
 					>
@@ -296,7 +303,7 @@ const PaidOptionItem = ({ href, ...props }) => {
 							</Box>
 						</AccordionDetails>
 					</Accordion>
-					<Accordion 
+					<Accordion
 						expanded={expandedAccordion === "alipay"}
 						onChange={handleAccordionChange("alipay")}
 					>
@@ -315,7 +322,7 @@ const PaidOptionItem = ({ href, ...props }) => {
 							</Box>
 						</AccordionDetails>
 					</Accordion>
-					<Accordion 
+					<Accordion
 						expanded={expandedAccordion === "stripe"}
 						onChange={handleAccordionChange("stripe")}
 					>
@@ -441,7 +448,9 @@ export default function Donate() {
 			<br />
 			<br />
 
-			<Typography variant="h6">其他方式</Typography>
+			<Typography variant="h6">
+				<Text k="donation.paid.title" />
+			</Typography>
 
 			<br />
 
