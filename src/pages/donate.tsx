@@ -37,6 +37,13 @@ import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+import {
+	PaymentElement,
+	useStripe,
+	useElements,
+} from "@stripe/react-stripe-js";
 
 const FREE_DONATION_WAYS = [
 	{
@@ -92,25 +99,28 @@ const FREE_DONATION_WAYS = [
 const PAIED_DONATION_WAYS = [
 	{
 		title: "请我一杯咖啡",
-		amount: "¥6.00",
+		amount: 6,
+		tag: "¥6.00",
 		icon: <Coffee />,
 		href: "",
 	},
 	{
 		title: "请我一杯奶茶",
-		amount: "¥15.00",
+		tag: "¥15.00",
+		amount: 15,
 		icon: <LocalBar />,
 		href: "",
 	},
 	{
 		title: "请我一顿饭",
-		amount: "¥25.00",
+		tag: "¥25.00",
+		amount: 25,
 		icon: <Fastfood />,
 		href: "",
 	},
 	{
 		title: "自定义金额",
-		amount: "",
+		tag: "",
 		icon: <AttachMoney />,
 		href: "",
 	},
@@ -152,6 +162,10 @@ export const getStaticProps: GetStaticProps = ({ locale = defaultLocale }) => {
 	};
 };
 
+const stripePromise = loadStripe(
+	process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
+);
+
 const ProductItem = ({ href, ...props }) => (
 	<Grid item xs={6} sm={4}>
 		<OutlinedCard padding={1}>
@@ -186,8 +200,10 @@ const ProductItem = ({ href, ...props }) => (
 		</OutlinedCard>
 	</Grid>
 );
+
 const PaidOptionItem = ({ href, ...props }) => {
 	const [open, setOpen] = useState(false);
+	const [paymentIntent, setPaymentIntent] = useState(null);
 
 	const handleClick = () => {
 		setOpen(true);
@@ -195,6 +211,18 @@ const PaidOptionItem = ({ href, ...props }) => {
 
 	const handleClose = () => {
 		setOpen(false);
+	};
+
+	const handleStripePayment = async () => {
+		const response = await fetch("/api/create-payment-intent", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({ amount: props.amount }),
+		});
+		const data = await response.json();
+		setPaymentIntent(data.clientSecret);
 	};
 
 	return (
@@ -273,6 +301,30 @@ const PaidOptionItem = ({ href, ...props }) => {
 							</Box>
 						</AccordionDetails>
 					</Accordion>
+					<Accordion>
+						<AccordionSummary expandIcon={<ExpandMoreIcon />}>
+							<Typography>Stripe</Typography>
+						</AccordionSummary>
+						<AccordionDetails>
+							{paymentIntent ? (
+								<Elements
+									stripe={stripePromise}
+									options={{ clientSecret: paymentIntent }}
+								>
+									<StripePaymentForm />
+								</Elements>
+							) : (
+								<Button
+									fullWidth
+									variant="contained"
+									color="primary"
+									onClick={handleStripePayment}
+								>
+									使用 Stripe 支付
+								</Button>
+							)}
+						</AccordionDetails>
+					</Accordion>
 				</DialogContent>
 				<DialogActions>
 					<Button onClick={handleClose} color="primary">
@@ -281,6 +333,57 @@ const PaidOptionItem = ({ href, ...props }) => {
 				</DialogActions>
 			</Dialog>
 		</>
+	);
+};
+
+const StripePaymentForm = () => {
+	const stripe = useStripe();
+	const elements = useElements();
+	const [error, setError] = useState(null);
+	const [processing, setProcessing] = useState(false);
+
+	const handleSubmit = async (event) => {
+		event.preventDefault();
+
+		if (!stripe || !elements) {
+			return;
+		}
+
+		setProcessing(true);
+
+		const result = await stripe.confirmPayment({
+			elements,
+			confirmParams: {
+				return_url: `${window.location.origin}/donation-success`,
+			},
+		});
+
+		if (result.error) {
+			setError(result.error.message);
+		}
+
+		setProcessing(false);
+	};
+
+	return (
+		<form onSubmit={handleSubmit}>
+			<PaymentElement />
+			<Button
+				type="submit"
+				fullWidth
+				variant="contained"
+				color="primary"
+				disabled={!stripe || processing}
+				sx={{ mt: 2 }}
+			>
+				{processing ? "处理中..." : "支付"}
+			</Button>
+			{error && (
+				<Typography color="error" sx={{ mt: 2 }}>
+					{error}
+				</Typography>
+			)}
+		</form>
 	);
 };
 
