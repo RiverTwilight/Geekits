@@ -254,7 +254,7 @@ export default (props: { title: string; PageAction; repo: string }) => {
 									cursor: "pointer",
 								}}
 							>
-								{siteConfig.title}
+								{siteConfig.appName}
 							</Typography>
 						</Link>
 						<Typography
