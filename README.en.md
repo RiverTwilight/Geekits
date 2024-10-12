@@ -1,7 +1,7 @@
 <div align="center">
 
-<a href="https://www.ygktool.com">
-  <img width="180" src="https://www.ygktool.com/logo/v3/512.png">
+<a href="https://geekits.ygeeker.com">
+  <img width="180" src="https://geekits.ygeeker.com/logo/v3/rounded.png">
 </a>
 
 <h1 align="center">Geekits</h1>
@@ -16,13 +16,36 @@
 
 </div>
 
-A progressive, beautiful and featured online tool box made with MUI, Typescript, NextJS and more.
+This is a progressive online tool website built with love using MUI, TypeScript, Next.js, and many other technologies.
+
+We aim to create a beautiful yet minimalist, practical yet simple, powerful and efficient online toolbox.
 
 ## Contribution
 
-Any Contribution is welcomed. Before you start working, please take some time reading [CONTRIBUTING.md](CONTRIBUTING.md)。
+We warmly welcome your contributions. Before getting started, please read the [CONTRIBUTING.md](CONTRIBUTING.md).
 
-## Thanks
+## Deployment
+
+### Deploy on Vercel (Recommended)
+
+### Deploying with Docker
+
+Run the following command in the root directory of the repository to generate the image:
+
+```bash
+npm run build:image
+```
+
+Create the container:
+
+```bash
+npm run start:container
+```
+
+### Manual Deployment
+**#To do**
+
+## Acknowledgments
 
 -   [unDraw](https://undraw.co/search): Free illustrations maker.
 -   [IconKitchen](https://icon.kitchen/): Free icon maker.
