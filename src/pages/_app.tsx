@@ -71,9 +71,6 @@ const MainApp = React.memo(({ Component, pageProps }: AppProps) => {
 						// But the preferred locale is not the default one, so we need to redirect to the new locale.
 						window.location.href = `/${preferredSet}${window.location.pathname}`;
 					}
-				} else {
-					// Use preferred locale on native apps
-					setPreferredLocale(preferredSet);
 				}
 			}
 		};
