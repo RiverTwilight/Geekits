@@ -1,5 +1,5 @@
 module.exports = {
-	title: "Geekits",
+	appName: "Geekits",
 	description: "Geekits 是一个工具集合，旨在为开发者提供便捷的工具和资源。",
 	keywords: [
 		"Geekits",

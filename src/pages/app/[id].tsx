@@ -147,6 +147,33 @@ const SidebarToggle = ({ handleToggle }) => {
 	);
 };
 
+class ErrorBoundary extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = { hasError: false };
+	}
+
+	static getDerivedStateFromError(error) {
+		return { hasError: true };
+	}
+
+	componentDidCatch(error, errorInfo) {
+		console.error("AppComp error:", error, errorInfo);
+	}
+
+	render() {
+		if (this.state.hasError) {
+			return (
+				<h1>
+					Something went wrong with this app. Please try again later.
+				</h1>
+			);
+		}
+
+		return this.props.children;
+	}
+}
+
 /**
  * Universal App Container
  */
@@ -215,7 +242,7 @@ const AppContainer = ({ appConfig, appDoc }) => {
 					appBar ? classes.contentShift : ""
 				}`}
 			>
-				{AppComp && <AppComp />}
+				<ErrorBoundary>{AppComp && <AppComp />}</ErrorBoundary>
 			</div>
 			<RightDrawer onClose={() => setAppBar(!appBar)} open={appBar}>
 				<AppMenu

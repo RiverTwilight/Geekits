@@ -21,7 +21,7 @@
 			"@/contexts/*": ["src/contexts/*"],
 			"@/data/*": ["src/data/*"],
 			"@/apps/*": ["src/apps/*"],
-			"@/types/*": ["src/types/*"],
+			"@/types/*": ["types/*"],
 			"@/utils/*": ["src/utils/*"],
 			"react": ["./node_modules/@types/react"]
 		},

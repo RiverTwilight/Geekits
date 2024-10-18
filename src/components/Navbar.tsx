@@ -9,7 +9,12 @@ import Popover from "@mui/material/Popover";
 import IconButton from "@mui/material/IconButton";
 import MenuTwoToneIcon from "@mui/icons-material/MenuTwoTone";
 import useScrollTrigger from "@mui/material/useScrollTrigger";
-import { CheckCircleOutline, AppsRounded } from "@mui/icons-material";
+import {
+	CheckCircleOutline,
+	AppsRounded,
+	PersonOutline,
+	AccountCircle,
+} from "@mui/icons-material";
 import Link from "next/link";
 import { Avatar, Theme, useMediaQuery, Grid } from "@mui/material";
 import useNotifications from "@/utils/Hooks/useNotification";
@@ -18,6 +23,7 @@ import siteConfig from "src/site.config";
 import { useAccount } from "@/contexts/account";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import Person from "@mui/icons-material/Person";
 
 function ElevationScroll(props: Props) {
 	const { children } = props;
@@ -254,7 +260,7 @@ export default (props: { title: string; PageAction; repo: string }) => {
 									cursor: "pointer",
 								}}
 							>
-								{siteConfig.title}
+								{siteConfig.appName}
 							</Typography>
 						</Link>
 						<Typography
@@ -281,20 +287,9 @@ export default (props: { title: string; PageAction; repo: string }) => {
 							<>
 								<IconButton
 									onClick={() => setShowLoginDialog(true)}
-									sx={{ marginLeft: 2 }}
+									size="large"
 								>
-									<Avatar
-										src={
-											account
-												? account["avatarUrl"]
-												: null
-										}
-										alt={
-											account
-												? account["user"]["email"]
-												: "User"
-										}
-									/>
+									<AccountCircle />
 								</IconButton>
 							</>
 						)}

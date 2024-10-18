@@ -1,9 +1,9 @@
 ---
-name: "汽车油电费计算器"
-status: "stable"
-link: "fuel_consumption_calculator"
-icon: "/icon/car_consumption.png"
-description: "根据你的汽车计算油费/电费开支"
+name: 汽车油电费计算器
+status: stable
+icon: /icon/car_consumption.png
+description: 根据你的汽车计算油费/电费开支
+seoOptiizedDescription: 根据你的汽车计算油费/电费开支
 channel: life
 ---
 

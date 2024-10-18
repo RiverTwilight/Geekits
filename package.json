@@ -1,6 +1,6 @@
 {
-	"name": "ygktool",
-	"version": "2.1.1",
+	"name": "geekits",
+	"version": "2.1.2",
 	"homepage": "https://geekits.ygeeker.com",
 	"description": "🛠A simple, feature-rich, and efficient online toolbox | 极简，强大，高效的在线工具箱，遵循MD设计规范",
 	"scripts": {
@@ -44,6 +44,8 @@
 		"@next-auth/prisma-adapter": "^1.0.3",
 		"@prisma/client": "^4.0.0",
 		"@react-email/components": "^0.0.22",
+		"@stripe/react-stripe-js": "^2.8.1",
+		"@stripe/stripe-js": "^4.8.0",
 		"@supabase/ssr": "^0.5.1",
 		"@supabase/supabase-js": "^2.45.4",
 		"@svgr/webpack": "^5.5.0",
@@ -82,6 +84,7 @@
 		"resend": "^3.2.0",
 		"sharp": "0.32.6",
 		"socket.io": "^2.4.0",
+		"stripe": "^17.2.0",
 		"test-listen": "^1.1.0",
 		"ua-parser-js": "^0.7.21",
 		"uuid": "^8.3.0",
