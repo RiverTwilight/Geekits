@@ -15,7 +15,7 @@ import { isCapacitor } from "@/utils/platform";
 import fetch from "node-fetch";
 
 export async function getStaticProps({ locale = defaultLocale }) {
-	const appData = getAllApps(true);
+	const appData = getAllApps(true, locale);
 
 	const dic = require("../data/i18n.json");
 

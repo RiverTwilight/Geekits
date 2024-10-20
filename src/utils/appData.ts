@@ -1,5 +1,6 @@
 import matter from "gray-matter";
-import externalApps from "../data/zh-CN/externalApps";
+import externalApps_zhCN from "../data/zh-CN/externalApps";
+import externalApps_enUS from "../data/en-US/externalApps";
 import type { AppData } from "@/types/index";
 
 const getAppConfigFile = (appId: string, locale: string): string =>
@@ -76,6 +77,19 @@ const getAllApps = (
 			return [{ id: appId, locale, ...getAppConfig(appId, { locale }) }];
 		})
 		.flat(1);
+
+	let externalApps = [];
+
+	switch (locale) {
+		case "zh-CN":
+			externalApps = externalApps_zhCN;
+			break;
+		case "en-US":
+			externalApps = externalApps_enUS;
+			break;
+		default:
+			externalApps = externalApps_zhCN;
+	}
 
 	return includeExternal ? [...allApps, ...externalApps] : allApps;
 };
