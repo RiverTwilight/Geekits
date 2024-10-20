@@ -111,20 +111,20 @@ const TaxCalculator = () => {
 
 		if (taxableIncome <= 0) {
 			taxAmount = 0;
-		} else if (taxableIncome <= 36000) {
+		} else if (taxableIncome <= 3000) {
 			taxAmount = taxableIncome * 0.03;
-		} else if (taxableIncome <= 144000) {
-			taxAmount = taxableIncome * 0.1 - 2520;
-		} else if (taxableIncome <= 300000) {
-			taxAmount = taxableIncome * 0.2 - 16920;
-		} else if (taxableIncome <= 420000) {
-			taxAmount = taxableIncome * 0.25 - 31920;
-		} else if (taxableIncome <= 660000) {
-			taxAmount = taxableIncome * 0.3 - 52920;
-		} else if (taxableIncome <= 960000) {
-			taxAmount = taxableIncome * 0.35 - 85920;
+		} else if (taxableIncome <= 12000) {
+			taxAmount = taxableIncome * 0.1 - 210;
+		} else if (taxableIncome <= 25000) {
+			taxAmount = taxableIncome * 0.2 - 1410;
+		} else if (taxableIncome <= 35000) {
+			taxAmount = taxableIncome * 0.25 - 2660;
+		} else if (taxableIncome <= 55000) {
+			taxAmount = taxableIncome * 0.3 - 4410;
+		} else if (taxableIncome <= 80000) {
+			taxAmount = taxableIncome * 0.35 - 7160;
 		} else {
-			taxAmount = taxableIncome * 0.45 - 181920;
+			taxAmount = taxableIncome * 0.45 - 15160;
 		}
 
 		setTax(taxAmount.toFixed(2));

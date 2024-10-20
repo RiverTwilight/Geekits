@@ -111,13 +111,22 @@ const MainApp = React.memo(({ Component, pageProps }: AppProps) => {
 	useEffect(() => {
 		let loadTimer: NodeJS.Timeout;
 
-		const handleRouteChangeStart = () => {
+		const handleRouteChangeStart = (url: string) => {
+			// Check if the change is just a query parameter change
+			const currentPath = router.asPath.split('?')[0];
+			const newPath = url.split('?')[0];
+			if (currentPath === newPath) return;
+
 			loadTimer = setTimeout(() => {
 				window.showGlobalLoadingOverlay();
 			}, 0);
 		};
 
-		const handleRouteChangeComplete = () => {
+		const handleRouteChangeComplete = (url: string) => {
+			const currentPath = router.asPath.split('?')[0];
+			const newPath = url.split('?')[0];
+			if (currentPath === newPath) return;
+
 			clearTimeout(loadTimer);
 			window.hideGlobalLoadingOverlay();
 		};
