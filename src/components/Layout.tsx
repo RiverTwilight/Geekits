@@ -87,8 +87,8 @@ const Layout = ({ currentPage, children, enableFrame }) => {
 
 	const metaTitle = `${
 		currentPage
-			? `${currentPage.title} - ${siteConfig.title}`
-			: siteConfig.title
+			? `${currentPage.title} - ${siteConfig.appName}`
+			: siteConfig.appName
 	}`;
 
 	const activeDescription = currentPage.description || siteConfig.description;
@@ -140,7 +140,7 @@ const Layout = ({ currentPage, children, enableFrame }) => {
 						/>
 						<meta
 							property="og:site_name"
-							content={siteConfig.title}
+							content={siteConfig.appName}
 						/>
 						<meta
 							property="og:image"

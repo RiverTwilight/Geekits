@@ -6,7 +6,7 @@
 
 <h1 align="center">Geekits</h1>
 
-**简体中文** | [English](./README.en.md)
+[简体中文](./README.md) | **English**
 
 [![Release](https://img.shields.io/github/release/rivertwilight/ygktool.svg)](https://github.com/rivertwilight/ygktool/releases)
 [![License](https://img.shields.io/github/license/rivertwilight/ygktool.svg)](https://github.com/rivertwilight/ygktool/blob/main/LICENSE)
@@ -16,39 +16,49 @@
 
 </div>
 
-一个渐进式在线工具网站，是由 MUI , Typescript , NextJS 等许多爱意构建成的。
+This is a progressive digital toolbox built with love using MUI, TypeScript, Next.js, and many other technologies.
 
-我们希望把她打造成一个精美但简约、实用又简单、强大且高效的在线工具箱。
+We aim to create a beautiful yet minimalist, practical yet simple, powerful and efficient digital toolbox.
 
-## 贡献
+## iOS & Android App
 
-我们十分欢迎你参与贡献，在此之前，请先阅读[贡献指南](CONTRIBUTING.md)。
+You can download the native app from [here](https://apps.apple.com/us/app/geekits-强大高效的开源工具箱/id6480398974). Here are some benefits of using the native app:
 
-## 部署
+-   Faster and more stable
+-   Offline usage
 
-### （推荐）使用 Vercel 部署
+## Contribution
 
-### 使用 Docker 部署
+We warmly welcome your contributions. Before getting started, please read the [CONTRIBUTING.md](CONTRIBUTING.md).
 
-在仓库根目录执行以下命令生成镜像：
+## Deployment
+
+### Deploy on Vercel (Recommended)
+
+### Deploying with Docker
+
+Run the following command in the root directory of the repository to generate the image:
 
 ```bash
 npm run build:image
 ```
 
-创建容器：
+Create the container:
 
 ```bash
 npm run start:container
 ```
 
-### 手动部署
+### Manual Deployment
 
-## 致谢
+**#To do**
 
--   [IconKitchen](https://icon.kitchen/): 图标制作器。
+## Acknowledgments
 
-## 许可
+-   [unDraw](https://undraw.co/search): Free illustrations maker.
+-   [IconKitchen](https://icon.kitchen/): Free icon maker.
+
+## License
 
 CC-BY-4.0
 

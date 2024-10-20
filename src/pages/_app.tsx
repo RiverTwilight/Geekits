@@ -4,7 +4,6 @@ import Layout from "@/components/Layout";
 import Text from "@/components/i18n";
 import { ThemeProvider } from "@mui/material/styles";
 import { store as frameStore } from "@/utils/Data/frameState";
-import { Analytics } from "@vercel/analytics/react";
 import { Device } from "@capacitor/device";
 import customTheme from "@/utils/theme";
 import { LocaleProvider } from "@/contexts/locale";
@@ -13,6 +12,7 @@ import { isWeb } from "@/utils/platform.js";
 import type { AppProps } from "next/app";
 
 import "./App.css";
+import GoogleAnalytics from "@/components/GoogleAnalytics";
 
 async function getDeviceLanguage() {
 	let { value } = await Device.getLanguageCode();
@@ -71,9 +71,6 @@ const MainApp = React.memo(({ Component, pageProps }: AppProps) => {
 						// But the preferred locale is not the default one, so we need to redirect to the new locale.
 						window.location.href = `/${preferredSet}${window.location.pathname}`;
 					}
-				} else {
-					// Use preferred locale on native apps
-					setPreferredLocale(preferredSet);
 				}
 			}
 		};
@@ -173,7 +170,11 @@ const MainApp = React.memo(({ Component, pageProps }: AppProps) => {
 							<Component {...pageProps} />
 						</Layout>
 					)}
-					<Analytics />
+					{process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS && (
+						<GoogleAnalytics
+							ga_id={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}
+						/>
+					)}
 				</Text>
 			</ThemeProvider>
 		</LocaleProvider>

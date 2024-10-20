@@ -1,12 +1,12 @@
 <div align="center">
 
-<a href="https://www.ygktool.com">
-  <img width="180" src="https://www.ygktool.com/logo/v3/512.png">
+<a href="https://geekits.ygeeker.com">
+  <img width="180" src="https://geekits.ygeeker.com/logo/v3/rounded.png">
 </a>
 
 <h1 align="center">Geekits</h1>
 
-[简体中文](./README.md) | **English**
+**简体中文** | [English](./README.en.md)
 
 [![Release](https://img.shields.io/github/release/rivertwilight/ygktool.svg)](https://github.com/rivertwilight/ygktool/releases)
 [![License](https://img.shields.io/github/license/rivertwilight/ygktool.svg)](https://github.com/rivertwilight/ygktool/blob/main/LICENSE)
@@ -16,18 +16,43 @@
 
 </div>
 
-A progressive, beautiful and featured online tool box made with MUI, Typescript, NextJS and more.
+一个漂亮优雅的综合工具箱，是由 MUI , Typescript , NextJS 等许多爱意构建成的。
 
-## Contribution
+我们希望把她打造成一个精美但简约、实用又简单、强大且高效的工具箱。
 
-Any Contribution is welcomed. Before you start working, please take some time reading [CONTRIBUTING.md](CONTRIBUTING.md)。
+## iOS & Android App
 
-## Thanks
+你可以从 [这里](https://apps.apple.com/us/app/geekits-强大高效的开源工具箱/id6480398974) 下载到原生应用。
 
--   [unDraw](https://undraw.co/search): Free illustrations maker.
--   [IconKitchen](https://icon.kitchen/): Free icon maker.
+## 贡献
 
-## License
+我们十分欢迎你参与贡献，在此之前，请先阅读[贡献指南](CONTRIBUTING.md)。
+
+## 部署
+
+### （推荐）使用 Vercel 部署
+
+### 使用 Docker 部署
+
+在仓库根目录执行以下命令生成镜像：
+
+```bash
+npm run build:image
+```
+
+创建容器：
+
+```bash
+npm run start:container
+```
+
+### 手动部署
+
+## 致谢
+
+-   [IconKitchen](https://icon.kitchen/): 图标制作器。
+
+## 许可
 
 CC-BY-4.0
 

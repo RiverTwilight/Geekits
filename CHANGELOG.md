@@ -1,3 +1,7 @@
+## 2.1.2 (2024)
+
+-   feat: Adjust text in the about page
+
 ## 2.1.1 (2024-09-28)
 
 -   feat: Show app store and play store banner
