@@ -109,10 +109,10 @@ const MainApp = React.memo(({ Component, pageProps }: AppProps) => {
 		let loadTimer: NodeJS.Timeout;
 
 		const handleRouteChangeStart = (url: string) => {
-			// Check if the change is just a query parameter change
-			const currentPath = router.asPath.split('?')[0];
-			const newPath = url.split('?')[0];
-			if (currentPath === newPath) return;
+			const currentPath = router.asPath.split("?")[0];
+			const newPath = url.split("?")[0];
+			console.log("handleRouteChangeStart", currentPath, newPath);
+			if (newPath.endsWith(currentPath)) return;
 
 			loadTimer = setTimeout(() => {
 				window.showGlobalLoadingOverlay();
@@ -120,10 +120,6 @@ const MainApp = React.memo(({ Component, pageProps }: AppProps) => {
 		};
 
 		const handleRouteChangeComplete = (url: string) => {
-			const currentPath = router.asPath.split('?')[0];
-			const newPath = url.split('?')[0];
-			if (currentPath === newPath) return;
-
 			clearTimeout(loadTimer);
 			window.hideGlobalLoadingOverlay();
 		};
