@@ -418,20 +418,6 @@ export default function Donate() {
 
 	return (
 		<PaperBackground contentWidth={900}>
-			<Box height="200px">
-				<Placeholder illustrationUrl="/illustration/undraw_fatherhood_-7-i19.svg" />
-			</Box>
-
-			<Typography variant="body1">
-				感谢您对我的开源项目的关注。Geekits
-				已经开发了五年多，这期间我投入了大量的时间、精力和金钱，包括购买域名和服务器。作为一名没有收入的学生，这一切对我来说是非常昂贵的。但是，我仍然坚守着对这个项目的热爱。
-				你可以通过捐赠来支持我，帮助我继续开发这个项目，使其对更多人有所帮助。非常感谢你的支持！
-				<br />
-				<br />
-				所有的收益都将用于开发、维护、运行 Geekits。
-			</Typography>
-
-			<br />
 			<Alert severity="info">
 				以下方式都是免费的，你只需要动动手指，我和你都能从中获益。
 			</Alert>
@@ -501,6 +487,18 @@ export default function Donate() {
 					</Button>
 				</Box>
 			</TableContainer>
+			<Box height="200px">
+				<Placeholder illustrationUrl="/illustration/undraw_fatherhood_-7-i19.svg" />
+			</Box>
+
+			<Typography variant="body2" textAlign="center" gutterBottom>
+				感谢您对我的开源项目的关注。Geekits
+				已经开发了五年多，这期间我投入了大量的时间、精力和金钱，包括购买域名和服务器。这一切对我来说是非常昂贵的。但是，我仍然坚守着对这个项目的热爱。
+				你可以通过捐赠来支持我，帮助我继续开发这个项目，使其对更多人有所帮助。非常感谢你的支持！
+				<br />
+				<br />
+				所有的收益都将用于开发、维护、运行 Geekits。
+			</Typography>
 		</PaperBackground>
 	);
 }

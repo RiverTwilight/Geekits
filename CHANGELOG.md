@@ -1,7 +1,9 @@
-## 2.1.2 (2024)
+## 2.1.2 (2024-10)
 
 -   feat: Adjust text in the about page
 -   fix: Tax calculator algorithm
+-   feat: Add DrawLink
+-   feat: Adjust donation page
 
 ## 2.1.1 (2024-09-28)
 
