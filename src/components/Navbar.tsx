@@ -288,7 +288,18 @@ export default (props: { title: string; PageAction; repo: string }) => {
 									}
 									onDelete={() => setShowGetAppChip(false)}
 									clickable
-									sx={{ mr: 2 }}
+									sx={{
+										mr: 2,
+										background:
+											"linear-gradient(45deg, #27ae60 30%, #2980b9 90%)",
+										color: "white",
+										"& .MuiChip-icon": {
+											color: "white",
+										},
+										"& .MuiChip-deleteIcon": {
+											color: "white",
+										},
+									}}
 									onClick={() => {
 										window.open(
 											"https://www.ygeeker.com/geekits",

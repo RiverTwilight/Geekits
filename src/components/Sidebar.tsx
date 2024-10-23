@@ -24,10 +24,11 @@ import { styled } from "@mui/material/styles";
 import {
 	Cloud,
 	OpenInBrowser,
+	OpenInNewRounded,
 	Settings,
 	TimerOutlined,
 } from "@mui/icons-material";
-import { Theme, useMediaQuery } from "@mui/material";
+import { ListItemButton, Theme, useMediaQuery } from "@mui/material";
 import { useSidebar } from "@/contexts/sidebar";
 import Text from "./i18n";
 import { isIOS, isWeb } from "@/utils/platform";
@@ -39,7 +40,23 @@ const drawerWidth = 260;
 // necessary for content to be below app bar
 const Toolbar = styled("nav")(({ theme }) => theme.mixins.toolbar);
 
-const LinkWrapper = ({ href, text, Icon, handleClick, sx, ...props }) => {
+type SidebarItem = {
+	Icon: React.ReactNode;
+	text: React.ReactNode | string;
+	href: string;
+	sx?: any; // Add sx prop to fix the TypeScript error
+	isExternal?: boolean; // New prop to identify external links
+};
+
+const LinkWrapper = ({
+	href,
+	text,
+	Icon,
+	handleClick,
+	sx,
+	isExternal,
+	...props
+}: SidebarItem & { handleClick?: () => void }) => {
 	if (text === "<divider />") {
 		return <Divider sx={{ marginY: 1 }} />;
 	}
@@ -47,8 +64,14 @@ const LinkWrapper = ({ href, text, Icon, handleClick, sx, ...props }) => {
 	const router = useRouter();
 
 	return (
-		<Link href={href} passHref legacyBehavior {...props}>
-			<ListItem
+		<Link
+			href={href}
+			passHref
+			legacyBehavior
+			{...props}
+			target={isExternal ? "_blank" : undefined}
+		>
+			<ListItemButton
 				onClick={handleClick}
 				sx={{
 					"&.Mui-selected .MuiListItemText-primary": {
@@ -65,7 +88,13 @@ const LinkWrapper = ({ href, text, Icon, handleClick, sx, ...props }) => {
 			>
 				<ListItemIcon>{Icon}</ListItemIcon>
 				<ListItemText primary={text} />
-			</ListItem>
+				{isExternal && (
+					<OpenInNewRounded
+						fontSize="small"
+						sx={{ ml: 1, opacity: 0.7 }}
+					/>
+				)}
+			</ListItemButton>
 		</Link>
 	);
 };
@@ -127,11 +156,7 @@ const Sidebar = () => {
 			Icon: <GitHubIcon />,
 			text: "GitHub",
 			href: repo,
-			// sx: {
-			// 	display: {
-			// 		sm: "none",
-			// 	},
-			// },
+			isExternal: true,
 		},
 		{
 			Icon: (
@@ -140,7 +165,8 @@ const Sidebar = () => {
 				</Badge>
 			),
 			text: <Text k="navbar.log" />,
-			href: "/changelog",
+			href: "https://www.ygeeker.com/geekits/support/release-notes",
+			isExternal: true,
 		},
 	];
 
@@ -166,6 +192,7 @@ const Sidebar = () => {
 										text={item.text}
 										sx={item.sx}
 										Icon={item.Icon}
+										isExternal={item.isExternal}
 									/>
 								</React.Fragment>
 							))}
