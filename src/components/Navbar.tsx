@@ -2,28 +2,24 @@ import React, { useState, lazy, Suspense } from "react";
 import AppBar from "@mui/material/AppBar";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
 import Toolbar from "@mui/material/Toolbar";
 import Popover from "@mui/material/Popover";
 import IconButton from "@mui/material/IconButton";
 import MenuTwoToneIcon from "@mui/icons-material/MenuTwoTone";
 import useScrollTrigger from "@mui/material/useScrollTrigger";
 import {
-	CheckCircleOutline,
 	AppsRounded,
-	PersonOutline,
 	AccountCircle,
+	AutoAwesomeRounded,
 } from "@mui/icons-material";
 import Link from "next/link";
-import { Avatar, Theme, useMediaQuery, Grid } from "@mui/material";
-import useNotifications from "@/utils/Hooks/useNotification";
+import { Theme, useMediaQuery, Grid, Chip, Tooltip } from "@mui/material";
 import { useSidebar } from "@/contexts/sidebar";
 import siteConfig from "src/site.config";
-import { useAccount } from "@/contexts/account";
 import { useRouter } from "next/router";
 import Image from "next/image";
-import Person from "@mui/icons-material/Person";
+import { isWeb } from "@/utils/platform";
+import Text from "./i18n";
 
 function ElevationScroll(props: Props) {
 	const { children } = props;
@@ -63,37 +59,37 @@ function AppsMenu() {
 		{
 			name: "ClipMemo",
 			icon: "https://www.ygeeker.com/image/product/clipmemo.png",
-			link: "https://clipmemo.ygeeker.com",
+			link: "https://www.ygeeker.com/clipmemo",
 			description: "Effortlessly capture and organize your ideas",
 		},
 		{
 			name: "Dali",
 			icon: "https://www.ygeeker.com/image/product/dali.png",
-			link: "https://dali.ygeeker.com",
+			link: "https://www.ygeeker.com/dali",
 			description: "Create stunning AI-generated artwork",
 		},
 		{
 			name: "I Didn't",
 			icon: "https://www.ygeeker.com/image/product/ididnt.png",
-			link: "https://ididnt.ygeeker.com",
+			link: "https://www.ygeeker.com/ididnt",
 			description: "Track habits you want to break",
 		},
 		{
 			name: "FlowFerry",
 			icon: "https://www.ygeeker.com/image/product/flowferry.png",
-			link: "https://flowferry.ygeeker.com",
+			link: "https://www.ygeeker.com/flowferry",
 			description: "Streamline your workflow automation",
 		},
 		{
 			name: "Currates",
 			icon: "https://www.ygeeker.com/image/product/currates.png",
-			link: "https://currates.ygeeker.com",
+			link: "https://www.ygeeker.com/currates",
 			description: "Curate and share your favorite content",
 		},
 		{
 			name: "Timeline",
 			icon: "https://www.ygeeker.com/image/product/timeline.png",
-			link: "https://timeline.ygeeker.com",
+			link: "https://www.ygeeker.com/timeline",
 			description: "Visualize your personal or project history",
 		},
 	];
@@ -171,7 +167,7 @@ function AppsMenu() {
 											overflow: "hidden",
 											marginBottom: "8px",
 											boxShadow: (theme) =>
-												theme.shadows[1], // Added small shadow for product icon
+												theme.shadows[1],
 										}}
 									>
 										<Image
@@ -216,12 +212,14 @@ export default (props: { title: string; PageAction; repo: string }) => {
 
 	const { sidebar, setSidebar } = useSidebar();
 	const [showLoginDialog, setShowLoginDialog] = useState(false);
-	const { account } = useAccount();
 	const hidden = useMediaQuery((theme: Theme) =>
 		theme.breakpoints.down("sm")
 	);
+	const isXs = useMediaQuery((theme: Theme) => theme.breakpoints.only("xs"));
 	const router = useRouter();
 	const isRootRoute = router.pathname === "/";
+
+	const [showGetAppChip, setShowGetAppChip] = useState(true);
 
 	return (
 		<>
@@ -279,6 +277,27 @@ export default (props: { title: string; PageAction; repo: string }) => {
 
 						<Box sx={{ flexGrow: 1 }} />
 
+						{!isXs && showGetAppChip && isWeb() && (
+							<Tooltip
+								title={<Text k="navbar.downloadApp.tooltip" />}
+							>
+								<Chip
+									icon={<AutoAwesomeRounded />}
+									label={
+										<Text k="navbar.downloadApp.label" />
+									}
+									onDelete={() => setShowGetAppChip(false)}
+									clickable
+									sx={{ mr: 2 }}
+									onClick={() => {
+										window.open(
+											"https://www.ygeeker.com/geekits",
+											"_blank"
+										);
+									}}
+								/>
+							</Tooltip>
+						)}
 						{PageAction}
 
 						{(isRootRoute || !hidden) && <AppsMenu />}
