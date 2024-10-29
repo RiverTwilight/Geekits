@@ -121,7 +121,7 @@ const AppMenu = ({
 						aria-label="框架引用"
 						startIcon={<CodeIcon fontSize="inherit" />}
 					>
-						框架引用
+						<Text k="appMenu.frame" />
 					</Button>
 				)}
 				{showCode && (
@@ -147,7 +147,7 @@ const AppMenu = ({
 					variant="outlined"
 					aria-label="Send us feedback"
 				>
-					反馈
+					<Text k="appMenu.feedback" />
 				</Button>
 			</Box>
 

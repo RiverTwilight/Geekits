@@ -14,6 +14,7 @@ import BorderVerticalIcon from "@mui/icons-material/BorderVertical";
 import ColorLensIcon from "@mui/icons-material/ColorLens";
 import OutlinedCard from "../../components/OutlinedCard";
 import { Box } from "@mui/material";
+import Text, { t } from "@/components/i18n";
 
 const IfBr = ({ statu }: any) => {
 	return statu === "vertical" ? <br></br> : null;
@@ -127,7 +128,11 @@ export default class FakePornhubLogo extends React.Component<{}, UiState> {
 				<br />
 				<List>
 					<OutlinedCard padding={2}>
-						<SliderWithIcon title={"字号：" + hStyle.size}>
+						<SliderWithIcon
+							title={`${t("app.pornhub.fontSize")}: ${
+								hStyle.size
+							}`}
+						>
 							<Slider
 								value={hStyle.size}
 								onChange={(_, value) => {
@@ -150,7 +155,9 @@ export default class FakePornhubLogo extends React.Component<{}, UiState> {
 							<ListItemIcon>
 								<BorderVerticalIcon />
 							</ListItemIcon>
-							<ListItemText primary="竖直排列" />
+							<ListItemText
+								primary={<Text k="app.pornhub.vertical" />}
+							/>
 							<ListItemSecondaryAction>
 								<Switch
 									edge="end"
@@ -185,7 +192,9 @@ export default class FakePornhubLogo extends React.Component<{}, UiState> {
 							<ListItemIcon>
 								<ColorLensIcon />
 							</ListItemIcon>
-							<ListItemText primary="颜色反转" />
+							<ListItemText
+								primary={<Text k="app.pornhub.colorRevert" />}
+							/>
 							<ListItemSecondaryAction>
 								<Switch
 									edge="end"
@@ -220,7 +229,9 @@ export default class FakePornhubLogo extends React.Component<{}, UiState> {
 									}}
 									checked={front.color === "#000000"}
 									inputProps={{
-										"aria-labelledby": "颜色反转",
+										"aria-labelledby": t(
+											"app.pornhub.colorRevert"
+										),
 									}}
 								/>
 							</ListItemSecondaryAction>

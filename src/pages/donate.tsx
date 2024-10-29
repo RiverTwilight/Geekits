@@ -190,7 +190,11 @@ const ProductItem = ({ href, ...props }) => (
 			<CardActions>
 				<Link href={href} target="_blank">
 					<Button
-						sx={{ background: props.bgColor, color: props.color }}
+						sx={{
+							background: props.bgColor,
+							color: props.color,
+							marginLeft: "8px",
+						}}
 						size="small"
 					>
 						前往
