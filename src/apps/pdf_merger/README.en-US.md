@@ -1,6 +1,6 @@
 ---
 name: "PDF Merge"
-status: "beta"
+status: "stable"
 icon: "/api/icon?iconColor=fff&iconName=PictureAsPdf&backgroundColor1=888"
 channel: media
 ---

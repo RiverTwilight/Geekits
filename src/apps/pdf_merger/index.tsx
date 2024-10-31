@@ -7,8 +7,8 @@ import {
 	ListItem,
 	ListItemText,
 	IconButton,
-	Typography,
-	Paper,
+	Menu,
+	MenuItem,
 } from "@mui/material";
 import {
 	Delete as DeleteIcon,
@@ -16,15 +16,26 @@ import {
 	ArrowDownward as ArrowDownwardIcon,
 	Merge as MergeIcon,
 	Upload as UploadIcon,
+	MoreVert as MoreVertIcon,
 } from "@mui/icons-material";
 import FilePicker from "@/components/FilePicker";
 import { saveFile } from "@/utils/fileSaver";
+import FileField from "@/components/FileField";
+import OutlinedCard from "@/components/OutlinedCard";
 
 const PdfMerger: React.FC = () => {
 	const [pdfFiles, setPdfFiles] = useState<File[]>([]);
+	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+	const [selectedFileIndex, setSelectedFileIndex] = useState<number>(-1);
 
-	const handleFileUpload = (file: File) => {
-		setPdfFiles((prevFiles) => [...prevFiles, file]);
+	const handleFileUpload = (
+		_base64: any,
+		file: File | null,
+		_fileList: FileList | null
+	) => {
+		if (file) {
+			setPdfFiles((prevFiles) => [...prevFiles, file]);
+		}
 	};
 
 	const handleRemoveFile = (index: number) => {
@@ -61,71 +72,185 @@ const PdfMerger: React.FC = () => {
 		saveFile({ file: blob, filename: "merged.pdf", type: "pdf" });
 	};
 
+	const handleMenuOpen = (
+		event: React.MouseEvent<HTMLElement>,
+		index: number
+	) => {
+		setAnchorEl(event.currentTarget);
+		setSelectedFileIndex(index);
+	};
+
+	const handleMenuClose = () => {
+		setAnchorEl(null);
+		setSelectedFileIndex(-1);
+	};
+
 	return (
-		<Box sx={{ maxWidth: 600, margin: "auto", p: 3 }}>
-			<Typography variant="h4" gutterBottom>
-				PDF Merger
-			</Typography>
-			<Paper elevation={3} sx={{ p: 2, mb: 2 }}>
-				<FilePicker
-					enableDrag={true}
-					fileType="application/pdf"
-					handleFileUpload={handleFileUpload}
-					customButton={
-						<Button variant="contained" startIcon={<UploadIcon />}>
+		<Box
+			sx={{
+				maxWidth: 1200,
+				margin: "auto",
+				display: "flex",
+				flexDirection: { xs: "column", sm: "row" },
+				gap: 2,
+			}}
+		>
+			<Box sx={{ display: "flex", justifyContent: "center" }}>
+				<FileField>
+					<FilePicker
+						enableDrag={true}
+						fileType="application/pdf"
+						handleFileUpload={handleFileUpload}
+					>
+						<Button
+							component="span"
+							variant="contained"
+							startIcon={<UploadIcon />}
+						>
 							Add PDF
 						</Button>
-					}
-				/>
-			</Paper>
-			<List>
-				{pdfFiles.map((file, index) => (
-					<ListItem
-						key={index}
-						secondaryAction={
-							<Box>
-								<IconButton
-									edge="end"
-									aria-label="move up"
-									onClick={() => handleMoveFile(index, "up")}
-									disabled={index === 0}
+					</FilePicker>
+				</FileField>
+			</Box>
+			<Box sx={{ flex: 1 }}>
+				<List component={OutlinedCard}>
+					{pdfFiles.map((file, index) => (
+						<ListItem
+							key={index}
+							sx={{
+								flexDirection: { xs: "column", sm: "row" },
+								alignItems: { xs: "flex-start", sm: "center" },
+							}}
+							secondaryAction={
+								<Box
+									sx={{
+										width: "100%",
+										display: "flex",
+										justifyContent: {
+											xs: "flex-start",
+											sm: "flex-end",
+										},
+										mt: { xs: 1, sm: 0 },
+									}}
 								>
-									<ArrowUpwardIcon />
-								</IconButton>
-								<IconButton
-									edge="end"
-									aria-label="move down"
-									onClick={() =>
-										handleMoveFile(index, "down")
-									}
-									disabled={index === pdfFiles.length - 1}
-								>
-									<ArrowDownwardIcon />
-								</IconButton>
-								<IconButton
-									edge="end"
-									aria-label="delete"
-									onClick={() => handleRemoveFile(index)}
-								>
-									<DeleteIcon />
-								</IconButton>
-							</Box>
-						}
+									<Box
+										sx={{
+											display: {
+												xs: "block",
+												sm: "none",
+											},
+										}}
+									>
+										<IconButton
+											edge="end"
+											aria-label="more"
+											onClick={(e) =>
+												handleMenuOpen(e, index)
+											}
+										>
+											<MoreVertIcon />
+										</IconButton>
+									</Box>
+
+									<Box
+										sx={{
+											display: { xs: "none", sm: "flex" },
+										}}
+									>
+										<IconButton
+											edge="end"
+											aria-label="move up"
+											onClick={() =>
+												handleMoveFile(index, "up")
+											}
+											disabled={index === 0}
+										>
+											<ArrowUpwardIcon />
+										</IconButton>
+										<IconButton
+											edge="end"
+											aria-label="move down"
+											onClick={() =>
+												handleMoveFile(index, "down")
+											}
+											disabled={
+												index === pdfFiles.length - 1
+											}
+										>
+											<ArrowDownwardIcon />
+										</IconButton>
+										<IconButton
+											edge="end"
+											aria-label="delete"
+											onClick={() =>
+												handleRemoveFile(index)
+											}
+										>
+											<DeleteIcon />
+										</IconButton>
+									</Box>
+								</Box>
+							}
+						>
+							<ListItemText primary={file.name} />
+						</ListItem>
+					))}
+
+					<Menu
+						anchorEl={anchorEl}
+						open={Boolean(anchorEl)}
+						onClose={handleMenuClose}
 					>
-						<ListItemText primary={file.name} />
-					</ListItem>
-				))}
-			</List>
-			<Box sx={{ mt: 2, display: "flex", justifyContent: "center" }}>
-				<Button
-					variant="contained"
-					color="primary"
-					startIcon={<MergeIcon />}
-					onClick={handleMergePDFs}
-					disabled={pdfFiles.length < 2}
-				>
-					Merge PDFs
-				</Button>
+						<MenuItem
+							onClick={() => {
+								handleMoveFile(selectedFileIndex, "up");
+								handleMenuClose();
+							}}
+							disabled={selectedFileIndex === 0}
+						>
+							<ArrowUpwardIcon sx={{ mr: 1 }} />
+							Move Up
+						</MenuItem>
+						<MenuItem
+							onClick={() => {
+								handleMoveFile(selectedFileIndex, "down");
+								handleMenuClose();
+							}}
+							disabled={selectedFileIndex === pdfFiles.length - 1}
+						>
+							<ArrowDownwardIcon sx={{ mr: 1 }} />
+							Move Down
+						</MenuItem>
+						<MenuItem
+							onClick={() => {
+								handleRemoveFile(selectedFileIndex);
+								handleMenuClose();
+							}}
+						>
+							<DeleteIcon sx={{ mr: 1 }} />
+							Delete
+						</MenuItem>
+					</Menu>
+				</List>
+				{pdfFiles.length > 0 && (
+					<Box
+						sx={{
+							mt: 2,
+							display: "flex",
+							justifyContent: "center",
+						}}
+					>
+						<Button
+							variant="contained"
+							color="primary"
+							startIcon={<MergeIcon />}
+							onClick={handleMergePDFs}
+							disabled={pdfFiles.length < 2}
+						>
+							Merge PDFs
+						</Button>
+					</Box>
+				)}
 			</Box>
 		</Box>
 	);

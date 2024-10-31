@@ -20,9 +20,9 @@ interface FRProps
 	maxWidth?: string;
 	maxSize?: number;
 	handleFileUpload?(
-		base64: any,
-		file: File | null,
-		fileList: FileList | null
+		base64?: any,
+		file?: File | null,
+		fileList?: FileList | null
 	): void;
 	fileType?: string;
 	webkitdirectory?: boolean;
@@ -33,7 +33,7 @@ interface FRProps
 	title?: string;
 	/** 是否监听拖拽文件事件 */
 	enableDrag?: boolean;
-	children?: React.ReactNode;
+	children?: React.ReactElement;
 }
 
 interface FRState {
@@ -83,6 +83,9 @@ class FilePicker extends React.Component<FRProps, FRState> {
 		const currentFileList = inputEvent
 			? inputEvent.target.files
 			: dragEvent.dataTransfer.files;
+
+		if (!currentFileList || currentFileList.length === 0) return;
+
 		this.setState({
 			btnText:
 				currentFileList.length < 2
@@ -95,27 +98,15 @@ class FilePicker extends React.Component<FRProps, FRState> {
 			return;
 		}
 
-		for (var i = 0; i < currentFileList.length; i++) {
-			let file = currentFileList[i];
-			if (file.size > maxSize) {
-				window.snackbar({
-					message: "文件大小不能超过" + maxSize / 1024 / 1024 + "MB",
-				});
-			} else {
-				var freader = new FileReader();
-				freader.readAsDataURL(file);
-				freader.onload = (fe) => {
-					handleFileUpload &&
-						fe.target &&
-						handleFileUpload(
-							fe.target.result,
-							file,
-							currentFileList
-						);
-					// this.realInput.value = null;
-				};
-			}
+		const file = currentFileList[0];
+		if (file.size > maxSize) {
+			window.snackbar({
+				message: "文件大小不能超过" + maxSize / 1024 / 1024 + "MB",
+			});
+			return;
 		}
+
+		handleFileUpload && handleFileUpload(undefined, file, currentFileList);
 	};
 	render() {
 		const {
@@ -145,25 +136,22 @@ class FilePicker extends React.Component<FRProps, FRState> {
 		}
 
 		if (children) {
-			const EmbeddedChildren = React.cloneElement(children, {
-				text: btnText,
-				htmlFor: "gk-contained-button-file",
-			});
-
-			console.log(props);
-
+			const inputId = `gk-contained-button-file-${Math.random().toString(36).substr(2, 9)}`;
+			
 			return (
 				<>
 					<input
 						accept={fileType}
-						onInput={this.handleReadFile.bind(this)}
+						onChange={this.handleReadFile}
 						type="file"
 						ref="input"
-						id="gk-contained-button-file"
-						hidden
+						id={inputId}
+						style={{ display: 'none' }}
 						{...props}
 					/>
-					{EmbeddedChildren}
+					<label htmlFor={inputId}>
+						{children}
+					</label>
 				</>
 			);
 		}

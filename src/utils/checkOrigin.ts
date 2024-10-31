@@ -7,7 +7,7 @@ function isSameOrigin(url: string): boolean {
 		return true
 	}
 
-	return ["http://localhost:3000", root].includes(url);
+	return ["http://localhost:3000", "http://localhost:3001", root].includes(url);
 }
 
 export { isSameOrigin }
