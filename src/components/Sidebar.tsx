@@ -11,7 +11,7 @@ import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Box from "@mui/material/Box";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
-import { repo } from "../site.config";
+import { repo, releaseNotesUrl } from "../site.config";
 import MessageOutlinedIcon from "@mui/icons-material/MessageOutlined";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
@@ -142,13 +142,13 @@ const Sidebar = () => {
 		{
 			Icon: <GitHubIcon />,
 			text: "GitHub",
-			href: "https://github.com/rivertwilight/geekits",
+			href: repo,
 			isExternal: true,
 		},
 		{
 			Icon: <TimerOutlined />,
 			text: <Text k="navbar.log" />,
-			href: "https://www.ygeeker.com/geekits/support/release-notes",
+			href: releaseNotesUrl,
 			isExternal: true,
 		},
 	];

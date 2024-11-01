@@ -16,6 +16,7 @@ module.exports = {
 	},
 	repo: "https://github.com/rivertwilight/geekits",
 	root: "https://geekits.ygeeker.com",
+	releaseNotesUrl: "https://www.ygeeker.com/support/geekits/release-notes",
 	apiConfig: {
 		url: "https://geekits.ygeeker.com",
 	},
