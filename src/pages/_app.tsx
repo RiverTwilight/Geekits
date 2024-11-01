@@ -2,17 +2,14 @@ import React, { useState, useEffect, useMemo } from "react";
 import { useRouter } from "next/router";
 import Layout from "@/components/Layout";
 import Text from "@/components/i18n";
-import { ThemeProvider } from "@mui/material/styles";
 import { store as frameStore } from "@/utils/Data/frameState";
 import { Device } from "@capacitor/device";
-import customTheme from "@/utils/theme";
-import { LocaleProvider } from "@/contexts/locale";
-import { isWeb } from "@/utils/platform.js";
-
+import { ColorModeProvider } from "@/contexts/colorMode";
 import type { AppProps } from "next/app";
-
-import "./App.css";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
+import { LocaleProvider } from "@/contexts/locale";
+import { isWeb } from "@/utils/platform";
+import "./App.css";
 
 async function getDeviceLanguage() {
 	let { value } = await Device.getLanguageCode();
@@ -29,27 +26,8 @@ async function getDeviceLanguage() {
 
 const MainApp = React.memo(({ Component, pageProps }: AppProps) => {
 	const router = useRouter();
-	const [prefersDarkMode, setPrefersDarkMode] = useState(false);
 	const [framed, setFramed] = useState<Boolean>(true);
 	const [preferredLocale, setPreferredLocale] = useState(pageProps.locale);
-
-	useEffect(() => {
-		const isDarkMode = window.matchMedia(
-			"(prefers-color-scheme: dark)"
-		).matches;
-		setPrefersDarkMode(isDarkMode);
-
-		const handleChange = (event: MediaQueryListEvent) => {
-			setPrefersDarkMode(event.matches);
-		};
-
-		const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-		mediaQuery.addEventListener("change", handleChange);
-
-		return () => {
-			mediaQuery.removeEventListener("change", handleChange);
-		};
-	}, []);
 
 	useEffect(() => {
 		const readLocaleConfig = async () => {
@@ -100,49 +78,6 @@ const MainApp = React.memo(({ Component, pageProps }: AppProps) => {
 		}
 	}, [pageProps.currentPage.title]);
 
-	const theme = useMemo(
-		() => customTheme(prefersDarkMode),
-		[prefersDarkMode]
-	);
-
-	useEffect(() => {
-		let loadTimer: NodeJS.Timeout;
-
-		const handleRouteChangeStart = (url: string) => {
-			const currentPath = router.asPath.split("?")[0];
-			const newPath = url.split("?")[0];
-			console.log("handleRouteChangeStart", currentPath, newPath);
-			if (newPath.endsWith(currentPath)) return;
-
-			loadTimer = setTimeout(() => {
-				window.showGlobalLoadingOverlay();
-			}, 0);
-		};
-
-		const handleRouteChangeComplete = (url: string) => {
-			clearTimeout(loadTimer);
-			window.hideGlobalLoadingOverlay();
-		};
-
-		if (isWeb()) {
-			router.events.on("routeChangeStart", handleRouteChangeStart);
-			router.events.on("routeChangeComplete", handleRouteChangeComplete);
-			router.events.on("routeChangeError", handleRouteChangeComplete);
-
-			return () => {
-				router.events.off("routeChangeStart", handleRouteChangeStart);
-				router.events.off(
-					"routeChangeComplete",
-					handleRouteChangeComplete
-				);
-				router.events.off(
-					"routeChangeError",
-					handleRouteChangeComplete
-				);
-			};
-		}
-	}, [router]);
-
 	const {
 		currentPage = {
 			title: "404",
@@ -151,10 +86,13 @@ const MainApp = React.memo(({ Component, pageProps }: AppProps) => {
 	} = pageProps;
 
 	return (
-		<LocaleProvider
-			value={{ locale: preferredLocale, setLocale: setPreferredLocale }}
-		>
-			<ThemeProvider theme={theme}>
+		<ColorModeProvider>
+			<LocaleProvider
+				value={{
+					locale: preferredLocale,
+					setLocale: setPreferredLocale,
+				}}
+			>
 				<Text
 					dictionary={localizedDic || {}}
 					language={preferredLocale}
@@ -172,8 +110,8 @@ const MainApp = React.memo(({ Component, pageProps }: AppProps) => {
 						/>
 					)}
 				</Text>
-			</ThemeProvider>
-		</LocaleProvider>
+			</LocaleProvider>
+		</ColorModeProvider>
 	);
 });
 

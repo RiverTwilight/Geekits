@@ -14,10 +14,11 @@ import { useEffect, useState } from "react";
 import Text from "@/components/i18n";
 import { isWeb } from "@/utils/platform";
 import { useRouter } from "next/router";
+import { useTheme } from "@mui/material/styles";
+import { useColorMode } from "@/contexts/colorMode";
 
 export const getStaticProps: GetStaticProps = ({ locale = defaultLocale }) => {
 	const dic = require("../data/i18n.json");
-
 	const trans = new translator(dic, locale);
 
 	return {
@@ -35,12 +36,13 @@ export const getStaticProps: GetStaticProps = ({ locale = defaultLocale }) => {
 
 export default function Settings() {
 	const { setAction } = useAction();
-	const [age, setAge] = useState("auto");
-	const router = useRouter();
+	const [language, setLanguage] = useState("auto");
+	const { mode, setMode } = useColorMode();
+	const theme = useTheme();
 
-	const handleChange = (event: SelectChangeEvent) => {
+	const handleLanguageChange = (event: SelectChangeEvent) => {
 		const newLocale = event.target.value as string;
-		setAge(newLocale);
+		setLanguage(newLocale);
 		localStorage.setItem("locale", newLocale);
 
 		if (isWeb()) {
@@ -53,53 +55,109 @@ export default function Settings() {
 		}
 	};
 
+	const handleThemeChange = (event: SelectChangeEvent) => {
+		const newMode = event.target.value as 'light' | 'dark' | 'system';
+		setMode(newMode);
+		localStorage.setItem('themeMode', newMode);
+	};
+
 	setAction(null);
 
 	useEffect(() => {
 		const storedLocale = localStorage.getItem("locale");
 		if (storedLocale) {
-			setAge(storedLocale);
+			setLanguage(storedLocale);
 		}
 	}, []);
 
 	return (
 		<PaperBackground contentWidth={600}>
 			<Box
-				display={"flex"}
 				sx={{
+					display: "flex",
+					flexDirection: "column",
+					gap: 3,
 					width: "100%",
 				}}
-				justifyContent={"space-between"}
-				alignItems={"center"}
 			>
-				<Typography variant="body1">
-					<Text k="settings.language.title" />
-				</Typography>
-
-				<Box sx={{ flexGrow: 1 }} />
-
-				<FormControl sx={{ width: 180 }}>
-					<InputLabel id="settings-language-label">
+				{/* Language Setting */}
+				<Box
+					display={"flex"}
+					sx={{
+						width: "100%",
+					}}
+					justifyContent={"space-between"}
+					alignItems={"center"}
+				>
+					<Typography variant="body1">
 						<Text k="settings.language.title" />
-					</InputLabel>
-					<Select
-						labelId="settings-language-label"
-						id="settings-language"
-						name="language"
-						value={age}
-						onChange={handleChange}
-					>
-						<MenuItem value={"auto"}>
-							<Text k="settings.language.auto" />
-						</MenuItem>
-						<MenuItem value={"zh-CN"}>
-							<Text k="settings.language.zh_cn" />
-						</MenuItem>
-						<MenuItem value={"en-US"}>
-							<Text k="settings.language.en_us" />
-						</MenuItem>
-					</Select>
-				</FormControl>
+					</Typography>
+
+					<Box sx={{ flexGrow: 1 }} />
+
+					<FormControl sx={{ width: 180 }}>
+						<InputLabel id="settings-language-label">
+							<Text k="settings.language.title" />
+						</InputLabel>
+						<Select
+							labelId="settings-language-label"
+							id="settings-language"
+							name="language"
+							value={language}
+							onChange={handleLanguageChange}
+							label={<Text k="settings.language.title" />}
+						>
+							<MenuItem value={"auto"}>
+								<Text k="settings.language.auto" />
+							</MenuItem>
+							<MenuItem value={"zh-CN"}>
+								<Text k="settings.language.zh_cn" />
+							</MenuItem>
+							<MenuItem value={"en-US"}>
+								<Text k="settings.language.en_us" />
+							</MenuItem>
+						</Select>
+					</FormControl>
+				</Box>
+
+				{/* Theme Setting */}
+				<Box
+					display={"flex"}
+					sx={{
+						width: "100%",
+					}}
+					justifyContent={"space-between"}
+					alignItems={"center"}
+				>
+					<Typography variant="body1">
+						<Text k="settings.theme.title" />
+					</Typography>
+
+					<Box sx={{ flexGrow: 1 }} />
+
+					<FormControl sx={{ width: 180 }}>
+						<InputLabel id="settings-theme-label">
+							<Text k="settings.theme.title" />
+						</InputLabel>
+						<Select
+							labelId="settings-theme-label"
+							id="settings-theme"
+							value={mode}
+							onChange={handleThemeChange}
+							label={<Text k="settings.theme.title" />}
+						>
+							<MenuItem value="system">
+								<Text k="settings.theme.system" />
+							</MenuItem>
+							<MenuItem value="light">
+								<Text k="settings.theme.light" />
+							</MenuItem>
+							<MenuItem value="dark">
+								<Text k="settings.theme.dark" />
+							</MenuItem>
+						</Select>
+					</FormControl>
+				</Box>
 			</Box>
 		</PaperBackground>
 	);

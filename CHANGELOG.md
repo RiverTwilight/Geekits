@@ -4,6 +4,7 @@
 -   fix: Tax calculator algorithm
 -   feat: Add DrawLink
 -   feat: Adjust donation page
+-   feat: Add PDF merger
 
 ## 2.1.1 (2024-09-28)
 

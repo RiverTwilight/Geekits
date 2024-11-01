@@ -1,5 +1,5 @@
 ---
-name: "MIME-type查询"
+name: "MIME-type 查询"
 status: "stable"
 icon: "/icon/file_present-green/icon-192-maskable.png"
 description: "查询文件的MIME-type，支持正反查询"
