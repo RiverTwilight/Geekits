@@ -60,8 +60,25 @@ npm run start:container
 
 ## License
 
-CC-BY-4.0
-
 Copyright © 2019 YGeeker
+
+All rights reserved.
+
+This source code is private and confidential. No part of this source code may be:
+
+-   reproduced
+-   distributed
+-   deployed to public-accessible address
+-   used commercially
+-   or transmitted in any form or by any means
+
+The source code is only available for:
+
+-   study purposes
+-   contributing back to the original repository
+
+without the prior written permission from the copyright owner.
+
+Unauthorized copying, redistribution, or commercial use of this code, via any medium, is strictly prohibited.
 
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FRiverTwilight%2FYgkTool.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FRiverTwilight%2FYgkTool?ref=badge_large)
