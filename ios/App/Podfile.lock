@@ -1,10 +1,14 @@
 PODS:
   - Capacitor (6.0.0):
     - CapacitorCordova
+  - CapacitorBrowser (6.0.3):
+    - Capacitor
   - CapacitorCordova (6.0.0)
   - CapacitorDevice (6.0.0):
     - Capacitor
   - CapacitorFilesystem (6.0.0):
+    - Capacitor
+  - CapacitorPreferences (6.0.2):
     - Capacitor
   - CapacitorShare (6.0.0):
     - Capacitor
@@ -13,21 +17,27 @@ PODS:
 
 DEPENDENCIES:
   - "Capacitor (from `../../node_modules/@capacitor/ios`)"
+  - "CapacitorBrowser (from `../../node_modules/@capacitor/browser`)"
   - "CapacitorCordova (from `../../node_modules/@capacitor/ios`)"
   - "CapacitorDevice (from `../../node_modules/@capacitor/device`)"
   - "CapacitorFilesystem (from `../../node_modules/@capacitor/filesystem`)"
+  - "CapacitorPreferences (from `../../node_modules/@capacitor/preferences`)"
   - "CapacitorShare (from `../../node_modules/@capacitor/share`)"
   - "CapacitorToast (from `../../node_modules/@capacitor/toast`)"
 
 EXTERNAL SOURCES:
   Capacitor:
     :path: "../../node_modules/@capacitor/ios"
+  CapacitorBrowser:
+    :path: "../../node_modules/@capacitor/browser"
   CapacitorCordova:
     :path: "../../node_modules/@capacitor/ios"
   CapacitorDevice:
     :path: "../../node_modules/@capacitor/device"
   CapacitorFilesystem:
     :path: "../../node_modules/@capacitor/filesystem"
+  CapacitorPreferences:
+    :path: "../../node_modules/@capacitor/preferences"
   CapacitorShare:
     :path: "../../node_modules/@capacitor/share"
   CapacitorToast:
@@ -35,12 +45,14 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Capacitor: 559d073c4ca6c27f8e7002c807eea94c3ba435a9
+  CapacitorBrowser: aab1ed943b01c0365c4810538a8b3477e2d9f72e
   CapacitorCordova: 8c4bfdf69368512e85b1d8b724dd7546abeb30af
   CapacitorDevice: f8fd88f9edd1261c55a109f32015b09bbbfdc4a0
   CapacitorFilesystem: 60e59ba274c234a979e7a3be2552feaadcee4263
+  CapacitorPreferences: e8284bf740cf8c6d3f25409af3c01df87dfeb5a1
   CapacitorShare: a771200d3b924a5d7ad9d9fecbac517e4c0aa74f
   CapacitorToast: ba573a7bc5dfd622e78d5be126a84ee221da4180
 
-PODFILE CHECKSUM: 444182461ac111b0718e97c040d8ceb7301266bc
+PODFILE CHECKSUM: 5d25aad569889df1ccacf836ba66b1869c64e976
 
 COCOAPODS: 1.15.2
