@@ -1,3 +1,6 @@
+/// <reference types="@capacitor/browser" />
+/// <reference types="@capacitor/preferences" />
+
 import { CapacitorConfig } from "@capacitor/cli";
 
 const config: CapacitorConfig = {
@@ -7,6 +10,14 @@ const config: CapacitorConfig = {
 	server: {
 		androidScheme: "https",
 		errorPath: "/500.html",
+	},
+	plugins: {
+		Browser: {
+			presentationStyle: 'popover'
+		},
+		Preferences: {
+			// You can add any Preferences-specific configuration here if needed
+		},
 	},
 };
 

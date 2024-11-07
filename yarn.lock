@@ -1340,6 +1340,11 @@
   resolved "https://registry.npmjs.org/@capacitor/android/-/android-6.0.0.tgz#eb24c64a5c6821fbbb8db48eedf50eca18876318"
   integrity sha512-NwL87VO9F1WY/EgvJZN9pIhjejq688k2fRW6XWNLVe3cgGE6nUb9J34KI68fhx3139cf2LVGPUYs+mwZC8esiQ==
 
+"@capacitor/browser@^6.0.3":
+  version "6.0.3"
+  resolved "https://registry.yarnpkg.com/@capacitor/browser/-/browser-6.0.3.tgz#c145c95d94ee0b939c170cd2650f242f552c1273"
+  integrity sha512-V5/ViE+fy3rW+6w0L2du4747/hivBcI/5OGOKi01U9YdFvOWbiiGL+qetq1QdkANEqvYd4yoCeXZL2GyGySn5g==
+
 "@capacitor/cli@^6.0.0":
   version "6.0.0"
   resolved "https://registry.npmjs.org/@capacitor/cli/-/cli-6.0.0.tgz#78def1dcf8a0addd10039edf32ed15b5a0f0b1aa"
@@ -1385,6 +1390,11 @@
   version "6.0.0"
   resolved "https://registry.npmjs.org/@capacitor/ios/-/ios-6.0.0.tgz#b04ce2967d732c73ebf29ec38b4b585255930e43"
   integrity sha512-7mAs3gjWiE5DPM4AGPduqFSDGXCPwwqQRMzbohVway7/cTWnHomHV8mIojMZE4GILeWO2fILbyu3C8q9pHg2vg==
+
+"@capacitor/preferences@^6.0.2":
+  version "6.0.2"
+  resolved "https://registry.yarnpkg.com/@capacitor/preferences/-/preferences-6.0.2.tgz#9b69931b64535af6e5f36971ca0278b1ac5bec9e"
+  integrity sha512-ccD4/9ybnipJncLeCWlRPNQS2jv3nn8ivVLKzdVIWkiUHLo/hvuSSP7awVzvBwDNtAhNxIipjjWH6TyzZgLCcg==
 
 "@capacitor/share@^6.0.0":
   version "6.0.0"

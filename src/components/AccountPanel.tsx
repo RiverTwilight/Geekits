@@ -9,6 +9,8 @@ import TextField from "@mui/material/TextField";
 import { createClient } from "@/utils/supabase/component";
 import { useAccount } from "@/contexts/account";
 import { OpenInNewRounded } from "@mui/icons-material";
+import { Capacitor } from '@capacitor/core';
+import { Browser } from '@capacitor/browser';
 
 interface AccountPanelProps {
 	open: boolean;
@@ -41,8 +43,16 @@ const AccountPanel: React.FC<AccountPanelProps> = ({ open, onClose }) => {
 		}
 	};
 
+	const openInAppBrowser = async (url: string) => {
+		if (Capacitor.isNativePlatform()) {
+			await Browser.open({ url, presentationStyle: 'popover' });
+		} else {
+			window.open(url, '_blank');
+		}
+	};
+
 	const handleGoToYGeeker = () => {
-		window.open("https://www.ygeeker.com/account/manage", "_blank");
+		openInAppBrowser("https://www.ygeeker.com/account/manage");
 	};
 
 	return (
@@ -179,12 +189,7 @@ const AccountPanel: React.FC<AccountPanelProps> = ({ open, onClose }) => {
 								variant="outlined"
 								fullWidth
 								color="primary"
-								onClick={() =>
-									window.open(
-										"https://www.ygeeker.com/account/sign-in",
-										"_blank"
-									)
-								}
+								onClick={() => openInAppBrowser("https://www.ygeeker.com/account/sign-in")}
 								sx={{ mt: 2 }}
 							>
 								Create account
@@ -193,12 +198,7 @@ const AccountPanel: React.FC<AccountPanelProps> = ({ open, onClose }) => {
 								variant="text"
 								color="primary"
 								startIcon={<OpenInNewRounded />}
-								onClick={() =>
-									window.open(
-										"https://www.ygeeker.com/account/reset-password",
-										"_blank"
-									)
-								}
+								onClick={() => openInAppBrowser("https://www.ygeeker.com/account/reset-password")}
 								sx={{ mt: 2 }}
 							>
 								Forget password...

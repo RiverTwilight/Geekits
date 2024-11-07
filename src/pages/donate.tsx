@@ -204,6 +204,7 @@ const ProductItem = ({ href, ...props }) => (
 		</OutlinedCard>
 	</Grid>
 );
+
 const PaidOptionItem = ({ href, ...props }) => {
 	const [open, setOpen] = useState(false);
 	const [paymentIntent, setPaymentIntent] = useState(null);
