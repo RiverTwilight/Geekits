@@ -34,6 +34,16 @@ const data = [
 		platform: ["web", "ios", "android"],
 		channel: "external",
 	},
+	{
+		id: "logosc",
+		name: "免费 Logo 生成器",
+		description: "",
+		status: "stable",
+		locale: "zh-CN",
+		link: "https://www.logosc.cn/start",
+		platform: ["web"],
+		channel: "external",
+	},
 ];
 
 module.exports = data;
