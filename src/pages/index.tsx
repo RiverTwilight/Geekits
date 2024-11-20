@@ -13,9 +13,15 @@ import { defaultLocale } from "src/site.config";
 import { useLocale } from "@/contexts/locale";
 import { isCapacitor } from "@/utils/platform";
 import fetch from "node-fetch";
+import { Capacitor } from "@capacitor/core";
 
 export async function getStaticProps({ locale = defaultLocale }) {
-	const appData = getAllApps(true, locale);
+	let appData: any[];
+	if (Capacitor.isNativePlatform()) {
+		appData = getAllApps(true);
+	} else {
+		appData = getAllApps(true, locale);
+	}
 
 	const dic = require("../data/i18n.json");
 
