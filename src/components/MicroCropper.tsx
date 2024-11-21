@@ -34,6 +34,7 @@ const MicroCropper = ({ file, onConfirm, onCancel, open }) => {
 			if (!isSameOrigin(event.origin)) return;
 
 			if (event.data.type === "ready") {
+				console.log("ready", file);
 				iframeRef.current.contentWindow.postMessage(
 					{ type: "SEND_RAW", data: file },
 					"*"

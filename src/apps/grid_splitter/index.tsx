@@ -38,7 +38,7 @@ const Gallery = ({ res }: { res: string[] }) => {
 };
 
 const ImgSplit: React.FC = () => {
-	const [file, setFile] = useState<File | null>(null);
+	const [file, setFile] = useState<string | null>(null);
 	const [res, setRes] = useState<string[]>([]);
 	const [dialogOpen, setDialogOpen] = useState(false);
 
@@ -77,9 +77,15 @@ const ImgSplit: React.FC = () => {
 					<FilePicker
 						enableDrag={true}
 						fileType="image/*"
-						handleFileUpload={(file) => {
-							setFile(file);
-							setDialogOpen(true);
+						handleFileUpload={(_, file) => {
+							if (file) {
+								const reader = new FileReader();
+								reader.onload = (e) => {
+									setFile(e.target.result as string);
+									setDialogOpen(true);
+								};
+								reader.readAsDataURL(file);
+							}
 						}}
 					></FilePicker>
 				</FileField>

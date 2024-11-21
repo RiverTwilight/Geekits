@@ -34,34 +34,44 @@ export default function FramedCropper() {
 			if (!isSameOrigin(event.origin)) return;
 
 			if (event.data.type === "SEND_RAW") {
-				setImgSrc(event.data.data);
+				if (event.data.data instanceof File) {
+					const reader = new FileReader();
+					reader.onload = (e) => setImgSrc(e.target.result);
+					reader.readAsDataURL(event.data.data);
+				} else {
+					setImgSrc(event.data.data);
+				}
 			} else if (event.data.type === "REQUEST_RESULT") {
 				const cropper = cropperRef.current?.cropper;
-				const croppedImageURI = cropper.getCroppedCanvas().toDataURL();
-
-				window.parent.postMessage(
-					{ type: "SEND_RESULT", data: croppedImageURI },
-					"*"
-				);
+				if (cropper) {
+					const croppedImageURI = cropper
+						.getCroppedCanvas()
+						.toDataURL();
+					window.parent.postMessage(
+						{ type: "SEND_RESULT", data: croppedImageURI },
+						"*"
+					);
+				}
 			}
 		};
 
 		window.addEventListener("message", receiveMessage, false);
-
 		window.parent.postMessage({ type: "ready" }, "*");
 
 		return () => window.removeEventListener("message", receiveMessage);
 	}, []);
 
 	return (
-		<div>
+		imgSrc && (
 			<Cropper
 				ref={cropperRef}
-				src={imgSrc}
-				style={{ height: 400, width: "100%" }}
-				aspectRatio={1 / 1}
-				guides={true}
+					src={imgSrc}
+					style={{ height: "100%", width: "100%" }}
+					aspectRatio={1}
+					guides={true}
+					viewMode={1}
+					background={false}
 			/>
-		</div>
+		)
 	);
 }

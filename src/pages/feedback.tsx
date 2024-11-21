@@ -36,6 +36,17 @@ export default function Feedback() {
 	const [isLoading, setIsLoading] = React.useState(false);
 
 	const handleSubmit = () => {
+		if (!feedback.trim()) {
+			if (isWeb()) {
+				window.snackbar({ message: "请输入反馈内容！" });
+			} else {
+				Toast.show({
+					text: "请输入反馈内容！",
+				});
+			}
+			return;
+		}
+
 		const fbTemplate = `
 ${feedback}
 ---------
@@ -158,7 +169,7 @@ ${feedback}
 					label={<Text k="feedback.debug" />}
 				/>
 				<Button
-					disabled={isLoading}
+					disabled={isLoading || !feedback.trim()}
 					variant="contained"
 					onClick={handleSubmit}
 				>
