@@ -1,7 +1,12 @@
 # Project Overview
 
-Geekits is a digital toolbox built with love using MUI, TypeScript, Next.js, and many other technologies.We aim to create a beautiful yet minimalist, practical yet simple, powerful and efficient digital toolbox.
+This project, named Geekits, the all-in-one digital toobox, is built using Next.js and TypeScript. It integrates various libraries for state management, UI components, and data fetching.
 
-# Production
+# Tech Stack
 
-* geekits.ygeeker.com
+-   Next.js
+-   Material UI v5
+-   TypeScript
+-   Styled Components
+-   Supabase
+-   Capacitor (for mobile app)
