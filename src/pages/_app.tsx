@@ -10,6 +10,8 @@ import GoogleAnalytics from "@/components/GoogleAnalytics";
 import { LocaleProvider } from "@/contexts/locale";
 import { isWeb } from "@/utils/platform";
 import "./App.css";
+import { Preferences } from "@capacitor/preferences";
+import { Capacitor } from "@capacitor/core";
 
 async function getDeviceLanguage() {
 	let { value } = await Device.getLanguageCode();
@@ -31,25 +33,40 @@ const MainApp = React.memo(({ Component, pageProps }: AppProps) => {
 
 	useEffect(() => {
 		const readLocaleConfig = async () => {
-			let preferredSet = localStorage.getItem("locale");
-			if (preferredSet) {
-				if (preferredSet === "auto" && !isWeb()) {
-					// Use device language on native apps
-					setPreferredLocale(await getDeviceLanguage());
-				} else if (preferredSet !== "auto" && isWeb()) {
-					// Redirect to the new locale on web
-					// If the path has locale, we should do nothing, as this has higher priority
-					// than setting locale manually in the Settings page.
-					let pathLocaleActive = router.locales.some((locale) => {
-						return window.location.pathname.includes(locale);
-					});
+			try {
+				const { value: preferredSet } = await Preferences.get({
+					key: "locale",
+				});
 
-					if (!pathLocaleActive && router.locale !== preferredSet) {
-						// Visitor is not using localized path, which means NextJS is using the default locale.
-						// But the preferred locale is not the default one, so we need to redirect to the new locale.
-						window.location.href = `/${preferredSet}${window.location.pathname}`;
+				if (preferredSet) {
+					if (
+						preferredSet === "auto" &&
+						Capacitor.isNativePlatform()
+					) {
+						// Use device language on native apps
+						setPreferredLocale(await getDeviceLanguage());
+					} else if (preferredSet !== "auto" && isWeb()) {
+						// Redirect to the new locale on web
+						let pathLocaleActive = router.locales.some((locale) => {
+							return window.location.pathname.includes(locale);
+						});
+
+						if (
+							!pathLocaleActive &&
+							router.locale !== preferredSet
+						) {
+							window.location.href = `/${preferredSet}${window.location.pathname}`;
+						}
+					} else if (
+						preferredSet !== "auto" &&
+						Capacitor.isNativePlatform()
+					) {
+						// Use preferred locale on native apps
+						setPreferredLocale(preferredSet);
 					}
 				}
+			} catch (error) {
+				console.error("Error reading locale from storage:", error);
 			}
 		};
 

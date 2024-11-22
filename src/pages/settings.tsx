@@ -13,9 +13,9 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { useEffect, useState } from "react";
 import Text from "@/components/i18n";
 import { isWeb } from "@/utils/platform";
-import { useRouter } from "next/router";
 import { useTheme } from "@mui/material/styles";
 import { useColorMode } from "@/contexts/colorMode";
+import { Preferences } from "@capacitor/preferences";
 
 export const getStaticProps: GetStaticProps = ({ locale = defaultLocale }) => {
 	const dic = require("../data/i18n.json");
@@ -40,10 +40,13 @@ export default function Settings() {
 	const { mode, setMode } = useColorMode();
 	const theme = useTheme();
 
-	const handleLanguageChange = (event: SelectChangeEvent) => {
+	const handleLanguageChange = async (event: SelectChangeEvent) => {
 		const newLocale = event.target.value as string;
 		setLanguage(newLocale);
-		localStorage.setItem("locale", newLocale);
+		await Preferences.set({
+			key: "locale",
+			value: newLocale,
+		});
 
 		if (isWeb()) {
 			const targetPath = `${window.location.origin}/${
@@ -55,19 +58,32 @@ export default function Settings() {
 		}
 	};
 
-	const handleThemeChange = (event: SelectChangeEvent) => {
-		const newMode = event.target.value as 'light' | 'dark' | 'system';
+	const handleThemeChange = async (event: SelectChangeEvent) => {
+		const newMode = event.target.value as "light" | "dark" | "system";
 		setMode(newMode);
-		localStorage.setItem('themeMode', newMode);
+		await Preferences.set({
+			key: "themeMode",
+			value: newMode,
+		});
 	};
 
 	setAction(null);
 
 	useEffect(() => {
-		const storedLocale = localStorage.getItem("locale");
-		if (storedLocale) {
-			setLanguage(storedLocale);
-		}
+		const loadStoredPreferences = async () => {
+			try {
+				const { value: storedLocale } = await Preferences.get({
+					key: "locale",
+				});
+				if (storedLocale) {
+					setLanguage(storedLocale);
+				}
+			} catch (error) {
+				console.error("Error loading stored preferences:", error);
+			}
+		};
+
+		loadStoredPreferences();
 	}, []);
 
 	return (
