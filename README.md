@@ -6,7 +6,7 @@
 
 <h1 align="center">Geekits</h1>
 
-[简体中文](./README.md) | **English**
+[简体中文](./README.zh-CN.md) | **English**
 
 [![Release](https://img.shields.io/github/release/rivertwilight/ygktool.svg)](https://github.com/rivertwilight/ygktool/releases)
 [![License](https://img.shields.io/github/license/rivertwilight/ygktool.svg)](https://github.com/rivertwilight/ygktool/blob/main/LICENSE)
