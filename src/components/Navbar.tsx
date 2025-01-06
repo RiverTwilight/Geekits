@@ -20,6 +20,7 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import { isWeb } from "@/utils/platform";
 import Text from "./i18n";
+import { Capacitor } from "@capacitor/core";
 
 function ElevationScroll(props: Props) {
 	const { children } = props;
@@ -313,16 +314,17 @@ export default (props: { title: string; PageAction; repo: string }) => {
 
 						{(isRootRoute || !hidden) && <AppsMenu />}
 
-						{(!hidden || isRootRoute) && (
-							<>
-								<IconButton
-									onClick={() => setShowLoginDialog(true)}
-									size="large"
-								>
-									<AccountCircle />
-								</IconButton>
-							</>
-						)}
+						{(!hidden || isRootRoute) &&
+							!Capacitor.isNativePlatform() && (
+								<>
+									<IconButton
+										onClick={() => setShowLoginDialog(true)}
+										size="large"
+									>
+										<AccountCircle />
+									</IconButton>
+								</>
+							)}
 					</Toolbar>
 				</AppBar>
 			</ElevationScroll>

@@ -16,6 +16,9 @@ const appImportList: Record<string, ComponentType> = {
 	decision: dynamic(() => import("../apps/decision"), {
 		ssr: false,
 	}),
+	text_compare: dynamic(() => import("../apps/text_compare"), {
+		ssr: false,
+	}),
 	pdf_merger: dynamic(() => import("../apps/pdf_merger"), {
 		ssr: false,
 	}),

@@ -189,7 +189,7 @@ const AccountPanel: React.FC<AccountPanelProps> = ({ open, onClose }) => {
 								variant="outlined"
 								fullWidth
 								color="primary"
-								onClick={() => openInAppBrowser("https://www.ygeeker.com/account/sign-in")}
+								onClick={() => openInAppBrowser("https://www.ygeeker.com/account/create-account")}
 								sx={{ mt: 2 }}
 							>
 								Create account

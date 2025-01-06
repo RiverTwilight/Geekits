@@ -410,6 +410,18 @@
                 </url>
             
                 <url>
+                    <loc>/app/text_compare</loc>
+                    <changefreq>monthly</changefreq>
+                    <priority>0.7</priority>
+                </url>
+            
+                <url>
+                    <loc>/app/text_compare</loc>
+                    <changefreq>monthly</changefreq>
+                    <priority>0.7</priority>
+                </url>
+            
+                <url>
                     <loc>/app/url_cleaner</loc>
                     <changefreq>monthly</changefreq>
                     <priority>0.7</priority>
@@ -825,6 +837,18 @@
             
                 <url>
                     <loc>/app/tax_calculator</loc>
+                    <changefreq>monthly</changefreq>
+                    <priority>0.7</priority>
+                </url>
+            
+                <url>
+                    <loc>/app/text_compare</loc>
+                    <changefreq>monthly</changefreq>
+                    <priority>0.7</priority>
+                </url>
+            
+                <url>
+                    <loc>/app/text_compare</loc>
                     <changefreq>monthly</changefreq>
                     <priority>0.7</priority>
                 </url>
