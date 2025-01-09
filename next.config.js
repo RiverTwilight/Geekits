@@ -7,6 +7,7 @@ const withPWA = require("next-pwa")({
 const isCapacitor = process.env.CAPACITOR_BUILD === "true";
 
 module.exports = withPWA({
+	...(isCapacitor && { output: "export" }),
 	typescript: {
 		// !! WARN !!
 		// Dangerously allow production builds to successfully complete even if

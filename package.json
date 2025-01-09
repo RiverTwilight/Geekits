@@ -1,11 +1,11 @@
 {
 	"name": "geekits",
-	"version": "2.1.3",
+	"version": "2.2.3",
 	"homepage": "https://geekits.ygeeker.com",
 	"description": "🛠A simple, feature-rich, and efficient online toolbox | 极简，强大，高效的在线工具箱，遵循MD设计规范",
 	"scripts": {
 		"build": "next build",
-		"build:cap": "CAPACITOR_BUILD=true next build && CAPACITOR_BUILD=true next export && npx cap sync",
+		"build:cap": "CAPACITOR_BUILD=true next build && npx cap sync",
 		"build:image": "docker build -t ygktool .",
 		"dev": "next",
 		"dev:cap": "CAPACITOR_BUILD=true next",
@@ -53,8 +53,6 @@
 		"clipboard": "^2.0.6",
 		"compress.js": "^1.2.2",
 		"crypto-js": "^4.0.0",
-		"dexie": "^3.0.3",
-		"dexie-react-hooks": "^1.0.6",
 		"diff": "^7.0.0",
 		"diff-match-patch": "^1.0.5",
 		"gif.js": "^0.2.0",

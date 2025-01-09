@@ -1,3 +1,7 @@
+## 2.2.3 (2025-01-09)
+
+-   feat: Add dark mode
+
 ## 2.1.3 (2025-01-08)
 
 -   fix: Dark mode not working on iOS
