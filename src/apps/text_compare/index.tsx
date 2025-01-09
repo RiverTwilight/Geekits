@@ -13,7 +13,7 @@ const EditorContainer = styled("div")(({ theme }) => ({
 	width: "100%",
 	overflow: "hidden",
 	border: `1px solid ${theme.palette.divider}`,
-	borderRadius: theme.shape.borderRadius,
+	borderRadius: "12px",
 	backgroundColor: theme.palette.background.default,
 	color: theme.palette.text.primary,
 	"& .cm-editor": {
@@ -28,17 +28,22 @@ const EditorContainer = styled("div")(({ theme }) => ({
 		backgroundColor: theme.palette.background.default,
 		color: theme.palette.text.primary,
 	},
+	"& .cm-gutters": {
+		backgroundColor: theme.palette.background.default,
+		color: theme.palette.text.primary,
+	},
 }));
 
 const DiffContainer = styled("pre")(({ theme }) => ({
 	margin: 0,
 	padding: theme.spacing(2),
-	backgroundColor: "#f5f5f5",
 	borderRadius: theme.shape.borderRadius,
 	width: "100%",
 	minWidth: "100%",
 	whiteSpace: "pre",
 	overflowX: "auto",
+	color: theme.palette.text.primary,
+	backgroundColor: theme.palette.background.default,
 	"& .diff-add": {
 		backgroundColor: "#e6ffe6",
 		textDecoration: "none",

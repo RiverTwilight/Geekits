@@ -1,4 +1,7 @@
-## 2.1.3 (2024-11-04)
+## 2.1.3 (2025-01-08)
+
+-   fix: Dark mode not working on iOS
+-   feat: Add text compare app
 
 ## 2.1.2 (2024-11-02)
 

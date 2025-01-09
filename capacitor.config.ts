@@ -18,6 +18,10 @@ const config: CapacitorConfig = {
 		Preferences: {
 			// You can add any Preferences-specific configuration here if needed
 		},
+		App: {
+			// Enable system theme detection
+			enableSystemThemeDetection: true
+		}
 	},
 };
 
