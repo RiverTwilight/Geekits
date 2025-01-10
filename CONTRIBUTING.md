@@ -57,7 +57,7 @@ freeSize: true
 这里是帮助文本，提供必要的说明。
 ```
 
-属性表格：
+支持的属性如下：
 
 | 属性名      | 类型    | 描述                                             | 是否必填 |
 | ----------- | ------- | ------------------------------------------------ | -------- |
@@ -70,13 +70,13 @@ freeSize: true
 
 接着，在[appEntry.ts](/src/utils/appEntry.ts)中，根据已有的示例，添加引入函数。完成。
 
-之后，你可以像开发常规 react app 一样编写代码。在`components`文件夹中有一些预先写好的组件。
+之后，你可以像开发常规 React app 一样编写代码。在`components`文件夹中有一些预先写好的组件。你也可以自己编写组件，但需要遵循 Material Design 的规范。
 
 ## 翻译
 
-除工具文档之外，网站所有的需要翻译的字段都位于`/src/data/i18n/i18n.xlsx`这个表格中。你可以打开自由编辑。
+除工具文档之外，App 所有的需要翻译的字段都位于`/src/data/i18n/i18n.xlsx`这个表格中。你可以打开自由编辑。
 
-编辑完成后，请先[提交 Pull Request](https://github.com/RiverTwilight/YgkTool/pulls)，代码审查完后，你可以运行`yarn run i18n:update`命令输出 json 格式文件。
+编辑完成后，请先[提交 Pull Request](https://github.com/RiverTwilight/Geekits/pulls)，代码审查完后，你可以运行`yarn run i18n:update`命令输出 json 格式文件。
 
 目前需要翻译的语言有：
 
