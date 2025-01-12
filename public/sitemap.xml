@@ -374,6 +374,18 @@
                 </url>
             
                 <url>
+                    <loc>/app/reg_exp_tester</loc>
+                    <changefreq>monthly</changefreq>
+                    <priority>0.7</priority>
+                </url>
+            
+                <url>
+                    <loc>/app/reg_exp_tester</loc>
+                    <changefreq>monthly</changefreq>
+                    <priority>0.7</priority>
+                </url>
+            
+                <url>
                     <loc>/app/screen_recorder</loc>
                     <changefreq>monthly</changefreq>
                     <priority>0.7</priority>
@@ -801,6 +813,18 @@
             
                 <url>
                     <loc>/app/radio_signal_location_checker</loc>
+                    <changefreq>monthly</changefreq>
+                    <priority>0.7</priority>
+                </url>
+            
+                <url>
+                    <loc>/app/reg_exp_tester</loc>
+                    <changefreq>monthly</changefreq>
+                    <priority>0.7</priority>
+                </url>
+            
+                <url>
+                    <loc>/app/reg_exp_tester</loc>
                     <changefreq>monthly</changefreq>
                     <priority>0.7</priority>
                 </url>

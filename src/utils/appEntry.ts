@@ -31,6 +31,9 @@ const appImportList: Record<string, ComponentType> = {
 	dic_char: dynamic(() => import("../apps/dic_char"), {
 		ssr: false,
 	}),
+	reg_exp_tester: dynamic(() => import("../apps/reg_exp_tester"), {
+		ssr: false,
+	}),
 	url_cleaner: dynamic(() => import("../apps/url_cleaner"), {
 		ssr: false,
 	}),
