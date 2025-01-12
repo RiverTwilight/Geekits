@@ -93,6 +93,8 @@ const Layout = ({ currentPage, children, enableFrame }) => {
 
 	const activeDescription = currentPage.description || siteConfig.description;
 
+	const activeKeywords = currentPage.keywords || siteConfig.keywords;
+
 	return (
 		<SidebarProvider value={{ sidebar: sidebar, setSidebar: setSidebar }}>
 			<AppBarProvider value={{ appBar, setAppBar }}>
