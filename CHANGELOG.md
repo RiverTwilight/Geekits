@@ -1,3 +1,8 @@
+## 2.3.0 (2025-01-12)
+
+-   feat: Add gif maker app
+-   feat: Add counter app
+
 ## 2.2.3 (2025-01-09)
 
 -   feat: Add dark mode

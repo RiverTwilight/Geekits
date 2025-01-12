@@ -8,6 +8,12 @@ const isCapacitor = process.env.CAPACITOR_BUILD === "true";
 
 module.exports = withPWA({
 	...(isCapacitor && { output: "export" }),
+	...(!isCapacitor && {
+		i18n: {
+			locales: ["zh-CN", "en-US"],
+			defaultLocale: "en-US",
+		},
+	}),
 	typescript: {
 		// !! WARN !!
 		// Dangerously allow production builds to successfully complete even if
@@ -38,10 +44,4 @@ module.exports = withPWA({
 		});
 		return config;
 	},
-	i18n: isCapacitor
-		? undefined
-		: {
-				locales: ["zh-CN", "en-US"],
-				defaultLocale: "en-US",
-		  },
 });
