@@ -182,6 +182,18 @@
                 </url>
             
                 <url>
+                    <loc>/app/gif_maker</loc>
+                    <changefreq>monthly</changefreq>
+                    <priority>0.7</priority>
+                </url>
+            
+                <url>
+                    <loc>/app/gif_maker</loc>
+                    <changefreq>monthly</changefreq>
+                    <priority>0.7</priority>
+                </url>
+            
+                <url>
                     <loc>/app/grid_splitter</loc>
                     <changefreq>monthly</changefreq>
                     <priority>0.7</priority>
@@ -645,6 +657,18 @@
             
                 <url>
                     <loc>/app/fuel_consumption_calculator</loc>
+                    <changefreq>monthly</changefreq>
+                    <priority>0.7</priority>
+                </url>
+            
+                <url>
+                    <loc>/app/gif_maker</loc>
+                    <changefreq>monthly</changefreq>
+                    <priority>0.7</priority>
+                </url>
+            
+                <url>
+                    <loc>/app/gif_maker</loc>
                     <changefreq>monthly</changefreq>
                     <priority>0.7</priority>
                 </url>

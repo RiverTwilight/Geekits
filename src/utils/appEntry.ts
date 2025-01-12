@@ -13,6 +13,9 @@ const appImportList: Record<string, ComponentType> = {
 	counter: dynamic(() => import("../apps/counter"), {
 		ssr: false,
 	}),
+	gif_maker: dynamic(() => import("../apps/gif_maker"), {
+		ssr: false,
+	}),
 	color_picker: dynamic(() => import("../apps/color_picker"), {
 		ssr: false,
 	}),
