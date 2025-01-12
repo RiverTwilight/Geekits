@@ -62,6 +62,18 @@
                 </url>
             
                 <url>
+                    <loc>/app/counter</loc>
+                    <changefreq>monthly</changefreq>
+                    <priority>0.7</priority>
+                </url>
+            
+                <url>
+                    <loc>/app/counter</loc>
+                    <changefreq>monthly</changefreq>
+                    <priority>0.7</priority>
+                </url>
+            
+                <url>
                     <loc>/app/date_calculator</loc>
                     <changefreq>monthly</changefreq>
                     <priority>0.7</priority>
@@ -501,6 +513,18 @@
             
                 <url>
                     <loc>/app/clipboard</loc>
+                    <changefreq>monthly</changefreq>
+                    <priority>0.7</priority>
+                </url>
+            
+                <url>
+                    <loc>/app/counter</loc>
+                    <changefreq>monthly</changefreq>
+                    <priority>0.7</priority>
+                </url>
+            
+                <url>
+                    <loc>/app/counter</loc>
                     <changefreq>monthly</changefreq>
                     <priority>0.7</priority>
                 </url>
