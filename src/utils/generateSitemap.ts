@@ -1,4 +1,7 @@
 import fs from "fs";
+import { root } from "src/site.config";
+
+const SITE_URL = root;
 
 const generateSitemap = (apps) => {
 	const links = [
@@ -22,7 +25,7 @@ const generateSitemap = (apps) => {
 			.map((link) => {
 				return `
                 <url>
-                    <loc>${link.url}</loc>
+                    <loc>${SITE_URL}${link.url}</loc>
                     <changefreq>${link.changefreq}</changefreq>
                     <priority>${link.priority}</priority>
                 </url>
