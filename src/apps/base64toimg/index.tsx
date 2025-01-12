@@ -5,8 +5,8 @@ import IconButton from "@mui/material/IconButton";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import ContentCopy from "@mui/icons-material/ContentCopy";
 import OutlinedCard from "@/components/OutlinedCard";
-import { ContentCopy } from "@mui/icons-material";
 import handleCopy from "@/utils/copyToClipboard";
 
 const Base64ToImg: React.FC = () => {
