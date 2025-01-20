@@ -48,6 +48,7 @@ const AppListItem = ({
 				height: "93px",
 				overflow: "hidden",
 				padding: "0 18px",
+				borderRadius: "28px"
 			}}
 			selected={selected}
 			key={id}
