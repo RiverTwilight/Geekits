@@ -27,6 +27,28 @@ const customStorage = {
 };
 
 export function createClient() {
+	if (
+		!process.env.NEXT_PUBLIC_SUPABASE_URL ||
+		!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+	) {
+		// Return fake client when env vars not set
+		// So contributor can still build the app
+		return {
+			auth: {
+				getUser: async () => ({ data: { user: null }, error: null }),
+				signInWithPassword: async () => ({ data: null, error: null }),
+				signOut: async () => ({ error: null }),
+			},
+			from: () => ({
+				select: () => ({
+					eq: () => ({
+						single: async () => ({ data: null, error: null }),
+					}),
+				}),
+			}),
+		};
+	}
+
 	const supabase = createBrowserClient(
 		process.env.NEXT_PUBLIC_SUPABASE_URL!,
 		process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,

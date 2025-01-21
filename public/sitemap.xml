@@ -326,18 +326,6 @@
                 </url>
             
                 <url>
-                    <loc>https://geekits.ygeeker.com/app/lottery</loc>
-                    <changefreq>monthly</changefreq>
-                    <priority>0.7</priority>
-                </url>
-            
-                <url>
-                    <loc>https://geekits.ygeeker.com/app/lottery</loc>
-                    <changefreq>monthly</changefreq>
-                    <priority>0.7</priority>
-                </url>
-            
-                <url>
                     <loc>https://geekits.ygeeker.com/app/manifest</loc>
                     <changefreq>monthly</changefreq>
                     <priority>0.7</priority>
@@ -801,18 +789,6 @@
             
                 <url>
                     <loc>https://geekits.ygeeker.com/app/length_unit_convertor</loc>
-                    <changefreq>monthly</changefreq>
-                    <priority>0.7</priority>
-                </url>
-            
-                <url>
-                    <loc>https://geekits.ygeeker.com/app/lottery</loc>
-                    <changefreq>monthly</changefreq>
-                    <priority>0.7</priority>
-                </url>
-            
-                <url>
-                    <loc>https://geekits.ygeeker.com/app/lottery</loc>
                     <changefreq>monthly</changefreq>
                     <priority>0.7</priority>
                 </url>
