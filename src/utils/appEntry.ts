@@ -127,6 +127,9 @@ const appImportList: Record<string, ComponentType> = {
 	base64toimg: dynamic(() => import("../apps/base64toimg"), {
 		ssr: false,
 	}),
+	hotpot_timer: dynamic(() => import("../apps/hotpot_timer"), {
+		ssr: false,
+	}),
 	radio_signal_location_checker: dynamic(
 		() => import("../apps/radio_signal_location_checker"),
 		{
