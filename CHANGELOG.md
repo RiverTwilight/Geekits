@@ -1,3 +1,8 @@
+## 2.3.1 (2025-01-23)
+
+-   feat: Add lottery app
+-   feat: Add hotpot timer app
+
 ## 2.3.0 (2025-01-12)
 
 -   feat: Add gif maker app
