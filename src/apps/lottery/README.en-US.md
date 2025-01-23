@@ -1,10 +1,8 @@
 ---
-name: "抽奖"
-description: "抽奖"
+name: "Lottery"
+description: "Stock-based lucky number generator"
 status: "stable"
 icon: "/api/icon?iconName=Assignment&backgroundColor1=ff6b6b"
-channel: "dev"
-seoOptimizedDescription: "抽奖"
+channel: "life"
+seoOptimizedDescription: "Lottery"
 ---
-
-## 算法介绍
