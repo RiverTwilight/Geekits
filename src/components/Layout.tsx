@@ -14,6 +14,8 @@ import { ActionProvider } from "@/contexts/action";
 import { AppBarProvider } from "@/contexts/appBar";
 import { AccountProvider } from "@/contexts/account";
 import { createClient } from "@/utils/supabase/component";
+import { Capacitor } from "@capacitor/core";
+import { Toast } from "@capacitor/toast";
 
 const Root = styled("main")<{ disableTopPadding?: boolean }>(
 	({ theme }) =>
@@ -34,8 +36,17 @@ const GlobalSnackbar = () => {
 	});
 	useEffect(() => {
 		window.snackbar = (config) => {
-			setSnackbarConfig(config);
-			setOpenSnackbar(true);
+			if (Capacitor.isNativePlatform()) {
+				// Show native toast on mobile platforms
+				Toast.show({
+					text: config.message,
+					duration: config.autoHideDuration || "short",
+					position: "bottom",
+				});
+			} else {
+				setSnackbarConfig(config);
+				setOpenSnackbar(true);
+			}
 		};
 	});
 	const handleSnackbarClose = () => {

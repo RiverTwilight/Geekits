@@ -4,6 +4,7 @@ import sharp from "sharp";
 import { renderToStaticMarkup } from "react-dom/server";
 import React from "react";
 
+// Check all supported icons at https://mui.com/material-ui/material-icons/
 export default async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse

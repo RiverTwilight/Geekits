@@ -141,14 +141,6 @@ const AppMenu = ({
 						<ShareIcon fontSize="inherit" />
 					</IconButton>
 				)} */}
-				<Button
-					className={classes.margin}
-					onClick={feedback}
-					variant="outlined"
-					aria-label="Send us feedback"
-				>
-					<Text k="appMenu.feedback" />
-				</Button>
 			</Box>
 
 			<StyledMarkdown content={appDoc} />

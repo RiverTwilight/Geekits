@@ -37,7 +37,7 @@
 		"@capacitor/ios": "^6.0.0",
 		"@capacitor/preferences": "^6.0.0",
 		"@capacitor/share": "^6.0.0",
-		"@capacitor/toast": "^6.0.0",
+		"@capacitor/toast": "latest",
 		"@codemirror/lang-javascript": "^6.2.2",
 		"@emotion/react": "^11.7.1",
 		"@emotion/styled": "^11.6.0",

@@ -1,9 +1,9 @@
 ---
-name: "ChatGPT"
+name: "AI Chat"
 status: "stable"
 link: "chatai"
 icon: "/icon/chat-colorful/icon-192-maskable.png"
-description: "基于GPT-3模型的AI聊天，提供丰富的模板。"
+description: "和各种大模型聊天，提供丰富的模板。"
 channel: ai
 platform:
     - web

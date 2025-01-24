@@ -7,4 +7,4 @@ channel: "dev"
 seoOptimizedDescription: "抽奖"
 ---
 
-#### 算法介绍
+本 App 会通过当天的股票行情，

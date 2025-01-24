@@ -7,9 +7,6 @@ const appImportList: Record<string, ComponentType> = {
 	cem: dynamic(() => import("../apps/cem"), {
 		ssr: false,
 	}),
-	clipboard: dynamic(() => import("../apps/clipboard"), {
-		ssr: false,
-	}),
 	counter: dynamic(() => import("../apps/counter"), {
 		ssr: false,
 	}),
