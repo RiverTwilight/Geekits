@@ -3,6 +3,18 @@ import externalApps_zhCN from "../data/zh-CN/externalApps";
 import externalApps_enUS from "../data/en-US/externalApps";
 import type { AppData } from "@/types/index";
 
+declare const require: {
+	context(
+		directory: string,
+		useSubdirectories: boolean,
+		regExp: RegExp
+	): {
+		keys(): string[];
+		(id: string): any;
+	};
+	(id: string): { default: string };
+};
+
 const getAppConfigFile = (appId: string, locale: string): string =>
 	require(`../apps/${appId}/README.${locale}.md`).default;
 
