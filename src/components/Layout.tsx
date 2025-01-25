@@ -74,7 +74,6 @@ const Layout = ({ currentPage, children, enableFrame }) => {
 				data: { user },
 			} = await supabase.auth.getUser();
 			if (user) {
-				console.log("***fetching");
 				const { data, error } = await supabase
 					.from("Account")
 					.select("email, first_name, last_name, avatarUrl, uid")
@@ -106,6 +105,8 @@ const Layout = ({ currentPage, children, enableFrame }) => {
 
 	const activeKeywords = currentPage.keywords || siteConfig.keywords;
 
+	console.log("ACTIVE KEYWORDS", activeKeywords);
+
 	return (
 		<SidebarProvider value={{ sidebar: sidebar, setSidebar: setSidebar }}>
 			<AppBarProvider value={{ appBar, setAppBar }}>
@@ -122,7 +123,7 @@ const Layout = ({ currentPage, children, enableFrame }) => {
 						<meta name="description" content={activeDescription} />
 						<meta
 							name="keywords"
-							content={siteConfig.keywords.join(",")}
+							content={activeKeywords.join(",")}
 						/>
 						<meta name="author" content={siteConfig.author.name} />
 

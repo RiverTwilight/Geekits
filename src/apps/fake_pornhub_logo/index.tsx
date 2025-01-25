@@ -1,255 +1,276 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import html2canvas from "html2canvas";
 import saveFile from "../../utils/fileSaver";
-import Button from "@mui/material/Button";
-import Slider from "@mui/material/Slider";
-import SliderWithIcon from "../../components/SliderWithIcon";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemSecondaryAction from "@mui/material/ListItemSecondaryAction";
-import ListItemText from "@mui/material/ListItemText";
-import Switch from "@mui/material/Switch";
+import {
+	Button,
+	Slider,
+	List,
+	ListItem,
+	ListItemIcon,
+	ListItemSecondaryAction,
+	ListItemText,
+	Switch,
+	Box,
+	Paper,
+	Stack,
+	IconButton,
+	Tooltip,
+	Typography,
+} from "@mui/material";
 import BorderVerticalIcon from "@mui/icons-material/BorderVertical";
 import ColorLensIcon from "@mui/icons-material/ColorLens";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import FileDownloadIcon from "@mui/icons-material/FileDownload";
+import AspectRatioIcon from "@mui/icons-material/AspectRatio";
 import OutlinedCard from "../../components/OutlinedCard";
-import { Box } from "@mui/material";
+import SliderWithIcon from "../../components/SliderWithIcon";
 import Text, { t } from "@/components/i18n";
 
-const IfBr = ({ statu }: any) => {
-	return statu === "vertical" ? <br></br> : null;
-};
+const IfBr = ({ statu }: { statu: string }) =>
+	statu === "vertical" ? <br /> : null;
 
-const FakeLogo = ({ hStyle, frontStyle, lastStyle }: any) => {
+const FakeLogo = ({ hStyle, frontStyle, lastStyle, scale = 1 }: any) => {
 	return (
-		<div
-			style={{
-				paddingTop: "50px",
-				borderRadius: "4px",
-				backgroundColor: "#000000",
-				width: "90%",
-				maxWidth: "600px",
-				height: "250px",
+		<Paper
+			elevation={3}
+			sx={{
+				width: "600px",
+				height: "300px",
 				display: "flex",
 				justifyContent: "center",
 				alignItems: "center",
+				bgcolor: "#000000",
+				overflow: "hidden",
 			}}
 			id="blackborad"
 		>
-			<h1
-				style={{
-					marginTop: "20px",
-					fontFamily: `"SF Pro Text", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif, SimHei,STHeiti`,
-					fontWeight: 1000,
-					letterSpacing: "-1.5px",
-					fontSize: hStyle.size + "em",
-				}}
-				className="mdui-text-center"
-			>
-				<span
-					style={{
-						borderRadius: "4px",
-						color: frontStyle.color,
-						backgroundColor: frontStyle.backgroundColor,
+			<Box sx={{ transform: `scale(${scale})` }}>
+				<Typography
+					component="h1"
+					sx={{
+						fontFamily: `"SF Pro Text", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif, SimHei,STHeiti`,
+						fontWeight: 1000,
+						letterSpacing: "-1.5px",
+						fontSize: `${hStyle.size}em`,
+						textAlign: "center",
 					}}
-					onInput={(e) => {
-						/*props.onTextChange({
-                        front:{
-                            text:e.target.innerText,
-                            backgroundColor:props.frontStyle.backgroundColor
-                        }
-                    })*/
-					}}
-					contentEditable={true}
 				>
-					Ygkt
-				</span>
-				<IfBr statu={hStyle.array} />
-				<span
-					style={{
-						display: "inline",
-						backgroundColor: lastStyle.backgroundColor,
-						borderRadius: "4px",
-						color: lastStyle.color,
-						padding: "0px 4px 0px 4px",
-						marginLeft: "3px",
-					}}
-					contentEditable={true}
-				>
-					ool
-				</span>
-			</h1>
-		</div>
+					<Box
+						component="span"
+						sx={{
+							borderRadius: 1,
+							color: frontStyle.color,
+							bgcolor: frontStyle.backgroundColor,
+							px: 0.5,
+						}}
+						contentEditable
+						suppressContentEditableWarning
+					>
+						Ygkt
+					</Box>
+					<IfBr statu={hStyle.array} />
+					<Box
+						component="span"
+						sx={{
+							display: "inline",
+							bgcolor: lastStyle.backgroundColor,
+							borderRadius: 1,
+							color: lastStyle.color,
+							px: 0.5,
+							ml: 0.5,
+						}}
+						contentEditable
+						suppressContentEditableWarning
+					>
+						ool
+					</Box>
+				</Typography>
+			</Box>
+		</Paper>
 	);
 };
 
-type UiState = any;
+const FakePornhubLogo = () => {
+	const [hStyle, setHStyle] = useState({
+		size: 4.0,
+		array: "transverse",
+	});
 
-export default class FakePornhubLogo extends React.Component<{}, UiState> {
-	inputRef: any;
-	constructor(props: {}) {
-		super(props);
-		this.state = {
-			hStyle: {
-				size: 4.0,
-				array: "transverse",
-			},
-			front: {
-				color: "#ffffff",
-				backgroundColor: "transparent",
-			},
-			last: {
-				color: "#000000",
-				backgroundColor: "#f79817",
-			},
-		};
-	}
-	handleDownload = () => {
-		html2canvas(document.querySelector("#blackborad")).then((canvas) => {
-			let base64 = canvas.toDataURL("image/png");
-			saveFile({
-				file: base64,
-				type: "png",
-				filename: "ygktool-fake_pornhub_logo.png",
-			});
+	const [front, setFront] = useState({
+		color: "#ffffff",
+		backgroundColor: "transparent",
+	});
+
+	const [last, setLast] = useState({
+		color: "#000000",
+		backgroundColor: "#f79817",
+	});
+
+	const [scale, setScale] = useState(1);
+
+	const handleDownload = async () => {
+		const canvas = await html2canvas(document.querySelector("#blackborad"));
+		const base64 = canvas.toDataURL("image/png");
+		saveFile({
+			file: base64,
+			type: "png",
+			filename: "ygktool-logo.png",
 		});
 	};
-	render() {
-		const { hStyle, front, last } = this.state;
-		return (
-			<>
-				<div className="center-with-flex">
-					<FakeLogo
-						hStyle={hStyle}
-						frontStyle={front}
-						lastStyle={last}
-					/>
-				</div>
-				<br />
-				<List>
-					<OutlinedCard padding={2}>
-						<SliderWithIcon
-							title={`${t("app.pornhub.fontSize")}: ${
-								hStyle.size
-							}`}
-						>
-							<Slider
-								value={hStyle.size}
-								onChange={(_, value) => {
-									this.setState({
-										hStyle: {
-											size: value,
-											array: hStyle.array,
-										},
-									});
+
+	const handleCopy = async () => {
+		const canvas = await html2canvas(document.querySelector("#blackborad"));
+		canvas.toBlob(async (blob) => {
+			if (blob) {
+				try {
+					await navigator.clipboard.write([
+						new ClipboardItem({ "image/png": blob }),
+					]);
+					window.snackbar({
+						message: "Copied to clipboard",
+						duration: 2000,
+					});
+				} catch (err) {
+					console.error("Failed to copy:", err);
+				}
+			}
+		});
+	};
+
+	return (
+		<Stack spacing={3} alignItems="center" sx={{ px: 2, py: 3 }}>
+			<Box
+				sx={{
+					width: "100%",
+					maxWidth: "600px",
+					aspectRatio: "2/1",
+					display: "flex",
+					justifyContent: "center",
+					alignItems: "center",
+					bgcolor: "background.paper",
+					borderRadius: 2,
+					overflow: "hidden",
+				}}
+			>
+				<FakeLogo
+					hStyle={hStyle}
+					frontStyle={front}
+					lastStyle={last}
+					scale={scale}
+				/>
+			</Box>
+
+			<Stack direction="row" spacing={2} justifyContent="center">
+				<Tooltip title={t("Copy")}>
+					<IconButton onClick={handleCopy} color="primary">
+						<ContentCopyIcon />
+					</IconButton>
+				</Tooltip>
+				<Tooltip title={t("Download")}>
+					<IconButton onClick={handleDownload} color="primary">
+						<FileDownloadIcon />
+					</IconButton>
+				</Tooltip>
+			</Stack>
+
+			<List sx={{ width: "100%", maxWidth: 600 }}>
+				<OutlinedCard padding={2}>
+					<SliderWithIcon
+						title={`${t("app.pornhub.fontSize")}: ${hStyle.size}`}
+					>
+						<Slider
+							value={hStyle.size}
+							onChange={(_, value) =>
+								setHStyle({ ...hStyle, size: value as number })
+							}
+							min={1}
+							max={10}
+						/>
+					</SliderWithIcon>
+				</OutlinedCard>
+
+				<OutlinedCard padding={2} style={{ marginTop: 10 }}>
+					<SliderWithIcon
+						title={`${t("Size Scale")}: ${scale.toFixed(1)}`}
+						icon={<AspectRatioIcon />}
+					>
+						<Slider
+							value={scale}
+							onChange={(_, value) => setScale(value as number)}
+							min={0.5}
+							max={2}
+							step={0.1}
+						/>
+					</SliderWithIcon>
+				</OutlinedCard>
+
+				<OutlinedCard padding={1} style={{ marginTop: 10 }}>
+					<ListItem>
+						<ListItemIcon>
+							<BorderVerticalIcon />
+						</ListItemIcon>
+						<ListItemText
+							primary={<Text k="app.pornhub.vertical" />}
+						/>
+						<ListItemSecondaryAction>
+							<Switch
+								edge="end"
+								onChange={(_, checked) =>
+									setHStyle({
+										...hStyle,
+										array: checked
+											? "vertical"
+											: "transverse",
+									})
+								}
+								checked={hStyle.array === "vertical"}
+							/>
+						</ListItemSecondaryAction>
+					</ListItem>
+				</OutlinedCard>
+
+				<OutlinedCard padding={1} style={{ marginTop: 10 }}>
+					<ListItem>
+						<ListItemIcon>
+							<ColorLensIcon />
+						</ListItemIcon>
+						<ListItemText
+							primary={<Text k="app.pornhub.colorRevert" />}
+						/>
+						<ListItemSecondaryAction>
+							<Switch
+								edge="end"
+								onChange={(_, checked) => {
+									if (checked) {
+										setFront({
+											color: "#000000",
+											backgroundColor:
+												last.backgroundColor,
+										});
+										setLast({
+											color: "#ffffff",
+											backgroundColor: "transparent",
+										});
+									} else {
+										setFront({
+											color: "#ffffff",
+											backgroundColor: "transparent",
+										});
+										setLast({
+											color: "#000000",
+											backgroundColor:
+												front.backgroundColor,
+										});
+									}
 								}}
-								aria-labelledby="continuous-slider"
-								min={1}
-								max={10}
+								checked={front.color === "#000000"}
 							/>
-						</SliderWithIcon>
-					</OutlinedCard>
-					<br />
-					<OutlinedCard padding={1}>
-						<ListItem>
-							<ListItemIcon>
-								<BorderVerticalIcon />
-							</ListItemIcon>
-							<ListItemText
-								primary={<Text k="app.pornhub.vertical" />}
-							/>
-							<ListItemSecondaryAction>
-								<Switch
-									edge="end"
-									onChange={(e, statu) => {
-										if (statu) {
-											this.setState({
-												hStyle: {
-													size: hStyle.size,
-													array: "vertical",
-												},
-											});
-										} else {
-											this.setState({
-												hStyle: {
-													size: hStyle.size,
-													array: "transverse",
-												},
-											});
-										}
-									}}
-									checked={hStyle.array === "vertical"}
-									inputProps={{
-										"aria-labelledby": "竖直排列",
-									}}
-								/>
-							</ListItemSecondaryAction>
-						</ListItem>
-					</OutlinedCard>
-					<br />
-					<OutlinedCard padding={1}>
-						<ListItem>
-							<ListItemIcon>
-								<ColorLensIcon />
-							</ListItemIcon>
-							<ListItemText
-								primary={<Text k="app.pornhub.colorRevert" />}
-							/>
-							<ListItemSecondaryAction>
-								<Switch
-									edge="end"
-									onChange={(e, checked) => {
-										if (checked) {
-											this.setState({
-												front: {
-													color: "#000000",
-													backgroundColor:
-														last.backgroundColor,
-												},
-												last: {
-													color: "#ffffff",
-													backgroundColor:
-														"transparent",
-												},
-											});
-										} else {
-											this.setState({
-												front: {
-													color: "#ffffff",
-													backgroundColor:
-														"transparent",
-												},
-												last: {
-													color: "#000000",
-													backgroundColor:
-														front.backgroundColor,
-												},
-											});
-										}
-									}}
-									checked={front.color === "#000000"}
-									inputProps={{
-										"aria-labelledby": t(
-											"app.pornhub.colorRevert"
-										),
-									}}
-								/>
-							</ListItemSecondaryAction>
-						</ListItem>
-					</OutlinedCard>
-					<br />
-					<br />
-					<Box display="flex" justifyContent="center">
-						<Button
-							onClick={this.handleDownload}
-							variant="outlined"
-							color="primary"
-						>
-							下载
-						</Button>
-					</Box>
-				</List>
-			</>
-		);
-	}
-}
+						</ListItemSecondaryAction>
+					</ListItem>
+				</OutlinedCard>
+			</List>
+		</Stack>
+	);
+};
+
+export default FakePornhubLogo;

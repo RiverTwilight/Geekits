@@ -102,6 +102,7 @@ export const getStaticProps: GetStaticProps = ({
 			"status",
 			"freeSize",
 			"platform",
+			"keywords",
 		],
 		locale: locale,
 	});
@@ -110,12 +111,11 @@ export const getStaticProps: GetStaticProps = ({
 
 	const dic = require("../../data/i18n.json");
 
-	console.log("***", appConfig.name, locale);
-
 	return {
 		props: {
 			currentPage: {
 				title: appConfig.name,
+				keywords: appConfig.keywords,
 				description:
 					appConfig.seoOptimizedDescription ||
 					appConfig.description ||
