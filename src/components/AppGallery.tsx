@@ -12,6 +12,10 @@ import type { AppData, IChannel } from "@/types/index.d";
 import { Capacitor } from "@capacitor/core";
 import Text from "./i18n";
 import { ListItemButton } from "@mui/material";
+import ViewListIcon from '@mui/icons-material/ViewList';
+import GridViewIcon from '@mui/icons-material/GridView';
+import { Box, ToggleButton, ToggleButtonGroup } from '@mui/material';
+import AppGridItem from './AppGridItem';
 
 interface AppListItemProps extends AppData {
 	selected?: boolean;
@@ -108,13 +112,14 @@ const AppListItem = ({
 const Channel = ({
 	info: { name, Icon },
 	apps,
+	viewMode
 }: {
 	apps: AppData[];
 	info: IChannel;
+	viewMode: 'grid' | 'list';
 }) => {
 	if (!!!apps.length) return null;
 
-	// Sort apps alphabetically by name
 	const sortedApps = useMemo(
 		() => [...apps].sort((a, b) => a.name.localeCompare(b.name)),
 		[apps]
@@ -135,10 +140,31 @@ const Channel = ({
 				component="div"
 				disablePadding
 			>
-				<Grid container spacing={2}>
+				<Grid 
+					container 
+					spacing={2} 
+					alignItems="stretch"
+				>
 					{sortedApps.map((app) => (
-						<Grid key={app.id} item md={6} xl={4} xs={12}>
-							<AppListItem {...app} />
+						<Grid 
+							key={app.id} 
+							item 
+							md={viewMode === 'grid' ? 3 : 6} 
+							xl={viewMode === 'grid' ? 2 : 4} 
+							xs={viewMode === 'grid' ? 6 : 12}
+							sx={{ 
+								display: 'flex',
+								'& > *': {
+									width: '100%',
+									height: '100%'
+								}
+							}}
+						>
+							{viewMode === 'grid' ? (
+								<AppGridItem {...app} />
+							) : (
+								<AppListItem {...app} />
+							)}
 						</Grid>
 					))}
 				</Grid>
@@ -154,25 +180,53 @@ const AppGallery = ({
 	appData: AppData[];
 	channelInfo;
 }) => {
+	const [viewMode, setViewMode] = React.useState<'grid' | 'list'>('list');
+
+	const handleViewChange = (
+		event: React.MouseEvent<HTMLElement>,
+		newView: 'grid' | 'list',
+	) => {
+		if (newView !== null) {
+			setViewMode(newView);
+		}
+	};
+
 	return (
-		<List aria-labelledby="nested-list-subheader">
-			{Object.keys(channelInfo).map((key) => {
-				let channelizedApps = appData.filter(
-					(app) =>
-						app.channel === key &&
-						app.platform.includes(Capacitor.getPlatform())
-				);
-				return (
-					<>
+		<>
+			<Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 2 }}>
+				<ToggleButtonGroup
+					value={viewMode}
+					exclusive
+					onChange={handleViewChange}
+					aria-label="view mode"
+					size="small"
+				>
+					<ToggleButton value="list" aria-label="list view">
+						<ViewListIcon />
+					</ToggleButton>
+					<ToggleButton value="grid" aria-label="grid view">
+						<GridViewIcon />
+					</ToggleButton>
+				</ToggleButtonGroup>
+			</Box>
+			<List aria-labelledby="nested-list-subheader">
+				{Object.keys(channelInfo).map((key) => {
+					let channelizedApps = appData.filter(
+						(app) =>
+							app.channel === key &&
+							app.platform.includes(Capacitor.getPlatform())
+					);
+					return (
 						<Channel
 							info={channelInfo[key]}
 							key={key}
 							apps={channelizedApps}
+							viewMode={viewMode}
 						/>
-					</>
-				);
-			})}
-		</List>
+					);
+				})}
+			</List>
+		</>
 	);
 };
 
