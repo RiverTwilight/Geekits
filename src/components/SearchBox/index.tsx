@@ -1,9 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import FormControl from "@mui/material/FormControl";
 import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
+import Grid from "@mui/material/Grid2";
 import GoogleIcon from "@mui/icons-material/Google";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -11,13 +11,14 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import { AppListItem } from "../AppGallery";
-import Text from "@/components/i18n";
 import pinyin from "js-pinyin";
 import useEventListener from "@/utils/Hooks/useEventListener";
 import type { AppData } from "@/types/index";
 import { InputBase } from "@mui/material";
-import ReactDOMServer from "react-dom/server";
 import SearchSharpIcon from "@mui/icons-material/SearchSharp";
+import { alpha } from "@mui/material/styles";
+import useSWR from "swr";
+import { useLocale } from "@/contexts/locale";
 
 const Shortcuts = ({ kwd }: { kwd: string }) => {
 	return (
@@ -93,12 +94,17 @@ const SearchResult = ({ result = [], kwd }: any) => {
 	useEventListener("keydown", handleKeydown);
 
 	return (
-		<Box paddingY={1}>
+		<Box sx={{ padding: 2 }}>
 			<List component="div" disablePadding>
 				<Grid container spacing={1}>
 					{!!result.length &&
 						result.map((a: any, i: number) => (
-							<Grid key={a.id} item sm={6} xl={4} xs={12}>
+							<Grid
+								key={a.id}
+								size={{
+									xs: 12,
+								}}
+							>
 								<AppListItem
 									selected={selectedItem === i}
 									key={a.link + a.icon}
@@ -129,20 +135,57 @@ const debounce = <F extends Procedure>(
 	};
 };
 
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
+
 interface SearchProps {
-	appData: AppData[];
+	appData?: AppData[];
 }
 
-const Search = ({ appData }: SearchProps) => {
+/**
+ * Universal Search Box
+ * @param {AppData[]} appData - The app data to search from
+ * @returns {JSX.Element} - The search box component
+ *
+ * If appData is provided, it will use the provided app data.
+ * Otherwise, it will fetch the app data from the public/data/apps.json file
+ */
+const Search = ({ appData: propAppData }: SearchProps) => {
 	const [kwd, setKwd] = useState("");
 	const [searchResult, setSearchResult] = useState([]);
+	const [activeAppData, setActiveAppData] = useState(propAppData || []);
 	const searchInputRef = useRef<HTMLInputElement>(null);
+	const { locale } = useLocale();
+
+	// Fetch app data if not provided through props
+	const { data: fetchedAppData } = useSWR(
+		propAppData ? null : "/data/apps.json",
+		fetcher,
+		{
+			revalidateOnFocus: false,
+			revalidateOnReconnect: false,
+			refreshInterval: 24 * 60 * 60 * 1000, // 24 hours
+		}
+	);
+
+	// Update activeAppData when fetchedAppData is available
+	useEffect(() => {
+		if (fetchedAppData) {
+			setActiveAppData(fetchedAppData);
+		}
+	}, [fetchedAppData]);
+
+	const localizedAppData = useMemo(
+		() =>
+			activeAppData?.filter((app: AppData) => app.locale === locale) ||
+			[],
+		[activeAppData, locale]
+	);
 
 	useEffect(() => {
 		pinyin.setOptions({ checkPolyphone: false, charCase: 0 });
 
 		const handleSearchKeydown = (e: KeyboardEvent) => {
-			if (e.ctrlKey && e.keyCode === 70) {
+			if ((e.ctrlKey || e.metaKey) && e.key === "k") {
 				e.preventDefault();
 				searchInputRef.current?.focus();
 			}
@@ -163,7 +206,7 @@ const Search = ({ appData }: SearchProps) => {
 
 	const search = () => {
 		const keyword = kwd.toLowerCase().trim();
-		const res = appData.filter((app) => {
+		const res = localizedAppData.filter((app) => {
 			return (
 				pinyin.getFullChars(app.name).toLowerCase().indexOf(keyword) !==
 					-1 ||
@@ -176,52 +219,87 @@ const Search = ({ appData }: SearchProps) => {
 	};
 
 	return (
-		<Box
-			sx={{
-				padding: (theme) => theme.spacing(0),
-			}}
-		>
+		<Box sx={{ position: "relative", width: "100%" }}>
 			<FormControl fullWidth>
-				<Box
-					flex={1}
+				<InputBase
 					sx={{
-						width: "100%",
+						borderRadius: "28px",
+						height: "40px",
+						paddingY: 0.5,
+						paddingX: 2,
+						backgroundColor: (theme) =>
+							theme.palette.mode === "light"
+								? alpha(theme.palette.common.black, 0.04)
+								: alpha(theme.palette.common.white, 0.06),
+						border: "none",
 						display: "flex",
 						alignItems: "center",
-						gap: "1em",
+						transition: (theme) =>
+							theme.transitions.create([
+								"background-color",
+								"box-shadow",
+							]),
+						"&:hover": {
+							backgroundColor: (theme) =>
+								theme.palette.mode === "light"
+									? alpha(theme.palette.common.black, 0.06)
+									: alpha(theme.palette.common.white, 0.08),
+						},
+						"&:focus-within": {
+							backgroundColor: (theme) =>
+								theme.palette.background.paper,
+							boxShadow: (theme) =>
+								`0 1px 3px 1px ${alpha(
+									theme.palette.mode === "light"
+										? theme.palette.common.black
+										: theme.palette.common.white,
+									0.15
+								)}`,
+						},
+					}}
+					fullWidth
+					inputRef={searchInputRef}
+					autoComplete="off"
+					id="search"
+					type="search"
+					aria-label="Type the search keywords here"
+					value={kwd}
+					onChange={handleChange}
+					// placeholder={ReactDOMServer.renderToString(
+					// 	<Text k="homePage.searchBarPlaceholder" />
+					// )}
+					placeholder={"Ctrl / Cmd + K"}
+					startAdornment={
+						<SearchSharpIcon
+							sx={{
+								marginRight: 1,
+								color: (theme) =>
+									alpha(theme.palette.text.primary, 0.6),
+							}}
+						/>
+					}
+				/>
+			</FormControl>
+			{kwd && (
+				<Box
+					sx={{
+						position: "absolute",
+						width: "100%",
+						left: 0,
+						top: "calc(100% + 8px)",
+						zIndex: 1200,
+						backgroundColor: (theme) =>
+							theme.palette.background.paper,
+						borderRadius: 2,
+						boxShadow: (theme) => theme.shadows[3],
+						maxHeight: "70vh",
+						overflowY: "auto",
+						border: (theme) => `1px solid ${theme.palette.divider}`,
 					}}
 				>
-					<InputBase
-						sx={{
-							borderRadius: "36px",
-							paddingY: 1,
-							paddingX: 2,
-							border: (theme) =>
-								({
-									light: "1.5px solid #e0e0e0",
-									dark: "1.5px solid rgba(255, 255, 255, 0.23)",
-								}[theme.palette.mode]),
-							display: "flex",
-							alignItems: "center",
-						}}
-						fullWidth
-						inputRef={searchInputRef}
-						autoComplete="off"
-						id="search"
-						type="search"
-						aria-label="Type the search keywords here"
-						value={kwd}
-						onChange={handleChange}
-						placeholder={ReactDOMServer.renderToString(
-							<Text k="homePage.searchBarPlaceholder" />
-						)}
-						startAdornment={
-							<SearchSharpIcon sx={{ marginRight: 1 }} />
-						}
-					/>
+					<SearchResult kwd={kwd} result={searchResult} />
 				</Box>
-			</FormControl>
-			<SearchResult kwd={kwd} result={searchResult} />
+			)}
 		</Box>
 	);
 };

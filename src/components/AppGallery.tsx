@@ -147,23 +147,15 @@ const Channel = ({
 	);
 };
 
-const AppList = ({
+const AppGallery = ({
 	appData,
 	channelInfo,
 }: {
 	appData: AppData[];
 	channelInfo;
 }) => {
-	console.log(appData);
 	return (
-		<List
-			aria-labelledby="nested-list-subheader"
-			// subheader={
-			// 	<ListSubheader component="div" id="nested-list-subheader">
-			// 		所有工具
-			// 	</ListSubheader>
-			// }
-		>
+		<List aria-labelledby="nested-list-subheader">
 			{Object.keys(channelInfo).map((key) => {
 				let channelizedApps = appData.filter(
 					(app) =>
@@ -186,4 +178,4 @@ const AppList = ({
 
 export { AppListItem, Channel };
 
-export default AppList;
+export default AppGallery;

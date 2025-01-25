@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo } from "react";
 import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
+import Grid from "@mui/material/Grid2";
 import AppList from "@/components/AppGallery";
 import Search from "@/components/SearchBox";
 import Tips from "@/components/Tips";
@@ -13,20 +13,14 @@ import { defaultLocale } from "src/site.config";
 import { useLocale } from "@/contexts/locale";
 import { isCapacitor } from "@/utils/platform";
 import fetch from "node-fetch";
+import { Theme, useMediaQuery } from "@mui/material";
 
 export async function getStaticProps({ locale = defaultLocale }) {
 	let appData: any[];
 	if (isCapacitor()) {
 		appData = getAllApps(true);
-	} else {
-		appData = getAllApps(true, locale);
-	}
 
-	const dic = require("../data/i18n.json");
-
-	const trans = new translator(dic, locale);
-
-	if (isCapacitor()) {
+		// Process icons for capacitor
 		await Promise.all(
 			appData.map(async (app) => {
 				if (app.icon && app.icon.startsWith("/api/")) {
@@ -47,6 +41,28 @@ export async function getStaticProps({ locale = defaultLocale }) {
 				}
 			})
 		);
+	} else {
+		// For web, only get apps for current locale to reduce initial payload
+		appData = getAllApps(true, locale);
+	}
+
+	const dic = require("../data/i18n.json");
+	const trans = new translator(dic, locale);
+
+	// Write the full app data to public JSON file during build
+	if (true) {
+		const fs = require("fs");
+		const path = require("path");
+		const fullAppData = getAllApps(true);
+
+		// Ensure the public/data directory exists
+		const publicDir = path.join(process.cwd(), "public", "data");
+		fs.mkdirSync(publicDir, { recursive: true });
+
+		fs.writeFileSync(
+			path.join(publicDir, "apps.json"),
+			JSON.stringify(fullAppData)
+		);
 	}
 
 	const pageProps = {
@@ -56,6 +72,8 @@ export async function getStaticProps({ locale = defaultLocale }) {
 			path: "/",
 			dicKey: "homePage.meta.title",
 		},
+		// We still need to pass down the app data for home page,
+		// which is great for SEO
 		appData: appData.filter((app) => app.status !== "alpha"),
 		dic: JSON.stringify(dic),
 		locale,
@@ -79,6 +97,8 @@ const Index = React.memo(({ appData }: any) => {
 		[locale]
 	);
 
+	const isXs = useMediaQuery((theme: Theme) => theme.breakpoints.only("xs"));
+
 	return (
 		<Box
 			sx={{
@@ -98,19 +118,37 @@ const Index = React.memo(({ appData }: any) => {
 				}}
 			>
 				<Grid container direction="row-reverse" spacing={2}>
-					<Grid item xs={12}>
-						<Search appData={localizedAppData} />
-					</Grid>
-					<Grid item xs={12}>
+					{isXs && (
+						<Grid
+							size={{
+								xs: 12,
+							}}
+						>
+							<Search appData={localizedAppData} />
+						</Grid>
+					)}
+					<Grid
+						size={{
+							xs: 12,
+						}}
+					>
 						<Bookmark />
 					</Grid>
-					<Grid item xs={12}>
+					<Grid
+						size={{
+							xs: 12,
+						}}
+					>
 						<AppList
 							channelInfo={channelInfo}
 							appData={localizedAppData}
 						/>
 					</Grid>
-					<Grid item xs={12}>
+					<Grid
+						size={{
+							xs: 12,
+						}}
+					>
 						<Tips />
 					</Grid>
 				</Grid>

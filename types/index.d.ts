@@ -43,11 +43,14 @@ export type AppData = {
 	icon?: string;
 	// Only show stable and beta app
 	status?: "stable" | "beta" | "alpha";
-	channel?: "life" | "media" | "ai" | "dev";
+	channel?: "life" | "media" | "ai" | "dev" | "external";
+	// The locale of the app
+	locale?: string;
 	keywords?: string[];
 	/**
 	 * @deprecated
-	 * No longer needed.
+	 * No longer needed. If you need implictly set the icon color,
+	 * please use API
 	 */
 	icon_color?: string;
 	network?: boolean;
@@ -61,6 +64,12 @@ export type AppData = {
 	 * Move desctipion to the app's entry file.
 	 */
 	help?: string;
+	/**
+	 * The platform of the app
+	 *
+	 * @default ["web", "ios", "android"]
+	 */
+	platform?: string[];
 };
 
 // 本地用户信息

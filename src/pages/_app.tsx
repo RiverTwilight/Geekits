@@ -117,7 +117,11 @@ const MainApp = React.memo(({ Component, pageProps }: AppProps) => {
 					{hideFrame ? (
 						<Component {...pageProps} />
 					) : (
-						<Layout currentPage={currentPage} enableFrame={framed}>
+						<Layout
+							appData={pageProps.appData}
+							currentPage={currentPage}
+							enableFrame={framed}
+						>
 							<Component {...pageProps} />
 						</Layout>
 					)}

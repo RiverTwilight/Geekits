@@ -61,7 +61,7 @@ const GlobalSnackbar = () => {
 	);
 };
 
-const Layout = ({ currentPage, children, enableFrame }) => {
+const Layout = ({ currentPage, children, enableFrame, appData }) => {
 	const [sidebar, setSidebar] = useState(true);
 	const [appBar, setAppBar] = useState(true);
 	const [action, setAction] = useState(null);
@@ -104,8 +104,6 @@ const Layout = ({ currentPage, children, enableFrame }) => {
 	const activeDescription = currentPage.description || siteConfig.description;
 
 	const activeKeywords = currentPage.keywords || siteConfig.keywords;
-
-	console.log("ACTIVE KEYWORDS", activeKeywords);
 
 	return (
 		<SidebarProvider value={{ sidebar: sidebar, setSidebar: setSidebar }}>
@@ -194,6 +192,7 @@ const Layout = ({ currentPage, children, enableFrame }) => {
 						{enableFrame && (
 							<Header
 								repo={siteConfig.repo}
+								appData={appData}
 								PageAction={action}
 								title={
 									[].includes(currentPage.path)

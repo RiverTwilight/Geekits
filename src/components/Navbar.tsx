@@ -21,6 +21,8 @@ import Image from "next/image";
 import { isWeb } from "@/utils/platform";
 import Text from "./i18n";
 import { Capacitor } from "@capacitor/core";
+import Search from "@/components/SearchBox";
+import { AppData } from "@/types/index";
 
 function ElevationScroll(props: Props) {
 	const { children } = props;
@@ -208,8 +210,13 @@ function AppsMenu() {
 
 const AccountPanel = lazy(() => import("./AccountPanel"));
 
-export default (props: { title: string; PageAction; repo: string }) => {
-	const { title, PageAction } = props;
+export default (props: {
+	title: string;
+	PageAction;
+	repo: string;
+	appData: AppData[];
+}) => {
+	const { title, PageAction, appData } = props;
 
 	const { sidebar, setSidebar } = useSidebar();
 	const [showLoginDialog, setShowLoginDialog] = useState(false);
@@ -249,32 +256,54 @@ export default (props: { title: string; PageAction; repo: string }) => {
 							<MenuTwoToneIcon />
 						</IconButton>
 
-						<Link href="/" legacyBehavior>
-							<Typography
-								component="span"
-								variant="h6"
-								color="textPrimary"
-								sx={{
-									fontFamily: "Product Sans",
-									cursor: "pointer",
-								}}
-							>
-								{siteConfig.appName}
-							</Typography>
-						</Link>
-						<Typography
-							id="navbar-localTitle"
-							color="primary"
-							variant="h6"
-							noWrap
+						<Box
 							sx={{
-								overflow: "hidden",
-								fontFamily: "Product Sans",
-								marginLeft: ".4em",
+								flexGrow: 1,
+								display: "flex",
+								alignItems: "center",
 							}}
 						>
-							{title}
-						</Typography>
+							<Link href="/" legacyBehavior>
+								<Typography
+									component="span"
+									variant="h6"
+									color="textPrimary"
+									sx={{
+										fontFamily: "Product Sans",
+										cursor: "pointer",
+									}}
+								>
+									{siteConfig.appName}
+								</Typography>
+							</Link>
+							<Typography
+								id="navbar-localTitle"
+								color="primary"
+								variant="h6"
+								noWrap
+								sx={{
+									overflow: "hidden",
+									fontFamily: "Product Sans",
+									marginLeft: ".4em",
+								}}
+							>
+								{title}
+							</Typography>
+						</Box>
+
+						<Box sx={{ flexGrow: 1 }} />
+
+						{!isXs && (
+							<Box
+								sx={{
+									maxWidth: "500px",
+									width: "100%",
+									marginX: "16px",
+								}}
+							>
+								<Search appData={appData} />
+							</Box>
+						)}
 
 						<Box sx={{ flexGrow: 1 }} />
 
