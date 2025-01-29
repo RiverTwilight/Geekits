@@ -1,12 +1,6 @@
-const withPWA = require("next-pwa")({
-	dest: "public",
-	register: true,
-	skipWaiting: true,
-});
-
 const isCapacitor = process.env.CAPACITOR_BUILD === "true";
 
-module.exports = withPWA({
+module.exports = {
 	...(isCapacitor && { output: "export" }),
 	...(!isCapacitor && {
 		i18n: {
@@ -44,4 +38,4 @@ module.exports = withPWA({
 		});
 		return config;
 	},
-});
+};

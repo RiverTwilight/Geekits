@@ -1,76 +1,90 @@
-export default function pathsToTree(fileList: any, exceptList: any) {
-	let result = {
-		name: "_root",
+interface TreeNode {
+	name: string;
+	type?: 'file' | 'folder';
+	children?: TreeNode[];
+}
+
+interface TreeFolder extends TreeNode {
+	type: 'folder';
+	children: TreeNode[];
+}
+
+interface TreeFile extends TreeNode {
+	type: 'file';
+}
+
+export default function pathsToTree(fileList: string[], exceptList: string[]): string {
+	let result: TreeNode = {
+		name: '_root',
 		children: [],
 	};
 	console.log(exceptList);
-	const correctFileList: any = [];
-	fileList.map((path: any) => {
-		let absolutePath = "." + path.substr(path.indexOf("/"));
-		let willBeExcept = false;
-		for (let except of exceptList) {
-			console.log(absolutePath);
-			if (absolutePath.match(except) && except !== "")
-				willBeExcept = true;
-		}
-		!willBeExcept && correctFileList.push(path);
+	const correctFileList = fileList.filter(path => {
+		const absolutePath = '.' + path.substr(path.indexOf('/'));
+		return !exceptList.some(except => except !== '' && absolutePath.match(except));
 	});
 	console.log(correctFileList);
-	for (let path of correctFileList) {
+	for (const path of correctFileList) {
 		console.group("pathList");
 		console.log("path", path);
 		console.groupEnd();
-		if (path.includes("/")) {
+		if (path.includes('/')) {
 			// 文件夹
-			let paths = path.split("/");
+			const paths = path.split('/');
 			let currentPath = result;
 
 			for (let i = 0; i < paths.length; i++) {
-				let p = paths[i];
+				const p = paths[i];
 				console.log("item", p);
-				let findItem = currentPath.children.find(
-					(item) => item.name === p
-				);
-				//如果这一项已经存在，那么不理他
+				const isFile = i === paths.length - 1;
+
+				// Type assertion to access children
+				const current = currentPath as TreeFolder;
+				let findItem = current.children?.find(
+					item => item.name === p
+				) as TreeFolder | undefined;
+
 				if (findItem) {
 					currentPath = findItem;
 				} else {
 					//如果这一项不存在，新建一个folder
-					let isFile = i === paths.length - 1; //是否为最后一项（文件）
-					let folder = {
-						type: isFile ? "file" : "folder",
+					const newNode: TreeNode = {
+						type: isFile ? 'file' : 'folder',
 						name: p,
 					};
+
 					if (!isFile) {
-						// @ts-expect-error ts-migrate(2339) FIXME: Property 'children' does not exist on type '{ type... Remove this comment to see the full error message
-						folder.children = [];
+						(newNode as TreeFolder).children = [];
 					}
-					// @ts-expect-error ts-migrate(2345) FIXME: Argument of type '{ type: string; name: any; }' is... Remove this comment to see the full error message
-					currentPath.children.push(folder);
-					// @ts-expect-error ts-migrate(2741) FIXME: Property 'children' is missing in type '{ type: st... Remove this comment to see the full error message
-					currentPath = folder;
+
+					current.children = current.children || [];
+					current.children.push(newNode);
+					currentPath = newNode;
 				}
 			}
 		} else {
 			// 文件
-			result.children.push({
-				// @ts-expect-error ts-migrate(2322) FIXME: Type 'string' is not assignable to type 'never'.
-				type: "file",
-				// @ts-expect-error ts-migrate(2322) FIXME: Type 'any' is not assignable to type 'never'.
+			const fileNode: TreeFile = {
+				type: 'file',
 				name: path,
-			});
+			};
+			(result as TreeFolder).children.push(fileNode);
 		}
 	}
-	return decoration(result.children);
+	return decoration(result.children || []);
 }
 
-function decoration(fileListObj: any) {
+function decoration(fileListObj: TreeNode[]): string {
 	console.log(fileListObj);
 
-	const addSymbol = (folder: any) => {
-		var space = Array(spaceNum).fill("     ").join("");
-		folder.map((obj: any, i: any, correctFolder: any) => {
-			if (obj.type === "file") {
+	let graph = '';
+	let spaceNum = 0;
+
+	const addSymbol = (folder: TreeNode[]) => {
+		const space = Array(spaceNum).fill('     ').join('');
+		
+		folder.forEach((obj, i, correctFolder) => {
+			if (obj.type === 'file') {
 				if (!correctFolder[i + 1]) {
 					//最后一个文件
 					graph += `${space}└── ${obj.name}\n`;
@@ -78,19 +92,21 @@ function decoration(fileListObj: any) {
 				} else {
 					graph += `${space}├── ${obj.name}\n`;
 				}
-			} else if (obj.type === "folder") {
+			} else if (obj.type === 'folder') {
 				if (!correctFolder[i - 1]) {
 					graph += `${space}${obj.name}\n`;
 				} else {
 					graph += `${space}└── ${obj.name}\n`;
 				}
 				spaceNum++;
-				addSymbol(correctFolder[i].children);
+				const folderNode = obj as TreeFolder;
+				if (folderNode.children) {
+					addSymbol(folderNode.children);
+				}
 			}
 		});
 	};
-	var graph = "";
-	var spaceNum = 0;
+
 	addSymbol(fileListObj);
 	return graph;
 }

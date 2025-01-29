@@ -107,7 +107,7 @@ class MyDocument extends Document {
 					<link rel="icon" href="/logo/v3/favicon.ico" />
 					<link rel="manifest" href="/manifest.json" />
 					<meta
-						http-equiv="Content-Security-Policy"
+						httpEquiv="Content-Security-Policy"
 						content="object-src 'none'; base-uri 'none'; script-src 'self' 'unsafe-eval' 'unsafe-inline' https: http: 'nonce-${nonce}'; 'strict-dynamic';"
 					/>
 

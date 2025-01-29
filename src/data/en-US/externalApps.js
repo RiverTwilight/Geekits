@@ -4,13 +4,13 @@
 
 const data = [
 	{
-		id: "DrawLink",
-		name: "DrawLink",
-		description: "Visualize Any Link with AI. Powered by YGeeker.",
+		id: "mono-card",
+		name: "Mono Card",
+		description: "Generate beautiful cards for URLs, powered by YGeeker.",
 		status: "stable",
 		locale: "en-US",
-		link: "https://drawl.ink",
-		icon: "https://drawl.ink/ms-icon-144x144.png",
+		link: "https://mono.cards",
+		icon: "https://mono.cards/ms-icon-144x144.png",
 		channel: "external",
 		platform: ["web", "ios", "android"],
 	},

@@ -17,16 +17,31 @@ type TreeDataType = {
 export default function FolderTree() {
 	const [fileList, setFileList] = useState<string[]>([]);
 	const [except, setExcept] = useState<string>("");
-	const [tree, setTree] = useState<TreeDataType>(null);
+	const [treeOutput, setTreeOutput] = useState<string>("");
 
 	useEffect(() => {
-		var clipboard = new ClipboardJS(".copy");
+		const clipboard = new ClipboardJS(".copy");
 		clipboard.on("success", (e) => {
 			window.snackbar({ message: "已复制" });
 			e.clearSelection();
 		});
 		return () => clipboard && clipboard.destroy();
 	}, []);
+
+	const handleGenerateTree = () => {
+		const treeData = pathToTree(fileList, except.split("\n"));
+		const formattedTree = JSON.stringify(treeData, null, 2);
+		setTreeOutput(formattedTree);
+	};
+
+	const handleFileUpload = (_: any, _file: File | null, fileList: FileList | null) => {
+		if (!fileList) return;
+		const result = Array.from(fileList).map((file) => {
+			// Handle both Safari and Chrome path formats
+			return file.webkitRelativePath || file.name;
+		});
+		setFileList(result);
+	};
 
 	return (
 		<>
@@ -37,13 +52,7 @@ export default function FolderTree() {
 				<FilePicker
 					multiple
 					webkitdirectory
-					handleFileUpload={(_, _file, fileList) => {
-						var result = [];
-						for (var i = 0; i < fileList.length; i++) {
-							result.push(fileList[i].webkitRelativePath);
-						}
-						setFileList(result);
-					}}
+					handleFileUpload={handleFileUpload}
 				>
 					<Button component="label">选择文件夹</Button>
 				</FilePicker>
@@ -69,27 +78,28 @@ export default function FolderTree() {
 					3. 生成文件树
 				</Typography>
 				<Button
-					onClick={() => {
-						setTree(pathToTree(fileList, except.split("\n")));
-					}}
+					onClick={handleGenerateTree}
 					variant="contained"
 					color="primary"
-					disabled={!!!fileList.length}
+					disabled={fileList.length === 0}
 				>
 					生成
 				</Button>
 
-				{tree && (
-					<IconButton data-clipboard-text={tree} className={`copy`}>
+				{treeOutput && (
+					<IconButton
+						data-clipboard-text={treeOutput}
+						className="copy"
+					>
 						<ContentCopy />
 					</IconButton>
 				)}
 
-				<br></br>
+				<br />
 
-				{tree && (
-					<Typography>
-						<pre>{tree}</pre>
+				{treeOutput && (
+					<Typography component="div">
+						<pre>{treeOutput}</pre>
 					</Typography>
 				)}
 			</OutlinedCard>

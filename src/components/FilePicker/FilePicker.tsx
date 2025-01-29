@@ -1,5 +1,5 @@
 import * as React from "react";
-import ReactDOM from "react-dom";
+import { useEffect, useRef, useState } from "react";
 import { dataURLtoFile, saveFile } from "../../utils/fileSaver";
 import { signListener, removeListener } from "./useDragListener";
 import CenteredStyle from "./CenteredStyle";
@@ -11,7 +11,7 @@ import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 
 ("use strict");
 
-interface FRProps
+interface FilePickerProps
 	extends Omit<
 		React.InputHTMLAttributes<HTMLInputElement>,
 		"webkitdirectory" | "size" | "prefix" | "type"
@@ -19,16 +19,16 @@ interface FRProps
 	/** 按钮宽度 */
 	maxWidth?: string;
 	maxSize?: number;
-	handleFileUpload?(
+	handleFileUpload?: (
 		base64?: any,
 		file?: File | null,
 		fileList?: FileList | null
-	): void;
+	) => void;
 	fileType?: string;
 	webkitdirectory?: boolean;
 	template?: "normal" | "center";
 	/** 按钮标题
-	 * @default 'Auto detect'
+	 * @default 'Select File'
 	 */
 	title?: string;
 	/** 是否监听拖拽文件事件 */
@@ -36,150 +36,129 @@ interface FRProps
 	children?: React.ReactElement;
 }
 
-interface FRState {
-	btnText: string;
-	webkitdirectory: boolean;
-}
+const FilePicker: React.FC<FilePickerProps> = ({
+	fileType,
+	handleFileUpload,
+	maxWidth = "120px",
+	children,
+	template = "normal",
+	enableDrag,
+	webkitdirectory,
+	title,
+	maxSize = 99999999,
+	...props
+}) => {
+	const [btnText, setBtnText] = useState(
+		webkitdirectory ? "Select Folder" : title || "Select File"
+	);
+	const inputRef = useRef<HTMLInputElement>(null);
 
-class FilePicker extends React.Component<FRProps, FRState> {
-	constructor(props: FRProps | Readonly<FRProps>) {
-		super(props);
-		this.state = {
-			btnText: props.webkitdirectory
-				? "选择文件夹"
-				: props.title
-				? props.title
-				: "选择文件",
-			webkitdirectory: false,
-		};
-	}
-	componentDidMount() {
-		if (this.props.webkitdirectory) {
-			var inputEle = ReactDOM.findDOMNode(
-				this.refs.input
-			) as HTMLInputElement;
-
-			inputEle.setAttribute("webkitdirectory", "");
+	useEffect(() => {
+		if (webkitdirectory && inputRef.current) {
+			// Safari-compatible way to set directory picker
+			try {
+				inputRef.current.setAttribute("webkitdirectory", "");
+				inputRef.current.setAttribute("directory", "");
+				// For older Safari versions
+				inputRef.current.setAttribute("mozdirectory", "");
+			} catch (e) {
+				console.warn("Failed to set directory attributes:", e);
+			}
 		}
 
-		if (this.props.webkitdirectory) {
-			this.setState({
-				webkitdirectory: true,
-			});
-		}
-		this.props.enableDrag &&
+		if (enableDrag) {
 			signListener(
 				() => {},
-				(e: any) => this.handleReadFile(null, e)
+				(e: DragEvent) => handleReadFile(null, e)
 			);
-	}
-	componentWillUnmount() {
-		this.props.enableDrag && removeListener();
-	}
-	handleReadFile = (inputEvent?: any, dragEvent?: any) => {
-		if (!inputEvent && !dragEvent) return null;
+			return () => removeListener();
+		}
+	}, [webkitdirectory, enableDrag]);
 
-		const { maxSize = 99999999, handleFileUpload } = this.props;
+	const handleReadFile = (
+		inputEvent?: React.ChangeEvent<HTMLInputElement>,
+		dragEvent?: DragEvent
+	) => {
+		if (!inputEvent && !dragEvent) return;
+
 		const currentFileList = inputEvent
 			? inputEvent.target.files
-			: dragEvent.dataTransfer.files;
+			: dragEvent?.dataTransfer?.files;
 
 		if (!currentFileList || currentFileList.length === 0) return;
 
-		this.setState({
-			btnText:
-				currentFileList.length < 2
-					? currentFileList[0].name
-					: `${currentFileList.length}个文件`,
-		});
+		setBtnText(
+			currentFileList.length < 2
+				? currentFileList[0].name
+				: `${currentFileList.length} files`
+		);
 
-		if (this.props.webkitdirectory) {
-			handleFileUpload && handleFileUpload(null, null, currentFileList);
+		if (webkitdirectory) {
+			handleFileUpload?.(null, null, currentFileList);
 			return;
 		}
 
 		const file = currentFileList[0];
 		if (file.size > maxSize) {
-			window.snackbar({
-				message: "文件大小不能超过" + maxSize / 1024 / 1024 + "MB",
+			window.snackbar?.({
+				message: `File size cannot exceed ${maxSize / 1024 / 1024}MB`,
 			});
 			return;
 		}
 
-		handleFileUpload && handleFileUpload(undefined, file, currentFileList);
+		handleFileUpload?.(undefined, file, currentFileList);
 	};
-	render() {
-		const {
-			fileType,
-			handleFileUpload,
-			maxWidth = "120px",
-			children,
-			template,
-			enableDrag,
-			...props
-		} = this.props;
 
-		const { btnText } = this.state;
-		var icon = <CloudUploadIcon />;
-		if (fileType) {
-			let execArr = fileType.match(/^(\S+)\/\S+$/);
-			switch (execArr && execArr[1]) {
-				case "image":
-					icon = <ImageIcon />;
-					break;
-				case "video":
-					icon = <VideocamIcon />;
-					break;
-				default:
-					icon = <FolderIcon />;
-			}
-		}
+	const getIcon = () => {
+		if (!fileType) return <CloudUploadIcon />;
 
-		if (children) {
-			const inputId = `gk-contained-button-file-${Math.random().toString(36).substr(2, 9)}`;
-			
-			return (
-				<>
-					<input
-						accept={fileType}
-						onChange={this.handleReadFile}
-						type="file"
-						ref="input"
-						id={inputId}
-						style={{ display: 'none' }}
-						{...props}
-					/>
-					<label htmlFor={inputId}>
-						{children}
-					</label>
-				</>
-			);
+		const fileTypeMatch = fileType.match(/^(\S+)\/\S+$/);
+		const fileCategory = fileTypeMatch?.[1];
+
+		switch (fileCategory) {
+			case "image":
+				return <ImageIcon />;
+			case "video":
+				return <VideocamIcon />;
+			default:
+				return <FolderIcon />;
 		}
+	};
+
+	if (children) {
+		const inputId = `gk-contained-button-file-${Math.random()
+			.toString(36)
+			.substr(2, 9)}`;
 
 		return (
 			<>
-				{
-					{
-						normal: (
-							<NormalStyle
-								text={btnText}
-								icon={icon}
-								handleReadFile={this.handleReadFile}
-								{...props}
-							/>
-						),
-						center: (
-							<CenteredStyle
-								text={btnText}
-								icon={icon}
-								{...props}
-							/>
-						),
-					}[template || "normal"]
-				}
+				<input
+					accept={fileType}
+					onChange={handleReadFile}
+					type="file"
+					ref={inputRef}
+					id={inputId}
+					style={{ display: "none" }}
+					{...props}
+				/>
+				<label htmlFor={inputId}>{children}</label>
 			</>
 		);
 	}
-}
+
+	const TemplateComponent =
+		template === "center" ? CenteredStyle : NormalStyle;
+	return (
+		<TemplateComponent
+			text={btnText}
+			icon={getIcon()}
+			handleReadFile={handleReadFile}
+			accept={fileType}
+			directory=""
+			webkitdirectory=""
+			{...props}
+		/>
+	);
+};
 
 export default FilePicker;
