@@ -1,8 +1,10 @@
-const isCapacitor = process.env.CAPACITOR_BUILD === "true";
+import type { NextConfig } from "next";
 
-module.exports = {
-	...(isCapacitor && { output: "export" }),
-	...(!isCapacitor && {
+const isCapacitorBuildtime = process.env.CAPACITOR_BUILD === "true";
+
+const nextConfig: NextConfig = {
+	...(isCapacitorBuildtime && { output: "export" }),
+	...(!isCapacitorBuildtime && {
 		i18n: {
 			locales: ["zh-CN", "en-US"],
 			defaultLocale: "en-US",
@@ -18,7 +20,7 @@ module.exports = {
 	images: {
 		imageSizes: [320, 480, 820, 1200, 1600],
 		domains: ["i.loli.net", "bgr.com", "www.ygeeker.com", "ygeeker.com"],
-		unoptimized: isCapacitor,
+		unoptimized: isCapacitorBuildtime,
 	},
 	webpack: function (config) {
 		config.module.rules.push({
@@ -39,3 +41,5 @@ module.exports = {
 		return config;
 	},
 };
+
+module.exports = nextConfig;
