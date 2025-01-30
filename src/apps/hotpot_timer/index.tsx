@@ -210,12 +210,12 @@ const HotpotTimer: React.FC = () => {
 						sx={{
 							borderRadius: 3,
 							py: 2,
-							borderStyle: 'dashed',
+							borderStyle: "dashed",
 							borderWidth: 2,
 							"&:hover": {
-								borderStyle: 'dashed',
+								borderStyle: "dashed",
 								borderWidth: 2,
-							}
+							},
 						}}
 					>
 						<Stack spacing={1} alignItems="center">
@@ -371,8 +371,8 @@ const HotpotTimer: React.FC = () => {
 				</Stack>
 			</OutlinedCard>
 
-			<Dialog 
-				open={isPresetDialogOpen} 
+			<Dialog
+				open={isPresetDialogOpen}
 				onClose={handleClosePresetDialog}
 				maxWidth="md"
 				fullWidth
@@ -386,13 +386,7 @@ const HotpotTimer: React.FC = () => {
 					<Box sx={{ pt: 2 }}>
 						<Grid container spacing={2}>
 							{PRESET_DISHES.map((dish) => (
-								<Grid
-									item
-									xs={6}
-									sm={4}
-									md={3}
-									key={dish.name}
-								>
+								<Grid item xs={6} sm={4} md={3} key={dish.name}>
 									<PresetDishCard
 										dish={dish}
 										onClick={() => {
@@ -403,7 +397,10 @@ const HotpotTimer: React.FC = () => {
 												remainingTime: dish.duration,
 												isRunning: false,
 											};
-											setTimers((prev) => [...prev, newTimer]);
+											setTimers((prev) => [
+												...prev,
+												newTimer,
+											]);
 											handleClosePresetDialog();
 										}}
 									/>
@@ -413,9 +410,9 @@ const HotpotTimer: React.FC = () => {
 					</Box>
 				</DialogContent>
 				<DialogActions>
-					<Button 
+					<Button
 						onClick={handleClosePresetDialog}
-						sx={{ 
+						sx={{
 							borderRadius: 3,
 							textTransform: "none",
 							px: 3,
