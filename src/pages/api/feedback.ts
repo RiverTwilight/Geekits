@@ -15,20 +15,6 @@ interface FeedbackRequest {
 	sourceUrl?: string;
 }
 
-// Format feedback message for Feishu
-function formatFeishuMessage(data: FeedbackRequest) {
-	return `
-${data.message}
-
-${data.contact ? `📧 联系方式：${data.contact}\n` : ""}
-📱 设备信息：
-• 设备：${data.device || "未知"}
-• 系统：${data.system || "未知"}
-• 应用：${data.appIdentifier || "未知"}
-• 来源：${data.sourceUrl || "未知"}
-• 时间：${new Date().toLocaleString()}`;
-}
-
 async function sendFeishuMessage(data: FeedbackRequest) {
 	try {
 		const response = await fetch(FEISHU_WEBHOOK_URL!, {
@@ -41,39 +27,43 @@ async function sendFeishuMessage(data: FeedbackRequest) {
 				card: {
 					schema: "2.0",
 					config: {
-						wide_screen_mode: true
+						wide_screen_mode: true,
 					},
 					header: {
 						title: {
 							tag: "plain_text",
-							content: "新反馈通知"
+							content: "新反馈通知",
 						},
-						template: "blue"
+						template: "blue",
 					},
 					body: {
 						direction: "vertical",
 						elements: [
 							{
 								tag: "markdown",
-								content: data.message
+								content: data.message,
 							},
 							{
 								tag: "div",
 								text: {
 									tag: "lark_md",
 									content: [
-										data.contact ? `📧 **联系方式**：${data.contact}\n` : "",
+										data.contact
+											? `📧 **联系方式**：${data.contact}\n`
+											: "",
 										`• 设备：${data.device || "未知"}\n`,
 										`• 系统：${data.system || "未知"}\n`,
-										`• 应用：${data.appIdentifier || "未知"}\n`,
+										`• 应用：${
+											data.appIdentifier || "未知"
+										}\n`,
 										`• 来源：${data.sourceUrl || "未知"}\n`,
-										`• 时间：${new Date().toLocaleString()}`
-									].join("")
-								}
-							}
-						]
-					}
-				}
+										`• 时间：${new Date().toLocaleString()}`,
+									].join(""),
+								},
+							},
+						],
+					},
+				},
 			}),
 		});
 
@@ -138,7 +128,7 @@ Date: ${new Date().toLocaleString()}
 
 			const { data: emailData, error: emailError } =
 				await resend.emails.send({
-					from: "Geekits <geekits@ygeeker.com>",
+					from: "YGeeker Feedback Center <geekits@ygeeker.com>",
 					to: ["rene@ygeeker.com"],
 					subject: `Feedback from ${feedbackData.appName}`,
 					react: await EmailTemplate({
