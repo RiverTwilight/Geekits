@@ -2,7 +2,7 @@
 name: "GTA Cheat Codes"
 status: "stable"
 icon: "/icon/book_white.png"
-description: "Complete collection of cheat codes for GTA games including GTA V, GTA IV, GTA San Andreas, Vice City and GTA III"
+description: "Complete collection of cheat codes for All GTA games"
 channel: gaming
 network: true
 seoOptimizedDescription: "Free comprehensive database of GTA cheat codes for all platforms. Find cheats for GTA 5, GTA 4, San Andreas, Vice City and GTA 3. Easy to use, no ads."
