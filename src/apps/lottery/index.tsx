@@ -4,13 +4,8 @@ import {
 	TextField,
 	Button,
 	Typography,
-	Paper,
 	Chip,
 	Stack,
-	FormControl,
-	InputLabel,
-	Select,
-	MenuItem,
 	CircularProgress,
 	IconButton,
 	InputAdornment,
@@ -23,6 +18,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Capacitor } from "@capacitor/core";
 import { root } from "src/site.config";
 import OutlinedCard from "@/components/OutlinedCard";
+import { useStateWithQuery } from "use-query-sync";
 
 interface LotteryState {
 	openPrice: string;
@@ -38,18 +34,21 @@ interface LotteryState {
 }
 
 const LotteryTool: React.FC = () => {
-	const [state, setState] = useState<LotteryState>({
-		openPrice: "",
-		highPrice: "",
-		lowPrice: "",
-		closePrice: "",
-		volume: "",
-		maxNumber: 100,
-		count: 5,
-		result: [],
-		stockSymbol: "",
-		isLoading: false,
-	});
+	const [state, setState] = useStateWithQuery<LotteryState>(
+		{
+			openPrice: "",
+			highPrice: "",
+			lowPrice: "",
+			closePrice: "",
+			volume: "",
+			maxNumber: 100,
+			count: 5,
+			result: [],
+			stockSymbol: "",
+			isLoading: false,
+		},
+		{ name: "lottery" }
+	);
 
 	const generateLotteryNumbers = () => {
 		function hashPrice(price: number): number {
@@ -82,18 +81,28 @@ const LotteryTool: React.FC = () => {
 		const result = Array.from(numbers)
 			.slice(0, state.count)
 			.sort((a, b) => a - b);
-		setState((prev) => ({ ...prev, result }));
+		setState({
+			...state,
+			result,
+		});
 	};
 
 	const fetchStockData = async () => {
 		if (!state.stockSymbol) return;
 
-		setState((prev) => ({ ...prev, isLoading: true }));
+		setState({
+			...state,
+			isLoading: true,
+		});
 		try {
 			const response = await fetch(
 				Capacitor.getPlatform() === "web"
-					? `/api/stock?symbol=${encodeURIComponent(state.stockSymbol)}`
-					: `${root}/api/stock?symbol=${encodeURIComponent(state.stockSymbol)}`
+					? `/api/stock?symbol=${encodeURIComponent(
+							state.stockSymbol
+					  )}`
+					: `${root}/api/stock?symbol=${encodeURIComponent(
+							state.stockSymbol
+					  )}`
 			);
 
 			if (!response.ok) {
@@ -102,7 +111,7 @@ const LotteryTool: React.FC = () => {
 
 			const data = await response.json();
 			const result = data.chart?.result?.[0];
-			
+
 			if (!result?.indicators?.quote?.[0] || !result.timestamp?.length) {
 				throw new Error("Invalid or incomplete stock data");
 			}
@@ -112,32 +121,36 @@ const LotteryTool: React.FC = () => {
 			const lastIndex = timestamp.length - 1;
 
 			// Validate that all required data points exist
-			if (!quote.open?.[0] || !quote.high?.[lastIndex] || 
-				!quote.low?.[lastIndex] || !quote.close?.[lastIndex] || 
-				!quote.volume?.[lastIndex]) {
+			if (
+				!quote.open?.[0] ||
+				!quote.high?.[lastIndex] ||
+				!quote.low?.[lastIndex] ||
+				!quote.close?.[lastIndex] ||
+				!quote.volume?.[lastIndex]
+			) {
 				throw new Error("Missing required stock data points");
 			}
 
-			setState((prev) => ({
-				...prev,
+			setState({
+				...state,
 				openPrice: quote.open[0].toFixed(2),
 				highPrice: quote.high[lastIndex].toFixed(2),
 				lowPrice: quote.low[lastIndex].toFixed(2),
 				closePrice: quote.close[lastIndex].toFixed(2),
 				volume: Math.floor(quote.volume[lastIndex]).toString(),
 				isLoading: false,
-			}));
+			});
 		} catch (error) {
 			console.error("Failed to fetch stock data:", error);
-			setState((prev) => ({ 
-				...prev, 
+			setState({
+				...state,
 				isLoading: false,
 				openPrice: "",
 				highPrice: "",
 				lowPrice: "",
 				closePrice: "",
 				volume: "",
-			}));
+			});
 			// TODO: Add error notification to user
 		}
 	};
@@ -145,7 +158,10 @@ const LotteryTool: React.FC = () => {
 	const handleChange =
 		(field: keyof LotteryState) =>
 		(event: React.ChangeEvent<HTMLInputElement | { value: unknown }>) => {
-			setState((prev) => ({ ...prev, [field]: event.target.value }));
+			setState({
+				...state,
+				[field]: event.target.value,
+			});
 		};
 
 	return (

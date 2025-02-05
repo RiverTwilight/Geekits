@@ -23,6 +23,8 @@
 			"@/apps/*": ["src/apps/*"],
 			"@/types/*": ["types/*"],
 			"@/utils/*": ["src/utils/*"],
+			"@/hooks/*": ["src/hooks/*"],
+			"@/packages/*": ["packages/*"],
 			"react": ["./node_modules/@types/react"]
 		},
 		"experimentalDecorators": true

@@ -8685,6 +8685,11 @@ url-parse@^1.5.3:
     querystringify "^2.1.1"
     requires-port "^1.0.0"
 
+use-query-sync@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/use-query-sync/-/use-query-sync-1.0.2.tgz#efaa5af6acf169e4c9a2ed81ac79c859dcbb47fa"
+  integrity sha512-8ovxsao+pR8OGjfQ9eljPn4S473R5aPSXUjb/8CYElVgH5psBodW4oZbVTj3TloeFklWdKwsw9yBgPjPBOqBVA==
+
 use-sync-external-store@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/use-sync-external-store/-/use-sync-external-store-1.4.0.tgz#adbc795d8eeb47029963016cefdf89dc799fcebc"

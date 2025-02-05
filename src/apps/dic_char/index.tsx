@@ -10,11 +10,15 @@ import CircularProgress from "@mui/material/CircularProgress";
 import localForage from "localforage";
 import { Box, Typography } from "@mui/material";
 import OutlinedCard from "@/components/OutlinedCard";
+import { useStateWithQuery } from "use-query-sync";
 
 const CharDictionary = () => {
 	const [data, setData] = useState([]);
 	const [loading, setLoading] = useState(true);
-	const [searchTerm, setSearchTerm] = useState("");
+	const [searchTerm, setSearchTerm] = useStateWithQuery("", {
+		name: "char",
+		initFromQuery: true,
+	});
 
 	useEffect(() => {
 		const fetchData = async () => {
