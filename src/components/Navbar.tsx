@@ -63,37 +63,31 @@ function AppsMenu() {
 			name: "ClipMemo",
 			icon: "https://www.ygeeker.com/image/product/clipmemo.png",
 			link: "https://www.ygeeker.com/clipmemo",
-			description: "Effortlessly capture and organize your ideas",
 		},
 		{
 			name: "Dali",
 			icon: "https://www.ygeeker.com/image/product/dali.png",
 			link: "https://www.ygeeker.com/dali",
-			description: "Create stunning AI-generated artwork",
 		},
 		{
 			name: "I Didn't",
 			icon: "https://www.ygeeker.com/image/product/ididnt.png",
 			link: "https://www.ygeeker.com/ididnt",
-			description: "Track habits you want to break",
 		},
 		{
 			name: "FlowFerry",
 			icon: "https://www.ygeeker.com/image/product/flowferry.png",
 			link: "https://www.ygeeker.com/flowferry",
-			description: "Streamline your workflow automation",
 		},
 		{
 			name: "Currates",
 			icon: "https://www.ygeeker.com/image/product/currates.png",
 			link: "https://www.ygeeker.com/currates",
-			description: "Curate and share your favorite content",
 		},
 		{
 			name: "Timeline",
 			icon: "https://www.ygeeker.com/image/product/timeline.png",
 			link: "https://www.ygeeker.com/timeline",
-			description: "Visualize your personal or project history",
 		},
 	];
 
@@ -133,7 +127,7 @@ function AppsMenu() {
 						fontFamily: "Product Sans",
 					}}
 				>
-					More apps from YGeeker
+					<Text k="navbar.more.title" />
 				</Typography>
 				<Grid container spacing={2}>
 					{apps.map((app, index) => (
@@ -192,7 +186,7 @@ function AppsMenu() {
 						</Grid>
 					))}
 				</Grid>
-				<Typography
+				{/* <Typography
 					variant="caption"
 					sx={{
 						display: "block",
@@ -202,7 +196,7 @@ function AppsMenu() {
 					}}
 				>
 					{hoverDescription}
-				</Typography>
+				</Typography> */}
 			</Popover>
 		</>
 	);

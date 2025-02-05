@@ -25,6 +25,17 @@ const data = [
 		platform: ["web", "ios", "android"],
 	},
 	{
+		id: "flowferry",
+		name: "FlowFerry",
+		description: "小而美的网页剪藏和稍后读产品，由 YGeeker 出品。",
+		status: "stable",
+		locale: "zh-CN",
+		link: "https://www.ygeeker.com/flowferry",
+		icon: "https://www.ygeeker.com/image/product/flowferry.png",
+		channel: "external",
+		platform: ["web", "ios", "android"],
+	},
+	{
 		id: "imyshare",
 		name: "精品网站导航",
 		description: "",

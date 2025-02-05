@@ -34,8 +34,13 @@ const FakeLogo = ({ hStyle, frontStyle, lastStyle, scale = 1 }: any) => {
 		<Paper
 			elevation={3}
 			sx={{
-				width: "600px",
-				height: "300px",
+				width: "100%",
+				maxWidth: "600px",
+				height: "auto",
+				minHeight: {
+					xs: "150px",
+					sm: "300px",
+				},
 				display: "flex",
 				justifyContent: "center",
 				alignItems: "center",
@@ -44,15 +49,25 @@ const FakeLogo = ({ hStyle, frontStyle, lastStyle, scale = 1 }: any) => {
 			}}
 			id="blackborad"
 		>
-			<Box sx={{ transform: `scale(${scale})` }}>
+			<Box
+				sx={{
+					transform: `scale(${scale})`,
+					width: "100%",
+					px: 2,
+				}}
+			>
 				<Typography
 					component="h1"
 					sx={{
 						fontFamily: `"SF Pro Text", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif, SimHei,STHeiti`,
 						fontWeight: 1000,
 						letterSpacing: "-1.5px",
-						fontSize: `${hStyle.size}em`,
+						fontSize: {
+							xs: `${hStyle.size * 0.7}em`,
+							sm: `${hStyle.size}em`,
+						},
 						textAlign: "center",
+						wordBreak: "break-word",
 					}}
 				>
 					<Box
@@ -138,7 +153,17 @@ const FakePornhubLogo = () => {
 	};
 
 	return (
-		<Stack spacing={3} alignItems="center" sx={{ px: 2, py: 3 }}>
+		<Stack
+			spacing={3}
+			alignItems="center"
+			sx={{
+				px: {
+					xs: 0,
+					sm: 2,
+				},
+				py: 3,
+			}}
+		>
 			<Box
 				sx={{
 					width: "100%",
