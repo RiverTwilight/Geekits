@@ -4,6 +4,7 @@ import BurstModeIcon from "@mui/icons-material/BurstMode";
 import CodeTwoToneIcon from "@mui/icons-material/CodeTwoTone";
 import LinkTwoToneIcon from "@mui/icons-material/LinkTwoTone";
 import WbSunnyTwoToneIcon from "@mui/icons-material/WbSunnyTwoTone";
+import SportsEsportsIcon from "@mui/icons-material/SportsEsports";
 import Text from "@/components/i18n";
 
 const channelInfo = {
@@ -22,6 +23,10 @@ const channelInfo = {
 	dev: {
 		name: <Text k="channel.developer" />,
 		Icon: <CodeTwoToneIcon />,
+	},
+	gaming: {
+		name: <>Gaming</>,
+		Icon: <SportsEsportsIcon />,
 	},
 	external: {
 		name: <Text k="channel.external" />,

@@ -1,0 +1,104 @@
+[
+	{
+		"game": "GTA III",
+		"platform": "PC",
+		"code": "GUNSGUNSGUNS",
+		"effect": "Weapons Set 1"
+	},
+	{
+		"game": "GTA III",
+		"platform": "PC",
+		"code": "GESUNDHEIT",
+		"effect": "Restore Health"
+	},
+	{
+		"game": "GTA III",
+		"platform": "PC",
+		"code": "CHITTYCHITTYBB",
+		"effect": "Flying Cars"
+	},
+	{
+		"game": "GTA: Vice City",
+		"platform": "PC",
+		"code": "ASPIRINE",
+		"effect": "Restore Health"
+	},
+	{
+		"game": "GTA: Vice City",
+		"platform": "PC",
+		"code": "PANZER",
+		"effect": "Spawn Rhino Tank"
+	},
+	{
+		"game": "GTA: Vice City",
+		"platform": "PC",
+		"code": "MIAMITRAFFIC",
+		"effect": "Aggressive Drivers"
+	},
+	{
+		"game": "GTA: San Andreas",
+		"platform": "PC",
+		"code": "HESOYAM",
+		"effect": "$250,000, Full Health and Armor"
+	},
+	{
+		"game": "GTA: San Andreas",
+		"platform": "PC",
+		"code": "AEZAKMI",
+		"effect": "Never Wanted"
+	},
+	{
+		"game": "GTA: San Andreas",
+		"platform": "PC",
+		"code": "BAGUVIX",
+		"effect": "Infinite Health"
+	},
+	{
+		"game": "GTA IV",
+		"platform": "PS3",
+		"code": "267-555-0150",
+		"effect": "Full Health"
+	},
+	{
+		"game": "GTA IV",
+		"platform": "PS3",
+		"code": "267-555-0100",
+		"effect": "Remove Wanted Level"
+	},
+	{
+		"game": "GTA IV",
+		"platform": "Xbox 360",
+		"code": "362-555-0100",
+		"effect": "Restore Armor"
+	},
+	{
+		"game": "GTA V",
+		"platform": "PS4/PS5",
+		"code": "TRIANGLE, R2, LEFT, L1, X, RIGHT, TRIANGLE, DOWN, SQUARE, L1, L1, L1",
+		"effect": "Spawn Buzzard Attack Helicopter"
+	},
+	{
+		"game": "GTA V",
+		"platform": "PS4/PS5",
+		"code": "TRIANGLE, TRIANGLE, SQUARE, CIRCLE, X, L1, L1, DOWN, UP",
+		"effect": "Max Health and Armor"
+	},
+	{
+		"game": "GTA V",
+		"platform": "Xbox One/Series X",
+		"code": "Y, Y, X, B, A, LB, LB, DOWN, UP",
+		"effect": "Max Health and Armor"
+	},
+	{
+		"game": "GTA V",
+		"platform": "PC",
+		"code": "PAINKILLER",
+		"effect": "Max Health and Armor"
+	},
+	{
+		"game": "GTA V",
+		"platform": "PC",
+		"code": "RAPIDGT",
+		"effect": "Spawn Rapid GT"
+	}
+]

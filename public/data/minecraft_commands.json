@@ -1,0 +1,164 @@
+[
+    {
+        "command": "advancement",
+        "description": "Controls player advancements",
+        "usage": "/advancement <grant|revoke> <player> <only|until|from|through|everything>",
+        "examples": [
+            "/advancement grant @p everything",
+            "/advancement revoke @p only minecraft:story/mine_stone"
+        ]
+    },
+    {
+        "command": "clear",
+        "description": "Clears items from player inventory",
+        "usage": "/clear [player] [item] [maxCount]",
+        "examples": [
+            "/clear @p",
+            "/clear @p diamond 64"
+        ]
+    },
+    {
+        "command": "difficulty",
+        "description": "Sets the game difficulty level",
+        "usage": "/difficulty <peaceful|easy|normal|hard>",
+        "examples": [
+            "/difficulty peaceful",
+            "/difficulty hard"
+        ]
+    },
+    {
+        "command": "effect",
+        "description": "Adds or removes status effects",
+        "usage": "/effect <give|clear> <target> [effect] [seconds] [amplifier]",
+        "examples": [
+            "/effect give @p minecraft:speed 60 2",
+            "/effect clear @p"
+        ]
+    },
+    {
+        "command": "enchant",
+        "description": "Enchants a player's held item",
+        "usage": "/enchant <player> <enchantment> [level]",
+        "examples": [
+            "/enchant @p sharpness 5",
+            "/enchant @p efficiency 3"
+        ]
+    },
+    {
+        "command": "fill",
+        "description": "Fills a region with blocks",
+        "usage": "/fill <x1> <y1> <z1> <x2> <y2> <z2> <block> [mode]",
+        "examples": [
+            "/fill ~-1 ~-1 ~-1 ~1 ~1 ~1 stone",
+            "/fill 0 64 0 10 74 10 air replace dirt"
+        ]
+    },
+    {
+        "command": "gamemode",
+        "description": "Changes a player's game mode",
+        "usage": "/gamemode <mode> [player]",
+        "examples": [
+            "/gamemode creative",
+            "/gamemode survival Steve"
+        ]
+    },
+    {
+        "command": "give",
+        "description": "Gives an item to a player",
+        "usage": "/give <player> <item> [amount]",
+        "examples": [
+            "/give @p diamond 64",
+            "/give Steve minecraft:stone 16"
+        ]
+    },
+    {
+        "command": "kill",
+        "description": "Kills entities (players, mobs, items, etc.)",
+        "usage": "/kill [target]",
+        "examples": [
+            "/kill @e[type=zombie]",
+            "/kill @p"
+        ]
+    },
+    {
+        "command": "locate",
+        "description": "Locates the nearest structure",
+        "usage": "/locate <structure>",
+        "examples": [
+            "/locate village",
+            "/locate fortress"
+        ]
+    },
+    {
+        "command": "setblock",
+        "description": "Places a block at specified coordinates",
+        "usage": "/setblock <x> <y> <z> <block> [mode]",
+        "examples": [
+            "/setblock ~ ~ ~ stone",
+            "/setblock 0 64 0 diamond_block"
+        ]
+    },
+    {
+        "command": "spawnpoint",
+        "description": "Sets the spawn point for a player",
+        "usage": "/spawnpoint [player] [pos]",
+        "examples": [
+            "/spawnpoint",
+            "/spawnpoint @p ~ ~ ~"
+        ]
+    },
+    {
+        "command": "summon",
+        "description": "Summons an entity",
+        "usage": "/summon <entity> [pos] [nbt]",
+        "examples": [
+            "/summon minecraft:zombie",
+            "/summon minecraft:lightning_bolt ~ ~ ~"
+        ]
+    },
+    {
+        "command": "teleport",
+        "description": "Teleports entities to specific coordinates or other entities",
+        "usage": "/teleport <target> <destination>",
+        "examples": [
+            "/teleport @p 0 64 0",
+            "/teleport @p @s"
+        ]
+    },
+    {
+        "command": "time",
+        "description": "Changes or queries the world's game time",
+        "usage": "/time <set|add|query> <value>",
+        "examples": [
+            "/time set day",
+            "/time add 1000"
+        ]
+    },
+    {
+        "command": "weather",
+        "description": "Sets the weather",
+        "usage": "/weather <clear|rain|thunder> [duration]",
+        "examples": [
+            "/weather clear",
+            "/weather rain 1000"
+        ]
+    },
+    {
+        "command": "worldborder",
+        "description": "Manages the world border",
+        "usage": "/worldborder <set|add|center|damage|warning> ...",
+        "examples": [
+            "/worldborder set 1000",
+            "/worldborder center 0 0"
+        ]
+    },
+    {
+        "command": "xp",
+        "description": "Adds or removes player experience",
+        "usage": "/xp <amount>[L] [player]",
+        "examples": [
+            "/xp 100",
+            "/xp 30L @p"
+        ]
+    }
+] 
