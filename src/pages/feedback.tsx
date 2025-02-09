@@ -7,10 +7,10 @@ import translator from "@/utils/translator";
 import { isWeb } from "@/utils/platform";
 import { Toast } from "@capacitor/toast";
 import { Box, FormControlLabel, Typography } from "@mui/material";
-import PaperBackground from "@/components/PaperBackground";
 import Checkbox from "@mui/material/Checkbox";
 import Text from "@/components/i18n";
 import { useAction } from "@/contexts/action";
+import MainSection from "@/components/MainSection";
 
 export async function getStaticProps({ locale = "zh-CN" }) {
 	const path = "/feedback";
@@ -90,7 +90,7 @@ export default function Feedback() {
 	};
 
 	return (
-		<PaperBackground contentWidth={800}>
+		<MainSection>
 			<Typography
 				sx={{
 					fontFamily: "Product Sans",
@@ -155,6 +155,6 @@ export default function Feedback() {
 					<Text k="feedback.send" />
 				</Button>
 			</Box>
-		</PaperBackground>
+		</MainSection>
 	);
 }
