@@ -1,8 +1,8 @@
 ---
 name: "图标制作"
 icon: "/icon/aspect-colorful/icon-192-maskable.png"
-description: "将图片切成九宫格，在社交媒体发布逼格更高"
+description: "快速创建高质量的图标"
 status: stable
 channel: media
-seoOptimizedDescription: "将图片切成九宫格，在社交媒体发布逼格更高。"
+seoOptimizedDescription: "快速创建高质量的图标，免费且无广告，用完即走"
 ---

@@ -1,8 +1,8 @@
 ---
 name: "Icon Maker"
 icon: "/icon/aspect-colorful/icon-192-maskable.png"
-description: "Generate different sizes for your icon"
+description: "Quickly create a high-quality icon for your project"
 status: "stable"
 channel: media
-seoOptimizedDescription: "Generate different sizes for your icon. Free & no ads."
+seoOptimizedDescription: "Quickly create a high-quality icon for your project"
 ---
