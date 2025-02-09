@@ -11,7 +11,7 @@ import OutlinedCard from "./OutlinedCard";
 import type { AppData, IChannel } from "@/types/index.d";
 import { Capacitor } from "@capacitor/core";
 import Text from "./i18n";
-import { ListItemButton } from "@mui/material";
+import { Card, ListItemButton } from "@mui/material";
 import ViewListIcon from '@mui/icons-material/ViewList';
 import GridViewIcon from '@mui/icons-material/GridView';
 import { Box, ToggleButton, ToggleButtonGroup } from '@mui/material';
@@ -102,9 +102,9 @@ const AppListItem = ({
 
 	return (
 		<Link {...attr} passHref legacyBehavior>
-			<OutlinedCard>
+			<Card>
 				<Inner />
-			</OutlinedCard>
+			</Card>
 		</Link>
 	);
 };

@@ -21,7 +21,7 @@ const Root = styled("main")<{ disableTopPadding?: boolean }>(
 	({ theme }) =>
 		({ disableTopPadding }) => ({
 			flexGrow: 1,
-			paddingTop: disableTopPadding
+			paddingTop: !disableTopPadding
 				? 0
 				: "calc(var(--ion-safe-area-top) + 56px)",
 			minHeight: "100vh",
@@ -208,7 +208,7 @@ const Layout = ({ currentPage, children, enableFrame, appData }) => {
 									sx={{
 										display: "flex",
 										justifyContent: "center",
-										marginTop: { xs: 0, sm: 2 },
+										// marginTop: { xs: 0, sm: 2 },
 									}}
 								>
 									<Sidebar />

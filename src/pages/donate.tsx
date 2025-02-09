@@ -6,7 +6,6 @@ import { GetStaticProps } from "next";
 import Placeholder from "@/components/Placeholder";
 import translator from "@/utils/translator";
 import OutlinedCard from "@/components/OutlinedCard/index";
-import PaperBackground from "@/components/PaperBackground";
 import {
 	Alert,
 	Avatar,
@@ -44,6 +43,7 @@ import {
 	useElements,
 } from "@stripe/react-stripe-js";
 import Text from "@/components/i18n";
+import MainSection from "@/components/MainSection";
 
 const FREE_DONATION_WAYS = [
 	{
@@ -422,7 +422,7 @@ export default function Donate() {
 	setAction(null);
 
 	return (
-		<PaperBackground contentWidth={900}>
+		<MainSection>
 			<Alert severity="info">
 				以下方式都是免费的，你只需要动动手指，我和你都能从中获益。
 			</Alert>
@@ -504,6 +504,6 @@ export default function Donate() {
 				<br />
 				所有的收益都将用于开发、维护、运行 Geekits。
 			</Typography>
-		</PaperBackground>
+		</MainSection>
 	);
 }

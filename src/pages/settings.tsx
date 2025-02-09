@@ -2,7 +2,6 @@ import React from "react";
 import Box from "@mui/material/Box";
 import { GetStaticProps } from "next";
 import translator from "@/utils/translator";
-import PaperBackground from "@/components/PaperBackground";
 import Typography from "@mui/material/Typography";
 import { useAction } from "@/contexts/action";
 import { defaultLocale } from "src/site.config";
@@ -16,6 +15,7 @@ import { isWeb } from "@/utils/platform";
 import { useTheme } from "@mui/material/styles";
 import { useColorMode } from "@/contexts/colorMode";
 import { Preferences } from "@capacitor/preferences";
+import MainSection from "@/components/MainSection";
 
 export const getStaticProps: GetStaticProps = ({ locale = defaultLocale }) => {
 	const dic = require("../data/i18n.json");
@@ -87,7 +87,7 @@ export default function Settings() {
 	}, []);
 
 	return (
-		<PaperBackground contentWidth={600}>
+		<MainSection>
 			<Box
 				sx={{
 					display: "flex",
@@ -175,6 +175,6 @@ export default function Settings() {
 					</FormControl>
 				</Box>
 			</Box>
-		</PaperBackground>
+		</MainSection>
 	);
 }

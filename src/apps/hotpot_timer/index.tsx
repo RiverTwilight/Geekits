@@ -74,21 +74,7 @@ const PresetDishCard: React.FC<PresetDishProps> = ({ dish, onClick }) => {
 	const theme = useTheme();
 
 	return (
-		<Card
-			onClick={onClick}
-			elevation={0}
-			sx={{
-				cursor: "pointer",
-				transition: "all 0.2s ease",
-				borderRadius: 3,
-				backgroundColor: alpha(theme.palette.background.paper, 0.5),
-				"&:hover": {
-					backgroundColor: alpha(theme.palette.primary.main, 0.08),
-					transform: "translateY(-2px)",
-					boxShadow: theme.shadows[2],
-				},
-			}}
-		>
+		<Card onClick={onClick}>
 			<CardContent sx={{ p: 2, "&:last-child": { pb: 2 } }}>
 				<Typography
 					variant="body1"
@@ -204,20 +190,7 @@ const HotpotTimer: React.FC = () => {
 				}}
 			>
 				<Stack spacing={4}>
-					<Button
-						variant="outlined"
-						onClick={handleOpenPresetDialog}
-						sx={{
-							borderRadius: 3,
-							py: 2,
-							borderStyle: "dashed",
-							borderWidth: 2,
-							"&:hover": {
-								borderStyle: "dashed",
-								borderWidth: 2,
-							},
-						}}
-					>
+					<Button variant="outlined" onClick={handleOpenPresetDialog}>
 						<Stack spacing={1} alignItems="center">
 							<AddIcon />
 							<Typography>从预设菜品中选择</Typography>
@@ -229,11 +202,6 @@ const HotpotTimer: React.FC = () => {
 							label="自定义菜品"
 							value={customDish}
 							onChange={(e) => setCustomDish(e.target.value)}
-							sx={{
-								"& .MuiOutlinedInput-root": {
-									borderRadius: 3,
-								},
-							}}
 						/>
 						<Stack
 							direction={{ xs: "column", sm: "row" }}
@@ -248,9 +216,6 @@ const HotpotTimer: React.FC = () => {
 								}
 								sx={{
 									width: { xs: "100%", sm: "120px" },
-									"& .MuiOutlinedInput-root": {
-										borderRadius: 3,
-									},
 								}}
 							/>
 							<Button
@@ -258,13 +223,6 @@ const HotpotTimer: React.FC = () => {
 								onClick={addCustomTimer}
 								disabled={!customDish || !customDuration}
 								startIcon={<AddIcon />}
-								sx={{
-									borderRadius: 3,
-									textTransform: "none",
-									px: 3,
-									width: { xs: "100%", sm: "auto" },
-									height: "56px", // Match TextField height
-								}}
 							>
 								添加
 							</Button>
@@ -287,10 +245,6 @@ const HotpotTimer: React.FC = () => {
 									),
 									transition: "all 0.3s ease",
 									transform: "translateY(0)",
-									"&:hover": {
-										transform: "translateY(-2px)",
-										boxShadow: theme.shadows[4],
-									},
 								}}
 							>
 								<Stack
@@ -410,16 +364,7 @@ const HotpotTimer: React.FC = () => {
 					</Box>
 				</DialogContent>
 				<DialogActions>
-					<Button
-						onClick={handleClosePresetDialog}
-						sx={{
-							borderRadius: 3,
-							textTransform: "none",
-							px: 3,
-						}}
-					>
-						关闭
-					</Button>
+					<Button onClick={handleClosePresetDialog}>关闭</Button>
 				</DialogActions>
 			</Dialog>
 		</Box>

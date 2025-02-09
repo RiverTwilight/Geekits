@@ -30,15 +30,20 @@ const classes = {
 const Root = styled("div")<{ freeSize?: boolean }>(
 	({ theme }) =>
 		({ freeSize }) => ({
-			paddingX: `${freeSize ? "0" : theme.spacing(2)}`,
-			margin: freeSize ? "unset" : "0 auto 24px auto",
 			width: "100%",
+			height: "100vh",
+			paddingTop: "65px", // 65px is the height of the header, plus some padding
+			[theme.breakpoints.up("sm")]: {
+				paddingBottom: "8px",
+			},
 			[`& .${classes.content}`]: {
-				// position: "relative",
-				// minHeight: "calc(100vh - 56px - 12px)",
-				maxWidth: freeSize ? "unset" : "100vw",
+				height: "100%",
+				overflowY: "auto",
+				// width: "100%",
 				[theme.breakpoints.up("sm")]: {
-					marginRight: 16,
+					// When sidebar is not open, give it a same right margin as
+					// the bottom margin.
+					marginRight: "8px",
 					borderRadius: "24px",
 				},
 				marginX: { sm: 4, xs: 0 },
@@ -136,11 +141,6 @@ const SidebarToggle = ({ handleToggle }) => {
 			aria-label="Switch drawer"
 			onClick={handleToggle}
 			size="large"
-			sx={
-				{
-					// mr: { sm: `${RightDrawerOpen ? drawerWidth + 10 : 0}px` },
-				}
-			}
 		>
 			<HelpOutlineTwoTone />
 		</IconButton>

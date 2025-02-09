@@ -14,6 +14,7 @@ import { useLocale } from "@/contexts/locale";
 import { isCapacitor } from "@/utils/platform";
 import fetch from "node-fetch";
 import { Theme, useMediaQuery } from "@mui/material";
+import MainSection from "@/components/MainSection";
 
 export async function getStaticProps({ locale = defaultLocale }) {
 	let appData: any[];
@@ -100,60 +101,43 @@ const Index = React.memo(({ appData }: any) => {
 	const isXs = useMediaQuery((theme: Theme) => theme.breakpoints.only("xs"));
 
 	return (
-		<Box
-			sx={{
-				flexGrow: 1,
-				paddingX: { sm: 4, xs: 3 },
-				paddingY: { sm: 3, xs: 3 },
-				marginX: { sm: 4, xs: 0 },
-				background: (theme) => theme.palette.background.paper,
-				borderRadius: { xs: "0px", sm: "24px" },
-				display: "flex",
-				justifyContent: "center",
-			}}
-		>
-			<Box
-				sx={{
-					maxWidth: "1180px",
-				}}
-			>
-				<Grid container direction="row-reverse" spacing={2}>
-					{isXs && (
-						<Grid
-							size={{
-								xs: 12,
-							}}
-						>
-							<Search appData={localizedAppData} />
-						</Grid>
-					)}
+		<MainSection>
+			<Grid container direction="row-reverse" spacing={2}>
+				{isXs && (
 					<Grid
 						size={{
 							xs: 12,
 						}}
 					>
-						<Bookmark />
+						<Search appData={localizedAppData} />
 					</Grid>
-					<Grid
-						size={{
-							xs: 12,
-						}}
-					>
-						<AppList
-							channelInfo={channelInfo}
-							appData={localizedAppData}
-						/>
-					</Grid>
-					<Grid
-						size={{
-							xs: 12,
-						}}
-					>
-						<Tips />
-					</Grid>
+				)}
+				<Grid
+					size={{
+						xs: 12,
+					}}
+				>
+					<Bookmark />
 				</Grid>
-			</Box>
-		</Box>
+				<Grid
+					size={{
+						xs: 12,
+					}}
+				>
+					<AppList
+						channelInfo={channelInfo}
+						appData={localizedAppData}
+					/>
+				</Grid>
+				<Grid
+					size={{
+						xs: 12,
+					}}
+				>
+					<Tips />
+				</Grid>
+			</Grid>
+		</MainSection>
 	);
 });
 
