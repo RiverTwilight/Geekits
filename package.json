@@ -54,7 +54,7 @@
 		"@supabase/supabase-js": "^2.45.4",
 		"@svgr/webpack": "^5.5.0",
 		"@uiw/react-codemirror": "^4.23.7",
-		"axios": "^0.21.1",
+		"axios": "^0.28.0",
 		"clipboard": "^2.0.6",
 		"compress.js": "^1.2.2",
 		"crypto-js": "^4.0.0",

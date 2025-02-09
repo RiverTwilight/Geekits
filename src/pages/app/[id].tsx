@@ -33,10 +33,10 @@ const Root = styled("div")<{ freeSize?: boolean }>(
 			paddingX: `${freeSize ? "0" : theme.spacing(2)}`,
 			margin: freeSize ? "unset" : "0 auto 24px auto",
 			width: "100%",
-			// maxWidth: freeSize ? "unset" : "1120px",
 			[`& .${classes.content}`]: {
 				// position: "relative",
 				// minHeight: "calc(100vh - 56px - 12px)",
+				maxWidth: freeSize ? "unset" : "100vw",
 				[theme.breakpoints.up("sm")]: {
 					marginRight: 16,
 					borderRadius: "24px",

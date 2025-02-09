@@ -72,7 +72,14 @@ const GtaCheatCodes = () => {
 
 	return (
 		<>
-			<Box sx={{ display: "flex", gap: 2, mb: 2 }}>
+			<Box
+				sx={{
+					display: "flex",
+					gap: 2,
+					mb: 2,
+					flexDirection: { xs: "column", sm: "row" },
+				}}
+			>
 				<FormControl fullWidth>
 					<TextField
 						autoFocus
@@ -82,7 +89,7 @@ const GtaCheatCodes = () => {
 						data-testId="inputKey"
 					/>
 				</FormControl>
-				<FormControl sx={{ minWidth: 200 }}>
+				<FormControl sx={{ minWidth: { xs: "100%", sm: 200 } }}>
 					<Select
 						value={selectedGame}
 						onChange={(event) =>
@@ -118,14 +125,14 @@ const GtaCheatCodes = () => {
 					</Box>
 				</OutlinedCard>
 			) : (
-				<TableContainer component={OutlinedCard}>
+				<TableContainer>
 					<Table>
 						<TableHead>
 							<TableRow>
-								<TableCell>Game</TableCell>
-								<TableCell>Platform</TableCell>
-								<TableCell>Cheat Code</TableCell>
-								<TableCell>Effect</TableCell>
+								<TableCell width="15%">Game</TableCell>
+								<TableCell width="15%">Platform</TableCell>
+								<TableCell width="30%">Cheat Code</TableCell>
+								<TableCell width="40%">Effect</TableCell>
 							</TableRow>
 						</TableHead>
 						<TableBody>
@@ -133,14 +140,40 @@ const GtaCheatCodes = () => {
 								<TableRow
 									key={`${entry.game}-${entry.code}-${index}`}
 								>
-									<TableCell sx={{ whiteSpace: "nowrap" }}>
+									<TableCell
+										sx={{
+											whiteSpace: "nowrap",
+											overflow: "hidden",
+											textOverflow: "ellipsis",
+										}}
+									>
 										{entry.game}
 									</TableCell>
-									<TableCell>{entry.platform}</TableCell>
-									<TableCell sx={{ fontFamily: "monospace" }}>
+									<TableCell
+										sx={{
+											overflow: "hidden",
+											textOverflow: "ellipsis",
+										}}
+									>
+										{entry.platform}
+									</TableCell>
+									<TableCell
+										sx={{
+											fontFamily: "monospace",
+											overflow: "hidden",
+											textOverflow: "ellipsis",
+										}}
+									>
 										{entry.code}
 									</TableCell>
-									<TableCell>{entry.effect}</TableCell>
+									<TableCell
+										sx={{
+											overflow: "hidden",
+											textOverflow: "ellipsis",
+										}}
+									>
+										{entry.effect}
+									</TableCell>
 								</TableRow>
 							))}
 						</TableBody>
