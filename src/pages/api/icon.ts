@@ -24,20 +24,22 @@ export default async function handler(
 		return res.status(400).json({ message: "Invalid icon name" });
 	}
 
-	const IconComponent = (MuiIcons as any)[iconName];
-
-	if (!IconComponent) {
-		return res.status(404).json({ message: "Icon not found" });
-	}
-
-	const svgString = renderToStaticMarkup(
-		React.createElement(IconComponent, {
-			viewBox: "0 0 24 24",
-			style: { color: `#${iconColor}` },
-		})
-	);
-
 	try {
+		const IconComponent = (MuiIcons as any)[iconName];
+		
+		if (!IconComponent) {
+			return res.status(404).json({ 
+				message: `Icon "${iconName}" not found. Please check the icon name at https://mui.com/material-ui/material-icons/` 
+			});
+		}
+
+		const svgString = renderToStaticMarkup(
+			React.createElement(IconComponent, {
+				viewBox: "0 0 24 24",
+				style: { color: `#${iconColor}` },
+			})
+		);
+
 		let backgroundFill: string;
 
 		if (backgroundColor1 && backgroundColor2) {

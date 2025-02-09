@@ -16,6 +16,9 @@ const appImportList: Record<string, ComponentType> = {
 	lottery: dynamic(() => import("../apps/lottery"), {
 		ssr: false,
 	}),
+	icon_maker: dynamic(() => import("../apps/icon_maker"), {
+		ssr: false,
+	}),
 	mc_command: dynamic(() => import("../apps/mc_command"), {
 		ssr: false,
 	}),
