@@ -4,6 +4,16 @@ status: "stable"
 icon: "/icon/file_present-green/icon-192-maskable.png"
 description: "将汉字转换为粤语拼音"
 channel: life
+seoOptimizedDescription: "将汉字转换为粤语拼音。免费的在线粤语拼音转换器。无需注册，无需登录即可查询粤语读音。"
+keywords:
+    [
+        "粤语拼音转换器",
+        "粤语拼音",
+        "廣東話拼音轉換",
+        "粤语拼音生成器",
+        "粤语拼音转换",
+        "粵語讀音器",
+    ]
 ---
 
 粤语学习中比较常用的是有耶鲁大学开发的耶拼和香港本土开发的。两者在拼法和发音上有区别，注意不能混为一谈。
