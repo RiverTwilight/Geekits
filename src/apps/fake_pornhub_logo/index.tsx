@@ -16,6 +16,9 @@ import {
 	IconButton,
 	Tooltip,
 	Typography,
+	FormControl,
+	Select,
+	MenuItem,
 } from "@mui/material";
 import BorderVerticalIcon from "@mui/icons-material/BorderVertical";
 import ColorLensIcon from "@mui/icons-material/ColorLens";
@@ -29,21 +32,27 @@ import Text, { t } from "@/components/i18n";
 const IfBr = ({ statu }: { statu: string }) =>
 	statu === "vertical" ? <br /> : null;
 
-const FakeLogo = ({ hStyle, frontStyle, lastStyle, scale = 1 }: any) => {
+const FakeLogo = ({
+	hStyle,
+	frontStyle,
+	lastStyle,
+	scale = 1,
+	aspectRatio,
+}: any) => {
 	return (
 		<Paper
 			elevation={3}
 			sx={{
 				width: "100%",
 				maxWidth: "600px",
-				height: "auto",
-				minHeight: {
-					xs: "150px",
-					sm: "300px",
-				},
-				display: "flex",
-				justifyContent: "center",
-				alignItems: "center",
+				height: 0,
+				paddingTop: {
+					"1/1": "100%",
+					"4/3": "75%",
+					"16/9": "56.25%",
+					"2/1": "50%",
+				}[aspectRatio],
+				position: "relative",
 				bgcolor: "#000000",
 				overflow: "hidden",
 			}}
@@ -51,55 +60,68 @@ const FakeLogo = ({ hStyle, frontStyle, lastStyle, scale = 1 }: any) => {
 		>
 			<Box
 				sx={{
-					transform: `scale(${scale})`,
-					width: "100%",
-					px: 2,
+					position: "absolute",
+					top: 0,
+					left: 0,
+					right: 0,
+					bottom: 0,
+					display: "flex",
+					justifyContent: "center",
+					alignItems: "center",
 				}}
 			>
-				<Typography
-					component="h1"
+				<Box
 					sx={{
-						fontFamily: `"SF Pro Text", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif, SimHei,STHeiti`,
-						fontWeight: 1000,
-						letterSpacing: "-1.5px",
-						fontSize: {
-							xs: `${hStyle.size * 0.7}em`,
-							sm: `${hStyle.size}em`,
-						},
-						textAlign: "center",
-						wordBreak: "break-word",
+						transform: `scale(${scale})`,
+						width: "100%",
+						px: 2,
 					}}
 				>
-					<Box
-						component="span"
+					<Typography
+						component="h1"
 						sx={{
-							borderRadius: 1,
-							color: frontStyle.color,
-							bgcolor: frontStyle.backgroundColor,
-							px: 0.5,
+							fontFamily: `"SF Pro Text", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif, SimHei,STHeiti`,
+							fontWeight: 1000,
+							letterSpacing: "-1.5px",
+							fontSize: {
+								xs: `${hStyle.size * 0.7}em`,
+								sm: `${hStyle.size}em`,
+							},
+							textAlign: "center",
+							wordBreak: "break-word",
 						}}
-						contentEditable
-						suppressContentEditableWarning
 					>
-						Ygkt
-					</Box>
-					<IfBr statu={hStyle.array} />
-					<Box
-						component="span"
-						sx={{
-							display: "inline",
-							bgcolor: lastStyle.backgroundColor,
-							borderRadius: 1,
-							color: lastStyle.color,
-							px: 0.5,
-							ml: 0.5,
-						}}
-						contentEditable
-						suppressContentEditableWarning
-					>
-						ool
-					</Box>
-				</Typography>
+						<Box
+							component="span"
+							sx={{
+								borderRadius: 1,
+								color: frontStyle.color,
+								bgcolor: frontStyle.backgroundColor,
+								px: 0.5,
+							}}
+							contentEditable
+							suppressContentEditableWarning
+						>
+							Ygkt
+						</Box>
+						<IfBr statu={hStyle.array} />
+						<Box
+							component="span"
+							sx={{
+								display: "inline",
+								bgcolor: lastStyle.backgroundColor,
+								borderRadius: 1,
+								color: lastStyle.color,
+								px: 0.5,
+								ml: 0.5,
+							}}
+							contentEditable
+							suppressContentEditableWarning
+						>
+							ool
+						</Box>
+					</Typography>
+				</Box>
 			</Box>
 		</Paper>
 	);
@@ -122,6 +144,12 @@ const FakePornhubLogo = () => {
 	});
 
 	const [scale, setScale] = useState(1);
+
+	// Add Safari detection
+	const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
+	// Add new aspect ratio state
+	const [aspectRatio, setAspectRatio] = useState("2/1");
 
 	const handleDownload = async () => {
 		const canvas = await html2canvas(document.querySelector("#blackborad"));
@@ -154,51 +182,78 @@ const FakePornhubLogo = () => {
 
 	return (
 		<Stack
+			direction={{ xs: "column", md: "row" }}
 			spacing={3}
-			alignItems="center"
 			sx={{
-				px: {
-					xs: 0,
-					sm: 2,
-				},
+				px: { xs: 0, sm: 2 },
 				py: 3,
+				width: "100%",
+				maxWidth: "1200px",
+				mx: "auto",
 			}}
 		>
-			<Box
+			{/* Left Column - Preview */}
+			<Stack
+				spacing={3}
+				alignItems="center"
 				sx={{
-					width: "100%",
-					maxWidth: "600px",
-					aspectRatio: "2/1",
-					display: "flex",
-					justifyContent: "center",
-					alignItems: "center",
-					bgcolor: "background.paper",
-					borderRadius: 2,
-					overflow: "hidden",
+					width: { xs: "100%", md: "50%" },
 				}}
 			>
-				<FakeLogo
-					hStyle={hStyle}
-					frontStyle={front}
-					lastStyle={last}
-					scale={scale}
-				/>
-			</Box>
+				<Box
+					sx={{
+						width: "100%",
+						maxWidth: "600px",
+						display: "flex",
+						justifyContent: "center",
+						alignItems: "center",
+						bgcolor: "background.paper",
+						borderRadius: 2,
+						overflow: "hidden",
+					}}
+				>
+					<FakeLogo
+						hStyle={hStyle}
+						frontStyle={front}
+						lastStyle={last}
+						scale={scale}
+						aspectRatio={aspectRatio}
+					/>
+				</Box>
 
-			<Stack direction="row" spacing={2} justifyContent="center">
-				<Tooltip title={t("Copy")}>
-					<IconButton onClick={handleCopy} color="primary">
-						<ContentCopyIcon />
-					</IconButton>
-				</Tooltip>
-				<Tooltip title={t("Download")}>
-					<IconButton onClick={handleDownload} color="primary">
-						<FileDownloadIcon />
-					</IconButton>
-				</Tooltip>
+				<Stack direction="row" spacing={2} justifyContent="center">
+					<Tooltip
+						title={
+							isSafari
+								? t("Safari doesn't support copying images")
+								: t("Copy")
+						}
+					>
+						<span>
+							<IconButton
+								onClick={handleCopy}
+								color="primary"
+								disabled={isSafari}
+							>
+								<ContentCopyIcon />
+							</IconButton>
+						</span>
+					</Tooltip>
+					<Tooltip title={t("Download")}>
+						<IconButton onClick={handleDownload} color="primary">
+							<FileDownloadIcon />
+						</IconButton>
+					</Tooltip>
+				</Stack>
 			</Stack>
 
-			<List sx={{ width: "100%", maxWidth: 600 }}>
+			{/* Right Column - Settings */}
+			<List
+				sx={{
+					width: { xs: "100%", md: "50%" },
+					maxWidth: { xs: 600, md: "100%" },
+				}}
+			>
 				<OutlinedCard padding={2}>
 					<SliderWithIcon
 						title={`${t("app.pornhub.fontSize")}: ${hStyle.size}`}
@@ -227,6 +282,17 @@ const FakePornhubLogo = () => {
 							step={0.1}
 						/>
 					</SliderWithIcon>
+					<FormControl size="small">
+						<Select
+							value={aspectRatio}
+							onChange={(e) => setAspectRatio(e.target.value)}
+						>
+							<MenuItem value="1/1">1:1</MenuItem>
+							<MenuItem value="4/3">4:3</MenuItem>
+							<MenuItem value="16/9">16:9</MenuItem>
+							<MenuItem value="2/1">2:1</MenuItem>
+						</Select>
+					</FormControl>
 				</OutlinedCard>
 
 				<OutlinedCard padding={1} style={{ marginTop: 10 }}>

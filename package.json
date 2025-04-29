@@ -71,7 +71,7 @@
 		"localforage": "^1.10.0",
 		"material-ui-color": "^1.2.0",
 		"md5": "^2.3.0",
-		"next": "^15.2.4",
+		"next": "^15.3.1",
 		"openai": "^3.1.0",
 		"pdf-lib": "^1.17.1",
 		"postcss": "^8.4.31",
