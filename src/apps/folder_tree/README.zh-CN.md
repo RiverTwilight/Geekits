@@ -4,9 +4,8 @@ status: "stable"
 icon: "/api/icon?iconColor=fff&iconName=AccountTree&backgroundColor1=33A718"
 description: "生成文件夹结构"
 channel: dev
-seoOptimizedDescription: "生成文件夹结构。免费且无广告。",
-keywords: ["文件树生成", "文件夹结构", "文件夹结构生成", "文件夹结构生成器", "文件夹结构生成器", "文件夹结构生成器",
-    ]
+seoOptimizedDescription: "生成文件夹结构。免费且无广告。"
+keywords: ["文件树生成", "文件夹结构", "文件夹结构生成", "文件夹结构生成器", "文件夹结构生成器", "文件夹结构生成器"]
 ---
 
 #### 文件树有什么用？

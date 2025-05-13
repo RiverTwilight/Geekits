@@ -66,6 +66,7 @@ const LinkWrapper = ({
 			passHref
 			legacyBehavior
 			target={isExternal ? "_blank" : undefined}
+			style={{ textDecoration: "none" }}
 			{...props}
 		>
 			<ListItemButton
@@ -77,13 +78,24 @@ const LinkWrapper = ({
 					borderBottomRightRadius: "30px",
 					borderTopRightRadius: "30px",
 					paddingLeft: "20px",
+					textDecoration: "none",
+					"&:hover": {
+						textDecoration: "none",
+					},
 					...sx,
 				}}
 				className={router.pathname == href ? "Mui-selected" : ""}
 				key={href}
 			>
 				<ListItemIcon>{Icon}</ListItemIcon>
-				<ListItemText primary={text} />
+				<ListItemText
+					primary={text}
+					sx={{
+						"& .MuiListItemText-primary": {
+							textDecoration: "none",
+						},
+					}}
+				/>
 				{isExternal && (
 					<OpenInNewRounded
 						fontSize="small"
@@ -189,9 +201,9 @@ const Sidebar = () => {
 					<Link
 						href="https://www.ygeeker.com"
 						passHref
-						legacyBehavior
+						style={{ textDecoration: "none" }}
 					>
-						<ListItem dense>
+						<ListItem dense sx={{ textDecoration: "none" }}>
 							<ListItemAvatar>
 								<Avatar
 									sx={{ width: 24, height: 24 }}
@@ -203,6 +215,10 @@ const Sidebar = () => {
 								sx={{
 									"& .MuiListItemText-primary": {
 										fontFamily: "Product Sans",
+										textDecoration: "none",
+									},
+									"& .MuiListItemText-secondary": {
+										textDecoration: "none",
 									},
 								}}
 								primary={<Text k="navbar.copyright.title" />}

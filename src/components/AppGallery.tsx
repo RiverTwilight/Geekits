@@ -71,7 +71,11 @@ const AppListItem = ({
 				sx={{
 					"& .MuiListItemText-primary": {
 						fontFamily: "Product Sans Bold",
+						textDecoration: 'none'
 					},
+					"& .MuiListItemText-secondary": {
+						textDecoration: 'none'
+					}
 				}}
 				primary={
 					<>
@@ -101,8 +105,13 @@ const AppListItem = ({
 	}
 
 	return (
-		<Link {...attr} passHref legacyBehavior>
-			<Card>
+		<Link {...attr} passHref style={{ textDecoration: 'none' }}>
+			<Card sx={{ 
+				textDecoration: 'none',
+				'&:hover': {
+					textDecoration: 'none'
+				}
+			}}>
 				<Inner />
 			</Card>
 		</Link>
