@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Avatar from "@mui/material/Avatar";
@@ -16,9 +16,6 @@ import MessageOutlinedIcon from "@mui/icons-material/MessageOutlined";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import VolunteerActivismOutlinedIcon from "@mui/icons-material/VolunteerActivismOutlined";
-import { UserContext } from "./UserContextProvider";
-import { store as loginDialogStore } from "@/utils/Data/loginDialogState";
-import { getUserInfo } from "@/utils/Services/UserInfo";
 import { styled } from "@mui/material/styles";
 import {
 	Cloud,
@@ -66,7 +63,7 @@ const LinkWrapper = ({
 			passHref
 			legacyBehavior
 			target={isExternal ? "_blank" : undefined}
-			style={{ textDecoration: "none" }}
+			style={{ textDecoration: "none", color: "inherit" }}
 			{...props}
 		>
 			<ListItemButton
@@ -79,8 +76,10 @@ const LinkWrapper = ({
 					borderTopRightRadius: "30px",
 					paddingLeft: "20px",
 					textDecoration: "none",
+					color: "inherit",
 					"&:hover": {
 						textDecoration: "none",
+						color: "inherit",
 					},
 					...sx,
 				}}
@@ -192,18 +191,14 @@ const Sidebar = () => {
 								</React.Fragment>
 							))}
 				</List>
-				{/* <Box padding={1}>
-					<Shortcuts />
-				</Box> */}
 			</Box>
 			<Box alignSelf="stretch">
 				<List sx={{ cursor: "pointer" }}>
-					<Link
+					<a
 						href="https://www.ygeeker.com"
-						passHref
-						style={{ textDecoration: "none" }}
+						style={{ textDecoration: "none", color: "inherit" }}
 					>
-						<ListItem dense sx={{ textDecoration: "none" }}>
+						<ListItem dense sx={{ textDecoration: "none", color: "inherit" }}>
 							<ListItemAvatar>
 								<Avatar
 									sx={{ width: 24, height: 24 }}
@@ -216,9 +211,11 @@ const Sidebar = () => {
 									"& .MuiListItemText-primary": {
 										fontFamily: "Product Sans",
 										textDecoration: "none",
+										color: "inherit",
 									},
 									"& .MuiListItemText-secondary": {
 										textDecoration: "none",
+										color: "inherit",
 									},
 								}}
 								primary={<Text k="navbar.copyright.title" />}
@@ -227,7 +224,7 @@ const Sidebar = () => {
 								}
 							/>
 						</ListItem>
-					</Link>
+					</a>
 				</List>
 			</Box>
 		</Box>
