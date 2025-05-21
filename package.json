@@ -44,6 +44,7 @@
 		"@codemirror/lang-javascript": "^6.2.2",
 		"@emotion/react": "^11.14.0",
 		"@emotion/styled": "^11.14.0",
+		"@google/genai": "^1.0.0",
 		"@mui/icons-material": "^6.4.1",
 		"@mui/material": "^6.4.1",
 		"@mui/styles": "^6.4.1",
@@ -71,6 +72,7 @@
 		"localforage": "^1.10.0",
 		"material-ui-color": "^1.2.0",
 		"md5": "^2.3.0",
+		"mime": "^4.0.7",
 		"next": "^15.3.1",
 		"openai": "^3.1.0",
 		"pdf-lib": "^1.17.1",
@@ -92,10 +94,10 @@
 		"swr": "^2.3.0",
 		"test-listen": "^1.1.0",
 		"ua-parser-js": "^0.7.21",
+		"use-query-sync": "^1.0.2",
 		"uuid": "^8.3.0",
 		"wordcloud": "^1.1.1",
-		"xmldom": "^0.6.0",
-		"use-query-sync": "^1.0.2"
+		"xmldom": "^0.6.0"
 	},
 	"devDependencies": {
 		"@babel/preset-react": "^7.24.7",
