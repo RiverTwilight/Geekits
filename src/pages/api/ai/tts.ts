@@ -89,10 +89,6 @@ export default async function handler(
 			return res.status(400).json({ error: "Text is required" });
 		}
 
-		if (!process.env.GEMINI_API_KEY) {
-			throw new Error("Missing GEMINI_API_KEY environment variable");
-		}
-
 		const ai = new GoogleGenAI({
 			apiKey,
 		});
