@@ -113,34 +113,34 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
 	try {
 		// Send email
-		if (RESEND_API_KEY) {
-			const resend = new Resend(process.env.RESEND_API_KEY);
-			const emailContent = `
-${feedbackData.message}
+// 		if (RESEND_API_KEY) {
+// 			const resend = new Resend(process.env.RESEND_API_KEY);
+// 			const emailContent = `
+// ${feedbackData.message}
 
-Contact: ${feedbackData.contact || "Not provided"}
-Device: ${feedbackData.device}
-System: ${feedbackData.system}
-App: ${feedbackData.appIdentifier}
-Source: ${feedbackData.sourceUrl}
-Date: ${new Date().toLocaleString()}
-			`;
+// Contact: ${feedbackData.contact || "Not provided"}
+// Device: ${feedbackData.device}
+// System: ${feedbackData.system}
+// App: ${feedbackData.appIdentifier}
+// Source: ${feedbackData.sourceUrl}
+// Date: ${new Date().toLocaleString()}
+// 			`;
 
-			const { data: emailData, error: emailError } =
-				await resend.emails.send({
-					from: "YGeeker Feedback Center <geekits@ygeeker.com>",
-					to: ["rene@ygeeker.com"],
-					subject: `Feedback from ${feedbackData.appName}`,
-					react: await EmailTemplate({
-						content: emailContent,
-						appName: feedbackData.appName,
-					}),
-				});
+// 			const { data: emailData, error: emailError } =
+// 				await resend.emails.send({
+// 					from: "YGeeker Feedback Center <geekits@ygeeker.com>",
+// 					to: ["rene@ygeeker.com"],
+// 					subject: `Feedback from ${feedbackData.appName}`,
+// 					react: await EmailTemplate({
+// 						content: emailContent,
+// 						appName: feedbackData.appName,
+// 					}),
+// 				});
 
-			if (emailError) {
-				throw emailError;
-			}
-		}
+// 			if (emailError) {
+// 				throw emailError;
+// 			}
+// 		}
 
 		// Send Feishu message
 		if (FEISHU_WEBHOOK_URL) {
