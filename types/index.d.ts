@@ -37,6 +37,7 @@ export interface IChannel {
 
 export type AppData = {
 	name: string;
+	id: string;
 	description?: string;
 	seoOptimizedDescription?: string;
 	// The path to the app's icon.
