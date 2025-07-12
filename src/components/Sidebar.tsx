@@ -198,7 +198,10 @@ const Sidebar = () => {
 						href="https://www.ygeeker.com"
 						style={{ textDecoration: "none", color: "inherit" }}
 					>
-						<ListItem dense sx={{ textDecoration: "none", color: "inherit" }}>
+						<ListItem
+							dense
+							sx={{ textDecoration: "none", color: "inherit" }}
+						>
 							<ListItemAvatar>
 								<Avatar
 									sx={{ width: 24, height: 24 }}

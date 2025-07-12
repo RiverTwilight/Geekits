@@ -128,7 +128,11 @@ class MyDocument extends Document {
 						content="IE=edge,chrome=1"
 					/>
 					<link rel="dns-prefetch" href={apiConfig.url} />
-					<link rel="preconnect" href={apiConfig.url} crossOrigin />
+					<link
+						rel="preconnect"
+						href={apiConfig.url}
+						crossOrigin="anonymous"
+					/>
 				</Head>
 				<body>
 					<Main />
