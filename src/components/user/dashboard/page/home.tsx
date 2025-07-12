@@ -52,8 +52,8 @@ export default class extends React.Component<{}, ComponentState> {
 	render() {
 		const { userInfo } = this.state;
 		return (
-			<>
-				<div className="mdui-card">
+            <>
+                <div className="mdui-card">
 					<div className="mdui-card-primary">
 						<div className="mdui-card-primary-title">
 							{userInfo.username}
@@ -79,8 +79,8 @@ export default class extends React.Component<{}, ComponentState> {
 						</button>
 					</div>
 				</div>
-				<br></br>
-				<div className="mdui-card mdui-p-b-1">
+                <br></br>
+                <div className="mdui-card mdui-p-b-1">
 					<ul className="mdui-list app">
 						<li
 							mdui-dialog="{target:'#set', history: false}"
@@ -101,7 +101,7 @@ export default class extends React.Component<{}, ComponentState> {
 							</i>
 						</li>
 
-						<Link to="sync" className="mdui-list-item mdui-ripple">
+						<Link to="sync" className="mdui-list-item mdui-ripple" legacyBehavior>
 							<i className="mdui-list-item-icon mdui-icon material-icons mdui-text-color-yellow">
 								star
 							</i>
@@ -127,7 +127,7 @@ export default class extends React.Component<{}, ComponentState> {
 					</button>
 					<SettingMenu />
 				</div>
-			</>
-		);
+            </>
+        );
 	}
 }

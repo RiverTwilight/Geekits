@@ -42,13 +42,13 @@ export async function getStaticProps({ locale }) {
 
 const LinkList = function ({ link, Icon, primary, secondary }) {
 	return (
-		<Link key={link} href={link} passHref>
-			<ListItem component={"a"} button>
+        <Link key={link} href={link} passHref legacyBehavior>
+            <ListItem component={"a"} button>
 				{Icon && <ListItemIcon>{Icon}</ListItemIcon>}
 				<ListItemText secondary={secondary} primary={primary} />
 			</ListItem>
-		</Link>
-	);
+        </Link>
+    );
 };
 
 interface ISetting {
