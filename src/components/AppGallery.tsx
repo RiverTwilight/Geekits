@@ -12,10 +12,10 @@ import type { AppData, IChannel } from "@/types/index.d";
 import { Capacitor } from "@capacitor/core";
 import Text from "./i18n";
 import { Card, ListItemButton } from "@mui/material";
-import ViewListIcon from '@mui/icons-material/ViewList';
-import GridViewIcon from '@mui/icons-material/GridView';
-import { Box, ToggleButton, ToggleButtonGroup } from '@mui/material';
-import AppGridItem from './AppGridItem';
+import ViewListIcon from "@mui/icons-material/ViewList";
+import GridViewIcon from "@mui/icons-material/GridView";
+import { Box, ToggleButton, ToggleButtonGroup } from "@mui/material";
+import AppGridItem from "./AppGridItem";
 
 interface AppListItemProps extends AppData {
 	selected?: boolean;
@@ -71,11 +71,11 @@ const AppListItem = ({
 				sx={{
 					"& .MuiListItemText-primary": {
 						fontFamily: "Product Sans Bold",
-						textDecoration: 'none'
+						textDecoration: "none",
 					},
 					"& .MuiListItemText-secondary": {
-						textDecoration: 'none'
-					}
+						textDecoration: "none",
+					},
 				}}
 				primary={
 					<>
@@ -105,13 +105,20 @@ const AppListItem = ({
 	}
 
 	return (
-		<Link {...attr} passHref style={{ textDecoration: 'none' }}>
-			<Card sx={{ 
-				textDecoration: 'none',
-				'&:hover': {
-					textDecoration: 'none'
-				}
-			}}>
+		<Link
+			{...attr}
+			passHref
+			style={{ textDecoration: "none" }}
+			legacyBehavior
+		>
+			<Card
+				sx={{
+					textDecoration: "none",
+					"&:hover": {
+						textDecoration: "none",
+					},
+				}}
+			>
 				<Inner />
 			</Card>
 		</Link>
@@ -121,11 +128,11 @@ const AppListItem = ({
 const Channel = ({
 	info: { name, Icon },
 	apps,
-	viewMode
+	viewMode,
 }: {
 	apps: AppData[];
 	info: IChannel;
-	viewMode: 'grid' | 'list';
+	viewMode: "grid" | "list";
 }) => {
 	if (!!!apps.length) return null;
 
@@ -149,27 +156,23 @@ const Channel = ({
 				component="div"
 				disablePadding
 			>
-				<Grid 
-					container 
-					spacing={2} 
-					alignItems="stretch"
-				>
+				<Grid container spacing={2} alignItems="stretch">
 					{sortedApps.map((app) => (
-						<Grid 
-							key={app.id} 
-							item 
-							md={viewMode === 'grid' ? 3 : 6} 
-							xl={viewMode === 'grid' ? 2 : 4} 
-							xs={viewMode === 'grid' ? 6 : 12}
-							sx={{ 
-								display: 'flex',
-								'& > *': {
-									width: '100%',
-									height: '100%'
-								}
+						<Grid
+							key={app.id}
+							item
+							md={viewMode === "grid" ? 3 : 6}
+							xl={viewMode === "grid" ? 2 : 4}
+							xs={viewMode === "grid" ? 6 : 12}
+							sx={{
+								display: "flex",
+								"& > *": {
+									width: "100%",
+									height: "100%",
+								},
 							}}
 						>
-							{viewMode === 'grid' ? (
+							{viewMode === "grid" ? (
 								<AppGridItem {...app} />
 							) : (
 								<AppListItem {...app} />
@@ -189,11 +192,11 @@ const AppGallery = ({
 	appData: AppData[];
 	channelInfo;
 }) => {
-	const [viewMode, setViewMode] = React.useState<'grid' | 'list'>('list');
+	const [viewMode, setViewMode] = React.useState<"grid" | "list">("list");
 
 	const handleViewChange = (
 		event: React.MouseEvent<HTMLElement>,
-		newView: 'grid' | 'list',
+		newView: "grid" | "list"
 	) => {
 		if (newView !== null) {
 			setViewMode(newView);
@@ -202,7 +205,7 @@ const AppGallery = ({
 
 	return (
 		<>
-			<Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 2 }}>
+			<Box sx={{ display: "flex", justifyContent: "flex-end", mb: 2 }}>
 				<ToggleButtonGroup
 					value={viewMode}
 					exclusive

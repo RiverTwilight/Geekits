@@ -81,8 +81,8 @@ const RegExpTester: React.FC = () => {
 	);
 
 	return (
-		<Box sx={{ p: 2 }}>
-			<TextField
+        <Box sx={{ p: 2 }}>
+            <TextField
 				fullWidth
 				label="Regular Expression"
 				value={pattern}
@@ -90,8 +90,7 @@ const RegExpTester: React.FC = () => {
 				margin="normal"
 				variant="outlined"
 			/>
-
-			<Card sx={{ mb: 2 }}>
+            <Card sx={{ mb: 2 }}>
 				<List>
 					<ListSubheader>Common Patterns</ListSubheader>
 					<Grid container>
@@ -111,8 +110,7 @@ const RegExpTester: React.FC = () => {
 					</Grid>
 				</List>
 			</Card>
-
-			<Card>
+            <Card>
 				<Box
 					sx={{
 						position: "relative",
@@ -155,8 +153,8 @@ const RegExpTester: React.FC = () => {
 					/>
 				</Box>
 			</Card>
-		</Box>
-	);
+        </Box>
+    );
 };
 
 export default RegExpTester;

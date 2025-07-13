@@ -73,8 +73,8 @@ export default function Text({
 	}
 
 	return (
-		<I18nContext.Consumer>
-			{(value) => {
+        <I18nContext.Consumer>
+            {(value) => {
 				if (Object.prototype.toString.call(props[k]) === "[object Array]") {
 					let templateStr = value.dictionary[k];
 					let i = 0;
@@ -86,6 +86,6 @@ export default function Text({
 				}
 				return value.dictionary[k];
 			}}
-		</I18nContext.Consumer>
-	);
+        </I18nContext.Consumer>
+    );
 }
