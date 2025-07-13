@@ -64,3 +64,29 @@ html {
 	border-top: 5px solid #177b1f;
 	bottom: 0;
 }
+
+/* Add these styles to hide scrollbar track background and border */
+.custom-scrollbar::-webkit-scrollbar {
+	width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+	background: transparent;
+	border: none;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+	background-color: rgba(156, 163, 175, 0.5);
+	border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+	background-color: rgba(156, 163, 175, 0.7);
+}
+
+/* For Firefox */
+.custom-scrollbar {
+	scrollbar-width: thin;
+	scrollbar-color: rgba(156, 163, 175, 0.5) transparent;
+	scrollbar-gutter: stable;
+}

@@ -240,7 +240,7 @@ const AppContainer = ({ appConfig, appDoc }) => {
 			<div
 				className={`${classes.content} ${
 					appBar ? classes.contentShift : ""
-				}`}
+				} custom-scrollbar`}
 			>
 				<ErrorBoundary>{AppComp && <AppComp />}</ErrorBoundary>
 			</div>
