@@ -97,7 +97,7 @@ const AppMenu = ({
 				}}
 			>
 				<Button
-					href={`https://github.com/RiverTwilight/ygktool/tree/dev/src/apps/${id}`}
+					href={`https://github.com/RiverTwilight/geekits/tree/dev/src/apps/${id}`}
 					aria-label="在GitHub上编辑此页面"
 					startIcon={<GitHubIcon fontSize="inherit" />}
 					variant="contained"

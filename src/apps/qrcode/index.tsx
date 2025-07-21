@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import QRCode from "qrcode";
-import FileInput from "../../components/FilePicker";
+import FilePicker from "@/components/FilePicker";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Paper from "@mui/material/Paper";
@@ -343,10 +343,11 @@ class Qrcode extends React.Component<{}, QrcodeState> {
 								<Text k="qrcode.advanced.icon" />
 							</Typography>
 
-							<FileInput
+							<FilePicker
 								fileType="image/*"
 								// @ts-expect-error ts-migrate(2769) FIXME: Property 'file' does not exist on type 'IntrinsicA... Remove this comment to see the full error message
 								file={icon}
+								multiple={false}
 								handleFileUpload={(file) => {
 									this.setState({
 										icon: file,
