@@ -31,6 +31,11 @@ declare const require: {
 const getAppConfigFile = (appId: string, locale: string): string =>
 	require(`../apps/${appId}/README.${locale}.md`).default;
 
+/**
+ * @param appId - 应用 id
+ * @param config - 请求的 app 配置，如 `name`, `status`, `platform`
+ * @returns 返回一个对象，包含默认的配置和请求的配置
+ */
 const getAppConfig = (
 	appId: string,
 	config: {
@@ -68,6 +73,11 @@ const getAppConfig = (
 	return { ...defaultConfig, ...loadedConfig };
 };
 
+/**
+ * @param appId - 应用 id
+ * @param locale - 设备语言信息
+ * @returns 返回一个字符串，内容是该应用的 README 文档
+ */
 const getAppDoc = (
 	appId: string,
 	locale?: string
@@ -92,9 +102,7 @@ const getAllApps = (
 ): AppData[] => {
 	const appsContext = { ...allAppsContext, allAppsContext_en };
 
-	/**
-	 * appsContext.keys() 一半是相对路径，另一半是绝对路径，取前一半
-	 */
+	// appsContext.keys() 一半是相对路径，另一半是绝对路径，取前一半
 	const allApps = appsContext
 		.keys()
 		.slice(0, appsContext.keys().length / 2)

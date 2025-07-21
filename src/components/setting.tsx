@@ -23,6 +23,7 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 
 // FIXME crash on mobile devices
 
+// ?
 export async function getStaticProps({ locale }) {
 	const pageDic = require("../data/i18n/" + locale + "/page.js")["/setting"];
 
@@ -42,13 +43,13 @@ export async function getStaticProps({ locale }) {
 
 const LinkList = function ({ link, Icon, primary, secondary }) {
 	return (
-        <Link key={link} href={link} passHref legacyBehavior>
-            <ListItem component={"a"} button>
+		<Link key={link} href={link} passHref legacyBehavior>
+			<ListItem component={"a"} button>
 				{Icon && <ListItemIcon>{Icon}</ListItemIcon>}
 				<ListItemText secondary={secondary} primary={primary} />
 			</ListItem>
-        </Link>
-    );
+		</Link>
+	);
 };
 
 interface ISetting {
@@ -125,6 +126,7 @@ const themeItems = [
 	},
 ];
 
+// ? CF
 export default class Setting extends React.Component<
 	{ handleNewPage: any },
 	{

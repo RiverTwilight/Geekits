@@ -1,8 +1,8 @@
-import type { Dispatch, FC, SetStateAction } from "react";
+import type { Dispatch, SetStateAction } from "react";
 import { createContext, useContext } from "react";
 
 interface Action {
-	action: FC | Element;
+	action: React.ReactNode;
 	/**
 	 * Set the action to null to hide it from the action bar
 	 *
@@ -12,7 +12,7 @@ interface Action {
 	 * setAction(null);
 	 * ```
 	 */
-	setAction: Dispatch<SetStateAction<FC | Element>>;
+	setAction: Dispatch<SetStateAction<React.ReactNode>>;
 }
 
 const ActionContext = createContext<Action>({
