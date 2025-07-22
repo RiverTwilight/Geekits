@@ -4,9 +4,10 @@ import FormControl from "@mui/material/FormControl";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import useInput from "@/utils/Hooks/useInput";
-import toYuepin from "./yuepin";
 import { Box, Card, IconButton } from "@mui/material";
 import { ContentCopy } from "@mui/icons-material";
+
+import toYuepin from "./yuepin";
 import handleCopy from "@/utils/copyToClipboard";
 
 const Result = ({ res }: any) => {
@@ -43,7 +44,12 @@ const Converter = () => {
 	return (
 		<>
 			<Grid container spacing={2}>
-				<Grid item md={6} xs={12}>
+				<Grid
+					size={{
+						md: 6,
+						xs: 12,
+					}}
+				>
 					<FormControl fullWidth>
 						<TextField
 							autoComplete="off"
@@ -58,7 +64,11 @@ const Converter = () => {
 					<div className="clearfix"></div>
 					<br></br>
 					<Grid container spacing={2}>
-						<Grid item xs={12}>
+						<Grid
+							size={{
+								xs: 12,
+							}}
+						>
 							<Button
 								fullWidth
 								onClick={handleConvert}
@@ -69,7 +79,12 @@ const Converter = () => {
 						</Grid>
 					</Grid>
 				</Grid>
-				<Grid item md={6} xs={12}>
+				<Grid
+					size={{
+						md: 6,
+						xs: 12,
+					}}
+				>
 					<Result res={res} />
 				</Grid>
 			</Grid>
