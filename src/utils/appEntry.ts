@@ -94,6 +94,9 @@ const appImportList: Record<string, ComponentType> = {
 	img_mosaic: dynamic(() => import("../../src/apps/img_mosaic"), {
 		ssr: false,
 	}),
+	image_filter: dynamic(() => import("../apps/image_filter"), {
+		ssr: false,
+	}),
 	folder_tree: dynamic(() => import("../apps/folder_tree"), {
 		ssr: false,
 	}),
@@ -142,6 +145,9 @@ const appImportList: Record<string, ComponentType> = {
 			ssr: false,
 		}
 	),
+	convert_timestamp: dynamic(() => import("../apps/convert_timestamp"), {
+		ssr: false,
+	}),
 };
 
 export default appImportList;

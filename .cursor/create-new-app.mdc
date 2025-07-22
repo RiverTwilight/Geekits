@@ -1,0 +1,55 @@
+---
+description: Create a new app
+globs:
+alwaysApply: false
+---
+
+# Add a new app
+
+## Step 1
+
+Create a new folder with `index.tsx` in the `src/apps` directory, write the logic there. You need a unique slug for the app, which is used as the app id, such as `color_picker`.
+
+You need use MUI v7. And you can find some pre-built components in the `src/components` directory if needed.
+
+## Step 2
+
+Create a new file with `README.en-US.md` in the `src/apps` directory, write the README for the new app. Use frontmatter to define the app's metadata.
+
+Don't forget to add a SEO-friendly description and keywords.
+
+For example:
+
+```md
+---
+name: "GTA Cheat Codes"
+status: "stable"
+icon: "/icon/book_white.png"
+description: "Complete collection of cheat codes for All GTA games"
+channel: gaming
+network: true
+seoOptimizedDescription: "Free comprehensive database of GTA cheat codes for all platforms. Find cheats for GTA 5, GTA 4, San Andreas, Vice City and GTA 3. Easy to use, no ads."
+keywords:
+    [
+        "gta 5 cheats",
+        "gta v cheat codes",
+        "gta san andreas cheats",
+        "gta vice city cheats",
+        "gta 4 cheat codes",
+        "gta 3 cheats",
+        "gta ps4 cheats",
+        "gta xbox cheats",
+        "gta pc cheats",
+        "grand theft auto cheats",
+    ]
+---
+
+A comprehensive collection of cheat codes for all major Grand Theft Auto games. Find cheats for different platforms including PC, PlayStation (PS3, PS4, PS5), and Xbox consoles.
+```
+
+When choosing icon, you have two options:
+
+1. Use a pre-built icon from the `public/icon` directory.
+2. Use our dynamically generated icon API: `src/pages/api/icon.ts`
+
+Also add a README.zh-CN.md file then.
