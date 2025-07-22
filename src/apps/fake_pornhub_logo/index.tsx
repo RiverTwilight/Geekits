@@ -2,7 +2,6 @@ import React, { useRef, useState } from "react";
 import html2canvas from "html2canvas";
 import saveFile from "../../utils/fileSaver";
 import {
-	Button,
 	Slider,
 	List,
 	ListItem,
@@ -24,9 +23,7 @@ import BorderVerticalIcon from "@mui/icons-material/BorderVertical";
 import ColorLensIcon from "@mui/icons-material/ColorLens";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
-import AspectRatioIcon from "@mui/icons-material/AspectRatio";
 import OutlinedCard from "../../components/OutlinedCard";
-import SliderWithIcon from "../../components/SliderWithIcon";
 import Text, { t } from "@/components/i18n";
 
 const IfBr = ({ statu }: { statu: string }) =>
@@ -180,6 +177,22 @@ const FakePornhubLogo = () => {
 		});
 	};
 
+	const handleFontSizeChange = (
+		event: Event,
+		newValue: number | number[]
+	) => {
+		console.log("handleFontSizeChange", event, newValue);
+		if (typeof newValue === "number") {
+			setHStyle({ ...hStyle, size: newValue });
+		}
+	};
+
+	const handleScaleChange = (event: Event, newValue: number | number[]) => {
+		if (typeof newValue === "number") {
+			setScale(newValue);
+		}
+	};
+
 	return (
 		<Stack
 			direction={{ xs: "column", md: "row" }}
@@ -252,36 +265,36 @@ const FakePornhubLogo = () => {
 				sx={{
 					width: { xs: "100%", md: "50%" },
 					maxWidth: { xs: 600, md: "100%" },
+					padding: 0,
 				}}
 			>
 				<OutlinedCard padding={2}>
-					<SliderWithIcon
-						title={`${t("app.pornhub.fontSize")}: ${hStyle.size}`}
-					>
-						<Slider
-							value={hStyle.size}
-							onChange={(_, value) =>
-								setHStyle({ ...hStyle, size: value as number })
-							}
-							min={1}
-							max={10}
-						/>
-					</SliderWithIcon>
+					<Typography gutterBottom>
+						{`${t("app.pornhub.fontSize")}: ${hStyle.size}`}
+					</Typography>
+					<Slider
+						aria-label="Font Size"
+						value={hStyle.size}
+						onChange={handleFontSizeChange}
+						min={1}
+						max={10}
+						marks
+						step={0.5}
+					/>
 				</OutlinedCard>
 
 				<OutlinedCard padding={2} style={{ marginTop: 10 }}>
-					<SliderWithIcon
-						title={`${t("Size Scale")}: ${scale.toFixed(1)}`}
-						icon={<AspectRatioIcon />}
-					>
-						<Slider
-							value={scale}
-							onChange={(_, value) => setScale(value as number)}
-							min={0.5}
-							max={2}
-							step={0.1}
-						/>
-					</SliderWithIcon>
+					<Typography gutterBottom>
+						{`${t("Size Scale")}: ${scale.toFixed(1)}`}
+					</Typography>
+					<Slider
+						aria-label="Scale"
+						value={scale}
+						onChange={handleScaleChange}
+						min={0.5}
+						max={2}
+						step={0.1}
+					/>
 					<FormControl size="small">
 						<Select
 							value={aspectRatio}
