@@ -41,7 +41,12 @@ const Converter = () => {
 	return (
 		<>
 			<Grid container spacing={2}>
-				<Grid item md={6} xs={12}>
+				<Grid
+					size={{
+						md: 6,
+						xs: 12,
+					}}
+				>
 					<FormControl fullWidth>
 						<TextField
 							autoComplete="off"
@@ -54,7 +59,12 @@ const Converter = () => {
 						/>
 					</FormControl>
 				</Grid>
-				<Grid item md={6} xs={12}>
+				<Grid
+					size={{
+						md: 6,
+						xs: 12,
+					}}
+				>
 					<Result res={res} />
 				</Grid>
 			</Grid>
