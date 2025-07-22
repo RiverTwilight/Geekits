@@ -160,10 +160,24 @@ const Channel = ({
 					{sortedApps.map((app) => (
 						<Grid
 							key={app.id}
-							item
-							md={viewMode === "grid" ? 3 : 6}
-							xl={viewMode === "grid" ? 2 : 4}
-							xs={viewMode === "grid" ? 6 : 12}
+							component="div"
+							size={
+								viewMode === "grid"
+									? {
+											xs: 6,
+											sm: 3,
+											md: 3,
+											lg: 2,
+											xl: 2,
+									  }
+									: {
+											xs: 12,
+											sm: 6,
+											md: 6,
+											lg: 4,
+											xl: 4,
+									  }
+							}
 							sx={{
 								display: "flex",
 								"& > *": {

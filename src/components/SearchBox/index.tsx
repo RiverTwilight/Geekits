@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import FormControl from "@mui/material/FormControl";
 import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid2";
+import Grid from "@mui/material/Grid";
 import GoogleIcon from "@mui/icons-material/Google";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";

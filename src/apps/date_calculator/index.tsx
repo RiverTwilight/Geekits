@@ -15,7 +15,7 @@ import { styled } from "@mui/material/styles";
 import FastForwardTwoToneIcon from "@mui/icons-material/FastForwardTwoTone";
 import FastRewindTwoToneIcon from "@mui/icons-material/FastRewindTwoTone";
 import OutlinedCard from "@/components/OutlinedCard";
-import Grid from "@mui/material/Grid2";
+import Grid from "@mui/material/Grid";
 
 const StyledTabPanel = styled(Box)(({ theme }) => ({
 	padding: theme.spacing(3),
