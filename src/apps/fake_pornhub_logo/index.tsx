@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import html2canvas from "html2canvas";
 import saveFile from "../../utils/fileSaver";
 import {

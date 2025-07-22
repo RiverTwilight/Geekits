@@ -9,16 +9,13 @@
 [简体中文](./README.zh-CN.md) | **English**
 
 [![Release](https://img.shields.io/github/release/rivertwilight/ygktool.svg)](https://github.com/rivertwilight/ygktool/releases)
-[![License](https://img.shields.io/github/license/rivertwilight/ygktool.svg)](https://github.com/rivertwilight/ygktool/blob/main/LICENSE)
 [![Stars](https://img.shields.io/github/stars/rivertwilight/ygktool)](https://github.com/rivertwilight/ygktool)
-[![JavaScript Style Guide](https://img.shields.io/badge/code_style-Angular-red.svg)](https://github.com/lin-123/javascript)
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FRiverTwilight%2FYgkTool.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FRiverTwilight%2FYgkTool?ref=badge_shield)
 
-</div>
-
-This is a progressive digital toolbox built with love using MUI, TypeScript, Next.js, and many other technologies.
+A progressive digital toolbox to solve the paper-cuts in daily life.
 
 We aim to create a beautiful yet minimalist, practical yet simple, powerful and efficient digital toolbox.
+
+</div>
 
 ## iOS & Android App
 
@@ -60,25 +57,10 @@ npm run start:container
 
 ## License
 
+Apache License Version 2.0.
+
 Copyright © 2019 YGeeker
 
 All rights reserved.
-
-This source code is private and confidential. No part of this source code may be:
-
--   reproduced
--   distributed
--   deployed to public-accessible address
--   used commercially
--   or transmitted in any form or by any means
-
-The source code is only available for:
-
--   study purposes
--   contributing back to the original repository
-
-without the prior written permission from the copyright owner.
-
-Unauthorized copying, redistribution, or commercial use of this code, via any medium, is strictly prohibited.
 
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FRiverTwilight%2FYgkTool.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FRiverTwilight%2FYgkTool?ref=badge_large)
