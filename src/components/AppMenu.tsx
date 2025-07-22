@@ -11,6 +11,7 @@ import CodeIcon from "@mui/icons-material/Code";
 import fivkits from "@/utils/Services/fiv";
 import { isWeb } from "@/utils/platform";
 import Text from "./i18n";
+import { AppData } from "@/types/index";
 
 const PREFIX = "AppMenu";
 
