@@ -31,10 +31,12 @@ const AppListItem = ({
 	selected,
 	icon,
 }: AppListItemProps) => {
+	const isExternal = channel === "external";
 	const attr = useMemo(
 		() =>
-			channel === "external"
+			isExternal
 				? {
+						// For <a> tag
 						href: link,
 						target: "_blank",
 						rel: "noopener noreferrer",
@@ -43,7 +45,7 @@ const AppListItem = ({
 						component: id,
 						href: "/app/" + id,
 				  },
-		[status, id]
+		[status, id, link, isExternal]
 	);
 
 	const Inner = () => (
@@ -97,10 +99,39 @@ const AppListItem = ({
 	);
 
 	if (status === "beta") {
+		if (isExternal) {
+			return (
+				<OutlinedCard>
+					<a
+						{...attr}
+						style={{ textDecoration: "none", display: "block" }}
+					>
+						<Inner />
+					</a>
+				</OutlinedCard>
+			);
+		}
 		return (
 			<OutlinedCard>
 				<Inner />
 			</OutlinedCard>
+		);
+	}
+
+	if (isExternal) {
+		return (
+			<a {...attr} style={{ textDecoration: "none", display: "block" }}>
+				<Card
+					sx={{
+						textDecoration: "none",
+						"&:hover": {
+							textDecoration: "none",
+						},
+					}}
+				>
+					<Inner />
+				</Card>
+			</a>
 		);
 	}
 

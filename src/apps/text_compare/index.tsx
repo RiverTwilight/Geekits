@@ -5,9 +5,9 @@ import CodeMirror from "@uiw/react-codemirror";
 import { javascript } from "@codemirror/lang-javascript";
 import OutlinedCard from "../../components/OutlinedCard";
 import { styled } from "@mui/material/styles";
-import DiffMatchPatch from "diff-match-patch";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import DiffMatchPatch from "diff-match-patch";
 
 const EditorContainer = styled("div")(({ theme }) => ({
 	width: "100%",
@@ -96,7 +96,12 @@ const TextDiff = () => {
 					maxWidth: "80vw",
 				}}
 			>
-				<Grid item xs={12} md={6}>
+				<Grid
+					size={{
+						xs: 12,
+						md: 6,
+					}}
+				>
 					<OutlinedCard padding={2}>
 						<h3>Original Text</h3>
 						<Typography variant="body2" color="textSecondary">
@@ -112,7 +117,12 @@ const TextDiff = () => {
 						</EditorContainer>
 					</OutlinedCard>
 				</Grid>
-				<Grid item xs={12} md={6}>
+				<Grid
+					size={{
+						xs: 12,
+						md: 6,
+					}}
+				>
 					<OutlinedCard padding={2}>
 						<h3>Modified Text</h3>
 						<Typography variant="body2" color="textSecondary">
@@ -129,8 +139,9 @@ const TextDiff = () => {
 					</OutlinedCard>
 				</Grid>
 				<Grid
-					item
-					xs={12}
+					size={{
+						xs: 12,
+					}}
 					sx={{ display: "flex", justifyContent: "center" }}
 				>
 					<Button variant="contained" onClick={compareTexts}>
@@ -138,7 +149,11 @@ const TextDiff = () => {
 					</Button>
 				</Grid>
 				{diffResult && (
-					<Grid item xs={12}>
+					<Grid
+						size={{
+							xs: 12,
+						}}
+					>
 						<OutlinedCard padding={2}>
 							<h3>Differences</h3>
 							<DiffContainer>{diffResult}</DiffContainer>
