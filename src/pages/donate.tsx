@@ -167,7 +167,10 @@ const stripePromise = loadStripe(
 );
 
 const ProductItem = ({ href, ...props }) => (
-	<Grid item xs={6} sm={4}>
+	<Grid size={{
+		xs: 6,
+		sm: 4,
+	}}>
 		<OutlinedCard padding={1}>
 			<CardContent>
 				<Typography
@@ -244,7 +247,10 @@ const PaidOptionItem = ({ href, ...props }) => {
 
 	return (
 		<>
-			<Grid item xs={6} sm={4}>
+			<Grid size={{
+				xs: 6,
+				sm: 4,
+			}}>
 				<OutlinedCard
 					padding={1}
 					onClick={handleClick}
