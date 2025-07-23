@@ -3,6 +3,7 @@
 	"version": "2.3.2",
 	"homepage": "https://geekits.ygeeker.com",
 	"description": "🛠A simple, feature-rich, and efficient online toolbox | 极简，强大，高效的在线工具箱，遵循MD设计规范",
+	"packageManager": "pnpm@9.15.4",
 	"scripts": {
 		"build": "next build",
 		"build:cap": "CAPACITOR_BUILD=true next build && npx cap sync",
